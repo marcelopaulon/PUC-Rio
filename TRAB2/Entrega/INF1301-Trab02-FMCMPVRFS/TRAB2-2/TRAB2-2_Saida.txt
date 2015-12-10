@@ -1,0 +1,41 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-2
+
+      Arquivo de teste:    TestePeca
+
+
+!!!    0  Linha:     1  // Script:    TestePeca.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      03/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo peca 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   21  == Testar Comando Recuperar
+>>>    1  Linha:    22  Erro ao destruir peca. Deveria ser: 0  É: 1
+<<<    0  Linha:    23  Falha esperada foi recuperada. 
+   25  == Criar a Peca
+   28  == Verificar obtencao de cor
+   31  == Destruir Peca
+   34  == Verificar obtencao de cor em peca inexistente
+   37  == Destruir Peca inexistente
+   40  == Criar a Peca
+   43  == Verificar obtencao de cor
+   46  == Destruir Peca
+!!!    0  Linha:    49  // fim 
+
+!!! Número de linhas lidas:          49
+!!! Número de casos de teste:        10
+!!! Número comandos corretos:        16
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

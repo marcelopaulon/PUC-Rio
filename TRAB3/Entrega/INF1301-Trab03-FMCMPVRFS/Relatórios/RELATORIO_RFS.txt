@@ -1,0 +1,7 @@
+﻿Data	Hora	Tipo	Descrição
+17/09/2015	4 horas e 12 minutos	Codificar módulo	Codificação do módulo PecasCapturadas e criação de função no módulo Jogo
+18/09/2015	4 horas e 5 minutos	Codificar módulo	Codificação do módulo Jogo
+19/09/2015	30 minutos	Diagnosticar e corrigir problemas encontrados	Correção de bugs no módulo Jogo
+08/10/2015	4 horas e 42 minutos	Codificar módulo	codificação do módulo jogo.c
+22/10/2015	4 horas	Diagnosticar e corrigir problemas encontrados	Correção de bugs
+23/10/2015	2 horas	Diagnosticar e corrigir problemas encontrados	Correção de bugs

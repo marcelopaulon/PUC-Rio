@@ -1,0 +1,161 @@
+// Script:    TesteMatriz.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      25/08/2015
+// Proposito: Testar o modulo matriz 
+//
+
+== Inicializar valores
+=declararparm   matriz0  int 0
+=declararparm   matriz1  int 1
+=declararparm   matriz2  int 2
+=declararparm   matriz3  int 3
+=declararparm   matriz4  int 4
+
+=declararparm   OK             	  int  0
+=declararparm   ErroEstrutura  	  int  1
+=declararparm   MatrizNaoExiste   int  2
+=declararparm   MatrizVazia       int  3
+=declararparm   CoordInexistente  int  4
+=declararparm   FaltouMemoria	  int  5
+
+=declararparm   ch0    string  "vagner"
+
+=declararparm	norte	 int 0
+=declararparm	nordeste int 1
+=declararparm	leste	 int 2
+=declararparm	sudeste  int 3
+=declararparm	sul	 int 4
+=declararparm	sudoeste int 5
+=declararparm	oeste	 int 6
+=declararparm	noroeste int 7
+
+== Testar Comando Recuperar
+=destruirmatriz matriz0 OK
+=recuperar
+
+== Criar a Matriz 
+=criarmatriz 	matriz0 1 2 OK
+
+== Destruir Matriz
+=destruirmatriz  matriz0 OK
+
+== Destruir Matriz inexistente
+=destruirmatriz matriz0 MatrizNaoExiste
+
+== Verificar InserirValor em Matriz inexistente
+=insvalor matriz0 ch0 MatrizNaoExiste
+
+== Verificar InserirValor em Matriz vazia
+=criarmatriz matriz0 1 1 OK
+=removerlinha matriz0 OK
+=insvalor matriz0 ch0 MatrizVazia
+=destruirmatriz  matriz0 OK
+
+== Verificar InserirValor em Matriz existente
+=criarmatriz matriz0 1 1 OK
+=insvalor matriz0 ch0 OK
+
+== Verificar obtencao de valor inserido
+=obtervalorcorr matriz0 ch0 OK
+
+== Adicionar linha em Matriz existente
+=adicionarlinha  matriz0 OK
+
+== Adicionar linha em Matriz inexistente
+=adicionarlinha  matriz1 MatrizNaoExiste
+
+== Adicionar coluna em Matriz existente
+=adicionarcoluna  matriz0 OK
+
+== Adicionar coluna em Matriz inexistente
+=adicionarcoluna  matriz1 MatrizNaoExiste
+
+== Remover linha em Matriz existente
+=removerlinha matriz0 OK
+
+== Remover linha em Matriz inexistente
+=removerlinha matriz1 MatrizNaoExiste
+
+== Verificar obtencao de valor em uma matriz inexistente
+=obtervalorcorr matriz1 ch0 MatrizNaoExiste
+
+== Remover coluna em Matriz existente
+=removercoluna matriz0 OK
+
+== Remover coluna em Matriz inexistente
+=removercoluna matriz1 MatrizNaoExiste
+
+== Verificar InserirValor em Matriz vazia
+=insvalor matriz0 ch0 MatrizVazia
+
+== Verificar obtencao de valor em uma matriz vazia
+=obtervalorcorr matriz0 ch0 MatrizVazia
+
+== Remover linha em Matriz vazia
+=removerlinha matriz0 MatrizVazia
+
+== Remover coluna em Matriz vazia
+=removercoluna matriz0 MatrizVazia
+
+== Testa ir para em Matriz vazia
+=irparacoord matriz0 leste MatrizVazia
+
+== Teste de movimentacao pelas coordenadas
+=criarmatriz matriz1 1 2 OK
+=irparacoord matriz1 sul CoordInexistente
+=irparacoord matriz1 norte CoordInexistente
+=irparacoord matriz1 oeste CoordInexistente
+=irparacoord matriz1 noroeste CoordInexistente
+=irparacoord matriz1 nordeste CoordInexistente
+=irparacoord matriz1 sudoeste CoordInexistente
+=irparacoord matriz1 sudeste CoordInexistente
+=irparacoord matriz1 leste OK
+
+=criarmatriz matriz2 2 1 OK
+=irparacoord matriz2 norte CoordInexistente
+=irparacoord matriz2 oeste CoordInexistente
+=irparacoord matriz2 noroeste CoordInexistente
+=irparacoord matriz2 nordeste CoordInexistente
+=irparacoord matriz2 sudoeste CoordInexistente
+=irparacoord matriz2 sudeste CoordInexistente
+=irparacoord matriz2 leste CoordInexistente
+=irparacoord matriz2 sul OK
+
+=criarmatriz matriz3 4 4 OK
+=irparacoord matriz3 norte CoordInexistente
+=irparacoord matriz3 nordeste CoordInexistente
+=irparacoord matriz3 oeste CoordInexistente
+=irparacoord matriz3 noroeste CoordInexistente
+=irparacoord matriz3 sudoeste CoordInexistente
+=irparacoord matriz3 leste OK
+=irparacoord matriz3 sudoeste OK
+=irparacoord matriz3 sudoeste CoordInexistente
+=irparacoord matriz3 sul OK
+
+=criarmatriz matriz4 1 1 OK
+=irparacoord matriz4 norte CoordInexistente
+=irparacoord matriz4 nordeste CoordInexistente
+=irparacoord matriz4 oeste CoordInexistente
+=irparacoord matriz4 noroeste CoordInexistente
+=irparacoord matriz4 sudoeste CoordInexistente
+=irparacoord matriz4 sudeste CoordInexistente
+=irparacoord matriz4 sul CoordInexistente
+=irparacoord matriz4 leste CoordInexistente
+=removercoluna matriz4 OK
+
+=destruirmatriz matriz1 OK
+=destruirmatriz matriz2 OK
+=destruirmatriz matriz3 OK
+=destruirmatriz matriz4 OK
+
+== Testa ir para em matriz inexistente
+=irparacoord matriz4 sul MatrizNaoExiste
+
+== Teste de erro de estrutura
+=criarmatriz matriz4 -1 -1 ErroEstrutura
+=criarmatriz matriz4 0 -1 ErroEstrutura
+=criarmatriz matriz4 -1 0 ErroEstrutura
+
+// fim

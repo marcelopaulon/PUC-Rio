@@ -1,0 +1,36 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB4-2
+
+      Arquivo de teste:    TesteLista
+
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	      Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	      Renan da Fonte Simas Santos 
+!!!    0  Linha:     5  // Data:      27/11/2015 
+!!!    0  Linha:     6  // Propósito: Testar o módulo lista genérica duplamente encadeada armazenando valores do tipo char 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   32  == Criar lista
+   35  == Inserir elemento em lista vazia
+   39  == Verificar ObterValor relativo a lista nao vazia
+   42  == Inserir elemento após primeiro
+   46  == Inserir elemento antes do último
+   50  == Destruir lista
+!!!    0  Linha:    53  // fim 
+
+!!! Número de linhas lidas:          53
+!!! Número de casos de teste:         7
+!!! Número comandos corretos:        26
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

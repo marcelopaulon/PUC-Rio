@@ -1,0 +1,98 @@
+// Script:    TesteBasico.script
+// Autor:     Arndt von Staa
+// Data:      20/fev/2006
+// Propósito: Ilustrar arquivo de script, 
+//            Testa a construção de uma árvore usando parâmetros literais
+//            Verifica se as operações modificaram corretamente as referências
+//            Este script é muito superficial !!!
+//
+
+
+== Verificar assertivas de entrada de irdir
+=irfinal	0
+
+== Verificar comando recuperar
+=irfinal	0
+=resetteste 
+
+== Verificar ObterValorCorr relativo a árvore inexistente
+// O interpretador de teste inicializa o valor a ser obtido com '!'. Consequentemente,
+// esse será o valor "obtido" caso a função ObterValor retorne condição de erro,
+// uma vez que, nesse caso, a função não altera o valor a ser "retornado".
+=obtervalorelem
+
+== Verificar recuperar de ObterValorCorr relativo a uma árvore inexistente
+=obtervalorelem
+=resetteste
+=obtervalorelem
+=resetteste
+
+== Criar árvore
+=criarlista
+
+== Verificar se a arvore criada está vazia
+=irfinal
+=irinicio
+=obtervalorelem
+
+== Inserir à direita
+=inserirelemantes     'a'   0
+
+== Verificar se nó inserido é raiz e único
+=irfinal      7
+=irinicio      6
+
+== Obter o valor inserido
+=obtervalorelem      'a'   0
+
+== Verificar valor obtido diferente do esperado
+=obtervalorelem      '!'   0
+=resetteste
+
+== Inserir à esquerda
+=inserirelemapos     'b'   0
+
+== Verificar se é nó folha
+=irfinal      7
+
+== Obter o valor inserido
+=obtervalorelem      'b'   0
+
+== Ir para no pai, tem e é a raiz
+=irinicio      0
+=obtervalorelem      'a'   0
+=irinicio      6
+
+== Inserir à direita
+=inserirelemantes     'c'   0
+=obtervalorelem      'c'   0
+
+== Verificar se é nó folha
+=irfinal      7
+
+== Ir para no pai, tem e é raiz
+=irinicio      0
+=obtervalorelem      'a'   0
+=irinicio      6
+
+== Ir para no pai mais uma vez
+=irinicio      6
+=obtervalorelem      'a'   0
+
+== Ir para no esquerda tem
+=obtervalorelem      'b'   0
+
+== Ir para no direita tem
+=irinicio      0
+=irfinal      0
+=obtervalorelem      'c'   0
+
+== Destroi a arvore
+=destruirlista
+=irfinal      4
+
+== Cria a arvore
+=criarlista      0
+=irfinal      5
+
+// fim

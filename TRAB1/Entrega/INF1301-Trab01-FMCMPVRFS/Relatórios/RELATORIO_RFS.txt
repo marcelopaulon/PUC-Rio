@@ -1,0 +1,10 @@
+﻿Data            Horas Trabalhadas       Tipo Tarefa                                                                     Descrição da Tarefa Realizada
+13/08/2015	1 hora			Estudar										Preparação inicial para o trabalho
+15/08/2015	4 horas e 6 minutos	Estudar e especificar e projetar as funções					Instalação arcabouço; Especificar e projetar as funções; especificação inicial sobre quais funções fazer e divisão de tarefas	
+21/08/2015	3 horas e 2 minutos	Estudar										Estudando os scripts de teste
+22/08/2015	1 hora e 9 minutos	Diagnosticar e corrigir os problemas encontrados				Solucionando problemas na função MAT_CriarMatriz
+22/08/2015	42 minutos		Codificar módulo								Criando a função MAT_ObterListaCorr
+24/08/2015	3 horas e 12 minutos	Codificar módulo								Criando as funções MAT_RemoveLinha e MAT_RemoveColuna
+25/08/2015	3 horas e 10 minutos	Codificar módulo e diagnosticar e corrigir os problemas encontrados		Implementação, teste e correção de bugs das funções da matriz
+26/08/2015	1 hora e 47 minutos	Redigir script de teste e revisar script de teste				Implementação e teste de funções do script de teste
+27/08/2015	2 horas e 20 minutos	Redigir script de teste e diagnosticar e corrigir os problemas encontrados	Criação de testes e correção de bugs

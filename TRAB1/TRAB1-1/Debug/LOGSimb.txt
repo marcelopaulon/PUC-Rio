@@ -1,0 +1,93 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: TRAB1-1.exe
+!!!      Script de teste:     TesteBasicoSimb.script
+
+!!!    0  Linha:     1  // Script:    TesteBasicoSimb.script 
+!!!    0  Linha:     2  // Autor:     Arndt von Staa 
+!!!    0  Linha:     3  // Data:      20/fev/2006 
+!!!    0  Linha:     4  // Propósito: Ilustrar arquivo de script, 
+!!!    0  Linha:     5  //            Testa a construção de uma árvore usando parâmetros simbólicos 
+!!!    0  Linha:     6  //            Verifica se as operações modificaram corretamente as referências 
+!!!    0  Linha:     7  //            Este script é muito superficial !!! 
+!!!    0  Linha:     8  // 
+   10  == Declarar as condicoes de retorno
+   21  == Declarar os conteúdos dos nós
+   27  == Verificar assertivas de entrada de irdir
+>>>    1  Linha:    28  Comando não conhecido:  =irdir      NaoArvore
+   30  == Verificar comando recuperar
+>>>    2  Linha:    31  Comando não conhecido:  =irdir      OK
+>>>    3  Linha:    32  Comando de teste ignorado:  =recuperar
+   34  == Verificar ObterValorCorr relativo a árvore inexistente
+>>>    4  Linha:    35  Comando não conhecido:  =obter  CharErro   NaoArvore
+   37  == Verificar recuperar de ObterValorCorr relativo a uma árvore inexistente
+>>>    5  Linha:    38  Comando não conhecido:  =obter  CharErro   0
+>>>    6  Linha:    39  Comando de teste ignorado:  =recuperar
+>>>    7  Linha:    40  Comando de teste ignorado:  =obter  'z'   NaoArvore
+>>>    8  Linha:    41  Comando de teste ignorado:  =recuperar
+   43  == Criar árvore
+>>>    9  Linha:    44  Comando não conhecido:  =criar      OK
+   46  == Verificar se a arvore criada está vazia
+>>>   10  Linha:    47  Comando não conhecido:  =irdir      NaoCorr
+>>>   11  Linha:    48  Comando de teste ignorado:  =iresq      NaoCorr
+>>>   12  Linha:    49  Comando de teste ignorado:  =irpai      NaoCorr
+>>>   13  Linha:    50  Comando de teste ignorado:  =obter      CharErro   NaoCorr
+   52  == Inserir à direita
+>>>   14  Linha:    53  Comando não conhecido:  =insdir     CharA   OK
+   55  == Verificar se nó inserido é raiz e único
+>>>   15  Linha:    56  Comando não conhecido:  =irdir      NaoFilho
+>>>   16  Linha:    57  Comando de teste ignorado:  =iresq      NaoFilho
+>>>   17  Linha:    58  Comando de teste ignorado:  =irpai      EhRaiz
+   60  == Obter o valor inserido
+>>>   18  Linha:    61  Comando não conhecido:  =obter      CharA   OK
+   63  == Verificar valor obtido diferente do esperado
+>>>   19  Linha:    64  Comando não conhecido:  =obter      CharErro   OK
+>>>   20  Linha:    65  Comando de teste ignorado:  =recuperar
+   67  == Inserir à esquerda
+>>>   21  Linha:    68  Comando não conhecido:  =insesq     CharB   OK
+   70  == Verificar se é nó folha
+>>>   22  Linha:    71  Comando não conhecido:  =irdir      NaoFilho
+>>>   23  Linha:    72  Comando de teste ignorado:  =iresq      NaoFilho
+   74  == Obter o valor inserido
+>>>   24  Linha:    75  Comando não conhecido:  =obter      CharB   OK
+   77  == Ir para no pai, tem e é a raiz
+>>>   25  Linha:    78  Comando não conhecido:  =irpai      OK
+>>>   26  Linha:    79  Comando de teste ignorado:  =obter      CharA   OK
+>>>   27  Linha:    80  Comando de teste ignorado:  =irpai      EhRaiz
+   82  == Inserir à direita
+>>>   28  Linha:    83  Comando não conhecido:  =insdir     CharC   OK
+>>>   29  Linha:    84  Comando de teste ignorado:  =obter      CharC   OK
+   86  == Verificar se é nó folha
+>>>   30  Linha:    87  Comando não conhecido:  =irdir      NaoFilho
+>>>   31  Linha:    88  Comando de teste ignorado:  =iresq      NaoFilho
+   90  == Ir para no pai, tem e é raiz
+>>>   32  Linha:    91  Comando não conhecido:  =irpai      OK
+>>>   33  Linha:    92  Comando de teste ignorado:  =obter      CharA   OK
+>>>   34  Linha:    93  Comando de teste ignorado:  =irpai      EhRaiz
+   95  == Ir para no pai mais uma vez
+>>>   35  Linha:    96  Comando não conhecido:  =irpai      EhRaiz
+>>>   36  Linha:    97  Comando de teste ignorado:  =obter      CharA   OK
+   99  == Ir para no esquerda tem
+>>>   37  Linha:   100  Comando não conhecido:  =iresq      OK
+>>>   38  Linha:   101  Comando de teste ignorado:  =obter      CharB   OK
+  103  == Ir para no direita tem
+>>>   39  Linha:   104  Comando não conhecido:  =irpai      OK
+>>>   40  Linha:   105  Comando de teste ignorado:  =irdir      OK
+>>>   41  Linha:   106  Comando de teste ignorado:  =obter      CharC   OK
+  108  == Destroi a arvore
+>>>   42  Linha:   109  Comando não conhecido:  =destruir
+>>>   43  Linha:   110  Comando de teste ignorado:  =irdir      NaoArvore
+  112  == Cria a arvore
+>>>   44  Linha:   113  Comando não conhecido:  =criar      OK
+>>>   45  Linha:   114  Comando de teste ignorado:  =irdir      NaoCorr
+!!!   45  Linha:   116  // fim 
+
+!!! Número de linhas lidas:         116
+!!! Número de casos de teste:        24
+!!! Número comandos corretos:        13
+!!! Número de falhas encontradas:    45
+
+!!! Foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

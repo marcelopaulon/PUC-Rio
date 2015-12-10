@@ -1,0 +1,63 @@
+// Script:    TestePecasCapturadas.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      29/09/2015
+// Proposito: Testar o modulo peças capturadas
+//
+
+== Inicializar valores
+=declararparm   listapecascapturadas0  int 0
+=declararparm   listapecascapturadas1  int 1
+=declararparm   listapecascapturadas2  int 2
+
+=declararparm   OK             	  	  			  int  0
+=declararparm   ListaPecasCapturadasNaoExiste	 		  int  1
+=declararparm   PecaNaoExiste	  	  			  int  2
+
+=declararparm	pecabranca    int 0
+=declararparm	pecapreta  	  int 1
+
+== Testar Comando Recuperar
+=destruirlistapecascapturadas listapecascapturadas0 OK
+=recuperar
+
+== Criar as Listas de Pecas Capturadas
+=criarlistapecascapturadas		listapecascapturadas0 OK
+=criarlistapecascapturadas		listapecascapturadas1 OK
+
+== Inserir Pecas
+=inserirpeca listapecascapturadas1 pecapreta OK
+=inserirpeca listapecascapturadas1 pecabranca OK
+=inserirpeca listapecascapturadas1 pecapreta OK
+=inserirpeca listapecascapturadas1 pecabranca OK
+=inserirpeca listapecascapturadas1 pecabranca OK
+
+== Contagem de pecas
+=contarpecas listapecascapturadas0 pecabranca 0 OK
+=contarpecas listapecascapturadas0 pecapreta 0 OK
+=contarpecas listapecascapturadas2 pecabranca 0 ListaPecasCapturadasNaoExiste
+=contarpecas listapecascapturadas1 pecabranca 3 OK
+=contarpecas listapecascapturadas1 pecapreta 2 OK
+
+== Remover pecas
+=removerpeca listapecascapturadas1 pecabranca OK
+=removerpeca listapecascapturadas2 pecabranca ListaPecasCapturadasNaoExiste
+=removerpeca listapecascapturadas0 pecapreta PecaNaoExiste
+=removerpeca listapecascapturadas1 pecapreta OK
+=removerpeca listapecascapturadas1 pecapreta OK
+=removerpeca listapecascapturadas1 pecapreta PecaNaoExiste
+
+== Contagem de pecas apos remocao
+=contarpecas listapecascapturadas1 pecapreta 0 OK
+=contarpecas listapecascapturadas1 pecabranca 2 OK
+
+== Destruir Lista de Pecas capturadas
+=destruirlistapecascapturadas  listapecascapturadas0 OK
+=destruirlistapecascapturadas  listapecascapturadas1 OK
+
+== Destruir Lista de Pecas capturadas inexistente
+=destruirlistapecascapturadas  listapecascapturadas0 ListaPecasCapturadasNaoExiste
+=destruirlistapecascapturadas  listapecascapturadas2 ListaPecasCapturadasNaoExiste
+
+// fim

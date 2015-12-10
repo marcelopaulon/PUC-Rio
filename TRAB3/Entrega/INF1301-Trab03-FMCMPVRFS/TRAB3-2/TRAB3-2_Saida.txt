@@ -1,0 +1,38 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB3-2
+
+      Arquivo de teste:    TestePecasFinalizadas
+
+
+!!!    0  Linha:     1  // Script:    TestePecasFinalizadas.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      29/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo peças finalizadas 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   21  == Testar Comando Recuperar
+>>>    1  Linha:    22  Erro ao destruir lista de pecas finalizadas. Deveria ser: 0  É: 1
+<<<    0  Linha:    23  Falha esperada foi recuperada. 
+   25  == Criar as Listas de Pecas Finalizadas
+   29  == Inserir Pecas
+   36  == Contagem de peças
+   43  == Destruir Lista de Pecas finalizadas
+   47  == Destruir Lista de Pecas finalizadas inexistente
+!!!    0  Linha:    51  // fim 
+
+!!! Número de linhas lidas:          51
+!!! Número de casos de teste:         7
+!!! Número comandos corretos:        24
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

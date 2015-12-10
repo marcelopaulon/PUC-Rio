@@ -1,0 +1,59 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-1
+
+      Arquivo de teste:    TesteTabuleiro
+
+
+!!!    0  Linha:     1  // Script:    TesteTabuleiro.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      05/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo tabuleiro 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   25  == Testar Comando Recuperar
+>>>    1  Linha:    26  Erro ao destruir Tabuleiro. Deveria ser: 0  É: 1
+<<<    0  Linha:    27  Falha esperada foi recuperada. 
+   29  == Criar tabuleiro
+   32  == Criar tabuleiro
+   35  == Destruir tabuleiro
+   38  == Destruir tabuleiro nao existe
+   41  == Inserir peca tabuleiro nao existe
+   44  == Inserir peca casa nao existe
+   47  == Inserir peca
+   51  == Contar pecas tabuleiro nao existe
+   54  == Contar pecas casa nao existe
+   57  == Contar pecas peca nao existe
+   60  == Contar pecas peca existe
+   63  == Remover peca peca nao existe
+   66  == Remover peca casa nao existe
+   69  == Mover peca casa nao existe
+   72  == Mover peca peca nao existe
+   75  == Inserir peca
+   78  == Inserir peca
+   81  == Mover peca casa nao existe
+   84  == Remover peca
+   87  == Mover peca peca nao existe
+   90  == Mover peca peca existe
+   93  == Contar pecas peca existe
+   96  == Remover peca
+   99  == Destruir tabuleiro
+  102  == Remover peca tabuleiro nao existe
+  105  == Mover peca tabuleiro nao existe
+!!!    0  Linha:   108  // fim 
+
+!!! Número de linhas lidas:         108
+!!! Número de casos de teste:        28
+!!! Número comandos corretos:        39
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

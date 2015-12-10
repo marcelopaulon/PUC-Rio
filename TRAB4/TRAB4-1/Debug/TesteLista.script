@@ -1,0 +1,53 @@
+// Script:    TesteLista.script
+// Autores:   Fernanda de Miranda Carvalho
+//	      Marcelo Paulon Juca Vasconcelos
+//	      Renan da Fonte Simas Santos
+// Data:      27/11/2015
+// Propósito: Testar o módulo lista genérica duplamente encadeada armazenando valores do tipo char
+//
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+
+=declararparm   ch0    string  "a"
+=declararparm   ch1    string  "b"
+=declararparm   ch2    string  "/"
+=declararparm   ch3    string  "+"
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  1
+=declararparm   FimLista       int  2
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+=declararparm   NaoExiste      int  5
+=declararparm   CorrenteIndef  int  6
+
+=declararparm   ListaValida  int  13
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Criar lista 
+=criarlista      lista0 
+
+== Inserir elemento em lista vazia
+=inselemantes    lista0   ch0    OK
+=obtervalorelem  lista0   ch0   pNaoNULL
+
+== Verificar ObterValor relativo a lista nao vazia
+=obtervalorelem  lista0   ch0     pNaoNULL
+
+== Inserir elemento após primeiro
+=inselemapos     lista0   ch1   OK
+=obtervalorelem  lista0   ch1   pNaoNULL
+
+== Inserir elemento antes do último
+=inselemantes    lista0   ch2   OK
+=obtervalorelem  lista0   ch2   pNaoNULL
+
+== Destruir lista
+=destruirlista   lista0
+
+// fim

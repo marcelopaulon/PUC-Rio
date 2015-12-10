@@ -1,0 +1,43 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-4
+
+      Arquivo de teste:    TesteDado
+
+
+!!!    0  Linha:     1  // Script:    TesteDado.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      12/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo dado 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   19  == Testar Comando Recuperar
+>>>    1  Linha:    20  Erro ao destruir dados. Deveria ser: 0  É: 1
+<<<    0  Linha:    21  Falha esperada foi recuperada. 
+   23  == Criar o par de dados
+   26  == Verificar dado nao lancado
+   29  == Destruir o par de dados
+   32  == Verificar jogar dados em dado inexistente
+   35  == Verificar obtencao de valor em dado inexistente
+   38  == Destruir Dado inexistente
+   41  == Criar os pares de dados
+   45  == Jogar dados
+   49  == Verificar obtencao de valor
+   53  == Destruir os pares de dados
+!!!    0  Linha:    57  // fim 
+
+!!! Número de linhas lidas:          57
+!!! Número de casos de teste:        12
+!!! Número comandos corretos:        21
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

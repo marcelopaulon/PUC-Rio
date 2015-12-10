@@ -1,0 +1,15 @@
+﻿Data            Horas Trabalhadas       Tipo Tarefa                                                                                     Descrição da Tarefa Realizada
+13/08/2015	1 hora			Estudar												Compilação da biblioteca (Arcabouço); leitura do documento leia-me e do enunciado do trabalho
+14/08/2015	50 minutos		Estudar												Leitura dos códigos do exemplo “Simples” (Arvore.c, Arvore.h, TesteArv.c)
+14/08/2015	15 minutos		Especificar as funções										Planejamento - criação da estrutura do módulo MATRIZ
+15/08/2015	1 hora e 40 minutos	Estudar												Configuração de ambiente (Visual Studio/Windows no computador da Fernanda) e estudo do arcabouço
+15/08/2015	4 horas e 6 minutos	Especificar as funções										Instalação arcabouço; Especificar e projetar as funções
+19/08/2015	2 horas			Projetar e codificar módulo									Criação dos projetos no Visual Studio; Criação da estrutura para a Matriz
+22/08/2015	1 hora e 9 minutos	Diagnosticar e corrigir os problemas encontrados						Solucionando problemas na função MAT_CriarMatriz
+23/08/2015	5 horas e 25 minutos	Codificar módulo e diagnosticar e corrigir os problemas encontrados				Implementação, teste e correção de bugs da função MAT_CriarMatriz
+23/08/2015	4 horas e 5 minutos	Codificar módulo e diagnosticar e corrigir os problemas encontrados				Implementação, teste e correção de bugs das funções da matriz
+25/08/2015	4 horas			Codificar módulo e diagnosticar e corrigir os problemas encontrados				Implementação, teste e correção de bugs das funções da matriz
+26/08/2015	2 horas e 55 minutos	Codificar módulo e diagnosticar e corrigir os problemas encontrados				Implementação, teste e correção de bugs das funções da matriz; Adequação de padrão de código e comentários
+26/08/2015	35 minutos		Redigir script de teste										Criação de testes
+26/08/2015	1 hora e 48 minutos	Redigir script de teste										Criação de testes
+27/08/2015	2 horas e 20 minutos	Redigir script de teste, realizar os testes e diagnosticar e corrigir os problemas encontrados	Criação de testes e correção de bugs

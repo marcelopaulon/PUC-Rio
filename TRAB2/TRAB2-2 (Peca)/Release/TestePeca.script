@@ -1,0 +1,49 @@
+// Script:    TestePeca.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      03/09/2015
+// Proposito: Testar o modulo peca
+//
+
+== Inicializar valores
+=declararparm   peca0  int 0
+=declararparm   peca1  int 1
+=declararparm   peca2  int 2
+
+=declararparm   OK             	  int  0
+=declararparm   PecaNaoExiste	  int  1
+=declararparm   FaltouMemoria	  int  2
+
+=declararparm	pecabranca int 0
+=declararparm	pecapreta  int 1
+
+== Testar Comando Recuperar
+=destruirpeca peca0 OK
+=recuperar
+
+== Criar a Peca
+=criarpeca 	peca0 pecabranca OK
+
+== Verificar obtencao de cor
+=obtercorpeca peca0 pecabranca OK
+
+== Destruir Peca
+=destruirpeca  peca0 OK
+
+== Verificar obtencao de cor em peca inexistente
+=obtercorpeca peca0 pecabranca PecaNaoExiste
+
+== Destruir Peca inexistente
+=destruirpeca  peca1 PecaNaoExiste
+
+== Criar a Peca
+=criarpeca 	peca2 pecapreta OK
+
+== Verificar obtencao de cor
+=obtercorpeca peca2 pecapreta OK
+
+== Destruir Peca
+=destruirpeca  peca2 OK
+
+// fim

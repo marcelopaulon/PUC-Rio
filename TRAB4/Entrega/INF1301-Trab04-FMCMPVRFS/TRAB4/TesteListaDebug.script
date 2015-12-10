@@ -1,0 +1,260 @@
+// Script:    TesteListaDebug.script
+// Autores:   Fernanda de Miranda Carvalho
+//	      Marcelo Paulon Juca Vasconcelos
+//	      Renan da Fonte Simas Santos
+// Data:      27/11/2015
+// Propósito: Testar o módulo lista genérica duplamente encadeada - instrumentação
+//
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+
+=declararparm   ch0    string  "a"
+=declararparm   ch1    string  "b"
+=declararparm   ch2    string  "/"
+=declararparm   ch3    string  "+"
+
+== Declarar valores inteiros a serem usados
+=declararparm  int_0                          int 0
+=declararparm  int_1                          int 1
+=declararparm  int_2                          int 2
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  1
+=declararparm   FimLista       int  2
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+=declararparm   NaoExiste      int  5
+=declararparm   CorrenteIndef  int  6
+
+== Declarar as ações do Deturparlista
+=declararparm  AcaoInvalida                   int -1
+=declararparm  Nada                           int 0
+=declararparm  EliminaCorrente                int 1
+=declararparm  NULLpProx                      int 2
+=declararparm  NULLpAnt                       int 3
+=declararparm  LixopProx                      int 4
+=declararparm  LixopAnt                       int 5
+=declararparm  NULLpValorCorrente             int 6
+=declararparm  AlteraTipoEstrutura            int 7
+=declararparm  DesencadeiaSemFree             int 8
+=declararparm  NULLpCorrente                  int 9
+=declararparm  NULLpOrigem                    int 10
+=declararparm  AumentaNumeroElementos         int 11
+=declararparm  NULLpUltimo                    int 12
+=declararparm  LixopUltimo                    int 13
+=declararparm  LixopCorrente                  int 14
+=declararparm  AlteraTipoNoCorrente           int 15
+=declararparm  AlteraTipoOrigem               int 16
+=declararparm  AlteraTipoUltimo               int 17
+=declararparm  NULLCabeca                     int 18
+=declararparm  NumeroDeElementosNegativo      int 19
+=declararparm  LixopValorCorrente             int 20
+
+== Declarar retornos do VerificarLista
+=declararparm  ListaInexistente               int 0
+=declararparm  Cabeca_pPrimeiroNULL           int 1
+=declararparm  Cabeca_pUltimoNULL             int 2
+=declararparm  Cabeca_NumElemenInvalido       int 3
+=declararparm  Cabeca_pPrimeiroIncorreto      int 4
+=declararparm  Cabeca_pUltimoIncorreto        int 5
+=declararparm  Elemento_ErroEncadeamento      int 6
+=declararparm  Elemento_pValorNULL            int 7
+=declararparm  Elemento_pValorInvalido        int 8
+=declararparm  Cabeca_NumElemenInconsistente  int 9
+=declararparm  Cabeca_pCorrenteInconsistente  int 10
+=declararparm  Elemento_TipoInconsistente     int 11
+=declararparm  Cabeca_TipoInconsistente       int 12
+=declararparm  Lista_VazamentoDeMemoria       int 13
+=declararparm  ListaValida                    int 14
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "Lista"
+=iniciarcontagem
+
+== Criar lista
+=criarlista      lista0 
+
+== Inserir elemento em lista vazia
+=inselemantes    lista0   ch0   OK
+=obtervalorelem  lista0   ch0   pNaoNULL
+
+== Verificar ObterValor relativo a lista nao vazia
+=obtervalorelem  lista0   ch0   pNaoNULL
+
+== Inserir elemento após primeiro
+=inselemapos     lista0   ch1   OK
+=obtervalorelem  lista0   ch1   pNaoNULL
+
+== Inserir elemento antes do último
+=inselemantes    lista0   ch2   OK
+=obtervalorelem  lista0   ch2   pNaoNULL
+
+== Verifica lista valida
+=verificarlista lista0 ListaValida
+
+== Verifica lista inexistente
+=verificarlista lista1 ListaInexistente
+
+== Problema na Cabeca - ponteiro para Primeiro eh NULL
+=deturparlista    lista0   NULLpOrigem                 OK
+=verificarlista   lista0   Cabeca_pPrimeiroNULL
+=destruirlista    lista0
+
+== Problema na Cabeca - ponteiro para Ultimo eh NULL
+=criarlista       lista0                               OK
+=inselemantes     lista0   ch3                         OK
+=deturparlista    lista0   NULLpUltimo                 OK
+=verificarlista   lista0   Cabeca_pUltimoNULL
+=destruirlista    lista0
+
+== Problema na Cabeca - Numero de elementos eh incorreto
+=criarlista       lista0                               OK
+=inselemantes     lista0   ch3                         OK
+=deturparlista    lista0   AumentaNumeroElementos      OK
+=verificarlista   lista0   Cabeca_NumElemenInconsistente
+=destruirlista    lista0
+
+== Problema na Cabeca - Numero de elementos eh invalido
+=criarlista       lista0                               OK
+=inselemantes     lista0   ch3                         OK
+=deturparlista    lista0   NumeroDeElementosNegativo   OK
+=verificarlista   lista0   Cabeca_NumElemenInvalido
+=destruirlista    lista0
+
+== Problema na Cabeca - tipo incorreto
+=criarlista       lista0   OK
+=inselemantes     lista0   ch3                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   AlteraTipoEstrutura         OK
+=verificarlista   lista0   Cabeca_TipoInconsistente
+=destruirlista    lista0
+
+== Problema na Cabeca - ponteiro para Origem eh incorreto
+=criarlista       lista0                               OK
+=inselemantes     lista0   ch3                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   LixopAnt                    OK
+=verificarlista   lista0   Cabeca_pPrimeiroIncorreto
+=destruirlista    lista0
+
+== Problema na Cabeca - ponteiro para Corrente eh lixo
+=criarlista       lista0   OK
+=inselemantes     lista0   ch3                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   LixopCorrente	           OK
+=verificarlista   lista0   Cabeca_pCorrenteInconsistente
+=destruirlista    lista0
+
+== Problema na Cabeca - ponteiro para Ultimo eh incorreto
+=criarlista       lista0   OK
+=inselemantes    lista0    ch3                         OK
+=irinicio         lista0                               OK
+=deturparlista    lista0   LixopProx                   OK
+=verificarlista   lista0   Cabeca_pUltimoIncorreto
+
+== Problema no Elemento - pAnterior eh NULL e Elemento não é primeiro
+=criarlista       lista0   OK
+=inselemantes     lista0   ch0                         OK
+=inselemantes     lista0   ch1                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   NULLpAnt                    OK
+=verificarlista   lista0   Elemento_ErroEncadeamento
+=destruirlista    lista0
+
+== Problema no elemento - tipo incorreto
+=criarlista       lista0   OK
+=inselemantes     lista0   ch3                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   AlteraTipoNoCorrente        OK
+=verificarlista   lista0   Elemento_TipoInconsistente
+=destruirlista    lista0
+
+== Problema no Elemento - pAnterior incorreto
+=criarlista       lista0   OK
+=inselemantes     lista0   ch0                         OK
+=inselemantes     lista0   ch1                         OK
+=irfinal          lista0                               OK
+=deturparlista    lista0   LixopAnt                    OK
+=verificarlista   lista0   Elemento_ErroEncadeamento
+=destruirlista    lista0
+
+== Problema no Elemento - pProximo eh NULL e Elemento não é ultimo
+=criarlista       lista0  OK
+=inselemantes     lista0  ch3                          OK
+=inselemantes     lista0  ch2                          OK
+=irinicio         lista0                               OK
+=deturparlista    lista0  NULLpProx                    OK
+=verificarlista   lista0  Elemento_ErroEncadeamento
+=destruirlista    lista0
+
+== Problema no Elemento - pProximo esta incorreto
+=criarlista       lista0  OK
+=inselemantes     lista0  ch0                          OK
+=inselemantes     lista0  ch1                          OK
+=irinicio         lista0                               OK
+=deturparlista    lista0  LixopProx                    OK
+=verificarlista   lista0  Elemento_ErroEncadeamento
+
+== Problema no Elemento - elemento no meio eliminado incorretamente
+=criarlista       lista0                               OK
+=inselemantes     lista0  ch0                          OK
+=inselemantes     lista0  ch1                          OK
+=inselemantes     lista0  ch2                          OK
+=irinicio         lista0                               OK
+=avancarelem      lista0  int_1                        OK
+=deturparlista    lista0  EliminaCorrente              OK
+=verificarlista   lista0  Elemento_ErroEncadeamento
+
+== Problema no Elemento - pValor eh NULL
+=criarlista       lista0                               OK
+=inselemantes     lista0  ch2                          OK
+=irinicio         lista0                               OK
+=deturparlista    lista0  NULLpValorCorrente           OK
+=verificarlista   lista0  Elemento_pValorNULL
+=destruirlista    lista0
+
+== Problema na Cabeca - valor eh lixo
+=criarlista       lista0                               OK
+=inselemantes     lista0  ch2                          OK
+=inselemantes     lista0  ch2                          OK
+=inselemantes     lista0  ch3                          OK
+=irinicio         lista0                               OK
+=deturparlista    lista0  LixopValorCorrente           OK
+=irfinal          lista0                               OK
+=verificarlista   lista0  Elemento_pValorInvalido
+
+== Destruir resquícios das deturpações
+=liberartudo
+
+== Problema no Elemento - vazamento de memória
+=criarlista       lista0                               OK
+=inselemantes     lista0   ch1                         OK
+=verificarlista   lista0  ListaValida
+=deturparlista    lista0  DesencadeiaSemFree           OK
+=verificarlista   lista0  Lista_VazamentoDeMemoria
+=liberartudo
+
+== Destruir resquícios das deturpações
+=liberartudo
+
+== Verificar vazamento de memória
+=obternumeroespacosalocados 0
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Registrar acumulador
+=registraracumulador   "Contadores"
+
+== Terminar contagem
+=terminarcontadores
+
+// fim

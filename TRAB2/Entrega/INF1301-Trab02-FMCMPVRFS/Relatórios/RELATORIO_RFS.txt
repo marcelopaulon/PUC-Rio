@@ -1,0 +1,6 @@
+﻿Data            Horas Trabalhadas       Tipo Tarefa                                     Descrição da Tarefa Realizada
+02/09/2015	1 hora e 10 minutos	Especificar as funções e projetar módulo	Criação da arquitetura
+02/09/2015	1 hora e 42 minutos	Codificar módulo	                        Codificação do módulo tabuleiro
+06/09/2015	1 hora		        Redigir script de teste	                        Criação do script de teste do módulo tabuleiro
+11/09/2015	4 horas e 10 minutos	Redigir script de teste	                        Criação de testes e correções de bugs do módulo tabuleiro
+27/09/2015	1 hora 			Documentação 	                                Finalizando assertivas de entrada e saída e assertivas estruturais.

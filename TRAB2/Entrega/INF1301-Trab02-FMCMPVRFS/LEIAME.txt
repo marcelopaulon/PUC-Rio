@@ -1,0 +1,43 @@
+LEIA-ME Trabalho 2
+
+Desenvolvido por:
+	- FMC - Fernanda de Miranda Carvalho (1411287)
+	- MPV - Marcelo Paulon Jucá Vasconcelos (1411029)
+	- RFS - Renan da Fonte Simas dos Santos (1412122)
+
+Apresentação:
+	Este texto descreve resumidamente o conteúdo e funcionamento do arquivo INF1301-Trab02-FMCMPVRFS.zip.
+	Os programas contidos neste arquivo .zip realizam testes para os módulos TABULEIRO.C, PECA.C, DADOPONTOS.C e DADO.C.
+
+Conteúdo:
+	O conteúdo extraído do zip está dividido nas seguintes pastas:
+	- TRAB2-1: contém testes relativos ao módulo TABULEIRO.C e o executável para o teste do mesmo;
+	- TRAB2-2: contém testes relativos ao módulo PECA.C e o executável para o teste do mesmo;
+	- TRAB2-3: contém testes relativos ao módulo DADOPONTOS.C e o executável para o teste do mesmo;
+	- TRAB2-4: contém testes relativos ao módulo DADO.C e o executável para o teste do mesmo;
+	- Relatórios: contém os relatórios feitos pelos alunos que desenvolveram este trabalho.
+
+	Na pasta extraída também deve estar contido o arquivo LEIAME.txt (o presente documento) e o arquivo Documentação, contendo a especificação de requisitos, a arquitetura do programa, o modelo estrutural (contendo um exemplo da estrutura) e as respectivas assertivas estruturais.
+
+Instruções:
+	Primeiro, é necessário extrair o conteúdo do arquivo INF1301-Trab02-FMCMPVRFS.zip
+
+	Para executar os testes relativos ao módulo tabuleiro:
+	1) Abra a pasta TRAB2-1 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB2-1.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB2-1_Saida.txt.
+	
+	Para executar os testes relativos ao módulo peça:
+	1) Abra a pasta TRAB2-2 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB2-2.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB2-2_Saida.txt.
+
+	Para executar os testes relativos ao módulo dado pontos:
+	1) Abra a pasta TRAB2-3 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB2-3.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB2-3_Saida.txt.
+
+	Para executar os testes relativos ao módulo dado:
+	1) Abra a pasta TRAB2-4 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB2-4.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB2-4_Saida.txt.
