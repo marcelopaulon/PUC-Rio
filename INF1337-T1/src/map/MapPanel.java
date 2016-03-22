@@ -12,6 +12,9 @@ import gfx.Assets;
 import mapcell.GrassCell;
 import mapcell.MapCell;
 import mapcell.WaterCell;
+import mapcell.StartCell;
+import mapcell.EndCell;
+import pathfinding.AStar;
 import program.Program;
 
 public class MapPanel extends JPanel {
@@ -38,6 +41,8 @@ public class MapPanel extends JPanel {
 
 	private MapCell GrassCell = new GrassCell(MapCell.Cells.NORMAL.asChar());
 	private MapCell WaterCell = new WaterCell(MapCell.Cells.WATER.asChar());
+	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
+	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
 
 	public boolean renderMap() {
 		int width = getWidth();
@@ -70,6 +75,10 @@ public class MapPanel extends JPanel {
 				cell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 			}
 		}
+		
+		// TODO: Pesquisar caminho
+		//AStar astar = new AStar();
+		//astar.FindPath(loadedMap);
 
 		return true;
 	}
@@ -92,6 +101,10 @@ public class MapPanel extends JPanel {
 			return GrassCell;
 		if (value == MapCell.Cells.WATER)
 			return WaterCell;
+		if (value == MapCell.Cells.START)
+			return StartCell;
+		if (value == MapCell.Cells.END)
+			return EndCell;
 
 		return WaterCell;
 	}
