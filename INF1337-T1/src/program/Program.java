@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import pathfinding.AStar;
 import gfx.Assets;
 import map.Map;
 import map.MapLoader;
@@ -27,6 +29,8 @@ public final class Program
 
 	private Map map;
 	private MapPanel mapPanel;
+	
+	private AStar astar = new AStar();
 
 	private JFrame window;
 
@@ -52,6 +56,15 @@ public final class Program
 		mapPanel.setSize(defaultDimension);
 
 		window.add(mapPanel, BorderLayout.CENTER);
+		
+		try {
+			File file = new File("defaultMap.mapsave");
+			map = MapLoader.tryLoadMap(file);
+			mapPanel.loadMap(map);
+		} catch (MapLoaderException e) {
+			JOptionPane.showMessageDialog(Program.toolsPanel, "Erro ao carregar o mapa padrão.", "Erro",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	public Map showLoadMapDialog() throws MapLoaderException
@@ -124,5 +137,10 @@ public final class Program
 		window.pack();
 		window.setSize(defaultDimension);
 		window.setVisible(true);
+		
+		if(map != null)
+		{
+			astar.FindPath(map);
+		}
 	}
 }

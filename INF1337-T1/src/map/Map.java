@@ -45,7 +45,7 @@ public class Map {
 		Node[] neighbors = new Node[4];
 
 		// North
-		if (row - 1 >= nRows) {
+		if (row - 1 > 0) {
 			neighbors[0] = new Node(column, row - 1);
 		}
 
@@ -55,7 +55,7 @@ public class Map {
 		}
 
 		// West
-		if (column - 1 >= nColumns) {
+		if (column - 1 > 0) {
 			neighbors[2] = new Node(column - 1, row);
 		}
 
@@ -63,7 +63,7 @@ public class Map {
 		if (column + 1 <= nColumns) {
 			neighbors[3] = new Node(column + 1, row);
 		}
-
+		
 		return neighbors;
 	}
 

@@ -2,10 +2,8 @@ package map;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.File;
 
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import gfx.Assets;
@@ -14,8 +12,6 @@ import mapcell.MapCell;
 import mapcell.WaterCell;
 import mapcell.StartCell;
 import mapcell.EndCell;
-import pathfinding.AStar;
-import program.Program;
 
 public class MapPanel extends JPanel {
 	/**
@@ -28,14 +24,6 @@ public class MapPanel extends JPanel {
 	Graphics g;
 
 	public MapPanel() {
-		try {
-			File file = new File("defaultMap.mapsave");
-			loadedMap = MapLoader.tryLoadMap(file);
-		} catch (MapLoaderException e) {
-			JOptionPane.showMessageDialog(Program.toolsPanel, "Erro ao carregar o mapa padrão.", "Erro",
-					JOptionPane.WARNING_MESSAGE);
-		}
-
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
@@ -76,16 +64,11 @@ public class MapPanel extends JPanel {
 			}
 		}
 		
-		// TODO: Pesquisar caminho
-		//AStar astar = new AStar();
-		//astar.FindPath(loadedMap);
-
 		return true;
 	}
 
 	public void loadMap(Map map) {
 		loadedMap = map;
-		renderMap();
 		this.repaint();
 	}
 
@@ -93,7 +76,11 @@ public class MapPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.g = g;
-		renderMap();
+		
+		if(loadedMap != null)
+		{
+			renderMap();
+		}
 	}
 
 	private MapCell getTile(MapCell.Cells value) {
