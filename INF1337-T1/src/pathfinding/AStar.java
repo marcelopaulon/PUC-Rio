@@ -1,9 +1,7 @@
 package pathfinding;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import map.Map;
@@ -11,7 +9,7 @@ import map.MapPanel;
 
 public class AStar {
 	public void FindPath(Map map, MapPanel mapPanel) {
-		List<Node> visited = new ArrayList<Node>();
+		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY);
 		Node endNode = new Node(map.endX, map.endY);
 		
@@ -27,12 +25,12 @@ public class AStar {
 			mapPanel.repaint();
 			
 			try {
-			    Thread.sleep(10);                 //1000 milliseconds is one second.
+			    Thread.sleep(10);
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
 			
-			if (curNode.X == endNode.X && curNode.Y == endNode.Y) {
+			if (curNode.equals(endNode)) {
 				// TODO: Renderizar solução
 				System.out.println("Encontrado!");
 				return;
@@ -41,7 +39,7 @@ public class AStar {
 			Node neighbors[] = map.getNeighbors(curNode.Y, curNode.X);
 
 			for (Node neighbor : neighbors) {
-				if (neighbor != null && hasNode(visited, neighbor) == false) {
+				if (neighbor != null && !visited.contains(neighbor)) {
 					// double g_x = actual_distance + map.getValue(neighbor.Y, neighbor.X);
 					queue.add(neighbor);
 					visited.add(neighbor);
@@ -50,14 +48,5 @@ public class AStar {
 		}
 		
 		System.out.println("Não encontrado!");
-	}
-
-	private boolean hasNode(Collection<Node> list, Node node) {
-		for (Node n : list) {
-			if (n != null && n.X == node.X && n.Y == node.Y) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
