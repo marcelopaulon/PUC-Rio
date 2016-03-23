@@ -5,6 +5,7 @@ import mapcell.MapCell;
 
 public class Map {
 	private char[][] mapData;
+	public char[][] pathData;
 	private int nRows, nColumns;
 	
 	public int startX, startY, endX, endY;
@@ -14,6 +15,8 @@ public class Map {
 
 		nRows = mapData.length;
 		nColumns = mapData[0].length;
+		
+		pathData = new char[nRows][nColumns];
 		
 		for(int i = 0; i < nRows; i++)
 		{

@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Queue;
 
 import map.Map;
+import map.MapPanel;
 
 public class AStar {
-	public void FindPath(Map map) {
+	public void FindPath(Map map, MapPanel mapPanel) {
 		List<Node> visited = new ArrayList<Node>();
 		Node startNode = new Node(map.startX, map.startY);
 		Node endNode = new Node(map.endX, map.endY);
@@ -22,6 +23,14 @@ public class AStar {
 
 		while (queue.size() > 0) {
 			Node curNode = queue.poll();
+			map.pathData[curNode.Y - 1][curNode.X - 1] = 'X';
+			mapPanel.repaint();
+			
+			try {
+			    Thread.sleep(10);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
 			
 			if (curNode.X == endNode.X && curNode.Y == endNode.Y) {
 				// TODO: Renderizar solução
@@ -33,8 +42,7 @@ public class AStar {
 
 			for (Node neighbor : neighbors) {
 				if (neighbor != null && hasNode(visited, neighbor) == false) {
-					// double g_x = actual_distance + map.getValue(neighbor.Y,
-					// neighbor.X);
+					// double g_x = actual_distance + map.getValue(neighbor.Y, neighbor.X);
 					queue.add(neighbor);
 					visited.add(neighbor);
 				}

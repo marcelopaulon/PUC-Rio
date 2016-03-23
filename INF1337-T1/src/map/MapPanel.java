@@ -12,6 +12,7 @@ import mapcell.MapCell;
 import mapcell.WaterCell;
 import mapcell.StartCell;
 import mapcell.EndCell;
+import mapcell.VisitedCell;
 
 public class MapPanel extends JPanel {
 	/**
@@ -31,6 +32,7 @@ public class MapPanel extends JPanel {
 	private MapCell WaterCell = new WaterCell(MapCell.Cells.WATER.asChar());
 	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
 	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
+	private MapCell VisitedCell = new VisitedCell('\0');
 
 	public boolean renderMap() {
 		int width = getWidth();
@@ -58,9 +60,16 @@ public class MapPanel extends JPanel {
 			for (int j = 1; j <= numcols; j++) {
 				int y = (int) ((i - 1) * rectHeight);
 				int x = (int) ((j - 1) * rectWidth);
-				MapCell.Cells et = loadedMap.getValue(i, j);
-				MapCell cell = getTile(et);
-				cell.render(g, x, y, (int) rectWidth, (int) rectHeight);
+				if(loadedMap.pathData[i - 1][j - 1] == 'X')
+				{
+					VisitedCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
+				}
+				else
+				{
+					MapCell.Cells et = loadedMap.getValue(i, j);
+					MapCell cell = getTile(et);
+					cell.render(g, x, y, (int) rectWidth, (int) rectHeight);	
+				}
 			}
 		}
 		
