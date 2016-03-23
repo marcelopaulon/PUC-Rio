@@ -7,12 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import gfx.Assets;
-import mapcell.GrassCell;
-import mapcell.MapCell;
-import mapcell.WaterCell;
-import mapcell.StartCell;
-import mapcell.EndCell;
-import mapcell.VisitedCell;
+import mapcell.*;
 
 public class MapPanel extends JPanel {
 	/**
@@ -28,8 +23,11 @@ public class MapPanel extends JPanel {
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
-	private MapCell GrassCell = new GrassCell(MapCell.Cells.NORMAL.asChar());
-	private MapCell WaterCell = new WaterCell(MapCell.Cells.WATER.asChar());
+	private MapCell MountainCell = new MountainCell(MapCell.Cells.MOUNTAIN.asChar());
+	private MapCell PlainCell = new PlainCell(MapCell.Cells.PLAIN.asChar());
+	private MapCell RockCell = new RockCell(MapCell.Cells.ROCK.asChar());
+	private MapCell EnemyAntiAircraftCell = new EnemyAntiAircraftCell(MapCell.Cells.ENEMYAA.asChar());
+	private MapCell EnemyBaseCell = new EnemyBaseCell(MapCell.Cells.ENEMYBASE.asChar());
 	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
 	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
 	private MapCell VisitedCell = new VisitedCell('\0');
@@ -93,15 +91,21 @@ public class MapPanel extends JPanel {
 	}
 
 	private MapCell getTile(MapCell.Cells value) {
-		if (value == MapCell.Cells.NORMAL)
-			return GrassCell;
-		if (value == MapCell.Cells.WATER)
-			return WaterCell;
 		if (value == MapCell.Cells.START)
 			return StartCell;
 		if (value == MapCell.Cells.END)
 			return EndCell;
+		if (value == MapCell.Cells.MOUNTAIN)
+			return MountainCell;
+		if (value == MapCell.Cells.PLAIN)
+			return PlainCell;
+		if (value == MapCell.Cells.ROCK)
+			return RockCell;
+		if (value == MapCell.Cells.ENEMYBASE)
+			return EnemyBaseCell;
+		if (value == MapCell.Cells.ENEMYAA)
+			return EnemyAntiAircraftCell;
 
-		return WaterCell;
+		return null;
 	}
 }

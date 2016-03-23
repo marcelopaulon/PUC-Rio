@@ -81,10 +81,16 @@ public class Map {
 
 		char tileType = mapData[row - 1][column - 1];
 
-		if (tileType == MapCell.Cells.NORMAL.asChar()) {
-			return MapCell.Cells.NORMAL;
-		} else if (tileType == MapCell.Cells.WATER.asChar()) {
-			return MapCell.Cells.WATER;
+		if (tileType == MapCell.Cells.MOUNTAIN.asChar()) {
+			return MapCell.Cells.MOUNTAIN;
+		} else if (tileType == MapCell.Cells.PLAIN.asChar()) {
+			return MapCell.Cells.PLAIN;
+		} else if (tileType == MapCell.Cells.ROCK.asChar()) {
+			return MapCell.Cells.ROCK;
+		} else if (tileType == MapCell.Cells.ENEMYAA.asChar()) {
+			return MapCell.Cells.ENEMYAA;
+		} else if (tileType == MapCell.Cells.ENEMYBASE.asChar()) {
+			return MapCell.Cells.ENEMYBASE;
 		} else if (tileType == MapCell.Cells.START.asChar()) {
 			return MapCell.Cells.START;
 		} else if (tileType == MapCell.Cells.END.asChar()) {

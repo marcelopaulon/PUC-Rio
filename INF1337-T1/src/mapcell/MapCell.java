@@ -5,7 +5,13 @@ import java.awt.image.BufferedImage;
 
 public abstract class MapCell {
 	public enum Cells {
-		NORMAL('.', 1), WATER('X', 0), START('I', 0), END('F', 0);
+		MOUNTAIN('M', 200),
+		PLAIN('.', 1),
+		ROCK('R', 5),
+		ENEMYAA('C', 50),
+		ENEMYBASE('B', 0),
+		START('I', 0),
+		END('F', 0);
 
 		private final char asChar;
 		private final int cost;

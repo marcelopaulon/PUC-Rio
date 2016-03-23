@@ -140,7 +140,7 @@ public final class Program
 		
 		if(map != null)
 		{
-			astar.FindPath(map, mapPanel);
+			//astar.FindPath(map, mapPanel);
 		}
 	}
 }

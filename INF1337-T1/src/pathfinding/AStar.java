@@ -25,7 +25,7 @@ public class AStar {
 			mapPanel.repaint();
 			
 			try {
-			    Thread.sleep(10);
+			    Thread.sleep(1);
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
