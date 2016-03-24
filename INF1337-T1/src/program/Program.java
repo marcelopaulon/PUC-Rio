@@ -33,6 +33,8 @@ public final class Program
 	private AStar astar = new AStar();
 
 	private JFrame window;
+	
+	private File file = new File("defaultMap.mapsave");
 
 	private void createToolsPanel()
 	{
@@ -58,7 +60,6 @@ public final class Program
 		window.add(mapPanel, BorderLayout.CENTER);
 		
 		try {
-			File file = new File("defaultMap.mapsave");
 			map = MapLoader.tryLoadMap(file);
 			mapPanel.loadMap(map);
 		} catch (MapLoaderException e) {
@@ -72,6 +73,7 @@ public final class Program
 		try
 		{
 			JFileChooser chooser = new JFileChooser();
+			chooser.setCurrentDirectory(file);
 			chooser.setFileFilter(new FileNameExtensionFilter("Apenas .mapsave", "mapsave"));
 			int retorno = chooser.showOpenDialog(null);
 
