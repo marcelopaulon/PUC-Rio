@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,8 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import pathfinding.AStar;
+import pathfinding.Node;
 import gfx.Assets;
-import map.Map;
+import map.GameMap;
 import map.MapLoader;
 import map.MapLoaderException;
 import map.MapPanel;
@@ -27,7 +29,7 @@ public final class Program
 
 	public static JPanel toolsPanel;
 
-	private Map map;
+	private GameMap map;
 	private MapPanel mapPanel;
 	
 	private AStar astar = new AStar();
@@ -68,7 +70,7 @@ public final class Program
 		}
 	}
 
-	public Map showLoadMapDialog() throws MapLoaderException
+	public GameMap showLoadMapDialog() throws MapLoaderException
 	{
 		try
 		{
@@ -142,7 +144,15 @@ public final class Program
 		
 		if(map != null)
 		{
-			astar.FindPath(map, mapPanel);
+			List<Node> path = astar.FindPath(map, mapPanel);
+			if(path != null)
+			{
+				mapPanel.renderPath(path);
+			}
+			else
+			{
+				// Alertar que não foi encontrado um caminho
+			}
 		}
 	}
 }

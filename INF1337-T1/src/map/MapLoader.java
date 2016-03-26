@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class MapLoader {
-	public static Map tryLoadMap(File file) throws MapLoaderException {
+	public static GameMap tryLoadMap(File file) throws MapLoaderException {
 		try {
 			Scanner scanner = new Scanner(file);
 
@@ -26,7 +26,7 @@ public class MapLoader {
 
 			scanner.close();
 
-			return new Map(array);
+			return new GameMap(array);
 		} catch (Exception e) {
 			throw new MapLoaderException();
 		}

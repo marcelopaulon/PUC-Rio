@@ -2,12 +2,14 @@ package map;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import gfx.Assets;
 import mapcell.*;
+import pathfinding.Node;
 
 public class MapPanel extends JPanel {
 	/**
@@ -15,7 +17,7 @@ public class MapPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -8607607402685333888L;
 
-	private Map loadedMap;
+	private GameMap loadedMap;
 
 	Graphics g;
 
@@ -32,6 +34,26 @@ public class MapPanel extends JPanel {
 	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
 	private MapCell VisitedCell = new VisitedCell('\0');
 
+	public void renderPath(List<Node> path)
+	{
+		for(int i = 0; i < loadedMap.getNColumns(); i++)
+		{
+			for(int j = 0; j < loadedMap.getNRows(); j++)
+			{
+				if(path.contains(new Node(i, j, null)))
+				{
+					loadedMap.pathData[j][i] = 'X';
+				}
+				else
+				{
+					loadedMap.pathData[j][i] = '\0';
+				}
+			}
+		}
+		
+		repaint();
+	}
+	
 	public boolean renderMap() {
 		int width = getWidth();
 		int height = getHeight();
@@ -64,7 +86,7 @@ public class MapPanel extends JPanel {
 				}
 				else
 				{
-					MapCell.Cells et = loadedMap.getValue(i, j);
+					MapCell.Cells et = loadedMap.getValue(i, j).CellType;
 					MapCell cell = getTile(et);
 					cell.render(g, x, y, (int) rectWidth, (int) rectHeight);	
 				}
@@ -74,7 +96,7 @@ public class MapPanel extends JPanel {
 		return true;
 	}
 
-	public void loadMap(Map map) {
+	public void loadMap(GameMap map) {
 		loadedMap = map;
 		this.repaint();
 	}

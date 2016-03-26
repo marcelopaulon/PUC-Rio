@@ -3,14 +3,14 @@ package map;
 import pathfinding.Node;
 import mapcell.MapCell;
 
-public class Map {
+public class GameMap {
 	private char[][] mapData;
 	public char[][] pathData;
 	private int nRows, nColumns;
 	
 	public int startX, startY, endX, endY;
 
-	public Map(char[][] data) {
+	public GameMap(char[][] data) {
 		mapData = data;
 
 		nRows = mapData.length;
@@ -49,22 +49,22 @@ public class Map {
 
 		// North
 		if (row - 1 > 0) {
-			neighbors[0] = new Node(column, row - 1);
+			neighbors[0] = getValue(row - 1, column);
 		}
 
 		// South
 		if (row + 1 <= nRows) {
-			neighbors[1] = new Node(column, row + 1);
+			neighbors[1] = getValue(row + 1, column);
 		}
 
 		// West
 		if (column - 1 > 0) {
-			neighbors[2] = new Node(column - 1, row);
+			neighbors[2] = getValue(row, column - 1);
 		}
 
 		// East
 		if (column + 1 <= nColumns) {
-			neighbors[3] = new Node(column + 1, row);
+			neighbors[3] = getValue(row, column + 1);
 		}
 		
 		return neighbors;
@@ -75,28 +75,29 @@ public class Map {
 		return true;
 	}
 
-	public MapCell.Cells getValue(int row, int column) {
+	public Node getValue(int row, int column) {
 		if (mapData.length < row || mapData[0].length < column)
 			return null;
 
 		char tileType = mapData[row - 1][column - 1];
-
+		MapCell.Cells cellType = null;
+		
 		if (tileType == MapCell.Cells.MOUNTAIN.asChar()) {
-			return MapCell.Cells.MOUNTAIN;
+			cellType = MapCell.Cells.MOUNTAIN;
 		} else if (tileType == MapCell.Cells.PLAIN.asChar()) {
-			return MapCell.Cells.PLAIN;
+			cellType = MapCell.Cells.PLAIN;
 		} else if (tileType == MapCell.Cells.ROCK.asChar()) {
-			return MapCell.Cells.ROCK;
+			cellType = MapCell.Cells.ROCK;
 		} else if (tileType == MapCell.Cells.ENEMYAA.asChar()) {
-			return MapCell.Cells.ENEMYAA;
+			cellType = MapCell.Cells.ENEMYAA;
 		} else if (tileType == MapCell.Cells.ENEMYBASE.asChar()) {
-			return MapCell.Cells.ENEMYBASE;
+			cellType = MapCell.Cells.ENEMYBASE;
 		} else if (tileType == MapCell.Cells.START.asChar()) {
-			return MapCell.Cells.START;
+			cellType = MapCell.Cells.START;
 		} else if (tileType == MapCell.Cells.END.asChar()) {
-			return MapCell.Cells.END;
+			cellType = MapCell.Cells.END;
 		}
-
-		return null;
+		
+		return new Node(column, row, cellType);
 	}
 }
