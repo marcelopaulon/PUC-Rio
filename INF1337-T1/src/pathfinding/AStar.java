@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 import map.GameMap;
 import map.MapPanel;
@@ -22,9 +21,9 @@ public class AStar {
 		return fScore.get(node);
 	}
 	
-	public double getTraversalCost(GameMap map, Node fromNode, Node toNode)
+	private double getTraversalCost(GameMap map, Node fromNode, Node toNode)
 	{
-		return fromNode.getCost() + toNode.getCost();
+		return toNode.getCost();
 	}
 	
 	private class NodeComparator implements Comparator<Node> {
@@ -70,22 +69,26 @@ public class AStar {
 			Node neighbors[] = map.getNeighbors(curNode.Y, curNode.X);
 
 			for (Node neighbor : neighbors) {
-				if (neighbor != null && !visited.contains(neighbor)) {
-					double g_x = gScore.get(curNode) + getTraversalCost(map, curNode, neighbor);
-					boolean inQueue = queue.contains(neighbor);
-					if(!inQueue || g_x < gScore.get(neighbor))
+				if(neighbor == null || visited.contains(neighbor))
+				{
+					continue;
+				}
+				
+				double g_x = gScore.get(curNode) + getTraversalCost(map, curNode, neighbor);
+				
+				boolean inQueue = queue.contains(neighbor);
+				if(!inQueue || g_x < gScore.get(neighbor))
+				{
+					gScore.put(neighbor, g_x);
+					fScore.put(neighbor, g_x + neighbor.getHeuristic(endNode));
+					
+					if(inQueue)
 					{
-						gScore.put(neighbor, g_x);
-						fScore.put(neighbor, g_x + neighbor.getHeuristic(endNode));
-						
-						if(inQueue)
-						{
-							queue.remove(neighbor);
-						}
-						
-						queue.offer(neighbor);
-						pathMap.put(neighbor, curNode);
+						queue.remove(neighbor);
 					}
+					
+					queue.offer(neighbor);
+					pathMap.put(neighbor, curNode);
 				}
 			}
 		}

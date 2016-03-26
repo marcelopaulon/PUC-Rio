@@ -36,17 +36,17 @@ public class MapPanel extends JPanel {
 
 	public void renderPath(List<Node> path)
 	{
-		for(int i = 0; i < loadedMap.getNColumns(); i++)
+		for(int i = 0; i < loadedMap.getNRows(); i++)
 		{
-			for(int j = 0; j < loadedMap.getNRows(); j++)
+			for(int j = 0; j < loadedMap.getNColumns(); j++)
 			{
-				if(path.contains(new Node(i, j, null)))
+				if(path.contains(new Node(j+1, i+1, null)))
 				{
-					loadedMap.pathData[j][i] = 'X';
+					loadedMap.pathData[i][j] = 'X';
 				}
 				else
 				{
-					loadedMap.pathData[j][i] = '\0';
+					loadedMap.pathData[i][j] = '\0';
 				}
 			}
 		}

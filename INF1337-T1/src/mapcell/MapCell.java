@@ -9,7 +9,7 @@ public abstract class MapCell {
 		PLAIN('.', 1),
 		ROCK('R', 5),
 		ENEMYAA('C', 50),
-		ENEMYBASE('B', 0),
+		ENEMYBASE('B', 1),
 		START('I', 0),
 		END('F', 0);
 

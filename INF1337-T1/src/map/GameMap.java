@@ -24,13 +24,13 @@ public class GameMap {
 			{
 				if(mapData[i][j] == MapCell.Cells.START.asChar())
 				{
-					startX = j;
-					startY = i;
+					startX = j + 1;
+					startY = i + 1;
 				}
 				else if(mapData[i][j] == MapCell.Cells.END.asChar())
 				{
-					endX = j;
-					endY = i;
+					endX = j + 1;
+					endY = i + 1;
 				}
 			}
 		}
