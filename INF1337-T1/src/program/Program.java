@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,8 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import pathfinding.AStar;
-import pathfinding.Node;
 import gfx.Assets;
 import map.GameMap;
 import map.MapLoader;
@@ -31,9 +28,8 @@ public final class Program
 
 	private GameMap map;
 	private MapPanel mapPanel;
+	private ToolsSidebar toolsSidebar;
 	
-	private AStar astar = new AStar();
-
 	private JFrame window;
 	
 	private File file = new File("defaultMap.mapsave");
@@ -53,17 +49,20 @@ public final class Program
 
 		window.add(toolsPanel, BorderLayout.PAGE_START);
 	}
-
+	
 	private void createMapPanel()
 	{
 		mapPanel = new MapPanel();
 		mapPanel.setSize(defaultDimension);
-
+		
+		toolsSidebar = new ToolsSidebar(map, mapPanel);
+		
 		window.add(mapPanel, BorderLayout.CENTER);
+		window.add(toolsSidebar, BorderLayout.EAST);
 		
 		try {
 			map = MapLoader.tryLoadMap(file);
-			mapPanel.loadMap(map);
+			tryRenderMap();
 		} catch (MapLoaderException e) {
 			JOptionPane.showMessageDialog(Program.toolsPanel, "Erro ao carregar o mapa padrão.", "Erro",
 					JOptionPane.WARNING_MESSAGE);
@@ -91,6 +90,15 @@ public final class Program
 
 		return null;
 	}
+	
+	private void tryRenderMap()
+	{
+		if(map != null)
+		{
+			toolsSidebar.setMap(map);
+			mapPanel.loadMap(map);
+		}
+	}
 
 	private ActionListener loadMapListener = new ActionListener()
 	{
@@ -100,11 +108,7 @@ public final class Program
 			try
 			{
 				map = showLoadMapDialog();
-
-				if (map != null)
-				{
-					mapPanel.loadMap(map);
-				}
+				tryRenderMap();
 			} catch (MapLoaderException exception)
 			{
 				JOptionPane.showMessageDialog(toolsPanel, "Erro ao carregar o mapa.", "Erro",
@@ -141,18 +145,5 @@ public final class Program
 		window.pack();
 		window.setSize(defaultDimension);
 		window.setVisible(true);
-		
-		if(map != null)
-		{
-			List<Node> path = astar.FindPath(map, mapPanel);
-			if(path != null)
-			{
-				mapPanel.renderPath(path);
-			}
-			else
-			{
-				// Alertar que não foi encontrado um caminho
-			}
-		}
 	}
 }

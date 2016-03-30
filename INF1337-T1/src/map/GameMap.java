@@ -35,6 +35,22 @@ public class GameMap {
 			}
 		}
 	}
+	
+	public void clearPath()
+	{
+		nRows = mapData.length;
+		nColumns = mapData[0].length;
+		
+		pathData = new char[nRows][nColumns];
+		
+		for(int i = 0; i < nRows; i++)
+		{
+			for(int j = 0; j < nColumns; j++)
+			{
+				mapData[i][j] = '\0';
+			}
+		}
+	}
 
 	public int getNRows() {
 		return nRows;

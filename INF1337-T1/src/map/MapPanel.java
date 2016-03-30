@@ -88,7 +88,7 @@ public class MapPanel extends JPanel {
 				{
 					MapCell.Cells et = loadedMap.getValue(i, j).CellType;
 					MapCell cell = getTile(et);
-					cell.render(g, x, y, (int) rectWidth, (int) rectHeight);	
+					cell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 				}
 			}
 		}

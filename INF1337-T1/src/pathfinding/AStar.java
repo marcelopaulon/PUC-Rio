@@ -32,7 +32,7 @@ public class AStar {
 	  }
 	}
 	
-	public List<Node> FindPath(GameMap map, MapPanel mapPanel) {
+	public Path findPath(GameMap map, MapPanel mapPanel) {
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
@@ -57,11 +57,12 @@ public class AStar {
 			if (curNode.equals(endNode)) {
 				// TODO: Renderizar solução
 				System.out.println("Encontrado!");
+				double score = gScore.get(curNode);
 				while (curNode != null) {
 					route.add(0, curNode);
 					curNode = pathMap.get(curNode);
 				}
-				return route;
+				return new Path(route, score);
 			}
 			
 			visited.add(curNode);
