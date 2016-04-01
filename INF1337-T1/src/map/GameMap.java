@@ -47,7 +47,7 @@ public class GameMap {
 		{
 			for(int j = 0; j < nColumns; j++)
 			{
-				mapData[i][j] = '\0';
+				pathData[i][j] = '\0';
 			}
 		}
 	}
