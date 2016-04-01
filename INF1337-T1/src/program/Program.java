@@ -2,16 +2,11 @@ package program;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gfx.Assets;
 import map.GameMap;
@@ -21,7 +16,7 @@ import map.MapPanel;
 
 public final class Program
 {
-
+	public static File defaultSaveFile = new File("defaultMap.mapsave");
 	private static Dimension defaultDimension = new Dimension(800, 600);
 
 	public static JPanel toolsPanel;
@@ -32,21 +27,11 @@ public final class Program
 	
 	private JFrame window;
 	
-	private File file = new File("defaultMap.mapsave");
-
+	private static Program instance;
+	
 	private void createToolsPanel()
 	{
-		toolsPanel = new JPanel();
-
-		JButton loadMapButton = new JButton("Carregar Mapa");
-		JButton exitButton = new JButton("Sair");
-
-		loadMapButton.addActionListener(loadMapListener);
-		exitButton.addActionListener(exitListener);
-
-		toolsPanel.add(loadMapButton);
-		toolsPanel.add(exitButton);
-
+		toolsPanel = new ToolsPanel();
 		window.add(toolsPanel, BorderLayout.PAGE_START);
 	}
 	
@@ -61,34 +46,23 @@ public final class Program
 		window.add(toolsSidebar, BorderLayout.EAST);
 		
 		try {
-			map = MapLoader.tryLoadMap(file);
+			map = MapLoader.tryLoadMap(Program.defaultSaveFile);
 			tryRenderMap();
 		} catch (MapLoaderException e) {
 			JOptionPane.showMessageDialog(Program.toolsPanel, "Erro ao carregar o mapa padrão.", "Erro",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-
-	public GameMap showLoadMapDialog() throws MapLoaderException
+	
+	public void setCost(double score)
 	{
-		try
-		{
-			JFileChooser chooser = new JFileChooser();
-			chooser.setCurrentDirectory(file);
-			chooser.setFileFilter(new FileNameExtensionFilter("Apenas .mapsave", "mapsave"));
-			int retorno = chooser.showOpenDialog(null);
-
-			if (retorno == JFileChooser.APPROVE_OPTION)
-			{
-				return MapLoader.tryLoadMap(chooser.getSelectedFile());
-			}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-			throw new MapLoaderException();
-		}
-
-		return null;
+		toolsSidebar.setCost(score);
+	}
+	
+	public void tryLoadMap(GameMap map)
+	{
+		this.map = map;
+		tryRenderMap();
 	}
 	
 	private void tryRenderMap()
@@ -97,38 +71,19 @@ public final class Program
 		{
 			toolsSidebar.setMap(map);
 			mapPanel.loadMap(map);
+			toolsSidebar.reset();
 		}
 	}
-
-	private ActionListener loadMapListener = new ActionListener()
-	{
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			try
-			{
-				map = showLoadMapDialog();
-				tryRenderMap();
-			} catch (MapLoaderException exception)
-			{
-				JOptionPane.showMessageDialog(toolsPanel, "Erro ao carregar o mapa.", "Erro",
-						JOptionPane.WARNING_MESSAGE);
-			}
-		}
-	};
-
-	private ActionListener exitListener = new ActionListener()
-	{
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			System.exit(0);
-		}
-	};
-
+	
 	public static void main(String[] args)
 	{
-		new Program().appStart();
+		instance = new Program();
+		instance.appStart();
+	}
+	
+	public static Program getInstance()
+	{
+		return instance;
 	}
 
 	public void appStart()

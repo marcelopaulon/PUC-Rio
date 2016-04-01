@@ -11,6 +11,7 @@ import java.util.PriorityQueue;
 import map.GameMap;
 import map.MapPanel;
 import mapcell.MapCell;
+import program.Program;
 
 public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
@@ -46,6 +47,7 @@ public class AStar {
 		while (!queue.isEmpty()) {
 			Node curNode = queue.poll();
 			map.pathData[curNode.Y - 1][curNode.X - 1] = 'X';
+			Program.getInstance().setCost(gScore.get(curNode));
 			mapPanel.repaint();
 			
 			try {

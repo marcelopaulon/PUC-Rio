@@ -29,6 +29,9 @@ public class ToolsSidebar extends JPanel {
 	private GameMap map;
 	private MapPanel mapPanel;
 	
+    private JButton findPathButton = new JButton("Encontrar caminho");
+    private JButton clearPathButton = new JButton("Limpar caminho");
+	
 	private JLabel mapSizeLabel = new JLabel("-");
 	private JLabel costLabel = new JLabel("-");
 	private JLabel pathLengthLabel = new JLabel("-");
@@ -39,7 +42,7 @@ public class ToolsSidebar extends JPanel {
 		mapSizeLabel.setText(map.getNRows() + "x" + map.getNColumns());
 	}
 	
-	private void setCost(double cost)
+	public void setCost(double cost)
 	{
 		DecimalFormat df = new DecimalFormat("#.00"); 
 		costLabel.setText(df.format(cost));
@@ -79,6 +82,14 @@ public class ToolsSidebar extends JPanel {
 		map.clearPath();
 		mapPanel.repaint();
 	}
+	
+	public void reset()
+	{
+		findPathButton.setEnabled(true);
+		clearPathButton.setEnabled(false);
+		costLabel.setText("-");
+		pathLengthLabel.setText("-");
+	}
 
 	public ToolsSidebar(GameMap map, MapPanel mapPanel)
 	{
@@ -97,7 +108,6 @@ public class ToolsSidebar extends JPanel {
 	    this.add(pathLengthLabel);
 	    this.setSize(400, 600);
 	    
-	    JButton findPathButton = new JButton("Encontrar caminho");
 	    findPathButton.addActionListener(new ActionListener()
 	    {
 	    	@Override
@@ -105,17 +115,20 @@ public class ToolsSidebar extends JPanel {
 			{
 	    		costLabel.setText("Calculando...");
 	    		pathLengthLabel.setText("Calculando...");
+	    		findPathButton.setEnabled(false);
 	    		new Thread("EDTHeartbeat") {
 	                @Override
 	                public void run() {
 	                	findPath();
+	                	clearPathButton.setEnabled(true);
+	                	findPathButton.setEnabled(true);
 	                }
 	    		}.start();
 			}
 	    });
 	    this.add(findPathButton);
 	    
-	    JButton clearPathButton = new JButton("Limpar caminho");
+	    clearPathButton.setEnabled(false);
 	    clearPathButton.addActionListener(new ActionListener()
 	    {
 	    	@Override
@@ -123,6 +136,7 @@ public class ToolsSidebar extends JPanel {
 			{
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");
+	    		clearPathButton.setEnabled(false);
 	    		new Thread("EDTHeartbeat") {
 	                @Override
 	                public void run() {
