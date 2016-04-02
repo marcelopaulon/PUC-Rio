@@ -1,10 +1,13 @@
 package program;
 
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import program.WarPlaneTableModel.WarPlaneInfo;
 
 public class EditWarPlaneInfo extends JDialog
 {
@@ -25,6 +28,11 @@ public class EditWarPlaneInfo extends JDialog
 		}
 		
 		return null;		
+	}
+	
+	public List<WarPlaneInfo> getWarPlaneList()
+	{
+		return warPlaneTableModel.warPlaneFirepower;
 	}
 	
 	private void setupWarPlaneTable()

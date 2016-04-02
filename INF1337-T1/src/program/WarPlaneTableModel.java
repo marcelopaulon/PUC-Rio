@@ -15,7 +15,7 @@ final class WarPlaneTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 3692722593918208041L;
 	
-	private List<WarPlaneInfo> warPlaneFirepower;	
+	public List<WarPlaneInfo> warPlaneFirepower;	
 	
 	private DecimalFormat df;
 	
@@ -27,7 +27,7 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		warPlaneFirepower.add(new WarPlaneInfo("Su-46", 1.2));
 		warPlaneFirepower.add(new WarPlaneInfo("MiG-35", 1.1));
 	}
-	
+		
 	public WarPlaneTableModel(List<WarPlaneInfo> data)
 	{
 		super();
@@ -49,15 +49,25 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		}
 	}
 	
-	private class WarPlaneInfo
+	public class WarPlaneInfo
 	{
-		public String name;
-		public Double firepower;
+		private String name;
+		private Double firepower;
 		
 		public WarPlaneInfo(String name, Double firepower)
 		{
 			this.name = name;
 			this.firepower = firepower;
+		}
+		
+		public String getName()
+		{
+			return name;
+		}
+		
+		public Double getFirepower()
+		{
+			return firepower;
 		}
 	}
 	

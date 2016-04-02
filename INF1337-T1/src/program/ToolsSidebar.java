@@ -1,6 +1,7 @@
 package program;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -15,9 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 import pathfinding.AStar;
 import pathfinding.Path;
+import program.WarPlaneTableModel.WarPlaneInfo;
 import map.GameMap;
 import map.MapPanel;
 
@@ -132,6 +136,23 @@ public class ToolsSidebar extends JPanel {
 		pathLengthLabel.setText("-");
 		pathCalculationTimeLabel.setText("-");
 	}
+	
+	private void setLineBreakBefore(JLabel c)
+	{
+		setMargin(c,10,0,0,0);
+	}
+	
+	private void setLineBreakAfter(JLabel c)
+	{
+		setMargin(c,0,0,10,0);
+	}
+	
+	private void setMargin(JLabel c, int top, int left, int bottom, int right)
+	{
+		Border border = c.getBorder();
+		Border margin = new EmptyBorder(top, left, bottom, right);
+		c.setBorder(new CompoundBorder(border, margin));
+	}
 
 	public ToolsSidebar(GameMap map, MapPanel mapPanel)
 	{
@@ -143,13 +164,27 @@ public class ToolsSidebar extends JPanel {
 	    Border b2 = BorderFactory.createLineBorder(Color.BLUE, 2);
 	    this.setBorder(BorderFactory.createCompoundBorder(b2, b1));
 	    this.add(new JLabel("Tamanho do mapa carregado: "));
+	    setLineBreakAfter(mapSizeLabel);
 	    this.add(mapSizeLabel);
-	    this.add(new JLabel("Custo: "));
+	    this.add(new JLabel("Aviões (pontos de energia): "));
+
+	    List<WarPlaneInfo> warplanes = Program.getInstance().getWarPlaneList();
+    	warplanes.forEach((warPlane) -> this.add(new JLabel(warPlane.getName() + ": 5")));
+	    
+    	JLabel costTitleLabel = new JLabel("Custo: ");
+    	setLineBreakBefore(costTitleLabel);
+	    this.add(costTitleLabel);
+	    setLineBreakAfter(costLabel);
 	    this.add(costLabel);
+	    
 	    this.add(new JLabel("Tamanho do caminho: "));
+	    setLineBreakAfter(pathLengthLabel);
 	    this.add(pathLengthLabel);
+	    
 	    this.add(new JLabel("Tempo de Execução: "));
+	    setLineBreakAfter(pathCalculationTimeLabel);
 	    this.add(pathCalculationTimeLabel);
+	    
 	    this.setSize(400, 600);
 	    
 	    findPathButton.addActionListener(new ActionListener()
@@ -163,7 +198,7 @@ public class ToolsSidebar extends JPanel {
 	    		pathCalculationTimeLabel.setText("Calculando tempo médio...");
 	    		clearPathButton.setEnabled(false);
 	    		findPathButton.setEnabled(false);
-	    		new Thread("EDTHeartbeat") {
+	    		new Thread("FindPath") {
 	                @Override
 	                public void run() {
 	                	findPath();
@@ -184,7 +219,7 @@ public class ToolsSidebar extends JPanel {
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");
 	    		clearPathButton.setEnabled(false);
-	    		new Thread("EDTHeartbeat") {
+	    		new Thread("ClearPath") {
 	                @Override
 	                public void run() {
 	                	reset();

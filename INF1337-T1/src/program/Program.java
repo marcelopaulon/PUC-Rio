@@ -3,23 +3,24 @@ package program;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import gfx.Assets;
 import map.GameMap;
 import map.MapLoader;
 import map.MapLoaderException;
 import map.MapPanel;
+import program.WarPlaneTableModel.WarPlaneInfo;
 
 public final class Program
 {
 	public static File defaultSaveFile = new File("defaultMap.mapsave");
 	private static Dimension defaultDimension = new Dimension(800, 600);
 
-	public static JPanel toolsPanel;
+	public static ToolsPanel toolsPanel;
 
 	private GameMap map;
 	private MapPanel mapPanel;
@@ -84,6 +85,11 @@ public final class Program
 	public static Program getInstance()
 	{
 		return instance;
+	}
+	
+	public List<WarPlaneInfo> getWarPlaneList()
+	{
+		return toolsPanel.getWarPlaneList();
 	}
 
 	public void appStart()

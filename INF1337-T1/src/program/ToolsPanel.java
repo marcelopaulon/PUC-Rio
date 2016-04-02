@@ -2,6 +2,7 @@ package program;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,6 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import map.GameMap;
 import map.MapLoader;
 import map.MapLoaderException;
+import program.WarPlaneTableModel.WarPlaneInfo;
 
 public class ToolsPanel extends JPanel
 {
@@ -22,7 +24,7 @@ public class ToolsPanel extends JPanel
 
 	private EditEnemyBaseInfo enemyBaseInfoDialog = null;
 	
-	private EditWarPlaneInfo warPlaneInfoDialog = null;
+	private EditWarPlaneInfo warPlaneInfoDialog = new EditWarPlaneInfo();
 		
 	public ToolsPanel()
 	{
@@ -41,6 +43,11 @@ public class ToolsPanel extends JPanel
 		this.add(editWarPlanesButton);
 		this.add(editEnemyBasesButton);
 		this.add(exitButton);
+	}
+	
+	public List<WarPlaneInfo> getWarPlaneList()
+	{
+		return warPlaneInfoDialog.getWarPlaneList();
 	}
 	
 	private ActionListener loadMapListener = new ActionListener()
