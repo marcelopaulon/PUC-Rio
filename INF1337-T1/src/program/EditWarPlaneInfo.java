@@ -3,6 +3,8 @@ package program;
 import java.awt.Dimension;
 
 import javax.swing.JDialog;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class EditWarPlaneInfo extends JDialog
 {
@@ -10,6 +12,28 @@ public class EditWarPlaneInfo extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 6432336918764485679L;
+	
+	private JTable warPlaneTable;
+	private WarPlaneTableModel warPlaneTableModel = new WarPlaneTableModel(null);
+	
+	public Double getWarPlaneFirepower(int position)
+	{
+		Double value = (Double) warPlaneTableModel.getValueAt(position - 1, 1);
+		if(value != null)
+		{
+			return value;
+		}
+		
+		return null;		
+	}
+	
+	private void setupWarPlaneTable()
+	{	    
+		warPlaneTable = new JTable(warPlaneTableModel);
+		
+		JScrollPane scrollPane = new JScrollPane(warPlaneTable);
+		this.add(scrollPane);
+	}
 
 	public EditWarPlaneInfo()
 	{
@@ -18,6 +42,9 @@ public class EditWarPlaneInfo extends JDialog
 		this.setModal(true);
 		this.setPreferredSize(new Dimension(200, 200));
 		this.setResizable(false);
+		
+		setupWarPlaneTable();
+		
 		this.pack();
 	}
 }
