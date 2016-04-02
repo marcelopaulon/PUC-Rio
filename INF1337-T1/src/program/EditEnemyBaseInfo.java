@@ -2,6 +2,7 @@ package program;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.Hashtable;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -29,6 +30,11 @@ public class EditEnemyBaseInfo extends JDialog
 		}
 		
 		return defaultEnemyBaseDifficulty;
+	}
+	
+	public Hashtable<Integer, Integer> getEnemyBaseList()
+	{
+		return enemyDifficultyModel.enemyBaseDifficulty;
 	}
 	
 	private void setupDifficultyTable()

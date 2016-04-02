@@ -10,7 +10,7 @@ final class DifficultyTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 6296705113507672672L;
 	
-	private Hashtable<Integer, Integer> enemyBaseDifficulty;
+	public Hashtable<Integer, Integer> enemyBaseDifficulty;
 	
 	private void configureDefaultEnemyBaseDifficulty()
 	{

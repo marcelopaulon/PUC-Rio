@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -20,12 +21,12 @@ import javax.swing.border.EmptyBorder;
 
 import pathfinding.AStar;
 import pathfinding.Path;
-import program.WarPlaneTableModel.WarPlaneInfo;
+import pathfinding.WarPlaneInfo;
 import map.GameMap;
 import map.MapPanel;
 
 public class ToolsSidebar extends JPanel {
-	private AStar astar = new AStar();
+	private AStar astar;
 	
 	/**
 	 * 
@@ -44,6 +45,9 @@ public class ToolsSidebar extends JPanel {
 	private JLabel pathCalculationTimeLabel = new JLabel("-");
 	
 	private JPanel airplaneEnergyPanel;
+	
+	private List<WarPlaneInfo> warPlaneList;
+	private Hashtable<Integer, Integer> enemyBaseDifficulty;
 	
 	public void setMap(GameMap map)
 	{
@@ -155,10 +159,11 @@ public class ToolsSidebar extends JPanel {
 		c.setBorder(new CompoundBorder(border, margin));
 	}
 	
-	private void refreshWarplanesEnergy(List<WarPlaneInfo> warplanes)
+	public void refreshWarPlanesEnergy()
 	{
 		airplaneEnergyPanel.removeAll();
-    	warplanes.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
+    	warPlaneList.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
+    	airplaneEnergyPanel.repaint();
 	}
 	
 	private void setupAirplaneEnergyPanel()
@@ -167,7 +172,7 @@ public class ToolsSidebar extends JPanel {
 		airplaneEnergyPanel = new JPanel();
 	    airplaneEnergyPanel.setLayout(new BoxLayout(airplaneEnergyPanel, BoxLayout.Y_AXIS));
 	    airplaneEnergyPanel.setBackground(Color.YELLOW);
-	    refreshWarplanesEnergy(Program.getInstance().getWarPlaneList());
+	    refreshWarPlanesEnergy();
 	    this.add(airplaneEnergyPanel);
 	}
 	
@@ -225,6 +230,8 @@ public class ToolsSidebar extends JPanel {
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
+	    		warPlaneList.forEach((warplane) -> warplane.setEnergy(5));
+	    		refreshWarPlanesEnergy();
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");
 	    		clearPathButton.setEnabled(false);
@@ -254,6 +261,11 @@ public class ToolsSidebar extends JPanel {
 	    setLineBreakAfter(mapSizeLabel);
 	    
 	    this.add(mapSizeLabel);
+	    
+	    warPlaneList = Program.getInstance().getWarPlaneList();
+	    enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
+	    
+	    astar = new AStar(warPlaneList, enemyBaseDifficulty);
 	    
 	    setupAirplaneEnergyPanel();
     	setupCostLabel();

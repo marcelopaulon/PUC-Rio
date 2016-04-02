@@ -3,6 +3,7 @@ package pathfinding;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,16 @@ public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
 	
+	private List<WarPlaneInfo> warplaneInfo;
+	private Hashtable<Integer, Integer> enemyBaseDifficulty;
+	private int currentBase;
+	
+	public AStar(List<WarPlaneInfo> warplaneInfo, Hashtable<Integer, Integer> enemyBaseDifficulty)
+	{
+		this.warplaneInfo = warplaneInfo;
+		this.enemyBaseDifficulty = enemyBaseDifficulty;
+	}
+	
 	private double getFCost(Node node)
 	{
 		return fScore.get(node);
@@ -24,7 +35,24 @@ public class AStar {
 	
 	private double getTraversalCost(GameMap map, Node fromNode, Node toNode)
 	{
-		return toNode.getCost();
+		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
+		{
+			// Cost: enemyBaseDifficulty/sum(firepower)
+			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
+	        
+	        int idx = 0;
+			while(warplaneInfo.get(idx).getEnergy() == 0)
+			{
+				idx++;
+			}
+	        
+	        double firepower = warplaneInfo.get(idx).getFirepower(); 
+	        return enemyBaseDifficultyCost/firepower;
+		}
+		else
+		{
+			return toNode.getCost();
+		}
 	}
 	
 	private class NodeComparator implements Comparator<Node> {
@@ -39,6 +67,8 @@ public class AStar {
 	}
 	
 	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
+		currentBase = 1;
+		warplaneInfo.forEach((warplane) -> warplane.setEnergy(5));
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
@@ -112,6 +142,23 @@ public class AStar {
 					}
 					
 					queue.offer(neighbor);
+					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
+					{
+						currentBase++;
+						
+						int idx = 0;
+						while(warplaneInfo.get(idx).getEnergy() == 0)
+						{
+							idx++;
+						}
+						
+						warplaneInfo.get(idx).setEnergy(warplaneInfo.get(idx).getEnergy() - 1);
+						
+						if(noRender == false)
+						{
+							Program.getInstance().refreshWarPlanesEnergy();
+						}
+					}
 					pathMap.put(neighbor, curNode);
 				}
 			}

@@ -3,10 +3,14 @@ package program;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import pathfinding.WarPlaneInfo;
 
 final class WarPlaneTableModel extends AbstractTableModel {
 
@@ -48,41 +52,7 @@ final class WarPlaneTableModel extends AbstractTableModel {
 			warPlaneFirepower = data;
 		}
 	}
-	
-	public class WarPlaneInfo
-	{
-		private String name;
-		private Double firepower;
-		private Integer energy;
 		
-		public WarPlaneInfo(String name, Double firepower)
-		{
-			this.name = name;
-			this.firepower = firepower;
-			this.energy = 5;
-		}
-		
-		public String getName()
-		{
-			return name;
-		}
-		
-		public Double getFirepower()
-		{
-			return firepower;
-		}
-		
-		public int getEnergy()
-		{
-			return energy;
-		}
-		
-		public void setEnergy(int value)
-		{
-			energy = value;
-		}
-	}
-	
 	@Override
 	public String getColumnName(int index) {
 	    if(index == 0)
@@ -119,10 +89,10 @@ final class WarPlaneTableModel extends AbstractTableModel {
 	{
 		if(columnIndex == 0)
 		{
-			return warPlaneFirepower.get(rowIndex).name;
+			return warPlaneFirepower.get(rowIndex).getName();
 		}
 		
-		return df.format(warPlaneFirepower.get(rowIndex).firepower);
+		return df.format(warPlaneFirepower.get(rowIndex).getFirepower());
 	}
 	
 	@Override
@@ -131,13 +101,19 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		{
 			try
 			{
-				warPlaneFirepower.get(row).firepower = df.parse((String) value).doubleValue();
+				warPlaneFirepower.get(row).setFirepower(df.parse((String) value).doubleValue());
+				Collections.sort(warPlaneFirepower, new Comparator<WarPlaneInfo>() {
+				    @Override
+				    public int compare(WarPlaneInfo w1, WarPlaneInfo w2) {
+				        return Double.compare(w2.getFirepower(), w1.getFirepower());
+				    }
+				});
 			} catch (ParseException e)
 			{
 				e.printStackTrace();
 			}
 		}
 		
-        fireTableCellUpdated(row, col);
+		fireTableDataChanged();
     }
 }

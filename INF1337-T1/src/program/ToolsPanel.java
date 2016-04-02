@@ -2,6 +2,7 @@ package program;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import map.GameMap;
 import map.MapLoader;
 import map.MapLoaderException;
-import program.WarPlaneTableModel.WarPlaneInfo;
+import pathfinding.WarPlaneInfo;
 
 public class ToolsPanel extends JPanel
 {
@@ -22,7 +23,7 @@ public class ToolsPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 1127862851219036026L;
 
-	private EditEnemyBaseInfo enemyBaseInfoDialog = null;
+	private EditEnemyBaseInfo enemyBaseInfoDialog = new EditEnemyBaseInfo();
 	
 	private EditWarPlaneInfo warPlaneInfoDialog = new EditWarPlaneInfo();
 		
@@ -48,6 +49,11 @@ public class ToolsPanel extends JPanel
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
 		return warPlaneInfoDialog.getWarPlaneList();
+	}
+	
+	public Hashtable<Integer, Integer> getEnemyBaseList()
+	{
+		return enemyBaseInfoDialog.getEnemyBaseList();
 	}
 	
 	private ActionListener loadMapListener = new ActionListener()

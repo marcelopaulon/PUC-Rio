@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import program.WarPlaneTableModel.WarPlaneInfo;
+import pathfinding.WarPlaneInfo;
 
 public class EditWarPlaneInfo extends JDialog
 {

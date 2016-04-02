@@ -3,6 +3,7 @@ package program;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -13,7 +14,7 @@ import map.GameMap;
 import map.MapLoader;
 import map.MapLoaderException;
 import map.MapPanel;
-import program.WarPlaneTableModel.WarPlaneInfo;
+import pathfinding.WarPlaneInfo;
 
 public final class Program
 {
@@ -60,6 +61,11 @@ public final class Program
 		toolsSidebar.setCost(score);
 	}
 	
+	public void refreshWarPlanesEnergy()
+	{
+		toolsSidebar.refreshWarPlanesEnergy();
+	}
+	
 	public void tryLoadMap(GameMap map)
 	{
 		this.map = map;
@@ -90,6 +96,11 @@ public final class Program
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
 		return toolsPanel.getWarPlaneList();
+	}
+	
+	public Hashtable<Integer, Integer> getEnemyBaseList()
+	{
+		return toolsPanel.getEnemyBaseList();
 	}
 
 	public void appStart()
