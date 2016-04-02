@@ -35,6 +35,7 @@ public class ToolsSidebar extends JPanel {
 	private JLabel mapSizeLabel = new JLabel("-");
 	private JLabel costLabel = new JLabel("-");
 	private JLabel pathLengthLabel = new JLabel("-");
+	private JLabel pathCalculationTimeLabel = new JLabel("-");
 	
 	public void setMap(GameMap map)
 	{
@@ -53,10 +54,36 @@ public class ToolsSidebar extends JPanel {
 		pathLengthLabel.setText(Integer.toString(length));
 	}
 	
+	private void setPathCalculationTime(double calculationTime)
+	{
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		pathCalculationTimeLabel.setText(df.format(calculationTime) + "ms");
+	}
+	
+	private void measurePathFindingTime()
+	{
+		// Warming up...
+		Path temp = astar.findPath(map, mapPanel, true);
+		
+		int max = 20;
+		double timeSum = 0.0;
+		
+		for(int i = 0; i < max; i++)
+		{
+			temp = astar.findPath(map, mapPanel, true);
+			timeSum += temp.getCalculationTime();
+		}
+		
+		setPathCalculationTime(timeSum/max);
+	}
+	
 	private void findPath()
 	{
 		try
 		{
+			measurePathFindingTime();
+			clearPath();
+			
 			Path path = astar.findPath(map, mapPanel);
 			if(path != null && path.getNodes() != null)
 			{
@@ -89,6 +116,7 @@ public class ToolsSidebar extends JPanel {
 		clearPathButton.setEnabled(false);
 		costLabel.setText("-");
 		pathLengthLabel.setText("-");
+		pathCalculationTimeLabel.setText("-");
 	}
 
 	public ToolsSidebar(GameMap map, MapPanel mapPanel)
@@ -106,6 +134,8 @@ public class ToolsSidebar extends JPanel {
 	    this.add(costLabel);
 	    this.add(new JLabel("Tamanho do caminho: "));
 	    this.add(pathLengthLabel);
+	    this.add(new JLabel("Tempo de Execução: "));
+	    this.add(pathCalculationTimeLabel);
 	    this.setSize(400, 600);
 	    
 	    findPathButton.addActionListener(new ActionListener()
@@ -113,8 +143,11 @@ public class ToolsSidebar extends JPanel {
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
+	    		clearPath();
 	    		costLabel.setText("Calculando...");
 	    		pathLengthLabel.setText("Calculando...");
+	    		pathCalculationTimeLabel.setText("Calculando tempo médio...");
+	    		clearPathButton.setEnabled(false);
 	    		findPathButton.setEnabled(false);
 	    		new Thread("EDTHeartbeat") {
 	                @Override
@@ -140,6 +173,7 @@ public class ToolsSidebar extends JPanel {
 	    		new Thread("EDTHeartbeat") {
 	                @Override
 	                public void run() {
+	                	reset();
 	                	clearPath();
 	                }
 	    		}.start();

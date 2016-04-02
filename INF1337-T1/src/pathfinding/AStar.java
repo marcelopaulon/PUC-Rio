@@ -33,13 +33,24 @@ public class AStar {
 	  }
 	}
 	
-	public Path findPath(GameMap map, MapPanel mapPanel) {
+	public Path findPath(GameMap map, MapPanel mapPanel)
+	{
+		return findPath(map, mapPanel, false);
+	}
+	
+	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
 		PriorityQueue<Node> queue = new PriorityQueue<Node>(1000, new NodeComparator());
 		List<Node> route = new LinkedList<Node>();
 		Map<Node, Node> pathMap = new HashMap<Node, Node>();
+		
+		gScore.clear();
+		fScore.clear();
+		
+		long startTime = System.currentTimeMillis();
+		
 		gScore.put(startNode, 0.0);
 		fScore.put(startNode, startNode.getHeuristic(endNode));
 		queue.offer(startNode);
@@ -52,24 +63,29 @@ public class AStar {
 				map.pathData[curNode.Y - 1][curNode.X - 1] = 'X';
 			}
 			
-			Program.getInstance().setCost(gScore.get(curNode));
-			mapPanel.repaint();
-			
-			try {
-			    Thread.sleep(1);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
+			if(noRender == false)
+			{
+				Program.getInstance().setCost(gScore.get(curNode));
+				mapPanel.repaint();
+				
+				try {
+				    Thread.sleep(1);
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
 			}
 			
 			if (curNode.equals(endNode)) {
-				// TODO: Renderizar solução
-				System.out.println("Encontrado!");
+			    long stopTime = System.currentTimeMillis();
+			    long elapsedTime = stopTime - startTime;
+			     
 				double score = gScore.get(curNode);
 				while (curNode != null) {
 					route.add(0, curNode);
 					curNode = pathMap.get(curNode);
 				}
-				return new Path(route, score);
+				
+				return new Path(route, score, elapsedTime);
 			}
 			
 			visited.add(curNode);
