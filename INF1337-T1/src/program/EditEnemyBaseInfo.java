@@ -1,9 +1,11 @@
 package program;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Hashtable;
 
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -45,10 +47,12 @@ public class EditEnemyBaseInfo extends JDialog
 		
 		this.setTitle("Editar Bases Inimigas");
 		this.setModal(true);
-		this.setPreferredSize(new Dimension(200, 200));
+		this.setPreferredSize(new Dimension(350, 280));
 		this.setResizable(false);
 		
 		setupDifficultyTable();
+		this.add(new JLabel("Dificuldade padrão (bases nº > 11): 90"), BorderLayout.PAGE_END);
+
 		
 		this.pack();
 	}
