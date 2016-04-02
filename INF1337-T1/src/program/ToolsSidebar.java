@@ -1,7 +1,6 @@
 package program;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -43,6 +42,8 @@ public class ToolsSidebar extends JPanel {
 	private JLabel costLabel = new JLabel("-");
 	private JLabel pathLengthLabel = new JLabel("-");
 	private JLabel pathCalculationTimeLabel = new JLabel("-");
+	
+	private JPanel airplaneEnergyPanel;
 	
 	public void setMap(GameMap map)
 	{
@@ -153,41 +154,46 @@ public class ToolsSidebar extends JPanel {
 		Border margin = new EmptyBorder(top, left, bottom, right);
 		c.setBorder(new CompoundBorder(border, margin));
 	}
-
-	public ToolsSidebar(GameMap map, MapPanel mapPanel)
+	
+	private void refreshWarplanesEnergy(List<WarPlaneInfo> warplanes)
 	{
-		super();
-		this.mapPanel = mapPanel;
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBackground(Color.YELLOW);
-	    Border b1 = BorderFactory.createTitledBorder("Ferramentas");
-	    Border b2 = BorderFactory.createLineBorder(Color.BLUE, 2);
-	    this.setBorder(BorderFactory.createCompoundBorder(b2, b1));
-	    this.add(new JLabel("Tamanho do mapa carregado: "));
-	    setLineBreakAfter(mapSizeLabel);
-	    this.add(mapSizeLabel);
-	    this.add(new JLabel("Aviões (pontos de energia): "));
-
-	    List<WarPlaneInfo> warplanes = Program.getInstance().getWarPlaneList();
-    	warplanes.forEach((warPlane) -> this.add(new JLabel(warPlane.getName() + ": 5")));
-	    
-    	JLabel costTitleLabel = new JLabel("Custo: ");
+		airplaneEnergyPanel.removeAll();
+    	warplanes.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
+	}
+	
+	private void setupAirplaneEnergyPanel()
+	{
+		this.add(new JLabel("Aviões (pontos de energia): "));
+		airplaneEnergyPanel = new JPanel();
+	    airplaneEnergyPanel.setLayout(new BoxLayout(airplaneEnergyPanel, BoxLayout.Y_AXIS));
+	    airplaneEnergyPanel.setBackground(Color.YELLOW);
+	    refreshWarplanesEnergy(Program.getInstance().getWarPlaneList());
+	    this.add(airplaneEnergyPanel);
+	}
+	
+	private void setupCostLabel()
+	{
+		JLabel costTitleLabel = new JLabel("Custo: ");
     	setLineBreakBefore(costTitleLabel);
 	    this.add(costTitleLabel);
 	    setLineBreakAfter(costLabel);
 	    this.add(costLabel);
-	    
-	    this.add(new JLabel("Tamanho do caminho: "));
+	}
+	
+	private void setupPathDataLabels()
+	{
+		this.add(new JLabel("Tamanho do caminho: "));
 	    setLineBreakAfter(pathLengthLabel);
 	    this.add(pathLengthLabel);
 	    
 	    this.add(new JLabel("Tempo de Execução: "));
 	    setLineBreakAfter(pathCalculationTimeLabel);
 	    this.add(pathCalculationTimeLabel);
-	    
-	    this.setSize(400, 600);
-	    
-	    findPathButton.addActionListener(new ActionListener()
+	}
+	
+	private void setupFindPathButton()
+	{
+		findPathButton.addActionListener(new ActionListener()
 	    {
 	    	@Override
 			public void actionPerformed(ActionEvent e)
@@ -209,8 +215,11 @@ public class ToolsSidebar extends JPanel {
 			}
 	    });
 	    this.add(findPathButton);
-	    
-	    clearPathButton.setEnabled(false);
+	}
+	
+	private void setupClearPathButton()
+	{
+		clearPathButton.setEnabled(false);
 	    clearPathButton.addActionListener(new ActionListener()
 	    {
 	    	@Override
@@ -229,5 +238,30 @@ public class ToolsSidebar extends JPanel {
 			}
 	    });
 	    this.add(clearPathButton);
+	}
+
+	public ToolsSidebar(GameMap map, MapPanel mapPanel)
+	{
+		super();
+		this.mapPanel = mapPanel;
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setBackground(Color.YELLOW);
+	    Border b1 = BorderFactory.createTitledBorder("Ferramentas");
+	    Border b2 = BorderFactory.createLineBorder(Color.BLUE, 2);
+	    this.setBorder(BorderFactory.createCompoundBorder(b2, b1));
+	    
+	    this.add(new JLabel("Tamanho do mapa carregado: "));
+	    setLineBreakAfter(mapSizeLabel);
+	    
+	    this.add(mapSizeLabel);
+	    
+	    setupAirplaneEnergyPanel();
+    	setupCostLabel();
+	    setupPathDataLabels();
+	    
+	    this.setSize(400, 600);
+	    
+	    setupFindPathButton();
+	    setupClearPathButton();
 	}
 }

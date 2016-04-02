@@ -53,11 +53,13 @@ final class WarPlaneTableModel extends AbstractTableModel {
 	{
 		private String name;
 		private Double firepower;
+		private Integer energy;
 		
 		public WarPlaneInfo(String name, Double firepower)
 		{
 			this.name = name;
 			this.firepower = firepower;
+			this.energy = 5;
 		}
 		
 		public String getName()
@@ -68,6 +70,16 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		public Double getFirepower()
 		{
 			return firepower;
+		}
+		
+		public int getEnergy()
+		{
+			return energy;
+		}
+		
+		public void setEnergy(int value)
+		{
+			energy = value;
 		}
 	}
 	
