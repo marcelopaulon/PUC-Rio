@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -60,21 +63,32 @@ public class ToolsSidebar extends JPanel {
 		pathCalculationTimeLabel.setText(df.format(calculationTime) + "ms");
 	}
 	
+	private Double median(List<Double> m) {
+	    int middle = m.size()/2;
+	    if (m.size()%2 == 1) {
+	        return m.get(middle);
+	    } else {
+	        return (m.get(middle-1) + m.get(middle)) / 2;
+	    }
+	}
+	
 	private void measurePathFindingTime()
 	{
 		// Warming up...
 		Path temp = astar.findPath(map, mapPanel, true);
 		
 		int max = 20;
-		double timeSum = 0.0;
+		List<Double> times = new ArrayList<Double>();
 		
 		for(int i = 0; i < max; i++)
 		{
 			temp = astar.findPath(map, mapPanel, true);
-			timeSum += temp.getCalculationTime();
+			times.add(temp.getCalculationTime());
 		}
 		
-		setPathCalculationTime(timeSum/max);
+		Collections.sort(times);
+		
+		setPathCalculationTime(median(times));
 	}
 	
 	private void findPath()

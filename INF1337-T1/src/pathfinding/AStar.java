@@ -69,7 +69,7 @@ public class AStar {
 				mapPanel.repaint();
 				
 				try {
-				    Thread.sleep(1);
+				    Thread.sleep(8);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
