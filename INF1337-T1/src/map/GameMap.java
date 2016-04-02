@@ -3,13 +3,43 @@ package map;
 import pathfinding.Node;
 import mapcell.MapCell;
 
+/**
+ * Mapa do jogo
+ */
 public class GameMap {
+	
+	/**
+	 * Matriz representando o mapa do jogo
+	 */
 	private char[][] mapData;
+	
+	/**
+	 * Matriz representando o path escolhido pelo AStar.
+	 * <p>As células que representam o caminho são marcadas por um X
+	 * (ver AStar.java -> linha 93)</p>  
+	 */
 	public char[][] pathData;
+	
+	/**
+	 * <p><b>nRows</b> - número de linhas da matriz</p>
+	 * <p><b>nColumns</b> - número de colunas da matriz</p>
+	 */
 	private int nRows, nColumns;
 	
+	/**
+	 * TODO: revisar se isso está correto
+	 * <p><b>startX</b> - Coluna do ponto de início do mapa</p>
+	 * <p><b>startY</b> - Linha do ponto de início do mapa</p>
+	 * <p><b>endX</b> - Coluna do ponto de chegada do mapa</p>
+	 * <p><b>endY</b> - Linha do ponto de chegada do mapa</p>
+	 */	
 	public int startX, startY, endX, endY;
 
+	/**
+	 * Construtor de GameMap
+	 * <p><b>GameMap:</b> matriz representando o mapa do jogo</p>
+	 * @param data Matriz que será usada para gerar o mapa, segundo especificações do enunciado do trabalho
+	 */
 	public GameMap(char[][] data) {
 		mapData = data;
 
@@ -36,6 +66,9 @@ public class GameMap {
 		}
 	}
 	
+	/**
+	 * Limpa o path gerado pelo AStar
+	 */
 	public void clearPath()
 	{
 		nRows = mapData.length;
@@ -52,14 +85,29 @@ public class GameMap {
 		}
 	}
 
+	/**
+	 * Pega número de linhas do GameMap
+	 * @return número de linhas do GameMap
+	 */
 	public int getNRows() {
 		return nRows;
 	}
 
+	/**
+	 * Pega número de colunas do GameMap
+	 * @return número de colunas do GameMap
+	 */
 	public int getNColumns() {
 		return nColumns;
 	}
 
+	/**
+	 * Busca nós vizinhos a uma célula do GameMap
+	 * @param row Coordenada Y da célula cujos vizinhos serão buscados
+	 * @param column Coordenada X da célula cujos vizinho serão buscados
+	 * @return Vetor de nós contendo as coordenadas dos vizinhos da célula 
+	 * cujas coordenadas foram passadas como parâmetro.
+	 */
 	public Node[] getNeighbors(int row, int column) {
 		Node[] neighbors = new Node[4];
 
@@ -86,11 +134,25 @@ public class GameMap {
 		return neighbors;
 	}
 
+	/**
+	 * Modifica tipo de terreno de uma determinada célula do GameMap
+	 * @param row Coordenada Y da célula que se deseja modificar
+	 * @param column Coordenada X da célula que se deseja modificar
+	 * @param value Novo valor da célula
+	 * @return true
+	 */
 	public boolean setValue(int row, int column, MapCell.Cells value) {
 		mapData[row - 1][column - 1] = value.asChar();
 		return true;
 	}
 
+	/**
+	 * Indica tipo de terreno de determinada célula
+	 * @param row Coordenada Y da célula
+	 * @param column Coordenada X da célula
+	 * @return Node indicando coordenadas X e Y e o tipo de terreno da célula ou <b>null</b> caso a célula
+	 * buscada esteja fora da matriz.
+	 */
 	public Node getValue(int row, int column) {
 		if (mapData.length < row || mapData[0].length < column)
 			return null;

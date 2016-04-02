@@ -6,10 +6,14 @@ import java.awt.image.BufferedImage;
  * TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.
  */
 public class SpriteSheet {
+	/**
+	 * Arquivo de imagem contendo os tiles que serão usados
+	 */
 	private BufferedImage sheet;
 
 	/**
-	 * TODO: Comentar. Não entendi o que o construtor faz. Comente seu código, Marcelo.
+	 * Construtor de SpriteSheet
+	 * <p><b>SpriteSheet:</b> TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.</p>
 	 * @param sheet sheet.png depois de ser lido pelo programa
 	 */
 	public SpriteSheet(BufferedImage sheet) {

@@ -11,29 +11,71 @@ import gfx.Assets;
 import mapcell.*;
 import pathfinding.Node;
 
+/**
+ * Panel responsável por renderizar o mapa
+ * <p>TODO: conferir se está certo</p>
+ */
 public class MapPanel extends JPanel {
 	/**
-	 * 
+	 * Identificador de versão de serialização de uma classe
+	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = -8607607402685333888L;
 
+	/**
+	 * GameMap com o mapa que será renderizado
+	 */
 	private GameMap loadedMap;
 
+	/**
+	 * TODO: Comentar. Não sei o que a variável faz. Comente seu código, Marcelo
+	 */
 	Graphics g;
 
+	/**
+	 * Construtor do MapPanel
+	 */
 	public MapPanel() {
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
-
+	
+	/**
+	 * MapCell de montanha
+	 */
 	private MapCell MountainCell = new MountainCell(MapCell.Cells.MOUNTAIN.asChar());
+	/**
+	 * MapCell de planície
+	 */
 	private MapCell PlainCell = new PlainCell(MapCell.Cells.PLAIN.asChar());
+	/**
+	 * MapCell de pedra
+	 */
 	private MapCell RockCell = new RockCell(MapCell.Cells.ROCK.asChar());
+	/**
+	 * MapCell representando baterias anti-aéreas
+	 */
 	private MapCell EnemyAntiAircraftCell = new EnemyAntiAircraftCell(MapCell.Cells.ENEMYAA.asChar());
+	/**
+	 * MapCell de bases inimigas
+	 */
 	private MapCell EnemyBaseCell = new EnemyBaseCell(MapCell.Cells.ENEMYBASE.asChar());
+	/**
+	 * MapCell representando a posição inicial
+	 */
 	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
+	/**
+	 * MapCell representando a posição de chegada
+	 */
 	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
+	/**
+	 * MapCell representando células visitadas pelo AStar
+	 */
 	private MapCell VisitedCell = new VisitedCell('\0');
 
+	/**
+	 * Renderiza o caminho visitado pelo AStar
+	 * @param path Matriz contendo o caminho visitado pelo AStar
+	 */
 	public void renderPath(List<Node> path)
 	{
 		for(int i = 0; i < loadedMap.getNRows(); i++)
@@ -58,6 +100,10 @@ public class MapPanel extends JPanel {
 		repaint();
 	}
 	
+	/**
+	 * Desenha o mapa na tela
+	 * @return true
+	 */
 	public boolean renderMap() {
 		int width = getWidth();
 		int height = getHeight();
@@ -100,6 +146,10 @@ public class MapPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Carrega um GameMap na tela
+	 * @param map GameMap representando o mapa a ser desenhado na tela
+	 */
 	public void loadMap(GameMap map) {
 		loadedMap = map;
 		this.repaint();

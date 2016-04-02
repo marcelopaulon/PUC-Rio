@@ -2,8 +2,17 @@ package map;
 
 import java.io.File;
 import java.util.Scanner;
-
+/**
+ * Classe responsável por carregar um arquivo de mapa
+ */
 public class MapLoader {
+	/**
+	 * Carrega arquivo de mapa
+	 * @param file arquivo com a matriz do mapa (em texto, com um caractere por célula, 
+	 * de acordo com o definido no enunciado)
+	 * @return retorna um GameMap com o mapa carregado
+	 * @throws MapLoaderException TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.
+	 */
 	public static GameMap tryLoadMap(File file) throws MapLoaderException {
 		try {
 			Scanner scanner = new Scanner(file);
