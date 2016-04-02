@@ -46,7 +46,12 @@ public class AStar {
 		
 		while (!queue.isEmpty()) {
 			Node curNode = queue.poll();
-			map.pathData[curNode.Y - 1][curNode.X - 1] = 'X';
+			
+			if(curNode.CellType != MapCell.Cells.START && curNode.CellType != MapCell.Cells.END)
+			{
+				map.pathData[curNode.Y - 1][curNode.X - 1] = 'X';
+			}
+			
 			Program.getInstance().setCost(gScore.get(curNode));
 			mapPanel.repaint();
 			

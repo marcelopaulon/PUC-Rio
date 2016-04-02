@@ -42,7 +42,11 @@ public class MapPanel extends JPanel {
 			{
 				if(path.contains(new Node(j+1, i+1, null)))
 				{
-					loadedMap.pathData[i][j] = 'X';
+					Node node = loadedMap.getValue(i+1, j+1);
+					if(node.CellType != MapCell.Cells.START && node.CellType != MapCell.Cells.END)
+					{
+						loadedMap.pathData[i][j] = 'X';
+					}
 				}
 				else
 				{

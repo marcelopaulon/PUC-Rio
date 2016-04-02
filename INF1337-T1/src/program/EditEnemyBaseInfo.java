@@ -2,13 +2,11 @@ package program;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.Hashtable;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 public class EditEnemyBaseInfo extends JDialog
 {
