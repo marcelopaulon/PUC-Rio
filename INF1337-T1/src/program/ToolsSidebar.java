@@ -227,8 +227,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * TODO: Comentar. Não entendi o que o método faz. Comente seu código, Marcelo. 
-	 * @param c TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
+	 * Adds a line break before a component. 
+	 * @param c Component. 
 	 */
 	private void setLineBreakBefore(JLabel c)
 	{
@@ -236,8 +236,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * TODO: Comentar. Não entendi o que o método faz. Comente seu código, Marcelo. 
-	 * @param c TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
+	 * Adds a line break after a component. 
+	 * @param c Component. 
 	 */
 	private void setLineBreakAfter(JLabel c)
 	{
@@ -245,12 +245,12 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * TODO: Comentar. Não entendi o que o método faz. Comente seu código, Marcelo. 
-	 * @param c TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
-	 * @param top TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
-	 * @param left TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
-	 * @param bottom TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
-	 * @param right TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
+	 * Sets the margins of a component. 
+	 * @param c Component. 
+	 * @param top Top margin.
+	 * @param left Left margin.
+	 * @param bottom Bottom margin.
+	 * @param right Right margin.
 	 */
 	private void setMargin(JLabel c, int top, int left, int bottom, int right)
 	{

@@ -120,7 +120,7 @@ public class AStar {
 	 * @param map Mapa onde o AStar será executado
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
 	 * @param planesPanel Painel onde é listada a energia restante de cada avião
-	 * @param noRender TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
+	 * @param noRender Specifies if the path should be rendered on the UI. 
 	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */

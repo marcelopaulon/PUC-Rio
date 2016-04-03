@@ -42,7 +42,7 @@ public abstract class MapCell {
 		/**
 		 * Construtor private que constrói os elementos deste enum
 		 * <p><b>Cells:</b> enum dos tipos diferentes de tile possíveis em um MapCell</p>
-		 * @param asChar TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
+		 * @param asChar Cell char value.
 		 * @param cost Custo associado ao tipo de tile.
 		 */
 		private Cells(char asChar, int cost) {
@@ -55,8 +55,9 @@ public abstract class MapCell {
 	 * Imagem referente ao mapcell
 	 */
 	protected BufferedImage texture;
+	
 	/**
-	 * TODO: Comentar. Não entendi o que a variável faz. Comente seu código, Marcelo.
+	 * Cell identifier.
 	 */
 	protected final char id;
 
@@ -84,7 +85,7 @@ public abstract class MapCell {
 
 	/**
 	 * Retorna id do mapCell
-	 * @return TODO: Comentar. Não entendi a finalidade do id. Comente seu código, Marcelo.
+	 * @return Cell identifier.
 	 */
 	public int getId() {
 		return id;

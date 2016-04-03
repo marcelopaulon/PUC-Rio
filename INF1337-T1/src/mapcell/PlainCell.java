@@ -9,7 +9,7 @@ public class PlainCell extends MapCell {
 	/**
 	 * Construtor de PlainCell
 	 * <p><b>PlainCell:</b> célula do mapa representando planícies</p>
-	 * @param id TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
+	 * @param id Cell identifier.
 	 */
 	public PlainCell(char id) {
 		super(Assets.plain, id);

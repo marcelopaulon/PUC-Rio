@@ -1,7 +1,7 @@
 package map;
 
 /**
- * TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.
+ * Exception generated while loading a map.
  */
 public class MapLoaderException extends Exception {
 

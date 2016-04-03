@@ -9,7 +9,7 @@ public class StartCell extends MapCell {
 	/**
 	 * Construtor de StartCell
 	 * <p><b>StartCell:</b> célula do mapa representando a posição inicial</p>
-	 * @param id TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
+	 * @param id TODO: Cell identifier.
 	 */
 	public StartCell(char id) {
 		super(Assets.start, id);

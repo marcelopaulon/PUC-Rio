@@ -28,9 +28,9 @@ public class MapPanel extends JPanel {
 	private GameMap loadedMap;
 
 	/**
-	 * TODO: Comentar. Não sei o que a variável faz. Comente seu código, Marcelo
+	 * Graphics object
 	 */
-	Graphics g;
+	private Graphics g;
 
 	/**
 	 * Construtor do MapPanel

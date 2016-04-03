@@ -3,7 +3,7 @@ package gfx;
 import java.awt.image.BufferedImage;
 
 /**
- * TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.
+ * Class used to store a Sprite Sheet
  */
 public class SpriteSheet {
 	/**
@@ -13,8 +13,8 @@ public class SpriteSheet {
 
 	/**
 	 * Construtor de SpriteSheet
-	 * <p><b>SpriteSheet:</b> TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.</p>
-	 * @param sheet sheet.png depois de ser lido pelo programa
+	 * <p><b>SpriteSheet:</b> Creates a sprite sheet object.</p>
+	 * @param sheet Sheet image
 	 */
 	public SpriteSheet(BufferedImage sheet) {
 		this.sheet = sheet;
