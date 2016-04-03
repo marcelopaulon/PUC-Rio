@@ -119,13 +119,17 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		{
 			try
 			{
-				warPlaneFirepower.get(row).setFirepower(df.parse((String) value).doubleValue());
-				Collections.sort(warPlaneFirepower, new Comparator<WarPlaneInfo>() {
-				    @Override
-				    public int compare(WarPlaneInfo w1, WarPlaneInfo w2) {
-				        return Double.compare(w2.getFirepower(), w1.getFirepower());
-				    }
-				});
+				Double firepower = df.parse((String) value).doubleValue();
+				if(firepower > 0)
+				{
+					warPlaneFirepower.get(row).setFirepower(firepower);
+					Collections.sort(warPlaneFirepower, new Comparator<WarPlaneInfo>() {
+					    @Override
+					    public int compare(WarPlaneInfo w1, WarPlaneInfo w2) {
+					        return Double.compare(w2.getFirepower(), w1.getFirepower());
+					    }
+					});
+				}
 			} catch (ParseException e)
 			{
 				e.printStackTrace();

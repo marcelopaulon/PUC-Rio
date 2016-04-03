@@ -1,6 +1,8 @@
 package program;
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -78,5 +80,11 @@ public class EditWarPlaneInfo extends JDialog
 		setupWarPlaneTable();
 		
 		this.pack();
+		
+		this.addWindowListener(new WindowAdapter() {
+		  public void windowClosing(WindowEvent e) {
+			  Program.getInstance().getPlanesPanel().Refresh(); //Atualiza painel de aviões
+		  }
+		});
 	}
 }

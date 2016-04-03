@@ -111,15 +111,27 @@ final class DifficultyTableModel extends AbstractTableModel {
 	
 	@Override
     public void setValueAt(Object value, int row, int col) {
-        if(enemyBaseDifficulty.containsKey(row+1))
-        {
-        	enemyBaseDifficulty.replace(row + 1, Integer.parseInt((String) value));
-        }
-        else
-        {
-        	enemyBaseDifficulty.put(enemyBaseDifficulty.size() + 1, Integer.parseInt((String) value));
-        }
-        
-        fireTableCellUpdated(row, col);
+		try
+		{
+			int difficulty = Integer.parseInt((String) value);
+			
+			if(difficulty >= 0)
+			{
+		        if(enemyBaseDifficulty.containsKey(row+1))
+		        {
+		        	enemyBaseDifficulty.replace(row + 1, difficulty);
+		        }
+		        else
+		        {
+		        	enemyBaseDifficulty.put(enemyBaseDifficulty.size() + 1, difficulty);
+		        }
+			}
+			
+	        fireTableCellUpdated(row, col);
+		}
+		catch(Exception e)
+		{
+			return;
+		}
     }
 }

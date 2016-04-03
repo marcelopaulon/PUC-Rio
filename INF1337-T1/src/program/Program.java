@@ -143,6 +143,10 @@ public final class Program
 		return instance;
 	}
 	
+	public PlanesPanel getPlanesPanel(){
+		return planesPanel;
+	}
+	
 	/**
 	 * Pega a lista de informações das naves
 	 * @return Lista contendo nome e poder de fogo das naves

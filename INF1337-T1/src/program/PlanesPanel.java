@@ -51,16 +51,27 @@ public class PlanesPanel extends JPanel{
 	    this.setBorder(BorderFactory.createCompoundBorder(b2, b1));
 	    this.setSize(800,400);
 	    setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-	    mainPanel = new JPanel();
-	    this.add(mainPanel);
+
+		mainPanel = new JPanel();	    
+	    Refresh();
+	}
+	
+	/**
+	 * Atualiza a barra de energia dos aviões quando a ordem deles na tabela muda
+	 */
+	public void Refresh()
+	{
+		mainPanel.removeAll();
+		
 	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+    	List<WarPlaneInfo> warPlaneList = Program.getInstance().getWarPlaneList();
 	    
-	    for(Integer i=0;i<5;i++){
+		for(Integer i=0;i<5;i++){
 	    	StringJoiner path = new StringJoiner("");
-	    	path.add("/plane").add(i.toString()).add(".png");
+	    	path.add("/").add(warPlaneList.get(i).getName()).add(".png");
 	    	
 	    	panelArray[i] = new JPanel();
-	    	labelArray[i] = new Label(Program.getInstance().getWarPlaneList().get(i).getName());
+	    	labelArray[i] = new Label(warPlaneList.get(i).getName());
 	    	imageArray[i] = ImageLoader.loadImage(path.toString());
 	    	picLabelArray[i] = new JLabel(new ImageIcon(imageArray[i]));
 	    	healthBarArray[i] = new JProgressBar();
@@ -70,10 +81,13 @@ public class PlanesPanel extends JPanel{
 	    			
 	    	mainPanel.add(panelArray[i]);
 	    	panelArray[i].add(labelArray[i], BorderLayout.NORTH); 
-	    	panelArray[i].add(picLabelArray[i], BorderLayout.WEST);
+	    	panelArray[i].add(picLabelArray[i], BorderLayout.CENTER);
 	    	panelArray[i].add(healthBarArray[i], BorderLayout.SOUTH);
 	    }
-	    
+		
+		this.add(mainPanel);
+		
+		this.revalidate();
 	}
 	
 	/**
@@ -97,4 +111,5 @@ public class PlanesPanel extends JPanel{
 			healthBarArray[i].setValue(5 - warPlaneList.get(i).getEnergy());
 		}
 	}
+	
 }
