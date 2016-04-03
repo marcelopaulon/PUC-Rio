@@ -192,6 +192,32 @@ public class AStar {
 					{
 						currentBase++;
 						
+						//int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
+						/*compara com a dificuldade das outras bases. dependendo da dificuldade da 
+						 * base, escolher a combinação de nave adequada.
+						 * 
+						 * tem que fazer um for para ver qual o ranking de dificuldade da base: a de 
+						 * menor dificuldade sera ranking 1 e a de maior 11
+						 * 
+						 * tem que fazer um for pra ver o poder de fogo das naves
+						 * 
+						 * Obs: nave de menor poder de fogo = a5 e a de maior a1
+						 * 
+						 *  Tabela Ranking-combinação nave adequada 
+						 *     ranking1 | (a4,a5) 
+						 *     ranking2	| (a4,a5)
+						 *     ranking3 | (a4,a5)
+						 *     ranking4	| (a4,a5)
+						 *     ranking5	| (a4,a5)
+						 *  	ranking6| (a2,a3)
+						 *     ranking7	| (a2,a3)
+						 *  	ranking8| (a1,a2,a3)
+						 *  	ranking9| (a1,a2,a3)
+						 *  	ranking10| (a1,a2,a3)
+						 *  	ranking11| (a1,a2,a3)
+						 *  
+						 */
+						
 						int idx = 0;
 						while(warplaneInfo.get(idx).getEnergy() == 0)
 						{
