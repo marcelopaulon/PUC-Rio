@@ -120,7 +120,7 @@ final class WarPlaneTableModel extends AbstractTableModel {
 			try
 			{
 				Double firepower = df.parse((String) value).doubleValue();
-				if(firepower > 0)
+				if(firepower >= 0.01)
 				{
 					warPlaneFirepower.get(row).setFirepower(firepower);
 					Collections.sort(warPlaneFirepower, new Comparator<WarPlaneInfo>() {
