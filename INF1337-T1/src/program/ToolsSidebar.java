@@ -50,9 +50,7 @@ public class ToolsSidebar extends JPanel {
 	private JLabel costLabel = new JLabel("-");
 	private JLabel pathLengthLabel = new JLabel("-");
 	private JLabel pathCalculationTimeLabel = new JLabel("-");
-	
-	private JPanel airplaneEnergyPanel;
-	
+		
 	private List<WarPlaneInfo> warPlaneList;
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
 	
@@ -73,9 +71,7 @@ public class ToolsSidebar extends JPanel {
 	    Border b2 = BorderFactory.createLineBorder(Color.BLUE, 2);
 	    this.setBorder(BorderFactory.createCompoundBorder(b2, b1));
 	    
-	    this.add(new JLabel("Tamanho do mapa carregado: "));
-	    setLineBreakAfter(mapSizeLabel);
-	    
+	    this.add(new JLabel("Tamanho do mapa carregado: "));	    
 	    this.add(mapSizeLabel);
 	    
 	    warPlaneList = Program.getInstance().getWarPlaneList();
@@ -83,7 +79,6 @@ public class ToolsSidebar extends JPanel {
 	    
 	    astar = new AStar(enemyBaseDifficulty);
 	    
-	    setupAirplaneEnergyPanel();
     	setupCostLabel();
 	    setupPathDataLabels();
 	    
@@ -265,22 +260,6 @@ public class ToolsSidebar extends JPanel {
 	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
 		planesPanel.UpdateHealthBars(info);
-		airplaneEnergyPanel.removeAll();
-		info.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
-    	airplaneEnergyPanel.repaint();
-	}
-	
-	/**
-	 * Gera o painel contendo a energia de cada nave
-	 */
-	private void setupAirplaneEnergyPanel()
-	{
-		this.add(new JLabel("Aviões (pontos de energia): "));
-		airplaneEnergyPanel = new JPanel();
-	    airplaneEnergyPanel.setLayout(new BoxLayout(airplaneEnergyPanel, BoxLayout.Y_AXIS));
-	    airplaneEnergyPanel.setBackground(Color.YELLOW);
-	    refreshWarPlanesEnergy(warPlaneList);
-	    this.add(airplaneEnergyPanel);
 	}
 	
 	/**

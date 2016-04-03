@@ -56,6 +56,16 @@ public class PlanesPanel extends JPanel{
 	    Refresh();
 	}
 	
+	/*
+	 * Gets the airplane label
+	 * @param warPlaneList List of war plane info
+	 * @param i War plane index
+	 */
+	private String getWarplaneLabel(List<WarPlaneInfo> warPlaneList, int i)
+	{
+		return warPlaneList.get(i).getName() + " (" + warPlaneList.get(i).getEnergy() + " / 5)";
+	}
+	
 	/**
 	 * Atualiza a barra de energia dos aviões quando a ordem deles na tabela muda
 	 */
@@ -71,7 +81,7 @@ public class PlanesPanel extends JPanel{
 	    	path.add("/").add(warPlaneList.get(i).getName()).add(".png");
 	    	
 	    	panelArray[i] = new JPanel();
-	    	labelArray[i] = new Label(warPlaneList.get(i).getName());
+	    	labelArray[i] = new Label(getWarplaneLabel(warPlaneList, i));
 	    	imageArray[i] = ImageLoader.loadImage(path.toString());
 	    	picLabelArray[i] = new JLabel(new ImageIcon(imageArray[i]));
 	    	healthBarArray[i] = new JProgressBar();
@@ -108,6 +118,7 @@ public class PlanesPanel extends JPanel{
 	 */
 	public void UpdateHealthBars(List<WarPlaneInfo> warPlaneList){
 		for(int i=0; i<5; i++){
+			labelArray[i].setText(getWarplaneLabel(warPlaneList, i));
 			healthBarArray[i].setValue(5 - warPlaneList.get(i).getEnergy());
 		}
 	}
