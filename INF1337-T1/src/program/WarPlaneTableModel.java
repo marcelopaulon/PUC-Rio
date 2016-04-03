@@ -129,13 +129,14 @@ final class WarPlaneTableModel extends AbstractTableModel {
 					        return Double.compare(w2.getFirepower(), w1.getFirepower());
 					    }
 					});
+
+					fireTableDataChanged();
+					Program.getInstance().getPlanesPanel().Refresh(); //Atualiza painel de aviões
 				}
 			} catch (ParseException e)
 			{
 				e.printStackTrace();
 			}
 		}
-		
-		fireTableDataChanged();
     }
 }
