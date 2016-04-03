@@ -1,11 +1,21 @@
 package pathfinding;
 
+/**
+ * Contém as informações de uma nave (nome, poder de fogo e energia)
+ *
+ */
 public class WarPlaneInfo
 {
 	private String name;
 	private Double firepower;
 	private Integer energy;
 	
+	/**
+	 * Construtor de WarPlaneInfo. A energia da nave é sempre 5.
+	 * <p><b>WarPlaneInfo:</b> contém as informações de uma nave (nome, poder de fogo e energia)</p>
+	 * @param name Nome da nave
+	 * @param firepower Poder de fogo da nave
+	 */
 	public WarPlaneInfo(String name, Double firepower)
 	{
 		this.name = name;
@@ -13,26 +23,46 @@ public class WarPlaneInfo
 		this.energy = 5;
 	}
 	
+	/**
+	 * Pega o nome da nave
+	 * @return String contendo o nome da nave
+	 */
 	public String getName()
 	{
 		return name;
 	}
 	
+	/**
+	 * Pega o poder de fogo da nave
+	 * @return Poder de fogo da nave
+	 */
 	public Double getFirepower()
 	{
 		return firepower;
 	}
 	
+	/**
+	 * Pega a energia atual da nave
+	 * @return Energia da nave
+	 */
 	public int getEnergy()
 	{
 		return energy;
 	}
 	
+	/**
+	 * Modifica a energia restante da nave
+	 * @param value Valor a ser colocado como energia da nave
+	 */
 	public void setEnergy(int value)
 	{
 		energy = value;
 	}
 	
+	/**
+	 * Modifica o poder de fogo da nave
+	 * @param value Novo poder de fogo da nave
+	 */
 	public void setFirepower(double value)
 	{
 		this.firepower = value;

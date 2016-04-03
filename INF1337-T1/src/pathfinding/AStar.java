@@ -14,6 +14,10 @@ import map.MapPanel;
 import mapcell.MapCell;
 import program.Program;
 
+/**
+ * Implementa o algoritmo A&#42
+ *
+ */
 public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
@@ -22,17 +26,36 @@ public class AStar {
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
 	private int currentBase;
 	
+	/**
+	 * Construtor de AStar
+	 * <p><b>AStar:</b> implementa o algoritmo A&#42</p>
+	 * @param warplaneInfo Lista contendo informações sobre as naves
+	 * @param enemyBaseDifficulty Hashtable contendo informações sobre as bases inimigas
+	 */
 	public AStar(List<WarPlaneInfo> warplaneInfo, Hashtable<Integer, Integer> enemyBaseDifficulty)
 	{
 		this.warplaneInfo = warplaneInfo;
 		this.enemyBaseDifficulty = enemyBaseDifficulty;
 	}
 	
+	/**
+	 * Pega o custo de uma node em fscore (gscore + heurística)
+	 * @param node Nó de onde será pego o custo
+	 * @return Fscore do nó
+	 */
 	private double getFCost(Node node)
 	{
 		return fScore.get(node);
 	}
 	
+	/**
+	 * "Ahm? Acho que não é usado" - Autor do método
+	 * <p>TODO: Revisar este javadoc. </p>
+	 * @param map GameMap do qual se deseja obter o custo
+	 * @param fromNode Node inicial
+	 * @param toNode Node final
+	 * @return Custo de node ou dificuldade da enemy base dividido pelo poder de fogo da nave atacante
+	 */
 	private double getTraversalCost(GameMap map, Node fromNode, Node toNode)
 	{
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
@@ -55,17 +78,38 @@ public class AStar {
 		}
 	}
 	
+	/**
+	 * Compara dois nós
+	 *
+	 */
 	private class NodeComparator implements Comparator<Node> {
+		/**
+		 * Compara o fcost de dois nós
+		 */
 	  public int compare(Node node1, Node node2) {
 	    return Double.compare(getFCost(node1), getFCost(node2)); 
 	  }
 	}
 	
+	/**
+	 * Processa o AStar no mapa, encontrando o caminho ótimo
+	 * <p>Quando não especificado, assume-se que noRender é false</p>
+	 * @param map Mapa onde o AStar será executado
+	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
+	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
+	 */
 	public Path findPath(GameMap map, MapPanel mapPanel)
 	{
 		return findPath(map, mapPanel, false);
 	}
 	
+	/**
+	 * Processa o AStar no mapa, encontrando o caminho ótimo
+	 * @param map Mapa onde o AStar será executado
+	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
+	 * @param noRender TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
+	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
+	 */
 	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
 		currentBase = 1;
 		warplaneInfo.forEach((warplane) -> warplane.setEnergy(5));
