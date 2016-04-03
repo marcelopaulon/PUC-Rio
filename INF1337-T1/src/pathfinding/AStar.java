@@ -22,19 +22,16 @@ public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
 	
-	private List<WarPlaneInfo> warplaneInfo;
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
-	private int currentBase;
-	
+		
 	/**
 	 * Construtor de AStar
 	 * <p><b>AStar:</b> implementa o algoritmo A&#42</p>
 	 * @param warplaneInfo Lista contendo informações sobre as naves
 	 * @param enemyBaseDifficulty Hashtable contendo informações sobre as bases inimigas
 	 */
-	public AStar(List<WarPlaneInfo> warplaneInfo, Hashtable<Integer, Integer> enemyBaseDifficulty)
+	public AStar(Hashtable<Integer, Integer> enemyBaseDifficulty)
 	{
-		this.warplaneInfo = warplaneInfo;
 		this.enemyBaseDifficulty = enemyBaseDifficulty;
 	}
 	
@@ -61,21 +58,47 @@ public class AStar {
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
 		{
 			// Cost: enemyBaseDifficulty/sum(firepower)
-			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
+			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(fromNode.getCurrentBase());
 	        
 	        int idx = 0;
-			while(warplaneInfo.get(idx).getEnergy() == 0)
+			while(fromNode.getWarplaneInfo().get(idx).getEnergy() == 0)
 			{
 				idx++;
 			}
 	        
-	        double firepower = warplaneInfo.get(idx).getFirepower(); 
+	        double firepower = fromNode.getWarplaneInfo().get(idx).getFirepower(); 
 	        return enemyBaseDifficultyCost/firepower;
 		}
 		else
 		{
 			return toNode.getCost();
 		}
+		
+		//int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
+		/*compara com a dificuldade das outras bases. dependendo da dificuldade da 
+		 * base, escolher a combinação de nave adequada.
+		 * 
+		 * tem que fazer um for para ver qual o ranking de dificuldade da base: a de 
+		 * menor dificuldade sera ranking 1 e a de maior 11
+		 * 
+		 * tem que fazer um for pra ver o poder de fogo das naves
+		 * 
+		 * Obs: nave de menor poder de fogo = a5 e a de maior a1
+		 * 
+		 *  Tabela Ranking-combinação nave adequada 
+		 *     ranking1 | (a4,a5) 
+		 *     ranking2	| (a4,a5)
+		 *     ranking3 | (a4,a5)
+		 *     ranking4	| (a4,a5)
+		 *     ranking5	| (a4,a5)
+		 *  	ranking6| (a2,a3)
+		 *     ranking7	| (a2,a3)
+		 *  	ranking8| (a1,a2,a3)
+		 *  	ranking9| (a1,a2,a3)
+		 *  	ranking10| (a1,a2,a3)
+		 *  	ranking11| (a1,a2,a3)
+		 *  
+		 */
 	}
 	
 	/**
@@ -113,8 +136,6 @@ public class AStar {
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
 	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
-		currentBase = 1;
-		warplaneInfo.forEach((warplane) -> warplane.setEnergy(5));
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
@@ -126,6 +147,8 @@ public class AStar {
 		fScore.clear();
 		
 		long startTime = System.currentTimeMillis();
+		
+		startNode.setEstate(Program.getInstance().getWarPlaneList(), 1);
 		
 		gScore.put(startNode, 0.0);
 		fScore.put(startNode, startNode.getHeuristic(endNode));
@@ -181,6 +204,28 @@ public class AStar {
 				{
 					gScore.put(neighbor, g_x);
 					fScore.put(neighbor, g_x + neighbor.getHeuristic(endNode));
+										
+					neighbor.setEstate(curNode.getWarplaneInfo(), curNode.getCurrentBase());
+					
+					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
+					{
+						neighbor.setCurrentBase(neighbor.getCurrentBase() + 1);
+												
+						int idx = 0;
+						while(neighbor.getWarplaneInfo().get(idx).getEnergy() == 0)
+						{
+							idx++;
+						}
+						
+						System.out.println(neighbor.getWarplaneInfo().get(idx).getEnergy());
+						
+						neighbor.getWarplaneInfo().get(idx).decrementEnergy();
+						
+						if(noRender == false)
+						{
+							Program.getInstance().refreshWarPlanesEnergy(neighbor.getWarplaneInfo());
+						}
+					}
 					
 					if(inQueue)
 					{
@@ -188,49 +233,6 @@ public class AStar {
 					}
 					
 					queue.offer(neighbor);
-					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
-					{
-						currentBase++;
-						
-						//int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
-						/*compara com a dificuldade das outras bases. dependendo da dificuldade da 
-						 * base, escolher a combinação de nave adequada.
-						 * 
-						 * tem que fazer um for para ver qual o ranking de dificuldade da base: a de 
-						 * menor dificuldade sera ranking 1 e a de maior 11
-						 * 
-						 * tem que fazer um for pra ver o poder de fogo das naves
-						 * 
-						 * Obs: nave de menor poder de fogo = a5 e a de maior a1
-						 * 
-						 *  Tabela Ranking-combinação nave adequada 
-						 *     ranking1 | (a4,a5) 
-						 *     ranking2	| (a4,a5)
-						 *     ranking3 | (a4,a5)
-						 *     ranking4	| (a4,a5)
-						 *     ranking5	| (a4,a5)
-						 *  	ranking6| (a2,a3)
-						 *     ranking7	| (a2,a3)
-						 *  	ranking8| (a1,a2,a3)
-						 *  	ranking9| (a1,a2,a3)
-						 *  	ranking10| (a1,a2,a3)
-						 *  	ranking11| (a1,a2,a3)
-						 *  
-						 */
-						
-						int idx = 0;
-						while(warplaneInfo.get(idx).getEnergy() == 0)
-						{
-							idx++;
-						}
-						
-						warplaneInfo.get(idx).setEnergy(warplaneInfo.get(idx).getEnergy() - 1);
-						
-						if(noRender == false)
-						{
-							Program.getInstance().refreshWarPlanesEnergy();
-						}
-					}
 					pathMap.put(neighbor, curNode);
 				}
 			}

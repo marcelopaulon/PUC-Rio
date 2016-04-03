@@ -86,9 +86,9 @@ public final class Program
 	 * Atualiza os valores de energia das naves através de novas requisições get aos mesmos.
 	 * @see toolsPanel#refreshWarPlanesEnergy() refreshWarPlanesEnergy em ToolsSidebar
 	 */
-	public void refreshWarPlanesEnergy()
+	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
-		toolsSidebar.refreshWarPlanesEnergy();
+		toolsSidebar.refreshWarPlanesEnergy(info);
 	}
 	
 	/**

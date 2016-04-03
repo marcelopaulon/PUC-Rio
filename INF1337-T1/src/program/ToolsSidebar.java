@@ -78,7 +78,7 @@ public class ToolsSidebar extends JPanel {
 	    warPlaneList = Program.getInstance().getWarPlaneList();
 	    enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
 	    
-	    astar = new AStar(warPlaneList, enemyBaseDifficulty);
+	    astar = new AStar(enemyBaseDifficulty);
 	    
 	    setupAirplaneEnergyPanel();
     	setupCostLabel();
@@ -191,8 +191,11 @@ public class ToolsSidebar extends JPanel {
 				JOptionPane.showMessageDialog(this, "Nenhum caminho foi encontrado.", "Kek",
 						JOptionPane.WARNING_MESSAGE);
 			}
-		} catch (Exception exception)
+			
+			refreshWarPlanesEnergy(path.getNodes().get(path.getNodes().size() - 1).getWarplaneInfo());
+		} catch (Exception e)
 		{
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Erro ao buscar o caminho.", "Kek",
 					JOptionPane.WARNING_MESSAGE);
 		}
@@ -256,10 +259,10 @@ public class ToolsSidebar extends JPanel {
 	/**
 	 * Atualiza o valor da energia de cada nave
 	 */
-	public void refreshWarPlanesEnergy()
+	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
 		airplaneEnergyPanel.removeAll();
-    	warPlaneList.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
+		info.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
     	airplaneEnergyPanel.repaint();
 	}
 	
@@ -272,7 +275,7 @@ public class ToolsSidebar extends JPanel {
 		airplaneEnergyPanel = new JPanel();
 	    airplaneEnergyPanel.setLayout(new BoxLayout(airplaneEnergyPanel, BoxLayout.Y_AXIS));
 	    airplaneEnergyPanel.setBackground(Color.YELLOW);
-	    refreshWarPlanesEnergy();
+	    refreshWarPlanesEnergy(warPlaneList);
 	    this.add(airplaneEnergyPanel);
 	}
 	
@@ -345,8 +348,8 @@ public class ToolsSidebar extends JPanel {
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
-	    		warPlaneList.forEach((warplane) -> warplane.setEnergy(5));
-	    		refreshWarPlanesEnergy();
+	    		warPlaneList.forEach((warplane) -> warplane.resetEnergy());
+	    		refreshWarPlanesEnergy(warPlaneList);
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");
 	    		clearPathButton.setEnabled(false);

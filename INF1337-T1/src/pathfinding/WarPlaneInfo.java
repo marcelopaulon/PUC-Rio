@@ -15,6 +15,20 @@ public class WarPlaneInfo
 	 * <p><b>WarPlaneInfo:</b> contém as informações de uma nave (nome, poder de fogo e energia)</p>
 	 * @param name Nome da nave
 	 * @param firepower Poder de fogo da nave
+	 * * @param energy War plane energy
+	 */
+	public WarPlaneInfo(String name, Double firepower, Integer energy)
+	{
+		this.name = name;
+		this.firepower = firepower;
+		this.energy = energy;
+	}
+	
+	/**
+	 * Construtor de WarPlaneInfo. A energia da nave é sempre 5.
+	 * <p><b>WarPlaneInfo:</b> contém as informações de uma nave (nome, poder de fogo e energia)</p>
+	 * @param name Nome da nave
+	 * @param firepower Poder de fogo da nave
 	 */
 	public WarPlaneInfo(String name, Double firepower)
 	{
@@ -51,12 +65,19 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Modifica a energia restante da nave
-	 * @param value Valor a ser colocado como energia da nave
+	 * Decrements the war plane remaining energy 
 	 */
-	public void setEnergy(int value)
+	public void decrementEnergy()
 	{
-		energy = value;
+		energy--;
+	}
+	
+	/**
+	 * Resets the war plane remaining energy 
+	 */
+	public void resetEnergy()
+	{
+		energy = 5;
 	}
 	
 	/**
@@ -65,6 +86,6 @@ public class WarPlaneInfo
 	 */
 	public void setFirepower(double value)
 	{
-		this.firepower = value;
+		firepower = value;
 	}
 }

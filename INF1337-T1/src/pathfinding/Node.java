@@ -1,5 +1,8 @@
 package pathfinding;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import mapcell.MapCell;
 
 /**
@@ -20,6 +23,10 @@ public class Node {
 	 */
 	public MapCell.Cells CellType;
 	
+	private List<WarPlaneInfo> warplaneInfo_Estate;
+	
+	public int currentBase_Estate;
+	
 	/**
 	 * Construtor de Node
 	 * <p><b>Node:</b> nó representando uma célula do mapa e seu tipo de tile</p>
@@ -32,6 +39,30 @@ public class Node {
 		X = x;
 		Y = y;
 		CellType = cellType;
+	}
+	
+	public void setEstate(List<WarPlaneInfo> warplaneInfo, int currentBase)
+	{
+		warplaneInfo_Estate = new LinkedList<WarPlaneInfo>();
+		warplaneInfo.forEach((x) -> warplaneInfo_Estate.add(new WarPlaneInfo(x.getName(), x.getFirepower(), x.getEnergy())));
+		
+		
+		currentBase_Estate = currentBase;
+	}
+	
+	public void setCurrentBase(int value)
+	{
+		currentBase_Estate = value;
+	}
+	
+	public int getCurrentBase()
+	{
+		return currentBase_Estate;
+	}
+	
+	public List<WarPlaneInfo> getWarplaneInfo()
+	{
+		return warplaneInfo_Estate;
 	}
 	
 	/**
