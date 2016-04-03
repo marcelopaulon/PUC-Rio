@@ -117,20 +117,6 @@ public class AStar {
 	
 	/**
 	 * Processa o AStar no mapa, encontrando o caminho ótimo
-	 * <p>Quando não especificado, assume-se que noRender é false</p>
-	 * @param map Mapa onde o AStar será executado
-	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
-	 * @param planesPanel Painel onde é listada a energia restante de cada avião
-	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
-	 * @see AStar#findPath(GameMap, MapPanel, boolean)
-	 */
-	public Path findPath(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel)
-	{
-		return findPath(map, mapPanel, planesPanel, false);
-	}
-	
-	/**
-	 * Processa o AStar no mapa, encontrando o caminho ótimo
 	 * @param map Mapa onde o AStar será executado
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
 	 * @param planesPanel Painel onde é listada a energia restante de cada avião
@@ -139,7 +125,6 @@ public class AStar {
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
 	public Path findPath(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel, boolean noRender) {
-		planesPanel.UpdateHealthBars();
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
@@ -222,7 +207,7 @@ public class AStar {
 						}
 												
 						neighbor.getWarplaneInfo().get(idx).decrementEnergy();
-						planesPanel.UpdateHealthBars();
+						planesPanel.UpdateHealthBars(neighbor.getWarplaneInfo());
 						
 						if(noRender == false)
 						{

@@ -154,14 +154,14 @@ public class ToolsSidebar extends JPanel {
 	private void measurePathFindingTime()
 	{
 		// Warming up...
-		Path temp = astar.findPath(map, mapPanel, true);
+		Path temp = astar.findPath(map, mapPanel, planesPanel, true);
 		
 		int max = 20;
 		List<Double> times = new ArrayList<Double>();
 		
 		for(int i = 0; i < max; i++)
 		{
-			temp = astar.findPath(map, mapPanel, true);
+			temp = astar.findPath(map, mapPanel, planesPanel, true);
 			times.add(temp.getCalculationTime());
 		}
 		
@@ -181,7 +181,7 @@ public class ToolsSidebar extends JPanel {
 			measurePathFindingTime();
 			clearPath();
 			
-			Path path = astar.findPath(map, mapPanel);
+			Path path = astar.findPath(map, mapPanel, planesPanel, false);
 			if(path != null && path.getNodes() != null)
 			{
 				mapPanel.renderPath(path.getNodes());
@@ -264,6 +264,7 @@ public class ToolsSidebar extends JPanel {
 	 */
 	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
+		planesPanel.UpdateHealthBars(info);
 		airplaneEnergyPanel.removeAll();
 		info.forEach((warPlane) -> airplaneEnergyPanel.add(new JLabel(warPlane.getName() + ": " + warPlane.getEnergy())));
     	airplaneEnergyPanel.repaint();
@@ -352,7 +353,6 @@ public class ToolsSidebar extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 	    		warPlaneList.forEach((warplane) -> warplane.resetEnergy());
-	    		planesPanel.UpdateHealthBars();
 	    		refreshWarPlanesEnergy(warPlaneList);
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");

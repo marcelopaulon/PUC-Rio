@@ -31,8 +31,6 @@ public class PlanesPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 6004525539230391406L;
 	
-	private List<WarPlaneInfo> warPlaneList;
-	
 	private JPanel mainPanel;
 	
 	private JPanel[] panelArray = new JPanel[5];
@@ -56,14 +54,13 @@ public class PlanesPanel extends JPanel{
 	    mainPanel = new JPanel();
 	    this.add(mainPanel);
 	    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-	    warPlaneList = Program.getInstance().getWarPlaneList();
 	    
 	    for(Integer i=0;i<5;i++){
 	    	StringJoiner path = new StringJoiner("");
 	    	path.add("/plane").add(i.toString()).add(".png");
 	    	
 	    	panelArray[i] = new JPanel();
-	    	labelArray[i] = new Label(warPlaneList.get(i).getName());
+	    	labelArray[i] = new Label(Program.getInstance().getWarPlaneList().get(i).getName());
 	    	imageArray[i] = ImageLoader.loadImage(path.toString());
 	    	picLabelArray[i] = new JLabel(new ImageIcon(imageArray[i]));
 	    	healthBarArray[i] = new JProgressBar();
@@ -95,7 +92,7 @@ public class PlanesPanel extends JPanel{
 	/**
 	 * Atualiza as barras de energia dos aviões
 	 */
-	public void UpdateHealthBars(){
+	public void UpdateHealthBars(List<WarPlaneInfo> warPlaneList){
 		for(int i=0; i<5; i++){
 			healthBarArray[i].setValue(5 - warPlaneList.get(i).getEnergy());
 		}
