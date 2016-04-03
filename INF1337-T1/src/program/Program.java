@@ -16,11 +16,22 @@ import map.MapLoaderException;
 import map.MapPanel;
 import pathfinding.WarPlaneInfo;
 
+/**
+ * Classe principal, contém a função main. 
+ * Representa uma instância do programa.
+ *
+ */
 public final class Program
 {
+	/**
+	 * Guarda o arquivo padrão de mapa
+	 */
 	public static File defaultSaveFile = new File("defaultMap.mapsave");
 	private static Dimension defaultDimension = new Dimension(800, 600);
 
+	/**
+	 * Painel de cima
+	 */
 	public static ToolsPanel toolsPanel;
 
 	private GameMap map;
@@ -31,12 +42,18 @@ public final class Program
 	
 	private static Program instance;
 	
+	/**
+	 * Cria o painel de cima
+	 */
 	private void createToolsPanel()
 	{
 		toolsPanel = new ToolsPanel();
 		window.add(toolsPanel, BorderLayout.PAGE_START);
 	}
 	
+	/**
+	 * Cria o painel onde o mapa é exibido, já carregando ele
+	 */
 	private void createMapPanel()
 	{
 		mapPanel = new MapPanel();
@@ -56,22 +73,37 @@ public final class Program
 		}
 	}
 	
+	/**
+	 * Printa o custo na sidebar lateral
+	 * @param score Custo a ser printado
+	 */
 	public void setCost(double score)
 	{
 		toolsSidebar.setCost(score);
 	}
 	
+	/**
+	 * Atualiza os valores de energia das naves através de novas requisições get aos mesmos.
+	 * @see toolsPanel#refreshWarPlanesEnergy() refreshWarPlanesEnergy em ToolsSidebar
+	 */
 	public void refreshWarPlanesEnergy()
 	{
 		toolsSidebar.refreshWarPlanesEnergy();
 	}
 	
+	/**
+	 * Carrega um mapa e o renderiza
+	 * @param map Mapa que será carregado e renderizado
+	 */
 	public void tryLoadMap(GameMap map)
 	{
 		this.map = map;
 		tryRenderMap();
 	}
 	
+	/**
+	 * Renderiza o mapa e o carrega no mapPanel.
+	 */
 	private void tryRenderMap()
 	{
 		if(map != null)
@@ -82,27 +114,50 @@ public final class Program
 		}
 	}
 	
+	/**
+	 * Função principal do programa.
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		instance = new Program();
 		instance.appStart();
 	}
 	
+	/**
+	 * Pega a instância do programa
+	 * @return Instância
+	 */
 	public static Program getInstance()
 	{
 		return instance;
 	}
 	
+	/**
+	 * Pega a lista de informações das naves
+	 * @return Lista contendo nome e poder de fogo das naves
+	 * @see ToolsPanel#getWarPlaneList() getWarPlaneList em ToolsPanel
+	 * @see EditWarPlaneInfo#getWarPlaneList() getWarPlaneList em EditWarPlaneInfo
+	 */
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
 		return toolsPanel.getWarPlaneList();
 	}
 	
+	/**
+	 * Pega a lista de informações das bases inimigas
+	 * @return Hashtable contendo id e dificuldade de cada base inimiga
+	 * @see ToolsPanel#getEnemyBaseList() getEnemyBaseList em ToolsPanel
+	 * @see EditEnemyBaseInfo#getEnemyBaseList() getEnemyBaseList em EditEnemyBaseInfo
+	 */
 	public Hashtable<Integer, Integer> getEnemyBaseList()
 	{
 		return toolsPanel.getEnemyBaseList();
 	}
 
+	/**
+	 * Função que inicializa o programa. Chamada na main.
+	 */
 	public void appStart()
 	{
 		window = new JFrame("INF1771 - T1");

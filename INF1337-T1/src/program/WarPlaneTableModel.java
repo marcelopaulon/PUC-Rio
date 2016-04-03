@@ -12,17 +12,29 @@ import javax.swing.table.AbstractTableModel;
 
 import pathfinding.WarPlaneInfo;
 
+/**
+ * Tabela contendo as informações de cada nave (nome e poder de fogo)
+ * <p>Extensão final de AbstractTableModel</p>
+ *
+ */
 final class WarPlaneTableModel extends AbstractTableModel {
 
 	/**
-	 * 
+	 * Identificador de versão de serialização de uma classe
+	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 3692722593918208041L;
 	
+	/**
+	 * Lista contendo nome e poder de fogo de cada base nave
+	 */
 	public List<WarPlaneInfo> warPlaneFirepower;	
 	
 	private DecimalFormat df;
 	
+	/**
+	 * Carrega as informações padrão na tabela
+	 */
 	private void configureDefaultWarPlaneFirepower()
 	{
 		warPlaneFirepower.add(new WarPlaneInfo("F-22 Raptor", 1.5));
@@ -31,7 +43,13 @@ final class WarPlaneTableModel extends AbstractTableModel {
 		warPlaneFirepower.add(new WarPlaneInfo("Su-46", 1.2));
 		warPlaneFirepower.add(new WarPlaneInfo("MiG-35", 1.1));
 	}
-		
+	
+	/**
+	 * Construtor de WarPlaneTableModel
+	 * <p><b>WarPlaneTableModel:</b> tabela contendo as informações de cada nave (nome e poder de fogo)</p>
+	 * @param data Dados a serem carregados na tabela. 
+	 * Caso deseje carregar os dados padrão, coloque null neste campo.
+	 */
 	public WarPlaneTableModel(List<WarPlaneInfo> data)
 	{
 		super();

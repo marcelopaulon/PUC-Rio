@@ -11,7 +11,7 @@ public class MapLoader {
 	 * @param file arquivo com a matriz do mapa (em texto, com um caractere por célula, 
 	 * de acordo com o definido no enunciado)
 	 * @return retorna um GameMap com o mapa carregado
-	 * @throws MapLoaderException TODO: Comentar. Não entendi o que a classe faz. Comente seu código, Marcelo.
+	 * @throws MapLoaderException
 	 */
 	public static GameMap tryLoadMap(File file) throws MapLoaderException {
 		try {

@@ -4,14 +4,28 @@ import java.util.Hashtable;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Tabela contendo o nível de dificuldade de cada base inimiga
+ * <p>Extensão final de AbstractTableModel</p>
+ * <p>Número de cada base é atualmente referenciado pelo número da batalha 
+ * e não pela distância do ponto de início do mapa</p>
+ *
+ */
 final class DifficultyTableModel extends AbstractTableModel {
 	/**
-	 * 
+	 * Identificador de versão de serialização de uma classe
+	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 6296705113507672672L;
 	
+	/**
+	 * Hashtable contendo id e dificuldade de cada base inimiga
+	 */
 	public Hashtable<Integer, Integer> enemyBaseDifficulty;
 	
+	/**
+	 * Carrega as informações padrão na tabela
+	 */
 	private void configureDefaultEnemyBaseDifficulty()
 	{
 		enemyBaseDifficulty.put(1, 60);
@@ -27,6 +41,12 @@ final class DifficultyTableModel extends AbstractTableModel {
 		enemyBaseDifficulty.put(11, 120);
 	}
 	
+	/**
+	 * Construtor de DifficultyTableModel
+	 * <p><b>DifficultyTableModel:</b> tabela contendo o nível de dificuldade de cada base inimiga</p>
+	 * @param data Dados a serem carregados na tabela. 
+	 * Caso deseje carregar os dados padrão, coloque null neste campo.
+	 */
 	public DifficultyTableModel(Hashtable<Integer, Integer> data)
 	{
 		super();

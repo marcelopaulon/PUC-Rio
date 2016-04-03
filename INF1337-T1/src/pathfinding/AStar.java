@@ -97,6 +97,7 @@ public class AStar {
 	 * @param map Mapa onde o AStar será executado
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
 	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
+	 * @see AStar#findPath(GameMap, MapPanel, boolean)
 	 */
 	public Path findPath(GameMap map, MapPanel mapPanel)
 	{
@@ -109,6 +110,7 @@ public class AStar {
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
 	 * @param noRender TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
 	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
+	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
 	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
 		currentBase = 1;
