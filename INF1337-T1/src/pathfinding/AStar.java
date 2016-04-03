@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 import map.GameMap;
 import map.MapPanel;
 import mapcell.MapCell;
+import program.PlanesPanel;
 import program.Program;
 
 /**
@@ -96,25 +97,28 @@ public class AStar {
 	 * <p>Quando não especificado, assume-se que noRender é false</p>
 	 * @param map Mapa onde o AStar será executado
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
+	 * @param planesPanel Painel onde é listada a energia restante de cada avião
 	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
 	 * @see AStar#findPath(GameMap, MapPanel, boolean)
 	 */
-	public Path findPath(GameMap map, MapPanel mapPanel)
+	public Path findPath(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel)
 	{
-		return findPath(map, mapPanel, false);
+		return findPath(map, mapPanel, planesPanel, false);
 	}
 	
 	/**
 	 * Processa o AStar no mapa, encontrando o caminho ótimo
 	 * @param map Mapa onde o AStar será executado
 	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
+	 * @param planesPanel Painel onde é listada a energia restante de cada avião
 	 * @param noRender TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo. 
 	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
-	public Path findPath(GameMap map, MapPanel mapPanel, boolean noRender) {
+	public Path findPath(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel, boolean noRender) {
 		currentBase = 1;
 		warplaneInfo.forEach((warplane) -> warplane.setEnergy(5));
+		planesPanel.UpdateHealthBars();
 		HashSet<Node> visited = new HashSet<Node>();
 		Node startNode = new Node(map.startX, map.startY, MapCell.Cells.START);
 		Node endNode = new Node(map.endX, map.endY, MapCell.Cells.END);
@@ -225,6 +229,7 @@ public class AStar {
 						}
 						
 						warplaneInfo.get(idx).setEnergy(warplaneInfo.get(idx).getEnergy() - 1);
+						planesPanel.UpdateHealthBars();
 						
 						if(noRender == false)
 						{

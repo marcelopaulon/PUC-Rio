@@ -40,6 +40,7 @@ public class ToolsSidebar extends JPanel {
 	
 	private GameMap map;
 	private MapPanel mapPanel;
+	private PlanesPanel planesPanel;
 	
     private JButton findPathButton = new JButton("Encontrar caminho");
     private JButton clearPathButton = new JButton("Limpar caminho");
@@ -59,11 +60,13 @@ public class ToolsSidebar extends JPanel {
 	 * <p><b>ToolsSidebar:</b> painel superior contendo botões como "Encontrar Caminho" e "Limpar Caminho".</p>
 	 * @param map Mapa do qual serão tirados informações como o tamanho
 	 * @param mapPanel Painel onde o mapa é renderizado
+	 * @param planesPanel Painel onde é listada a energia restante de cada avião
 	 */
-	public ToolsSidebar(GameMap map, MapPanel mapPanel)
+	public ToolsSidebar(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel)
 	{
 		super();
 		this.mapPanel = mapPanel;
+		this.planesPanel = planesPanel;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBackground(Color.YELLOW);
 	    Border b1 = BorderFactory.createTitledBorder("Ferramentas");
@@ -151,14 +154,14 @@ public class ToolsSidebar extends JPanel {
 	private void measurePathFindingTime()
 	{
 		// Warming up...
-		Path temp = astar.findPath(map, mapPanel, true);
+		Path temp = astar.findPath(map, mapPanel, planesPanel, true);
 		
 		int max = 20;
 		List<Double> times = new ArrayList<Double>();
 		
 		for(int i = 0; i < max; i++)
 		{
-			temp = astar.findPath(map, mapPanel, true);
+			temp = astar.findPath(map, mapPanel, planesPanel, true);
 			times.add(temp.getCalculationTime());
 		}
 		
@@ -178,7 +181,7 @@ public class ToolsSidebar extends JPanel {
 			measurePathFindingTime();
 			clearPath();
 			
-			Path path = astar.findPath(map, mapPanel);
+			Path path = astar.findPath(map, mapPanel, planesPanel);
 			if(path != null && path.getNodes() != null)
 			{
 				mapPanel.renderPath(path.getNodes());
@@ -346,6 +349,7 @@ public class ToolsSidebar extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 	    		warPlaneList.forEach((warplane) -> warplane.setEnergy(5));
+	    		planesPanel.UpdateHealthBars();
 	    		refreshWarPlanesEnergy();
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");

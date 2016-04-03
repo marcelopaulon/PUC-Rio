@@ -27,16 +27,17 @@ public final class Program
 	 * Guarda o arquivo padrão de mapa
 	 */
 	public static File defaultSaveFile = new File("defaultMap.mapsave");
-	private static Dimension defaultDimension = new Dimension(800, 600);
+	private static Dimension defaultDimension = new Dimension(800, 800);
 
 	/**
 	 * Painel de cima
 	 */
 	public static ToolsPanel toolsPanel;
-
+	
 	private GameMap map;
 	private MapPanel mapPanel;
 	private ToolsSidebar toolsSidebar;
+	private PlanesPanel planesPanel;
 	
 	private JFrame window;
 	
@@ -54,12 +55,20 @@ public final class Program
 	/**
 	 * Cria o painel onde o mapa é exibido, já carregando ele
 	 */
+	private void createPlanesPanel(){
+		planesPanel = new PlanesPanel();
+		window.add(planesPanel, BorderLayout.PAGE_END);
+	}
+	
+	/**
+	 * Cria o painel onde o mapa é exibido, já carregando ele
+	 */
 	private void createMapPanel()
 	{
 		mapPanel = new MapPanel();
 		mapPanel.setSize(defaultDimension);
 		
-		toolsSidebar = new ToolsSidebar(map, mapPanel);
+		toolsSidebar = new ToolsSidebar(map, mapPanel, planesPanel);
 		
 		window.add(mapPanel, BorderLayout.CENTER);
 		window.add(toolsSidebar, BorderLayout.EAST);
@@ -72,6 +81,7 @@ public final class Program
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	
 	
 	/**
 	 * Printa o custo na sidebar lateral
@@ -165,6 +175,7 @@ public final class Program
 		Assets.init();
 
 		createToolsPanel();
+		createPlanesPanel();
 		createMapPanel();
 
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
