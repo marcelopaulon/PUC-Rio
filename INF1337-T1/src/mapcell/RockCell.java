@@ -9,7 +9,7 @@ public class RockCell extends MapCell {
 	/**
 	 * Construtor de RockCell
 	 * <p><b>RockCell:</b> célula do mapa representando rochas</p>
-	 * @param id TODO: Comentar. Não entendi o que o parâmetro faz. Comente seu código, Marcelo.
+	 * @param id Cell identifier.
 	 */
 	public RockCell(char id) {
 		super(Assets.rock, id);
