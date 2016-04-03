@@ -41,6 +41,8 @@ public class ToolsSidebar extends JPanel {
 	private GameMap map;
 	private MapPanel mapPanel;
 	
+	private PlanesPanel planesPanel;
+	
     private JButton findPathButton = new JButton("Encontrar caminho");
     private JButton clearPathButton = new JButton("Limpar caminho");
 	
@@ -60,10 +62,11 @@ public class ToolsSidebar extends JPanel {
 	 * @param map Mapa do qual serão tirados informações como o tamanho
 	 * @param mapPanel Painel onde o mapa é renderizado
 	 */
-	public ToolsSidebar(GameMap map, MapPanel mapPanel)
+	public ToolsSidebar(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel)
 	{
 		super();
 		this.mapPanel = mapPanel;
+		this.planesPanel = planesPanel;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBackground(Color.YELLOW);
 	    Border b1 = BorderFactory.createTitledBorder("Ferramentas");
@@ -349,6 +352,7 @@ public class ToolsSidebar extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 	    		warPlaneList.forEach((warplane) -> warplane.resetEnergy());
+	    		planesPanel.UpdateHealthBars();
 	    		refreshWarPlanesEnergy(warPlaneList);
 	    		costLabel.setText("-");
 	    		pathLengthLabel.setText("-");
