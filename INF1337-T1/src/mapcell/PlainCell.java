@@ -2,13 +2,13 @@ package mapcell;
 
 import gfx.Assets;
 /**
- * Célula do mapa representando planícies
+ * Map cell representing plains
  *
  */
 public class PlainCell extends MapCell {
 	/**
-	 * Construtor de PlainCell
-	 * <p><b>PlainCell:</b> célula do mapa representando planícies</p>
+	 * PlainCell constructor
+	 * <p><b>PlainCell:</b> map cells representing plains</p>
 	 * @param id Cell identifier.
 	 */
 	public PlainCell(char id) {

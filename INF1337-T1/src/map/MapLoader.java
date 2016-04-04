@@ -3,14 +3,14 @@ package map;
 import java.io.File;
 import java.util.Scanner;
 /**
- * Classe responsável por carregar um arquivo de mapa
+ * Class responsible for loading a map's file
  */
 public class MapLoader {
 	/**
-	 * Carrega arquivo de mapa
-	 * @param file arquivo com a matriz do mapa (em texto, com um caractere por célula, 
-	 * de acordo com o definido no enunciado)
-	 * @return retorna um GameMap com o mapa carregado
+	 * Loads the map's file
+	 * @param file with the map's matrix (In text, one character per cell, 
+	 * according to what's defined in the assignment)
+	 * @return a GameMap with the loaded map
 	 * @throws MapLoaderException
 	 */
 	public static GameMap tryLoadMap(File file) throws MapLoaderException {

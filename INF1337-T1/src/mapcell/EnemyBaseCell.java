@@ -2,13 +2,13 @@ package mapcell;
 
 import gfx.Assets;
 /**
- * Célula do mapa representando bases inimigas
+ * Map cell representing enemy bases
  *
  */
 public class EnemyBaseCell extends MapCell {
 	/**
-	 * Construtor de EnemyBaseCell
-	 * <p><b>EnemyBaseCell:</b> célula do mapa representando bases inimigas</p>
+	 * EnemyBaseCell constructor
+	 * <p><b>EnemyBaseCell:</b> map cell representing enemy bases</p>
 	 * @param id Cell identifier.
 	 */
 	public EnemyBaseCell(char id) {

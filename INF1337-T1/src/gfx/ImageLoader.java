@@ -6,14 +6,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Carrega um arquivo de imagem
+ * Loads an image file 
  */
 public class ImageLoader {
 	/**
-	 * Lê o arquivo de imagem
-	 * @param path Caminho do arquivo de imagem
-	 * @return A leitura do arquivo de imagem
-	 * ou <b>null</b> se não conseguir ler o arquivo
+	 * Reads the image file
+	 * @param path The image file's path
+	 * @return The image file's reading
+	 * or <b>null</b> if the file can't be read
 	 */
 	public static BufferedImage loadImage(String path) {
 		try {

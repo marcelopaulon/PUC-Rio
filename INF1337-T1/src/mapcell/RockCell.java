@@ -2,13 +2,13 @@ package mapcell;
 
 import gfx.Assets;
 /**
- * Célula do mapa representando rochas
+ * Map cell representing rocks
  *
  */
 public class RockCell extends MapCell {
 	/**
-	 * Construtor de RockCell
-	 * <p><b>RockCell:</b> célula do mapa representando rochas</p>
+	 * RockCell constructors
+	 * <p><b>RockCell:</b> map cell representing rocks</p>
 	 * @param id Cell identifier.
 	 */
 	public RockCell(char id) {

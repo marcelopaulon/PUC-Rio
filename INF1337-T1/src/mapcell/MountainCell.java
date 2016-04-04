@@ -2,13 +2,13 @@ package mapcell;
 
 import gfx.Assets;
 /**
- * Célula do mapa representando montanhas
+ * Map cell representing mountains
  *
  */
 public class MountainCell extends MapCell {
 	/**
-	 * Construtor de MountainCell
-	 * <p><b>MountainCell:</b> célula do mapa representando montanhas</p>
+	 * MountainCell constructor
+	 * <p><b>MountainCell:</b> map cell representing mountains</p>
 	 * @param id Cell identifier.
 	 */
 	public MountainCell(char id) {

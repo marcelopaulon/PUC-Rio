@@ -3,7 +3,7 @@ package pathfinding;
 import java.util.List;
 
 /**
- * Caminho percorrido pelo algoritmo
+ * Path performed by algorithm
  *
  */
 public class Path {
@@ -12,11 +12,11 @@ public class Path {
 	private double calculationTime;
 	
 	/**
-	 * Construtor de Path
-	 * <p><b>Path:</b> caminho percorrido pelo algoritmo</p>
-	 * @param nodes Lista de nós que o caminho percorre
-	 * @param cost Custo total do caminho
-	 * @param calculationTime Tempo que o algoritmo levou para encontrar este caminho
+	 * Path constructor
+	 * <p><b>Path:</b> Path performed by algorithm</p>
+	 * @param nodes Node list Path travels by
+	 * @param cost Path's total cost
+	 * @param calculationTime Time algorithm took to calculate this Path
 	 */
 	public Path(List<Node> nodes, double cost, double calculationTime)
 	{
@@ -26,8 +26,8 @@ public class Path {
 	}
 	
 	/**
-	 * Pega os nós do caminho
-	 * @return Lista de nós do caminho
+	 * Gets the Path's nodes
+	 * @return list of Path's nodes
 	 */
 	public List<Node> getNodes()
 	{
@@ -35,8 +35,8 @@ public class Path {
 	}
 	
 	/**
-	 * Pega o custo do caminho
-	 * @return Custo total do caminho
+	 * Gets Path's cost
+	 * @return Path's total cost
 	 */
 	public double getCost()
 	{
@@ -44,8 +44,8 @@ public class Path {
 	}
 	
 	/**
-	 * Pega o tempo que se levou para calcular o caminho
-	 * @return Tempo que o caminho levou para ser calculado
+	 * Gets time algorithm took to calculate this Path
+	 * @return time algorithm took to calculate this Path
 	 */
 	public double getCalculationTime()
 	{

@@ -3,24 +3,24 @@ package gfx;
 import java.awt.image.BufferedImage;
 
 /**
- * Classe responsável por pegar os tiles do arquivo de imagem (sheet.png)
+ * Class responsible for extracting the tiles from the image file (sheet.png)
  */
 public class Assets {
 	/**
-	 * Largura de cada tile dentro do arquivo sheet.png
-	 * <p>(Cada tile possui 32x32 pixels)</p>
+	 * Width for each tile inside sheet.png
+	 * <p>(Each tile posesses 32x32 pixels)</p>
 	 */
 	public static final int TILE_WIDTH = 32;
 	/**
-	 * Altura de cada tile dentro do arquivo sheet.png
-	 * <p>(Cada tile possui 32x32 pixels)</p>
+	 * Height for each tile inside sheet.png
+	 * <p>(Each tile posesses 32x32 pixels)</p>
 	 */
 	public static final int TILE_HEIGHT = 32;
 
 	public static BufferedImage start, mountain, plain, rock, end, visited, enemybase, enemyaa;
 	
 	/**
-	 * Inicializa os tiles para cada BufferedImage, indicando sua largura e altura iniciais no arquivo sheet.png
+	 * Initializes the tiles for each BufferedImage, indicating their initial width and heights inside sheet.png
 	 */
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/sheet.png"));

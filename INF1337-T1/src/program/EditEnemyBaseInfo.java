@@ -10,13 +10,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
- * Classe que cuida das mudanças do botão "Bases Inimigas".
+ * Class that handles changes on the "Enemy Bases" button
  *
  */
 public class EditEnemyBaseInfo extends JDialog
 {
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class Serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = -1593880878594207128L;
@@ -27,10 +27,10 @@ public class EditEnemyBaseInfo extends JDialog
 	private DifficultyTableModel enemyDifficultyModel = new DifficultyTableModel(null);
 	
 	/**
-	 * Pega a dificuldade de determinada base inimiga.
-	 * @param position Número da base
-	 * @return Valor especificado na tabela para a base correspondente ou,
-	 * caso este seja null, retorna o valor padrão para dificuldade de base (90).
+	 * Gets a specific enemy base's difficulty
+	 * @param position Base's position
+	 * @return value specified on the table for the corresponding base or,
+	 * in case of null, returns default base difficulty value (90).
 	 */
 	public int getEnemyBaseDifficulty(int position)
 	{
@@ -44,8 +44,8 @@ public class EditEnemyBaseInfo extends JDialog
 	}
 	
 	/**
-	 * Pega a tabela de bases inimigas
-	 * @return Hashtable contendo as bases inimigas e suas dificuldades.
+	 * Gets enemy bases table
+	 * @return Hashtable containing enemy bases and their respective difficulties
 	 */
 	public Hashtable<Integer, Integer> getEnemyBaseList()
 	{
@@ -53,7 +53,7 @@ public class EditEnemyBaseInfo extends JDialog
 	}
 	
 	/**
-	 * Gera a visualização da tabela que será editada no programa
+	 * Generates table visualization to be edited in Program.java
 	 */
 	private void setupDifficultyTable()
 	{	    
@@ -64,9 +64,9 @@ public class EditEnemyBaseInfo extends JDialog
 	}
 	
 	/**
-	 * Construtor de EditEnemyBaseInfo
-	 * <p>Gera a janela contendo a visualização da tabela no programa</p>
-	 * <p><b>EditEnemyBaseInfo:</b> classe que cuida das mudanças do botão "Bases Inimigas".</p>
+	 * EditEnemyBaseInfo constructor
+	 * <p>Generates window containing the table's visualization</p>
+	 * <p><b>EditEnemyBaseInfo:</b> Class that handles changes on the "Enemy Bases" button </p>
 	 */
 	public EditEnemyBaseInfo()
 	{
