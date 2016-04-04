@@ -1,5 +1,7 @@
 package pathfinding;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +9,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
 import map.GameMap;
@@ -22,8 +25,15 @@ import program.Program;
 public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
-	
+	private int rankingCurrentEnemyBase;
+	private int indexCount = 0;
+	private double totalPlaneFirePower = 0;
+	private double battleCost;
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
+	private Hashtable<Integer, Integer> listEnemysBasesDifficulty;
+	private ArrayList<Map.Entry<?, Integer>> sortedListEnemysBasesDifficulty;
+	private ArrayList<Double> listWarPlaneFirepower = new ArrayList<Double>(5);
+	
 		
 	/**
 	 * Construtor de AStar
@@ -59,16 +69,111 @@ public class AStar {
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
 		{
 			// Cost: enemyBaseDifficulty/sum(firepower)
+			
+			//Pega a dificuldade da base corrente
 			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(fromNode.getCurrentBase());
-	        
-	        int idx = 0;
-			while(fromNode.getWarplaneInfo().get(idx).getEnergy() == 0)
-			{
-				idx++;
+			
+			//pega a lista com a tabela dos niveis de dificuldade das bases inimigas
+			listEnemysBasesDifficulty = Program.getInstance().getEnemyBaseList();
+			
+			/*
+			 * Ordena e joga em um Arraylist. metodo sortValue converte 
+			 * de hashtable pra arraylist e ordena em ordem crescente
+			 *  
+			 */
+			sortedListEnemysBasesDifficulty = sortValue(listEnemysBasesDifficulty);
+			
+			/*
+			 * procura dentro de sortedListEnemysBasesDifficulty a dificuldade do base corrente.
+			 * enquanto isso vai pegando o indice da posição da tabela. quando acha, o indice da 
+			 * posição será a posição do ranking de dificuldade da base. O ranking será usado pra 
+			 * decidir a combinação de naves a atacar a base 
+			 */
+			for(Entry<?, Integer> elementList : sortedListEnemysBasesDifficulty ){
+				indexCount++;
+				if(elementList.getValue() == enemyBaseDifficultyCost){
+					
+					rankingCurrentEnemyBase = indexCount;
+					
+				}
 			}
+			
+			//adiciona os firepowers das naves dentro de  listWarPlaneFirepower
+			for(int i=0;i<5;i++){
+				listWarPlaneFirepower.add(fromNode.getWarplaneInfo().get(i).getFirepower());
+				
+			}
+						
+			
+			/*
+			 * Obs: nave de menor poder de fogo = a5 e a de maior a1
+			 * 
+			 *  Tabela Ranking-combinação nave adequada 
+			 *     ranking1 | (a4,a5) 
+			 *     ranking2	| (a4,a5)
+			 *     ranking3 | (a4,a5)
+			 *     ranking4	| (a4,a5)
+			 *     ranking5	| (a4,a5)
+			 *  	ranking6| (a2,a3)
+			 *     ranking7	| (a2,a3)
+			 *  	ranking8| (a1,a2,a3)
+			 *  	ranking9| (a1,a2,a3)
+			 *  	ranking10| (a1,a2,a3)
+			 *  	ranking11| (a1,a2,a3)
+			 *	  
+			 */
+			 
+			//implementando a estratégia de ataque
+			switch (rankingCurrentEnemyBase)
+	        {
+	            case 1:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
+	            	battleCost =  enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 2:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 3:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 4:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 5:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 6:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 7:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 8:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 9:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 10:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	            	break;
+	            case 11:
+	            	totalPlaneFirePower= listWarPlaneFirepower.get(0);
+	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
+	                break;
+	        }
+
+			return battleCost;
 	        
-	        double firepower = fromNode.getWarplaneInfo().get(idx).getFirepower(); 
-	        return enemyBaseDifficultyCost/firepower;
 		}
 		else
 		{
@@ -229,4 +334,18 @@ public class AStar {
 		System.out.println("Não encontrado!");
 		return null;
 	}
+	
+	public static ArrayList<Map.Entry<?, Integer>> sortValue(Hashtable<?, Integer> t){
+
+	       //Transfer as List and sort it
+	       ArrayList<Map.Entry<?, Integer>> l = new ArrayList(t.entrySet());
+	       Collections.sort(l, new Comparator<Map.Entry<?, Integer>>(){
+
+	         public int compare(Map.Entry<?, Integer> o1, Map.Entry<?, Integer> o2) {
+	            return o1.getValue().compareTo(o2.getValue());
+	        }});
+	       
+	       return l;
+	       //System.out.println(l);
+	    }
 }
