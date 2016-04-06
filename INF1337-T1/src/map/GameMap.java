@@ -167,8 +167,9 @@ public class GameMap {
 			cellType = MapCell.Cells.ROCK;
 		} else if (tileType == MapCell.Cells.ENEMYAA.asChar()) {
 			cellType = MapCell.Cells.ENEMYAA;
-		} else if (tileType == MapCell.Cells.ENEMYBASE.asChar()) {
+		} else if (MapCell.enemyBases.containsKey(tileType)) {
 			cellType = MapCell.Cells.ENEMYBASE;
+			return new Node(column, row, cellType, MapCell.enemyBases.get(tileType));
 		} else if (tileType == MapCell.Cells.START.asChar()) {
 			cellType = MapCell.Cells.START;
 		} else if (tileType == MapCell.Cells.END.asChar()) {

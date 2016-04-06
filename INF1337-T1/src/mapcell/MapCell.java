@@ -2,6 +2,7 @@ package mapcell;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Hashtable;
 /**
  * Célula do mapa representando cada possível tile
  *
@@ -16,7 +17,7 @@ public abstract class MapCell {
 		PLAIN('.', 1),
 		ROCK('R', 5),
 		ENEMYAA('C', 50),
-		ENEMYBASE('B', 1),
+		ENEMYBASE('z', -1),
 		START('I', 0),
 		END('F', 0);
 
@@ -50,7 +51,23 @@ public abstract class MapCell {
 			this.cost = cost;
 		}
 	}
-
+	
+	public static Hashtable<Character, Integer> enemyBases = new Hashtable<Character, Integer>();
+	
+	{
+		enemyBases.put('0', 1);
+		enemyBases.put('1', 2);
+		enemyBases.put('2', 3);
+		enemyBases.put('3', 4);
+		enemyBases.put('4', 5);
+		enemyBases.put('5', 6);
+		enemyBases.put('6', 7);
+		enemyBases.put('7', 8);
+		enemyBases.put('8', 9);
+		enemyBases.put('9', 10);
+		enemyBases.put('A', 11);
+	}
+	
 	/**
 	 * Imagem referente ao mapcell
 	 */

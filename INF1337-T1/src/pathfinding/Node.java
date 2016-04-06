@@ -25,7 +25,21 @@ public class Node {
 	
 	private List<WarPlaneInfo> warplaneInfo_Estate;
 	
-	public int currentBase_Estate;
+	private Integer enemyBaseOrder = null;
+	
+	/**
+	 * Construtor de Node para base inimiga
+	 * <p><b>Node:</b> nó representando uma célula do mapa e seu tipo de tile</p>
+	 * @param x Coordenada X da célula
+	 * @param y Coordenada Y da célula
+	 * @param cellType Tipo de tile presente na célula
+	 * @param enemyBaseOrder Ordem da base inimiga
+	 */
+	public Node(int x, int y, MapCell.Cells cellType, int enemyBaseOrder)
+	{
+		this(x, y, cellType);
+		this.enemyBaseOrder = enemyBaseOrder;
+	}
 	
 	/**
 	 * Construtor de Node
@@ -41,23 +55,15 @@ public class Node {
 		CellType = cellType;
 	}
 	
-	public void setEstate(List<WarPlaneInfo> warplaneInfo, int currentBase)
+	public Integer getBaseOrder()
+	{
+		return enemyBaseOrder;
+	}
+	
+	public void setEstate(List<WarPlaneInfo> warplaneInfo)
 	{
 		warplaneInfo_Estate = new LinkedList<WarPlaneInfo>();
 		warplaneInfo.forEach((x) -> warplaneInfo_Estate.add(new WarPlaneInfo(x.getName(), x.getFirepower(), x.getEnergy())));
-		
-		
-		currentBase_Estate = currentBase;
-	}
-	
-	public void setCurrentBase(int value)
-	{
-		currentBase_Estate = value;
-	}
-	
-	public int getCurrentBase()
-	{
-		return currentBase_Estate;
 	}
 	
 	public List<WarPlaneInfo> getWarplaneInfo()

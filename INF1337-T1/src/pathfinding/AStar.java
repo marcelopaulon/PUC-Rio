@@ -71,7 +71,7 @@ public class AStar {
 			// Cost: enemyBaseDifficulty/sum(firepower)
 			
 			//Pega a dificuldade da base corrente
-			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(fromNode.getCurrentBase());
+			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(toNode.getBaseOrder());
 			
 			//pega a lista com a tabela dos niveis de dificuldade das bases inimigas
 			listEnemysBasesDifficulty = Program.getInstance().getEnemyBaseList();
@@ -101,7 +101,6 @@ public class AStar {
 			//adiciona os firepowers das naves dentro de  listWarPlaneFirepower
 			for(int i=0;i<5;i++){
 				listWarPlaneFirepower.add(fromNode.getWarplaneInfo().get(i).getFirepower());
-				
 			}
 						
 			
@@ -242,7 +241,7 @@ public class AStar {
 		
 		long startTime = System.currentTimeMillis();
 		
-		startNode.setEstate(Program.getInstance().getWarPlaneList(), 1);
+		startNode.setEstate(Program.getInstance().getWarPlaneList());
 		
 		gScore.put(startNode, 0.0);
 		fScore.put(startNode, startNode.getHeuristic(endNode));
@@ -262,7 +261,7 @@ public class AStar {
 				mapPanel.repaint();
 				
 				try {
-				    Thread.sleep(8);
+				    Thread.sleep(6);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
@@ -299,12 +298,10 @@ public class AStar {
 					gScore.put(neighbor, g_x);
 					fScore.put(neighbor, g_x + neighbor.getHeuristic(endNode));
 										
-					neighbor.setEstate(curNode.getWarplaneInfo(), curNode.getCurrentBase());
+					neighbor.setEstate(curNode.getWarplaneInfo());
 					
 					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
-					{
-						neighbor.setCurrentBase(neighbor.getCurrentBase() + 1);
-												
+					{		
 						int idx = 0;
 						while(neighbor.getWarplaneInfo().get(idx).getEnergy() == 0)
 						{
@@ -335,17 +332,18 @@ public class AStar {
 		return null;
 	}
 	
-	public static ArrayList<Map.Entry<?, Integer>> sortValue(Hashtable<?, Integer> t){
-
+	public static ArrayList<Map.Entry<?, Integer>> sortValue(Hashtable<?, Integer> t)
+	{
 	       //Transfer as List and sort it
-	       ArrayList<Map.Entry<?, Integer>> l = new ArrayList(t.entrySet());
+	       ArrayList<Map.Entry<?, Integer>> l = new ArrayList<Entry<?, Integer>>(t.entrySet());
 	       Collections.sort(l, new Comparator<Map.Entry<?, Integer>>(){
 
-	         public int compare(Map.Entry<?, Integer> o1, Map.Entry<?, Integer> o2) {
+	         public int compare(Map.Entry<?, Integer> o1, Map.Entry<?, Integer> o2)
+	         {
 	            return o1.getValue().compareTo(o2.getValue());
-	        }});
+	         }
+	        });
 	       
 	       return l;
-	       //System.out.println(l);
 	    }
 }
