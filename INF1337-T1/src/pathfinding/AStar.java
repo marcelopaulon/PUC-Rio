@@ -26,15 +26,12 @@ public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
 	private int rankingCurrentEnemyBase;
-	private int indexCount = 0;
 	private double totalPlaneFirePower = 0;
 	private double battleCost;
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
-	private Hashtable<Integer, Integer> listEnemysBasesDifficulty;
 	private ArrayList<Map.Entry<?, Integer>> sortedListEnemysBasesDifficulty;
 	private ArrayList<Double> listWarPlaneFirepower = new ArrayList<Double>(5);
 	
-		
 	/**
 	 * Construtor de AStar
 	 * <p><b>AStar:</b> implementa o algoritmo A&#42</p>
@@ -73,15 +70,14 @@ public class AStar {
 			//Pega a dificuldade da base corrente
 			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(toNode.getBaseOrder());
 			
-			//pega a lista com a tabela dos niveis de dificuldade das bases inimigas
-			listEnemysBasesDifficulty = Program.getInstance().getEnemyBaseList();
-			
 			/*
 			 * Ordena e joga em um Arraylist. metodo sortValue converte 
 			 * de hashtable pra arraylist e ordena em ordem crescente
 			 *  
 			 */
-			sortedListEnemysBasesDifficulty = sortValue(listEnemysBasesDifficulty);
+			sortedListEnemysBasesDifficulty = sortValue(enemyBaseDifficulty);
+			
+			int indexCount = 0;
 			
 			/*
 			 * procura dentro de sortedListEnemysBasesDifficulty a dificuldade do base corrente.
@@ -235,6 +231,9 @@ public class AStar {
 		PriorityQueue<Node> queue = new PriorityQueue<Node>(1000, new NodeComparator());
 		List<Node> route = new LinkedList<Node>();
 		Map<Node, Node> pathMap = new HashMap<Node, Node>();
+		
+		//pega a lista com a tabela dos niveis de dificuldade das bases inimigas
+		enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
 		
 		gScore.clear();
 		fScore.clear();
