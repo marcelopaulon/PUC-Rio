@@ -76,16 +76,16 @@ public class AttackStrategy
 	{
 		double cost = 0.0;
 		
-		for(int i = 1; i < 12; i++)
+		for(int i = 1; i < 56; i += 5)
 		{
-			int difficulty = enemyBaseDifficulty.get(i);
+			int difficulty = enemyBaseDifficulty.get((i-1) % 11 + 1);
 			double firepowerSum = 0.0;
 			
-			for(int j = 1; j < 6; j++)
+			for(int j = 0; j < 5; j++)
 			{
-				if(strategy[i*j - 1] == '1')
+				if(strategy[i+j - 1] == '1')
 				{
-					firepowerSum += listWarPlaneFirepower.get(j-1).getFirepower();
+					firepowerSum += listWarPlaneFirepower.get(j).getFirepower();
 				}
 			}
 			
@@ -121,7 +121,7 @@ public class AttackStrategy
 				continue;
 			}
 			
-			if(getCost(strategy, enemyBaseDifficulty, listWarPlaneFirepower) > getCost(newStrategy, enemyBaseDifficulty, listWarPlaneFirepower))
+			if(getCost(newStrategy, enemyBaseDifficulty, listWarPlaneFirepower) < getCost(strategy, enemyBaseDifficulty, listWarPlaneFirepower))
 			{
 				strategy = newStrategy;
 			}
@@ -130,24 +130,27 @@ public class AttackStrategy
             temperature *= 1-coolingRate;
 		}
 		
-		for(int i = 1; i < 12; i++)
+		for(int i = 1; i < 56; i += 5)
 		{
-			double cost = enemyBaseDifficulty.get(i);
+			double cost = enemyBaseDifficulty.get(i % 5);
 			double firepowersum = 0;
 			List<Integer> airplanes = new ArrayList<Integer>();
-			for(int j = 1; j < 6; j++)
+			
+			for(int j = 0; j < 5; j++)
 			{
-				if(strategy[i*j - 1] == '1')
+				if(strategy[i+j - 1] == '1')
 				{
-					airplanes.add(j - 1);
-					firepowersum += listWarPlaneFirepower.get(j-1).getFirepower();
+					airplanes.add(j);
+					firepowersum += listWarPlaneFirepower.get(j).getFirepower();
 				}
 			}
 			
 			cost /= firepowersum;
 			
 			EnemyBaseAttack enemyBaseAttack = new EnemyBaseAttack(cost, airplanes);
-			bases.put(i, enemyBaseAttack);
+			bases.put((i-1) % 11 + 1, enemyBaseAttack);
 		}
+		
+		return;
 	}
 }
