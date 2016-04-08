@@ -1,6 +1,5 @@
 package program;
 
-import java.security.SecureRandom;
 import java.util.Random;
 
 public class Utils
@@ -17,7 +16,7 @@ public class Utils
 	 */
 	public static int randInt(int min, int max) {
 
-	    Random rand = new SecureRandom();
+	    Random rand = new Random();
 
 	    // nextInt is normally exclusive of the top value,
 	    // so add 1 to make it inclusive
@@ -38,7 +37,7 @@ public class Utils
 	{
 		char[] chars = characters.toCharArray();
 		StringBuilder sb = new StringBuilder();
-		Random random = new SecureRandom();
+		Random random = new Random();
 		for (int i = 0; i < size; i++) {
 		    char c = chars[random.nextInt(chars.length)];
 		    sb.append(c);
