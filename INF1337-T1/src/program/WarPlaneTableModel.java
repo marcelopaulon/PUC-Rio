@@ -131,7 +131,7 @@ final class WarPlaneTableModel extends AbstractTableModel {
 					});
 
 					fireTableDataChanged();
-					Program.getInstance().getPlanesPanel().Refresh(); //Atualiza painel de aviões
+					Program.getInstance().getPlanesPanel().Refresh(true); //Atualiza painel de aviões
 				}
 			} catch (ParseException e)
 			{

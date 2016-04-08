@@ -83,7 +83,7 @@ public class EditWarPlaneInfo extends JDialog
 		
 		this.addWindowListener(new WindowAdapter() {
 		  public void windowClosing(WindowEvent e) {
-			  Program.getInstance().getPlanesPanel().Refresh(); //Atualiza painel de aviões
+			  Program.getInstance().getPlanesPanel().Refresh(false); //Atualiza painel de aviões
 		  }
 		});
 	}
