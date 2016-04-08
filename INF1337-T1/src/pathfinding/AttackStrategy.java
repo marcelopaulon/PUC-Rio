@@ -9,8 +9,10 @@ import program.Utils;
 
 public class AttackStrategy
 {
+	// Base attack strategy list
 	public static Hashtable<Integer, EnemyBaseAttack> bases = new Hashtable<Integer, EnemyBaseAttack>();
 	
+	// Disturbs a strategy - changes 5 of its 55 values
 	private static void disturb(char[] strategy)
 	{
 		// 55 spaces; 10% ~= 5 changes
@@ -28,6 +30,7 @@ public class AttackStrategy
 		}
 	}
 	
+	// Checks if a given strategy is valid
 	private static boolean validateStrategy(char[] strategy)
 	{
 		int sum = 0;
@@ -60,6 +63,7 @@ public class AttackStrategy
 		return true;
 	}
 	
+	// Generates a random attack strategy
 	private static char[] genRandomAttackStrategy()
 	{
 		char[] strategy = new char[55];
@@ -72,6 +76,7 @@ public class AttackStrategy
 		return strategy;
 	}
 	
+	// Get strategy cost
 	private static double getCost(char[] strategy, Hashtable<Integer, Integer> enemyBaseDifficulty, List<WarPlaneInfo> listWarPlaneFirepower)
 	{
 		double cost = 0.0;
@@ -95,6 +100,7 @@ public class AttackStrategy
 		return cost;
 	}
 	
+	// Refresh the attack strategy for the game
 	public static void Refresh()
 	{
 		bases.clear();

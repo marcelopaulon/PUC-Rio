@@ -23,8 +23,16 @@ public class Node {
 	 */
 	public MapCell.Cells CellType;
 	
+	/**
+	 * War plane info estate
+	 * 
+	 */
 	private List<WarPlaneInfo> warplaneInfo_Estate;
 	
+	/**
+	 * Order of the enemy base, not null if current cell is a enemy base cell
+	 * 
+	 */
 	private Integer enemyBaseOrder = null;
 	
 	/**
@@ -55,17 +63,29 @@ public class Node {
 		CellType = cellType;
 	}
 	
+	/**
+	 * Gets the order of the enemy base
+	 * @return Order of the enemy base
+	 */
 	public Integer getBaseOrder()
 	{
 		return enemyBaseOrder;
 	}
 	
+	/**
+	 * Sets the node estate
+	 * 
+	 */
 	public void setEstate(List<WarPlaneInfo> warplaneInfo)
 	{
 		warplaneInfo_Estate = new LinkedList<WarPlaneInfo>();
 		warplaneInfo.forEach((x) -> warplaneInfo_Estate.add(new WarPlaneInfo(x.getName(), x.getFirepower(), x.getEnergy())));
 	}
 	
+	/**
+	 * Gets the war plane info
+	 * @return War plane info
+	 */
 	public List<WarPlaneInfo> getWarplaneInfo()
 	{
 		return warplaneInfo_Estate;
