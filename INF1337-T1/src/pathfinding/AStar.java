@@ -262,14 +262,35 @@ public class AStar {
 					neighbor.setEstate(curNode.getWarplaneInfo());
 					
 					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
-					{		
-						int idx = 0;
-						while(neighbor.getWarplaneInfo().get(idx).getEnergy() == 0)
-						{
-							idx++;
-						}
-												
-						neighbor.getWarplaneInfo().get(idx).decrementEnergy();
+					{
+						//implementando a estratégia de ataque
+						switch (rankingCurrentEnemyBase)
+				        {
+				            case 1:
+				            case 2:
+				            case 3:
+				            case 4:
+				            case 5:
+				            	neighbor.getWarplaneInfo().get(3).decrementEnergy();
+				            	neighbor.getWarplaneInfo().get(4).decrementEnergy();
+				            	break;
+				            case 6:
+				            case 7:
+				            	neighbor.getWarplaneInfo().get(1).decrementEnergy();
+				            	neighbor.getWarplaneInfo().get(2).decrementEnergy();
+				            	break;
+				            case 8:
+				            case 9:
+				            case 10:
+				            	neighbor.getWarplaneInfo().get(0).decrementEnergy();
+				            	neighbor.getWarplaneInfo().get(1).decrementEnergy();
+				            	neighbor.getWarplaneInfo().get(2).decrementEnergy();
+				            	break;
+				            case 11:
+				            	neighbor.getWarplaneInfo().get(0).decrementEnergy();
+				                break;
+				        }
+						
 						planesPanel.UpdateHealthBars(neighbor.getWarplaneInfo());
 						
 						if(noRender == false)
