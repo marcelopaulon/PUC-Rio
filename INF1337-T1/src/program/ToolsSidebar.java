@@ -77,7 +77,7 @@ public class ToolsSidebar extends JPanel {
 	    warPlaneList = Program.getInstance().getWarPlaneList();
 	    enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
 	    
-	    astar = new AStar(enemyBaseDifficulty);
+	    astar = new AStar();
 	    
     	setupCostLabel();
 	    setupPathDataLabels();

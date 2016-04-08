@@ -29,18 +29,16 @@ public class AStar {
 	private double totalPlaneFirePower = 0;
 	private double battleCost;
 	private Hashtable<Integer, Integer> enemyBaseDifficulty;
-	private ArrayList<Map.Entry<?, Integer>> sortedListEnemysBasesDifficulty;
+	private ArrayList<Map.Entry<?, Integer>> sortedListEnemiesBasesDifficulty;
 	private ArrayList<Double> listWarPlaneFirepower = new ArrayList<Double>(5);
 	
 	/**
 	 * Construtor de AStar
 	 * <p><b>AStar:</b> implementa o algoritmo A&#42</p>
-	 * @param warplaneInfo Lista contendo informações sobre as naves
-	 * @param enemyBaseDifficulty Hashtable contendo informações sobre as bases inimigas
 	 */
-	public AStar(Hashtable<Integer, Integer> enemyBaseDifficulty)
+	public AStar()
 	{
-		this.enemyBaseDifficulty = enemyBaseDifficulty;
+		
 	}
 	
 	/**
@@ -75,30 +73,29 @@ public class AStar {
 			 * de hashtable pra arraylist e ordena em ordem crescente
 			 *  
 			 */
-			sortedListEnemysBasesDifficulty = sortValue(enemyBaseDifficulty);
+			sortedListEnemiesBasesDifficulty = sortValue(enemyBaseDifficulty);
 			
 			int indexCount = 0;
 			
 			/*
-			 * procura dentro de sortedListEnemysBasesDifficulty a dificuldade do base corrente.
+			 * procura dentro de sortedListEnemiesBasesDifficulty a dificuldade do base corrente.
 			 * enquanto isso vai pegando o indice da posição da tabela. quando acha, o indice da 
 			 * posição será a posição do ranking de dificuldade da base. O ranking será usado pra 
 			 * decidir a combinação de naves a atacar a base 
 			 */
-			for(Entry<?, Integer> elementList : sortedListEnemysBasesDifficulty ){
+			for(Entry<?, Integer> elementList : sortedListEnemiesBasesDifficulty ){
 				indexCount++;
 				if(elementList.getValue() == enemyBaseDifficultyCost){
-					
 					rankingCurrentEnemyBase = indexCount;
-					
 				}
 			}
+			
+			listWarPlaneFirepower.clear();
 			
 			//adiciona os firepowers das naves dentro de  listWarPlaneFirepower
 			for(int i=0;i<5;i++){
 				listWarPlaneFirepower.add(fromNode.getWarplaneInfo().get(i).getFirepower());
 			}
-						
 			
 			/*
 			 * Obs: nave de menor poder de fogo = a5 e a de maior a1
@@ -123,49 +120,40 @@ public class AStar {
 	        {
 	            case 1:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	battleCost =  enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 2:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 3:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 4:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 5:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 6:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 7:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 8:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 9:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 10:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	            	break;
 	            case 11:
 	            	totalPlaneFirePower= listWarPlaneFirepower.get(0);
-	            	battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 	                break;
 	        }
+			
+			battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
 
 			return battleCost;
 	        
@@ -174,32 +162,6 @@ public class AStar {
 		{
 			return toNode.getCost();
 		}
-		
-		//int enemyBaseDifficultyCost = enemyBaseDifficulty.get(currentBase);
-		/*compara com a dificuldade das outras bases. dependendo da dificuldade da 
-		 * base, escolher a combinação de nave adequada.
-		 * 
-		 * tem que fazer um for para ver qual o ranking de dificuldade da base: a de 
-		 * menor dificuldade sera ranking 1 e a de maior 11
-		 * 
-		 * tem que fazer um for pra ver o poder de fogo das naves
-		 * 
-		 * Obs: nave de menor poder de fogo = a5 e a de maior a1
-		 * 
-		 *  Tabela Ranking-combinação nave adequada 
-		 *     ranking1 | (a4,a5) 
-		 *     ranking2	| (a4,a5)
-		 *     ranking3 | (a4,a5)
-		 *     ranking4	| (a4,a5)
-		 *     ranking5	| (a4,a5)
-		 *  	ranking6| (a2,a3)
-		 *     ranking7	| (a2,a3)
-		 *  	ranking8| (a1,a2,a3)
-		 *  	ranking9| (a1,a2,a3)
-		 *  	ranking10| (a1,a2,a3)
-		 *  	ranking11| (a1,a2,a3)
-		 *  
-		 */
 	}
 	
 	/**
