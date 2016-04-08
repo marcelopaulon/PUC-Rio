@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -52,7 +51,6 @@ public class ToolsSidebar extends JPanel {
 	private JLabel pathCalculationTimeLabel = new JLabel("-");
 		
 	private List<WarPlaneInfo> warPlaneList;
-	private Hashtable<Integer, Integer> enemyBaseDifficulty;
 	
 	/**
 	 * Construtor de ToolsSidebar
@@ -75,7 +73,6 @@ public class ToolsSidebar extends JPanel {
 	    this.add(mapSizeLabel);
 	    
 	    warPlaneList = Program.getInstance().getWarPlaneList();
-	    enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
 	    
 	    astar = new AStar();
 	    

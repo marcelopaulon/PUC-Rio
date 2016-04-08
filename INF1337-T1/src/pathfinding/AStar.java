@@ -1,15 +1,11 @@
 package pathfinding;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
 import map.GameMap;
@@ -25,12 +21,6 @@ import program.Program;
 public class AStar {
 	private final Map<Node, Double> gScore = new HashMap<Node, Double>();
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
-	private int rankingCurrentEnemyBase;
-	private double totalPlaneFirePower = 0;
-	private double battleCost;
-	private Hashtable<Integer, Integer> enemyBaseDifficulty;
-	private ArrayList<Map.Entry<?, Integer>> sortedListEnemiesBasesDifficulty;
-	private ArrayList<Double> listWarPlaneFirepower = new ArrayList<Double>(5);
 	
 	/**
 	 * Construtor de AStar
@@ -63,100 +53,7 @@ public class AStar {
 	{
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
 		{
-			// Cost: enemyBaseDifficulty/sum(firepower)
-			
-			//Pega a dificuldade da base corrente
-			int enemyBaseDifficultyCost = enemyBaseDifficulty.get(toNode.getBaseOrder());
-			
-			/*
-			 * Ordena e joga em um Arraylist. metodo sortValue converte 
-			 * de hashtable pra arraylist e ordena em ordem crescente
-			 *  
-			 */
-			sortedListEnemiesBasesDifficulty = sortValue(enemyBaseDifficulty);
-			
-			int indexCount = 0;
-			
-			/*
-			 * procura dentro de sortedListEnemiesBasesDifficulty a dificuldade do base corrente.
-			 * enquanto isso vai pegando o indice da posição da tabela. quando acha, o indice da 
-			 * posição será a posição do ranking de dificuldade da base. O ranking será usado pra 
-			 * decidir a combinação de naves a atacar a base 
-			 */
-			for(Entry<?, Integer> elementList : sortedListEnemiesBasesDifficulty ){
-				indexCount++;
-				if(elementList.getValue() == enemyBaseDifficultyCost){
-					rankingCurrentEnemyBase = indexCount;
-				}
-			}
-			
-			listWarPlaneFirepower.clear();
-			
-			//adiciona os firepowers das naves dentro de  listWarPlaneFirepower
-			for(int i=0;i<5;i++){
-				listWarPlaneFirepower.add(fromNode.getWarplaneInfo().get(i).getFirepower());
-			}
-			
-			/*
-			 * Obs: nave de menor poder de fogo = a5 e a de maior a1
-			 * 
-			 *  Tabela Ranking-combinação nave adequada 
-			 *     ranking1 | (a4,a5) 
-			 *     ranking2	| (a4,a5)
-			 *     ranking3 | (a4,a5)
-			 *     ranking4	| (a4,a5)
-			 *     ranking5	| (a4,a5)
-			 *  	ranking6| (a2,a3)
-			 *     ranking7	| (a2,a3)
-			 *  	ranking8| (a1,a2,a3)
-			 *  	ranking9| (a1,a2,a3)
-			 *  	ranking10| (a1,a2,a3)
-			 *  	ranking11| (a1,a2,a3)
-			 *	  
-			 */
-			 
-			//implementando a estratégia de ataque
-			switch (rankingCurrentEnemyBase)
-	        {
-	            case 1:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	break;
-	            case 2:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	break;
-	            case 3:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	break;
-	            case 4:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	break;
-	            case 5:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(3)+listWarPlaneFirepower.get(4);
-	            	break;
-	            case 6:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	break;
-	            case 7:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	break;
-	            case 8:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	break;
-	            case 9:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	break;
-	            case 10:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(0)+listWarPlaneFirepower.get(1)+listWarPlaneFirepower.get(2);
-	            	break;
-	            case 11:
-	            	totalPlaneFirePower= listWarPlaneFirepower.get(0);
-	                break;
-	        }
-			
-			battleCost = enemyBaseDifficultyCost/totalPlaneFirePower;
-
-			return battleCost;
-	        
+			return AttackStrategy.bases.get(toNode.getBaseOrder()).getCost();
 		}
 		else
 		{
@@ -193,14 +90,13 @@ public class AStar {
 		PriorityQueue<Node> queue = new PriorityQueue<Node>(1000, new NodeComparator());
 		List<Node> route = new LinkedList<Node>();
 		Map<Node, Node> pathMap = new HashMap<Node, Node>();
-		
-		//pega a lista com a tabela dos niveis de dificuldade das bases inimigas
-		enemyBaseDifficulty = Program.getInstance().getEnemyBaseList();
-		
+				
 		gScore.clear();
 		fScore.clear();
 		
 		long startTime = System.currentTimeMillis();
+		
+		AttackStrategy.Refresh();
 		
 		startNode.setEstate(Program.getInstance().getWarPlaneList());
 		
@@ -263,33 +159,9 @@ public class AStar {
 					
 					if(neighbor.CellType == MapCell.Cells.ENEMYBASE)
 					{
-						//implementando a estratégia de ataque
-						switch (rankingCurrentEnemyBase)
-				        {
-				            case 1:
-				            case 2:
-				            case 3:
-				            case 4:
-				            case 5:
-				            	neighbor.getWarplaneInfo().get(3).decrementEnergy();
-				            	neighbor.getWarplaneInfo().get(4).decrementEnergy();
-				            	break;
-				            case 6:
-				            case 7:
-				            	neighbor.getWarplaneInfo().get(1).decrementEnergy();
-				            	neighbor.getWarplaneInfo().get(2).decrementEnergy();
-				            	break;
-				            case 8:
-				            case 9:
-				            case 10:
-				            	neighbor.getWarplaneInfo().get(0).decrementEnergy();
-				            	neighbor.getWarplaneInfo().get(1).decrementEnergy();
-				            	neighbor.getWarplaneInfo().get(2).decrementEnergy();
-				            	break;
-				            case 11:
-				            	neighbor.getWarplaneInfo().get(0).decrementEnergy();
-				                break;
-				        }
+						List<Integer> warplanes = AttackStrategy.bases.get(neighbor.getBaseOrder()).getWarplanes();
+						
+						warplanes.forEach((x) -> neighbor.getWarplaneInfo().get(x).decrementEnergy());
 						
 						planesPanel.UpdateHealthBars(neighbor.getWarplaneInfo());
 						
@@ -313,19 +185,4 @@ public class AStar {
 		System.out.println("Não encontrado!");
 		return null;
 	}
-	
-	public static ArrayList<Map.Entry<?, Integer>> sortValue(Hashtable<?, Integer> t)
-	{
-	       //Transfer as List and sort it
-	       ArrayList<Map.Entry<?, Integer>> l = new ArrayList<Entry<?, Integer>>(t.entrySet());
-	       Collections.sort(l, new Comparator<Map.Entry<?, Integer>>(){
-
-	         public int compare(Map.Entry<?, Integer> o1, Map.Entry<?, Integer> o2)
-	         {
-	            return o1.getValue().compareTo(o2.getValue());
-	         }
-	        });
-	       
-	       return l;
-	    }
 }
