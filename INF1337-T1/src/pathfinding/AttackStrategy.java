@@ -108,19 +108,22 @@ public class AttackStrategy
         // Cooling rate
         double coolingRate = 0.003;
         
+        // Random initial strategy
 		char[] strategy = genRandomAttackStrategy();
 
 		while(temperature > 1)
 		{
-			// Generete a new strategy
+			// Generate a new strategy
 			char[] newStrategy = strategy.clone();
 			disturb(newStrategy);
 			
+			// If invalid strategy, skip
 			if(validateStrategy(newStrategy) == false)
 			{
 				continue;
 			}
 			
+			// If the new cost is lower than the older cost, the new strategy is better than the last one
 			if(getCost(newStrategy, enemyBaseDifficulty, listWarPlaneFirepower) < getCost(strategy, enemyBaseDifficulty, listWarPlaneFirepower))
 			{
 				strategy = newStrategy;
