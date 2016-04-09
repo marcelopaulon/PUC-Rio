@@ -53,7 +53,8 @@ public class AStar {
 	{
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
 		{
-			return AttackStrategy.bases.get(toNode.getBaseOrder()).getCost();
+			double cost = AttackStrategy.bases.get(toNode.getBaseOrder()).getCost();
+			return cost;
 		}
 		else
 		{
@@ -163,11 +164,9 @@ public class AStar {
 						
 						warplanes.forEach((x) -> neighbor.getWarplaneInfo().get(x).decrementEnergy());
 						
-						planesPanel.UpdateHealthBars(neighbor.getWarplaneInfo());
-						
 						if(noRender == false)
 						{
-							Program.getInstance().refreshWarPlanesEnergy(neighbor.getWarplaneInfo());
+							planesPanel.UpdateHealthBars(neighbor.getWarplaneInfo());
 						}
 					}
 					

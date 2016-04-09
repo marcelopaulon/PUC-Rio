@@ -81,14 +81,14 @@ public class AttackStrategy
 	{
 		double cost = 0.0;
 		
-		for(int i = 1; i < 56; i += 5)
+		for(int i = 0; i < 11; i++)
 		{
-			int difficulty = enemyBaseDifficulty.get((i-1) % 11 + 1);
+			int difficulty = enemyBaseDifficulty.get(i + 1);
 			double firepowerSum = 0.0;
 			
 			for(int j = 0; j < 5; j++)
 			{
-				if(strategy[i+j - 1] == '1')
+				if(strategy[5*i+j] == '1')
 				{
 					firepowerSum += listWarPlaneFirepower.get(j).getFirepower();
 				}
@@ -129,7 +129,7 @@ public class AttackStrategy
 				continue;
 			}
 			
-			// If the new cost is lower than the older cost, the new strategy is better than the last one
+			// If the new cost is lower than the older cost, then the new strategy is better than the last one
 			if(getCost(newStrategy, enemyBaseDifficulty, listWarPlaneFirepower) < getCost(strategy, enemyBaseDifficulty, listWarPlaneFirepower))
 			{
 				strategy = newStrategy;
@@ -139,15 +139,15 @@ public class AttackStrategy
             temperature *= 1-coolingRate;
 		}
 		
-		for(int i = 1; i < 56; i += 5)
+		for(int i = 0; i < 11; i++)
 		{
-			double cost = enemyBaseDifficulty.get(i % 5);
+			double cost = enemyBaseDifficulty.get(i + 1);
 			double firepowersum = 0;
 			List<Integer> airplanes = new ArrayList<Integer>();
 			
 			for(int j = 0; j < 5; j++)
 			{
-				if(strategy[i+j - 1] == '1')
+				if(strategy[5*i+j] == '1')
 				{
 					airplanes.add(j);
 					firepowersum += listWarPlaneFirepower.get(j).getFirepower();
@@ -157,7 +157,7 @@ public class AttackStrategy
 			cost /= firepowersum;
 			
 			EnemyBaseAttack enemyBaseAttack = new EnemyBaseAttack(cost, airplanes);
-			bases.put((i-1) % 11 + 1, enemyBaseAttack);
+			bases.put(i + 1, enemyBaseAttack);
 		}
 		
 		return;
