@@ -15,7 +15,7 @@ import program.PlanesPanel;
 import program.Program;
 
 /**
- * Implementa o algoritmo A&#42
+ * Implements the A* algorithm
  *
  */
 public class AStar {
@@ -23,8 +23,8 @@ public class AStar {
 	private final Map<Node, Double> fScore = new HashMap<Node, Double>();
 	
 	/**
-	 * Construtor de AStar
-	 * <p><b>AStar:</b> implementa o algoritmo A&#42</p>
+	 * AStar constructor
+	 * <p><b>AStar:</b> Implements the A* algorithm</p>
 	 */
 	public AStar()
 	{
@@ -32,9 +32,9 @@ public class AStar {
 	}
 	
 	/**
-	 * Pega o custo de uma node em fscore (gscore + heurística)
-	 * @param node Nó de onde será pego o custo
-	 * @return Fscore do nó
+	 * Gets the cost of an fscore node (gscore + heuristic)
+	 * @param node from where the cost is gotten
+	 * @return Node fscore
 	 */
 	private double getFCost(Node node)
 	{
@@ -44,10 +44,10 @@ public class AStar {
 	/**
 	 * "Ahm? Acho que não é usado" - Autor do método
 	 * <p>TODO: Revisar este javadoc. </p>
-	 * @param map GameMap do qual se deseja obter o custo
-	 * @param fromNode Node inicial
-	 * @param toNode Node final
-	 * @return Custo de node ou dificuldade da enemy base dividido pelo poder de fogo da nave atacante
+	 * @param map from which the cost is desired to be gotten
+	 * @param fromNode Initial node
+	 * @param toNode Final node
+	 * @return Node cost or enemy base difficulty divided by attacking ship's firepower
 	 */
 	private double getTraversalCost(GameMap map, Node fromNode, Node toNode)
 	{
@@ -66,12 +66,12 @@ public class AStar {
 	}
 	
 	/**
-	 * Compara dois nós
+	 * Compares two nodes
 	 *
 	 */
 	private class NodeComparator implements Comparator<Node> {
 		/**
-		 * Compara o fcost de dois nós
+		 * Compares fscore between two nodes
 		 */
 	  public int compare(Node node1, Node node2) {
 	    return Double.compare(getFCost(node1), getFCost(node2)); 
@@ -79,12 +79,12 @@ public class AStar {
 	}
 	
 	/**
-	 * Processa o AStar no mapa, encontrando o caminho ótimo
-	 * @param map Mapa onde o AStar será executado
-	 * @param mapPanel Painel do mapa onde aparecerá o caminho traçado pelo findPath
-	 * @param planesPanel Painel onde é listada a energia restante de cada avião
+	 * Processes AStar on the map, finding the optimal path
+	 * @param map where AStar is to be executed
+	 * @param mapPanel where findPath will trace the path
+	 * @param planesPanel Panel where each plane's remaining energy is listed
 	 * @param noRender Specifies if the path should be rendered on the UI. 
-	 * @return Path encontrado ou <b>null</b> se não caminho foi encontrado
+	 * @return Path found or <b>null</b> if no path was found
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
 	public Path findPath(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel, boolean noRender) {

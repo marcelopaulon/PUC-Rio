@@ -6,20 +6,20 @@ import java.util.List;
 import mapcell.MapCell;
 
 /**
- * Nó representando uma célula do mapa e seu tipo de tile
+ * Node representing a map cell and its tile type
  *
  */
 public class Node {
 	/**
-	 * Coordenada X da célula
+	 * Cell's X coordinate
 	 */
 	public int X;
 	/**
-	 * Coordenada Y da célula
+	 * Cell's Y coordinate
 	 */
 	public int Y;
 	/**
-	 * Tipo de tile presente na célula
+	 * tile type present in the cell
 	 */
 	public MapCell.Cells CellType;
 	
@@ -36,12 +36,12 @@ public class Node {
 	private Integer enemyBaseOrder = null;
 	
 	/**
-	 * Construtor de Node para base inimiga
-	 * <p><b>Node:</b> nó representando uma célula do mapa e seu tipo de tile</p>
-	 * @param x Coordenada X da célula
-	 * @param y Coordenada Y da célula
-	 * @param cellType Tipo de tile presente na célula
-	 * @param enemyBaseOrder Ordem da base inimiga
+	 * Node constructor for enemy base
+	 * <p><b>Node:</b> represents a map cell and its tile type</p>
+	 * @param x Cell's X coordinate
+	 * @param y Cell's Y coordinate
+	 * @param cellType Tile type present in the cell
+	 * @param enemyBaseOrder
 	 */
 	public Node(int x, int y, MapCell.Cells cellType, int enemyBaseOrder)
 	{
@@ -50,11 +50,11 @@ public class Node {
 	}
 	
 	/**
-	 * Construtor de Node
-	 * <p><b>Node:</b> nó representando uma célula do mapa e seu tipo de tile</p>
-	 * @param x Coordenada X da célula
-	 * @param y Coordenada Y da célula
-	 * @param cellType Tipo de tile presente na célula
+	 * Node cosntructor
+	 * <p><b>Node:</b> represents a map cell and its tile type</p>
+	 * @param x Cell's X coordinate
+	 * @param y Cell's Y coordinate
+	 * @param cellType Tile type present in the cell
 	 */
 	public Node(int x, int y, MapCell.Cells cellType)
 	{
@@ -92,9 +92,9 @@ public class Node {
 	}
 	
 	/**
-	 * Calcula o valor de acordo com a heurística utilizada para uma célula
-	 * @param endNode Célula final para a qual se calculará a heurística a partir da célula atual
-	 * @return Valor determinado pelo cálculo da função heurística
+	 * Calculates value according to heuristic used for a cell
+	 * @param endNode for which the heuristic will be calculated from current cell
+	 * @return Value determined by the heuristic function's calculation
 	 */
 	public double getHeuristic(Node endNode)
 	{
@@ -103,8 +103,8 @@ public class Node {
 	}
 	
 	/**
-	 * Pega o custo associado ao tile deste node
-	 * @return Custo referente ao tipo de tile deste node
+	 * Gets cost associated to node's tile
+	 * @return Cost referring to node's tile's type
 	 */
 	public double getCost()
 	{

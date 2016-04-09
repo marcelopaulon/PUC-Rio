@@ -17,13 +17,13 @@ import map.MapLoaderException;
 import pathfinding.WarPlaneInfo;
 
 /**
- * Painel superior contendo botões como "Carregar Mapa" e "Bases Inimigas"
+ * Top panel containing buttons like "Carregar Mapa" and "Bases Inimigas"
  *
  */
 public class ToolsPanel extends JPanel
 {
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 1127862851219036026L;
@@ -33,8 +33,8 @@ public class ToolsPanel extends JPanel
 	private EditWarPlaneInfo warPlaneInfoDialog = new EditWarPlaneInfo();
 	
 	/**
-	 * Construtor de ToolsPanel
-	 * <p><b>ToolsPanel:</b> painel superior contendo botões como "Carregar Mapa" e "Bases Inimigas".</p>
+	 * ToolsPanel constructor
+	 * <p><b>ToolsPanel:</b> Top panel containing buttons like "Carregar Mapa" and "Bases Inimigas"</p>
 	 */
 	public ToolsPanel()
 	{
@@ -56,9 +56,9 @@ public class ToolsPanel extends JPanel
 	}
 	
 	/**
-	 * Pega a tabela de informações das naves
-	 * @return Lista contendo nome e poder de fogo das naves
-	 * @see EditWarPlaneInfo#getWarPlaneList() getWarPlaneList em EditWarPlaneInfo
+	 * Gets planes' info table
+	 * @return List containing planes' name and firepower
+	 * @see EditWarPlaneInfo#getWarPlaneList() getWarPlaneList in EditWarPlaneInfo
 	 */
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
@@ -66,9 +66,9 @@ public class ToolsPanel extends JPanel
 	}
 	
 	/**
-	 * Pega a tabela de informações das bases inimigas
-	 * @return Hashtable contendo id de cada base inimiga e sua dificuldade
-	 * @see EditEnemyBaseInfo#getEnemyBaseList() getEnemyBaseList em EditEnemyBaseInfo
+	 * Gets enemy bases' info table
+	 * @return Hashtable containing each base's ID and difficulty level
+	 * @see EditEnemyBaseInfo#getEnemyBaseList() getEnemyBaseList in EditEnemyBaseInfo
 	 */
 	public Hashtable<Integer, Integer> getEnemyBaseList()
 	{
@@ -76,7 +76,7 @@ public class ToolsPanel extends JPanel
 	}
 	
 	/**
-	 * Define o que acontece quando o botão "Carregar Mapa" é apertado
+	 * Defines what happens when the "Carregar Mapa" button is presssed
 	 */
 	private ActionListener loadMapListener = new ActionListener()
 	{
@@ -95,7 +95,7 @@ public class ToolsPanel extends JPanel
 	};
 	
 	/**
-	 * Define o que acontece quando o botão "Bases Inimigas" é apertado
+	 * Defines what happens when the "Bases Inimigas" button is presssed
 	 */	
 	private ActionListener editEnemyBasesListener = new ActionListener()
 	{
@@ -113,7 +113,7 @@ public class ToolsPanel extends JPanel
 	};
 
 	/**
-	 * Define o que acontece quando o botão "Aviões" é apertado
+	 * Defines what happens when the "Aviões" button is presssed
 	 */
 	private ActionListener editWarPlanesListener = new ActionListener()
 	{
@@ -131,7 +131,7 @@ public class ToolsPanel extends JPanel
 	};
 
 	/**
-	 * Define o que acontece quando o botão "Sair" é apertado
+	 * Defines what happens when the "Sair" button is presssed
 	 */
 	private ActionListener exitListener = new ActionListener()
 	{
@@ -143,8 +143,8 @@ public class ToolsPanel extends JPanel
 	};
 	
 	/**
-	 * Define o diálogo de carregar um arquivo com um mapa
-	 * @return GameMap do mapa carregado ou <b>null</b>
+	 * Defines what dialog appears when a map is loaded
+	 * @return Loaded map's GameMap or <b>null</b>
 	 * @throws MapLoaderException
 	 */
 	public GameMap showLoadMapDialog() throws MapLoaderException

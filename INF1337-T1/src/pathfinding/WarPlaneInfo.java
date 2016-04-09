@@ -1,7 +1,7 @@
 package pathfinding;
 
 /**
- * Contém as informações de uma nave (nome, poder de fogo e energia)
+ * Contains plane info (name, firepower & energy)
  *
  */
 public class WarPlaneInfo
@@ -11,11 +11,11 @@ public class WarPlaneInfo
 	private Integer energy;
 	
 	/**
-	 * Construtor de WarPlaneInfo. A energia da nave é sempre 5.
-	 * <p><b>WarPlaneInfo:</b> contém as informações de uma nave (nome, poder de fogo e energia)</p>
-	 * @param name Nome da nave
-	 * @param firepower Poder de fogo da nave
-	 * * @param energy War plane energy
+	 * WarPlaneInfo constructor: Plane energy is always 5.
+	 * <p><b>WarPlaneInfo:</b> Contains plane info (name, firepower & energy)</p>
+	 * @param name Plane's name
+	 * @param firepower Plane's firepower
+	 * * @param energy Plane's energy
 	 */
 	public WarPlaneInfo(String name, Double firepower, Integer energy)
 	{
@@ -25,10 +25,10 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Construtor de WarPlaneInfo. A energia da nave é sempre 5.
-	 * <p><b>WarPlaneInfo:</b> contém as informações de uma nave (nome, poder de fogo e energia)</p>
-	 * @param name Nome da nave
-	 * @param firepower Poder de fogo da nave
+	 * CWarPlaneInfo constructor: Plane energy is always 5.
+	 * <p><b>WarPlaneInfo:</b> Contains plane info (name, firepower & energy)</p>
+	 * @param name Plane's name
+	 * @param firepower Plane's firepower
 	 */
 	public WarPlaneInfo(String name, Double firepower)
 	{
@@ -38,8 +38,8 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Pega o nome da nave
-	 * @return String contendo o nome da nave
+	 * Gets plane's name
+	 * @return String containing plane's name
 	 */
 	public String getName()
 	{
@@ -47,8 +47,8 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Pega o poder de fogo da nave
-	 * @return Poder de fogo da nave
+	 * Gets plane's firepower
+	 * @return plane's firepower
 	 */
 	public Double getFirepower()
 	{
@@ -56,8 +56,8 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Pega a energia atual da nave
-	 * @return Energia da nave
+	 * Gets plane's current energy
+	 * @return plane's energy
 	 */
 	public int getEnergy()
 	{
@@ -81,8 +81,8 @@ public class WarPlaneInfo
 	}
 	
 	/**
-	 * Modifica o poder de fogo da nave
-	 * @param value Novo poder de fogo da nave
+	 * Modifies plane's firepower
+	 * @param value Plane's new firepower
 	 */
 	public void setFirepower(double value)
 	{

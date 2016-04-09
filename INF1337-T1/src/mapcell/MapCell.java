@@ -4,12 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Hashtable;
 /**
- * Célula do mapa representando cada possível tile
+ * Map cell representing every possible tile
+ * 
  *
  */
 public abstract class MapCell {
 	/**
-	 * Enum dos tipos diferentes de tile possíveis em um MapCell
+	 * Enum of every different type of tile in MapCell
 	 *
 	 */
 	public enum Cells {
@@ -25,26 +26,26 @@ public abstract class MapCell {
 		private final int cost;
 		
 		/**
-		 * Pega char usado para construir o MapCell
-		 * @return variável private asChar do MapCell
+		 * Gets char used to create Mapcell
+		 * @return MapCell private variable asChar
 		 */
 		public char asChar() {
 			return asChar;
 		}
 
 		/**
-		 * Pega custo do tile de MapCell
-		 * @return variável private indicando o custo
+		 * Gets MapCell tile cost
+		 * @return private variable indicating cost
 		 */
 		public int getCost() {
 			return cost;
 		}
 
 		/**
-		 * Construtor private que constrói os elementos deste enum
-		 * <p><b>Cells:</b> enum dos tipos diferentes de tile possíveis em um MapCell</p>
+		 * Private constructor for enum elements
+		 * <p><b>Cells:</b> Enum of every different type of tile in MapCell</p>
 		 * @param asChar Cell char value.
-		 * @param cost Custo associado ao tipo de tile.
+		 * @param cost associated to the tile's type
 		 */
 		private Cells(char asChar, int cost) {
 			this.asChar = asChar;
@@ -69,7 +70,7 @@ public abstract class MapCell {
 	}
 	
 	/**
-	 * Imagem referente ao mapcell
+	 * Image referencing MapCell
 	 */
 	protected BufferedImage texture;
 	
@@ -79,7 +80,7 @@ public abstract class MapCell {
 	protected final char id;
 
 	/**
-	 * Construtor de MapCell
+	 * MapCell constructor
 	 * @param texture
 	 * @param id
 	 */
@@ -89,19 +90,19 @@ public abstract class MapCell {
 	}
 
 	/**
-	 * Desenha a imagem
-	 * @param g Componente de renderização TODO: Conferir se é isso mesmo
-	 * @param x Coordenada x para ser passada para drawImage
-	 * @param y Coordenada y para ser passada para drawImage
-	 * @param width Largura para ser passada para drawImage
-	 * @param height Altura para ser passada para drawImage
+	 * Draws the image
+	 * @param g Renderization component ALL: Check if it's relly that
+	 * @param x coordinate to be passed onto drawImage
+	 * @param y coordinate to be passed onto drawImage
+	 * @param width be passed onto drawImage
+	 * @param height to be passed onto drawImage
 	 */
 	public void render(Graphics g, int x, int y, int width, int height) {
 		g.drawImage(texture, x, y, width, height, null);
 	}
 
 	/**
-	 * Retorna id do mapCell
+	 * Returns mapCell ID
 	 * @return Cell identifier.
 	 */
 	public int getId() {

@@ -20,13 +20,13 @@ import java.awt.image.BufferedImage;
 import java.awt.Label;
 
 /**
- * Painel contendo a energia restante de cada nave
+ * Panel containing each ship's remaining energy
  *
  */
 public class PlanesPanel extends JPanel{
 
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 6004525539230391406L;
@@ -40,8 +40,8 @@ public class PlanesPanel extends JPanel{
 	private JProgressBar[] healthBarArray = new JProgressBar[5];
 	
 	/**
-	 * Construtor de PlanesPanel
-	 * <p><b>PlanesPanel:</b> painel contendo a energia restante de cada nave</p>
+	 * PlanesPanel constructor
+	 * <p><b>PlanesPanel:</b> Panel containing each ship's remaining energy</p>
 	 */
 	public PlanesPanel(){
 		super();
@@ -67,7 +67,7 @@ public class PlanesPanel extends JPanel{
 	}
 	
 	/**
-	 * Atualiza a barra de energia dos aviões quando a ordem deles na tabela muda
+	 * Refreshes the planes' health bar when their order change in the table
 	 */
 	public void Refresh(boolean refreshHealthBar)
 	{
@@ -104,9 +104,9 @@ public class PlanesPanel extends JPanel{
 	}
 	
 	/**
-	 * Configura as barras de energia dos aviões
-	 * <p>A barra de energia é uma progress bar ao contrário</p>
-	 * @param health Barra de energia a ser configurada
+	 * Configures the planes' health bars
+	 * <p>Enegry bar is a backwards progress bar</p>
+	 * @param health Energy bar to be configured
 	 */
 	private void ConfigHealthBar(JProgressBar health){
 		health.setMaximum(5);
@@ -117,7 +117,7 @@ public class PlanesPanel extends JPanel{
 	}
 	
 	/**
-	 * Atualiza as barras de energia dos aviões
+	 * Updates the planes' health bars
 	 */
 	public void UpdateHealthBars(List<WarPlaneInfo> warPlaneList){
 		for(int i=0; i<5; i++){

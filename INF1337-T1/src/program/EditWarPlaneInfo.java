@@ -12,13 +12,13 @@ import javax.swing.JTable;
 import pathfinding.WarPlaneInfo;
 
 /**
- * Classe que cuida das mudanças do botão "Aviões".
+ * Class that handles changes in "Aviões" button
  *
  */
 public class EditWarPlaneInfo extends JDialog
 {
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 6432336918764485679L;
@@ -27,10 +27,10 @@ public class EditWarPlaneInfo extends JDialog
 	private WarPlaneTableModel warPlaneTableModel = new WarPlaneTableModel(null);
 	
 	/**
-	 * Pega o poder de fogo de determinada nave.
-	 * @param position Posição da nave na tabela
-	 * @return Valor especificado na tabela para a base correspondente ou,
-	 * caso este seja null, retorna o valor padrão para dificuldade de base (90).
+	 * Gets a certain plane's firepower
+	 * @param position Plane's position on table
+	 * @return Value specified for the correspondent base or,
+	 * in case it's null, returns default value to base difficulty (90).
 	 */
 	public Double getWarPlaneFirepower(int position)
 	{
@@ -45,8 +45,8 @@ public class EditWarPlaneInfo extends JDialog
 	
 	
 	/**
-	 * Pega a lista de naves
-	 * @return Lista contendo nome e poder de fogo das naves
+	 * Gets list of planes
+	 * @return List containing name and firepower of each plane
 	 */
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
@@ -54,7 +54,7 @@ public class EditWarPlaneInfo extends JDialog
 	}
 	
 	/**
-	 * Gera a visualização da tabela que será editada no programa
+	 * Generates a visualization of the table to be edited by program
 	 */
 	private void setupWarPlaneTable()
 	{	    
@@ -65,9 +65,9 @@ public class EditWarPlaneInfo extends JDialog
 	}
 
 	/**
-	 * Construtor de EditWarPlaneInfo
-	 * <p>Gera a janela contendo a visualização da tabela no programa</p>
-	 * <p><b>EditWarPlaneInfo:</b> classe que cuida das mudanças do botão "Aviões".</p>
+	 * EditWarPlaneInfo constructor
+	 * <p>Generates window containing the table's visualization</p>
+	 * <p><b>EditWarPlaneInfo:</b> Class that handles changes in "Aviões" button</p>
 	 */
 	public EditWarPlaneInfo()
 	{

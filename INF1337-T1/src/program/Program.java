@@ -17,20 +17,20 @@ import map.MapPanel;
 import pathfinding.WarPlaneInfo;
 
 /**
- * Classe principal, contém a função main. 
- * Representa uma instância do programa.
+ * Main class, contains main function
+ * Represents an instance of the program
  *
  */
 public final class Program
 {
 	/**
-	 * Guarda o arquivo padrão de mapa
+	 * Stores map pattern file
 	 */
 	public static File defaultSaveFile = new File("defaultMap.mapsave");
 	private static Dimension defaultDimension = new Dimension(800, 800);
 
 	/**
-	 * Painel de cima
+	 * Top panel
 	 */
 	public static ToolsPanel toolsPanel;
 	
@@ -44,7 +44,7 @@ public final class Program
 	private static Program instance;
 	
 	/**
-	 * Cria o painel de cima
+	 * Creates top panel
 	 */
 	private void createToolsPanel()
 	{
@@ -53,7 +53,7 @@ public final class Program
 	}
 	
 	/**
-	 * Cria o painel onde o mapa é exibido, já carregando ele
+	 * Creates panel where the map is displayed, already loading it
 	 */
 	private void createPlanesPanel(){
 		planesPanel = new PlanesPanel();
@@ -61,7 +61,7 @@ public final class Program
 	}
 	
 	/**
-	 * Cria o painel onde o mapa é exibido, já carregando ele
+	 * Creates panel where the map is displayed, already loading it
 	 */
 	private void createMapPanel()
 	{
@@ -84,7 +84,7 @@ public final class Program
 	
 	
 	/**
-	 * Printa o custo na sidebar lateral
+	 * Prints cost on sidebar
 	 * @param score Custo a ser printado
 	 */
 	public void setCost(double score)
@@ -93,8 +93,8 @@ public final class Program
 	}
 	
 	/**
-	 * Atualiza os valores de energia das naves através de novas requisições get aos mesmos.
-	 * @see toolsPanel#refreshWarPlanesEnergy() refreshWarPlanesEnergy em ToolsSidebar
+	 * Refreshes planes' energy values through new get requisitions.
+	 * @see toolsPanel#refreshWarPlanesEnergy() refreshWarPlanesEnergy in ToolsSidebar
 	 */
 	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
@@ -102,8 +102,8 @@ public final class Program
 	}
 	
 	/**
-	 * Carrega um mapa e o renderiza
-	 * @param map Mapa que será carregado e renderizado
+	 * Loads and renders a map
+	 * @param map to be load and rendered
 	 */
 	public void tryLoadMap(GameMap map)
 	{
@@ -112,7 +112,7 @@ public final class Program
 	}
 	
 	/**
-	 * Renderiza o mapa e o carrega no mapPanel.
+	 * Renders map and loads it in mapPanel.
 	 */
 	private void tryRenderMap()
 	{
@@ -125,7 +125,7 @@ public final class Program
 	}
 	
 	/**
-	 * Função principal do programa.
+	 * Program's main function.
 	 * @param args
 	 */
 	public static void main(String[] args)
@@ -135,8 +135,8 @@ public final class Program
 	}
 	
 	/**
-	 * Pega a instância do programa
-	 * @return Instância
+	 * Gets program's instance
+	 * @return instance
 	 */
 	public static Program getInstance()
 	{
@@ -148,10 +148,10 @@ public final class Program
 	}
 	
 	/**
-	 * Pega a lista de informações das naves
-	 * @return Lista contendo nome e poder de fogo das naves
-	 * @see ToolsPanel#getWarPlaneList() getWarPlaneList em ToolsPanel
-	 * @see EditWarPlaneInfo#getWarPlaneList() getWarPlaneList em EditWarPlaneInfo
+	 * Gets plane info list
+	 * @return list containing each ship's name and firepower
+	 * @see ToolsPanel#getWarPlaneList() getWarPlaneList in ToolsPanel
+	 * @see EditWarPlaneInfo#getWarPlaneList() getWarPlaneList in EditWarPlaneInfo
 	 */
 	public List<WarPlaneInfo> getWarPlaneList()
 	{
@@ -159,10 +159,10 @@ public final class Program
 	}
 	
 	/**
-	 * Pega a lista de informações das bases inimigas
-	 * @return Hashtable contendo id e dificuldade de cada base inimiga
-	 * @see ToolsPanel#getEnemyBaseList() getEnemyBaseList em ToolsPanel
-	 * @see EditEnemyBaseInfo#getEnemyBaseList() getEnemyBaseList em EditEnemyBaseInfo
+	 * Get enemy base info list
+	 * @return Hashtable containing each enemy base's ID and difficulty level
+	 * @see ToolsPanel#getEnemyBaseList() getEnemyBaseList in ToolsPanel
+	 * @see EditEnemyBaseInfo#getEnemyBaseList() getEnemyBaseList in EditEnemyBaseInfo
 	 */
 	public Hashtable<Integer, Integer> getEnemyBaseList()
 	{
@@ -170,7 +170,7 @@ public final class Program
 	}
 
 	/**
-	 * Função que inicializa o programa. Chamada na main.
+	 * Program initializer function. Called on main.
 	 */
 	public void appStart()
 	{

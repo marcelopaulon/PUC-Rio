@@ -25,14 +25,14 @@ import map.GameMap;
 import map.MapPanel;
 
 /**
- * Painel superior contendo botões como "Encontrar Caminho" e "Limpar Caminho".
+ * Top panels containing buttons like "Encontrar Caminho" and "Limpar Caminho".
  *
  */
 public class ToolsSidebar extends JPanel {
 	private AStar astar;
 	
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = 3548211981279388502L;
@@ -53,10 +53,10 @@ public class ToolsSidebar extends JPanel {
 	private List<WarPlaneInfo> warPlaneList;
 	
 	/**
-	 * Construtor de ToolsSidebar
-	 * <p><b>ToolsSidebar:</b> painel superior contendo botões como "Encontrar Caminho" e "Limpar Caminho".</p>
-	 * @param map Mapa do qual serão tirados informações como o tamanho
-	 * @param mapPanel Painel onde o mapa é renderizado
+	 * ToolsSidebar constructor
+	 * <p><b>ToolsSidebar:</b> Top panels containing buttons like "Encontrar Caminho" and "Limpar Caminho".</p>
+	 * @param map from which the info will be surveyed (such as size)
+	 * @param mapPanel where the map is renderized
 	 */
 	public ToolsSidebar(GameMap map, MapPanel mapPanel, PlanesPanel planesPanel)
 	{
@@ -86,9 +86,9 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Modifica o mapa ao qual o texto "Tamanho do mapa carregado" se refere
-	 * e o atualiza. 
-	 * @param map Novo mapa cujo tamanho sobreescreverá o tamanho anterior em
+	 * Sets the map which the "Tamanho do mapa carregado" text refers to
+	 * and refreshes it. 
+	 * @param map New map whose size overwrites the previous size in
 	 * "Tamanho do mapa carregado"
 	 */
 	public void setMap(GameMap map)
@@ -98,8 +98,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Muda o custo escrito embaixo do texto "Custo:"
-	 * @param cost Novo custo a ser escrito
+	 * Sets the cost written below "Custo:" text
+	 * @param cost New cost to be written
 	 */
 	public void setCost(double cost)
 	{
@@ -108,8 +108,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Muda o tamanho do caminho escrito embaixo do texto "Tamanho do caminho:"
-	 * @param length Novo tamanho do caminho
+	 * Sets the path length written below "Tamanho do caminho:" text
+	 * @param length New path length
 	 */
 	private void setPathLength(int length)
 	{
@@ -117,8 +117,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Muda o tempo escrito abaixo de "Tempo de Execução:"
-	 * @param calculationTime Novo tempo
+	 * Sets calculatoin time written below "Tempo de Execução:" text
+	 * @param calculationTime New calculation time
 	 */
 	private void setPathCalculationTime(double calculationTime)
 	{
@@ -127,9 +127,9 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Método que calcula a mediana dos elemento de uma lista
-	 * @param m Lista cujos elementos terão a mediana calculada 
-	 * @return Mediana dos elementos de m
+	 * Method that finds the list elements' median
+	 * @param m List whose elements will have their median found
+	 * @return Median of m's elements
 	 */
 	private Double median(List<Double> m) {
 	    int middle = m.size()/2;
@@ -141,7 +141,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Calcula e sobreescreve o tempo de execução
+	 * Measures and overwrites execution time
 	 */
 	private void measurePathFindingTime()
 	{
@@ -163,7 +163,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Calcula o caminho no mapa e mede seu tempo de execução
+	 * Finds map path and measures its execution time
 	 * @see AStar#findPath(GameMap, MapPanel)
 	 */
 	private void findPath()
@@ -197,7 +197,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Limpa a visualização do caminho encontrado no mapa.
+	 * Clears found map's path's visualization
 	 */
 	private void clearPath()
 	{
@@ -206,8 +206,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Reinicia os elementos da ToolsSidebar, colocando-os
-	 * no mesmo estado de quando o programa é iniciado
+	 * Reset ToolsSidebar's elements, putting them
+	 * on the same state in which the program was initiated on
 	 */
 	public void reset()
 	{
@@ -252,7 +252,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Atualiza o valor da energia de cada nave
+	 * Refreshes each plane's energy
 	 */
 	public void refreshWarPlanesEnergy(List<WarPlaneInfo> info)
 	{
@@ -260,7 +260,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Gera o label contendo o texto "Custo:" e o custo do caminho
+	 * Generates label containing the "Custo:" text and the path's cost
 	 */
 	private void setupCostLabel()
 	{
@@ -272,8 +272,8 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Gera os labels contendo os textos "Tamanho do Caminho:" e "Tempo de execução:" 
-	 * e as informações dos mesmos
+	 * Generates label containing the texts "Tamanho do Caminho:" & "Tempo de execução:" 
+	 * and each text's info.
 	 */
 	private void setupPathDataLabels()
 	{
@@ -287,7 +287,7 @@ public class ToolsSidebar extends JPanel {
 	}
 	
 	/**
-	 * Adiciona o listener ao botão "Encontrar Caminho" e define as ações deste botão
+	 * Adds listener to "Encontrar Caminho" button and defines button's action
 	 * @see ToolsSidebar#findPath()
 	 */
 	private void setupFindPathButton()
@@ -317,7 +317,7 @@ public class ToolsSidebar extends JPanel {
 	}
 
 	/**
-	 * Adiciona o listener ao botão "Limpar Caminho" e define as ações deste botão
+	 * Adds listener to "Limpar Caminho" button and defines button's action
 	 * @see ToolsSidebar#clearPath()
 	 */
 	private void setupClearPathButton()

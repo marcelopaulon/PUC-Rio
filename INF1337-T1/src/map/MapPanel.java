@@ -12,18 +12,18 @@ import mapcell.*;
 import pathfinding.Node;
 
 /**
- * Panel responsável por renderizar o mapa
- * <p>TODO: conferir se está certo</p>
+ * Panel responsible of renderizing the map
+ * <p>ALL: Check if it's correct</p>
  */
 public class MapPanel extends JPanel {
 	/**
-	 * Identificador de versão de serialização de uma classe
+	 * Class serialization version identifier
 	 * @see <a href=http://blog.caelum.com.br/entendendo-o-serialversionuid/>Entendendo o serialVersionUID</a>
 	 */
 	private static final long serialVersionUID = -8607607402685333888L;
 
 	/**
-	 * GameMap com o mapa que será renderizado
+	 * GameMap to be rendered
 	 */
 	private GameMap loadedMap;
 
@@ -33,48 +33,48 @@ public class MapPanel extends JPanel {
 	private Graphics g;
 
 	/**
-	 * Construtor do MapPanel
+	 * MapPanel constructor
 	 */
 	public MapPanel() {
 		setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	
 	/**
-	 * MapCell de montanha
+	 * Mountain MapCell
 	 */
 	private MapCell MountainCell = new MountainCell(MapCell.Cells.MOUNTAIN.asChar());
 	/**
-	 * MapCell de planície
+	 * Plain MapCell
 	 */
 	private MapCell PlainCell = new PlainCell(MapCell.Cells.PLAIN.asChar());
 	/**
-	 * MapCell de pedra
+	 * Rock MapCell
 	 */
 	private MapCell RockCell = new RockCell(MapCell.Cells.ROCK.asChar());
 	/**
-	 * MapCell representando baterias anti-aéreas
+	 * Enemy Anti-Aircraft MapCell
 	 */
 	private MapCell EnemyAntiAircraftCell = new EnemyAntiAircraftCell(MapCell.Cells.ENEMYAA.asChar());
 	/**
-	 * MapCell de bases inimigas
+	 * Enemy Base MapCell
 	 */
 	private MapCell EnemyBaseCell = new EnemyBaseCell(MapCell.Cells.ENEMYBASE.asChar());
 	/**
-	 * MapCell representando a posição inicial
+	 * Start MapCell
 	 */
 	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
 	/**
-	 * MapCell representando a posição de chegada
+	 * End MapCell
 	 */
 	private MapCell EndCell = new EndCell(MapCell.Cells.END.asChar());
 	/**
-	 * MapCell representando células visitadas pelo AStar
+	 * Visited MapCell
 	 */
 	private MapCell VisitedCell = new VisitedCell('\0');
 
 	/**
-	 * Renderiza o caminho visitado pelo AStar
-	 * @param path Matriz contendo o caminho visitado pelo AStar
+	 * Renderizes the path traveled by AStar
+	 * @param path Matrix containing the path traveled by AStar
 	 */
 	public void renderPath(List<Node> path)
 	{
@@ -101,7 +101,7 @@ public class MapPanel extends JPanel {
 	}
 	
 	/**
-	 * Desenha o mapa na tela
+	 * Draws map on screen
 	 * @return true
 	 */
 	public boolean renderMap() {
@@ -147,8 +147,8 @@ public class MapPanel extends JPanel {
 	}
 
 	/**
-	 * Carrega um GameMap na tela
-	 * @param map GameMap representando o mapa a ser desenhado na tela
+	 * Loads GameMap on screen
+	 * @param map GameMap representing map to be drawn on screen
 	 */
 	public void loadMap(GameMap map) {
 		loadedMap = map;
