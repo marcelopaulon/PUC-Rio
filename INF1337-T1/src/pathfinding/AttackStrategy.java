@@ -112,7 +112,7 @@ public class AttackStrategy
         double temperature = 10000;
 
         // Cooling rate
-        double coolingRate = 0.003;
+        double coolingRate = 0.001;
         
         // Random initial strategy
 		char[] strategy = genRandomAttackStrategy();
