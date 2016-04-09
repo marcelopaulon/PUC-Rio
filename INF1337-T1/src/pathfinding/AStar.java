@@ -51,15 +51,18 @@ public class AStar {
 	 */
 	private double getTraversalCost(GameMap map, Node fromNode, Node toNode)
 	{
+		double cost;
+		
 		if(toNode.CellType == MapCell.Cells.ENEMYBASE)
 		{
-			double cost = AttackStrategy.bases.get(toNode.getBaseOrder()).getCost();
-			return cost;
+			cost = AttackStrategy.bases.get(toNode.getBaseOrder()).getCost();
 		}
 		else
 		{
-			return toNode.getCost();
+			cost = toNode.getCost();
 		}
+		
+		return cost;
 	}
 	
 	/**
