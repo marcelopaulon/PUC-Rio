@@ -30,6 +30,10 @@ void encerra(int signal) {
   close(fileExec);  // Fecha arquivo de execução
   close(fileIN);  // Fecha arquivo de entrada
   close(fileOUT); // Fecha arquivo de saída
+
+  shmctl(segmentoNomePrograma, IPC_RMID, 0); // Libera memória compartilhada
+  shmctl(segmentoPrioridade, IPC_RMID, 0);   // Libera memória compartilhada
+
   exit(0);
 }
 
@@ -103,7 +107,7 @@ int main(void) {
     exit(-1);
   }
 
-  if(dup2(fileIN, 0) == -1) { // redireciona stdin para arquivo de saída
+  if(dup2(fileIN, 0) == -1) { // redireciona stdin para arquivo de entrada
     printf("[ERRO] Nao foi possivel redirecionar o stdin para arquivo de entrada\n");
     fflush(stdout);
     exit(-1);
@@ -125,6 +129,9 @@ int main(void) {
   close(fileExec);  // Fecha arquivo de execução
   close(fileIN);  // Fecha arquivo de entrada
   close(fileOUT); // Fecha arquivo de saída
+  
+  shmctl(segmentoNomePrograma, IPC_RMID, 0); // Libera memória compartilhada
+  shmctl(segmentoPrioridade, IPC_RMID, 0);   // Libera memória compartilhada
   
   return 0;
 }

@@ -1,33 +1,71 @@
 [INFO] Escalonador iniciado
 [INFO] Escutando...
 [INFO] Processo prog1 - prioridade=6 enviado ao escalonador
-[INFO] Processo prog1 criado - PID: 9382 - Prioridade: 6
-[INFO] Processo de PID 9382 continuado
-[INFO] Iniciando processo de PID 9382 pela 1a vez
+[INFO] Processo prog1 criado - PID: 15538 - Prioridade: 6
+[INFO] Processo de PID 15538 continuado
+[INFO] Iniciando processo de PID 15538 pela 1a vez
 kek
 kek
 [INFO] Processo prog2 - prioridade=3 enviado ao escalonador
-[INFO] Processo prog2 criado - PID: 9384 - Prioridade: 3
+[INFO] Processo prog2 criado - PID: 15544 - Prioridade: 3
 kek
-[INFO] Processo de PID 9382 interrompido
-[INFO] Processo de PID 9384 continuado
-[INFO] Iniciando processo de PID 9384 pela 1a vez
+[INFO] Processo de PID 15538 interrompido
+[INFO] Processo de PID 15544 continuado
+[INFO] Iniciando processo de PID 15544 pela 1a vez
 nelson 0
 [INFO] Processo prog4 - prioridade=3 enviado ao escalonador
-[INFO] Processo prog4 criado - PID: 9385 - Prioridade: 3
+[INFO] Processo prog4 criado - PID: 15546 - Prioridade: 3
 nelson 1
 nelson 2
 [INFO] Processo prog3 - prioridade=4 enviado ao escalonador
-[INFO] Processo prog3 criado - PID: 9386 - Prioridade: 4
+[INFO] Processo prog3 criado - PID: 15547 - Prioridade: 4
 nelson 3
 [INFO] Processo prog5 - prioridade=1 enviado ao escalonador
-[INFO] Processo prog5 criado - PID: 9387 - Prioridade: 1
+[INFO] Processo prog5 criado - PID: 15548 - Prioridade: 1
 nelson 4
-[INFO] Processo de PID 9384 interrompido
-[INFO] Processo de PID 9387 continuado
-[INFO] Iniciando processo de PID 9387 pela 1a vez
-[INFO] Processo de PID 9387 terminou
-[INFO] Processo de PID 9384 continuado
+[INFO] Processo de PID 15544 interrompido
+[INFO] Processo de PID 15548 continuado
+[INFO] Iniciando processo de PID 15548 pela 1a vez
+[INFO] Processo de PID 15548 terminou
+[INFO] Processo de PID 15544 continuado
 nelson 5
 nelson 6
 nelson 7
+nelson 8
+nelson 9
+[INFO] Processo de PID 15544 terminou
+[INFO] Processo de PID 15546 continuado
+[INFO] Iniciando processo de PID 15546 pela 1a vez
+passo 1: 10
+passo 2: 90
+passo 3: 720
+passo 4: 5040
+passo 5: 30240
+passo 6: 151200
+passo 7: 604800
+passo 8: 1814400
+passo 9: 3628800
+Fatorial: 3628800
+[INFO] Processo de PID 15546 terminou
+[INFO] Processo de PID 15547 continuado
+[INFO] Iniciando processo de PID 15547 pela 1a vez
+[INFO] Processo de PID 15547 terminou
+[INFO] Processo de PID 15538 continuado
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+[INFO] Processo de PID 15538 terminou
