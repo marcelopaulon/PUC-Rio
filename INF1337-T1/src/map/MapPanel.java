@@ -12,8 +12,7 @@ import mapcell.*;
 import pathfinding.Node;
 
 /**
- * Panel responsible of renderizing the map
- * <p>ALL: Check if it's correct</p>
+ * Panel where the map is rendered
  */
 public class MapPanel extends JPanel {
 	/**

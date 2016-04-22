@@ -27,7 +27,6 @@ public class GameMap {
 	private int nRows, nColumns;
 	
 	/**
-	 * OVERALL: revise if this is correct
 	 * <p><b>startX</b> - Start Tile's Column of the map</p>
 	 * <p><b>startY</b> - Start Tile's Row of the map</p>
 	 * <p><b>endX</b> - End Tile's Column of the map</p>

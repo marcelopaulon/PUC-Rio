@@ -91,7 +91,7 @@ public abstract class MapCell {
 
 	/**
 	 * Draws the image
-	 * @param g Renderization component ALL: Check if it's relly that
+	 * @param g Renderization component
 	 * @param x coordinate to be passed onto drawImage
 	 * @param y coordinate to be passed onto drawImage
 	 * @param width be passed onto drawImage
