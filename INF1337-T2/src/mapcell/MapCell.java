@@ -55,9 +55,9 @@ public abstract class MapCell {
 	}
 		
 	/**
-	 * Image referencing MapCell
+	 * Images referencing MapCell
 	 */
-	protected BufferedImage texture;
+	protected BufferedImage[] textures;
 	
 	/**
 	 * Cell identifier.
@@ -76,7 +76,20 @@ public abstract class MapCell {
 	 * @param isWalkable
 	 */
 	public MapCell(BufferedImage texture, char id, boolean isWalkable) {
-		this.texture = texture;
+		this.textures = new BufferedImage[1];
+		this.textures[0] = texture;
+		this.id = id;
+		this.walkable = isWalkable;
+	}
+	
+	/**
+	 * MapCell constructor
+	 * @param texture
+	 * @param id
+	 * @param isWalkable
+	 */
+	public MapCell(BufferedImage[] textures, char id, boolean isWalkable) {
+		this.textures = textures;
 		this.id = id;
 		this.walkable = isWalkable;
 	}
@@ -90,7 +103,7 @@ public abstract class MapCell {
 	 * @param height to be passed onto drawImage
 	 */
 	public void render(Graphics g, int x, int y, int width, int height) {
-		g.drawImage(texture, x, y, width, height, null);
+		g.drawImage(textures[0], x, y, width, height, null);
 	}
 
 	/**

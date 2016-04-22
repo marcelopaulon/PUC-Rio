@@ -2,9 +2,12 @@ package map;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import gfx.Assets;
 import mapcell.*;
@@ -29,6 +32,17 @@ public class MapPanel extends JPanel {
 	 */
 	private Graphics g;
 
+	private int _timeSlice = 50;  // update every 50 milliseconds
+	
+	private Timer _timer = new Timer(_timeSlice, new ActionListener() {
+	    /**
+	     * The timer "ticks" by calling this method every _timeslice milliseconds
+	     */
+	    public void actionPerformed (ActionEvent e) {
+	        MapPanel.this.repaint();
+	    }
+	});
+	
 	/**
 	 * MapPanel constructor
 	 */
@@ -83,6 +97,8 @@ public class MapPanel extends JPanel {
 
 		int numcols = loadedMap.getNColumns(), numrows = loadedMap.getNRows();
 
+		_timer.stop();
+		
 		// Clear the panel
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width, height);
@@ -108,6 +124,8 @@ public class MapPanel extends JPanel {
 				cell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 			}
 		}
+		
+		_timer.start();
 		
 		return true;
 	}

@@ -70,9 +70,9 @@ public abstract class MapCell {
 	}
 	
 	/**
-	 * Image referencing MapCell
+	 * Images referencing MapCell
 	 */
-	protected BufferedImage texture;
+	protected BufferedImage[] textures;
 	
 	/**
 	 * Cell identifier.
@@ -85,20 +85,31 @@ public abstract class MapCell {
 	 * @param id
 	 */
 	public MapCell(BufferedImage texture, char id) {
-		this.texture = texture;
+		this.textures = new BufferedImage[1];
+		this.textures[0] = texture;
+		this.id = id;
+	}
+	
+	/**
+	 * MapCell constructor
+	 * @param textures
+	 * @param id
+	 */
+	public MapCell(BufferedImage[] textures, char id) {
+		this.textures = textures;
 		this.id = id;
 	}
 
 	/**
 	 * Draws the image
-	 * @param g Renderization component
+	 * @param g Rendering component
 	 * @param x coordinate to be passed onto drawImage
 	 * @param y coordinate to be passed onto drawImage
 	 * @param width be passed onto drawImage
 	 * @param height to be passed onto drawImage
 	 */
 	public void render(Graphics g, int x, int y, int width, int height) {
-		g.drawImage(texture, x, y, width, height, null);
+		g.drawImage(textures[0], x, y, width, height, null);
 	}
 
 	/**

@@ -17,7 +17,7 @@ public class Assets {
 	 */
 	public static final int TILE_HEIGHT = 32;
 
-	public static BufferedImage start, wall, hole, floor, floorvisited, teletransport, gold;
+	public static BufferedImage start, wall, hole, floor, floorvisited, teletransport, teletransport2, teletransport3, gold;
 	public static BufferedImage enemy20Down, enemy20Left, enemy20Up, enemy20Right;
 	public static BufferedImage enemy50Down, enemy50Left, enemy50Up, enemy50Right;
 	public static BufferedImage agentDown, agentLeft, agentUp, agentRight;
@@ -33,6 +33,8 @@ public class Assets {
 		floor = sheet.crop(TILE_WIDTH * 2, 0, TILE_WIDTH, TILE_HEIGHT);
 		floorvisited = sheet.crop(TILE_WIDTH * 2, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		teletransport = sheet.crop(TILE_WIDTH * 3, 0, TILE_WIDTH, TILE_HEIGHT);
+		teletransport2 = sheet.crop(TILE_WIDTH * 3, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		teletransport3 = sheet.crop(TILE_WIDTH * 3, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT);
 		gold = sheet.crop(TILE_WIDTH * 4, 0, TILE_WIDTH, TILE_HEIGHT);
 		
 		enemy20Down = sheet.crop(TILE_WIDTH * 5, 0, TILE_WIDTH, TILE_HEIGHT);
