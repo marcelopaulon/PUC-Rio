@@ -1,0 +1,137 @@
+INF1019 - SISTEMAS DE COMPUTAÇÃO - 2016.1
+Relatório - Trabalho 1
+
+Alunos: 
+        Marcelo Paulon (1411029)
+        Gustavo Aranha (1320755)
+
+Foram criados 3 escalonadores, um de round-robin, outro de lottery e outro de prioridade. No escalonamento por loteria e round-robin, a fatia de tempo por processo é maior que os 0.5 segundos sugeridos, para que a preempção possa ser percebida com maior clareza. No escalonamento por loteria, cada processo possui n bilhetes, únicos para cada processo.
+O executável do escalonador deve ter o nome "escalonador" para que o interpretador possa chamá-lo.
+A entrada (stdin) deve estar no arquivo "entrada.txt", criado antes de executar o interpretador.
+A saída (stdout) dos programas executados, assim como as informações de quando um processo é criado, interrompido, continuado, ou terminado, são escritas no arquivo "saida.txt".
+Para iniciar a execução, deve-se executar o interpretador, que inicia o escalonador, lê e executa pelo escalonador programas, através dos comandos no arquivo "exec.txt" (formato dos comandos definido no enunciado do trabalho). O escalonador pode possuir até 1024 processos simultâneos carregados, e para adicionar um novo processo deve-se escrever em memória compartilhado o nome do programa (e os parâmetros se necessário) e notificar o escalonador através de um SIGUSR1.
+
+Programas utilizados para teste:
+
+prog1 (I/O bound - imprime a palavra "kek" a cada 1 segundo):
+int main(void)
+{
+  int i;
+  for(i=0; i < 20; i++)
+  {
+    printf("kek\n");
+    fflush(stdout);
+    sleep(1);
+  }
+
+  return 0;
+}
+
+prog2 (I/O bound - imprime a palavra "nelson" seguida de um contador, 10 vezes, a cada 2 segundos):
+int main(void)
+{
+  int i;
+  for(i=0; i < 10; i++)
+  {
+    printf("nelson %d\n", i);
+    fflush(stdout);
+    sleep(2);
+  }
+
+  return 0;
+}
+
+prog3 (CPU-bound - calcula o fatorial de um número):
+int main(void)
+{
+  int i, fat = 1;
+
+  for(i=10; i > 1; i--)
+  {
+    fat *= i;
+  }
+
+  return 0;
+}
+
+prog4 (I/O -bound - imprime o fatorial de um número, executando uma multiplicação a cada 1 segundo):
+int main(void)
+{
+  int i, fat = 1;
+
+  for(i=10; i > 1; i--)
+  {
+    fat *= i;
+    sleep(1);
+    printf("passo %d: %d\n", 11-i, fat);
+    fflush(stdout);
+  }
+
+  printf("Fatorial: %d\n", fat);
+  fflush(stdout);
+
+  return 0;
+}
+
+prog5 (CPU-Bound - espera por 5 segundos e encerra a execução):
+int main(void)
+{
+  int i;
+  for(i = 0; i < 5; i++)
+  {
+    sleep(1);
+  }
+
+  return 0;
+}
+
+-- Escalonador Round-robin
+Teste 1
+exec prog1
+exec prog2
+exec prog4
+exec prog3
+exec prog5
+
+Resultado: Cada programa tem uma fatia de tempo para executar seu código, e após todos os programas terem sido adicionados ao escalonador, os 5 alternam de maneira circular, resultado como esperado.
+
+-- Escalonador Prioridade
+Teste 1
+exec prog1 prioridade=6
+exec prog2 prioridade=3
+exec prog4 prioridade=3
+exec prog3 prioridade=4
+exec prog5 prioridade=1
+
+Resultado: Os programas com maior prioridade (prioridade 1 > prioridade 2 > prioridade 3 ...) vão sendo executados até um programa de maior prioridade ser adicionado, em que o programa é interrompido e o de maior prioridade passa a ser executado, conforme esperado.
+
+Teste 2
+exec prog1 prioridade=1
+exec prog2 prioridade=2
+exec prog4 prioridade=3
+exec prog3 prioridade=4
+exec prog5 prioridade=5
+
+Resultado: Os programas com maior prioridade (prioridade 1 > prioridade 2 > prioridade 3 ...) vão sendo executados até um programa de maior prioridade ser adicionado, em que o programa é interrompido e o de maior prioridade passa a ser executado, conforme esperado. Neste teste, os programas são executados na ordem em que foram chamados.
+
+-- Escalonador Loteria
+Teste 1
+exec prog1 numtickets=6
+exec prog2 numtickets=3
+exec prog4 numtickets=3
+exec prog3 numtickets=4
+exec prog5 numtickets=1
+
+Resultado: Os programas são alternados a cada período (fatia de tempo), de acordo com o sorteio realizado, conforme esperado.
+
+Teste 2
+exec prog1 numtickets=20
+exec prog2 numtickets=1
+exec prog4 numtickets=1
+exec prog3 numtickets=1
+exec prog5 numtickets=1
+
+Resultado: Os programas são alternados a cada período (fatia de tempo), de acordo com o sorteio realizado. Este teste serviu para mostrar que um programa com maior número de tickets de loteria acaba sendo executado mais vezes, como esperado.
+
+-- Conclusão
+Os testes demonstram que os escalonadores funcionam como esperado, atendendo aos requisitos do trabalho.

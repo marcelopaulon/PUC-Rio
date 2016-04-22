@@ -1,119 +1,111 @@
 [INFO] Escalonador iniciado
 [INFO] Escutando...
 [INFO] Processo prog1 - numtickets=6 enviado ao escalonador
-[INFO] Processo prog1 criado - PID: 16190 - Número de bilhetes: 6
-[INFO] Processo de PID 16190 continuado
-[INFO] Iniciando processo de PID 16190 pela 1a vez
+[INFO] Processo prog1 criado - PID: 17421 - Número de bilhetes: 6
+[INFO] Processo de PID 17421 continuado
+[INFO] Iniciando processo de PID 17421 pela 1a vez
 kek
 kek
 [INFO] Processo prog2 - numtickets=3 enviado ao escalonador
-[INFO] Processo prog2 criado - PID: 16193 - Número de bilhetes: 3
+[INFO] Processo prog2 criado - PID: 17422 - Número de bilhetes: 3
 kek
 kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16193 continuado
-[INFO] Iniciando processo de PID 16193 pela 1a vez
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17422 continuado
+[INFO] Iniciando processo de PID 17422 pela 1a vez
 nelson 0
 [INFO] Processo prog4 - numtickets=3 enviado ao escalonador
-[INFO] Processo prog4 criado - PID: 16194 - Número de bilhetes: 3
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16190 continuado
+[INFO] Processo prog4 criado - PID: 17423 - Número de bilhetes: 3
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17421 continuado
 kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16193 continuado
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 1
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16190 continuado
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17421 continuado
 kek
 [INFO] Processo prog3 - numtickets=4 enviado ao escalonador
-[INFO] Processo prog3 criado - PID: 16196 - Número de bilhetes: 4
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16194 continuado
-[INFO] Iniciando processo de PID 16194 pela 1a vez
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16196 continuado
-[INFO] Iniciando processo de PID 16196 pela 1a vez
-[INFO] Processo de PID 16196 terminou
+[INFO] Processo prog3 criado - PID: 17424 - Número de bilhetes: 4
+kek
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17424 continuado
+[INFO] Iniciando processo de PID 17424 pela 1a vez
+[INFO] Processo de PID 17424 terminou
 [INFO] Processo prog5 - numtickets=1 enviado ao escalonador
-[INFO] Processo prog5 criado - PID: 16197 - Número de bilhetes: 1
-[INFO] Processo de PID 16194 continuado
-passo 1: 10
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16197 continuado
-[INFO] Iniciando processo de PID 16197 pela 1a vez
-[INFO] Processo de PID 16197 interrompido
-[INFO] Processo de PID 16190 continuado
+[INFO] Processo prog5 criado - PID: 17425 - Número de bilhetes: 1
+[INFO] Processo de PID 17421 continuado
+kek
+kek
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17423 continuado
+[INFO] Iniciando processo de PID 17423 pela 1a vez
+[INFO] Processo de PID 17423 interrompido
+[INFO] Processo de PID 17425 continuado
+[INFO] Iniciando processo de PID 17425 pela 1a vez
+[INFO] Processo de PID 17425 interrompido
+[INFO] Processo de PID 17421 continuado
 kek
 kek
 kek
-kek
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16194 continuado
-passo 2: 90
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16194 continuado
-passo 3: 720
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16193 continuado
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 2
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17425 continuado
+[INFO] Processo de PID 17425 interrompido
+[INFO] Processo de PID 17421 continuado
+kek
+kek
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17423 continuado
+passo 1: 10
+passo 2: 90
+[INFO] Processo de PID 17423 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 3
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16194 continuado
-passo 4: 5040
-passo 5: 30240
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16190 continuado
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17421 continuado
 kek
 kek
 kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16193 continuado
+[INFO] Processo de PID 17421 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 4
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16194 continuado
-passo 6: 151200
-[INFO] Processo de PID 16194 interrompido
-[INFO] Processo de PID 16193 continuado
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17423 continuado
+passo 3: 720
+[INFO] Processo de PID 17423 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 5
 nelson 6
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16193 continuado
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17423 continuado
+passo 4: 5040
+passo 5: 30240
+[INFO] Processo de PID 17423 interrompido
+[INFO] Processo de PID 17422 continuado
 nelson 7
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16194 continuado
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17421 continuado
+kek
+kek
+kek
+[INFO] Processo de PID 17421 terminou
+[INFO] Processo de PID 17422 continuado
+nelson 8
+nelson 9
+[INFO] Processo de PID 17422 interrompido
+[INFO] Processo de PID 17423 continuado
+passo 6: 151200
 passo 7: 604800
 passo 8: 1814400
 passo 9: 3628800
 Fatorial: 3628800
-[INFO] Processo de PID 16194 terminou
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16193 continuado
-nelson 8
-nelson 9
-[INFO] Processo de PID 16193 interrompido
-[INFO] Processo de PID 16197 continuado
-[INFO] Processo de PID 16197 interrompido
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 interrompido
-[INFO] Processo de PID 16197 continuado
-[INFO] Processo de PID 16197 interrompido
-[INFO] Processo de PID 16193 continuado
-[INFO] Processo de PID 16193 terminou
-[INFO] Processo de PID 16190 continuado
-kek
-[INFO] Processo de PID 16190 terminou
-[INFO] Processo de PID 16197 continuado
-[INFO] Processo de PID 16197 terminou
+[INFO] Processo de PID 17423 terminou
+[INFO] Processo de PID 17425 continuado
+[INFO] Processo de PID 17425 interrompido
+[INFO] Processo de PID 17422 continuado
+[INFO] Processo de PID 17422 terminou
+[INFO] Processo de PID 17425 continuado
+[INFO] Processo de PID 17425 terminou
