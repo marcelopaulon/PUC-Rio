@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import map.GameMap;
+import map.MapGenerator;
 import map.MapLoader;
 import map.MapLoaderException;
 
@@ -72,14 +73,8 @@ public class ToolsPanel extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			try{
-				GameMap map = showLoadMapDialog(); // TODO
-				Program.getInstance().tryLoadMap(map);
-			} catch (MapLoaderException exception)
-			{
-				JOptionPane.showMessageDialog(ToolsPanel.this, "Erro ao gerar o mapa.", "Erro",
-						JOptionPane.WARNING_MESSAGE);
-			}
+			GameMap map = MapGenerator.generateRandomMap();
+			Program.getInstance().tryLoadMap(map);
 		}
 	};
 	
