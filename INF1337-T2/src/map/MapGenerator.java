@@ -13,7 +13,11 @@ public class MapGenerator {
 		for(int i=0; i<numTiles; i++){
 			int randomx = rng.nextInt(10) + 1;
 			int randomy = rng.nextInt(10) + 1;
-			while(data[randomy][randomx] != '\0'){
+			while((data[randomy][randomx] != '\0') 
+					|| (data[randomy+1][randomx] != '\0') 
+					|| (data[randomy-1][randomx] != '\0') 
+					|| (data[randomy][randomx+1] != '\0') 
+					|| (data[randomy][randomx-1] != '\0')){
 				randomx = rng.nextInt(10) + 1;
 				randomy = rng.nextInt(10) + 1;
 			}
@@ -91,7 +95,7 @@ public class MapGenerator {
 					if(southwest == wallTile) temp++;
 					if(northwest == wallTile) temp++;
 					
-					if(temp > 1) chance_wall -= 100;
+					if(temp > 1) chance_wall -= 50;
 					
 					if(rng.nextInt(50)<=chance_wall) data[i][j]=wallTile;
 					else data[i][j] = MapCell.Cells.FLOOR.asChar();

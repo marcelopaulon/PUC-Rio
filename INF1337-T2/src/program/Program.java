@@ -26,7 +26,7 @@ public final class Program
 	 * Stores map pattern file
 	 */
 	public static File defaultSaveFile = new File("defaultMap.mapsave");
-	private static Dimension defaultDimension = new Dimension(800, 800);
+	private static Dimension defaultDimension = new Dimension(405, 435);
 
 	/**
 	 * Top panel
