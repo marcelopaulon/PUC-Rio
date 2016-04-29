@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import gfx.Assets;
+import logic.Action;
+import logic.CaptureGold;
 import mapcell.*;
 
 /**
@@ -43,49 +45,26 @@ public class MapPanel extends JPanel {
 	    }
 	});
 	
+	private long lastActionTime;
+	
+	private Action curAction;
+	
+	private int curAgentX, curAgentY;
+	
+	private char curAgentOrientation; // U -> Up D -> Down L -> Left R -> Right
+	
+	private AgentCell agentCell = new AgentCell('A');
+	
+	private CaptureGold captureGold;
+	
 	/**
 	 * MapPanel constructor
 	 */
 	public MapPanel() {
 		setBorder(BorderFactory.createLineBorder(Color.black));
-	}
 		
-	/**
-	 * Start MapCell
-	 */
-	private MapCell StartCell = new StartCell(MapCell.Cells.START.asChar());
-	/**
-	 * Wall MapCell
-	 */
-	private MapCell WallCell = new WallCell(MapCell.Cells.WALL.asChar());
-	/**
-	 * Hole MapCell
-	 */
-	private MapCell HoleCell = new HoleCell(MapCell.Cells.HOLE.asChar());
-	/**
-	 * Floor MapCell
-	 */
-	private MapCell FloorCell = new FloorCell(MapCell.Cells.FLOOR.asChar());
-	/**
-	 * FloorVisited MapCell
-	 */
-	private MapCell FloorVisitedCell = new FloorVisitedCell(MapCell.Cells.FLOORVISITED.asChar());
-	/**
-	 * Teletransport MapCell
-	 */
-	private MapCell TeletransportCell = new TeletransportCell(MapCell.Cells.TELETRANSPORT.asChar());
-	/**
-	 * Gold MapCell
-	 */
-	private MapCell GoldCell = new GoldCell(MapCell.Cells.GOLD.asChar());
-	/**
-	 * Enemy20 MapCell
-	 */
-	private MapCell Enemy20Cell = new Enemy20Cell(MapCell.Cells.ENEMY20.asChar());
-	/**
-	 * Enemy50 MapCell
-	 */
-	private MapCell Enemy50Cell = new Enemy50Cell(MapCell.Cells.ENEMY50.asChar());
+		captureGold = new CaptureGold();
+	}
 	
 	/**
 	 * Draws map on screen
@@ -113,20 +92,24 @@ public class MapPanel extends JPanel {
 		if (numcols * Assets.TILE_WIDTH > width) {
 			rectWidth = (width / numcols);
 		}
-
+		
 		// Draw the grid
 		for (int i = 1; i <= numrows; i++) {
 			for (int j = 1; j <= numcols; j++) {
 				int y = (int) ((i - 1) * rectHeight);
 				int x = (int) ((j - 1) * rectWidth);
 				MapCell.Cells et = loadedMap.getValue(i, j);
-				MapCell cell = getTile(et);
+				MapCell cell = MapUtils.getTile(et);
 				cell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 			}
 		}
 		
-		_timer.start();
+		int y = (int) ((curAgentY) * rectHeight);
+		int x = (int) ((curAgentX) * rectWidth);
+		agentCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 		
+		_timer.start();
+				
 		return true;
 	}
 
@@ -136,7 +119,51 @@ public class MapPanel extends JPanel {
 	 */
 	public void loadMap(GameMap map) {
 		loadedMap = map;
+		
+		try {
+			captureGold.resetGame(loadedMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		lastActionTime = System.currentTimeMillis();
+		
+		curAgentX = 1;
+		curAgentY = 1;
+		curAgentOrientation = 'D';
+		agentCell.setOrientation(curAgentOrientation);
+		
 		this.repaint();
+	}
+	
+	private void handleAction(Action action)
+	{
+		if(action == Action.ROTATE)
+		{
+			if(curAgentOrientation == 'U') curAgentOrientation = 'R';
+			else if(curAgentOrientation == 'R') curAgentOrientation = 'D';
+			else if(curAgentOrientation == 'D') curAgentOrientation = 'L';
+			else if(curAgentOrientation == 'L') curAgentOrientation = 'U';
+			agentCell.setOrientation(curAgentOrientation);
+		}
+		if(action == Action.ROTATELEFT)
+		{
+			if(curAgentOrientation == 'U') curAgentOrientation = 'L';
+			else if(curAgentOrientation == 'L') curAgentOrientation = 'D';
+			else if(curAgentOrientation == 'D') curAgentOrientation = 'R';
+			else if(curAgentOrientation == 'R') curAgentOrientation = 'U';
+			agentCell.setOrientation(curAgentOrientation);
+		}
+		else if(action == Action.WALK)
+		{
+			if(curAgentOrientation == 'U') curAgentY--;
+			else if(curAgentOrientation == 'R') curAgentX++;
+			else if(curAgentOrientation == 'D') curAgentY++;
+			else if(curAgentOrientation == 'L') curAgentX--;
+		}
+		
+		loadedMap.visit(curAgentX, curAgentY);
 	}
 
 	@Override
@@ -147,29 +174,12 @@ public class MapPanel extends JPanel {
 		if(loadedMap != null)
 		{
 			renderMap();
+			
+			if(System.currentTimeMillis() - lastActionTime > 100)
+			{
+				handleAction(captureGold.getNextMove());
+				lastActionTime = System.currentTimeMillis();
+			}
 		}
-	}
-	
-	private MapCell getTile(MapCell.Cells value) {
-		if (value == MapCell.Cells.START)
-			return StartCell;
-		if (value == MapCell.Cells.WALL)
-			return WallCell;
-		if (value == MapCell.Cells.HOLE)
-			return HoleCell;
-		if (value == MapCell.Cells.FLOOR)
-			return FloorCell;
-		if (value == MapCell.Cells.FLOORVISITED)
-			return FloorVisitedCell;
-		if (value == MapCell.Cells.TELETRANSPORT)
-			return TeletransportCell;
-		if (value == MapCell.Cells.GOLD)
-			return GoldCell;
-		if (value == MapCell.Cells.ENEMY20)
-			return Enemy20Cell;
-		if (value == MapCell.Cells.ENEMY50)
-			return Enemy50Cell;
-
-		return null;
 	}
 }

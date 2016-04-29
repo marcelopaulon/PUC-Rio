@@ -64,6 +64,15 @@ public class GameMap {
 			}
 		}
 	}
+	
+	/**
+	 * Visit cell
+	 */
+	public void visit(int X, int Y)
+	{
+		if(X == 1 && Y == 1) return;
+		mapData[Y][X] = 'V';
+	}
 
 	/**
 	 * Takes the number of rows from GameMap

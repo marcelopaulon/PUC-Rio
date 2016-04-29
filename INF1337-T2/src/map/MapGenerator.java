@@ -8,6 +8,8 @@ import mapcell.MapCell;
 public class MapGenerator {
 	private static Random rng = new SecureRandom(); 
 	
+	private static int size_x, size_y;
+	
 	private static void addRandomTile(char[][] data, int numTiles, char tile)
 	{
 		for(int i=0; i<numTiles; i++){
@@ -18,14 +20,17 @@ public class MapGenerator {
 					|| (data[randomy-1][randomx] != '\0') 
 					|| (data[randomy][randomx+1] != '\0') 
 					|| (data[randomy][randomx-1] != '\0')){
-				randomx = rng.nextInt(10) + 1;
-				randomy = rng.nextInt(10) + 1;
+				randomx = rng.nextInt(size_x - 2) + 1;
+				randomy = rng.nextInt(size_y - 2) + 1;
 			}
 			data[randomy][randomx] = tile;
 		}
 	}
 	
-	public static GameMap generateRandomMap(int size_y, int size_x){
+	public static GameMap generateRandomMap(int sizeY, int sizeX){
+		size_y = sizeY;
+		size_x = sizeX;
+		
 		char[][] data = new char[size_y][size_x];
 		char wallTile = MapCell.Cells.WALL.asChar();
 		
@@ -107,6 +112,6 @@ public class MapGenerator {
 	}
 	
 	public static GameMap generateRandomMap(){
-		return generateRandomMap(12,12);
+		return generateRandomMap(24,24);
 	}
 }
