@@ -288,13 +288,11 @@ public class MapPanel extends JPanel {
 		}
 		else if(action == Action.ATTACK)
 		{
-			
-			if(curAgentOrientation == 'U') curAgentY--;
-			else if(curAgentOrientation == 'R') curAgentX++;
-			else if(curAgentOrientation == 'D') curAgentY++;
-			else if(curAgentOrientation == 'L') curAgentX--;
-			
+			CaptureGold.Position p = captureGold.getCurPosition();
+			curAgentX = p.X;
+			curAgentY = p.Y;
 			visitCell(curAgentX, curAgentY);
+			loadedMap.setValue(curAgentY+1, curAgentX+1, MapCell.Cells.FLOOR);
 		}
 		else if(action == Action.PICKGOLD)
 		{

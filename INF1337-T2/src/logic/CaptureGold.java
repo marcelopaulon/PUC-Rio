@@ -121,4 +121,30 @@ public class CaptureGold
 		
 		return solution.get("E").intValue();
 	}
+	
+	public Position getCurPosition()
+	{
+		Query q3 = new Query("curPosition(X,Y,P).");
+		Map<String, Term> solution = q3.oneSolution();
+		
+		if(solution == null)
+		{
+			return null;
+		}
+		
+		Position p = new Position();
+		
+		p.X = solution.get("X").intValue();
+		p.Y = solution.get("Y").intValue();
+		p.Position = solution.get("P").toString();
+		
+		return p;
+	}
+	
+	public class Position
+	{
+		public int X;
+		public int Y;
+		public String Position;
+	}
 }
