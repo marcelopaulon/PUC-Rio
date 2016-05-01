@@ -41,11 +41,11 @@ resetGame() :- retractall(curEnergy(_)), retractall(curPosition(_,_,_)), retract
 getNextMove(gameOver) :- curEnergy(E), E < 1, !.
 
 /* If current cell has gold, pick it up */
-getNextMove(pickGold) :- 1=1, !. /* Agent perceives gold when on its tile and picks it up */
+getNextMove(pickGold) :- curPosition(X,Y,Z), goldCell(X,Y), !. /* Agent perceives gold when on its tile and picks it up */
 
 /* Will rotate if can't walk to next position */
-getNextMove(rotate) :- 1=1, !.
+getNextMove(rotate) :- curPosition(X,Y,Z), wallCell(XX,YY), XX=X+1; YY=Y+1; XX=X-1; !.
 
 /* If cell to walk is safe and not visited, walk */
 getNextMove(walk) :- 1=1, !.
-				
+
