@@ -1,6 +1,7 @@
 package map;
 
 import mapcell.MapCell;
+import program.Utils;
 
 /**
  * The game's map
@@ -47,31 +48,24 @@ public class GameMap {
 			}
 		}
 	}
-	
-	/**
-	 * Clears the path ran by the agent
-	 */
-	public void clearPath()
-	{
-		nRows = mapData.length;
-		nColumns = mapData[0].length;
 		
-		for(int i = 0; i < nRows; i++)
-		{
-			for(int j = 0; j < nColumns; j++)
-			{
-				if(mapData[i][j] == 'V') mapData[i][j] = 'F';
-			}
-		}
+	/**
+	 * GameMap constructor
+	 * <p><b>GameMap:</b> Matrix representing the game map</p>
+	 * @param GameMap to be cloned 
+	 */
+	public GameMap(GameMap map) {
+		this(Utils.clone2DArray(map.mapData));
 	}
 	
+
 	/**
-	 * Visit cell
+	 * Gets the map raw data (char matrix)
+	 * @return map data (char matrix)
 	 */
-	public void visit(int X, int Y)
+	public char[][] getRawData()
 	{
-		if(X == 1 && Y == 1) return;
-		mapData[Y][X] = 'V';
+		return mapData;
 	}
 
 	/**

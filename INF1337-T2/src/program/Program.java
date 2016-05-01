@@ -3,8 +3,6 @@ package program;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
-import java.util.Hashtable;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,16 +23,17 @@ public final class Program
 	/**
 	 * Stores map pattern file
 	 */
-	public static File defaultSaveFile = new File("defaultMap.mapsave");
-	private static Dimension defaultDimension = new Dimension(405, 435);
+	public static File defaultSaveFile = new File("saves/defaultMap.mapsave");
+	private static Dimension defaultDimension = new Dimension(800, 900);
 
 	/**
 	 * Top panel
 	 */
 	public static ToolsPanel toolsPanel;
 	
-	private GameMap map;
 	private MapPanel mapPanel;
+	
+	private GameMap savedMap;
 	
 	private JFrame window;
 	
@@ -45,7 +44,7 @@ public final class Program
 	 */
 	private void createToolsPanel()
 	{
-		toolsPanel = new ToolsPanel();
+		toolsPanel = new ToolsPanel(window, mapPanel, savedMap);
 		window.add(toolsPanel, BorderLayout.PAGE_START);
 	}
 		
@@ -60,32 +59,11 @@ public final class Program
 		window.add(mapPanel, BorderLayout.CENTER);
 		
 		try {
-			map = MapLoader.tryLoadMap(Program.defaultSaveFile);
-			tryRenderMap();
+			savedMap = MapLoader.tryLoadMap(Program.defaultSaveFile);
+			mapPanel.loadMap(savedMap);
 		} catch (MapLoaderException e) {
 			JOptionPane.showMessageDialog(Program.toolsPanel, "Erro ao carregar o mapa padrão.", "Erro",
 					JOptionPane.WARNING_MESSAGE);
-		}
-	}
-		
-	/**
-	 * Loads and renders a map
-	 * @param map to be load and rendered
-	 */
-	public void tryLoadMap(GameMap map)
-	{
-		this.map = map;
-		tryRenderMap();
-	}
-	
-	/**
-	 * Renders map and loads it in mapPanel.
-	 */
-	private void tryRenderMap()
-	{
-		if(map != null)
-		{
-			mapPanel.loadMap(map);
 		}
 	}
 	
@@ -117,9 +95,9 @@ public final class Program
 
 		Assets.init();
 
-		createToolsPanel();
 		createMapPanel();
-
+		createToolsPanel();
+		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);
 		window.pack();

@@ -6,5 +6,6 @@ public enum Action {
 	ROTATELEFT,
 	ATTACK,
 	PICKGOLD,
-	GAMEOVER
+	GAMEOVER,
+	END
 }

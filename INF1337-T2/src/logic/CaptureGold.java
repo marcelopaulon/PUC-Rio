@@ -3,13 +3,11 @@ package logic;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import org.jpl7.*;
 
 import map.GameMap;
-import map.MapUtils;
 import mapcell.MapCell;
 
 public class CaptureGold
@@ -46,9 +44,9 @@ public class CaptureGold
 				if (value == MapCell.Cells.GOLD)
 					cellRule = "goldCell(";
 				if (value == MapCell.Cells.ENEMY20)
-					cellRule = "enemy20Cell(";
+					cellRule = "enemy20Cell(_,";
 				if (value == MapCell.Cells.ENEMY50)
-					cellRule = "enemy50Cell(";
+					cellRule = "enemy50Cell(_,";
 				
 				if(cellRule == null)
 				{
@@ -85,8 +83,7 @@ public class CaptureGold
 		
 		if(solution == null)
 		{
-			System.out.println("Nenhuma solução encontrada");
-			return null;
+			return Action.END;
 		}
 		
 		String action = solution.get("Action").toString();
@@ -103,12 +100,25 @@ public class CaptureGold
 				return Action.ATTACK;
 			case "walk":
 				return Action.WALK;
-			case "gameover":
+			case "gameOver":
 				return Action.GAMEOVER;
-			case "pickgold":
+			case "pickGold":
 				return Action.PICKGOLD;
 		}
 		
 		return null;
+	}
+	
+	public int getCurEnergy()
+	{
+		Query q3 = new Query("curEnergy(E).");
+		Map<String, Term> solution = q3.oneSolution();
+		
+		if(solution == null)
+		{
+			return -1;
+		}
+		
+		return solution.get("E").intValue();
 	}
 }
