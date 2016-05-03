@@ -33,8 +33,8 @@ adjacent(X, Y, XX, Y) :- isWalkable(XX, Y), XX is X+1.
 adjacent(X, Y, XX, Y) :- isWalkable(XX, Y), XX is X-1.
 adjacent(X, Y, X, YY) :- isWalkable(X, YY), YY is Y+1.
 adjacent(X, Y, X, YY) :- isWalkable(X, YY), YY is Y-1.
+%setVisited(X,Y) :- visited(X,Y).
 
-visited(1,1).
 
 /* Functions */
 
@@ -60,15 +60,32 @@ getNextMove(gameOver) :- curEnergy(E), E < 1, !.
 getNextMove(pickGold) :- curPosition(X,Y,_), goldCell(X,Y), !. /* Agent perceives gold when on its tile and picks it up */
 
 /* If cell to walk is safe and not visited, walk */
-getNextMove(walk) :- curPosition(X,Y,down),floorCell(X,YY), YY is Y+1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, down)),!.
-getNextMove(walk) :- curPosition(X,Y,up),floorCell(X,YY), YY is Y-1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, up)),!.
-getNextMove(walk) :- curPosition(X,Y,left),floorCell(XX,Y), XX is X+1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, left)),!.
-getNextMove(walk) :- curPosition(X,Y,right),floorCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, right)),!.
 
-%getNextMove(walk) :- curPosition(X,Y,down),visited(X,YY),floorCell(X,YY),YY is Y+1,retract(curPosition(_,_,_)), assert(curPosition(X, YY, down)),!.
-%getNextMove(walk) :- curPosition(X,Y,up),visited(X,YY),floorCell(X,YY), YY is Y-1,retract(curPosition(_,_,_)), assert(curPosition(X, YY, up)),!.
-%getNextMove(walk) :- curPosition(X,Y,left),visited(XX,Y),floorCell(XX,Y), XX is X+1,retract(curPosition(_,_,_)), assert(curPosition(XX, Y, left)),!.
-%getNextMove(walk) :- curPosition(X,Y,right),visited(XX,Y),floorCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)), assert(curPosition(XX, Y, right)),!.
+%getNextMove(walk) :- curPosition(X,Y,down),floorCell(X,YY), YY is Y+1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, down)),visited(X,YY),!.
+%getNextMove(walk) :- curPosition(X,Y,up),floorCell(X,YY), YY is Y-1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, up)),visited(X,YY),!.
+%getNextMove(walk) :- curPosition(X,Y,left),floorCell(XX,Y), XX is X+1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, left)),visited(XX,Y),!.
+%getNextMove(walk) :- curPosition(X,Y,right),floorCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, right)),visited(XX,Y),!.
+%getNextMove(walk) :- curPosition(X,Y,right),holeCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.
+
+
+%getNextMove(walk) :- curPosition(X,Y,down),floorCell(X,YY), YY is Y+1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, down)),!.
+%getNextMove(walk) :- curPosition(X,Y,up),floorCell(X,YY), YY is Y-1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, up)),!.
+%getNextMove(walk) :- curPosition(X,Y,left),floorCell(XX,Y), XX is X+1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, left)),!.
+%getNextMove(walk) :- curPosition(X,Y,right),floorCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, right)),!.
+
+%getNextMove(walk) :- curPosition(X,Y,right),holeCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.
+
+%getNextMove(walk) :- curPosition(X,Y,down),floorCell(X,YY), YY is Y+1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, down)),!.
+
+%getNextMove(walk) :- curPosition(X,Y,down),floorCell(X,YY), YY is Y+1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, down)),!.
+%getNextMove(walk) :- curPosition(X,Y,up),floorCell(X,YY), YY is Y-1,retract(curPosition(_,_,_)),assert(curPosition(X, YY, up)),!.
+%getNextMove(walk) :- curPosition(X,Y,left),floorCell(XX,Y), XX is X+1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, left)),!.
+%getNextMove(walk) :- curPosition(X,Y,right),floorCell(XX,Y), XX is X-1,retract(curPosition(_,_,_)),assert(curPosition(XX, Y, right)),!.
+
+getNextMove(walk) :- curPosition(X,Y,down),YY is Y+1,floorCell(X,YY),not(visited(X,YY)),retract(curPosition(_,_,_)), assert(curPosition(X, YY, down)),assert(visited(X,YY)),!.
+getNextMove(walk) :- curPosition(X,Y,up),floorCell(X,YY),not(visited(X,YY)), YY is Y-1,retract(curPosition(_,_,_)), assert(curPosition(X, YY, up)),assert(visited(X,YY)),!.
+getNextMove(walk) :- curPosition(X,Y,left),floorCell(XX,Y),not(visited(XX,Y)), XX is X+1,retract(curPosition(_,_,_)), assert(curPosition(XX, Y, left)),assert(visited(XX,Y)),!.
+getNextMove(walk) :- curPosition(X,Y,right),floorCell(XX,Y),not(visited(XX,Y)), XX is X-1,retract(curPosition(_,_,_)), assert(curPosition(XX, Y, right)),assert(visited(XX,Y)),!.
 
 /* Will rotate if can't walk to next position */
 /**/
@@ -76,11 +93,16 @@ getNextMove(rotate) :- curPosition(X,Y,down), YY is Y+1, wallCell(X,YY),retract(
 getNextMove(rotate) :- curPosition(X,Y,right), XX is X-1, wallCell(XX,Y),retract(curPosition(_,_,_)),assert(curPosition(X, Y, up)),!.
 getNextMove(rotate) :- curPosition(X,Y,left), XX is X+1, wallCell(XX,Y),retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.  
 getNextMove(rotate) :- curPosition(X,Y,up), YY is Y-1, wallCell(X,YY),retract(curPosition(_,_,_)),assert(curPosition(X, Y, left)),!.
-%getNextMove(rotate) :- curPosition(X,Y,right), XX is X-1, floorCell(XX,Y),not(visited(XX,Y)),retract(curPosition(_,_,_)),assert(curPosition(X, Y, up)),!.
-%getNextMove(rotate) :- curPosition(X,Y,left), XX is X+1, floorCell(XX,Y),not(visited(XX,Y)),retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.
-%getNextMove(rotate) :- curPosition(X,Y,down), YY is Y+1,floorCell(X,YY),not(visited(X,YY)),retract(curPosition(_,_,_)),assert(curPosition(X, Y, right)),!.
-%getNextMove(rotate) :- curPosition(X,Y,up), YY is Y-1, floorCell(X,YY),not(visited(X,YY)),retract(curPosition(_,_,_)),assert(curPosition(X, Y, left)),!.
+getNextMove(rotate) :- curPosition(X,Y,left), XX is X+1, holeCell(XX,Y),retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.
 
+getNextMove(rotate) :- curPosition(X,Y,right), XX is X-1, floorCell(XX,Y),visited(XX,Y),retract(curPosition(_,_,_)),assert(curPosition(X, Y, up)),!.
+getNextMove(rotate) :- curPosition(X,Y,left), XX is X+1, floorCell(XX,Y),visited(XX,Y),retract(curPosition(_,_,_)),assert(curPosition(X, Y, down)),!.
+getNextMove(rotate) :- curPosition(X,Y,down), YY is Y+1,floorCell(X,YY),visited(X,YY),retract(curPosition(_,_,_)),assert(curPosition(X, Y, right)),!.
+getNextMove(rotate) :- curPosition(X,Y,up), YY is Y-1, floorCell(X,YY),visited(X,YY),retract(curPosition(_,_,_)),assert(curPosition(X, Y, left)),!.
+%getNextMove(unset) :-  curPosition(X,Y,_), (XX is X-1, floorCell(XX,Y),visited(XX,Y)); 
+                        XX is X+1, floorCell(XX,Y),visited(XX,Y);
+						YY is Y+1,floorCell(X,YY),visited(X,YY);
+						YY is Y-1, floorCell(X,YY),visited(X,YY),retractall(visited(_,_)),assert(visited(1,1)),!
 
 %getNextMove(rotate) :- curPosition(X,Y,Z), wallCell(XX,YY), XX is X + 1, YY is Y+1, Z is Y + 1, !.
 
