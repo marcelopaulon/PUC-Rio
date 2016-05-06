@@ -40,19 +40,10 @@ public class MapGenerator {
 		int numGold = 3;
 		int numTeletransport = 4;
 		
-		//First step: fill borders with walls and define start point and its neighbor tiles
-		for(int i=0; i<size_y; i++){
-			data[i][0] = wallTile;
-			data[i][size_x-1] = wallTile;
-		}
-		for(int i=0; i<size_x; i++){
-			data[0][i] = wallTile;
-			data[size_y-1][i] = wallTile;
-		}
-		data[1][1] = MapCell.Cells.START.asChar();
-		data[1][2] = MapCell.Cells.FLOOR.asChar();
-		data[2][2] = MapCell.Cells.FLOOR.asChar();
-		data[2][1] = MapCell.Cells.FLOOR.asChar();
+		data[size_y-1][0] = MapCell.Cells.START.asChar();
+		data[size_y-1][1] = MapCell.Cells.FLOOR.asChar();
+		data[size_y-2][0] = MapCell.Cells.FLOOR.asChar();
+		data[size_y-2][1] = MapCell.Cells.FLOOR.asChar();
 		
 		//Second step: Randomize NPCs
 		addRandomTile(data, numEnemy2, MapCell.Cells.ENEMY20.asChar());
@@ -66,25 +57,57 @@ public class MapGenerator {
 			for(int j=0; j<size_x; j++){
 				if(data[i][j] == '\0'){ //randomizar
 					int chance_wall = 10; //chance_wall ranges from 0 to 1000 depending on whether its neighbor tiles are walls
-					char north, east, south, west;//erbly
-					char southeast, northeast, southwest, northwest;
+					char north='\0', east='\0', south='\0', west='\0';//erbly
+					char southeast='\0', northeast='\0', southwest='\0', northwest='\0';
 					int temp;
-					north = data[i-1][j];
-					east = data[i][j+1];
-					south = data[i+1][j];
-					west = data[i][j-1];
-					southeast = data[i+1][j+1];
-					northeast = data[i-1][j+1];
-					southwest = data[i+1][j-1];
-					northwest = data[i-1][j-1];
-					if(northwest == wallTile) chance_wall += 10;
-					if(north == wallTile) chance_wall += 15;
-					if(northeast == wallTile) chance_wall += 10;
-					if(west == wallTile) chance_wall += 15;
-					if(east == wallTile) chance_wall += 15;
-					if(southwest == wallTile) chance_wall += 10;
-					if(south == wallTile) chance_wall += 15;
-					if(southeast == wallTile) chance_wall += 10;
+					
+					if(i > 0 && j > 0) 
+					{
+						northwest = data[i-1][j-1];
+						if(northwest == wallTile) chance_wall += 10;
+					}
+					
+					if(i > 0)
+					{
+						north = data[i-1][j];
+						if(north == wallTile) chance_wall += 15;
+					}
+					
+					if(i > 0 && j < 11)
+					{
+						northeast = data[i-1][j+1];
+						if(northeast == wallTile) chance_wall += 10;
+					}
+					
+					if(j > 0)
+					{
+						west = data[i][j-1];
+						if(west == wallTile) chance_wall += 15;
+					}
+					
+					if(j < 11)
+					{
+						east = data[i][j+1];
+						if(east == wallTile) chance_wall += 15;
+					}
+					
+					if(j > 0 && i < 11)
+					{
+						southwest = data[i+1][j-1];
+						if(southwest == wallTile) chance_wall += 10;
+					}
+					
+					if(i < 11)
+					{
+						south = data[i+1][j];
+						if(south == wallTile) chance_wall += 15;
+					}
+					
+					if(i < 11 && j < 11)
+					{
+						southeast = data[i+1][j+1];
+						if(southeast == wallTile) chance_wall += 10;
+					}
 					
 					temp = 0;
 					if(north == wallTile) temp++;
@@ -112,6 +135,6 @@ public class MapGenerator {
 	}
 	
 	public static GameMap generateRandomMap(){
-		return generateRandomMap(24,24);
+		return generateRandomMap(12, 12);
 	}
 }

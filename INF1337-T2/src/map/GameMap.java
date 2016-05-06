@@ -1,7 +1,6 @@
 package map;
 
 import mapcell.MapCell;
-import program.Utils;
 
 /**
  * The game's map
@@ -31,31 +30,39 @@ public class GameMap {
 	 * @param data Matrix used to generate the map, following specifications from the assignment
 	 */
 	public GameMap(char[][] data) {
-		mapData = data;
-
-		nRows = mapData.length;
-		nColumns = mapData[0].length;
+		nRows = data.length;
+		nColumns = data[0].length;
+		
+		mapData = new char[nRows+2][nColumns+2];
+		
+		char wallTile = MapCell.Cells.WALL.asChar();
+		
+		//First step: fill borders with walls and define start point and its neighbor tiles
+		for(int i=0; i < nRows+2; i++){
+			mapData[i][0] = wallTile;
+			mapData[i][nColumns+1] = wallTile;
+		}
+		for(int i=0; i < nColumns+2; i++){
+			mapData[0][i] = wallTile;
+			mapData[nRows+1][i] = wallTile;
+		}
 		
 		for(int i = 0; i < nRows; i++)
 		{
 			for(int j = 0; j < nColumns; j++)
 			{
-				if(mapData[i][j] == MapCell.Cells.START.asChar())
+				mapData[i+1][j+1] = data[i][j];
+				
+				if(data[i][j] == MapCell.Cells.START.asChar())
 				{
 					startX = j + 1;
 					startY = i + 1;
 				}
 			}
 		}
-	}
 		
-	/**
-	 * GameMap constructor
-	 * <p><b>GameMap:</b> Matrix representing the game map</p>
-	 * @param GameMap to be cloned 
-	 */
-	public GameMap(GameMap map) {
-		this(Utils.clone2DArray(map.mapData));
+		nRows = mapData.length;
+		nColumns = mapData[0].length;
 	}
 	
 
@@ -92,7 +99,7 @@ public class GameMap {
 	 * @return true
 	 */
 	public boolean setValue(int row, int column, MapCell.Cells value) {
-		mapData[row - 1][column - 1] = value.asChar();
+		mapData[row][column] = value.asChar();
 		return true;
 	}
 
@@ -107,7 +114,7 @@ public class GameMap {
 		if (mapData.length < row || mapData[0].length < column)
 			return null;
 
-		char tileType = mapData[row - 1][column - 1];
+		char tileType = mapData[row][column];
 		MapCell.Cells cellType = null;
 				
 		if (tileType == MapCell.Cells.START.asChar()) {
@@ -116,6 +123,8 @@ public class GameMap {
 			cellType = MapCell.Cells.WALL;
 		} else if (tileType == MapCell.Cells.HOLE.asChar()) {
 			cellType = MapCell.Cells.HOLE;
+		} else if (tileType == MapCell.Cells.POWERUP.asChar()) {
+			cellType = MapCell.Cells.POWERUP;
 		} else if (tileType == MapCell.Cells.FLOOR.asChar()) {
 			cellType = MapCell.Cells.FLOOR;
 		} else if (tileType == MapCell.Cells.FLOORVISITED.asChar()) {

@@ -12,9 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import program.Utils;
 import gfx.Assets;
 import logic.Action;
 import logic.CaptureGold;
+import logic.Stats;
 import mapcell.*;
 
 /**
@@ -85,7 +87,7 @@ public class MapPanel extends JPanel {
 	
 	private long lastActionTime;
 		
-	private int curAgentX, curAgentY, curAgentEnergy;
+	private int curAgentX, curAgentY, curAgentEnergy, curAgentCost, curAgentAmmo;
 	
 	private char curAgentOrientation; // U -> Up D -> Down L -> Left R -> Right
 	
@@ -113,7 +115,7 @@ public class MapPanel extends JPanel {
 	public void drawMapStatus(int startX, int startY)
 	{
 		g.setColor(Color.WHITE);
-		g.drawString("Energia: " + curAgentEnergy, startX, startY);
+		g.drawString("Custo: " + curAgentCost + ". Energia: " + curAgentEnergy + ". Munição: " + curAgentAmmo, startX, startY);
 		g.setColor(Color.BLACK);
 	}
 	
@@ -145,17 +147,17 @@ public class MapPanel extends JPanel {
 		}
 		
 		// Draw the grid
-		for (int i = 1; i <= numrows; i++) {
-			for (int j = 1; j <= numcols; j++) {
-				int y = (int) ((i - 1) * rectHeight);
-				int x = (int) ((j - 1) * rectWidth);
+		for (int i = 0; i < numrows; i++) {
+			for (int j = 0; j < numcols; j++) {
+				int y = (int) (i * rectHeight);
+				int x = (int) (j * rectWidth);
 				
-				if(!agentView || visibleCells.contains(new Coordinate(j-1, i-1)))
+				if(!agentView || visibleCells.contains(new Coordinate(j, i)))
 				{
 					MapCell.Cells et = loadedMap.getValue(i, j);
 					MapCell cell = MapUtils.getTile(et);
 					
-					if(et != MapCell.Cells.START && visitedCells.contains(new Coordinate(j-1, i-1)) && showPath == true)
+					if(et != MapCell.Cells.START && visitedCells.contains(new Coordinate(j, i)) && showPath == true)
 					{
 						cell = MapUtils.getTile(MapCell.Cells.FLOORVISITED);
 					}
@@ -165,12 +167,12 @@ public class MapPanel extends JPanel {
 			}
 		}
 		
-		int y = (int) ((curAgentY) * rectHeight);
-		int x = (int) ((curAgentX) * rectWidth);
+		int y = (int) (curAgentY * rectHeight);
+		int x = (int) (curAgentX * rectWidth);
 		agentCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
 		
-		int statusY = (int) ((numrows + 1) * rectHeight);
-		int statusX = (int) ((numcols - 1)/2 * rectWidth);
+		int statusY = (int) ((numrows+1) * rectHeight);
+		int statusX = (int) ((numcols-4)/2 * rectWidth);
 
 		drawMapStatus(statusX, statusY);
 		
@@ -233,11 +235,25 @@ public class MapPanel extends JPanel {
 	{
 		_timer.stop();
 		
-		loadedMap = new GameMap(savedMap);
+		char oldData[][] = Utils.clone2DArray(savedMap.getRawData());
+		int rows = oldData.length;
+		int columns = oldData[0].length;
+		int i, j;
+		char arrReduced[][] = new char[rows - 2][columns - 2];
+		
+		for(i = 0; i < rows - 2; i++) 
+		{
+			for(j = 0; j < columns - 2; j++)
+			{
+				arrReduced[i][j] = oldData[i+1][j+1];
+			}
+		}
+		
+		loadedMap = new GameMap(arrReduced);
 		
 		visitedCells = new ArrayList<Coordinate>();
 		visibleCells = new ArrayList<Coordinate>();
-		visitCell(1, 1);
+		visitCell(loadedMap.startX, loadedMap.startY);
 		
 		gameEnded = false;
 		
@@ -250,16 +266,17 @@ public class MapPanel extends JPanel {
 		
 		lastActionTime = System.currentTimeMillis();
 		
-		curAgentX = 1;
-		curAgentY = 1;
+		curAgentX = loadedMap.startX;
+		curAgentY = loadedMap.startY;
 		curAgentEnergy = 100;
-		curAgentOrientation = 'D';
+		curAgentAmmo = 5;
+		curAgentOrientation = 'U';
 		agentCell.setOrientation(curAgentOrientation);
 		
 		this.repaint();
 	}
 	
-	private void handleAction(Action action)
+	private void handleAction(Action action, Stats stats)
 	{
 		if(action == Action.ROTATE)
 		{
@@ -288,15 +305,22 @@ public class MapPanel extends JPanel {
 		}
 		else if(action == Action.ATTACK)
 		{
-			CaptureGold.Position p = captureGold.getCurPosition();
-			curAgentX = p.X;
-			curAgentY = p.Y;
-			visitCell(curAgentX, curAgentY);
-			loadedMap.setValue(curAgentY+1, curAgentX+1, MapCell.Cells.FLOOR);
+			
+		}
+		else if(action == Action.KILL)
+		{
+			int tempX = curAgentX, tempY = curAgentY;
+			
+			if(curAgentOrientation == 'U') tempY--;
+			else if(curAgentOrientation == 'R') tempX++;
+			else if(curAgentOrientation == 'D') tempY++;
+			else if(curAgentOrientation == 'L') tempX--;
+			
+			loadedMap.setValue(tempY, tempX, MapCell.Cells.FLOOR);
 		}
 		else if(action == Action.PICKGOLD)
 		{
-			loadedMap.setValue(curAgentY+1, curAgentX+1, MapCell.Cells.FLOOR);
+			loadedMap.setValue(curAgentY, curAgentX, MapCell.Cells.FLOOR);
 		}
 		else if(action == Action.END)
 		{
@@ -327,8 +351,12 @@ public class MapPanel extends JPanel {
 			
 			if(!gameEnded && System.currentTimeMillis() - lastActionTime > actionTimeIntervalMs)
 			{
-				handleAction(captureGold.getNextMove());
-				curAgentEnergy = captureGold.getCurEnergy();
+				Action nextMove = captureGold.getNextMove();
+				Stats stats = captureGold.getCurStats();
+				handleAction(nextMove, stats);
+				curAgentEnergy = stats.energy;
+				curAgentCost = stats.cost;
+				curAgentAmmo = stats.ammo;
 				lastActionTime = System.currentTimeMillis();
 			}
 		}

@@ -22,19 +22,26 @@ public class CaptureGold
 	public void resetGame(GameMap map) throws Exception
 	{
 		Map<String, StringBuilder> rules = new HashMap<String, StringBuilder>();
-		
+		count = 0; // DEBUG - REMOVE
 		// Rules
-		for (int i = 1; i <= map.getNRows(); i++) {
-			for (int j = 1; j <= map.getNColumns(); j++) {
+		for (int i = 0; i < map.getNRows(); i++) {
+			for (int j = 0; j < map.getNColumns(); j++) {
 				MapCell.Cells value = map.getValue(i, j);
 				String cellRule = null;
 				
 				if (value == MapCell.Cells.START)
+				{
+					StringBuilder start = new StringBuilder();
+					start.append("startPoint(" + j + "," + i + ").\n");
+					rules.put("start", start);
 					cellRule = "floorCell(";
+				}
 				if (value == MapCell.Cells.WALL)
 					cellRule = "wallCell(";
 				if (value == MapCell.Cells.HOLE)
 					cellRule = "holeCell(";
+				if (value == MapCell.Cells.POWERUP)
+					cellRule = "floorCell(";
 				if (value == MapCell.Cells.FLOOR)
 					cellRule = "floorCell(";
 				if (value == MapCell.Cells.FLOORVISITED)
@@ -44,9 +51,9 @@ public class CaptureGold
 				if (value == MapCell.Cells.GOLD)
 					cellRule = "goldCell(";
 				if (value == MapCell.Cells.ENEMY20)
-					cellRule = "enemy20Cell(_,";
+					cellRule = "enemy20Cell(100,";
 				if (value == MapCell.Cells.ENEMY50)
-					cellRule = "enemy50Cell(_,";
+					cellRule = "enemy50Cell(100,";
 				
 				if(cellRule == null)
 				{
@@ -55,11 +62,12 @@ public class CaptureGold
 				
 				if(rules.get(cellRule) == null) rules.put(cellRule, new StringBuilder());
 				
-				rules.get(cellRule).append(cellRule + (j-1) + "," + (i-1) + ").\n");
+				rules.get(cellRule).append(cellRule + j + "," + i + ").\n");
 			}
 		}
 		
 		StringBuilder plMapBuilder = new StringBuilder();
+		plMapBuilder.append("/* AUTO-GENERATED MAP FILE - CONTENT WILL BE REMOVED AFTER NEXT SEARCH */\n");
 		rules.forEach((key, value) -> plMapBuilder.append(value.toString()));
 		
 		try(PrintWriter out = new PrintWriter("src\\logic\\map.pl")){
@@ -70,11 +78,16 @@ public class CaptureGold
 		}
 		
 		Query q2 = new Query("resetAll().");
-		if(!q2.hasSolution()) throw new Exception("Error - Unable to reset in prolog");
+		if(!q2.hasSolution()) throw new Exception("Error - Unable to reset all in prolog");
 		q2.oneSolution();
 		Query q3 = new Query("consult", new Term[] {new Atom("src/logic/map.pl")});
 		if(!q3.hasSolution()) throw new Exception("Error - Unable to load map in prolog");
+		Query q4 = new Query("resetGame().");
+		if(!q4.hasSolution()) throw new Exception("Error - Unable to reset game in prolog");
+		q4.oneSolution();
 	}
+	
+	private int count = 0; // Debug - TODO: Remove
 	
 	public Action getNextMove() 
 	{
@@ -87,8 +100,9 @@ public class CaptureGold
 		}
 		
 		String action = solution.get("Action").toString();
-		
-		System.out.println("Action = " + action);
+		count++; // Debug - TODO: Remove
+		Stats stats = getCurStats();
+		System.out.println("Action = " + action + " ; Count = " + count + "; X = " + stats.x + "; Y = " + stats.y + "; O = " + stats.orientation);
 		
 		switch(action) 
 		{
@@ -98,6 +112,8 @@ public class CaptureGold
 				return Action.ROTATELEFT;
 			case "attack":
 				return Action.ATTACK;
+			case "kill":
+				return Action.KILL;
 			case "walk":
 				return Action.WALK;
 			case "gameOver":
@@ -109,22 +125,9 @@ public class CaptureGold
 		return null;
 	}
 	
-	public int getCurEnergy()
+	public Stats getCurStats()
 	{
-		Query q3 = new Query("curEnergy(E).");
-		Map<String, Term> solution = q3.oneSolution();
-		
-		if(solution == null)
-		{
-			return -1;
-		}
-		
-		return solution.get("E").intValue();
-	}
-	
-	public Position getCurPosition()
-	{
-		Query q3 = new Query("curPosition(X,Y,P).");
+		Query q3 = new Query("getCurrentStats(X, Y, Orientation, Energy, Cost, Ammo).");
 		Map<String, Term> solution = q3.oneSolution();
 		
 		if(solution == null)
@@ -132,19 +135,16 @@ public class CaptureGold
 			return null;
 		}
 		
-		Position p = new Position();
+		Stats stats = new Stats();
 		
-		p.X = solution.get("X").intValue();
-		p.Y = solution.get("Y").intValue();
-		p.Position = solution.get("P").toString();
+		stats.x = solution.get("X").intValue();
+		stats.y = solution.get("Y").intValue();
+		stats.orientation = solution.get("Orientation").toString();
+		stats.energy = solution.get("Energy").intValue();
+		stats.cost = solution.get("Cost").intValue();
+		stats.ammo = solution.get("Ammo").intValue();
 		
-		return p;
+		return stats;
 	}
 	
-	public class Position
-	{
-		public int X;
-		public int Y;
-		public String Position;
-	}
 }

@@ -5,6 +5,7 @@ public enum Action {
 	ROTATE,
 	ROTATELEFT,
 	ATTACK,
+	KILL,
 	PICKGOLD,
 	GAMEOVER,
 	END

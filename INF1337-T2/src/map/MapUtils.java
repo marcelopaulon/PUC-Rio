@@ -6,6 +6,7 @@ import mapcell.FloorCell;
 import mapcell.FloorVisitedCell;
 import mapcell.GoldCell;
 import mapcell.HoleCell;
+import mapcell.PowerUpCell;
 import mapcell.MapCell;
 import mapcell.StartCell;
 import mapcell.TeletransportCell;
@@ -25,6 +26,10 @@ public class MapUtils
 	 * Hole MapCell
 	 */
 	private static MapCell HoleCell = new HoleCell(MapCell.Cells.HOLE.asChar());
+	/**
+	 * PowerUp MapCell
+	 */
+	private static MapCell PowerUpCell = new PowerUpCell(MapCell.Cells.POWERUP.asChar());
 	/**
 	 * Floor MapCell
 	 */
@@ -57,6 +62,8 @@ public class MapUtils
 			return WallCell;
 		if (value == MapCell.Cells.HOLE)
 			return HoleCell;
+		if (value == MapCell.Cells.POWERUP)
+			return PowerUpCell;
 		if (value == MapCell.Cells.FLOOR)
 			return FloorCell;
 		if (value == MapCell.Cells.FLOORVISITED)

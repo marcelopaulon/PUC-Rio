@@ -13,15 +13,16 @@ public abstract class MapCell {
 	 *
 	 */
 	public enum Cells {
-		START('S', -1),
+		START('X', -1),
 		WALL('W', 0),
-		HOLE('H', -1000),
-		FLOOR('F', -1),
+		HOLE('P', -1000),
+		POWERUP('U', -1),
+		FLOOR('.', -1),
 		FLOORVISITED('V', -1),
 		TELETRANSPORT('T', -1),
-		GOLD('G', 1000),
-		ENEMY20('2', -20),
-		ENEMY50('5', -50);
+		GOLD('O', 1000),
+		ENEMY20('d', -20),
+		ENEMY50('D', -50);
 
 		private final char asChar;
 		private final int cost;

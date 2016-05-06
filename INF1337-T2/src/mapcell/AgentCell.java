@@ -9,7 +9,7 @@ import gfx.Assets;
  *
  */
 public class AgentCell extends MapCell {
-	private static BufferedImage[] images = {Assets.agentDown, Assets.agentLeft, Assets.agentUp, Assets.agentRight};
+	private static BufferedImage[] images = {Assets.agentUp, Assets.agentRight, Assets.agentDown, Assets.agentLeft};
 	
 	private int curRender = 0;
 	
@@ -26,16 +26,16 @@ public class AgentCell extends MapCell {
 	{
 		switch(orientation)
 			{
-			case 'D':
+			case 'U':
 				curRender = 0;
 				break;
-			case 'L':
+			case 'R':
 				curRender = 1;
 				break;
-			case 'U':
+			case 'D':
 				curRender = 2;
 				break;
-			case 'R':
+			case 'L':
 				curRender = 3;
 				break;
 		}
