@@ -41,7 +41,7 @@ public class CaptureGold
 				if (value == MapCell.Cells.HOLE)
 					cellRule = "holeCell(";
 				if (value == MapCell.Cells.POWERUP)
-					cellRule = "floorCell(";
+					cellRule = "powerupCell(";
 				if (value == MapCell.Cells.FLOOR)
 					cellRule = "floorCell(";
 				if (value == MapCell.Cells.FLOORVISITED)
@@ -77,13 +77,13 @@ public class CaptureGold
 			e.printStackTrace();
 		}
 		
-		Query q2 = new Query("resetAll().");
-		if(!q2.hasSolution()) throw new Exception("Error - Unable to reset all in prolog");
+		Query q2 = new Query("clearMap().");
+		if(!q2.hasSolution()) throw new Exception("Error - Unable to clear map in prolog");
 		q2.oneSolution();
 		Query q3 = new Query("consult", new Term[] {new Atom("src/logic/map.pl")});
 		if(!q3.hasSolution()) throw new Exception("Error - Unable to load map in prolog");
-		Query q4 = new Query("resetGame().");
-		if(!q4.hasSolution()) throw new Exception("Error - Unable to reset game in prolog");
+		Query q4 = new Query("resetAgent().");
+		if(!q4.hasSolution()) throw new Exception("Error - Unable to reset agent in prolog");
 		q4.oneSolution();
 	}
 	
@@ -120,6 +120,8 @@ public class CaptureGold
 				return Action.GAMEOVER;
 			case "pickGold":
 				return Action.PICKGOLD;
+			case "pickPowerup":
+				return Action.PICKPOWERUP;
 		}
 		
 		return null;

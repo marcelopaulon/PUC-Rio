@@ -318,7 +318,7 @@ public class MapPanel extends JPanel {
 			
 			loadedMap.setValue(tempY, tempX, MapCell.Cells.FLOOR);
 		}
-		else if(action == Action.PICKGOLD)
+		else if(action == Action.PICKGOLD || action == Action.PICKPOWERUP)
 		{
 			loadedMap.setValue(curAgentY, curAgentX, MapCell.Cells.FLOOR);
 		}

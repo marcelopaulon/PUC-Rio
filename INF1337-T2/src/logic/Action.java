@@ -7,6 +7,7 @@ public enum Action {
 	ATTACK,
 	KILL,
 	PICKGOLD,
+	PICKPOWERUP,
 	GAMEOVER,
 	END
 }
