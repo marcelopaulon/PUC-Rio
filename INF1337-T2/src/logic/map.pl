@@ -51,16 +51,16 @@ wallCell(10,13).
 wallCell(11,13).
 wallCell(12,13).
 wallCell(13,13).
-enemy50Cell(100,3,3).
-enemy50Cell(100,6,8).
 powerupCell(7,3).
 powerupCell(1,6).
 powerupCell(10,12).
+enemyCell(50, 100,3,3).
+enemyCell(20, 100,9,4).
+enemyCell(50, 100,6,8).
+enemyCell(20, 100,3,9).
 goldCell(1,1).
 goldCell(8,7).
 goldCell(12,11).
-enemy20Cell(100,9,4).
-enemy20Cell(100,3,9).
 teletransportCell(6,2).
 teletransportCell(7,5).
 teletransportCell(10,9).
@@ -158,7 +158,6 @@ floorCell(8,9).
 floorCell(9,9).
 floorCell(11,9).
 floorCell(12,9).
-floorCell(1,10).
 floorCell(2,10).
 floorCell(3,10).
 floorCell(4,10).
@@ -194,6 +193,7 @@ holeCell(10,2).
 holeCell(11,5).
 holeCell(6,7).
 holeCell(8,8).
+holeCell(1,10).
 holeCell(8,10).
 holeCell(4,11).
 

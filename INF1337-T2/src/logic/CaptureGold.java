@@ -51,18 +51,25 @@ public class CaptureGold
 				if (value == MapCell.Cells.GOLD)
 					cellRule = "goldCell(";
 				if (value == MapCell.Cells.ENEMY20)
-					cellRule = "enemy20Cell(100,";
+					cellRule = "enemyCell(20, 100,";
 				if (value == MapCell.Cells.ENEMY50)
-					cellRule = "enemy50Cell(100,";
+					cellRule = "enemyCell(50, 100,";
 				
 				if(cellRule == null)
 				{
 					throw new Exception("Error - invalid map rule");
 				}
 				
-				if(rules.get(cellRule) == null) rules.put(cellRule, new StringBuilder());
-				
-				rules.get(cellRule).append(cellRule + j + "," + i + ").\n");
+				if (value == MapCell.Cells.ENEMY20 || value == MapCell.Cells.ENEMY50)
+				{
+					if(rules.get("enemyCell") == null) rules.put("enemyCell", new StringBuilder());
+					rules.get("enemyCell").append(cellRule + j + "," + i + ").\n");
+				}
+				else
+				{
+					if(rules.get(cellRule) == null) rules.put(cellRule, new StringBuilder());
+					rules.get(cellRule).append(cellRule + j + "," + i + ").\n");
+				}
 			}
 		}
 		
@@ -102,7 +109,7 @@ public class CaptureGold
 		String action = solution.get("Action").toString();
 		count++; // Debug - TODO: Remove
 		Stats stats = getCurStats();
-		System.out.println("Action = " + action + " ; Count = " + count + "; X = " + stats.x + "; Y = " + stats.y + "; O = " + stats.orientation);
+		System.out.println("Action = " + action + " ; X = " + stats.x + "; Y = " + stats.y + "; Step = " + count + "; O = " + stats.orientation);
 		
 		switch(action) 
 		{
