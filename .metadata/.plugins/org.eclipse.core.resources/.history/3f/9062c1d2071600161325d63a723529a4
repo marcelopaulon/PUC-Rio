@@ -1,0 +1,25 @@
+package boardInfo;
+
+public class Pocket {
+	private int pawnCount;
+	
+	public Pocket()
+	{
+		reset();
+	}
+	
+	public void removePawn()
+	{
+		pawnCount--;
+	}
+	
+	public void reset()
+	{
+		pawnCount = 0;
+	}
+	
+	public int getCount()
+	{
+		return pawnCount;
+	}
+}

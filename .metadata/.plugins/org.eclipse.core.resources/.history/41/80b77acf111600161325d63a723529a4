@@ -1,0 +1,65 @@
+package game;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import boardInfo.Board;
+import playerInfo.PlayerColor;
+
+public class GamePanel extends JPanel {
+
+	// Game Board
+	private Board board;
+
+	private final int rectSizeX = 375;
+	private final int rectSizeY = 255;
+	
+	private final int yardSizeX = (rectSizeX / 15) * 6;
+	private final int yardSizeY = (rectSizeY / 15) * 6;
+	
+	public GamePanel()
+	{
+		super();
+		
+	    setBackground(Color.white);
+	    setForeground(Color.white);
+
+		// Create the game board
+		board = new Board();
+	}
+	
+	private void renderBoard(Graphics2D g2d)
+	{
+		for(int i = 1; i <= 4; i++)
+		{
+			PlayerColor playerColor = PlayerColor.get(i);
+			Color color = PlayerColor.getColor(playerColor);
+			g2d.setColor(Color.BLACK);
+			int coordinateX = (i-1) / 2;
+			int coordinateY = (i-1) % 2;
+			
+			//g2d.setPaint(Color.BLACK);
+			g2d.fill(new Rectangle2D.Double(coordinateX*rectSizeX, coordinateY*rectSizeY, rectSizeX, rectSizeY));
+			
+			g2d.setPaint(color);
+			g2d.fill(new Rectangle2D.Double(coordinateX*rectSizeX, coordinateY*rectSizeY, yardSizeX, yardSizeY));
+		}
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		
+	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	            RenderingHints.VALUE_ANTIALIAS_ON);
+
+		renderBoard(g2d);
+	}
+}

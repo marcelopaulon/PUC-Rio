@@ -1,0 +1,28 @@
+package game;
+
+import java.awt.Graphics;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class GamePanel extends JPanel {
+
+	public GamePanel()
+	{
+		super();
+		add(new JLabel("Vagner Diagnostic Center"));
+		StringBuilder stats = new StringBuilder();
+		
+		// Create the game board
+		Board board = new Board();
+		
+		add(new JLabel(stats.toString()));
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		
+	}
+}

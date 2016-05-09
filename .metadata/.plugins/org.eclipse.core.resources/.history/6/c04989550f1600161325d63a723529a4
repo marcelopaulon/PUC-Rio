@@ -1,0 +1,49 @@
+package game;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import boardInfo.Board;
+import playerInfo.PlayerColor;
+
+public class GamePanel extends JPanel {
+
+	// Game Board
+	private Board board;
+
+	private final int rectSizeX = 375;
+	private final int rectSizeY = 265;
+	
+	public GamePanel()
+	{
+		super();
+		add(new JLabel("Vagner Diagnostic Center"));
+		StringBuilder stats = new StringBuilder();
+		
+		// Create the game board
+		board = new Board();
+		
+		add(new JLabel(stats.toString()));
+	}
+	
+	private void renderBoard(Graphics2D g2d)
+	{
+		for(int i = 1; i <= 4; i++)
+		{
+			PlayerColor color = PlayerColor.get(i);
+			int coordinateX = (i-1) / 2;
+			int coordinateY = (i-1) % 2;
+			g2d.draw3DRect(coordinateX*rectSizeX, coordinateY*rectSizeY, rectSizeX, rectSizeY, true);
+		}
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		renderBoard(g2d);
+	}
+}

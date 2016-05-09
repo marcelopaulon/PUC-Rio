@@ -1,0 +1,27 @@
+package game;
+
+import javax.swing.JPanel;
+import javax.swing.JButton;
+
+public class MainMenu extends JPanel {
+	
+	private class ExitGameListener implements ActionListener
+	{
+		
+	}
+	
+	public MainMenu() {
+		
+		JButton btnNovoJogo = new JButton("Novo Jogo");
+		add(btnNovoJogo);
+		
+		JButton btnCarregarJogo = new JButton("Carregar Jogo");
+		add(btnCarregarJogo);
+		
+		JButton btnSalvarJogo = new JButton("Salvar Jogo");
+		add(btnSalvarJogo);
+		
+		JButton btnSair = new JButton("Sair");
+		add(btnSair);
+	}
+}

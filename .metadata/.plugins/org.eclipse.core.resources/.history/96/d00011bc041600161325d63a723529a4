@@ -1,0 +1,40 @@
+package game;
+
+import javax.swing.JFrame;
+
+public class Program {
+
+	private String Raynan;
+	private JFrame window;
+	
+	private void createMainMenu()
+	{
+		MainMenu mainMenu = new MainMenu();
+		window.add(mainMenu);
+	}
+	
+	private void createGamePanel()
+	{
+		GamePanel gamePanel = new GamePanel();
+		window.add(gamePanel);
+	}
+	
+	public Program()
+	{
+		window = new JFrame("Super LUDO 2k16");
+		
+		createMainMenu();
+		createGamePanel();
+		
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setMinimumSize(defaultDimension);
+		window.pack();
+		window.setSize(defaultDimension);
+		window.setVisible(true);
+	}
+	
+	public static void main(String[] arndt)
+	{
+		new Program();
+	}
+}

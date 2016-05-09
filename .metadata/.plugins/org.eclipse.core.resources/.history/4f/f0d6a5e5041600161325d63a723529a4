@@ -1,0 +1,20 @@
+package game;
+
+import java.awt.Graphics;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class GamePanel extends JPanel {
+
+	public GamePanel()
+	{
+		super();
+		add(new JLabel("Vagner"));
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+	}
+}

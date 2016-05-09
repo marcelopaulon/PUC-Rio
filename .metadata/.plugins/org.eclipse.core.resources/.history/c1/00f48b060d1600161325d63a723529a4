@@ -1,0 +1,26 @@
+package boardInfo;
+
+import playerInfo.PlayerColor;
+
+public class Board {
+	// Game track
+	private Track track;
+	
+	// Player lanes
+	private Lane[] lanes;
+	
+	// Player yards
+	private Yard[] yards;
+	
+	public Board()
+	{
+		track = new Track();
+		lanes = new Lane[4];
+		yards = new Yard[4];
+		
+		for(int i = 1; i <= 4; i++)
+		{
+			lanes[i] = new Lane(PlayerColor.get(i));
+		}
+	}
+}

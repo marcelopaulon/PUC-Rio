@@ -1,0 +1,22 @@
+package boardInfo;
+
+public class Board {
+	// Game track
+	private Track track;
+	
+	// Player lanes
+	private Lane[] lanes;
+	
+	// Player yards
+	private Yard[] yards;
+	
+	public Board()
+	{
+		track = new Track();
+				
+		for(int i = 0; i < 4; i++)
+		{
+			
+		}
+	}
+}

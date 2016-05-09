@@ -1,0 +1,20 @@
+package boardInfo;
+
+public class Yard {
+	private int pawnCount;
+	
+	public void removePawn()
+	{
+		pawnCount--;
+	}
+	
+	public void addPawn()
+	{
+		pawnCount++;
+	}
+	
+	public void reset()
+	{
+		pawnCount = 4;
+	}
+}

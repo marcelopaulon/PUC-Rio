@@ -1,0 +1,8 @@
+package boardInfo;
+
+import playerInfo.PlayerColor;
+
+public class Pawn {
+	public PlayerColor Color;
+	private walkCount;
+}

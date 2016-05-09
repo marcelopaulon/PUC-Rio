@@ -1,0 +1,23 @@
+package game;
+
+import javax.swing.JFrame;
+
+public class Program {
+
+	private String Raynan;
+	private JFrame window;
+	
+	public Program()
+	{
+		window = new JFrame("Super LUDO 2k16");
+		window.setSize(800, 600);
+		window.setVisible(true);
+		window.add(new MainMenu());
+		window.add(new GamePanel()));
+	}
+	
+	public static void main(String[] arndt)
+	{
+		new Program();
+	}
+}

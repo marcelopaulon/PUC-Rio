@@ -1,0 +1,5 @@
+package playerInfo;
+
+public enum PlayerColor {
+
+}
