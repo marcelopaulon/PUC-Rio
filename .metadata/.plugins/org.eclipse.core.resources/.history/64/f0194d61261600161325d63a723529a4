@@ -1,0 +1,68 @@
+package rendering;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import playerInfo.PlayerColor;
+
+public class PocketView extends View {
+
+	private void getCoordinates(int i)
+	{
+		int coordinateXs[] = new int[3];
+		int coordinateYs[] = new int[3];
+		
+		coordinateXs[0] = (int) (rectSizeX - 3*yardSizeX/12);
+		coordinateYs[0] = (int) (rectSizeY - 3*yardSizeY/12);
+		
+		coordinateXs[1] = rectSizeX;
+		coordinateYs[1] = rectSizeY;
+					
+		if(i == 1 || i == 3)
+		{
+			coordinateXs[2] = (int) (rectSizeX - 3*yardSizeX/12);
+			coordinateYs[2] = (int) (rectSizeY + 3*yardSizeY/12);
+			
+			if(i == 3)
+			{
+				coordinateXs[0] += yardSizeX / 2;
+				coordinateXs[2] += yardSizeX / 2;
+			}
+		}
+		else
+		{
+			coordinateXs[2] = (int) (rectSizeX + 3*yardSizeX/12);
+			coordinateYs[2] = (int) (rectSizeY - 3*yardSizeY/12);
+			
+			if(i == 4)
+			{
+				coordinateYs[0] += yardSizeY / 2;
+				coordinateYs[2] += yardSizeY / 2;
+			}
+		}
+		
+		return new int[2][3] { coordinateXs, coordinateYs };
+	}
+	public void render(Graphics2D g2d)
+	{
+		for(int i = 1; i <= 4; i++){
+			int coordinateXs[] = new int[3];
+			int coordinateYs[] = new int[3];
+			
+			
+			Color color = Color.RED;
+			
+			if(i > 1)
+			{
+				PlayerColor playerColor = PlayerColor.get(i);
+				color = PlayerColor.getColor(playerColor);
+			}
+			
+			g2d.setPaint(color);
+			g2d.fillPolygon(coordinateXs, coordinateYs, 3);
+			g2d.setColor(Color.BLACK);
+			g2d.drawPolygon(coordinateXs, coordinateYs, 3);
+		}
+	}
+	
+}
