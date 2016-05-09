@@ -37,6 +37,6 @@ public class Board {
 	
 	public Yard getYard(PlayerColor player)
 	{
-		return yards[player.asInt() - 1];
+		return yards[player.asInt()];
 	}
 }

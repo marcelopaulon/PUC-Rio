@@ -60,7 +60,7 @@ public class YardView extends View {
 			for(int j = 0; j < pawns; j++)
 			{
 				g2d.setPaint(color.darker());
-				g2d.fill(new Ellipse2D.Double(10 +coordinate.getX() + coordinate.getX() / 4, 10 + coordinate.getY() + coordinate.getY() / 4, 50, 50));
+				g2d.fill(new Ellipse2D.Double(5, 5, coordinate.getX(), coordinate.getY()));
 			}
 		}
 	}

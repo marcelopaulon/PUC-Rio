@@ -2,23 +2,13 @@ package rendering;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-import boardInfo.Board;
-import boardInfo.Yard;
 import playerInfo.PlayerColor;
 import utils.Coordinate;
 
 public class YardView extends View {
 
-	private Board board;
-	
-	public YardView(Board board)
-	{
-		this.board = board;
-	}
-	
 	private Coordinate getCoordinates(int i)
 	{
 		double coordinateX = (i-1) % 2;
@@ -54,14 +44,6 @@ public class YardView extends View {
 			g2d.fill(yard);
 			g2d.setColor(Color.BLACK);
 			g2d.draw(yard);
-			
-			int pawns = board.getYard(playerColor).getCount();
-			
-			for(int j = 0; j < pawns; j++)
-			{
-				g2d.setPaint(color.darker());
-				g2d.fill(new Ellipse2D.Double(10 +coordinate.getX() + coordinate.getX() / 4, 10 + coordinate.getY() + coordinate.getY() / 4, 50, 50));
-			}
 		}
 	}
 

@@ -28,13 +28,12 @@ public class GamePanel extends JPanel {
 	    setBackground(Color.white);
 	    setForeground(Color.white);
 
-	    // Create the game board
-	 	board = new Board();
-	 		
 	    // Create the game views
-	    yardView = new YardView(board);
+	    yardView = new YardView();
 	    pocketView = new PocketView();
 	    
+		// Create the game board
+		board = new Board();
 	}
 	
 	private void renderBoard(Graphics2D g2d)
