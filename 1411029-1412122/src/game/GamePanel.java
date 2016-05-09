@@ -21,8 +21,8 @@ public class GamePanel extends JPanel {
 	private final int rectSizeX = 255;
 	private final int rectSizeY = 255;
 	
-	private final int yardSizeX = (rectSizeX / 15) * 6;
-	private final int yardSizeY = (rectSizeY / 15) * 6;
+	private final float yardSizeX = (rectSizeX / 15) * 12;
+	private final float yardSizeY = (rectSizeY / 15) * 12;
 	
 	public GamePanel()
 	{
@@ -35,6 +35,62 @@ public class GamePanel extends JPanel {
 		board = new Board();
 	}
 	
+	private void renderPockets(Graphics2D g2d)
+	{
+		for(int i = 1; i <= 4; i++){
+			int coordinateXs[] = new int[3];
+			int coordinateYs[] = new int[3];
+			
+			coordinateXs[2] = rectSizeX;
+			coordinateYs[2] = rectSizeY;
+			
+			if(i == 1 || i == 3)
+			{
+				coordinateXs[0] = (int) (rectSizeX - 3*yardSizeX/12);
+				coordinateYs[0] = (int) (rectSizeY - 3*yardSizeY/12);
+				
+				coordinateXs[1] = (int) (rectSizeX - 3*yardSizeX/12);
+				coordinateYs[1] = (int) (rectSizeY + 3*yardSizeY/12);
+				
+				if(i == 3)
+				{
+					coordinateXs[0] += yardSizeX / 2;
+					coordinateXs[1] += yardSizeX / 2;
+				}
+			}
+			else
+			{
+				coordinateXs[0] = (int) (rectSizeX - 3*yardSizeX/12);
+				coordinateYs[0] = (int) (rectSizeY - 3*yardSizeY/12);
+				
+				coordinateXs[1] = (int) (rectSizeX + 3*yardSizeX/12);
+				coordinateYs[1] = (int) (rectSizeY - 3*yardSizeY/12);
+				
+				if(i == 4)
+				{
+					coordinateYs[0] += yardSizeY / 2;
+					coordinateYs[1] += yardSizeY / 2;
+				}
+			}
+			
+			Color color = Color.RED;
+			
+			if(i > 1)
+			{
+				PlayerColor playerColor = PlayerColor.get(i);
+				color = PlayerColor.getColor(playerColor);
+			}
+			
+			g2d.setPaint(color);
+			
+			g2d.fillPolygon(coordinateXs, coordinateYs, 3);
+			
+			g2d.setColor(Color.BLACK);
+			
+			g2d.drawPolygon(coordinateXs, coordinateYs, 3);
+		}
+	}
+	
 	private void renderBoard(Graphics2D g2d)
 	{
 		for(int i = 1; i <= 4; i++)
@@ -42,8 +98,8 @@ public class GamePanel extends JPanel {
 			PlayerColor playerColor = PlayerColor.get(i);
 			Color color = PlayerColor.getColor(playerColor);
 
-			int coordinateX = (i-1) % 2;
-			int coordinateY = (i-1) / 2;
+			float coordinateX = (i-1) % 2;
+			float coordinateY = (i-1) / 2;
 			
 			if(i > 2)
 			{
@@ -52,7 +108,7 @@ public class GamePanel extends JPanel {
 			
 			g2d.setColor(Color.BLACK);
 			Rectangle2D.Double area = new Rectangle2D.Double(coordinateX*rectSizeX, coordinateY*rectSizeY, rectSizeX, rectSizeY);
-			g2d.draw(area);
+			//g2d.draw(area);
 
 			if(i == 2 || i == 3) coordinateX =  (coordinateX+1)*rectSizeX - yardSizeX;
 			if(i == 3 || i == 4) coordinateY =  (coordinateY+1)*rectSizeY - yardSizeY;
@@ -63,7 +119,11 @@ public class GamePanel extends JPanel {
 			g2d.setColor(Color.BLACK);
 			g2d.draw(yard);
 		}
+		
+		renderPockets(g2d);
 	}
+	
+	
 	
 	@Override
 	public void paintComponent(Graphics g) {
