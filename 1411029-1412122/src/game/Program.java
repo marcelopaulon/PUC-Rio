@@ -9,7 +9,7 @@ public class Program {
 
 	private JFrame window;
 	
-	private static Dimension defaultDimension = new Dimension(800, 600);
+	private static Dimension defaultDimension = new Dimension(600, 600);
 
 	private void createMainMenu()
 	{
