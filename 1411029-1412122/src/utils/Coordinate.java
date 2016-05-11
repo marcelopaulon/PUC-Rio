@@ -30,4 +30,23 @@ public class Coordinate {
 	{
 		this.y = y;
 	}
+	
+	@Override
+    public int hashCode() {
+        return (int) (x * 1000) ^ (int) (y * 1000);
+    }
+	
+	@Override
+    public boolean equals(Object obj) {
+       if (!(obj instanceof Coordinate))
+            return false;
+        if (obj == this)
+            return true;
+
+        Coordinate coordinate = (Coordinate) obj;
+
+        if(coordinate.x == this.x && coordinate.y == this.y) return true;
+        
+        return false;
+    }
 }

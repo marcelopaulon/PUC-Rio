@@ -3,6 +3,9 @@ package rendering;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Hashtable;
+
+import utils.Coordinate;
 
 public class SquareView extends View {
 
@@ -15,6 +18,34 @@ public class SquareView extends View {
 		this.x = x;
 		this.y = y;
 		this.fillColor = fillColor;
+		
+		configureSpecialSquares();
+		
+		if(isSpecialSquare(x, y))
+		{
+			this.fillColor = specialTrackSquares.get(new Coordinate(x, y));
+		}
+	}
+	
+	private static final Hashtable<Coordinate, Color> specialTrackSquares = new Hashtable<Coordinate, Color>();
+	
+	private void configureSpecialSquares()
+	{
+		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, squareSize), Color.GREEN); // Green start
+		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize + 2 * squareSize), Color.YELLOW); // Yellow start
+		specialTrackSquares.put(new Coordinate(yardSize, 2 * yardSize + squareSize), Color.BLUE); // Blue start
+		specialTrackSquares.put(new Coordinate(squareSize, yardSize), Color.RED); // Red start
+		
+		specialTrackSquares.put(new Coordinate(yardSize, squareSize), Color.BLACK); // Green area safe square
+		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize), Color.BLACK); // Yellow area safe square
+		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, 2 * yardSize + squareSize), Color.BLACK); // Blue area safe square
+		specialTrackSquares.put(new Coordinate(squareSize, yardSize + 2 * squareSize), Color.BLACK); // Red area safe square
+	}
+	
+	private boolean isSpecialSquare(float x, float y) {
+		if(specialTrackSquares.containsKey(new Coordinate(x, y))) return true;
+		
+		return false;
 	}
 	
 	@Override

@@ -2,7 +2,6 @@ package rendering;
 
 public class ConstantsEnum
 {
-
 	public static final float squareSize = 34;
 	
 	public static final float yardSize = 6 * squareSize;
