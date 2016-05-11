@@ -6,7 +6,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import boardInfo.Board;
-import boardInfo.Yard;
 import playerInfo.PlayerColor;
 import utils.Coordinate;
 

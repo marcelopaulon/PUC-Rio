@@ -2,7 +2,6 @@ package rendering;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
 public class LaneView extends View {
 	
@@ -12,10 +11,7 @@ public class LaneView extends View {
 		
 		for(float y = squareSize; y < yardSize; y += squareSize)
 		{
-			g2d.setPaint(Color.GREEN);
-			g2d.fill(new Rectangle2D.Float(x, y, squareSize, squareSize));
-			g2d.setColor(Color.BLACK);
-			g2d.draw(new Rectangle2D.Float(x, y, squareSize, squareSize));
+			new SquareView(x, y, Color.GREEN).render(g2d);
 		}
 	}
 	
@@ -25,10 +21,7 @@ public class LaneView extends View {
 		
 		for(float x = yardSize + 3 * squareSize; x < yardSize + 8 * squareSize; x += squareSize)
 		{
-			g2d.setPaint(Color.YELLOW);
-			g2d.fill(new Rectangle2D.Float(x, y, squareSize, squareSize));
-			g2d.setColor(Color.BLACK);
-			g2d.draw(new Rectangle2D.Float(x, y, squareSize, squareSize));
+			new SquareView(x, y, Color.YELLOW).render(g2d);
 		}
 	}
 	
@@ -38,10 +31,7 @@ public class LaneView extends View {
 		
 		for(float y = yardSize + 3 * squareSize; y < yardSize + 8 * squareSize; y += squareSize)
 		{
-			g2d.setPaint(Color.BLUE);
-			g2d.fill(new Rectangle2D.Float(x, y, squareSize, squareSize));
-			g2d.setColor(Color.BLACK);
-			g2d.draw(new Rectangle2D.Float(x, y, squareSize, squareSize));
+			new SquareView(x, y, Color.BLUE).render(g2d);
 		}
 	}
 	
@@ -51,10 +41,7 @@ public class LaneView extends View {
 		
 		for(float x = squareSize; x < squareSize + 5 * squareSize; x += squareSize)
 		{
-			g2d.setPaint(Color.RED);
-			g2d.fill(new Rectangle2D.Float(x, y, squareSize, squareSize));
-			g2d.setColor(Color.BLACK);
-			g2d.draw(new Rectangle2D.Float(x, y, squareSize, squareSize));
+			new SquareView(x, y, Color.RED).render(g2d);
 		}
 	}
 	
