@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 
 import boardInfo.Board;
 import playerInfo.PlayerColor;
+import rendering.LaneView;
 import rendering.PocketView;
+import rendering.TrackView;
 import rendering.YardView;
 
 public class GamePanel extends JPanel {
@@ -20,6 +22,8 @@ public class GamePanel extends JPanel {
 	
 	private YardView yardView;
 	private PocketView pocketView;
+	private LaneView laneView;
+	private TrackView trackView;
 
 	public GamePanel()
 	{
@@ -34,13 +38,16 @@ public class GamePanel extends JPanel {
 	    // Create the game views
 	    yardView = new YardView(board);
 	    pocketView = new PocketView();
-	    
+	    laneView = new LaneView();
+	    trackView = new TrackView();
 	}
 	
 	private void renderBoard(Graphics2D g2d)
 	{
 		yardView.render(g2d);
 		pocketView.render(g2d);
+		laneView.render(g2d);
+		trackView.render(g2d);
 	}
 		
 	@Override
