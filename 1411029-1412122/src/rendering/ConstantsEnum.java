@@ -1,11 +1,14 @@
 package rendering;
 
-public class ConstantsEnum {
+public class ConstantsEnum
+{
 
-	public static final int rectSizeX = 255;
-	public static final int rectSizeY = 255;
+	public static final float squareSizeX = 34;
+	public static final float squareSizeY = 34;
 	
-	public static final float yardSizeX = (rectSizeX / 15) * 12;
-	public static final float yardSizeY = (rectSizeY / 15) * 12;
+	public static final float yardSizeX = 6 * squareSizeX;
+	public static final float yardSizeY = 6 * squareSizeY;
 	
+	public static final float rectSizeX = (float) (7.5 * squareSizeX);
+	public static final float rectSizeY = (float) (7.5 * squareSizeY);
 }
