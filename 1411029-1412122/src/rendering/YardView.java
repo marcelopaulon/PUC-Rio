@@ -29,8 +29,8 @@ public class YardView extends View {
 			coordinateX = i % 2;
 		}
 		
-		if(i == 2 || i == 3) coordinateX = (coordinateX+1)*rectSizeX - yardSizeX;
-		if(i == 3 || i == 4) coordinateY = (coordinateY+1)*rectSizeY - yardSizeY;
+		if(i == 2 || i == 3) coordinateX = (coordinateX+1)*rectSize - yardSize;
+		if(i == 3 || i == 4) coordinateY = (coordinateY+1)*rectSize - yardSize;
 		
 		return new Coordinate(coordinateX, coordinateY);
 	}
@@ -47,8 +47,8 @@ public class YardView extends View {
 			Rectangle2D.Double yard = new Rectangle2D.Double(
 					coordinate.getX(),
 					coordinate.getY(),
-					yardSizeX, 
-					yardSizeY
+					yardSize, 
+					yardSize
 			);
 			
 			g2d.fill(yard);
@@ -63,7 +63,7 @@ public class YardView extends View {
 				if(j > 1) k = 2;
 				
 				g2d.setPaint(color.darker());
-				g2d.fill(new Ellipse2D.Double(40 + coordinate.getX() + 80 * (j % 2), coordinate.getY() + 80 * k - 40, 40, 40));
+				g2d.fill(new Ellipse2D.Double(40 + coordinate.getX() + 80 * (j % 2), coordinate.getY() + 80 * k - 40, 0.9 * squareSize, 0.9 * squareSize));
 			}
 		}
 	}

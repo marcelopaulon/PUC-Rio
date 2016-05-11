@@ -12,31 +12,31 @@ public class PocketView extends View {
 	{
 		Coordinate coordinates[] = new Coordinate[3];
 		
-		coordinates[0] = new Coordinate((int) (rectSizeX - 3*yardSizeX/12),
-						(int) (rectSizeY - 3*yardSizeY/12));
+		coordinates[0] = new Coordinate((int) (rectSize - 3*yardSize/12),
+						(int) (rectSize - 3*yardSize/12));
 		
-		coordinates[1] = new Coordinate(rectSizeX, rectSizeY);
+		coordinates[1] = new Coordinate(rectSize, rectSize);
 					
 		if(i == 1 || i == 3)
 		{
-			coordinates[2] = new Coordinate((int) (rectSizeX - 3*yardSizeX/12),
-							(int) (rectSizeY + 3*yardSizeY/12));
+			coordinates[2] = new Coordinate((int) (rectSize - 3*yardSize/12),
+							(int) (rectSize + 3*yardSize/12));
 			
 			if(i == 3)
 			{
-				coordinates[0].setX(coordinates[0].getX() + yardSizeX / 2);
-				coordinates[2].setX(coordinates[2].getX() + yardSizeX / 2);
+				coordinates[0].setX(coordinates[0].getX() + yardSize / 2);
+				coordinates[2].setX(coordinates[2].getX() + yardSize / 2);
 			}
 		}
 		else
 		{
-			coordinates[2] = new Coordinate((int) (rectSizeX + 3*yardSizeX/12),
-							(int) (rectSizeY - 3*yardSizeY/12));
+			coordinates[2] = new Coordinate((int) (rectSize + 3*yardSize/12),
+							(int) (rectSize - 3*yardSize/12));
 			
 			if(i == 4)
 			{
-				coordinates[0].setY(coordinates[0].getY() + yardSizeY / 2);
-				coordinates[2].setY(coordinates[2].getY() + yardSizeY / 2);
+				coordinates[0].setY(coordinates[0].getY() + yardSize / 2);
+				coordinates[2].setY(coordinates[2].getY() + yardSize / 2);
 			}
 		}
 		
