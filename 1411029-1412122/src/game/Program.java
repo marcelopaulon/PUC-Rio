@@ -2,6 +2,7 @@ package game;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 
@@ -9,7 +10,7 @@ public class Program {
 
 	private JFrame window;
 	
-	private static Dimension defaultDimension = new Dimension(600, 600);
+	private static Dimension defaultDimension = new Dimension(800, 600);
 
 	private void createMainMenu()
 	{
@@ -23,12 +24,20 @@ public class Program {
 		window.add(gamePanel, BorderLayout.CENTER);
 	}
 	
+	private void createGameInfoPanel()
+	{
+		GameInfoPanel gameInfoPanel = new GameInfoPanel();
+		window.add(gameInfoPanel, BorderLayout.EAST);
+		gameInfoPanel.setVisible(true);
+	}
+	
 	public Program()
 	{
 		window = new JFrame("Super LUDO 2k16.1");
 		
 		createMainMenu();
 		createGamePanel();
+		createGameInfoPanel();
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);
