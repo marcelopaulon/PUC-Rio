@@ -11,21 +11,17 @@ public class RemoveFromYardAction extends Action {
 	private Board board;
 	private YardView yardView;
 	
-	public RemoveFromYardAction(Board board, YardView yardView, ActionListener actionListener) throws Exception
+	public RemoveFromYardAction(Board board, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.board = board;
-		this.yardView = yardView;
 	}
 	
 	@Override
 	public void execute() {	
 		PlayerColor color = board.getCurrentPlayer();
-		yardView.setYardHighlight(null);
+		GamePanel.yardView.setYardHighlight(null);
 		Yard yard = board.getYard(color);
-		
-		ActionManager actionManager = ActionManager.getInstance();
-		actionManager.resetActions();
 		
 		yard.removePawn();
 		
@@ -49,9 +45,7 @@ public class RemoveFromYardAction extends Action {
 		}
 		
 		board.getTrack().addPawn(position, color);
-		
-		board.nextPlayer();
-		
+				
 		GamePanel.requestRedraw();
 	}
 
