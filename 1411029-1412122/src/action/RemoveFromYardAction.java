@@ -1,25 +1,28 @@
 package action;
 
-import boardInfo.Track;
+import boardInfo.Board;
 import boardInfo.Yard;
 import game.GamePanel;
 import playerInfo.PlayerColor;
+import rendering.YardView;
 
 public class RemoveFromYardAction implements IAction {
 
-	private PlayerColor color;
-	private Yard yard; 
-	private Track track;
+	private Board board;
+	private YardView yardView;
 	
-	public RemoveFromYardAction(PlayerColor color, Yard yard, Track track)
+	public RemoveFromYardAction(Board board, YardView yardView)
 	{
-		this.color = color;
-		this.yard = yard;
-		this.track = track;
+		this.board = board;
+		this.yardView = yardView;
 	}
 	
 	@Override
-	public void execute() {
+	public void execute() {	
+		PlayerColor color = board.getCurrentPlayer();
+		yardView.setYardHighlight(null);
+		Yard yard = board.getYard(color);
+		
 		ActionManager actionManager = ActionManager.getInstance();
 		actionManager.resetActions();
 		
@@ -44,7 +47,9 @@ public class RemoveFromYardAction implements IAction {
 			position = 48;
 		}
 		
-		track.addPawn(position, color);
+		board.getTrack().addPawn(position, color);
+		
+		board.nextPlayer();
 		
 		GamePanel.requestRedraw();
 	}

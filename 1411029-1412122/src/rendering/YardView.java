@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import action.ActionManager;
+import action.RemoveFromYardAction;
 import action.RollDiceAction;
 import boardInfo.Board;
 import boardInfo.Dice;
@@ -69,18 +70,23 @@ public class YardView extends View {
 				if(j > 1) k = 1;
 				
 				g2d.setPaint(color.darker());
-				Ellipse2D.Double pawn = new Ellipse2D.Double((1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * (j % 2), (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k, 0.9 * squareSize, 0.9 * squareSize);
+				double pawnX = (1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * (j % 2);
+				double pawnY = (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k;
+				Ellipse2D.Double pawn = new Ellipse2D.Double(pawnX, pawnY, 0.9 * squareSize, 0.9 * squareSize);
 				g2d.fill(pawn);
 								
-				if(j == 0 && yardHighlight != null && yardHighlight == playerColor)
+				if(j == pawns - 1 && yardHighlight != null && yardHighlight == playerColor)
 				{
 					g2d.setColor(Color.PINK);
 					g2d.draw(pawn);
+					RemoveFromYardAction action = new RemoveFromYardAction(board, this);
+					ActionManager.getInstance().registerAction((int) (pawnX / squareSize + 1), (int) (pawnY / squareSize + 1), action);
 				}
 			}
 			
-			if(playerColor == this.yardDice)
+			if(playerColor == board.getCurrentPlayer())
 			{
+				this.setYardDice(playerColor);
 				new DiceView(coordinate.getX() + yardSize/2, coordinate.getY() + yardSize/2, Dice.getCurValue()).render(g2d);
 			}
 		}
