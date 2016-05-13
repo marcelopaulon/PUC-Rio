@@ -79,7 +79,7 @@ public class YardView extends View {
 			
 			if(playerColor == board.getCurrentPlayer())
 			{
-				new DiceView(coordinate.getX() + yardSize/2, coordinate.getY() + yardSize/2, Dice.getCurValue()).render(g2d);
+				new DiceView(coordinate.getX() + yardSize/2.65, coordinate.getY() + yardSize/2.65, Dice.getCurValue()).render(g2d);
 			}
 		}
 	}

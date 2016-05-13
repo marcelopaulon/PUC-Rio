@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import boardInfo.Board;
+import rendering.DiceAssets;
 
 public class Program {
 
@@ -57,6 +58,7 @@ public class Program {
 	
 	public static void main(String[] arndt)
 	{
+		DiceAssets.init();
 		new Program();
 	}
 }

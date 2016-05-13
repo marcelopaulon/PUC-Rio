@@ -27,7 +27,6 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			board.nextPlayer();
 			setPlayerDice();
 		}
 
