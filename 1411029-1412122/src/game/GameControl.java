@@ -43,10 +43,10 @@ public class GameControl {
 			
 			System.out.println("Dice rolled");
 			
-			Dice.rollDice();
+			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
 			
-			if(board.getYard(currentPlayer).getCount() > 0 && Dice.getCurValue() == 6)
+			if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
 			{
 				setPlayerYardRemoval();
 			}
@@ -77,6 +77,11 @@ public class GameControl {
 			ActionManager.getInstance().registerAction(x-1, y, action);
 			ActionManager.getInstance().registerAction(x, y+1, action);
 			ActionManager.getInstance().registerAction(x, y-1, action);
+			
+			ActionManager.getInstance().registerAction(x+1, y+1, action);
+			ActionManager.getInstance().registerAction(x-1, y-1, action);
+			ActionManager.getInstance().registerAction(x+1, y-1, action);
+			ActionManager.getInstance().registerAction(x-1, y+1, action);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
