@@ -40,10 +40,10 @@ public class SquareView extends View {
 	
 	private void configureSpecialSquares()
 	{
-		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, squareSize), Color.GREEN); // Green start
-		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize + 2 * squareSize), Color.YELLOW); // Yellow start
-		specialTrackSquares.put(new Coordinate(yardSize, 2 * yardSize + squareSize), Color.BLUE); // Blue start
-		specialTrackSquares.put(new Coordinate(squareSize, yardSize), Color.RED); // Red start
+		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, squareSize), GameColor.Green); // Green start
+		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize + 2 * squareSize), GameColor.Yellow); // Yellow start
+		specialTrackSquares.put(new Coordinate(yardSize, 2 * yardSize + squareSize), GameColor.Blue); // Blue start
+		specialTrackSquares.put(new Coordinate(squareSize, yardSize), GameColor.Red); // Red start
 		
 		specialTrackSquares.put(new Coordinate(yardSize, squareSize), Color.BLACK); // Green area safe square
 		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize), Color.BLACK); // Yellow area safe square

@@ -2,6 +2,8 @@ package playerInfo;
 
 import java.awt.Color;
 
+import rendering.GameColor;
+
 public enum PlayerColor {
 	RED(1),
 	GREEN(2),
@@ -49,13 +51,13 @@ public enum PlayerColor {
 		switch(playerColor)
 		{
 			case RED:
-				return Color.RED;
+				return GameColor.Red;
 			case GREEN:
-				return Color.GREEN;
+				return GameColor.Green;
 			case YELLOW:
-				return Color.YELLOW;
+				return GameColor.Yellow;
 			case BLUE:
-				return Color.BLUE;
+				return GameColor.Blue;
 		}
 		
 		return null;

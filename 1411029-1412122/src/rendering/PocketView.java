@@ -51,7 +51,7 @@ public class PocketView extends View {
 			int coordinateXs[] = new int[] { (int) coordinates[0].getX(), (int) coordinates[1].getX(), (int) coordinates[2].getX() };
 			int coordinateYs[] = new int[] { (int) coordinates[0].getY(), (int) coordinates[1].getY(), (int) coordinates[2].getY() };
 			
-			Color color = Color.RED;
+			Color color = PlayerColor.getColor(PlayerColor.RED);
 			
 			if(i > 1)
 			{
