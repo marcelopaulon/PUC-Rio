@@ -25,13 +25,11 @@ public class RollDiceAction implements IAction {
 		Dice.rollDice();
 		PlayerColor currentPlayer = board.getCurrentPlayer();
 		
-	//	if(board.getYard(currentPlayer).getCount() > 0 && Dice.getCurValue() == 6)
-	//	{
+		if(board.getYard(currentPlayer).getCount() > 0 && Dice.getCurValue() == 6)
+		{
 			yardView.setYardHighlight(currentPlayer);
-			
-	//	}
+		}
 		
-		//board.getYard(currentPlayer).
 		GamePanel.requestRedraw();
 	}
 

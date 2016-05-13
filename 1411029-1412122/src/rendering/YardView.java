@@ -18,9 +18,7 @@ public class YardView extends View {
 	private Board board;
 	
 	private PlayerColor yardHighlight;
-	
-	private PlayerColor yardDice;
-	
+		
 	public YardView(Board board)
 	{
 		this.board = board;
@@ -97,7 +95,6 @@ public class YardView extends View {
 	}
 	
 	public void setYardDice(PlayerColor yardDice) {
-		this.yardDice = yardDice;
 		Coordinate coordinate = getCoordinates(yardDice.asInt());
 		
 		int x = (int) ((coordinate.getX() + yardSize/2)/ConstantsEnum.squareSize) + 1;

@@ -7,7 +7,6 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
-import action.ActionManager;
 import boardInfo.Board;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
@@ -27,7 +26,7 @@ public class GamePanel extends JPanel {
 	private LaneView laneView;
 	private TrackView trackView;
 
-	public GamePanel()
+	public GamePanel(Board board)
 	{
 		super();
 		
@@ -35,18 +34,22 @@ public class GamePanel extends JPanel {
 		
 	    setBackground(Color.white);
 	    setForeground(Color.white);
-
-	    // Create the game board
-	 	board = new Board();
-	 		 		
-	    // Create the game views
+	 		 	
+	    this.board = board;
+	    
+	    resetViews();
+	    
+	    this.addMouseListener(new BoardMouseListener());
+	}
+	
+	private void resetViews()
+	{
+		// Create the game views
 	    yardView = new YardView(board);
 	    yardView.setYardDice(board.getCurrentPlayer());
 	    pocketView = new PocketView();
 	    laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW), board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
 	    trackView = new TrackView(board.getTrack());
-	    
-	    this.addMouseListener(new BoardMouseListener());
 	}
 	
 	private void renderBoard(Graphics2D g2d)
@@ -72,6 +75,15 @@ public class GamePanel extends JPanel {
 	{
 		if(instance != null)
 		{
+			instance.repaint();
+		}
+	}
+	
+	public static void requestViewReset()
+	{
+		if(instance != null)
+		{
+			instance.resetViews();
 			instance.repaint();
 		}
 	}

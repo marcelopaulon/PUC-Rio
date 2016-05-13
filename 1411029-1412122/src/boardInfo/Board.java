@@ -16,6 +16,11 @@ public class Board {
 	
 	public Board()
 	{
+		resetBoard();
+	}
+	
+	public void resetBoard()
+	{
 		track = new Track();
 		lanes = new Lane[4];
 		yards = new Yard[4];
@@ -69,7 +74,7 @@ public class Board {
 		return this.currentPlayer;
 	}
 	
-	public void resetCurrentPlayer() {
+	private void resetCurrentPlayer() {
 		this.currentPlayer = PlayerColor.GREEN;
 	}
 }

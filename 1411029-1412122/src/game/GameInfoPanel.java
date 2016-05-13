@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.JPanel;
 
+import boardInfo.Board;
 import boardInfo.Dice;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ import java.awt.BorderLayout;
 
 public class GameInfoPanel extends JPanel{
 	private Integer diceResult = null;
-	public GameInfoPanel() {
+	public GameInfoPanel(Board board) {
 		this.setLayout(new BorderLayout());
 		this.setSize(200,400);
 		this.setLocation(0,0);
