@@ -42,9 +42,13 @@ public class GameControl {
 			
 			System.out.println("Dice rolled");
 			
-			if(hasMove())
+			int diceValue = Dice.getCurValue();
+			PlayerColor currentPlayer = board.getCurrentPlayer();
+			
+			
+			if(hasMove(diceValue, currentPlayer))
 			{
-				setPlayerMoves();
+				setPlayerMoves(diceValue, currentPlayer);
 			}
 			else
 			{
@@ -57,21 +61,85 @@ public class GameControl {
 
 	};
 	
-	private void setPlayerMoves()
+	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
 	{
-		int diceValue = Dice.getCurValue();
-		PlayerColor currentPlayer = board.getCurrentPlayer();
-		
-		if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
+		if(canMoveFromYardToTrack(diceValue, currentPlayer))
 		{
-			setPlayerYardRemoval();
+			setPlayerYardToTrackMoves();
+		}
+		
+		if(canMoveInsideTrack(diceValue, currentPlayer))
+		{
+			setPlayerTrackToTrackMoves();
+		}
+		
+		if(canMoveFromTrackToLane(diceValue, currentPlayer))
+		{
+			setPlayerTrackToLaneMoves();
+		}
+		
+		if(canMoveFromLaneToPocket(diceValue, currentPlayer))
+		{
+			setPlayerLaneToPocketMoves();
 		}
 	}
 	
-	private boolean hasMove()
+	private void setPlayerLaneToPocketMoves() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setPlayerTrackToLaneMoves() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setPlayerTrackToTrackMoves() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean hasMove(int diceValue, PlayerColor currentPlayer)
 	{
-		int diceValue = Dice.getCurValue();
-		PlayerColor currentPlayer = board.getCurrentPlayer();
+		if(canMoveFromYardToTrack(diceValue, currentPlayer))
+		{
+			return true;
+		}
+		
+		if(canMoveInsideTrack(diceValue, currentPlayer))
+		{
+			return true;
+		}
+		
+		if(canMoveFromTrackToLane(diceValue, currentPlayer))
+		{
+			return true;
+		}
+		
+		if(canMoveFromLaneToPocket(diceValue, currentPlayer))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean canMoveFromTrackToLane(int diceValue, PlayerColor currentPlayer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean canMoveInsideTrack(int diceValue, PlayerColor currentPlayer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean canMoveFromYardToTrack(int diceValue, PlayerColor currentPlayer) {
 		
 		if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
 		{
@@ -80,7 +148,7 @@ public class GameControl {
 		
 		return false;
 	}
-	
+
 	private void setPlayerDice()
 	{
 		RollDiceAction action;
@@ -108,7 +176,7 @@ public class GameControl {
 		}
 	}
 	
-	private void setPlayerYardRemoval()
+	private void setPlayerYardToTrackMoves()
 	{
 		GamePanel.yardView.setYardHighlight(board.getCurrentPlayer());
 		
