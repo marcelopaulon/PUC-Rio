@@ -13,6 +13,8 @@ public class YardView extends View {
 
 	private Board board;
 	
+	private PlayerColor yardHighlight;
+	
 	public YardView(Board board)
 	{
 		this.board = board;
@@ -62,9 +64,20 @@ public class YardView extends View {
 				if(j > 1) k = 1;
 				
 				g2d.setPaint(color.darker());
-				g2d.fill(new Ellipse2D.Double((1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * (j % 2), (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k, 0.9 * squareSize, 0.9 * squareSize));
+				Ellipse2D.Double pawn = new Ellipse2D.Double((1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * (j % 2), (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k, 0.9 * squareSize, 0.9 * squareSize);
+				g2d.fill(pawn);
+								
+				if(j == 0 && yardHighlight != null && yardHighlight == playerColor)
+				{
+					g2d.setColor(Color.PINK);
+					g2d.draw(pawn);
+				}
 			}
 		}
+	}
+
+	public void setYardHighlight(PlayerColor yardHighlight) {
+		this.yardHighlight = yardHighlight;
 	}
 
 }

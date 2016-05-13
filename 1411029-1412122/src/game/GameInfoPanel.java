@@ -8,9 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Label;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-
-import javax.swing.BoxLayout;
 
 public class GameInfoPanel extends JPanel{
 	private Integer diceResult = null;

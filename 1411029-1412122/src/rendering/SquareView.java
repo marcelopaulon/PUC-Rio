@@ -3,6 +3,8 @@ package rendering;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Hashtable;
@@ -82,5 +84,4 @@ public class SquareView extends View {
 			}
 		}
 	}
-
 }
