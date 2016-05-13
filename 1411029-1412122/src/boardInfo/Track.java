@@ -21,6 +21,11 @@ public class Track {
 		return squareList[position - 1];
 	}
 	
+	public void addPawn(int position, PlayerColor color)
+	{
+		squareList[position - 1].addPawn(new Pawn(color));
+	}
+	
 	private void resetSquareList() throws Exception
 	{
 		int i;

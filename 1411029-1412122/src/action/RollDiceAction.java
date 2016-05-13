@@ -30,7 +30,7 @@ public class RollDiceAction implements IAction {
 	//	if(board.getYard(currentPlayer).getCount() > 0 && Dice.getCurValue() == 6)
 	//	{
 			yardView.setYardHighlight(currentPlayer);
-			RemoveFromYardAction action = new RemoveFromYardAction();
+			RemoveFromYardAction action = new RemoveFromYardAction(currentPlayer, board.getYard(currentPlayer), board.getTrack());
 			Coordinate coordinate = yardView.getCoordinates(currentPlayer.asInt());
 			int positionX = (int) (((1.05*ConstantsEnum.squareSize) + coordinate.getX())/ConstantsEnum.squareSize) + 1;
 			int positionY = (int) (((1.05*ConstantsEnum.squareSize) + coordinate.getY())/ConstantsEnum.squareSize) + 1;
