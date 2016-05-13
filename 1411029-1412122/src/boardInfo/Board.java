@@ -32,7 +32,7 @@ public class Board {
 	
 	public Lane getLane(PlayerColor player)
 	{
-		return lanes[player.asInt()];
+		return lanes[player.asInt() - 1];
 	}
 	
 	public Yard getYard(PlayerColor player)

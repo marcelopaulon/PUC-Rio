@@ -10,14 +10,14 @@ public class Lane {
 	{
 		this.laneColor = laneColor;
 		
-		squareList = new Square[4];
+		squareList = new Square[5];
 		resetLane();
 	}
 	
 	public void resetLane()
 	{
 		int i;
-		for(i = 0; i < 4; i++)
+		for(i = 0; i < 5; i++)
 		{
 			squareList[i] = new Square(laneColor);
 		}
@@ -26,5 +26,10 @@ public class Lane {
 	public void addPawn(Pawn pawn)
 	{
 		squareList[0].addPawn(pawn);
+	}
+	
+	public Square getSquareAt(int index)
+	{
+		return squareList[index];
 	}
 }
