@@ -23,9 +23,14 @@ public class Lane {
 		}
 	}
 	
-	public void addPawn(Pawn pawn)
+	public void addPawn()
 	{
-		squareList[0].addPawn(pawn);
+		squareList[0].addPawn(new Pawn(laneColor));
+	}
+	
+	public void removePawn()
+	{
+		squareList[4].removePawn();
 	}
 	
 	public Square getSquareAt(int index)

@@ -24,6 +24,11 @@ public class Square {
 	{
 		pawns.add(pawn);
 	}
+	
+	public void removePawn()
+	{
+		pawns.remove(0);
+	}
 			
 	public PlayerColor getPawnsColor()
 	{

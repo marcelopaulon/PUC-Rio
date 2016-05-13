@@ -11,11 +11,13 @@ public class Program {
 
 	private JFrame window;
 	
+	private GameControl gameControl;
+	
 	private static Dimension defaultDimension = new Dimension(800, 600);
 
 	private void createMainMenu(Board board)
 	{
-		MainMenu mainMenu = new MainMenu(board);
+		MainMenu mainMenu = new MainMenu(gameControl);
 		window.add(mainMenu, BorderLayout.PAGE_START);
 	}
 	
@@ -38,9 +40,13 @@ public class Program {
 		
 		Board board = new Board();
 		
+		gameControl = new GameControl(board);
+		
 		createMainMenu(board);
 		createGamePanel(board);
 		createGameInfoPanel(board);
+		
+		gameControl.startGame();
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);

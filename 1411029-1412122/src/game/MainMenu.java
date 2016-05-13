@@ -12,21 +12,19 @@ import javax.swing.JButton;
 
 public class MainMenu extends JPanel {
 	
-	private Board board;
+	private GameControl gameControl;
 	
-	public MainMenu(Board board)
+	public MainMenu(GameControl gameControl)
 	{
 		this();
-		this.board = board;
+		this.gameControl = gameControl;
 	}
 	
 	private ActionListener newGameListener = new ActionListener()
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ActionManager.getInstance().resetActions();
-			board.resetBoard();
-			GamePanel.requestViewReset();
+			gameControl.startGame();
 		}
 	};
 	

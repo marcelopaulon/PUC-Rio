@@ -6,13 +6,14 @@ import game.GamePanel;
 import playerInfo.PlayerColor;
 import rendering.YardView;
 
-public class RollDiceAction implements IAction {
+public class RollDiceAction extends Action {
 
 	private Board board;
 	private YardView yardView;
 	
-	public RollDiceAction(Board board, YardView yardView)
+	public RollDiceAction(Board board, YardView yardView, ActionListener actionListener) throws Exception
 	{
+		super(actionListener);
 		this.board = board;
 		this.yardView = yardView;
 	}

@@ -7,11 +7,11 @@ import utils.Coordinate;
 public class ActionManager {
 	public static ActionManager instance = null;
 	
-	private HashMap<Coordinate, IAction> actionList;
+	private HashMap<Coordinate, Action> actionList;
 	
 	private ActionManager()
 	{
-		actionList = new HashMap<Coordinate, IAction>();
+		actionList = new HashMap<Coordinate, Action>();
 	}
 	
 	public static ActionManager getInstance()
@@ -24,7 +24,7 @@ public class ActionManager {
 		return instance;
 	}
 	
-	public void registerAction(int positionX, int positionY, IAction action)
+	public void registerAction(int positionX, int positionY, Action action)
 	{
 		actionList.put(new Coordinate(positionX, positionY), action);
 	}
@@ -40,7 +40,9 @@ public class ActionManager {
 		
 		if(actionList.containsKey(coordinate))
 		{
-			actionList.get(coordinate).execute();
+			Action action = actionList.get(coordinate);
+			action.execute();
+			action.onActionExecuted();
 		}
 	}
 }

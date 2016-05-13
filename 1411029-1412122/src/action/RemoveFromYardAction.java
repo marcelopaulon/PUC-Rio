@@ -6,13 +6,14 @@ import game.GamePanel;
 import playerInfo.PlayerColor;
 import rendering.YardView;
 
-public class RemoveFromYardAction implements IAction {
+public class RemoveFromYardAction extends Action {
 
 	private Board board;
 	private YardView yardView;
 	
-	public RemoveFromYardAction(Board board, YardView yardView)
+	public RemoveFromYardAction(Board board, YardView yardView, ActionListener actionListener) throws Exception
 	{
+		super(actionListener);
 		this.board = board;
 		this.yardView = yardView;
 	}

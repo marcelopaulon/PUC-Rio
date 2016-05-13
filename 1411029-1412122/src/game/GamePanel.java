@@ -21,10 +21,10 @@ public class GamePanel extends JPanel {
 	// Game Board
 	private Board board;
 	
-	private YardView yardView;
-	private PocketView pocketView;
-	private LaneView laneView;
-	private TrackView trackView;
+	public static YardView yardView;
+	public static PocketView pocketView;
+	public static LaneView laneView;
+	public static TrackView trackView;
 
 	public GamePanel(Board board)
 	{
@@ -46,7 +46,6 @@ public class GamePanel extends JPanel {
 	{
 		// Create the game views
 	    yardView = new YardView(board);
-	    yardView.setYardDice(board.getCurrentPlayer());
 	    pocketView = new PocketView();
 	    laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW), board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
 	    trackView = new TrackView(board.getTrack());

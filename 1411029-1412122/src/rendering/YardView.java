@@ -5,9 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-import action.ActionManager;
-import action.RemoveFromYardAction;
-import action.RollDiceAction;
 import boardInfo.Board;
 import boardInfo.Dice;
 import playerInfo.PlayerColor;
@@ -77,14 +74,11 @@ public class YardView extends View {
 				{
 					g2d.setColor(Color.PINK);
 					g2d.draw(pawn);
-					RemoveFromYardAction action = new RemoveFromYardAction(board, this);
-					ActionManager.getInstance().registerAction((int) (pawnX / squareSize + 1), (int) (pawnY / squareSize + 1), action);
 				}
 			}
 			
 			if(playerColor == board.getCurrentPlayer())
 			{
-				this.setYardDice(playerColor);
 				new DiceView(coordinate.getX() + yardSize/2, coordinate.getY() + yardSize/2, Dice.getCurValue()).render(g2d);
 			}
 		}
@@ -94,19 +88,31 @@ public class YardView extends View {
 		this.yardHighlight = yardHighlight;
 	}
 	
-	public void setYardDice(PlayerColor yardDice) {
-		Coordinate coordinate = getCoordinates(yardDice.asInt());
+	public Coordinate getYardHighlightPawnCoordinate()
+	{
+		PlayerColor playerColor = board.getCurrentPlayer();
+
+		Coordinate coordinate = getCoordinates(playerColor.asInt());
 		
+		int pawns = board.getYard(playerColor).getCount();
+		
+		int k = 0;
+		if(pawns - 1 > 1) k = 1;
+		
+		double pawnX = (1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * ((pawns - 1) % 2);
+		double pawnY = (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k;
+		
+		return new Coordinate(pawnX, pawnY);
+	}
+	
+	public Coordinate getYardDiceCoordinates(PlayerColor yardDice)
+	{
+		Coordinate coordinate = getCoordinates(yardDice.asInt());
+
 		int x = (int) ((coordinate.getX() + yardSize/2)/ConstantsEnum.squareSize) + 1;
 		int y = (int) ((coordinate.getY() + yardSize/2)/ConstantsEnum.squareSize) + 1;
 		
-		RollDiceAction action = new RollDiceAction(board, this);
-		
-		ActionManager.getInstance().registerAction(x, y, action);
-		ActionManager.getInstance().registerAction(x+1, y, action);
-		ActionManager.getInstance().registerAction(x-1, y, action);
-		ActionManager.getInstance().registerAction(x, y+1, action);
-		ActionManager.getInstance().registerAction(x, y-1, action);
+		return new Coordinate(x, y);
 	}
 
 }
