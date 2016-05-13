@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import boardInfo.Lane;
-import boardInfo.Square;
-import playerInfo.PlayerColor;
 
 public class LaneView extends View {
 	

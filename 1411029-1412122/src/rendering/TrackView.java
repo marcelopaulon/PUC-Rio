@@ -2,9 +2,7 @@ package rendering;
 
 import java.awt.Graphics2D;
 
-import boardInfo.Square;
 import boardInfo.Track;
-import playerInfo.PlayerColor;
 
 public class TrackView extends View 
 {
