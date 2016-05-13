@@ -39,7 +39,7 @@ public class GamePanel extends JPanel {
 	    yardView = new YardView(board);
 	    pocketView = new PocketView();
 	    laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW), board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
-	    trackView = new TrackView();
+	    trackView = new TrackView(board.getTrack());
 	}
 	
 	private void renderBoard(Graphics2D g2d)

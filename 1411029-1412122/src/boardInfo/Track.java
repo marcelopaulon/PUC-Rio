@@ -16,6 +16,14 @@ public class Track {
 		}	
 	}
 	
+	public Square getSquareAt(int position)
+	{
+		Square test = new Square(PlayerColor.RED);
+		for(int i = 0; i < position; i++) test.addPawn(new Pawn(PlayerColor.BLUE));
+		return test;
+		//return squareList[position - 1];
+	}
+	
 	private void resetSquareList() throws Exception
 	{
 		int i;
