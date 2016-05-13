@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import action.ActionManager;
 import boardInfo.Board;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
@@ -16,6 +17,8 @@ import rendering.YardView;
 
 public class GamePanel extends JPanel {
 
+	private static GamePanel instance = null;
+	
 	// Game Board
 	private Board board;
 	
@@ -28,6 +31,8 @@ public class GamePanel extends JPanel {
 	{
 		super();
 		
+		instance = this;
+		
 	    setBackground(Color.white);
 	    setForeground(Color.white);
 
@@ -36,7 +41,7 @@ public class GamePanel extends JPanel {
 	 		 		
 	    // Create the game views
 	    yardView = new YardView(board);
-	    yardView.setYardHighlight(board.getCurrentPlayer());
+	    yardView.setYardDice(board.getCurrentPlayer());
 	    pocketView = new PocketView();
 	    laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW), board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
 	    trackView = new TrackView(board.getTrack());
@@ -61,5 +66,13 @@ public class GamePanel extends JPanel {
 	            RenderingHints.VALUE_ANTIALIAS_ON);
 
 		renderBoard(g2d);
+	}
+	
+	public static void requestRedraw()
+	{
+		if(instance != null)
+		{
+			instance.repaint();
+		}
 	}
 }

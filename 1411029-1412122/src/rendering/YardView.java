@@ -5,7 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
+import action.ActionManager;
+import action.RollDiceAction;
 import boardInfo.Board;
+import boardInfo.Dice;
 import playerInfo.PlayerColor;
 import utils.Coordinate;
 
@@ -15,12 +18,14 @@ public class YardView extends View {
 	
 	private PlayerColor yardHighlight;
 	
+	private PlayerColor yardDice;
+	
 	public YardView(Board board)
 	{
 		this.board = board;
 	}
 	
-	private Coordinate getCoordinates(int i)
+	public Coordinate getCoordinates(int i)
 	{
 		double coordinateX = (i-1) % 2;
 		double coordinateY = (i-1) / 2;
@@ -73,11 +78,32 @@ public class YardView extends View {
 					g2d.draw(pawn);
 				}
 			}
+			
+			if(playerColor == this.yardDice)
+			{
+				new DiceView(coordinate.getX() + yardSize/2, coordinate.getY() + yardSize/2, Dice.getCurValue()).render(g2d);
+			}
 		}
 	}
 
 	public void setYardHighlight(PlayerColor yardHighlight) {
 		this.yardHighlight = yardHighlight;
+	}
+	
+	public void setYardDice(PlayerColor yardDice) {
+		this.yardDice = yardDice;
+		Coordinate coordinate = getCoordinates(yardDice.asInt());
+		
+		int x = (int) ((coordinate.getX() + yardSize/2)/ConstantsEnum.squareSize) + 1;
+		int y = (int) ((coordinate.getY() + yardSize/2)/ConstantsEnum.squareSize) + 1;
+		
+		RollDiceAction action = new RollDiceAction(board, this);
+		
+		ActionManager.getInstance().registerAction(x, y, action);
+		ActionManager.getInstance().registerAction(x+1, y, action);
+		ActionManager.getInstance().registerAction(x-1, y, action);
+		ActionManager.getInstance().registerAction(x, y+1, action);
+		ActionManager.getInstance().registerAction(x, y-1, action);
 	}
 
 }

@@ -29,7 +29,7 @@ public class ActionManager {
 		actionList.put(new Coordinate(positionX, positionY), action);
 	}
 	
-	public void resetAction()
+	public void resetActions()
 	{
 		actionList.clear();
 	}
