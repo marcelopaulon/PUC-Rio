@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import boardInfo.Board;
-import rendering.DiceAssets;
+import gfx.DiceAssets;
 
 public class Program {
 

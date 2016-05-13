@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Hashtable;
 
 import boardInfo.Square;
+import gfx.GameColor;
 import playerInfo.PlayerColor;
 import utils.Coordinate;
 

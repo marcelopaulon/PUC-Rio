@@ -7,7 +7,7 @@ import action.RollDiceAction;
 import boardInfo.Board;
 import boardInfo.Dice;
 import playerInfo.PlayerColor;
-import rendering.ConstantsEnum;
+import utils.ConstantsEnum;
 import utils.Coordinate;
 
 public class GameControl {
@@ -42,12 +42,9 @@ public class GameControl {
 			
 			System.out.println("Dice rolled");
 			
-			int diceValue = Dice.getCurValue();
-			PlayerColor currentPlayer = board.getCurrentPlayer();
-			
-			if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
+			if(hasMove())
 			{
-				setPlayerYardRemoval();
+				setPlayerMoves();
 			}
 			else
 			{
@@ -59,6 +56,30 @@ public class GameControl {
 		}
 
 	};
+	
+	private void setPlayerMoves()
+	{
+		int diceValue = Dice.getCurValue();
+		PlayerColor currentPlayer = board.getCurrentPlayer();
+		
+		if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
+		{
+			setPlayerYardRemoval();
+		}
+	}
+	
+	private boolean hasMove()
+	{
+		int diceValue = Dice.getCurValue();
+		PlayerColor currentPlayer = board.getCurrentPlayer();
+		
+		if(board.getYard(currentPlayer).getCount() > 0 && diceValue == 6)
+		{
+			return true;
+		}
+		
+		return false;
+	}
 	
 	private void setPlayerDice()
 	{

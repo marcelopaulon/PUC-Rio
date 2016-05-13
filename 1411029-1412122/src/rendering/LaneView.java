@@ -3,6 +3,7 @@ package rendering;
 import java.awt.Graphics2D;
 
 import boardInfo.Lane;
+import gfx.GameColor;
 
 public class LaneView extends View {
 	

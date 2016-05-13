@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import action.ActionManager;
-import rendering.ConstantsEnum;
+import utils.ConstantsEnum;
 
 public class BoardMouseListener implements MouseListener {
 

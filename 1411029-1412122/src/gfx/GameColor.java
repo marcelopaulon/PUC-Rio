@@ -1,4 +1,4 @@
-package rendering;
+package gfx;
 
 import java.awt.Color;
 

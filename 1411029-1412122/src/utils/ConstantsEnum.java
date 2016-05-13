@@ -1,4 +1,4 @@
-package rendering;
+package utils;
 
 public class ConstantsEnum
 {

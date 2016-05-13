@@ -2,7 +2,7 @@ package playerInfo;
 
 import java.awt.Color;
 
-import rendering.GameColor;
+import gfx.GameColor;
 
 public enum PlayerColor {
 	RED(1),

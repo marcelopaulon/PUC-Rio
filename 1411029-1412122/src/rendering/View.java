@@ -1,5 +1,7 @@
 package rendering;
 
+import utils.ConstantsEnum;
+
 public abstract class View implements IView {
 	protected final static float rectSize = ConstantsEnum.rectSize;
 	
