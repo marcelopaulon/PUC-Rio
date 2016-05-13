@@ -3,6 +3,9 @@ package rendering;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import boardInfo.Square;
+import playerInfo.PlayerColor;
+
 public class LaneView extends View {
 	
 	private void renderGreenLane(Graphics2D g2d)
@@ -11,7 +14,7 @@ public class LaneView extends View {
 		
 		for(float y = squareSize; y < yardSize; y += squareSize)
 		{
-			new SquareView(x, y, Color.GREEN).render(g2d);
+			new SquareView(new Square(PlayerColor.GREEN), x, y, Color.GREEN).render(g2d);
 		}
 	}
 	
@@ -21,7 +24,7 @@ public class LaneView extends View {
 		
 		for(float x = yardSize + 3 * squareSize; x < yardSize + 8 * squareSize; x += squareSize)
 		{
-			new SquareView(x, y, Color.YELLOW).render(g2d);
+			new SquareView(new Square(PlayerColor.YELLOW), x, y, Color.YELLOW).render(g2d);
 		}
 	}
 	
@@ -31,7 +34,7 @@ public class LaneView extends View {
 		
 		for(float y = yardSize + 3 * squareSize; y < yardSize + 8 * squareSize; y += squareSize)
 		{
-			new SquareView(x, y, Color.BLUE).render(g2d);
+			new SquareView(new Square(PlayerColor.BLUE), x, y, Color.BLUE).render(g2d);
 		}
 	}
 	
@@ -41,7 +44,7 @@ public class LaneView extends View {
 		
 		for(float x = squareSize; x < squareSize + 5 * squareSize; x += squareSize)
 		{
-			new SquareView(x, y, Color.RED).render(g2d);
+			new SquareView(new Square(PlayerColor.RED), x, y, Color.RED).render(g2d);
 		}
 	}
 	

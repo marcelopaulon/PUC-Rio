@@ -1,10 +1,14 @@
 package rendering;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Hashtable;
 
+import boardInfo.Square;
+import playerInfo.PlayerColor;
 import utils.Coordinate;
 
 public class SquareView extends View {
@@ -12,8 +16,9 @@ public class SquareView extends View {
 	private float x;
 	private float y;
 	private Color fillColor;
+	private Square square;
 	
-	public SquareView(float x, float y, Color fillColor)
+	public SquareView(Square square, float x, float y, Color fillColor)
 	{
 		this.x = x;
 		this.y = y;
@@ -25,6 +30,8 @@ public class SquareView extends View {
 		{
 			this.fillColor = specialTrackSquares.get(new Coordinate(x, y));
 		}
+		
+		this.square = square;
 	}
 	
 	private static final Hashtable<Coordinate, Color> specialTrackSquares = new Hashtable<Coordinate, Color>();
@@ -58,6 +65,22 @@ public class SquareView extends View {
 		
 		g2d.setColor(Color.BLACK);
 		g2d.draw(new Rectangle2D.Float(x, y, squareSize, squareSize));
+		
+		int pawnCount = square.getPawnCount();
+		
+		if(pawnCount > 0)
+		{
+			Color color = PlayerColor.getColor(square.getPawnsColor());
+			g2d.setPaint(color.darker());
+			g2d.fill(new Ellipse2D.Double(x + (squareSize * 0.05), y + (squareSize * 0.05), 0.9 * squareSize, 0.9 * squareSize));
+		
+			if(pawnCount > 1)
+			{
+				g2d.setPaint(Color.WHITE);
+				g2d.setFont(new Font("Arial",Font.PLAIN, 12));
+				g2d.drawString(String.format("%d", pawnCount), (float) (x + (squareSize * 0.40)), (float) (y + (squareSize * 0.63)));
+			}
+		}
 	}
 
 }
