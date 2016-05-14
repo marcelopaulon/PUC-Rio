@@ -93,7 +93,7 @@ public class SquareView extends View {
 			
 			if(highlight)
 			{
-				g2d.setColor(Color.ORANGE);
+				g2d.setColor(PlayerColor.getColor(square.getPawnsColor()));
 				g2d.draw(pawn);
 			}
 		}

@@ -79,7 +79,7 @@ public class YardView extends View {
 								
 				if(j == pawns - 1 && yardHighlight != null && yardHighlight == playerColor)
 				{
-					g2d.setColor(Color.PINK);
+					g2d.setColor(PlayerColor.getColor(playerColor));
 					g2d.draw(pawn);
 				}
 			}
