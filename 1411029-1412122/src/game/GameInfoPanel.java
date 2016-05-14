@@ -3,11 +3,6 @@ package game;
 import javax.swing.JPanel;
 
 import boardInfo.Board;
-import boardInfo.Dice;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Label;
 import java.awt.BorderLayout;
 
 public class GameInfoPanel extends JPanel{

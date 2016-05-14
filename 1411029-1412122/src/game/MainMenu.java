@@ -2,9 +2,6 @@ package game;
 
 import javax.swing.JPanel;
 
-import action.ActionManager;
-import boardInfo.Board;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

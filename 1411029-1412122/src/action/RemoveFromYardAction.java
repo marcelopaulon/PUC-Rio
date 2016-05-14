@@ -4,12 +4,10 @@ import boardInfo.Board;
 import boardInfo.Yard;
 import game.GamePanel;
 import playerInfo.PlayerColor;
-import rendering.YardView;
 
 public class RemoveFromYardAction extends Action {
 
 	private Board board;
-	private YardView yardView;
 	
 	public RemoveFromYardAction(Board board, ActionListener actionListener) throws Exception
 	{
@@ -20,7 +18,6 @@ public class RemoveFromYardAction extends Action {
 	@Override
 	public void execute() {	
 		PlayerColor color = board.getCurrentPlayer();
-		GamePanel.yardView.setYardHighlight(null);
 		Yard yard = board.getYard(color);
 		
 		yard.removePawn();

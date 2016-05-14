@@ -27,7 +27,7 @@ public class LaneView extends View {
 		
 		for(float y = squareSize; y < yardSize; y += squareSize)
 		{
-			new SquareView(greenLane.getSquareAt(position), x, y, GameColor.Green).render(g2d);
+			new SquareView(greenLane.getSquareAt(position), x, y, GameColor.Green, false).render(g2d);
 			position++;
 		}
 	}
@@ -39,7 +39,7 @@ public class LaneView extends View {
 		
 		for(float x = yardSize + 7 * squareSize; x >= yardSize + 3 * squareSize; x -= squareSize)
 		{
-			new SquareView(yellowLane.getSquareAt(position), x, y, GameColor.Yellow).render(g2d);
+			new SquareView(yellowLane.getSquareAt(position), x, y, GameColor.Yellow, false).render(g2d);
 			position++;
 		}
 	}
@@ -51,7 +51,7 @@ public class LaneView extends View {
 		
 		for(float y = yardSize + 7 * squareSize; y >= yardSize + 3 * squareSize; y -= squareSize)
 		{
-			new SquareView(blueLane.getSquareAt(position), x, y, GameColor.Blue).render(g2d);
+			new SquareView(blueLane.getSquareAt(position), x, y, GameColor.Blue, false).render(g2d);
 			position++;
 		}
 	}
@@ -63,7 +63,7 @@ public class LaneView extends View {
 		
 		for(float x = squareSize; x < squareSize + 5 * squareSize; x += squareSize)
 		{
-			new SquareView(redLane.getSquareAt(position), x, y, GameColor.Red).render(g2d);
+			new SquareView(redLane.getSquareAt(position), x, y, GameColor.Red, false).render(g2d);
 			position++;
 		}
 	}

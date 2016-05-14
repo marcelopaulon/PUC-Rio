@@ -10,10 +10,7 @@ public class BoardMouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int x = (int) (1 + e.getX()/ConstantsEnum.squareSize);
-		int y = (int) (1 + e.getY()/ConstantsEnum.squareSize);
 		
-		ActionManager.getInstance().executeAction(x, y);
 	}
 
 	@Override
@@ -33,7 +30,10 @@ public class BoardMouseListener implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		int x = (int) (1 + e.getX()/ConstantsEnum.squareSize);
+		int y = (int) (1 + e.getY()/ConstantsEnum.squareSize);
 		
+		ActionManager.getInstance().executeAction(x, y);
 	}
 
 }
