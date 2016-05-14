@@ -1,15 +1,17 @@
 package action;
 
 import boardInfo.Board;
+import boardInfo.Square;
+import boardInfo.Track;
 import boardInfo.Yard;
 import game.GamePanel;
 import playerInfo.PlayerColor;
 
-public class RemoveFromYardAction extends Action {
+public class MoveFromYardToTrackAction extends Action {
 
 	private Board board;
 	
-	public RemoveFromYardAction(Board board, ActionListener actionListener) throws Exception
+	public MoveFromYardToTrackAction(Board board, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.board = board;
@@ -39,6 +41,18 @@ public class RemoveFromYardAction extends Action {
 		else if(color == PlayerColor.RED) 
 		{
 			position = 48;
+		}
+		
+		Track track = board.getTrack();
+		Square toSquare = track.getSquareAt(position);
+		
+		if(toSquare.getPawnCount() > 0)
+		{
+			if(toSquare.getPawnsColor() != color) // Opponent in destination, must capture it
+			{
+				board.getYard(toSquare.getPawnsColor()).addPawn(); // Adds pawn to opponent's yard
+				toSquare.removePawn(); // Remove opponent pawn
+			}
 		}
 		
 		board.getTrack().addPawn(position, color);

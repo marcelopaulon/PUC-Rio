@@ -3,7 +3,7 @@ package game;
 import action.ActionListener;
 import action.ActionManager;
 import action.MoveFromTrackSquareToTrackSquareAction;
-import action.RemoveFromYardAction;
+import action.MoveFromYardToTrackAction;
 import action.RollDiceAction;
 import boardInfo.Board;
 import boardInfo.Dice;
@@ -325,10 +325,10 @@ public class GameControl {
 	{
 		GamePanel.yardView.setYardHighlight(board.getCurrentPlayer());
 		
-		RemoveFromYardAction action;
+		MoveFromYardToTrackAction action;
 		
 		try {
-			action = new RemoveFromYardAction(board, removeFromYardActionListener);
+			action = new MoveFromYardToTrackAction(board, removeFromYardActionListener);
 
 			Coordinate coordinates = GamePanel.yardView.getYardHighlightPawnCoordinate();
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
