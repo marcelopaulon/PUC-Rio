@@ -62,6 +62,28 @@ public enum PlayerColor {
 		
 		return null;
 	}
+	
+	/**
+	 * Gets system Color from PlayerColor
+	 * @param playerColor PlayerColor player color.
+	 * @return Color color system color
+	 */
+	public static Color getLighterColor(PlayerColor playerColor)
+	{
+		switch(playerColor)
+		{
+			case RED:
+				return GameColor.LightRed;
+			case GREEN:
+				return GameColor.LightGreen;
+			case YELLOW:
+				return GameColor.LightYellow;
+			case BLUE:
+				return GameColor.LightBlue;
+		}
+		
+		return null;
+	}
 		
 	/**
 	 * Private constructor for enum elements

@@ -75,6 +75,12 @@ public class SquareView extends View {
 		{
 			Color color = PlayerColor.getColor(square.getPawnsColor());
 			g2d.setPaint(color.darker());
+			
+			if(highlight)
+			{
+				g2d.setPaint(PlayerColor.getLighterColor(square.getPawnsColor()));
+			}
+			
 			Ellipse2D.Double pawn = new Ellipse2D.Double(x + (squareSize * 0.05), y + (squareSize * 0.05), 0.9 * squareSize, 0.9 * squareSize);
 			g2d.fill(pawn);
 		

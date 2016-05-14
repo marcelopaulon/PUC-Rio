@@ -69,6 +69,12 @@ public class YardView extends View {
 				double pawnX = (1.05*squareSize) + coordinate.getX() + (2.95 * squareSize) * (j % 2);
 				double pawnY = (1.05*squareSize) + coordinate.getY() + (2.95 * squareSize) * k;
 				Ellipse2D.Double pawn = new Ellipse2D.Double(pawnX, pawnY, 0.9 * squareSize, 0.9 * squareSize);
+				
+				if(j == pawns - 1 && yardHighlight != null && yardHighlight == playerColor)
+				{
+					g2d.setPaint(PlayerColor.getLighterColor(playerColor));
+				}
+				
 				g2d.fill(pawn);
 								
 				if(j == pawns - 1 && yardHighlight != null && yardHighlight == playerColor)
