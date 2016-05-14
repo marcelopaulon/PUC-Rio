@@ -145,7 +145,7 @@ public class GameControl {
 					MoveFromTrackSquareToTrackSquareAction action;
 					
 					try {
-						action = new MoveFromTrackSquareToTrackSquareAction(origin, destination, moveFromTrackToTrackActionListener);
+						action = new MoveFromTrackSquareToTrackSquareAction(board, origin, destination, moveFromTrackToTrackActionListener);
 
 						Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(i);
 						int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
