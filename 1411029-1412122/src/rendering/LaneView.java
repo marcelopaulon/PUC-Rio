@@ -35,7 +35,7 @@ public class LaneView extends View {
 	private void calculateGreenLaneCoordinates()
 	{
 		float x = yardSize + squareSize;
-		int position = 0;
+		int position = 1;
 		
 		for(float y = squareSize; y < yardSize; y += squareSize)
 		{
@@ -47,7 +47,7 @@ public class LaneView extends View {
 	private void calculateYellowLaneCoordinates()
 	{
 		float y = yardSize + squareSize;
-		int position = 0;
+		int position = 1;
 		
 		for(float x = yardSize + 7 * squareSize; x >= yardSize + 3 * squareSize; x -= squareSize)
 		{
@@ -59,7 +59,7 @@ public class LaneView extends View {
 	private void calculateBlueLaneCoordinates()
 	{
 		float x = yardSize + squareSize;
-		int position = 0;
+		int position = 1;
 		
 		for(float y = yardSize + 7 * squareSize; y >= yardSize + 3 * squareSize; y -= squareSize)
 		{
@@ -71,7 +71,7 @@ public class LaneView extends View {
 	private void calculateRedLaneCoordinates()
 	{
 		float y = yardSize + squareSize;
-		int position = 0;
+		int position = 1;
 		
 		for(float x = squareSize; x < squareSize + 5 * squareSize; x += squareSize)
 		{
@@ -82,7 +82,7 @@ public class LaneView extends View {
 	
 	private void renderGreenLane(Graphics2D g2d)
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 1; i <= 5; i++)
 		{
 			Coordinate coordinate = greenLaneCoordinates.get(i);
 			new SquareView(greenLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Green, false).render(g2d);
@@ -91,7 +91,7 @@ public class LaneView extends View {
 	
 	private void renderYellowLane(Graphics2D g2d)
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 1; i <= 5; i++)
 		{
 			Coordinate coordinate = yellowLaneCoordinates.get(i);
 			new SquareView(yellowLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Yellow, false).render(g2d);
@@ -100,7 +100,7 @@ public class LaneView extends View {
 	
 	private void renderBlueLane(Graphics2D g2d)
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 1; i <= 5; i++)
 		{
 			Coordinate coordinate = blueLaneCoordinates.get(i);
 			new SquareView(blueLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Blue, false).render(g2d);
@@ -109,7 +109,7 @@ public class LaneView extends View {
 	
 	private void renderRedLane(Graphics2D g2d)
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 1; i <= 5; i++)
 		{
 			Coordinate coordinate = redLaneCoordinates.get(i);
 			new SquareView(redLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Red, false).render(g2d);

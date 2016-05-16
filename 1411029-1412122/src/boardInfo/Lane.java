@@ -17,9 +17,9 @@ public class Lane {
 	public void resetLane()
 	{
 		int i;
-		for(i = 0; i < 5; i++)
+		for(i = 1; i <= 5; i++)
 		{
-			squareList[i] = new Square(laneColor);
+			squareList[i - 1] = new Square(laneColor);
 		}
 	}
 	
@@ -33,8 +33,8 @@ public class Lane {
 		squareList[4].removePawn();
 	}
 	
-	public Square getSquareAt(int index)
+	public Square getSquareAt(int position)
 	{
-		return squareList[index];
+		return squareList[position - 1];
 	}
 }

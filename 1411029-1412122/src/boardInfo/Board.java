@@ -12,6 +12,9 @@ public class Board {
 	// Player yards
 	private Yard[] yards;
 	
+	// Player pockets
+	private Pocket[] pockets;
+	
 	private PlayerColor currentPlayer;
 	
 	public Board()
@@ -24,11 +27,13 @@ public class Board {
 		track = new Track();
 		lanes = new Lane[4];
 		yards = new Yard[4];
+		pockets = new Pocket[4];
 		
 		for(int i = 0; i < 4; i++)
 		{
 			lanes[i] = new Lane(PlayerColor.get(i + 1));
 			yards[i] = new Yard();
+			pockets[i] = new Pocket();
 		}
 		
 		resetCurrentPlayer();
@@ -47,6 +52,11 @@ public class Board {
 	public Yard getYard(PlayerColor player)
 	{
 		return yards[player.asInt() - 1];
+	}
+	
+	public Pocket getPocket(PlayerColor player)
+	{
+		return pockets[player.asInt() - 1];
 	}
 
 	public PlayerColor getCurrentPlayer() {

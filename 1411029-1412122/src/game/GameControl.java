@@ -213,9 +213,9 @@ public class GameControl {
 	}
 	
 	private boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer) {
-		if(diceValue != 6) //TODO: Mudar Lane.getSquareAt() e atualizar método
+		if(diceValue != 6)
 		{
-			Square origin = board.getLane(currentPlayer).getSquareAt(5-diceValue);
+			Square origin = board.getLane(currentPlayer).getSquareAt(6-diceValue);
 			if(origin.getPawnCount() > 0) //Checa se há peças na casa e se a posição da casa somada ao valor do dado ainda está no track
 			{
 				return true;
@@ -225,10 +225,10 @@ public class GameControl {
 	}
 
 	private boolean canMoveInsideLane(int diceValue, PlayerColor currentPlayer) {
-		for(int i = 0; i < 5; i++) //TODO: Mudar Lane.getSquareAt() e atualizar método
+		for(int i = 1; i <= 4; i++) //TODO: Mudar Lane.getSquareAt() e atualizar método
 		{
 			Square origin = board.getLane(currentPlayer).getSquareAt(i);
-			if(origin.getPawnCount() > 0 && i + diceValue < 5) //Checa se há peças na casa e se a posição da casa somada ao valor do dado ainda está no track
+			if(origin.getPawnCount() > 0 && i + diceValue < 6) //Checa se há peças na casa e se a posição da casa somada ao valor do dado ainda está no track
 			{
 				Square destination = board.getLane(currentPlayer).getSquareAt(i+diceValue);
 				if(destination.getPawnCount() < 2) return true;
@@ -338,6 +338,11 @@ public class GameControl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Board getLoadedBoard()
+	{
+		return board;
 	}
 
 	public void startGame()
