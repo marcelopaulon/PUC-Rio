@@ -22,6 +22,14 @@ public class Board {
 		resetBoard();
 	}
 	
+	public Board(Track track, Lane[] lanes, Yard[] yards, Pocket[] pockets, PlayerColor currentPlayer){
+		this.track = track;
+		this.lanes = lanes;
+		this.yards = yards;
+		this.pockets = pockets;
+		this.currentPlayer = currentPlayer;
+	}
+	
 	public void resetBoard()
 	{
 		track = new Track();

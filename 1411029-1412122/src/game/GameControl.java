@@ -353,4 +353,10 @@ public class GameControl {
 		
 		setPlayerDice();
 	}
+	
+	public void loadMap(Board savedMap) {
+		this.board = savedMap;
+		GamePanel.getInstance().setBoard(savedMap);
+		GamePanel.requestViewReset();
+	}
 }

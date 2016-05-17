@@ -42,6 +42,14 @@ public class GamePanel extends JPanel {
 	    this.addMouseListener(new BoardMouseListener());
 	}
 	
+	public static GamePanel getInstance(){
+		return instance;
+	}
+	
+	public void setBoard(Board board){
+		this.board = board;
+	}
+	
 	private void resetViews()
 	{
 		// Create the game views

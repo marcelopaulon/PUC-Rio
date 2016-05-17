@@ -17,4 +17,9 @@ public class Dice {
 	{
 		return curValue;
 	}
+	
+	public static void setCurValue(int value)
+	{
+		curValue = value;
+	}
 }

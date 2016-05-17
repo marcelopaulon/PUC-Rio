@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class MainMenu extends JPanel {
 	
@@ -47,24 +48,22 @@ public class MainMenu extends JPanel {
 	 */
 	public Board showLoadMapDialog() throws Exception
 	{
-		return null;
-		/*
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(null);
+		chooser.setCurrentDirectory(new File("./saves"));
 		chooser.setFileFilter(new FileNameExtensionFilter("Apenas .ludosave", "ludosave"));
 		int retorno = chooser.showOpenDialog(null);
 
 		if (retorno == JFileChooser.APPROVE_OPTION)
 		{
-			return MapLoader.tryLoadMap(chooser.getSelectedFile());
+			return GameSave.loadFromFile(chooser.getSelectedFile());
 		}
 
-		return null;*/
+		return null;
 	}
 	
 	/**
 	 * Defines what happens when the "Carregar Mapa" button is presssed
-	 */ /*
+	 */ 
 	private ActionListener loadMapListener = new ActionListener()
 	{
 		@Override
@@ -74,8 +73,8 @@ public class MainMenu extends JPanel {
 				Board map = showLoadMapDialog();
 				if(map != null)
 				{
-					savedMap = map;
-					mapPanel.loadMap(savedMap);
+					Board savedMap = map;
+					gameControl.loadMap(savedMap);
 				}
 			} catch (Exception exception)
 			{
@@ -83,7 +82,7 @@ public class MainMenu extends JPanel {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
-	};*/
+	};
 	
 	/**
 	 * Defines what happens when the "Salvar Jogo" button is presssed
@@ -96,7 +95,7 @@ public class MainMenu extends JPanel {
 			try
 			{
 				JFileChooser chooser = new JFileChooser();
-				chooser.setCurrentDirectory(null);
+				chooser.setCurrentDirectory(new File("./saves"));
 				chooser.setFileFilter(new FileNameExtensionFilter(".ludosave", "ludosave"));
 				int retorno = chooser.showSaveDialog(null);
 
@@ -132,6 +131,7 @@ public class MainMenu extends JPanel {
 		add(btnNovoJogo);
 		
 		JButton btnCarregarJogo = new JButton("Carregar Jogo");
+		btnCarregarJogo.addActionListener(loadMapListener);
 		add(btnCarregarJogo);
 		
 		JButton btnSalvarJogo = new JButton("Salvar Jogo");
