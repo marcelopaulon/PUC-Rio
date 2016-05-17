@@ -354,9 +354,23 @@ public class GameControl {
 		setPlayerDice();
 	}
 	
-	public void loadMap(Board savedMap) {
+	public void loadMap(Board savedMap, int currentDiceValue) {
+		ActionManager.getInstance().resetActions();
+		resetHighlights();
+		
 		this.board = savedMap;
+		
 		GamePanel.getInstance().setBoard(savedMap);
+		
+		if(hasMove(currentDiceValue, board.getCurrentPlayer()))
+		{
+			setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
+		}
+		else
+		{
+			setPlayerDice();
+		}
+		
 		GamePanel.requestViewReset();
 	}
 }

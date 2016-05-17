@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import boardInfo.Board;
+import boardInfo.Dice;
 import utils.Utils;
 
 import java.awt.event.ActionEvent;
@@ -74,7 +75,7 @@ public class MainMenu extends JPanel {
 				if(map != null)
 				{
 					Board savedMap = map;
-					gameControl.loadMap(savedMap);
+					gameControl.loadMap(savedMap, Dice.getCurValue());
 				}
 			} catch (Exception exception)
 			{
