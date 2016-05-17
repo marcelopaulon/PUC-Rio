@@ -362,6 +362,8 @@ public class GameControl {
 		
 		GamePanel.getInstance().setBoard(savedMap);
 		
+		GamePanel.requestViewReset();
+		
 		if(hasMove(currentDiceValue, board.getCurrentPlayer()))
 		{
 			setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
@@ -371,6 +373,6 @@ public class GameControl {
 			setPlayerDice();
 		}
 		
-		GamePanel.requestViewReset();
+		GamePanel.requestRedraw();
 	}
 }
