@@ -14,7 +14,7 @@ public class Program {
 	
 	private GameControl gameControl;
 	
-	private static Dimension defaultDimension = new Dimension(800, 600);
+	private static Dimension defaultDimension = new Dimension(527, 582);
 
 	private void createMainMenu(Board board)
 	{
