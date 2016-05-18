@@ -2,20 +2,8 @@ package game;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.SwingConstants;
 
 import boardInfo.Board;
 import gfx.DiceAssets;
@@ -49,49 +37,7 @@ public class Program {
 	
 	private void showSplashScreen()
 	{
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(new File("res/splash.png"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		JPanel panel = new JPanel();
-		
-		JLabel label = new JLabel(new ImageIcon(image));
-		
-		URL url = Program.class.getResource("/gfx/playsm.gif");
-		ImageIcon imageIcon = new ImageIcon(url);
-		JLabel playLabel = new JLabel(imageIcon);
-		
-		panel.add(label);
-		
-		JWindow splash = new JWindow();
-		
-		splash.setSize(600, 600);
-		
-		splash.setContentPane(label);
-		
-		JPanel glassPane = (JPanel) splash.getGlassPane();
-		glassPane.setLayout(new BorderLayout());
-		glassPane.add(playLabel, BorderLayout.PAGE_END);
-		splash.setGlassPane(glassPane);
-		glassPane.setVisible(true);
-		splash.pack();
-		splash.setLocationRelativeTo(null);
-		
-		splash.setVisible(true);
-		
-		try {
-		    Thread.sleep(20000);
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		}
-		splash.removeAll();
-		splash.setVisible(false);
-		splash.dispose();
+		new SplashScreen();
 	}
 	
 	public Program()
