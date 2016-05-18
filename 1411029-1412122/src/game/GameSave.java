@@ -14,12 +14,25 @@ import boardInfo.Square;
 import boardInfo.Track;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;
+import utils.Cryptography;
 
 public class GameSave {
 	public static Board loadFromFile(File file) throws FileNotFoundException
 	{
-		Scanner scanner = new Scanner(file);
+		Scanner scannerFile = new Scanner(file);
+		String[] saveFile = null;
+		try {
+			saveFile = Cryptography.decrypt(scannerFile.nextLine()).split("\n");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		scannerFile.close();
+				
 		String parser;
+		int line = 0;
 		
 		PlayerColor currentPlayer;
 		int currentDice;
@@ -32,19 +45,21 @@ public class GameSave {
 		for(int i = 0; i < lanes.length; i++) lanes[i] = new Lane(PlayerColor.get(i+1));
 		
 		//Reading Current Player
-		parser = scanner.nextLine();
+		parser = saveFile[line];
 		parser = parser.substring(10);
 		
 		currentPlayer = PlayerColor.get(Integer.valueOf(parser));
 		
 		//Reading Current Dice
-		parser = scanner.nextLine();
+		line++;
+		parser = saveFile[line];
 		parser = parser.substring(8);
 		
 		currentDice = Integer.valueOf(parser);
 		
 		//Reading Track Positions
-		parser = scanner.nextLine();
+		line++;
+		parser = saveFile[line];
 		
 		while(parser.contains("TRACK")){
 			Integer trackPosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); //trackPosition is always between = and &
@@ -54,7 +69,8 @@ public class GameSave {
 			
 			for(int i = 0; i < count; i++) track.addPawn(Integer.valueOf(trackPosition), PlayerColor.get(color));
 			
-			parser = scanner.nextLine();
+			line++;
+			parser = saveFile[line];
 		}
 		
 		//Reading Lanes, Yards and Pockets
@@ -62,7 +78,8 @@ public class GameSave {
 			Integer yardColor = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); //yardColor is always between = and & 
 			Integer yardCount = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 			
-			parser = scanner.nextLine();
+			line++;
+			parser = saveFile[line];
 			
 			Integer pocketColor = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
 			Integer pocketCount = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
@@ -73,8 +90,15 @@ public class GameSave {
 			pockets[pocketColor-1] = new Pocket();
 			for(int i=0; i<pocketCount; i++) pockets[pocketColor-1].addPawn();
 			
-			if(scanner.hasNextLine()) parser = scanner.nextLine();
-			else parser = "END OF FILE";
+			if(line + 1 < saveFile.length) 
+			{
+				line++;
+				parser = saveFile[line];
+			}
+			else
+			{
+				parser = "END OF FILE";
+			}
 			
 			if(parser.contains("LANE")){
 				Integer lanePosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); //lanePosition is always between = and &
@@ -84,12 +108,17 @@ public class GameSave {
 				
 				for(int i = 0; i < count; i++) lanes[color-1].addPawn();
 				
-				if(scanner.hasNextLine()) parser = scanner.nextLine();
-				else parser = "END OF FILE";				
+				if(line + 1 < saveFile.length) 
+				{
+					line++;
+					parser = saveFile[line];
+				}
+				else
+				{
+					parser = "END OF FILE";
+				}			
 			}
 		}
-		
-		scanner.close();
 		
 		Dice.setCurValue(currentDice);
 		return new Board(track, lanes, yards, pockets, currentPlayer);
@@ -97,10 +126,10 @@ public class GameSave {
 	
 	public static void saveToFile(Board board, File file) throws IOException
 	{
-		PrintWriter fileOut = new PrintWriter(file);
+		StringBuilder saveString = new StringBuilder();
 		
-        fileOut.write("CURPLAYER=" + board.getCurrentPlayer().asInt());
-        fileOut.write("\nCURDICE=" + Dice.getCurValue());
+		saveString.append("CURPLAYER=" + board.getCurrentPlayer().asInt());
+		saveString.append("\nCURDICE=" + Dice.getCurValue());
         
         Track track = board.getTrack();
         
@@ -108,7 +137,7 @@ public class GameSave {
         	Square square = track.getSquareAt(i);
         	if(square.getPawnCount() > 0)
         	{
-        		fileOut.write("\nTRACKPOSITION=" + i + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
+        		saveString.append("\nTRACKPOSITION=" + i + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
         	}
 		}
         
@@ -118,11 +147,11 @@ public class GameSave {
         	
         	Yard yard = board.getYard(playerColor);
         	
-        	fileOut.write("\nYARDCOLOR=" + playerColor.asInt() + "&COUNT=" + yard.getCount());
+        	saveString.append("\nYARDCOLOR=" + playerColor.asInt() + "&COUNT=" + yard.getCount());
         	
         	Pocket pocket = board.getPocket(playerColor);
         	
-        	fileOut.write("\nPOCKETCOLOR=" + playerColor.asInt() + "&COUNT=" + pocket.getCount());
+        	saveString.append("\nPOCKETCOLOR=" + playerColor.asInt() + "&COUNT=" + pocket.getCount());
         	
         	Lane lane = board.getLane(playerColor);
         	
@@ -131,12 +160,19 @@ public class GameSave {
         		Square square = lane.getSquareAt(j);
         		if(square.getPawnCount() > 0)
             	{
-            		fileOut.write("\nLANEPOSITION=" + j + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
+        			saveString.append("\nLANEPOSITION=" + j + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
             	}
         	}
         }
         
-        fileOut.write("\n");
+        PrintWriter fileOut = new PrintWriter(file);
+		
+        try {
+			fileOut.write(Cryptography.encrypt(saveString.toString()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         fileOut.close();
 	}
