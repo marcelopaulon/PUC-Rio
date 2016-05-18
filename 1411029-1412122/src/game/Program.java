@@ -58,6 +58,7 @@ public class Program {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);
 		window.pack();
+		window.setLocationRelativeTo(null);
 		window.setSize(defaultDimension);
 		window.setVisible(true);
 	}
