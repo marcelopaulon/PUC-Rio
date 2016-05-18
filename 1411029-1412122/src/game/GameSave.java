@@ -85,7 +85,8 @@ public class GameSave {
 			Integer pocketCount = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 			
 			yards[yardColor-1] = new Yard();
-			for(int i=0; i<yardCount; i++) yards[yardColor-1].addPawn();
+			
+			for(int i = 0; i < 4 - yardCount; i++) yards[yardColor-1].removePawn();
 			
 			pockets[pocketColor-1] = new Pocket();
 			for(int i=0; i<pocketCount; i++) pockets[pocketColor-1].addPawn();
