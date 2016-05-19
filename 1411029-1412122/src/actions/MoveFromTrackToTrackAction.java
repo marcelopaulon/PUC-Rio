@@ -8,13 +8,13 @@ import boardInfo.Pawn;
 import boardInfo.Square;
 import playerInfo.PlayerColor;
 
-public class MoveFromTrackSquareToTrackSquareAction extends Action {
+public class MoveFromTrackToTrackAction extends Action {
 
 	private Board board;
 	private Square fromSquare;
 	private Square toSquare;
 	
-	public MoveFromTrackSquareToTrackSquareAction(Board board, Square fromSquare, Square toSquare, ActionListener actionListener) throws Exception
+	public MoveFromTrackToTrackAction(Board board, Square fromSquare, Square toSquare, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.board = board;

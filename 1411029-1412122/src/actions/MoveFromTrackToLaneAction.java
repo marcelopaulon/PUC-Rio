@@ -6,13 +6,13 @@ import actions.common.ActionManager;
 import boardInfo.Lane;
 import boardInfo.Square;
 
-public class MoveFromTrackSquareToLaneAction extends Action {
+public class MoveFromTrackToLaneAction extends Action {
 
 	private Square fromSquare;
 	private Lane toLane;
 	private int toLanePosition;
 	
-	public MoveFromTrackSquareToLaneAction(Square fromSquare, Lane toLane, int toLanePosition, ActionListener actionListener) throws Exception
+	public MoveFromTrackToLaneAction(Square fromSquare, Lane toLane, int toLanePosition, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.fromSquare = fromSquare;

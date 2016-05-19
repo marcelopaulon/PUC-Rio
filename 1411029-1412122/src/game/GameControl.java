@@ -1,7 +1,10 @@
 package game;
 
-import actions.MoveFromTrackSquareToLaneAction;
-import actions.MoveFromTrackSquareToTrackSquareAction;
+import actions.MoveFromLaneToLaneAction;
+import actions.MoveFromLaneToPocketAction;
+import actions.MoveFromTrackToLaneAction;
+import actions.MoveFromTrackToPocketAction;
+import actions.MoveFromTrackToTrackAction;
 import actions.MoveFromYardToTrackAction;
 import actions.RollDiceAction;
 import actions.common.ActionListener;
@@ -26,6 +29,10 @@ public class GameControl {
 	{
 		GamePanel.trackView.clearSquareHighlight();
 		GamePanel.yardView.setYardHighlight(null);
+		GamePanel.laneView.clearSquareHighlight(PlayerColor.GREEN);
+		GamePanel.laneView.clearSquareHighlight(PlayerColor.BLUE);
+		GamePanel.laneView.clearSquareHighlight(PlayerColor.YELLOW);
+		GamePanel.laneView.clearSquareHighlight(PlayerColor.RED);
 	}
 	
 	private ActionListener removeFromYardActionListener = new ActionListener()
@@ -74,6 +81,66 @@ public class GameControl {
 			resetHighlights();
 			
 			System.out.println("Test - track to lane action listener executed");
+			
+			board.nextPlayer();
+			setPlayerDice();
+			
+			GamePanel.requestRedraw();
+		}
+
+	};
+	
+	private ActionListener moveFromLaneToLaneActionListener = new ActionListener()
+	{
+
+		@Override
+		public void onActionExecuted() {
+			ActionManager actionManager = ActionManager.getInstance();
+			actionManager.resetActions();
+			
+			resetHighlights();
+			
+			System.out.println("Test - lane to lane action listener executed");
+			
+			board.nextPlayer();
+			setPlayerDice();
+			
+			GamePanel.requestRedraw();
+		}
+
+	};
+	
+	private ActionListener moveFromLaneToPocketActionListener = new ActionListener()
+	{
+
+		@Override
+		public void onActionExecuted() {
+			ActionManager actionManager = ActionManager.getInstance();
+			actionManager.resetActions();
+			
+			resetHighlights();
+			
+			System.out.println("Test - lane to pocket action listener executed");
+			
+			board.nextPlayer();
+			setPlayerDice();
+			
+			GamePanel.requestRedraw();
+		}
+
+	};
+	
+	private ActionListener moveFromTrackToPocketActionListener = new ActionListener()
+	{
+
+		@Override
+		public void onActionExecuted() {
+			ActionManager actionManager = ActionManager.getInstance();
+			actionManager.resetActions();
+			
+			resetHighlights();
+			
+			System.out.println("Test - track to pocket action listener executed");
 			
 			board.nextPlayer();
 			setPlayerDice();
@@ -144,7 +211,7 @@ public class GameControl {
 				if(canMoveFromTrackToPocket(diceValue, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE FROM TRACK TO POCKET");
-					setPlayerTrackToPocketMoves(position);
+					setPlayerTrackToPocketMoves(currentPlayer, position);
 				}
 			}
 		}
@@ -156,32 +223,75 @@ public class GameControl {
 				if(canMoveFromLaneToPocket(diceValue, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE FROM LANE TO POCKET");
-					setPlayerLaneToPocketMoves(position);
+					setPlayerLaneToPocketMoves(diceValue, currentPlayer, position);
 				}
 				
 				if(canMoveInsideLane(diceValue, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE INSIDE LANE");
-					setPlayerLaneToLaneMoves(position);
+					setPlayerLaneToLaneMoves(diceValue, currentPlayer, position);
 				}
 			}
 		}
 		
 	}
 	
-	private void setPlayerLaneToPocketMoves(int pawnPosition) {
-		// TODO Auto-generated method stub
+	private void setPlayerLaneToPocketMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
+		GamePanel.laneView.setSquareHighlight(currentPlayer, pawnPosition);
 		
+		MoveFromLaneToPocketAction action;
+		
+		try {
+			action = new MoveFromLaneToPocketAction(board.getLane(currentPlayer), pawnPosition, board.getPocket(currentPlayer), moveFromLaneToPocketActionListener);
+
+			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
+			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
+			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
+			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void setPlayerLaneToLaneMoves(int pawnPosition) {
-		// TODO Auto-generated method stub
+	private void setPlayerLaneToLaneMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
 		
+		GamePanel.laneView.setSquareHighlight(currentPlayer, pawnPosition);
+		
+		MoveFromLaneToLaneAction action;
+		
+		try {
+			int lanePosition = pawnPosition + diceValue;
+			action = new MoveFromLaneToLaneAction(board.getLane(currentPlayer), pawnPosition, lanePosition, moveFromLaneToLaneActionListener);
+
+			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
+			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
+			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
+			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void setPlayerTrackToPocketMoves(int pawnPosition) {
-		// TODO Auto-generated method stub
+	private void setPlayerTrackToPocketMoves(PlayerColor currentPlayer, int pawnPosition) {
+		Square origin = board.getTrack().getSquareAt(pawnPosition);
 		
+		GamePanel.trackView.setSquareHighlight(pawnPosition);
+		
+		MoveFromTrackToPocketAction action;
+		
+		try {
+			action = new MoveFromTrackToPocketAction(origin, board.getPocket(currentPlayer), moveFromTrackToPocketActionListener);
+
+			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
+			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
+			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
+			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void setPlayerTrackToLaneMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
@@ -189,11 +299,11 @@ public class GameControl {
 		
 		GamePanel.trackView.setSquareHighlight(pawnPosition);
 		
-		MoveFromTrackSquareToLaneAction action;
+		MoveFromTrackToLaneAction action;
 		
 		try {
 			int lanePosition = pawnPosition + diceValue - getPositionOfLastSquareOfPlayer(currentPlayer);
-			action = new MoveFromTrackSquareToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveFromTrackToLaneActionListener);
+			action = new MoveFromTrackToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveFromTrackToLaneActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
@@ -215,10 +325,10 @@ public class GameControl {
 				
 		GamePanel.trackView.setSquareHighlight(pawnPosition);
 		
-		MoveFromTrackSquareToTrackSquareAction action;
+		MoveFromTrackToTrackAction action;
 		
 		try {
-			action = new MoveFromTrackSquareToTrackSquareAction(board, origin, destination, moveFromTrackToTrackActionListener);
+			action = new MoveFromTrackToTrackAction(board, origin, destination, moveFromTrackToTrackActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);

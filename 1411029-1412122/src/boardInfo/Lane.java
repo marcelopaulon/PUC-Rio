@@ -24,8 +24,8 @@ public final class Lane extends SquareList {
 		super.addPawn(position, laneColor);
 	}
 	
-	public void removePawn()
+	public void removePawn(int position)
 	{
-		super.removePawn(5);
+		super.removePawn(position);
 	}
 }

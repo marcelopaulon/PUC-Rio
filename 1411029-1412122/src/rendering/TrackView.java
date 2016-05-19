@@ -104,12 +104,12 @@ public class TrackView extends View
 		}
 	}
 
-	public void setSquareHighlight(int i) {
-		squareHighlight.add(i);
+	public void setSquareHighlight(int position) {
+		squareHighlight.add(position);
 	}
 
-	public Coordinate getPawnCoordinate(int i) throws Exception {
-		return pawnCoordinates.get(i);
+	public Coordinate getPawnCoordinate(int position) throws Exception {
+		return pawnCoordinates.get(position);
 	}
 
 	public void clearSquareHighlight() {
