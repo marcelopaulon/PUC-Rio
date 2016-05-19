@@ -28,6 +28,4 @@ public final class Lane extends SquareList {
 	{
 		super.removePawn(5);
 	}
-	
-	
 }

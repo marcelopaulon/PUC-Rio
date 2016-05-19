@@ -105,7 +105,7 @@ public class GameSave {
 				parser = "END OF FILE";
 			}
 			
-			if(parser.contains("LANE")){
+			while(parser.contains("LANE")){
 				Integer lanePosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); //lanePosition is always between = and &
 				parser = parser.substring(parser.indexOf("&") + 1); //removing first part of the parser string
 				Integer color = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
