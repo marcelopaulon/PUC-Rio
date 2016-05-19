@@ -5,8 +5,7 @@ import playerInfo.PlayerColor;
 public class Pawn {
 	private PlayerColor color;
 	private int walkCount;
-	
-	
+		
 	public Pawn(PlayerColor color)
 	{
 		this.color = color;

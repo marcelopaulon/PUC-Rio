@@ -21,16 +21,20 @@ public class GameSave {
 	{
 		Scanner scannerFile = new Scanner(file);
 		String[] saveFile = null;
+		
 		try {
 			saveFile = Cryptography.decrypt(scannerFile.nextLine()).split("\n");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 			return null;
 		}
-		
-		scannerFile.close();
-				
+		finally
+		{
+			scannerFile.close();
+		}
+						
 		String parser;
 		int line = 0;
 		
@@ -107,7 +111,7 @@ public class GameSave {
 				Integer color = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
 				Integer count = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 				
-				for(int i = 0; i < count; i++) lanes[color-1].addPawn();
+				for(int i = 0; i < count; i++) lanes[color-1].addPawn(lanePosition);
 				
 				if(line + 1 < saveFile.length) 
 				{
@@ -117,7 +121,7 @@ public class GameSave {
 				else
 				{
 					parser = "END OF FILE";
-				}			
+				}
 			}
 		}
 		
@@ -152,7 +156,7 @@ public class GameSave {
         	
         	Pocket pocket = board.getPocket(playerColor);
         	
-        	saveString.append("\nPOCKETCOLOR=" + playerColor.asInt() + "&COUNT=" + pocket.getCount());
+        	saveString.append("\nPOCKETCOLOR=" + playerColor.asInt() + "&COUNT=" + pocket.getPawnCount());
         	
         	Lane lane = board.getLane(playerColor);
         	

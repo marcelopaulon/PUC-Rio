@@ -1,39 +1,25 @@
 package boardInfo;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import playerInfo.PlayerColor;
 
-public class Square {
-	private List<Pawn> pawns;
+public class Square extends PawnList {
 	private PlayerColor areaColor;
 	
 	public Square(PlayerColor areaColor)
 	{
+		super(0, null);
 		this.areaColor = areaColor;
-		pawns = new LinkedList<Pawn>();
-	}
-	
-	public int getPawnCount()
-	{
-		return pawns.size();
 	}
 	
 	public void addPawn(Pawn pawn)
 	{
-		pawns.add(pawn);
+		super.setPawnsColor(pawn.getColor());
+		super.addPawn();
 	}
 	
 	public void removePawn()
 	{
-		pawns.remove(0);
-	}
-			
-	public PlayerColor getPawnsColor()
-	{
-		if(getPawnCount() < 1) return null;
-		return pawns.get(0).getColor();
+		super.removePawn();
 	}
 	
 	public PlayerColor getAreaColor()

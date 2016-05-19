@@ -2,12 +2,10 @@ package boardInfo;
 
 import playerInfo.PlayerColor;
 
-public class Track {
-	private Square[] squareList;
-	
+public final class Track extends SquareList {	
 	public Track()
 	{
-		squareList = new Square[52];
+		super(52);
 		
 		try {
 			resetSquareList();
@@ -16,30 +14,18 @@ public class Track {
 		}	
 	}
 	
-	public Square getSquareAt(int position)
-	{
-		return squareList[position - 1];
-	}
-	
-	public void addPawn(int position, PlayerColor color)
-	{
-		squareList[position - 1].addPawn(new Pawn(color));
-	}
-	
 	private void resetSquareList() throws Exception
 	{
-		int i;
-		
 		PlayerColor curAreaColor;
 		
-		for(i = 0; i < 52; i++)
+		for(int position = 1; position <= 52; position++)
 		{
-			if(i < 13) curAreaColor = PlayerColor.GREEN;
-			else if(i < 26) curAreaColor = PlayerColor.YELLOW;
-			else if(i < 39) curAreaColor = PlayerColor.BLUE;
-			else if(i < 52) curAreaColor = PlayerColor.RED;
-			else throw new Exception("Invalid square index");
-			squareList[i] = new Square(curAreaColor);
+			if(position <= 13) curAreaColor = PlayerColor.GREEN;
+			else if(position <= 26) curAreaColor = PlayerColor.YELLOW;
+			else if(position <= 39) curAreaColor = PlayerColor.BLUE;
+			else if(position <= 52) curAreaColor = PlayerColor.RED;
+			else throw new Exception("Invalid square position");
+			resetSquare(position, curAreaColor);
 		}
 	}
 }

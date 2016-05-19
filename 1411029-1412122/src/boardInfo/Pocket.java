@@ -1,25 +1,14 @@
 package boardInfo;
 
-public class Pocket {
-	private int pawnCount;
-	
+public class Pocket extends PawnList {
 	public Pocket()
 	{
+		super(0, null);
 		reset();
 	}
 	
 	public void addPawn()
 	{
-		pawnCount++;
-	}
-	
-	public void reset()
-	{
-		pawnCount = 0;
-	}
-	
-	public int getCount()
-	{
-		return pawnCount;
+		super.addPawn();
 	}
 }
