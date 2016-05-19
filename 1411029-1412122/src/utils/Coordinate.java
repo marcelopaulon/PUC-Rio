@@ -33,7 +33,9 @@ public class Coordinate {
 	
 	@Override
     public int hashCode() {
-        return (int) (x * 1000) ^ (int) (y * 1000);
+		long bits = java.lang.Double.doubleToLongBits(getX());
+	    bits ^= java.lang.Double.doubleToLongBits(getY()) * 31;
+	    return (((int) bits) ^ ((int) (bits >> 32)));
     }
 	
 	@Override
