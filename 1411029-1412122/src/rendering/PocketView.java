@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import playerInfo.PlayerColor;
+import rendering.common.View;
 import utils.Coordinate;
 
 public class PocketView extends View {

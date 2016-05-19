@@ -1,5 +1,6 @@
 package boardInfo;
 
+import boardInfo.common.PawnList;
 import playerInfo.PlayerColor;
 
 public class Square extends PawnList {

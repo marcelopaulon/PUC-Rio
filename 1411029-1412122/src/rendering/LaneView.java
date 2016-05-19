@@ -5,6 +5,7 @@ import java.util.Hashtable;
 
 import boardInfo.Lane;
 import gfx.GameColor;
+import rendering.common.View;
 import utils.Coordinate;
 
 public class LaneView extends View {

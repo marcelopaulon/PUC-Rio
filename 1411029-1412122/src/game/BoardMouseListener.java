@@ -3,7 +3,7 @@ package game;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import action.ActionManager;
+import actions.common.ActionManager;
 import utils.ConstantsEnum;
 
 public class BoardMouseListener implements MouseListener {

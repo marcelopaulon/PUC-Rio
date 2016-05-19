@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import boardInfo.Track;
+import rendering.common.View;
 import utils.Coordinate;
 
 public class TrackView extends View 

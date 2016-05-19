@@ -10,6 +10,7 @@ import java.util.Hashtable;
 import boardInfo.Square;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
+import rendering.common.View;
 import utils.Coordinate;
 
 public class SquareView extends View {

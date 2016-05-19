@@ -1,10 +1,10 @@
 package game;
 
-import action.ActionListener;
-import action.ActionManager;
-import action.MoveFromTrackSquareToTrackSquareAction;
-import action.MoveFromYardToTrackAction;
-import action.RollDiceAction;
+import actions.MoveFromTrackSquareToTrackSquareAction;
+import actions.MoveFromYardToTrackAction;
+import actions.RollDiceAction;
+import actions.common.ActionListener;
+import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Dice;
 import boardInfo.Square;

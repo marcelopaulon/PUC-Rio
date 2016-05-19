@@ -1,4 +1,4 @@
-package rendering;
+package rendering.common;
 
 import java.awt.Graphics2D;
 

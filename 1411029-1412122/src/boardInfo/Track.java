@@ -1,5 +1,6 @@
 package boardInfo;
 
+import boardInfo.common.SquareList;
 import playerInfo.PlayerColor;
 
 public final class Track extends SquareList {	

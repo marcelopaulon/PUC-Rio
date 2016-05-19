@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import gfx.DiceAssets;
+import rendering.common.View;
 
 
 public class DiceView extends View {

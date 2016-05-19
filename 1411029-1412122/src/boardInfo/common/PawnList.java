@@ -1,4 +1,4 @@
-package boardInfo;
+package boardInfo.common;
 
 import playerInfo.PlayerColor;
 

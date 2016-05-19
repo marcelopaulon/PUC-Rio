@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 import boardInfo.Board;
 import boardInfo.Dice;
 import playerInfo.PlayerColor;
+import rendering.common.View;
 import utils.ConstantsEnum;
 import utils.Coordinate;
 

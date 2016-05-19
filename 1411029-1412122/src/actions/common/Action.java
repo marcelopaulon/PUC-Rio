@@ -1,4 +1,4 @@
-package action;
+package actions.common;
 
 public abstract class Action implements IAction {
 	private ActionListener listener;

@@ -1,5 +1,7 @@
-package action;
+package actions;
 
+import actions.common.Action;
+import actions.common.ActionListener;
 import boardInfo.Board;
 import boardInfo.Square;
 import boardInfo.Track;
