@@ -63,9 +63,9 @@ public class MainMenu extends JPanel {
 	}
 	
 	/**
-	 * Defines what happens when the "Carregar Mapa" button is presssed
+	 * Defines what happens when the "Carregar Jogo" button is presssed
 	 */ 
-	private ActionListener loadMapListener = new ActionListener()
+	private ActionListener loadGameListener = new ActionListener()
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
@@ -95,7 +95,29 @@ public class MainMenu extends JPanel {
 		{
 			try
 			{
-				JFileChooser chooser = new JFileChooser();
+				JFileChooser chooser = new JFileChooser() {
+				 @Override
+				    public void approveSelection(){
+				        File f = getSelectedFile();
+				        if(f.exists() && getDialogType() == SAVE_DIALOG){
+				            int result = JOptionPane.showConfirmDialog(this,"O arquivo já existe. Deseja sobrescrevê-lo?","Arquivo já existe",JOptionPane.YES_NO_CANCEL_OPTION);
+				            switch(result){
+				                case JOptionPane.YES_OPTION:
+				                    super.approveSelection();
+				                    return;
+				                case JOptionPane.NO_OPTION:
+				                    return;
+				                case JOptionPane.CLOSED_OPTION:
+				                    return;
+				                case JOptionPane.CANCEL_OPTION:
+				                    cancelSelection();
+				                    return;
+				            }
+				        }
+				        
+				        super.approveSelection();
+				    }
+				};
 				chooser.setCurrentDirectory(new File("./saves"));
 				chooser.setFileFilter(new FileNameExtensionFilter(".ludosave", "ludosave"));
 				int retorno = chooser.showSaveDialog(null);
@@ -132,7 +154,7 @@ public class MainMenu extends JPanel {
 		add(btnNovoJogo);
 		
 		JButton btnCarregarJogo = new JButton("Carregar Jogo");
-		btnCarregarJogo.addActionListener(loadMapListener);
+		btnCarregarJogo.addActionListener(loadGameListener);
 		add(btnCarregarJogo);
 		
 		JButton btnSalvarJogo = new JButton("Salvar Jogo");
