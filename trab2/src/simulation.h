@@ -3,6 +3,8 @@ typedef struct s_simulation_info {
 
   int pageFaults;
 
+  int pageWrites;
+
   int time;
 
   int debugLevel;

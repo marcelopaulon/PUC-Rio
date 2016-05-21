@@ -23,13 +23,8 @@ void simulation_clean()
   }
 }
 
-void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
+static void createTableList()
 {
-  int temp, bits = 0, i, j;
-
-  simulationInfo.time = 0;
-  simulationInfo.pageFaults = 0;
-
   pageTableList = (PageTableNode *) malloc(sizeof(PageTableNode));
   if(!pageTableList)
   {
@@ -39,6 +34,27 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
 
   pageTableList->current = NULL;
   pageTableList->next = NULL;
+}
+
+static int getNeededBits(int value)
+{
+  int bits = 0;
+  while(value >>= 1) {
+    bits++;
+  }
+
+  return bits;
+}
+
+void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
+{
+  int bits, i, j;
+
+  simulationInfo.time = 0;
+  simulationInfo.pageFaults = 0;
+  simulationInfo.pageWrites = 0;
+
+  createTableList();
 
   if(pageSizeKB < 8 || pageSizeKB > 32)
   {
@@ -54,10 +70,7 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
 
   simulationInfo.pageSize = pageSizeKB;
 
-  temp = simulationInfo.pageSize * 1024;
-  while(temp >>= 1) {
-    bits++;
-  }
+  bits = getNeededBits(simulationInfo.pageSize * 1024);
 
   simulationInfo.maxPages = (physicalMemorySizeKB / pageSizeKB) * 1024;
   simulationInfo.maxEntries = (pageSizeKB * 1024) / sizeof(PTE);
@@ -67,76 +80,23 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
   }
 }
 
-void simulation_simulateMemoryAccess(unsigned int address, char rw)
-{
-  int temp, bits = 0, pageIndex, pageEntryPosition, i;
-  PageTableNode * tempPTNode;
-  PTE * tempPTE;
-  temp = simulationInfo.pageSize * 1024;
-  while(temp >>= 1) {
-    bits++;
-  }
-
-  pageIndex = address >> bits;
-  pageEntryPosition = (address << (32 - bits)) >> (32 - bits);
-
-  if(simulationInfo.debugLevel > 1) {
-    printf("\nRead: %x %c - Page index = %d (position = %d)", address, rw, pageIndex, pageEntryPosition);
-    usleep(500000);
-  }
-
-  simulationInfo.time++;
-
-  tempPTNode = pageTableList;
-  
-  for(i = 0; i < simulationInfo.maxPages; i++)
-  {
-    if(tempPTNode == NULL) break;
-
-    if(tempPTNode->current == NULL)
-    {
-      if(simulationInfo.debugLevel > 1) {
-        printf("Page fault - new - %x\n", address);
-      }
-      simulationInfo.pageFaults++;
-      tempPTE = (PTE *) malloc(sizeof(PTE));
-      tempPTE->address = address;
-      tempPTE->lastAccessTime = simulationInfo.time;
-      tempPTNode->current = tempPTE;
-      return;
-    }
-
-    if(tempPTNode->current->address == address)
-    {
-      tempPTNode->current->lastAccessTime = simulationInfo.time;
-      if(simulationInfo.debugLevel > 1) {
-        printf("FOUND %x in memory\n", address);
-      }
-
-      return;
-    }
-
-    if(tempPTNode->next == NULL) {
-      tempPTNode->next = (PageTableNode *) malloc(sizeof(PageTableNode));
-      tempPTNode->next->current = NULL;
-      tempPTNode->next->next = NULL;
-    }
-
-    tempPTNode = tempPTNode->next;
-  }
-
+static void pageFault_add(PTE * pageTableEntry) {
   simulationInfo.pageFaults++;
-
+  
   if(simulationInfo.debugLevel > 1) {
-    printf("Page fault - %x\n", address);
+    printf("\nPage fault - new - %x\n", pageTableEntry->address);
   }
+}
 
-  tempPTE = (PTE *) malloc(sizeof(PTE));
-  tempPTE->address = address;
-  tempPTE->lastAccessTime = simulationInfo.time;
+static void pageFault_replace(PTE * pageTableEntry) {
+  simulationInfo.pageFaults++;
+  
+  if(simulationInfo.debugLevel > 1) {
+    printf("\nPage fault - %x\n", pageTableEntry->address);
+  }
 
   if(simulationInfo.prAlgo == PR_LRU) {
-    algo_lru(tempPTE, pageTableList);
+    algo_lru(pageTableEntry, pageTableList);
   }
   else if(simulationInfo.prAlgo == PR_NRU) {
     printf("NRU Not implemented yet!\n");
@@ -150,4 +110,89 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
     printf("Invalid algorithm\n");
     exit(-1);
   }
+}
+
+static PTE * createPTE(unsigned int address, char rw, int time) {
+  PTE * newPTE;
+  newPTE = (PTE *) malloc(sizeof(PTE));
+  newPTE->address = address;
+  newPTE->lastAccessTime = time;
+
+  if(rw == 'W') {
+    newPTE->status = MODIFIED_PAGE;
+    simulationInfo.pageWrites++;
+  }
+  else {
+    newPTE->status = 0;
+  }
+
+  return newPTE;
+}
+
+static PageTableNode * createPageTableNode() {
+  PageTableNode * newPTNode = (PageTableNode *) malloc(sizeof(PageTableNode));
+  newPTNode->current = NULL;
+  newPTNode->next = NULL;
+  return newPTNode;
+}
+
+static void accessMemory(PTE * pageTableEntry, char rw) {
+  pageTableEntry->lastAccessTime = simulationInfo.time;
+
+  pageTableEntry->status = REFERENCED_PAGE;
+
+  if(rw == 'W') {
+    pageTableEntry->status |= MODIFIED_PAGE;
+  }
+
+  if(simulationInfo.debugLevel > 1) {
+    printf("\nFOUND %x in memory\n", pageTableEntry->address);
+  }
+}
+
+void simulation_simulateMemoryAccess(unsigned int address, char rw)
+{
+  int bits, pageIndex, pageEntryPosition, i;
+  PageTableNode * tempPTNode;
+
+  bits = getNeededBits(simulationInfo.pageSize * 1024);
+
+  pageIndex = address >> bits;
+  pageEntryPosition = (address << (32 - bits)) >> (32 - bits);
+
+  if(simulationInfo.debugLevel > 1) {
+    printf("\nRead: %x %c - Page index = %d (position = %d)", address, rw, pageIndex, pageEntryPosition);
+    usleep(500000);
+  }
+
+  simulationInfo.time++;
+
+  tempPTNode = pageTableList;
+
+  for(i = 0; i < simulationInfo.maxPages; i++)
+  {
+    if(tempPTNode == NULL) break;
+
+    if(tempPTNode->current == NULL)
+    {
+      tempPTNode->current = createPTE(address, rw, simulationInfo.time);
+      pageFault_add(tempPTNode->current);
+      return;
+    }
+
+    if(tempPTNode->current->address == address)
+    {
+      accessMemory(tempPTNode->current, rw);
+
+      return;
+    }
+
+    if(tempPTNode->next == NULL) {
+      tempPTNode->next = createPageTableNode();
+    }
+
+    tempPTNode = tempPTNode->next;
+  }
+
+  pageFault_replace( createPTE(address, rw, simulationInfo.time) );
 }
