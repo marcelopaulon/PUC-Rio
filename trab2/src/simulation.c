@@ -3,10 +3,13 @@
 #include "definitions.h"
 
 #include "lru.h"
+#include "nru.h"
 
 static PageTableNode * pageTableList = NULL;
 
 SimulationInfo simulationInfo;
+
+static int lastFlagResetTime = -1;
 
 void simulation_clean()
 {
@@ -101,8 +104,7 @@ static void pageFault_replace(PTE * pageTableEntry) {
     algo_lru(pageTableEntry, pageTableList);
   }
   else if(simulationInfo.prAlgo == PR_NRU) {
-    printf("NRU Not implemented yet!\n");
-    exit(-1);
+    algo_nru(pageTableEntry, pageTableList);
   }
   else if(simulationInfo.prAlgo == PR_SEC) {
     printf("SEC Not implemented yet!\n");
@@ -152,6 +154,27 @@ static void accessMemory(PTE * pageTableEntry, char rw) {
   }
 }
 
+void resetFlags() {
+  int i;
+  PageTableNode * tempPTNode;
+
+  tempPTNode = pageTableList;
+
+  for(i = 0; i < simulationInfo.maxPages; i++)
+  {
+    if(tempPTNode == NULL) return;
+
+    if(tempPTNode->current == NULL)
+    {
+      return;
+    }
+
+    tempPTNode->current->status = 0;
+    
+    tempPTNode = tempPTNode->next;
+  }
+}
+
 void simulation_simulateMemoryAccess(unsigned int address, char rw)
 {
   int bits, pageIndex, pageEntryPosition, i;
@@ -194,6 +217,11 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
     }
 
     tempPTNode = tempPTNode->next;
+  }
+
+  // TODO: Discover how to estimate optimal time interval
+  if((lastFlagResetTime == -1 && simulationInfo.time > simulationInfo.maxPages) || (lastFlagResetTime > 0 && simulationInfo.time - lastFlagResetTime > simulationInfo.maxPages)) {
+    resetFlags();
   }
 
   pageFault_replace( createPTE(address, rw, simulationInfo.time) );

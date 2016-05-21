@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include "definitions.h"
 
 static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeKB)
@@ -30,7 +32,7 @@ static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeK
 
   printf("\nSimulation ended successfully!\n");
 
-  printf("\n\t-- Statistics --\t\n\nPage faults: %d\nWritten pages:???\n", simulationInfo.pageFaults);
+  printf("\n\t-- Statistics --\t\n\nPage faults: %d\nWritten pages: %d\n", simulationInfo.pageFaults, simulationInfo.pageWrites);
 
   return 0;
 }
@@ -38,6 +40,8 @@ static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeK
 int main(int argc, char *argv[])
 {
   printf("\nsim-virtual - Virtual Memory Simulator\n\n");
+
+  srand(time(NULL));
 
   if(argc == 5 || (argc == 7 && strcmp(argv[5], "-D") == 0)) {
     if(strcmp(argv[1], "NRU") == 0) {

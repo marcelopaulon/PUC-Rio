@@ -3,7 +3,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -m32
 
 #Files
-SOURCES=sim-virtual.c simulation.c lru.c
+SOURCES=sim-virtual.c simulation.c lru.c nru.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=sim-virtual
 
