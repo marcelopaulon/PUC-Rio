@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "definitions.h"
 
 #include "lru.h"
@@ -48,7 +50,7 @@ static int getNeededBits(int value)
 
 void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
 {
-  int bits, i, j;
+  int bits;
 
   simulationInfo.time = 0;
   simulationInfo.pageFaults = 0;

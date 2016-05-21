@@ -25,7 +25,7 @@ static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeK
     simulation_simulateMemoryAccess(address, rw);
   }
   
-  close(inputFile);
+  fclose(fp);
   simulation_clean();
 
   printf("\nSimulation ended successfully!\n");
