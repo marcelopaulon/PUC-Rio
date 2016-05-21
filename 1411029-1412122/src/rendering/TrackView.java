@@ -1,11 +1,16 @@
 package rendering;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import boardInfo.Square;
 import boardInfo.Track;
+import game.GameControl;
+import gfx.GameColor;
+import playerInfo.PlayerColor;
 import rendering.common.View;
 import utils.Coordinate;
 
@@ -90,13 +95,88 @@ public class TrackView extends View
 		pawnCoordinates.put(46, new Coordinate(0, yardSize + squareSize));
 	}
 	
+	private void renderTrackFlowIndicator(Graphics2D g2d, int coordinateXs[], int coordinateYs[])
+	{
+		Color color = GameColor.PolarWhite;
+		
+		g2d.setPaint(color);
+		g2d.fillPolygon(coordinateXs, coordinateYs, 3);
+		g2d.setColor(Color.BLACK);
+		g2d.drawPolygon(coordinateXs, coordinateYs, 3);
+	}
+	
+	private void tryRenderTrackFlowIndicators(Graphics2D g2d, Coordinate coordinate, int position)
+	{
+		int coordinateXs[] = new int[3];
+		int coordinateYs[] = new int[3];
+		
+		if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.GREEN)
+		{
+			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
+			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
+			
+			coordinateXs[1] = (int) (coordinate.getX() + squareSize/2.0);
+			coordinateYs[1] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
+			
+			coordinateXs[2] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
+			coordinateYs[2] = (int) (coordinate.getY() + squareSize/8.0);
+			
+			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
+		}
+		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.YELLOW)
+		{
+			coordinateXs[0] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
+			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
+			
+			coordinateXs[1] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
+			coordinateYs[1] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
+			
+			coordinateXs[2] = (int) (coordinate.getX() + squareSize/8.0);
+			coordinateYs[2] = (int) (coordinate.getY() + squareSize/2.0);
+			
+			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
+		}
+		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.BLUE)
+		{
+			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
+			coordinateYs[0] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
+			
+			coordinateXs[1] = (int) (coordinate.getX() + squareSize/2.0);
+			coordinateYs[1] = (int) (coordinate.getY() + squareSize/8.0);
+			
+			coordinateXs[2] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
+			coordinateYs[2] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
+			
+			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
+		}
+		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.RED)
+		{
+			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
+			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
+			
+			coordinateXs[1] = (int) (coordinate.getX() + squareSize/8.0);
+			coordinateYs[1] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
+			
+			coordinateXs[2] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
+			coordinateYs[2] = (int) (coordinate.getY() + squareSize/2.0);
+			
+			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
+		}
+	}
+	
 	@Override
 	public void render(Graphics2D g2d) {
 		for(int i = 1; i <= 52; i++)
 		{
 			try {
 				Coordinate coordinate = getPawnCoordinate(i);
-				new SquareView(track.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), null, squareHighlight.contains(i)).render(g2d);
+				Square square = track.getSquareAt(i);
+				new SquareView(square, (int) coordinate.getX(), (int) coordinate.getY(), null, squareHighlight.contains(i)).render(g2d);
+				
+				if(square.getPawnCount() == 0 && i - 2 > 0)
+				{
+					tryRenderTrackFlowIndicators(g2d, coordinate, i);
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

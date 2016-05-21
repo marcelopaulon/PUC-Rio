@@ -13,4 +13,6 @@ public final class GameColor
 	public final static Color LightGreen = new Color(0x7fd9cb);
 	public final static Color LightRed = new Color(0xf75b8f);
 	public final static Color LightYellow = new Color(0xf0e77b);
+	
+	public final static Color PolarWhite = new Color(0xe5f0ee);
 }

@@ -489,6 +489,21 @@ public class GameControl {
 		}
 	}
 	
+	public static PlayerColor isLastSquarePosition(int position){
+		switch(position){
+			case 33:
+				return PlayerColor.BLUE;
+			case 7:
+				return PlayerColor.GREEN;
+			case 46:
+				return PlayerColor.RED;
+			case 20:
+				return PlayerColor.YELLOW;
+		}
+		
+		return null;
+	}
+	
 	private boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
 		if(pawnPosition + diceValue == 6)
 		{
