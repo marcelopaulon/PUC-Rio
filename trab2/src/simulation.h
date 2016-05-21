@@ -20,6 +20,7 @@ typedef struct s_pageTableEntry {
   unsigned int address;
   int lastAccessTime;
   char status; // 'R' -> Referenced Page; 'M' -> Modified Page (0, REFERENCED_PAGE, MODIFIED_PAGE, REFERENCED_PAGE | MODIFIED_PAGE)
+  char rBit; // Used for Second Chance
 } PTE;
 
 typedef struct s_pageTableNode {

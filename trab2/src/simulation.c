@@ -4,6 +4,7 @@
 
 #include "lru.h"
 #include "nru.h"
+#include "sec.h"
 
 static PageTableNode * pageTableList = NULL;
 
@@ -107,8 +108,7 @@ static void pageFault_replace(PTE * pageTableEntry) {
     algo_nru(pageTableEntry, pageTableList);
   }
   else if(simulationInfo.prAlgo == PR_SEC) {
-    printf("SEC Not implemented yet!\n");
-    exit(-1);
+    algo_sec(pageTableEntry, pageTableList);
   }
   else {
     printf("Invalid algorithm\n");
@@ -121,6 +121,7 @@ static PTE * createPTE(unsigned int address, char rw, int time) {
   newPTE = (PTE *) malloc(sizeof(PTE));
   newPTE->address = address;
   newPTE->lastAccessTime = time;
+  newPTE->rBit = 0x01;
 
   if(rw == 'W') {
     newPTE->status = MODIFIED_PAGE;
