@@ -1,0 +1,3 @@
+Testes:
+
+./sim-virtual LRU ../input/matriz.log 8 128 -D 1
