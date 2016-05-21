@@ -1,5 +1,12 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map.Entry;
+
+import javax.swing.JOptionPane;
+
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;
@@ -15,6 +22,7 @@ import boardInfo.Square;
 import playerInfo.PlayerColor;
 import utils.ConstantsEnum;
 import utils.Coordinate;
+import utils.Utils;
 
 public class GameControl {
 
@@ -110,6 +118,69 @@ public class GameControl {
 
 	};
 	
+	private boolean gameFinished() {
+		if(board.getPocket(board.getCurrentPlayer()).getPawnCount() == 4)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private String getPlayerName(PlayerColor color)
+	{
+		String player = null;
+		
+		if(color == PlayerColor.GREEN) player = "verde";
+		else if(color == PlayerColor.YELLOW) player = "amarelo";
+		else if(color == PlayerColor.BLUE) player = "azul";
+		else if(color == PlayerColor.RED) player = "vermelho";
+		else {
+			try {
+				throw new Exception("Erro - jogador inválido");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return player;
+	}
+	
+	private String[] getPlayerPositions()
+	{
+		String[] positions = new String[4];
+		PlayerColor winner = board.getCurrentPlayer();
+		positions[0] = getPlayerName(winner);
+		
+		Hashtable<PlayerColor, Integer> distances = new Hashtable<PlayerColor, Integer>();
+		
+		for(int i = 1; i <= 4; i++)
+		{
+			if(i == winner.asInt()) continue;
+			distances.put(PlayerColor.get(i), board.getDistanceToPocketSum(PlayerColor.get(i)));
+		}
+		
+		ArrayList<Entry<?, Integer>> orderedPlayers = Utils.sortHashtableByIntegerValue(distances);
+		
+		for(int i = 1; i <= 3; i++)
+		{
+			positions[i] = getPlayerName((PlayerColor) orderedPlayers.get(i - 1).getKey());
+		}
+		
+		return positions;
+	}
+	
+	private void notifyGameEnd() {
+		
+		String[] positions = getPlayerPositions();
+		
+		String message = "O jogador " + positions[0] + " venceu esta partida.\n2º lugar: " + positions[1] + "\n3º lugar: " + positions[2] + "\n4º lugar: " + positions[3] + "\nObrigado por ludar.";
+		
+		JOptionPane.showMessageDialog(GamePanel.getInstance(), message, "Fim de jogo",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
 	private ActionListener moveFromLaneToPocketActionListener = new ActionListener()
 	{
 
@@ -122,8 +193,15 @@ public class GameControl {
 			
 			System.out.println("Test - lane to pocket action listener executed");
 			
-			board.nextPlayer();
-			setPlayerDice();
+			if(gameFinished())
+			{
+				notifyGameEnd();
+			}
+			else
+			{
+				board.nextPlayer();
+				setPlayerDice();
+			}
 			
 			GamePanel.requestRedraw();
 		}
@@ -142,12 +220,19 @@ public class GameControl {
 			
 			System.out.println("Test - track to pocket action listener executed");
 			
-			board.nextPlayer();
-			setPlayerDice();
+			if(gameFinished())
+			{
+				notifyGameEnd();
+			}
+			else
+			{
+				board.nextPlayer();
+				setPlayerDice();
+			}
 			
 			GamePanel.requestRedraw();
 		}
-
+		
 	};
 	
 	private ActionListener diceActionListener = new ActionListener()
@@ -388,7 +473,7 @@ public class GameControl {
 		return false;
 	}
 	
-	private int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer){
+	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer){
 		switch(currentPlayer){
 		case BLUE:
 			return 33;

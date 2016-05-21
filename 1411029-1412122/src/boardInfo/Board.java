@@ -1,5 +1,6 @@
 package boardInfo;
 
+import game.GameControl;
 import playerInfo.PlayerColor;
 
 public class Board {
@@ -94,5 +95,33 @@ public class Board {
 	
 	private void resetCurrentPlayer() {
 		this.currentPlayer = PlayerColor.GREEN;
+	}
+	
+	public int getDistanceToPocketSum(PlayerColor player)
+	{
+		int distance = 0;
+		
+		Lane lane = this.getLane(player);
+		Track track = this.getTrack();
+		int lastPosition = GameControl.getPositionOfLastSquareOfPlayer(player);
+		
+		for(int i = 1; i <= 5; i++)
+		{
+			distance += lane.getSquareAt(i).getPawnCount()*(6-i);
+		}
+		
+		for(int i = 1; i <= 52; i++)
+		{
+			if(track.getSquareAt(i).getPawnCount() > 0)
+			{
+				if(track.getSquareAt(i).getPawnsColor().equals(player))
+					if(i>lastPosition) 	distance += track.getSquareAt(i).getPawnCount()*(5 + lastPosition + 52 - i);  // 5 is added because of the lane length
+					else distance += track.getSquareAt(i).getPawnCount()*(5 + lastPosition - i); //same as above
+			}
+		}
+		
+		distance += getYard(player).getCount() * (52 + 5);
+		
+		return distance;
 	}
 }
