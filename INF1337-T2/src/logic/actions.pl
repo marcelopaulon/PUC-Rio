@@ -24,9 +24,9 @@ getNextMove(rotate) :- willWalkTo(X, Y), not(isWalkable(X, Y)), rotateAgent(), !
 getNextMove(walk) :- willWalkTo(X, Y), isWalkable(X, Y), isSafe(X, Y),
 					 not(visited(X, Y)), walkTo(X, Y), !.
 				
-/* If an adjacent, walkable, safe, non-visited cell exists and we won't walk into it, rotate */
+/* If an adjacent, walkable, safe, non-visited cell exists and we won't walk into it, rotate unless it has rotated more than four times*/
 getNextMove(rotate) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), isWalkable(XX, YY), isSafe(XX,YY),
-					   not(visited(XX,YY)), not(willWalkTo(XX, YY)), rotateAgent(), !.
+					   not(visited(XX,YY)), not(willWalkTo(XX, YY)), timesTurned(Value), Value < 4, rotateAgent(), !.
 	 
 /* Risk walking into enemy/teletransport */
 getNextMove(walk) :- (perceptTeletransport();perceptEnemy()), not(perceptHole()), willWalkTo(X, Y),
@@ -35,7 +35,7 @@ getNextMove(walk) :- (perceptTeletransport();perceptEnemy()), not(perceptHole())
 					 
 getNextMove(rotate) :- (perceptTeletransport();perceptEnemy()), not(perceptHole()), willWalkTo(X, Y), visited(X, Y),
 					   not(hasEnemy(X,Y)), not(hasTeletransport(X, Y)),
-                       not(path_hasOpen()), rotateAgent(), !.
+                       not(path_hasOpen()), timesTurned(Value), Value < 4, rotateAgent(), !.
                        
 /* Risk walking into hole */
 getNextMove(walk) :- perceptHole(), willWalkTo(X, Y), curCost(C), C < 1,
