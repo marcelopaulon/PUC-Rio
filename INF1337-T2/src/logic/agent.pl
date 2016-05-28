@@ -55,4 +55,4 @@ agent_walkTo(X, Y) :- isWalkable(X, Y), curPosition(_, _, Position), retractall(
                       agent_decrementCost(1),
                       perceptions_updateUncertainties(),
                       ((holeCell(X, Y), assert(hasHole(X, Y)), agent_decrementCost(1000), EE is 0, retractall(curEnergy(_)), assert(curEnergy(EE)));1=1),
-                      ((enemyCell(EEE,_, X, Y), agent_decrementEnergy(EEE), assert(hasEnemy(X, Y)), retractall(mightHaveEnemy(X, Y)), perceptions_updateUncertainties());1=1), !.
+                      ((enemyCell(EEE,_, X, Y), writef('Walked into enemy :(\n'), agent_decrementEnergy(EEE), assert(hasEnemy(X, Y)), retractall(mightHaveEnemy(X, Y)), perceptions_updateUncertainties(), path_setPathToNearestVisited());1=1), !.
