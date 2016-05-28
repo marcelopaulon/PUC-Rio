@@ -1,8 +1,18 @@
 :-dynamic rpath/2.      % A reversed path
+:-dynamic dijkstra_option_allowDanger/1. % allow walk into danger in the path
  
 /* Dijkstra using weight 1 (http://rosettacode.org/wiki/Dijkstra's_algorithm#Prolog) */
 
-path([X, Y],[XX, YY], 1) :- visited(X, Y), visited(XX, YY), adjacent(X, Y, XX, YY). /* From, To, Weight=1 */
+path([X, Y],[XX, YY], 1) :- visited(X, Y), visited(XX, YY), adjacent(X, Y, XX, YY),
+							(
+								dijkstra_option_allowDanger(1);
+								(
+									not(mightHaveEnemy(XX, YY)), not(mightHaveTeletransport(XX, YY)),
+									not(mightHaveEnemy(X, Y)), not(mightHaveTeletransport(X, Y)),
+									not(hasTeletransport(XX, YY)), not(hasTeletransport(X, Y)),
+									not(hasEnemy(XX, YY)), not(hasEnemy(X, Y))
+								)
+							). /* From, To, Weight=1 */
 
 shorterPath([H|Path], Dist) :-		       % path < stored path? replace it
 	rpath([H|T], D), !, Dist < D,          % match target node [H|_]
