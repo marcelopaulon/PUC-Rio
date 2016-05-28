@@ -16,6 +16,9 @@
 :- dynamic visited/2.
 :- dynamic revisited/3.
 
+/* Path list */
+:- dynamic curPath/1.
+
 /* Uncertainty vars */
 :- dynamic mightHaveTeletransport/2.
 :- dynamic mightHaveEnemy/2.
@@ -42,6 +45,10 @@ adjacent(X, Y, X, YY) :- YY is Y-1, isWalkable(X, YY).
 isWalkable(X, Y) :- startPoint(X, Y); floorCell(X, Y); enemyCell(_, _, X, Y); goldCell(X, Y); powerupCell(X, Y); holeCell(X, Y); teletransportCell(X, Y), !. 
 
 :- consult('agent.pl').
+
+/* DIJKSTRA */
+
+:- consult('dijkstra.pl').
 
 /* PERCEPTIONS */
 

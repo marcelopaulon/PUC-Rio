@@ -131,6 +131,8 @@ public class CaptureGold
 				return Action.PICKGOLD;
 			case "pickPowerup":
 				return Action.PICKPOWERUP;
+			case "exit":
+				return Action.END;
 		}
 		
 		return null;
