@@ -12,17 +12,16 @@ perceptions_perceiveDanger() :- curPosition(X, Y, _), perceptions_perceiveDanger
 
 /****************************************************************************/
 
-removeCurrentCellUncertainties() :- (
-	(
+removeCurrentCellUncertainties() :- 
 		curPosition(X, Y, _),
-		((not(holeCell(X, Y)), assert(doesNotHaveHole(X, Y)), retract(mightHaveHole(X, Y)));1=1),
-		((not(holeCell(X, Y)), assert(doesNotHaveEnemy(X, Y)), retract(mightHaveEnemy(X, Y)));1=1),
-		((not(holeCell(X, Y)), assert(doesNotHaveTeletransport(X, Y)), retract(mightHaveTeletransport(X, Y)));1=1)
-	)
-	;1=1), !.
+		(
+			((not(holeCell(X, Y)), assert(doesNotHaveHole(X, Y)), retractall(mightHaveHole(X, Y)));1=1),
+			((not(enemyCell(_, _, X, Y)), assert(doesNotHaveEnemy(X, Y)), retractall(mightHaveEnemy(X, Y)));1=1),
+			((not(teletransportCell(X, Y)), assert(doesNotHaveTeletransport(X, Y)), retractall(mightHaveTeletransport(X, Y)));1=1)
+		), !.
 
 perceptions_updateUncertainties() :- (
-		removeCurrentCellUncertainties(),
+		(removeCurrentCellUncertainties();1=1),
 		((perceptions_perceiveHole(), setAdjacenciesMightHaveHole());1=1),
 		((perceptions_perceiveEnemy(), setAdjacenciesMightHaveEnemy());1=1),
 		((perceptions_perceiveTeletransport(), setAdjacenciesMightHaveTeletransport());1=1),
@@ -33,7 +32,7 @@ perceptions_updateUncertainties() :- (
 	
 /****************************************************************************/
 
-removeAdjacentHoleUncertainty(X, Y) :- assert(doesNotHaveHole(X, Y)), retract(mightHaveHole(X, Y)), !.	
+removeAdjacentHoleUncertainty(X, Y) :- assert(doesNotHaveHole(X, Y)), retractall(mightHaveHole(X, Y)), !.	
 removeAdjacentHoleUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentHoleUncertainty(XX, Y) );1=1),
@@ -43,7 +42,7 @@ removeAdjacentHoleUncertainties() :-
 
 /****************************************************************************/
 
-removeAdjacentEnemyUncertainties(X, Y) :- assert(doesNotHaveEnemy(X, Y)), retract(mightHaveEnemy(X, Y)), !.			   
+removeAdjacentEnemyUncertainties(X, Y) :- assert(doesNotHaveEnemy(X, Y)), retractall(mightHaveEnemy(X, Y)), !.			   
 removeAdjacentEnemyUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentEnemyUncertainties(XX, Y) );1=1),
@@ -53,7 +52,7 @@ removeAdjacentEnemyUncertainties() :-
 
 /****************************************************************************/
 
-removeAdjacentTeletransportUncertainty(X, Y) :- assert(doesNotHaveTeletransport(X, Y)), retract(mightHaveTeletransport(X, Y)), !.							   
+removeAdjacentTeletransportUncertainty(X, Y) :- assert(doesNotHaveTeletransport(X, Y)), retractall(mightHaveTeletransport(X, Y)), !.							   
 removeAdjacentTeletransportUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentTeletransportUncertainty(XX, Y) );1=1),

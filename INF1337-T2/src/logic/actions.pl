@@ -19,8 +19,8 @@ getNextMove(pickGold) :- curPosition(X, Y, _), goldCell(X, Y), retract(goldCell(
 
 getNextMove(rotate) :- curPath([[X, Y]|_]), not(agent_willWalkTo(X, Y)), agent_rotate(), !.
 
-getNextMove(walk) :- curPath([[X, Y]|_]), curPath(Path), agent_willWalkTo(X, Y), 
-					 delete(Path, [X, Y], Result), retractall(curPath(_)), assert(curPath(Result)), agent_walkTo(X, Y), !.
+getNextMove(walk) :- curPath([[X, Y]|T]), agent_willWalkTo(X, Y),
+					 retractall(curPath(_)), assert(curPath(T)), agent_walkTo(X, Y), !.
 
 /*********************************************************/
 /* Will rotate if can't walk to next position because it isn't walkable */
