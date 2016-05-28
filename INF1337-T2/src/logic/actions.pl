@@ -47,13 +47,14 @@ getNextMove(Action) :- path_setPathToOpenSafeAction(), getNextMove(Action), writ
 /****************************************************************************/
 /* Go to nearest enemy so that we can attack */
 
-getNextMove(Action) :- curAmmo(A), A > 0, curEnergy(E), E > 50, path_setPathToFightAction(), getNextMove(Action), writef('Going to attack option!\n'), !.
-
 getNextMove(ShootingActionResult) :- curAmmo(A), A > 0, curPosition(X, Y, _), adjacent(X, Y, XX, YY), hasEnemy(XX, YY), agent_willWalkTo(XX, YY),
 					   curEnergy(E), E > 50, writef('Going to shoot enemy!\n'), attack_shoot(ShootingActionResult), !.
-					   
+				   
 getNextMove(rotate) :- curAmmo(A), A > 0, curPosition(X, Y, _), adjacent(X, Y, XX, YY), hasEnemy(XX, YY), not(agent_willWalkTo(XX, YY)),
 					   curEnergy(E), E > 50, agent_rotate(), !.
+					   
+getNextMove(Action) :- curAmmo(A), A > 0, curEnergy(E), E > 50, path_setPathToFightAction(), getNextMove(Action), writef('Going to attack option!\n'), !.
+
 	
 /****************************************************************************/
 /* Go to nearest cell that might have an enemy so that we can risk walking into it */
