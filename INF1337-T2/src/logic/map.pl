@@ -164,7 +164,7 @@ floorCell(4,10).
 floorCell(5,10).
 floorCell(6,10).
 floorCell(7,10).
-floorCell(9,10).
+floorCell(8,10).
 floorCell(10,10).
 floorCell(11,10).
 floorCell(12,10).
@@ -194,6 +194,6 @@ holeCell(11,5).
 holeCell(6,7).
 holeCell(8,8).
 holeCell(1,10).
-holeCell(8,10).
+holeCell(9,10).
 holeCell(4,11).
 

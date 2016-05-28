@@ -5,8 +5,8 @@ attack_shoot(ShootingActionResult) :-
 				 	(enemyCell(EnemyDamage, EnemyEnergy, XX, YY),
 				 		EnemyEnergyAfter is EnemyEnergy - AgentEnemyDamage,
 				 		(
-				 			(EnemyEnergyAfter < 1, retractall(enemyCell(_,_, XX, YY)), retractall(hasEnemy(XX, YY)), assert(floorCell(XX, YY)), ShootingActionResult = kill, writef('ENEMY KILLED!\n'));
-				 			(retractall(enemyCell(_,_, XX, YY)), assert(enemyCell(EnemyDamage, EnemyEnergyAfter, XX, YY)), ShootingActionResult = attack, writef('ENEMY HIT (ENERGY = %w)!\n', [EnemyEnergyAfter]))
+				 			(EnemyEnergyAfter < 1, retractall(enemyCell(_, _, XX, YY)), retractall(hasEnemy(XX, YY)), assert(floorCell(XX, YY)), ShootingActionResult = kill, writef('ENEMY KILLED!\n'));
+				 			(retractall(enemyCell(_, _, XX, YY)), assert(enemyCell(EnemyDamage, EnemyEnergyAfter, XX, YY)), ShootingActionResult = attack, writef('ENEMY HIT (ENERGY = %w)!\n', [EnemyEnergyAfter]))
 				 		)
 				 	)
 				 ),

@@ -14,6 +14,7 @@
 :- dynamic curAmmo/1.
 :- dynamic curPosition/3.
 :- dynamic visited/2.
+:- dynamic exiting/1.
 
 /* Path list */
 :- dynamic curPath/1.
