@@ -12,6 +12,44 @@ perceptions_perceiveDanger() :- curPosition(X, Y, _), perceptions_perceiveDanger
 
 /****************************************************************************/
 
+updateEnemyCertainties() :- 
+	enemyCell(_, _, X, Y),
+	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
+	(
+		((wallCell(XA, Y));visited(XA,Y)),
+		((wallCell(XB, Y));visited(XB,Y)),
+		((wallCell(X, YA));visited(X,YA)),
+		((wallCell(X, YB));visited(X,YB))
+	),
+	(retractall(mightHaveEnemy(X, Y));1=1), assert(hasEnemy(X, Y)).
+	
+updateTeletransportCertainties() :-
+	teletransportCell(X, Y),
+	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
+	(
+		((wallCell(XA, Y));visited(XA,Y)),
+		((wallCell(XB, Y));visited(XB,Y)),
+		((wallCell(X, YA));visited(X,YA)),
+		((wallCell(X, YB));visited(X,YB))
+	),
+	(retractall(mightHaveTeletransport(X, Y));1=1), assert(hasTeletransport(X, Y)).
+	
+updateHoleCertainties() :-
+	holeCell(X, Y),
+	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
+	(
+		((wallCell(XA, Y));visited(XA,Y)),
+		((wallCell(XB, Y));visited(XB,Y)),
+		((wallCell(X, YA));visited(X,YA)),
+		((wallCell(X, YB));visited(X,YB))
+	),
+	(retractall(mightHaveHole(X, Y));1=1), assert(hasHole(X, Y)).
+	
+updateCertainties() :-
+	(updateEnemyCertainties();1=1),
+	(updateTeletransportCertainties();1=1),
+	(updateHoleCertainties();1=1), !.
+
 removeCurrentCellUncertainties() :- 
 		curPosition(X, Y, _),
 		(
@@ -27,7 +65,8 @@ perceptions_updateUncertainties() :- (
 		((perceptions_perceiveTeletransport(), setAdjacenciesMightHaveTeletransport());1=1),
 		(( not(perceptions_perceiveHole()), removeAdjacentHoleUncertainties() );1=1),
 		(( not(perceptions_perceiveEnemy()), removeAdjacentEnemyUncertainties() );1=1),
-		(( not(perceptions_perceiveTeletransport()), removeAdjacentTeletransportUncertainties() );1=1)
+		(( not(perceptions_perceiveTeletransport()), removeAdjacentTeletransportUncertainties() );1=1),
+		((updateCertainties());1=1)
 	), !.
 	
 /****************************************************************************/
