@@ -14,13 +14,19 @@ agent_reset() :- retractall(curEnergy(_)), retractall(curCost(_)), retractall(cu
 			    retractall(hasHole(_,_)), retractall(hasEnemy(_,_)), retractall(hasTeletransport(_,_)),
 			    assert(curEnergy(100)), assert(curCost(0)), assert(curAmmo(5)), assert(curPosition(StartX, StartY, up)), assert(visited(StartX, StartY)).
 
+/****************************************************************************/
+
 agent_incrementCost(INC) :- curCost(C), CC is C+INC, retract(curCost(C)), assert(curCost(CC)).
 agent_decrementCost(DEC) :- INC is DEC * -1, agent_incrementCost(INC).
 
 agent_incrementEnergy(INC) :- curEnergy(E), EE is E+INC, retract(curEnergy(E)), assert(curEnergy(EE)).
 agent_decrementEnergy(DEC) :- INC is DEC * -1, agent_incrementEnergy(INC).
 
+/****************************************************************************/
+
 agent_deployAmmo() :- curAmmo(Ammo), NewAmmo is Ammo - 1, retract(curAmmo(Ammo)), assert(curAmmo(NewAmmo)), !.
+
+/****************************************************************************/
 
 agent_rotate() :- ((curPosition(_,_,right), Next = down);
 				  (curPosition(_,_,down), Next = left);
@@ -36,10 +42,14 @@ agent_rotateLeft() :- ((curPosition(_,_,right), Next = up);
 
 agent_rotateTo(Next) :- curPosition(X,Y,_), retract(curPosition(X,Y,_)), assert(curPosition(X,Y,Next)), agent_decrementCost(1), !.
 
+/****************************************************************************/
+
 agent_willWalkTo(X, Y) :- curPosition(XX, YY, Position), Y is YY-1, XX = X, Position=up, !.
 agent_willWalkTo(X, Y) :- curPosition(XX, YY, Position), X is XX+1, YY = Y, Position=right, !.
 agent_willWalkTo(X, Y) :- curPosition(XX, YY, Position), Y is YY+1, XX = X, Position=down, !.
 agent_willWalkTo(X, Y) :- curPosition(XX, YY, Position), X is XX-1, YY = Y, Position=left, !.
+
+/****************************************************************************/
 
 agent_walkTo(X, Y) :- isWalkable(X, Y), curPosition(_, _, Position), retractall(curPosition(_, _, _)), assert(curPosition(X, Y, Position)), assert(visited(X,Y)),
                       agent_decrementCost(1),
