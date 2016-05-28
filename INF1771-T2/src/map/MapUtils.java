@@ -7,6 +7,7 @@ import mapcell.FloorVisitedCell;
 import mapcell.GoldCell;
 import mapcell.HoleCell;
 import mapcell.PowerUpCell;
+import mapcell.PowerUpVisitedCell;
 import mapcell.MapCell;
 import mapcell.StartCell;
 import mapcell.TeletransportCell;
@@ -33,6 +34,10 @@ public class MapUtils
 	 * PowerUp MapCell
 	 */
 	private static MapCell PowerUpCell = new PowerUpCell(MapCell.Cells.POWERUP.asChar());
+	/**
+	 * PowerUp MapCell
+	 */
+	public static MapCell PowerUpVisitedCell = new PowerUpVisitedCell(MapCell.Cells.POWERUP.asChar());
 	/**
 	 * Floor MapCell
 	 */

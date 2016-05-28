@@ -2,7 +2,7 @@ package mapcell;
 
 import gfx.Assets;
 /**
- * Map cell representing a hole
+ * Map cell representing a power up
  *
  */
 public class PowerUpCell extends MapCell {
