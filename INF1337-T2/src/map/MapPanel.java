@@ -154,7 +154,7 @@ public class MapPanel extends JPanel {
 					MapCell.Cells et = loadedMap.getValue(i, j);
 					MapCell cell = MapUtils.getTile(et);
 					
-					if(et != MapCell.Cells.START && et != MapCell.Cells.TELETRANSPORT && et != MapCell.Cells.ENEMY20 && et != MapCell.Cells.ENEMY50 && visitedCells.contains(new Coordinate(j, i)) && showPath == true)
+					if(et != MapCell.Cells.START && et != MapCell.Cells.TELETRANSPORT && et != MapCell.Cells.POWERUP && et != MapCell.Cells.ENEMY20 && et != MapCell.Cells.ENEMY50 && visitedCells.contains(new Coordinate(j, i)) && showPath == true)
 					{
 						cell = MapUtils.getTile(MapCell.Cells.FLOORVISITED);
 					}
