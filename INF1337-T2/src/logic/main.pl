@@ -14,7 +14,6 @@
 :- dynamic curAmmo/1.
 :- dynamic curPosition/3.
 :- dynamic visited/2.
-:- dynamic revisited/3.
 
 /* Path list */
 :- dynamic curPath/1.
@@ -31,10 +30,6 @@
 :- dynamic hasTeletransport/2.
 :- dynamic hasEnemy/2.
 :- dynamic hasHole/2.
-
-:- dynamic timesTurned/1. /* WTF */
-
-:- dynamic path/1. /* TODO: Transform to list (so that we can run the A* algorithm) */
 
 /* Cell adjacency */
 adjacent(X, Y, XX, Y) :- XX is X+1, isWalkable(XX, Y).
