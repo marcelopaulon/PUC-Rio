@@ -17,4 +17,7 @@ getNextMove(rotate) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), isWalkable(
 					   not(visited(XX,YY)), not(agent_willWalkTo(XX, YY)), timesTurned(Value), Value < 4, agent_rotate(), !.
 
 /* Return to visited cell */
-getNextMove(walk) :- agent_willWalkTo(X, Y), visited(X, Y), agent_walkTo(X, Y), !.
+getNextMove(walk) :- agent_willWalkTo(X, Y), visited(X, Y), not(revisited(X, Y, _)), assert(revisited(X, Y, 1)), agent_walkTo(X, Y), !.
+
+/* Return to revisited cell */
+getNextMove(walk) :- agent_willWalkTo(X, Y), visited(X, Y), revisited(X, Y, RC), RC < 4, RCC is RC + 1, retract(revisited(X, Y, _)), assert(revisited(X, Y, RCC)), agent_walkTo(X, Y), !.

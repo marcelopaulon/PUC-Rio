@@ -7,7 +7,7 @@ agent_clearMap() :- retractall(wallCell(_,_)), retractall(floorCell(_,_)), retra
                     retractall(holeCell(_,_)), retractall(teletransportCell(_,_)), retractall(startPoint(_,_)).
 
 agent_reset() :- retractall(curEnergy(_)), retractall(curCost(_)), retractall(curAmmo(_)), retractall(curPosition(_,_,_)),
-			    retractall(visited(_,_)), retractall(path(_)), startPoint(StartX, StartY),
+			    retractall(visited(_,_)), retractall(revisited(_,_,_)), retractall(path(_)), startPoint(StartX, StartY),
 			    retractall(doesNotHaveHole(_,_)), retractall(doesNotHaveEnemy(_,_)), retractall(doesNotHaveTeletransport(_,_)),
 			    retractall(mightHaveHole(_,_)), retractall(mightHaveEnemy(_,_)), retractall(mightHaveTeletransport(_,_)),
 			    retractall(hasHole(_,_)), retractall(hasEnemy(_,_)), retractall(hasTeletransport(_,_)),
