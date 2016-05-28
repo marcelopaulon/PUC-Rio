@@ -29,28 +29,31 @@ removeAdjacentEnemyUncertainties() :-
 	
 removeAdjacentTeletransportUncertainties() :-
 	curPosition(X, Y, _),
-	(( XX is X+1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
-	(( YY is Y+1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1), !.
+	(( XX is X+1, adjacent(X, Y, XX, Y), assert(doesNotHaveTeletransport(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), assert(doesNotHaveTeletransport(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), assert(doesNotHaveTeletransport(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), assert(doesNotHaveTeletransport(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1), !.
 	
+setMightHaveHole(X, Y) :- not(visited(X, Y)), not(doesNotHaveHole(X, Y)), assert(mightHaveHole(X, Y)), !.
 setAdjacenciesMightHaveHole() :-
 	curPosition(X, Y, _),
-	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveHole(XX, Y)) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveHole(XX, Y)) );1=1),
-	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveHole(X, YY)) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveHole(X, YY)) );1=1), !.
+	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveHole(XX, Y) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveHole(XX, Y) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveHole(X, YY) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveHole(X, YY) );1=1), !.
 
+setMightHaveEnemy(X, Y) :- not(visited(X, Y)), not(doesNotHaveEnemy(X, Y)), assert(mightHaveEnemy(X, Y)), !.
 setAdjacenciesMightHaveEnemy() :-
 	curPosition(X, Y, _),
-	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveEnemy(XX, Y)) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveEnemy(XX, Y)) );1=1),
-	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveEnemy(X, YY)) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveEnemy(X, YY)) );1=1), !.
-	
+	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveEnemy(XX, Y) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveEnemy(XX, Y) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveEnemy(X, YY) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveEnemy(X, YY) );1=1), !.
+
+setMightHaveTeletransport(X, Y) :- not(visited(X, Y)), not(doesNotHaveTeletransport(X, Y)), assert(mightHaveTeletransport(X, Y)), !.
 setAdjacenciesMightHaveTeletransport() :-
 	curPosition(X, Y, _),
-	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveTeletransport(XX, Y)) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveTeletransport(XX, Y)) );1=1),
-	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveTeletransport(X, YY)) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveTeletransport(X, YY)) );1=1), !.
+	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveTeletransport(XX, Y) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveTeletransport(XX, Y) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveTeletransport(X, YY) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveTeletransport(X, YY) );1=1), !.

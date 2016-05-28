@@ -50,7 +50,6 @@ public class ToolsPanel extends JPanel
 		
 		JButton restartSearchButton = new JButton("Reiniciar Jogo");
 		JButton optionsButton = new JButton("Opções");
-		JButton editMapButton = new JButton("Editar Mapa");
 		JButton loadMapButton = new JButton("Carregar Mapa");
 		JButton saveMapButton = new JButton("Salvar Mapa");
 		JButton randomMapGenButton = new JButton("Gerar Mapa");
@@ -71,7 +70,6 @@ public class ToolsPanel extends JPanel
 		
 		this.add(restartSearchButton);
 		this.add(optionsButton);
-		this.add(editMapButton);
 		this.add(loadMapButton);
 		this.add(saveMapButton);
 		this.add(randomMapGenButton);
