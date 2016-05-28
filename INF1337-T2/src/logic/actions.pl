@@ -1,5 +1,5 @@
 /* Exiting */
-getNextMove(exit) :- curPosition(X, Y, _), X = 1, Y = 12, exiting(1), !.
+getNextMove(exit) :- curPosition(X, Y, _), startPoint(X, Y), exiting(1), !.
 
 /* If energy lower than 1, game over */
 getNextMove(gameOver) :- curEnergy(E), E < 1, !.
