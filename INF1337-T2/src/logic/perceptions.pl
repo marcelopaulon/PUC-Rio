@@ -14,6 +14,7 @@ perceptions_perceiveDanger() :- curPosition(X, Y, _), perceptions_perceiveDanger
 
 updateEnemyCertainties() :- 
 	enemyCell(_, _, X, Y),
+	mightHaveEnemy(X, Y),
 	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
 	(
 		((wallCell(XA, Y));visited(XA,Y)),
@@ -21,10 +22,11 @@ updateEnemyCertainties() :-
 		((wallCell(X, YA));visited(X,YA)),
 		((wallCell(X, YB));visited(X,YB))
 	),
-	(retractall(mightHaveEnemy(X, Y));1=1), assert(hasEnemy(X, Y)).
+	retractall(mightHaveEnemy(X, Y)), assert(hasEnemy(X, Y)).
 	
 updateTeletransportCertainties() :-
 	teletransportCell(X, Y),
+	mightHaveTeletransport(X, Y),
 	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
 	(
 		((wallCell(XA, Y));visited(XA,Y)),
@@ -32,10 +34,11 @@ updateTeletransportCertainties() :-
 		((wallCell(X, YA));visited(X,YA)),
 		((wallCell(X, YB));visited(X,YB))
 	),
-	(retractall(mightHaveTeletransport(X, Y));1=1), assert(hasTeletransport(X, Y)).
+	retractall(mightHaveTeletransport(X, Y)), assert(hasTeletransport(X, Y)).
 	
 updateHoleCertainties() :-
 	holeCell(X, Y),
+	mightHaveHole(X, Y),
 	XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
 	(
 		((wallCell(XA, Y));visited(XA,Y)),
@@ -43,7 +46,7 @@ updateHoleCertainties() :-
 		((wallCell(X, YA));visited(X,YA)),
 		((wallCell(X, YB));visited(X,YB))
 	),
-	(retractall(mightHaveHole(X, Y));1=1), assert(hasHole(X, Y)).
+	retractall(mightHaveHole(X, Y)), assert(hasHole(X, Y)).
 	
 updateCertainties() :-
 	(updateEnemyCertainties();1=1),
