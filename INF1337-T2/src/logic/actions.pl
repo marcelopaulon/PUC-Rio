@@ -58,11 +58,11 @@ getNextMove(rotate) :- curAmmo(A), A > 0, curPosition(X, Y, _), adjacent(X, Y, X
 /****************************************************************************/
 /* Go to nearest cell that might have an enemy so that we can risk walking into it */
 
-getNextMove(walk) :- curEnergy(E), E > 50, agent_willWalkTo(X, Y), mightHaveEnemy(XX, YY), XX=X, YY=Y,
+getNextMove(walk) :- curEnergy(E), E > 50, agent_willWalkTo(X, Y), mightHaveEnemy(X, Y),
 					 agent_walkTo(X, Y), !.
 
 getNextMove(rotate) :- curEnergy(E), E > 50, curPosition(CurX, CurY, _), adjacent(CurX, CurY, XX, YY),
-					   mightHaveEnemy(XX, YY), agent_willWalkTo(X, Y), XX=X, YY=Y, agent_rotate().
+					   mightHaveEnemy(XX, YY), not(agent_willWalkTo(XX, YY)), agent_rotate().
 					   	 
 getNextMove(Action) :- curEnergy(E), E > 50, path_setPathToRiskEnemyAction(), getNextMove(Action), writef('Going to risk walking into enemy option!\n'), !.
 					   
@@ -70,7 +70,7 @@ getNextMove(Action) :- curEnergy(E), E > 50, path_setPathToRiskEnemyAction(), ge
 /* Go to nearest power up so that we can pick it up */
 
 getNextMove(pickPowerup) :- curEnergy(E), E < 51, curPosition(X, Y, _), powerupCell(X, Y), retract(powerupCell(X, Y)), assert(floorCell(X, Y)),
-					        decrementCost(1), incrementEnergy(50), !. /* Agent perceives powerup when on its tile and picks it up */
+					        agent_decrementCost(1), agent_incrementEnergy(50), !. /* Agent perceives powerup when on its tile and picks it up */
 
 getNextMove(Action) :- curEnergy(E), E < 51, path_setPathToPowerupAction(), getNextMove(Action), writef('Going to pick a power up!\n'), !.
 
