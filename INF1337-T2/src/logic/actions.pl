@@ -36,4 +36,4 @@ getNextMove(walk) :- perceptions_perceiveHole(), agent_willWalkTo(X, Y), curCost
 /* Return to visited cell */
 getNextMove(walk) :- agent_willWalkTo(X, Y), visited(X, Y), path_hasOpenSafeAction(), agent_walkTo(X, Y), !.
 
-getNextMove(rotate) :- assert(exiting(1)), path_getPathToExit(), agent_rotate(), !.
+getNextMove(Action) :- assert(exiting(1)), path_setPathToExit(), getNextMove(Action), !.
