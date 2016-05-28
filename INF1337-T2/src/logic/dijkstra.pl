@@ -7,10 +7,10 @@ path([X, Y],[XX, YY], 1) :- visited(X, Y), visited(XX, YY), adjacent(X, Y, XX, Y
 shorterPath([H|Path], Dist) :-		       % path < stored path? replace it
 	rpath([H|T], D), !, Dist < D,          % match target node [H|_]
 	retract(rpath([H|_],_)),
-	writef('%w is closer than %w\n', [[H|Path], [H|T]]),
+	/*writef('%w is closer than %w\n', [[H|Path], [H|T]]),*/
 	assert(rpath([H|Path], Dist)).
 shorterPath(Path, Dist) :-		       % Otherwise store a new path
-	writef('New path:%w\n', [Path]),
+	/*writef('New path:%w\n', [Path]),*/
 	assert(rpath(Path,Dist)).
  
 traverse([X, Y], Path, Dist) :-		    % traverse all reachable nodes

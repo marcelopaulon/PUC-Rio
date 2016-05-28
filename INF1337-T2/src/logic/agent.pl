@@ -51,7 +51,7 @@ agent_willWalkTo(X, Y) :- curPosition(XX, YY, Position), X is XX-1, YY = Y, Posi
 
 /****************************************************************************/
 
-agent_walkTo(X, Y) :- isWalkable(X, Y), curPosition(_, _, Position), retractall(curPosition(_, _, _)), assert(curPosition(X, Y, Position)), assert(visited(X,Y)),
+agent_walkTo(X, Y) :- isWalkable(X, Y), curPosition(_, _, Position), retractall(curPosition(_, _, _)), assert(curPosition(X, Y, Position)), (visited(X, Y);assert(visited(X, Y))),
                       agent_decrementCost(1),
                       perceptions_updateUncertainties(),
                       ((holeCell(X, Y), agent_decrementCost(1000), EE is 0, retractall(curEnergy(_)), assert(curEnergy(EE)));1=1),
