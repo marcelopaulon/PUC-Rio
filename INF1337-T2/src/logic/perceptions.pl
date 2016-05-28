@@ -37,9 +37,9 @@ removeAdjacentHoleUncertainty(X, Y) :- assert(doesNotHaveHole(X, Y)), retract(mi
 removeAdjacentHoleUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentHoleUncertainty(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), removeAdjacentHoleUncertainty(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), removeAdjacentHoleUncertainty(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), removeAdjacentHoleUncertainty(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), removeAdjacentHoleUncertainty(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), removeAdjacentHoleUncertainty(X, YYY) );1=1), !.
 
 /****************************************************************************/
 
@@ -47,9 +47,9 @@ removeAdjacentEnemyUncertainties(X, Y) :- assert(doesNotHaveEnemy(X, Y)), retrac
 removeAdjacentEnemyUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentEnemyUncertainties(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), removeAdjacentEnemyUncertainties(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), removeAdjacentEnemyUncertainties(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), removeAdjacentEnemyUncertainties(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), removeAdjacentEnemyUncertainties(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), removeAdjacentEnemyUncertainties(X, YYY) );1=1), !.
 
 /****************************************************************************/
 
@@ -57,9 +57,9 @@ removeAdjacentTeletransportUncertainty(X, Y) :- assert(doesNotHaveTeletransport(
 removeAdjacentTeletransportUncertainties() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), removeAdjacentTeletransportUncertainty(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), removeAdjacentTeletransportUncertainty(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), removeAdjacentTeletransportUncertainty(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), removeAdjacentTeletransportUncertainty(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), removeAdjacentTeletransportUncertainty(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), removeAdjacentTeletransportUncertainty(X, YYY) );1=1), !.
 
 /****************************************************************************/
 	
@@ -67,9 +67,9 @@ setMightHaveHole(X, Y) :- not(visited(X, Y)), not(doesNotHaveHole(X, Y)), assert
 setAdjacenciesMightHaveHole() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveHole(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveHole(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), setMightHaveHole(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveHole(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveHole(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), setMightHaveHole(X, YYY) );1=1), !.
 
 /****************************************************************************/
 
@@ -77,9 +77,9 @@ setMightHaveEnemy(X, Y) :- not(visited(X, Y)), not(doesNotHaveEnemy(X, Y)), asse
 setAdjacenciesMightHaveEnemy() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveEnemy(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveEnemy(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), setMightHaveEnemy(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveEnemy(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveEnemy(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), setMightHaveEnemy(X, YYY) );1=1), !.
 
 /****************************************************************************/
 
@@ -87,8 +87,8 @@ setMightHaveTeletransport(X, Y) :- not(visited(X, Y)), not(doesNotHaveTeletransp
 setAdjacenciesMightHaveTeletransport() :-
 	curPosition(X, Y, _),
 	(( XX is X+1, adjacent(X, Y, XX, Y), setMightHaveTeletransport(XX, Y) );1=1),
-	(( XX is X-1, adjacent(X, Y, XX, Y), setMightHaveTeletransport(XX, Y) );1=1),
+	(( XXX is X-1, adjacent(X, Y, XXX, Y), setMightHaveTeletransport(XXX, Y) );1=1),
 	(( YY is Y+1, adjacent(X, Y, X, YY), setMightHaveTeletransport(X, YY) );1=1),
-	(( YY is Y-1, adjacent(X, Y, X, YY), setMightHaveTeletransport(X, YY) );1=1), !.
+	(( YYY is Y-1, adjacent(X, Y, X, YYY), setMightHaveTeletransport(X, YYY) );1=1), !.
 	
 /****************************************************************************/
