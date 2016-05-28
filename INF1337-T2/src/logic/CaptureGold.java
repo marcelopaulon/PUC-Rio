@@ -2,7 +2,9 @@ package logic;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jpl7.*;
@@ -84,12 +86,12 @@ public class CaptureGold
 			e.printStackTrace();
 		}
 		
-		Query q2 = new Query("clearMap().");
+		Query q2 = new Query("agent_clearMap().");
 		if(!q2.hasSolution()) throw new Exception("Error - Unable to clear map in prolog");
 		q2.oneSolution();
 		Query q3 = new Query("consult", new Term[] {new Atom("src/logic/map.pl")});
 		if(!q3.hasSolution()) throw new Exception("Error - Unable to load map in prolog");
-		Query q4 = new Query("resetAgent().");
+		Query q4 = new Query("agent_reset().");
 		if(!q4.hasSolution()) throw new Exception("Error - Unable to reset agent in prolog");
 		q4.oneSolution();
 	}
@@ -109,7 +111,7 @@ public class CaptureGold
 		String action = solution.get("Action").toString();
 		count++; // Debug - TODO: Remove
 		Stats stats = getCurStats();
-		System.out.println("Action = " + action + " ; X = " + stats.x + "; Y = " + stats.y + "; Step = " + count + "; O = " + stats.orientation);
+		System.out.println("Action = " + action + " ; X = " + stats.currentPosition.x + "; Y = " + stats.currentPosition.y + "; Step = " + count + "; O = " + stats.orientation);
 		
 		switch(action) 
 		{
@@ -134,9 +136,102 @@ public class CaptureGold
 		return null;
 	}
 	
+	private List<Coordinate> getMightHaveHole()
+	{
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		
+		try
+		{
+			Query q = new Query("mightHaveHole(X, Y).");
+			
+			while (q.hasMoreElements()){
+				Object obj = q.nextElement();
+				
+				if(obj instanceof HashMap<?, ?>)
+				{
+					@SuppressWarnings("unchecked")
+					HashMap<String, Term> result = (HashMap<String, Term>) obj; 
+					int x = result.get("X").intValue();
+					int y = result.get("Y").intValue();
+				    coordinates.add(new Coordinate(x, y));
+				}
+				else
+				{
+					throw new Exception("Unable to retrieve getMightHaveHole. Obj: " + obj.getClass());
+				}
+			 }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return coordinates;
+	}
+	
+	private List<Coordinate> getMightHaveEnemy()
+	{
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		
+		try
+		{
+			Query q = new Query("mightHaveEnemy(X, Y).");
+			
+			while (q.hasMoreElements()){
+				Object obj = q.nextElement();
+				
+				if(obj instanceof HashMap<?, ?>)
+				{
+					@SuppressWarnings("unchecked")
+					HashMap<String, Term> result = (HashMap<String, Term>) obj; 
+					int x = result.get("X").intValue();
+					int y = result.get("Y").intValue();
+				    coordinates.add(new Coordinate(x, y));
+				}
+				else
+				{
+					throw new Exception("Unable to retrieve getMightHaveEnemy");
+				}
+			 }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return coordinates;
+	}
+	
+	private List<Coordinate> getMightHaveTeletransport()
+	{
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		
+		try
+		{
+			Query q = new Query("mightHaveTeletransport(X, Y).");
+			
+			while (q.hasMoreElements()){
+				Object obj = q.nextElement();
+				
+				if(obj instanceof HashMap<?, ?>)
+				{
+					@SuppressWarnings("unchecked")
+					HashMap<String, Term> result = (HashMap<String, Term>) obj; 
+					int x = result.get("X").intValue();
+					int y = result.get("Y").intValue();
+				    coordinates.add(new Coordinate(x, y));
+				}
+				else
+				{
+					throw new Exception("Unable to retrieve getMightHaveTeletransport");
+				}
+			 }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return coordinates;
+	}
+	
 	public Stats getCurStats()
 	{
-		Query q3 = new Query("getCurrentStats(X, Y, Orientation, Energy, Cost, Ammo).");
+		Query q3 = new Query("agent_getCurrentStats(X, Y, Orientation, Energy, Cost, Ammo).");
 		Map<String, Term> solution = q3.oneSolution();
 		
 		if(solution == null)
@@ -146,14 +241,16 @@ public class CaptureGold
 		
 		Stats stats = new Stats();
 		
-		stats.x = solution.get("X").intValue();
-		stats.y = solution.get("Y").intValue();
+		stats.currentPosition = new Coordinate(solution.get("X").intValue(), solution.get("Y").intValue());
 		stats.orientation = solution.get("Orientation").toString();
 		stats.energy = solution.get("Energy").intValue();
 		stats.cost = solution.get("Cost").intValue();
 		stats.ammo = solution.get("Ammo").intValue();
 		
+		stats.mightHaveHole = getMightHaveHole();
+		stats.mightHaveEnemy = getMightHaveEnemy();
+		stats.mightHaveTeletransport = getMightHaveTeletransport();
+		
 		return stats;
 	}
-	
 }

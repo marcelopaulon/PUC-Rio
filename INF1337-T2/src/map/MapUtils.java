@@ -11,6 +11,9 @@ import mapcell.MapCell;
 import mapcell.StartCell;
 import mapcell.TeletransportCell;
 import mapcell.WallCell;
+import mapcell.MightHaveHoleCell;
+import mapcell.MightHaveEnemyCell;
+import mapcell.MightHaveTeletransportCell;
 
 public class MapUtils 
 {
@@ -54,6 +57,18 @@ public class MapUtils
 	 * Enemy50 MapCell
 	 */
 	private static MapCell Enemy50Cell = new Enemy50Cell(MapCell.Cells.ENEMY50.asChar());
+	/**
+	 * MightHaveHoleCell MapCell
+	 */
+	public static MapCell MightHaveHoleCell = new MightHaveHoleCell('\0');
+	/**
+	 * MightHaveEnemyCell MapCell
+	 */
+	public static MapCell MightHaveEnemyCell = new MightHaveEnemyCell('\0');
+	/**
+	 * MightHaveTeletransportCell MapCell
+	 */
+	public static MapCell MightHaveTeletransportCell = new MightHaveTeletransportCell('\0');
 	
 	public static MapCell getTile(MapCell.Cells value) {
 		if (value == MapCell.Cells.START)

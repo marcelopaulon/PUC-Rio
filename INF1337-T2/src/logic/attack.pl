@@ -1,4 +1,4 @@
-shoot(ShootingActionResult) :- 
+/*attack_shoot(ShootingActionResult) :- 
 			     curPosition(X, Y, _), adjacent(X, Y, XX, YY), hasEnemy(XX, YY),
 			     ShootingActionResult = attack,
 			     random_between(20, 50, EnemyDamage),
@@ -13,3 +13,4 @@ shoot(ShootingActionResult) :-
 				 ),
 				 decrementCost(10),
 				 deployAmmo(), !.
+*/

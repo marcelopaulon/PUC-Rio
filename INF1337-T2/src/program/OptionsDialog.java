@@ -51,6 +51,7 @@ public class OptionsDialog extends JDialog implements ActionListener {
 		
 		optionsPane.add(createShowPathPane(), BorderLayout.LINE_START);
 		optionsPane.add(createAgentViewPane(), BorderLayout.LINE_START);
+		optionsPane.add(createAgentUncertaintiesViewPane(), BorderLayout.LINE_START);
 		optionsPane.add(createSpeedPane(), BorderLayout.LINE_START);
 		
 		getContentPane().add(optionsPane);
@@ -92,6 +93,24 @@ public class OptionsDialog extends JDialog implements ActionListener {
 		agentViewPane.add(agentViewCb);
 		agentViewPane.add(new JLabel("Mostrar apenas a visão do agente"));
 		return agentViewPane;
+	}
+	
+	private JPanel createAgentUncertaintiesViewPane()
+	{
+		JPanel agentUncertaintiesViewPane = new JPanel();
+		JCheckBox agentUncertaintiesViewCb = new JCheckBox();
+		agentUncertaintiesViewCb.setSelected(true);
+		mapPanel.agentUncertaintiesView = true;
+		agentUncertaintiesViewCb.addActionListener(new ActionListener() {
+	      public void actionPerformed(ActionEvent actionEvent) {
+	          AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+	          boolean selected = abstractButton.getModel().isSelected();
+	          mapPanel.agentUncertaintiesView = selected;
+	        }
+        });
+		agentUncertaintiesViewPane.add(agentUncertaintiesViewCb);
+		agentUncertaintiesViewPane.add(new JLabel("Mostrar as incertezas do agente"));
+		return agentUncertaintiesViewPane;
 	}
 	
 	private JPanel createSpeedPane()

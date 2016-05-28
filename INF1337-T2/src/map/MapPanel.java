@@ -16,6 +16,7 @@ import program.Utils;
 import gfx.Assets;
 import logic.Action;
 import logic.CaptureGold;
+import logic.Coordinate;
 import logic.Stats;
 import mapcell.*;
 
@@ -38,36 +39,16 @@ public class MapPanel extends JPanel {
 	 * GameMap to be rendered
 	 */
 	private GameMap loadedMap;
-	
-	private class Coordinate
-	{
-		public int X;
-		public int Y;
 		
-		public Coordinate(int x, int y)
-		{
-			X = x;
-			Y = y;
-		}
-		
-		@Override
-	    public boolean equals(Object obj) {
-	       if (!(obj instanceof Coordinate))
-	            return false;
-	       if (obj == this)
-	            return true;
-	       
-	       Coordinate c = (Coordinate) obj;
-	       if(c.X == this.X && c.Y == this.Y) 
-	    	   return true;
-	       
-	       return false;
-		}
-	}
-	
 	private List<Coordinate> visitedCells; 
 	
 	private List<Coordinate> visibleCells; 
+	
+	public List<Coordinate> mightHaveHole = new ArrayList<Coordinate>(); 
+	
+	public List<Coordinate> mightHaveEnemy = new ArrayList<Coordinate>(); 
+	
+	public List<Coordinate> mightHaveTeletransport = new ArrayList<Coordinate>(); 
 
 	/**
 	 * Graphics object
@@ -94,6 +75,8 @@ public class MapPanel extends JPanel {
 	private boolean gameEnded;
 	
 	public boolean agentView = false;
+	
+	public boolean agentUncertaintiesView;
 	
 	public int actionTimeIntervalMs = 100;
 	
@@ -152,7 +135,21 @@ public class MapPanel extends JPanel {
 				int y = (int) (i * rectHeight);
 				int x = (int) (j * rectWidth);
 				
-				if(!agentView || visibleCells.contains(new Coordinate(j, i)))
+				Coordinate coordinate = new Coordinate(j, i);
+				
+				if(this.agentUncertaintiesView && mightHaveHole.contains(coordinate))
+				{
+					MapUtils.MightHaveHoleCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
+				}
+				else if(this.agentUncertaintiesView && mightHaveEnemy.contains(coordinate))
+				{
+					MapUtils.MightHaveEnemyCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
+				}
+				else if(this.agentUncertaintiesView && mightHaveTeletransport.contains(coordinate))
+				{
+					MapUtils.MightHaveTeletransportCell.render(g, x, y, (int) rectWidth, (int) rectHeight);
+				}
+				else if(!agentView || visibleCells.contains(coordinate))
 				{
 					MapCell.Cells et = loadedMap.getValue(i, j);
 					MapCell cell = MapUtils.getTile(et);
@@ -251,6 +248,10 @@ public class MapPanel extends JPanel {
 		
 		loadedMap = new GameMap(arrReduced);
 		
+		mightHaveHole = new ArrayList<Coordinate>(); 
+		mightHaveEnemy = new ArrayList<Coordinate>(); 
+		mightHaveTeletransport = new ArrayList<Coordinate>(); 
+
 		visitedCells = new ArrayList<Coordinate>();
 		visibleCells = new ArrayList<Coordinate>();
 		visitCell(loadedMap.startX, loadedMap.startY);
@@ -349,15 +350,24 @@ public class MapPanel extends JPanel {
 		{
 			renderMap();
 			
-			if(!gameEnded && System.currentTimeMillis() - lastActionTime > actionTimeIntervalMs)
+			if(!gameEnded && System.currentTimeMillis() - this.lastActionTime > actionTimeIntervalMs)
 			{
 				Action nextMove = captureGold.getNextMove();
 				Stats stats = captureGold.getCurStats();
+				
+				this.mightHaveEnemy = stats.mightHaveEnemy;
+				this.mightHaveHole = stats.mightHaveHole;
+				this.mightHaveTeletransport = stats.mightHaveTeletransport;
+				
 				handleAction(nextMove, stats);
-				curAgentEnergy = stats.energy;
-				curAgentCost = stats.cost;
-				curAgentAmmo = stats.ammo;
-				lastActionTime = System.currentTimeMillis();
+				
+				this.curAgentEnergy = stats.energy;
+				this.curAgentCost = stats.cost;
+				this.curAgentAmmo = stats.ammo;
+				
+				this.lastActionTime = System.currentTimeMillis();
+				
+				renderMap();
 			}
 		}
 	}

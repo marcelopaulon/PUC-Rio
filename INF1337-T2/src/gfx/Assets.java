@@ -22,6 +22,8 @@ public class Assets {
 	public static BufferedImage enemy50Down, enemy50Left, enemy50Up, enemy50Right;
 	public static BufferedImage agentDown, agentLeft, agentUp, agentRight;
 	
+	public static BufferedImage mightHaveHole, mightHaveEnemy20, mightHaveEnemy50, mightHaveTeletransport;
+	
 	/**
 	 * Initializes the tiles for each BufferedImage, indicating their initial width and heights inside sheet.png
 	 */
@@ -52,5 +54,10 @@ public class Assets {
 		agentLeft = sheet.crop(TILE_WIDTH * 7, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		agentUp = sheet.crop(TILE_WIDTH * 7, TILE_HEIGHT * 2, TILE_WIDTH, TILE_HEIGHT);
 		agentRight = sheet.crop(TILE_WIDTH * 7, TILE_HEIGHT * 3, TILE_WIDTH, TILE_HEIGHT);
+		
+		mightHaveHole = sheet.crop(TILE_WIDTH * 6, TILE_HEIGHT * 6, TILE_WIDTH, TILE_HEIGHT);
+		mightHaveEnemy20 = sheet.crop(TILE_WIDTH * 6, TILE_HEIGHT * 4, TILE_WIDTH, TILE_HEIGHT);
+		mightHaveEnemy50 = sheet.crop(TILE_WIDTH * 6, TILE_HEIGHT * 5, TILE_WIDTH, TILE_HEIGHT);
+		mightHaveTeletransport = sheet.crop(TILE_WIDTH * 6, TILE_HEIGHT * 7, TILE_WIDTH, TILE_HEIGHT);
 	}
 }

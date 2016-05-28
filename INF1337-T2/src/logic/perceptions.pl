@@ -1,40 +1,56 @@
-hasEnemy(X, Y) :- XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
-  					(
-  						((hasWall(XA, Y));(visited(XA,Y), perceptEnemy(XA,Y))),
-  						((hasWall(XB, Y));(visited(XB,Y), perceptEnemy(XB,Y))),
-  						((hasWall(X, YA));(visited(X,YA), perceptEnemy(X,YA))),
-  						((hasWall(X, YB));(visited(X,YB), perceptEnemy(X,YB)))
-  					), !.
-  
-hasHole(X, Y) :- XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
-  					(
-  						((hasWall(XA, Y));(visited(XA,Y), perceptHole(XA,Y))),
-  						((hasWall(XB, Y));(visited(XB,Y), perceptHole(XB,Y))),
-  						((hasWall(X, YA));(visited(X,YA), perceptHole(X,YA))),
-  						((hasWall(X, YB));(visited(X,YB), perceptHole(X,YB)))
-  					), !.
-  					
-hasTeletransport(X, Y) :- XA is X+1, XB is X-1, YA is Y+1, YB is Y-1,
-  					(
-  						((hasWall(XA, Y));(visited(XA,Y), perceptTeletransport(XA,Y))),
-  						((hasWall(XB, Y));(visited(XB,Y), perceptTeletransport(XB,Y))),
-  						((hasWall(X, YA));(visited(X,YA), perceptTeletransport(X,YA))),
-  						((hasWall(X, YB));(visited(X,YB), perceptTeletransport(X,YB)))
-  					), !.
-  					
-hasWall(X, Y) :- wallCell(X, Y), adjacent(X, Y, XX, YY), visited(XX, YY), !. /* If agent visited one of the rock's adjacents cell, it knows it is a rock */
+perceptions_perceiveHole() :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), holeCell(XX, YY), !.
+perceptions_perceiveEnemy() :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), enemyCell(_, _, XX, YY), !.
+perceptions_perceiveTeletransport() :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), teletransportCell(XX, YY), !.
 
-perceptHole(X, Y) :- adjacent(X, Y, XX, YY), holeCell(XX, YY).
-perceptHole() :- curPosition(X, Y, _), perceptHole(X, Y), !.
-perceptEnemy(X, Y) :- adjacent(X, Y, XX, YY), enemyCell(_, _, XX, YY).
-perceptEnemy() :- curPosition(X, Y, _), perceptEnemy(X, Y), !.
-perceptTeletransport(X, Y) :- adjacent(X, Y, XX, YY), teletransportCell(XX, YY).
-perceptTeletransport() :- curPosition(X, Y, _), perceptTeletransport(X, Y), !.
+perceptions_perceiveDanger() :- (perceptions_perceiveHole(); perceptions_perceiveEnemy(); perceptions_perceiveTeletransport()), !.
 
-perceptDanger() :- curPosition(X, Y, _), (perceptHole(X, Y); perceptEnemy(X, Y); perceptTeletransport(X, Y)), !.
+perceptions_updateUncertainties() :- (
+		((perceptions_perceiveHole(), setAdjacenciesMightHaveHole());1=1),
+		((perceptions_perceiveEnemy(), setAdjacenciesMightHaveEnemy());1=1),
+		((perceptions_perceiveTeletransport(), setAdjacenciesMightHaveTeletransport());1=1),
+		(( not(perceptions_perceiveHole()), removeAdjacentHoleUncertainties() );1=1),
+		(( not(perceptions_perceiveEnemy()), removeAdjacentEnemyUncertainties() );1=1),
+		(( not(perceptions_perceiveTeletransport()), removeAdjacentTeletransportUncertainties() );1=1)
+	), !.
+	
+removeAdjacentHoleUncertainties() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveHole(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveHole(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveHole(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveHole(X, YY)) );1=1), !.
 
-isSafe(X, Y) :- visited(X, Y), !. /* visited */
-isSafe(X, Y) :- adjacent(X, Y, XX, YY), visited(XX, YY),
-			  not(perceptHole(XX, YY)), /* at least one visited adjacent node has no danger in sight */
-              not(perceptEnemy(XX, YY)),
-              not(perceptTeletransport(XX, YY)), !.
+removeAdjacentEnemyUncertainties() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), assert(doesNotHaveEnemy(XX, Y)), retract(mightHaveEnemy(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), assert(doesNotHaveEnemy(XX, Y)), retract(mightHaveEnemy(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), assert(doesNotHaveEnemy(X, YY)), retract(mightHaveEnemy(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), assert(doesNotHaveEnemy(X, YY)), retract(mightHaveEnemy(X, YY)) );1=1), !.
+	
+removeAdjacentTeletransportUncertainties() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), assert(doesNotHaveHole(XX, Y)), retract(mightHaveTeletransport(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), assert(doesNotHaveHole(X, YY)), retract(mightHaveTeletransport(X, YY)) );1=1), !.
+	
+setAdjacenciesMightHaveHole() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveHole(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveHole(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveHole(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveHole(X, YY)) );1=1), !.
+
+setAdjacenciesMightHaveEnemy() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveEnemy(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveEnemy(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveEnemy(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveEnemy(X, YY)) );1=1), !.
+	
+setAdjacenciesMightHaveTeletransport() :-
+	curPosition(X, Y, _),
+	(( XX is X+1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveTeletransport(XX, Y)) );1=1),
+	(( XX is X-1, adjacent(X, Y, XX, Y), not(visited(XX, Y)), assert(mightHaveTeletransport(XX, Y)) );1=1),
+	(( YY is Y+1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveTeletransport(X, YY)) );1=1),
+	(( YY is Y-1, adjacent(X, Y, X, YY), not(visited(X, YY)), assert(mightHaveTeletransport(X, YY)) );1=1), !.
