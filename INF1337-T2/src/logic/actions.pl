@@ -17,6 +17,8 @@ getNextMove(pickGold) :- curPosition(X, Y, _), goldCell(X, Y), retract(goldCell(
 /*********************************************************/
 /* PATH ACTIONS */
 
+getNextMove(Action) :- curPath([]), retract(curPath([])), getNextMove(Action), !.
+
 getNextMove(rotate) :- curPath([[X, Y]|_]), not(agent_willWalkTo(X, Y)), agent_rotate(), !.
 
 getNextMove(walk) :- curPath([[X, Y]|T]), agent_willWalkTo(X, Y),
@@ -34,7 +36,7 @@ getNextMove(walk) :- agent_willWalkTo(X, Y), isWalkable(X, Y), not(perceptions_p
 					 not(visited(X, Y)), agent_walkTo(X, Y), !.
 					 
 /* If there are no danger perceptions and an adjacent, walkable, non-visited cell exists and we won't walk into it, rotate */
-getNextMove(rotate) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), isWalkable(XX, YY), not(perceptions_perceiveDanger()),
+getNextMove(rotate) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), not(perceptions_perceiveDanger()),
 					   not(visited(XX,YY)), not(agent_willWalkTo(XX, YY)), agent_rotate(), !.
 
 /****************************************************************************/

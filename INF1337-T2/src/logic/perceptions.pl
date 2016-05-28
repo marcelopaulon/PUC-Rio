@@ -1,10 +1,10 @@
 perceptions_perceiveHole(X, Y) :- adjacent(X, Y, XX, YY), holeCell(XX, YY), !.
 perceptions_perceiveHole() :- curPosition(X, Y, _), perceptions_perceiveHole(X, Y), !.
 
-perceptions_perceiveEnemy(X, Y) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), enemyCell(_, _, XX, YY), !.
+perceptions_perceiveEnemy(X, Y) :- adjacent(X, Y, XX, YY), enemyCell(_, _, XX, YY), !.
 perceptions_perceiveEnemy() :- curPosition(X, Y, _), perceptions_perceiveEnemy(X, Y), !.
 
-perceptions_perceiveTeletransport(X, Y) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), teletransportCell(XX, YY), !.
+perceptions_perceiveTeletransport(X, Y) :- adjacent(X, Y, XX, YY), teletransportCell(XX, YY), !.
 perceptions_perceiveTeletransport() :- curPosition(X, Y, _), perceptions_perceiveTeletransport(X, Y), !.
 
 perceptions_perceiveDanger(X, Y) :- (perceptions_perceiveHole(X, Y); perceptions_perceiveEnemy(X, Y); perceptions_perceiveTeletransport(X, Y)), !.
