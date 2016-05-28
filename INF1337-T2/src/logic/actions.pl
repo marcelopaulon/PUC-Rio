@@ -44,6 +44,36 @@ getNextMove(rotate) :- curPosition(X, Y, _), adjacent(X, Y, XX, YY), not(percept
 
 getNextMove(Action) :- path_setPathToOpenSafeAction(), getNextMove(Action), writef('Going to safe option!\n'), !.
 
+
+/****************************************************************************/
+/* Go to nearest enemy so that we can attack */
+
+getNextMove(Action) :- curEnergy(E), E > 50, path_setPathToFightAction(), getNextMove(Action), writef('Going to attack option!\n'), !.
+
+getNextMove(ShootingActionResult) :- curAmmo(A), A > 0, curPosition(X, Y, _), adjacent(X, Y, XX, YY), hasEnemy(XX, YY), agent_willWalkTo(XX, YY),
+					   curEnergy(E), E > 50, shoot(ShootingActionResult), !.
+	
+/****************************************************************************/
+/* Go to nearest cell that might have an enemy so that we can risk walking into it */
+
+getNextMove(walk) :- curEnergy(E), E > 50, agent_willWalkTo(X, Y), mightHaveEnemy(XX, YY), XX=X, YY=Y,
+					 agent_walkTo(X, Y), !.
+
+getNextMove(rotate) :- curEnergy(E), E > 50, curPosition(CurX, CurY, _), adjacent(CurX, CurY, XX, YY),
+					   mightHaveEnemy(XX, YY), agent_willWalkTo(X, Y), XX=X, YY=Y, agent_rotate().
+					   	 
+getNextMove(Action) :- curEnergy(E), E > 50, path_setPathToRiskEnemyAction(), getNextMove(Action), writef('Going to risk walking into enemy option!\n'), !.
+
+
+					   
+/****************************************************************************/
+/* Go to nearest power up so that we can pick it up */
+
+getNextMove(pickPowerup) :- curEnergy(E), E < 51, curPosition(X, Y, _), powerupCell(X, Y), retract(powerupCell(X, Y)), assert(floorCell(X, Y)),
+					        decrementCost(1), incrementEnergy(50), !. /* Agent perceives powerup when on its tile and picks it up */
+
+getNextMove(Action) :- curEnergy(E), E < 51, path_setPathToPowerupAction(), getNextMove(Action), writef('Going to pick a power up!\n'), !.
+
 /****************************************************************************/
 /* Risk walking into hole if cost lower than 1 */
 
