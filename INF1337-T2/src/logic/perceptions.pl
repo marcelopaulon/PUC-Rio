@@ -12,7 +12,17 @@ perceptions_perceiveDanger() :- curPosition(X, Y, _), perceptions_perceiveDanger
 
 /****************************************************************************/
 
+removeCurrentCellUncertainties() :- (
+	(
+		curPosition(X, Y, _),
+		((not(holeCell(X, Y)), assert(doesNotHaveHole(X, Y)), retract(mightHaveHole(X, Y)));1=1),
+		((not(holeCell(X, Y)), assert(doesNotHaveEnemy(X, Y)), retract(mightHaveEnemy(X, Y)));1=1),
+		((not(holeCell(X, Y)), assert(doesNotHaveTeletransport(X, Y)), retract(mightHaveTeletransport(X, Y)));1=1)
+	)
+	;1=1), !.
+
 perceptions_updateUncertainties() :- (
+		removeCurrentCellUncertainties(),
 		((perceptions_perceiveHole(), setAdjacenciesMightHaveHole());1=1),
 		((perceptions_perceiveEnemy(), setAdjacenciesMightHaveEnemy());1=1),
 		((perceptions_perceiveTeletransport(), setAdjacenciesMightHaveTeletransport());1=1),
