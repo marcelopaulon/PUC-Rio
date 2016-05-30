@@ -2,7 +2,7 @@
 
 #include "definitions.h"
 
-static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeKB)
+static int runSimulator(char *algorithm, char *inputFile, int pageSizeKB, int physicalMemorySizeKB)
 {
   FILE *fp;
   unsigned int address;
@@ -10,7 +10,7 @@ static int runSimulator(char *inputFile, int pageSizeKB, int physicalMemorySizeK
 
   simulation_configure(pageSizeKB, physicalMemorySizeKB);
 
-  printf("Configuration: \n\tInput file: %s\n\tPage size: %d KB\n\tPhysical memory size: %dKB\n", inputFile, pageSizeKB, physicalMemorySizeKB);
+  printf("Configuration: \n\tAlgorithm: %s\n\tInput file: %s\n\tPage size: %d KB\n\tPhysical memory size: %dKB\n", algorithm, inputFile, pageSizeKB, physicalMemorySizeKB);
 
   if(simulationInfo.debugLevel != RELEASE) printf("\tDebug level: %d\n", simulationInfo.debugLevel);
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     }
 
     if(argc == 7) simulationInfo.debugLevel = atoi(argv[6]);
-    return runSimulator(argv[2], atoi(argv[3]), atoi(argv[4]));
+    return runSimulator(argv[1], argv[2], atoi(argv[3]), atoi(argv[4]));
   }
   else {
     printf("Usage: sim-virtual PageReplacementAlgorithm InputFile PageSizeKB PhysicalMemoryKB (-D DEBUGLEVEL)\n\tPageReplacementAlgorithm - Algorithm to be used for the page replacement (NRU, LRU, or SEC).\n\tInputFile - Path to the input file (.log extension)\n\tPageSizeKB - Page size, in kilobytes\n\tPhysicalMemorySizeKB - Physical memory size, in kilobytes\n\tDEBUGLEVEL - Optional argument. Simulator debug level\n\n");

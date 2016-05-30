@@ -1,0 +1,33 @@
+﻿INF1019 - SISTEMAS DE COMPUTAÇÃO - 2016.1
+Relatório - Trabalho 2
+
+Alunos: 
+        Marcelo Paulon (1411029)
+        Gustavo Aranha (1320755)
+
+Foram criados três módulos para simularem 3 algoritmos de substituição de página, o algoritmo de LRU, NRU e de Segunda Chance, que tem como entrada os arquivos compilador.log, matriz.log, compressor.log e simulador.log fornecidos. 
+Também é possível executar dois modos de depuração, D=1, que cancela a execução da simulação na ocorrência de um erro, e D=2, que acompanha a simulação passo-a-passo e que cancela a execução da simulação na ocorrência de um erro.
+O módulo sim-virtual chama o módulo simulador, que configura a simulação através dos parâmetros de entrada apresentados e chama o módulo para o algoritmo especificado, e depois executa a simulação.
+Foram utilizadas 3 estruturas de dados: 
+-SimulationInfo: contém as informações da simulação;
+-PTE: contém as informações da página, endereço, último tempo de acesso, estado("R", página referenciada, "M", página modificada).
+-PageTableNode: nó da lista encadeada, contém a "página atual".
+Para iniciar a simulação, deve-se executar o comando "./sim-virtual <tipo do algoritmo> ../input/<entrada> <tamanho da página> <tamanho da memória física> <-D no caso de ser realizado o modo de depuração> <tipo de depuração(apenas se o modo de depuração for chamado)>".
+
+Abaixo segue-se os resultados de uma análise de desempenho dos três modos de simulação para o mesmo tamanho de memória física(128KB) e dois tamanhos de página diferentes(8KB e 32KB).
+Para cada divisória, nº de page-faults/nº de páginas escritas. Para modo depuração, NÃO se houve erro e SIM se ocorreu tudo bem.
+
+				
+8 KB				  LRU			LRU -D 1		  LRU -D 2			  NRU			NRU -D 1		  NRU -D 2			  SEC			SEC -D 1			SEC -D 2
+matriz.log		108062 / 38102	108062 / 38102 - SIM	SIM			121022 / 38777	120717 / 38756 - SIM	SIM			102555 / 38170	102555 / 38170 - SIM	  SIM
+compilador.log	42797 / 10466	42797 / 10466 - SIM		SIM			56647 / 11294	56637 / 11367 - SIM		SIM			44942 / 10572	44942 / 10572 - SIM		  SIM
+compressor.log	11113 / 3400	11113 / 3400 - SIM		SIM			11113 / 3400	11113 / 3400 - SIM		SIM			11113 / 3400	11113 / 3400 - SIM		  SIM
+simulador.log	90375 / 45440	90375 / 45440 - SIM		SIM			99502 / 46370	99422 / 46412 - SIM		SIM			92344 / 45655	92344 / 45655 - SIM		  SIM
+									
+												
+32 KB				  LRU			 LRU -D 1		  LRU -D 2			  NRU			 NRU -D 1		  NRU -D 2			  SEC			 SEC -D 1		    SEC -D 2
+matriz.log		139413 / 39326	 139413 / 39326 - SIM	SIM			163203 / 41192	 163352 / 41232 - SIM	SIM			149103 / 40057	 149103 / 40057 - SIM	  SIM
+compilador.log	109468 / 14818	 109468 / 14818 - SIM	SIM			149986 / 17608	 149949 / 17672 - SIM	SIM			124753 / 15717	 124753 / 15717 - SIM	  SIM
+compressor.log	14302 / 3930	 14302 / 3930 - SIM		SIM			17073 / 4247	 16978 / 4220 - SIM		SIM			14648 / 3965	 14648 / 3965 - SIM		  SIM
+simulador.log	111810 / 47502	 111810 / 47502 - SIM	SIM			133561 / 49823	 133249 / 49877 - SIM	SIM			118673 / 48104	 118673 / 48104 - SIM	  SIM
+
