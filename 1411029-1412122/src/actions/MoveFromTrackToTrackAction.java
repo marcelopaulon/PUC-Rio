@@ -15,13 +15,15 @@ public class MoveFromTrackToTrackAction extends Action {
 	private Board board;
 	private Square fromSquare;
 	private Square toSquare;
+	private boolean shouldRemoveOpponent;
 	
-	public MoveFromTrackToTrackAction(Board board, Square fromSquare, Square toSquare, ActionListener actionListener) throws Exception
+	public MoveFromTrackToTrackAction(Board board, Square fromSquare, Square toSquare, boolean shouldRemoveOpponent, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.board = board;
 		this.fromSquare = fromSquare;
 		this.toSquare = toSquare;
+		this.shouldRemoveOpponent = shouldRemoveOpponent;
 	}
 	
 	@Override
@@ -30,15 +32,12 @@ public class MoveFromTrackToTrackAction extends Action {
 		
 		PlayerColor color = board.getCurrentPlayer();
 		
-		if(toSquare.getPawnCount() > 1)
+		if(toSquare.getPawnCount() > 0 && shouldRemoveOpponent)
 		{
 			List<PlayerColor> colors = toSquare.getPawnsColors();
-			if(colors.get(0) != color || colors.get(1) != color) // Opponent in destination, must capture it
+			if(colors.get(0) != color) // Opponent in destination, must capture it
 			{
-				PlayerColor opponentColor;
-				
-				if(colors.get(0) != color) opponentColor = colors.get(0);
-				else opponentColor = colors.get(1);
+				PlayerColor opponentColor = colors.get(0);
 				
 				board.getYard(opponentColor).addPawn(); // Adds pawn to opponent's yard
 				

@@ -386,7 +386,7 @@ public class GameControl {
 		MoveFromTrackToLaneAction action;
 		
 		try {
-			int lanePosition = pawnPosition + diceValue - getPositionOfLastSquareOfPlayer(currentPlayer);
+			int lanePosition = pawnPosition + diceValue - BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 			action = new MoveFromTrackToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveFromTrackToLaneActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
@@ -403,16 +403,32 @@ public class GameControl {
 	{			
 		Square origin = board.getTrack().getSquareAt(pawnPosition);
 		
-		Square destination;
-		if(pawnPosition+diceValue>52) destination = board.getTrack().getSquareAt(pawnPosition+diceValue-52);
-		else destination = board.getTrack().getSquareAt(pawnPosition+diceValue);
+		int destinationPos;
+		
+		if(pawnPosition+diceValue>52) 
+		{
+			destinationPos = pawnPosition + diceValue - 5;
+		}
+		else 
+		{
+			destinationPos = pawnPosition + diceValue;
+		}
+		
+		Square destination = board.getTrack().getSquareAt(destinationPos);
 				
 		GamePanel.trackView.setSquareHighlight(pawnPosition);
 		
 		MoveFromTrackToTrackAction action;
 		
 		try {
-			action = new MoveFromTrackToTrackAction(board, origin, destination, moveFromTrackToTrackActionListener);
+			boolean shouldRemoveOpponent = true;
+			
+			if(BoardPositions.isShelterPosition(destinationPos))
+			{
+				shouldRemoveOpponent = false;
+			}
+			
+			action = new MoveFromTrackToTrackAction(board, origin, destination, shouldRemoveOpponent, moveFromTrackToTrackActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
@@ -472,35 +488,38 @@ public class GameControl {
 		return false;
 	}
 	
-	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer){
-		switch(currentPlayer){
-		case BLUE:
-			return 33;
-		case GREEN:
-			return 7;
-		case RED:
-			return 46;
-		case YELLOW:
-			return 20;
-		default:
-			//TODO: Exception?
-			return -1;
-		}
-	}
-	
-	public static PlayerColor isLastSquarePosition(int position){
-		switch(position){
-			case 33:
-				return PlayerColor.BLUE;
-			case 7:
-				return PlayerColor.GREEN;
-			case 46:
-				return PlayerColor.RED;
-			case 20:
-				return PlayerColor.YELLOW;
+	private boolean opponentHasBarrierAt(int position)
+	{
+		if(BoardPositions.isShelterPosition(position))
+		{
+			return false;
 		}
 		
-		return null;
+		Square square = board.getTrack().getSquareAt(position);
+				
+		if(square.getPawnCount() > 1 && square.getPawnsColors().get(0) != board.getCurrentPlayer())
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean currentPlayerHasBarrierAt(int position)
+	{
+		if(BoardPositions.isShelterPosition(position))
+		{
+			return false;
+		}
+		
+		Square square = board.getTrack().getSquareAt(position);
+		
+		if(square.getPawnCountByColor(board.getCurrentPlayer()) > 1)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
@@ -523,7 +542,7 @@ public class GameControl {
 	}
 
 	private boolean canMoveFromTrackToLane(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
-		int lastSquareOfCurrentPlayer = getPositionOfLastSquareOfPlayer(currentPlayer);
+		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 		
 		for(int j = 0; j < diceValue; j++)
 		{
@@ -549,7 +568,7 @@ public class GameControl {
 	}
 	
 	private boolean canMoveFromTrackToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
-		int lastSquareOfCurrentPlayer = getPositionOfLastSquareOfPlayer(currentPlayer);
+		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 		
 		if(pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6) //est� na �ltima casa e tirou 6
 		{
@@ -560,7 +579,7 @@ public class GameControl {
 	}
 
 	private boolean canMoveInsideTrack(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
-		int lastSquareOfCurrentPlayer = getPositionOfLastSquareOfPlayer(currentPlayer);
+		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 		
 		Square destination;
 		if(pawnPosition+diceValue>52) destination = board.getTrack().getSquareAt(pawnPosition+diceValue-52);
@@ -568,8 +587,9 @@ public class GameControl {
 				
 		for(int j = 0; j < diceValue; j++){
 			if(pawnPosition + j == lastSquareOfCurrentPlayer) return false; //Se ele chega na �ltima casa com um n�mero inferior ao tirado do dado, ele entra na lane. Logo, n�o pode continuar na track.
+			if(pawnPosition + j <= 52 && opponentHasBarrierAt(pawnPosition + j)) return false;
 		}
-				
+		
 		if(destination.getPawnCount() < 2) return true;
 		
 		return false;

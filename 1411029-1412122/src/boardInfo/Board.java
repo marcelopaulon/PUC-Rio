@@ -1,6 +1,6 @@
 package boardInfo;
 
-import game.GameControl;
+import game.BoardPositions;
 import playerInfo.PlayerColor;
 
 public class Board {
@@ -104,7 +104,7 @@ public class Board {
 		
 		Lane lane = this.getLane(player);
 		Track track = this.getTrack();
-		int lastPosition = GameControl.getPositionOfLastSquareOfPlayer(player);
+		int lastPosition = BoardPositions.getPositionOfLastSquareOfPlayer(player);
 		
 		for(int i = 1; i <= 5; i++)
 		{

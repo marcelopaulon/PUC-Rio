@@ -8,7 +8,7 @@ import java.util.List;
 
 import boardInfo.Square;
 import boardInfo.Track;
-import game.GameControl;
+import game.BoardPositions;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
 import rendering.common.View;
@@ -110,7 +110,7 @@ public class TrackView extends View
 		int coordinateXs[] = new int[3];
 		int coordinateYs[] = new int[3];
 		
-		if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.GREEN)
+		if(BoardPositions.isInitialSquarePosition(position) == PlayerColor.GREEN)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
@@ -123,7 +123,7 @@ public class TrackView extends View
 			
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
 		}
-		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.YELLOW)
+		else if(BoardPositions.isInitialSquarePosition(position) == PlayerColor.YELLOW)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize - squareSize/8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
@@ -136,7 +136,7 @@ public class TrackView extends View
 			
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
 		}
-		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.BLUE)
+		else if(BoardPositions.isInitialSquarePosition(position) == PlayerColor.BLUE)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize - squareSize/8.0);
@@ -149,7 +149,7 @@ public class TrackView extends View
 			
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
 		}
-		else if(GameControl.isLastSquarePosition(position - 2) == PlayerColor.RED)
+		else if(BoardPositions.isInitialSquarePosition(position) == PlayerColor.RED)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize/8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize/8.0);
@@ -173,7 +173,7 @@ public class TrackView extends View
 				Square square = track.getSquareAt(i);
 				new SquareView(square, (int) coordinate.getX(), (int) coordinate.getY(), null, squareHighlight.contains(i)).render(g2d);
 				
-				if(square.getPawnCount() == 0 && i - 2 > 0)
+				if(square.getPawnCount() == 0 && BoardPositions.isInitialSquarePosition(i) != null)
 				{
 					tryRenderTrackFlowIndicators(g2d, coordinate, i);
 				}
