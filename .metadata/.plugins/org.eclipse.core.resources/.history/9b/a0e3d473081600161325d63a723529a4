@@ -1,8 +1,0 @@
-package boardInfo;
-
-import java.util.List;
-
-public class Square {
-	private List<Pawn> pawns;
-	private PlayerColor areaColor;
-}

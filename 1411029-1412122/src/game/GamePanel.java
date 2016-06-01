@@ -46,6 +46,11 @@ public class GamePanel extends JPanel {
 		return instance;
 	}
 	
+	public static PlayerColor getCurrentPlayer()
+	{
+		return instance.getCurrentPlayer();
+	}
+	
 	public void setBoard(Board board){
 		this.board = board;
 	}

@@ -92,7 +92,7 @@ public class GameSave {
 			
 			for(int i = 0; i < 4 - yardCount; i++) yards[yardColor-1].removePawn();
 			
-			pockets[pocketColor-1] = new Pocket();
+			pockets[pocketColor-1] = new Pocket(PlayerColor.get(pocketColor));
 			for(int i=0; i<pocketCount; i++) pockets[pocketColor-1].addPawn();
 			
 			if(line + 1 < saveFile.length) 
@@ -142,7 +142,8 @@ public class GameSave {
         	Square square = track.getSquareAt(i);
         	if(square.getPawnCount() > 0)
         	{
-        		saveString.append("\nTRACKPOSITION=" + i + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
+        		// TODO: add support to different pawn colors
+        		saveString.append("\nTRACKPOSITION=" + i + "&COLOR=" + square.getPawnsColors().get(0).asInt() + "&COUNT=" + square.getPawnCount());
         	}
 		}
         
@@ -165,7 +166,7 @@ public class GameSave {
         		Square square = lane.getSquareAt(j);
         		if(square.getPawnCount() > 0)
             	{
-        			saveString.append("\nLANEPOSITION=" + j + "&COLOR=" + square.getPawnsColor().asInt() + "&COUNT=" + square.getPawnCount());
+        			saveString.append("\nLANEPOSITION=" + j + "&COLOR=" + square.getPawnsColors().get(0).asInt() + "&COUNT=" + square.getPawnCount());
             	}
         	}
         }

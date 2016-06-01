@@ -1,8 +1,0 @@
-package playerInfo;
-
-public enum PlayerColor {
-	RED,
-	GREEN,
-	YELLOW,
-	BLUE,
-}

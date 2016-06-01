@@ -2,7 +2,6 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
@@ -137,7 +136,7 @@ public class GameControl {
 		else if(color == PlayerColor.RED) player = "vermelho";
 		else {
 			try {
-				throw new Exception("Erro - jogador inválido");
+				throw new Exception("Erro - jogador invï¿½lido");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -175,7 +174,7 @@ public class GameControl {
 		
 		String[] positions = getPlayerPositions();
 		
-		String message = "O jogador " + positions[0] + " venceu esta partida.\n2º lugar: " + positions[1] + "\n3º lugar: " + positions[2] + "\n4º lugar: " + positions[3] + "\nObrigado por ludar.";
+		String message = "O jogador " + positions[0] + " venceu esta partida.\n2ï¿½ lugar: " + positions[1] + "\n3ï¿½ lugar: " + positions[2] + "\n4ï¿½ lugar: " + positions[3] + "\nObrigado por ludar.";
 		
 		JOptionPane.showMessageDialog(GamePanel.getInstance(), message, "Fim de jogo",
 				JOptionPane.WARNING_MESSAGE);
@@ -279,7 +278,7 @@ public class GameControl {
 		for(int position = 1; position <= 52; position++)
 		{
 			Square origin = board.getTrack().getSquareAt(position);
-			if(origin.getPawnCount() > 0 && origin.getPawnsColor() == currentPlayer)
+			if(origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
 			{
 				if(canMoveInsideTrack(diceValue, currentPlayer, position))
 				{
@@ -435,7 +434,7 @@ public class GameControl {
 		for(int position = 1; position <= 52; position++)
 		{
 			Square origin = board.getTrack().getSquareAt(position);
-			if(origin.getPawnCount() > 0 && origin.getPawnsColor() == currentPlayer)
+			if(origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
 			{
 				if(canMoveInsideTrack(diceValue, currentPlayer, position))
 				{
@@ -528,7 +527,7 @@ public class GameControl {
 		
 		for(int j = 0; j < diceValue; j++)
 		{
-			if(pawnPosition + j == lastSquareOfCurrentPlayer) //Se ele chega na última casa com um número inferior ao tirado do dado, ele entra na lane.
+			if(pawnPosition + j == lastSquareOfCurrentPlayer) //Se ele chega na ï¿½ltima casa com um nï¿½mero inferior ao tirado do dado, ele entra na lane.
 			{ 
 				Square destination;
 				
@@ -538,7 +537,7 @@ public class GameControl {
 				}
 				else
 				{
-					return false; //destination é o pocket.
+					return false; //destination ï¿½ o pocket.
 				}
 				
 				if(destination.getPawnCount() < 2) return true;
@@ -552,7 +551,7 @@ public class GameControl {
 	private boolean canMoveFromTrackToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
 		int lastSquareOfCurrentPlayer = getPositionOfLastSquareOfPlayer(currentPlayer);
 		
-		if(pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6) //está na última casa e tirou 6
+		if(pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6) //estï¿½ na ï¿½ltima casa e tirou 6
 		{
 			return true;
 		}
@@ -568,7 +567,7 @@ public class GameControl {
 		else destination = board.getTrack().getSquareAt(pawnPosition+diceValue);
 				
 		for(int j = 0; j < diceValue; j++){
-			if(pawnPosition + j == lastSquareOfCurrentPlayer) return false; //Se ele chega na última casa com um número inferior ao tirado do dado, ele entra na lane. Logo, não pode continuar na track.
+			if(pawnPosition + j == lastSquareOfCurrentPlayer) return false; //Se ele chega na ï¿½ltima casa com um nï¿½mero inferior ao tirado do dado, ele entra na lane. Logo, nï¿½o pode continuar na track.
 		}
 				
 		if(destination.getPawnCount() < 2) return true;

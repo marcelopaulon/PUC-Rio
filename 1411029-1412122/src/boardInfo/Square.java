@@ -8,19 +8,18 @@ public class Square extends PawnList {
 	
 	public Square(PlayerColor areaColor)
 	{
-		super(0, null);
+		super(null);
 		this.areaColor = areaColor;
 	}
 	
 	public void addPawn(Pawn pawn)
 	{
-		super.setPawnsColor(pawn.getColor());
-		super.addPawn();
+		super.addPawn(pawn);
 	}
 	
-	public void removePawn()
+	public void removePawn(PlayerColor color) throws Exception
 	{
-		super.removePawn();
+		super.removePawn(color);
 	}
 	
 	public PlayerColor getAreaColor()

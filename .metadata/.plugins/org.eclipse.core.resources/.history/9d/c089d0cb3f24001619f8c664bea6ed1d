@@ -1,0 +1,19 @@
+package boardInfo;
+
+import boardInfo.common.PawnList;
+
+public class Pocket extends PawnList {
+	private PlayerColor color;
+	
+	public Pocket(PlayerColor color)
+	{
+		super(null);
+		reset();
+		this.color = color;
+	}
+	
+	public void addPawn()
+	{
+		super.addPawn();
+	}
+}

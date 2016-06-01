@@ -1,5 +1,7 @@
 package actions;
 
+import java.util.List;
+
 import actions.common.Action;
 import actions.common.ActionListener;
 import actions.common.ActionManager;
@@ -26,19 +28,37 @@ public class MoveFromTrackToTrackAction extends Action {
 	public void execute() {
 		ActionManager.getInstance().resetActions();
 		
-		if(toSquare.getPawnCount() > 0)
+		PlayerColor color = board.getCurrentPlayer();
+		
+		if(toSquare.getPawnCount() > 1)
 		{
-			PlayerColor toColor = toSquare.getPawnsColor();
-			
-			if(toColor != fromSquare.getPawnsColor()) // Need to remove opponent pawn 
+			List<PlayerColor> colors = toSquare.getPawnsColors();
+			if(colors.get(0) != color || colors.get(1) != color) // Opponent in destination, must capture it
 			{
-				toSquare.removePawn();
-				board.getYard(toColor).addPawn();
+				PlayerColor opponentColor;
+				
+				if(colors.get(0) != color) opponentColor = colors.get(0);
+				else opponentColor = colors.get(1);
+				
+				board.getYard(opponentColor).addPawn(); // Adds pawn to opponent's yard
+				
+				try {
+					toSquare.removePawn(opponentColor);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // Remove opponent pawn
 			}
 		}
 		
-		toSquare.addPawn(new Pawn(fromSquare.getPawnsColor()));
-		fromSquare.removePawn();
+		toSquare.addPawn(new Pawn(color));
+		
+		try {
+			fromSquare.removePawn(color);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

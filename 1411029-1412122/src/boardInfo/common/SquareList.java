@@ -43,8 +43,8 @@ public abstract class SquareList {
 		squareList[position - 1].addPawn(new Pawn(color));
 	}
 	
-	public void removePawn(int position)
+	public void removePawn(int position, PlayerColor color) throws Exception
 	{
-		squareList[position - 1].removePawn();
+		squareList[position - 1].removePawn(color);
 	}
 }

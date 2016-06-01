@@ -1,0 +1,59 @@
+package boardInfo.common;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import boardInfo.Pawn;
+import playerInfo.PlayerColor;
+
+public abstract class PawnList {
+	private List<Pawn> pawns;
+	
+	public PawnList(List<Pawn> pawns)
+	{
+		if(pawns != null)
+		{
+			this.pawns = pawns;
+		}
+		else
+		{
+			this.pawns = new ArrayList<Pawn>();
+		}
+	}
+	
+	protected void addPawn(Pawn pawn)
+	{
+		pawns.add(pawn);
+	}
+	
+	protected void removePawn()
+	{
+		pawnCount--;
+		
+		if(getPawnCount() == 0)
+		{
+			setPawnsColor(null);
+		}
+	}
+	
+	public final void reset()
+	{
+		pawnColor = null;
+		pawnCount = 0;
+	}
+	
+	public final int getPawnCount()
+	{
+		return pawnCount;
+	}
+	
+	public final PlayerColor getPawnsColor()
+	{
+		return this.pawnColor;
+	}
+	
+	protected void setPawnsColor(PlayerColor color)
+	{
+		this.pawnColor = color;
+	}
+}

@@ -40,9 +40,10 @@ public class Board {
 		
 		for(int i = 0; i < 4; i++)
 		{
-			lanes[i] = new Lane(PlayerColor.get(i + 1));
+			PlayerColor color = PlayerColor.get(i + 1);
+			lanes[i] = new Lane(color);
 			yards[i] = new Yard();
-			pockets[i] = new Pocket();
+			pockets[i] = new Pocket(color);
 		}
 		
 		resetCurrentPlayer();
@@ -114,7 +115,7 @@ public class Board {
 		{
 			if(track.getSquareAt(i).getPawnCount() > 0)
 			{
-				if(track.getSquareAt(i).getPawnsColor().equals(player))
+				if(track.getSquareAt(i).getPawnsColors().contains(player))
 					if(i>lastPosition) 	distance += track.getSquareAt(i).getPawnCount()*(5 + lastPosition + 52 - i);  // 5 is added because of the lane length
 					else distance += track.getSquareAt(i).getPawnCount()*(5 + lastPosition - i); //same as above
 			}

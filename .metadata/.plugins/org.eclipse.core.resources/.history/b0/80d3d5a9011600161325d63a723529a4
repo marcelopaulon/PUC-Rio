@@ -1,9 +1,0 @@
-package game;
-
-public class Program {
-
-	public static void main(String[] arndt)
-	{
-		System.out.println("Arndt funciona");
-	}
-}

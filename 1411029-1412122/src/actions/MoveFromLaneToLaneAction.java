@@ -22,7 +22,14 @@ public class MoveFromLaneToLaneAction extends Action
 	@Override
 	public void execute() {
 		ActionManager.getInstance().resetActions();
-		lane.removePawn(fromLanePosition);
+		
+		try {
+			lane.removePawn(fromLanePosition);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		lane.addPawn(toLanePosition);
 	}
 }

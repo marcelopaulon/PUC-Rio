@@ -21,7 +21,12 @@ public class MoveFromTrackToPocketAction extends Action  {
 	@Override
 	public void execute() {
 		ActionManager.getInstance().resetActions();
-		fromSquare.removePawn();
+		try {
+			fromSquare.removePawn(toPocket.getColor());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		toPocket.addPawn();
 	}
 	

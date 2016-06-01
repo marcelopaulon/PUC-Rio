@@ -1,50 +1,90 @@
 package boardInfo.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import boardInfo.Pawn;
 import playerInfo.PlayerColor;
 
 public abstract class PawnList {
-	private int pawnCount;
-	private PlayerColor pawnColor = null;
+	private List<Pawn> pawns;
 	
-	public PawnList(int startPawnCount, PlayerColor startPawnColor)
+	public PawnList(List<Pawn> pawns)
 	{
-		this.pawnCount = startPawnCount;
-		this.pawnColor = startPawnColor;
-	}
-	
-	protected void addPawn()
-	{
-		pawnCount++;
-	}
-	
-	protected void removePawn()
-	{
-		pawnCount--;
-		
-		if(getPawnCount() == 0)
+		if(pawns != null)
 		{
-			setPawnsColor(null);
+			this.pawns = pawns;
 		}
+		else
+		{
+			reset();
+		}
+	}
+	
+	protected void addPawn(Pawn pawn)
+	{
+		pawns.add(pawn);
+	}
+	
+	protected void removePawn(PlayerColor color) throws Exception
+	{
+		boolean removed = false;
+		
+		for(int i = 0; i < pawns.size(); i++)
+		{
+			Pawn pawn = pawns.get(i);
+			
+			if(pawn.getColor() == color)
+			{
+				pawns.remove(pawn);
+				removed = true;
+				break;
+			}
+		}
+		
+		if(!removed) throw new Exception("Error when removing pawn from list");
 	}
 	
 	public final void reset()
 	{
-		pawnColor = null;
-		pawnCount = 0;
+		pawns = new ArrayList<Pawn>();
 	}
 	
 	public final int getPawnCount()
 	{
-		return pawnCount;
+		return pawns.size();
 	}
 	
-	public final PlayerColor getPawnsColor()
+	public final int getPawnCountByColor(PlayerColor color)
 	{
-		return this.pawnColor;
+		int count = 0;
+		
+		for(int i = 0; i < pawns.size(); i++)
+		{
+			if(pawns.get(i).getColor() == color)
+			{
+				count++;
+			}
+		}
+		
+		return count;
 	}
 	
-	protected void setPawnsColor(PlayerColor color)
+	public final List<PlayerColor> getPawnsColors()
 	{
-		this.pawnColor = color;
+		List<PlayerColor> colors = new ArrayList<PlayerColor>();
+		
+		pawns.forEach(
+				pawn -> {
+					PlayerColor color = pawn.getColor();
+					
+					if(!colors.contains(color))
+					{
+						colors.add(color);
+					}
+				});
+		
+		
+		return colors;
 	}
 }

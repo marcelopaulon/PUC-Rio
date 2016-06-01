@@ -1,5 +1,0 @@
-package game;
-
-public class GamePanel extends JPanel {
-
-}

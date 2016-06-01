@@ -23,7 +23,14 @@ public class MoveFromTrackToLaneAction extends Action {
 	@Override
 	public void execute() {
 		ActionManager.getInstance().resetActions();
-		fromSquare.removePawn();
+		
+		try {
+			fromSquare.removePawn(toLane.getColor());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		toLane.addPawn(toLanePosition);
 	}
 

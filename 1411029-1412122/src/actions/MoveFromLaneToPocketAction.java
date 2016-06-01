@@ -23,7 +23,14 @@ public class MoveFromLaneToPocketAction extends Action {
 	@Override
 	public void execute() {
 		ActionManager.getInstance().resetActions();
-		fromLane.removePawn(fromLanePosition);
+		
+		try {
+			fromLane.removePawn(fromLanePosition);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		toPocket.addPawn();
 	}
 
