@@ -1,12 +1,8 @@
 package actions;
 
-import java.util.List;
-
 import actions.common.Action;
 import actions.common.ActionListener;
 import boardInfo.Board;
-import boardInfo.Square;
-import boardInfo.Track;
 import boardInfo.Yard;
 import game.GamePanel;
 import playerInfo.PlayerColor;
