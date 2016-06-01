@@ -407,7 +407,7 @@ public class GameControl {
 		
 		if(pawnPosition+diceValue>52) 
 		{
-			destinationPos = pawnPosition + diceValue - 5;
+			destinationPos = pawnPosition + diceValue - 52;
 		}
 		else 
 		{
