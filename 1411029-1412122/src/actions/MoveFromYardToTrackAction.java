@@ -47,30 +47,6 @@ public class MoveFromYardToTrackAction extends Action {
 			position = 48;
 		}
 		
-		Track track = board.getTrack();
-		Square toSquare = track.getSquareAt(position);
-		
-		if(toSquare.getPawnCount() > 1)
-		{
-			List<PlayerColor> colors = toSquare.getPawnsColors();
-			if(colors.get(0) != color || colors.get(1) != color) // Opponent in destination, must capture it
-			{
-				PlayerColor opponentColor;
-				
-				if(colors.get(0) != color) opponentColor = colors.get(0);
-				else opponentColor = colors.get(1);
-				
-				board.getYard(opponentColor).addPawn(); // Adds pawn to opponent's yard
-				
-				try {
-					toSquare.removePawn(opponentColor);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // Remove opponent pawn
-			}
-		}
-		
 		board.getTrack().addPawn(position, color);
 				
 		GamePanel.requestRedraw();
