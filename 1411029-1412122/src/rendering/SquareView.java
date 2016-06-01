@@ -94,7 +94,7 @@ public class SquareView extends View {
 		PlayerColor currentPlayer = GamePanel.getCurrentPlayer();
 		List<PlayerColor> colors = square.getPawnsColors();
 		
-		double squareSize4th = squareSize / 4.0;
+		double squareSize4th = squareSize / 2.0;
 		
 		for(int i = 0; i < colors.size(); i++)
 		{
