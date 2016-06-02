@@ -108,7 +108,28 @@ public class SquareView extends View {
 				g2d.setPaint(PlayerColor.getLighterColor(playerColor));
 			}
 			
-			Ellipse2D.Double pawn = new Ellipse2D.Double(x + (squareSize4th * 0.05) + squareSize4th * i, y + (squareSize4th * 0.05) + squareSize4th * i, 0.9 * squareSize4th, 0.9 * squareSize4th);
+			int xIdx = i;
+			int yIdx = i;
+			
+			if(colors.size() > 2)
+			{
+				if(i == 1)
+				{
+					yIdx = 0;
+				}
+				else if(i == 2)
+				{
+					xIdx = 0;
+					yIdx = 1;
+				}
+				else if(i == 3)
+				{
+					xIdx = 1;
+					yIdx = 1;
+				}
+			}
+			
+			Ellipse2D.Double pawn = new Ellipse2D.Double(x + (squareSize4th * 0.05) + squareSize4th * xIdx, y + (squareSize4th * 0.05) + squareSize4th * yIdx, 0.9 * squareSize4th, 0.9 * squareSize4th);
 			g2d.fill(pawn);
 		
 			int pawnCount = square.getPawnCountByColor(playerColor);
@@ -116,8 +137,8 @@ public class SquareView extends View {
 			if(pawnCount > 1)
 			{
 				g2d.setPaint(Color.WHITE);
-				g2d.setFont(new Font("Arial",Font.PLAIN, 12));
-				g2d.drawString(String.format("%d", pawnCount), (float) (x + (squareSize4th * 0.40) + squareSize4th * i), (float) (y + (squareSize4th * 0.63) + squareSize4th * i));
+				g2d.setFont(new Font("Arial",Font.PLAIN, 10));
+				g2d.drawString(String.format("%d", pawnCount), (float) (x + (squareSize4th * 0.381) + squareSize4th * i), (float) (y + (squareSize4th * 0.62) + squareSize4th * i));
 			}
 			
 			if(playerColor == currentPlayer && highlight)
