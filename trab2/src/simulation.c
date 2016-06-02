@@ -79,10 +79,9 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
   bits = getNeededBits(simulationInfo.pageSize * 1024);
 
   simulationInfo.maxPages = (physicalMemorySizeKB / pageSizeKB) * 1024;
-  simulationInfo.maxEntries = (pageSizeKB * 1024) / sizeof(PTE);
 
   if(simulationInfo.debugLevel > 0) {
-    printf("maxPages = %d; maxEntries = %d; bits = %d;\n\n", simulationInfo.maxPages, simulationInfo.maxEntries, bits);
+    printf("maxPages = %d; bits = %d;\n\n", simulationInfo.maxPages, bits);
   }
 }
 

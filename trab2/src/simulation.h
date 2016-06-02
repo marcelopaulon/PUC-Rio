@@ -13,7 +13,6 @@ typedef struct s_simulation_info {
 
   int maxPages;
 
-  int maxEntries;
 } SimulationInfo;
 
 typedef struct s_pageTableEntry {
