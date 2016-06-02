@@ -31,3 +31,5 @@ compilador.log	109468 / 14818	 109468 / 14818 - SIM	SIM			149986 / 17608	 149949
 compressor.log	14302 / 3930	 14302 / 3930 - SIM		SIM			17073 / 4247	 16978 / 4220 - SIM		SIM			14648 / 3965	 14648 / 3965 - SIM		  SIM
 simulador.log	111810 / 47502	 111810 / 47502 - SIM	SIM			133561 / 49823	 133249 / 49877 - SIM	SIM			118673 / 48104	 118673 / 48104 - SIM	  SIM
 
+==Conclusão
+Os testes demonstram que o simulador funciona como esperado e podemos concluir, pelos dados observados, que um tamanho de página maior acaba provocando um maior número de page faults e de páginas criadas.
