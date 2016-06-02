@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Scanner;
 
 import boardInfo.Board;
@@ -140,11 +141,15 @@ public class GameSave {
         
         for (int i = 1; i <= 52; i++) {
         	Square square = track.getSquareAt(i);
-        	if(square.getPawnCount() > 0)
-        	{
-        		// TODO: add support to different pawn colors
-        		saveString.append("\nTRACKPOSITION=" + i + "&COLOR=" + square.getPawnsColors().get(0).asInt() + "&COUNT=" + square.getPawnCount());
-        	}
+        	List<PlayerColor> colors = square.getPawnsColors();
+        	
+        	final int pos = i;
+        	colors.forEach(
+    			color ->
+    			{
+    				saveString.append("\nTRACKPOSITION=" + pos + "&COLOR=" + color.asInt() + "&COUNT=" + square.getPawnCountByColor(color));
+    			}
+			);
 		}
         
         for (int i = 1; i <= 4; i++)
