@@ -69,7 +69,7 @@ public class GameControl {
 			
 			System.out.println("Test - track to track action listener executed");
 			
-			board.nextPlayer();
+			if(Dice.getCurValue() != 6) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -89,7 +89,7 @@ public class GameControl {
 			
 			System.out.println("Test - track to lane action listener executed");
 			
-			board.nextPlayer();
+			if(Dice.getCurValue() != 6) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -109,7 +109,7 @@ public class GameControl {
 			
 			System.out.println("Test - lane to lane action listener executed");
 			
-			board.nextPlayer();
+			if(Dice.getCurValue() != 6) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -198,7 +198,7 @@ public class GameControl {
 			}
 			else
 			{
-				board.nextPlayer();
+				if(Dice.getCurValue() != 6) board.nextPlayer();
 				setPlayerDice();
 			}
 			
@@ -225,7 +225,7 @@ public class GameControl {
 			}
 			else
 			{
-				board.nextPlayer();
+				if(Dice.getCurValue() != 6) board.nextPlayer();
 				setPlayerDice();
 			}
 			
@@ -256,7 +256,7 @@ public class GameControl {
 			}
 			else
 			{
-				board.nextPlayer();
+				if(diceValue != 6) board.nextPlayer();
 				setPlayerDice();
 			}
 			
@@ -268,6 +268,8 @@ public class GameControl {
 	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
 	{
 		System.out.println("----------------- SET ---------------------------");
+		
+		if(diceValue == 6 && board.getYard(currentPlayer).getCount() == 0) diceValue = 7; //Se um jogador obtiver um 6 após lançar o dado, avançar sete casas caso não tenha mais peões para retirar de sua casa inicial.
 		
 		if(canMoveFromYardToTrack(diceValue, currentPlayer))
 		{
