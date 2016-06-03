@@ -24,22 +24,24 @@ public class PreProcessor {
 	public void start()
 	{
 		populateRawReviews(path + "part1\\neg", 0, 0.25);
-		//populateRawReviews(path + "part1\\pos", 25, 0.25);
-		//populateRawReviews(path + "part2\\neg", 50, 0.25);
-		//populateRawReviews(path + "part2\\pos", 75, 0.25);
+		populateRawReviews(path + "part1\\pos", 25, 0.25);
+		populateRawReviews(path + "part2\\neg", 50, 0.25);
+		populateRawReviews(path + "part2\\pos", 75, 0.25);
 		
 		System.out.println("Count: " + bagOfWords.size());
 		
 		removeSimilarWords();
 		
 		Map<String, Integer> map = Utils.sortByValue(this.bagOfWords);
-		String[] words = new String[100];
+		String[] words = new String[500];
+		
+		int minimumPresence = (int) (bagOfWords.size() * 0.005);
 		
 		int i = 0;
 		for(Map.Entry<String, Integer> entry : map.entrySet())
     	{
-			if(entry.getValue() < 5) continue;
-			if(i >= 100) break;
+			if(entry.getValue() < minimumPresence) continue;
+			if(i >= 500) break;
 			
 			words[i] = entry.getKey();
 			
@@ -73,9 +75,9 @@ public class PreProcessor {
 		writer.println("@DATA");
 		
 		writeReviewData(path + "part1\\neg", writer, words, "Negative", 0, 0.25);
-		//writeReviewData(path + "part1\\pos", writer, words, "Positive", 25, 0.25);
-		//writeReviewData(path + "part2\\neg", writer, words, "Negative", 50, 0.25);
-		//writeReviewData(path + "part2\\pos", writer, words, "Positive", 75, 0.25);
+		writeReviewData(path + "part1\\pos", writer, words, "Positive", 25, 0.25);
+		writeReviewData(path + "part2\\neg", writer, words, "Negative", 50, 0.25);
+		writeReviewData(path + "part2\\pos", writer, words, "Positive", 75, 0.25);
 		
 		writer.close();
 	}
