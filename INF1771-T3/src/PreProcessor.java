@@ -1,11 +1,7 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -23,10 +19,8 @@ public class PreProcessor {
 	
 	public void start()
 	{
-		populateRawReviews(path + "part1\\neg", 0, 0.25);
-		populateRawReviews(path + "part1\\pos", 25, 0.25);
-		populateRawReviews(path + "part2\\neg", 50, 0.25);
-		populateRawReviews(path + "part2\\pos", 75, 0.25);
+		populateRawReviews(path + "neg", 0, 0.50);
+		populateRawReviews(path + "pos", 50, 0.50);
 		
 		System.out.println("Count: " + bagOfWords.size());
 		
@@ -48,107 +42,10 @@ public class PreProcessor {
 			i++;
     	}
 		
-		createArffFile(words);
+		new ArffWriter().createArffFile(words, path);
 	}
-		
-	private void createArffFile(String[] words) {
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("test.arff", "UTF-8");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		writer.println("@RELATION movies");
-		
-		for(int i = 0; i < words.length; i++)
-		{
-			writer.println("@ATTRIBUTE " + words[i] + "  NUMERIC");
-		}
-		
-		writer.println("@ATTRIBUTE class {Positive,Negative}");
-		
-		writer.println("@DATA");
-		
-		writeReviewData(path + "part1\\neg", writer, words, "Negative", 0, 0.25);
-		writeReviewData(path + "part1\\pos", writer, words, "Positive", 25, 0.25);
-		writeReviewData(path + "part2\\neg", writer, words, "Negative", 50, 0.25);
-		writeReviewData(path + "part2\\pos", writer, words, "Positive", 75, 0.25);
-		
-		writer.close();
-	}
+	
 
-	private void writeReviewData(String path, PrintWriter writer, String[] words, String classificator, int currentGlobalProgress, double multiplier)
-	{
-		String basePath = new File("").getAbsolutePath();
-	    System.out.println(basePath + path);
-	    
-		File directory= new File(basePath + path);
-		File[] files = directory.listFiles();
-		int total = files.length;
-		int i = 0;
-		for (File file : files)
-		{
-		   i++;
-		   if (FilenameUtils.getExtension(file.getName()).equals("txt"))
-		   {
-			   Double progress = currentGlobalProgress + ((double) i / (double) total) * multiplier * 100;
-		       writeArff(file, writer, words, classificator);
-		       
-		       if(i % 100 == 0)
-		       {
-		    	   System.out.println("Written arff section " + i + " / " + total +". Progress = " + String.format("%.2f", progress) + "%");
-		       }
-		   }
-		}
-	}
-
-	private void writeArff(File file, PrintWriter writer, String[] words, String classificator) {
-		Integer[] data = new Integer[words.length];
-		
-		for(int i = 0; i < data.length; i++)
-		{
-			data[i] = 0;
-		}
-		
-		String review = null;
-		
-		try {
-			review = FileUtils.readFileToString(file, "UTF-8");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
-		String[] reviewWords = splitWords(review);
-		
-		for(int i = 0; i < words.length; i++)
-		{
-			for(int j = 0; j < reviewWords.length; j++)
-			{
-				if(words[i].equals(reviewWords[j]))
-				{
-					data[i]++;
-				}
-			}
-		}
-		
-		StringBuilder dataStr = new StringBuilder();
-		
-		for(int i = 0; i < data.length; i++)
-		{
-			dataStr.append(data[i] + ",");
-		}
-		
-		dataStr.append(classificator);
-		
-		writer.println(dataStr.toString());
-	}
 
 	private void removeSimilarWords()
 	{
@@ -255,7 +152,7 @@ public class PreProcessor {
 			System.exit(-1);
 		}
 		
-		String[] words = splitWords(review);
+		String[] words = TextUtils.splitWords(review);
 		
 		for(int i = 0; i < words.length; i++)
 		{
@@ -271,16 +168,9 @@ public class PreProcessor {
 			}
 		}
 	}
-
-	private Pattern p = Pattern.compile("[(,.;?/\\*!@%#&-_+\"')]");
-	
-	private String[] splitWords(String review) {
-		String result = p.matcher(review).replaceAll(" ");
-		return result.split(" ");
-	}
 	
 	public static void main(String[] args) {
-		String path = "\\dataset\\movie_review_dataset\\";
+		String path = "\\dataset\\movie_review_dataset\\all\\";
 		new PreProcessor(path).start();
 	}
 
