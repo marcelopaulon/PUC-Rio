@@ -4,29 +4,30 @@ import java.awt.Color;
 
 import gfx.GameColor;
 
-public enum PlayerColor {
-	RED(1),
-	GREEN(2),
-	YELLOW(3),
-	BLUE(4);
-	
+public enum PlayerColor
+{
+	RED(1), GREEN(2), YELLOW(3), BLUE(4);
+
 	private final int asInt;
-	
+
 	/**
 	 * Gets int used to create PlayerColor
+	 * 
 	 * @return PlayerColor private variable asInt
 	 */
-	public int asInt() {
+	public int asInt()
+	{
 		return asInt;
 	}
-	
+
 	/**
 	 * Gets PlayerColor from integer value
+	 * 
 	 * @return PlayerColor player color
 	 */
 	public static PlayerColor get(int intValue)
 	{
-		switch(intValue)
+		switch (intValue)
 		{
 			case 1:
 				return RED;
@@ -37,18 +38,20 @@ public enum PlayerColor {
 			case 4:
 				return BLUE;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Gets system Color from PlayerColor
-	 * @param playerColor PlayerColor player color.
+	 * 
+	 * @param playerColor
+	 *            PlayerColor player color.
 	 * @return Color color system color
 	 */
 	public static Color getColor(PlayerColor playerColor)
 	{
-		switch(playerColor)
+		switch (playerColor)
 		{
 			case RED:
 				return GameColor.Red;
@@ -59,18 +62,20 @@ public enum PlayerColor {
 			case BLUE:
 				return GameColor.Blue;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Gets system Color from PlayerColor
-	 * @param playerColor PlayerColor player color.
+	 * 
+	 * @param playerColor
+	 *            PlayerColor player color.
 	 * @return Color color system color
 	 */
 	public static Color getLighterColor(PlayerColor playerColor)
 	{
-		switch(playerColor)
+		switch (playerColor)
 		{
 			case RED:
 				return GameColor.LightRed;
@@ -81,16 +86,21 @@ public enum PlayerColor {
 			case BLUE:
 				return GameColor.LightBlue;
 		}
-		
+
 		return null;
 	}
-		
+
 	/**
 	 * Private constructor for enum elements
-	 * <p><b>PlayerColor:</b> Enum of every different type of player color</p>
-	 * @param intValue PlayerColor int value.
+	 * <p>
+	 * <b>PlayerColor:</b> Enum of every different type of player color
+	 * </p>
+	 * 
+	 * @param intValue
+	 *            PlayerColor int value.
 	 */
-	private PlayerColor(int intValue) {
+	private PlayerColor(int intValue)
+	{
 		this.asInt = intValue;
 	}
 

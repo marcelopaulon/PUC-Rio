@@ -8,28 +8,29 @@ import java.awt.image.BufferedImage;
 import gfx.DiceAssets;
 import rendering.common.View;
 
-
-public class DiceView extends View {
+public class DiceView extends View
+{
 
 	private double x;
 	private double y;
 	private int value;
-	
+
 	public DiceView(double x, double y, int value)
 	{
 		this.x = x;
 		this.y = y;
 		this.value = value;
 	}
-	
+
 	@Override
-	public void render(Graphics2D g2d) {
+	public void render(Graphics2D g2d)
+	{
 		// TODO Auto-generated method stub
 		g2d.setPaint(Color.WHITE);
-		
+
 		BufferedImage image = DiceAssets.diceRoll;
-		
-		switch(value)
+
+		switch (value)
 		{
 			case 1:
 				image = DiceAssets.one;
@@ -50,18 +51,17 @@ public class DiceView extends View {
 				image = DiceAssets.six;
 				break;
 		}
-		
-		
-	    int width = image.getWidth();
-	    int height = image.getHeight();
 
-	    double scale = 0.2;
-	    int w = (int) (scale * width);
-	    int h = (int) (scale * height);
-	    
-	    // explicitly specify width (w) and height (h)
-	    g2d.drawImage(image.getScaledInstance(w, h, Image.SCALE_SMOOTH), (int) x, (int) y, (int) w, (int) h, null);
-	    
+		int width = image.getWidth();
+		int height = image.getHeight();
+
+		double scale = 0.2;
+		int w = (int) (scale * width);
+		int h = (int) (scale * height);
+
+		// explicitly specify width (w) and height (h)
+		g2d.drawImage(image.getScaledInstance(w, h, Image.SCALE_SMOOTH), (int) x, (int) y, (int) w, (int) h, null);
+
 	}
 
 }

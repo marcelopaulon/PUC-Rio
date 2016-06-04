@@ -2,9 +2,12 @@ package rules;
 
 import playerInfo.PlayerColor;
 
-public class BoardPositions {
-	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer){
-		switch(currentPlayer){
+public class BoardPositions
+{
+	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer)
+	{
+		switch (currentPlayer)
+		{
 			case BLUE:
 				return 33;
 			case GREEN:
@@ -14,13 +17,15 @@ public class BoardPositions {
 			case YELLOW:
 				return 20;
 			default:
-				//TODO: Exception?
+				// TODO: Exception?
 				return -1;
-			}
+		}
 	}
-	
-	public static int getInitialSquarePosition(PlayerColor color){
-		switch(color){
+
+	public static int getInitialSquarePosition(PlayerColor color)
+	{
+		switch (color)
+		{
 			case BLUE:
 				return 35;
 			case GREEN:
@@ -30,13 +35,15 @@ public class BoardPositions {
 			case YELLOW:
 				return 22;
 		}
-		
-		//TODO: Exception?
+
+		// TODO: Exception?
 		return -1;
 	}
-	
-	public static PlayerColor isInitialSquarePosition(int position){
-		switch(position){
+
+	public static PlayerColor isInitialSquarePosition(int position)
+	{
+		switch (position)
+		{
 			case 35:
 				return PlayerColor.BLUE;
 			case 9:
@@ -46,27 +53,29 @@ public class BoardPositions {
 			case 22:
 				return PlayerColor.YELLOW;
 		}
-		
+
 		return null;
 	}
-	
+
 	public static boolean isShelterPosition(int position)
 	{
-		if(isInitialSquarePosition(position) != null) 
+		if (isInitialSquarePosition(position) != null)
 		{
 			return true;
 		}
-		
-		if(position == 5 || position == 18 || position == 31 || position == 44)
+
+		if (position == 5 || position == 18 || position == 31 || position == 44)
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
-	
-	public static PlayerColor isLastSquarePosition(int position){
-		switch(position){
+
+	public static PlayerColor isLastSquarePosition(int position)
+	{
+		switch (position)
+		{
 			case 33:
 				return PlayerColor.BLUE;
 			case 7:
@@ -76,7 +85,7 @@ public class BoardPositions {
 			case 20:
 				return PlayerColor.YELLOW;
 		}
-		
+
 		return null;
 	}
 }
