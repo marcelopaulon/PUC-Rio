@@ -34,10 +34,10 @@ public class SplashScreen extends JFrame
 		try
 		{
 			image = ImageIO.read(new File("res/splash.png"));
-		} catch (IOException e1)
+		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Notifications.notifyError("Erro ao carregar splash screen");
+			e.printStackTrace();
 		}
 
 		JPanel panel = new JPanel();
@@ -71,9 +71,7 @@ public class SplashScreen extends JFrame
 		{
 			Thread.sleep(20000);
 		} catch (InterruptedException e)
-		{
-
-		}
+		{}
 
 		this.removeAll();
 		this.setVisible(false);

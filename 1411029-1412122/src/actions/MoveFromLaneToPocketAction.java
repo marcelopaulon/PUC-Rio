@@ -5,6 +5,7 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
 import boardInfo.Pocket;
+import game.Notifications;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
@@ -34,7 +35,7 @@ public class MoveFromLaneToPocketAction extends Action
 			fromLane.removePawn(fromLanePosition);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 

@@ -8,6 +8,7 @@ import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Pawn;
 import boardInfo.Square;
+import game.Notifications;
 import playerInfo.PlayerColor;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
@@ -51,15 +52,16 @@ public class MoveFromTrackToTrackAction extends Action
 				// Adds pawn to opponent's yard
 				board.getYard(opponentColor).addPawn();
 
+				// Remove opponent pawn
 				try
 				{
 					super.capturedPawn = true;
 					toSquare.removePawn(opponentColor);
 				} catch (Exception e)
 				{
-					// TODO Auto-generated catch block
+					Notifications.notifyError(e.getMessage());
 					e.printStackTrace();
-				} // Remove opponent pawn
+				} 
 			}
 		}
 
@@ -73,7 +75,7 @@ public class MoveFromTrackToTrackAction extends Action
 			fromSquare.removePawn(color);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}

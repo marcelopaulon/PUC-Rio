@@ -37,6 +37,7 @@ public class MainMenu extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{
+			Notifications.notifyGameStart();
 			gameControl.startGame();
 		}
 	};
@@ -87,8 +88,7 @@ public class MainMenu extends JPanel
 				}
 			} catch (Exception exception)
 			{
-				JOptionPane.showMessageDialog(MainMenu.this, "Erro ao carregar o jogo.", "Erro",
-						JOptionPane.WARNING_MESSAGE);
+				Notifications.notifyGameLoadingError();
 			}
 		}
 	};

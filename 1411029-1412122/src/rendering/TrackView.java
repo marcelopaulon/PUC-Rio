@@ -8,6 +8,7 @@ import java.util.List;
 
 import boardInfo.Square;
 import boardInfo.Track;
+import game.Notifications;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
 import rendering.common.View;
@@ -186,7 +187,7 @@ public class TrackView extends View
 				}
 			} catch (Exception e)
 			{
-				// TODO Auto-generated catch block
+				Notifications.notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

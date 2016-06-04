@@ -5,6 +5,7 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Pocket;
 import boardInfo.Square;
+import game.Notifications;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
@@ -31,7 +32,7 @@ public class MoveFromTrackToPocketAction extends Action
 			fromSquare.removePawn(toPocket.getColor());
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 

@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import boardInfo.Lane;
+import game.Notifications;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
 import rendering.common.View;
@@ -210,7 +211,7 @@ public class LaneView extends View
 			instance.getHighlightList(laneColor).add(pawnPosition);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -222,7 +223,7 @@ public class LaneView extends View
 			getHighlightList(laneColor).clear();
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}

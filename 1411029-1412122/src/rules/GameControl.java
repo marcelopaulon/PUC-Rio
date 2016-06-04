@@ -1,9 +1,5 @@
 package rules;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map.Entry;
-
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;
@@ -27,7 +23,6 @@ import rendering.YardView;
 import utils.ConstantsEnum;
 import utils.ConstantsEnum.SquareType;
 import utils.Coordinate;
-import utils.Utils;
 
 public class GameControl
 {
@@ -53,7 +48,14 @@ public class GameControl
 			GamePanel.resetHighlights();
 
 			if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+			{
 				board.nextPlayer();
+			}
+			else if(Dice.getCurValue() == 6)
+			{
+				Notifications.notify6RepeatMove();
+			}
+			
 			setPlayerDice();
 		}
 
@@ -75,12 +77,20 @@ public class GameControl
 			// seus peões.
 			if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 			{
+				Notifications.notifyCaptureBonus();
 				setPlayer20Moves(board.getCurrentPlayer());
 			}
 			else
 			{
 				if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+				{
 					board.nextPlayer();
+				}
+				else if(Dice.getCurValue() == 6)
+				{
+					Notifications.notify6RepeatMove();
+				}
+				
 				setPlayerDice();
 			}
 
@@ -102,66 +112,21 @@ public class GameControl
 			System.out.println("Test - track to lane action listener executed");
 
 			if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+			{
 				board.nextPlayer();
+			}
+			else if(Dice.getCurValue() == 6)
+			{
+				Notifications.notify6RepeatMove();
+			}
+			
 			setPlayerDice();
 
 			GamePanel.requestRedraw();
 		}
 
 	};
-
-	private String getPlayerName(PlayerColor color)
-	{
-		String player = null;
-
-		if (color == PlayerColor.GREEN)
-			player = "verde";
-		else if (color == PlayerColor.YELLOW)
-			player = "amarelo";
-		else if (color == PlayerColor.BLUE)
-			player = "azul";
-		else if (color == PlayerColor.RED)
-			player = "vermelho";
-		else
-		{
-			try
-			{
-				throw new Exception("Erro - jogador inválido");
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return player;
-	}
-
-	private String[] getPlayerPositions()
-	{
-		String[] positions = new String[4];
-		PlayerColor winner = board.getCurrentPlayer();
-		positions[0] = getPlayerName(winner);
-
-		Hashtable<PlayerColor, Integer> distances = new Hashtable<PlayerColor, Integer>();
-
-		for (int i = 1; i <= 4; i++)
-		{
-			if (i == winner.asInt())
-				continue;
-			distances.put(PlayerColor.get(i), board.getDistanceToPocketSum(PlayerColor.get(i)));
-		}
-
-		ArrayList<Entry<?, Integer>> orderedPlayers = Utils.sortHashtableByIntegerValue(distances);
-
-		for (int i = 1; i <= 3; i++)
-		{
-			positions[i] = getPlayerName((PlayerColor) orderedPlayers.get(i - 1).getKey());
-		}
-
-		return positions;
-	}
-
+	
 	private ActionListener moveToPocketActionListener = new ActionListener() {
 
 		@Override
@@ -176,7 +141,7 @@ public class GameControl
 
 			if (MovementRules.gameFinished(board.getPocket(board.getCurrentPlayer())))
 			{
-				String[] positions = getPlayerPositions();
+				String[] positions = BoardPositions.getPlayerPositions(board);
 				Notifications.notifyGameEnd(positions);
 			}
 			else
@@ -185,12 +150,20 @@ public class GameControl
 				// casas com algum de seus outros peões.
 				if (hasMove(10, board.getCurrentPlayer()))
 				{
+					Notifications.notifyExitBonus();
 					setPlayer10Moves(board.getCurrentPlayer());
 				}
 				else
 				{
 					if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+					{
 						board.nextPlayer();
+					}
+					else if(Dice.getCurValue() == 6)
+					{
+						Notifications.notify6RepeatMove();
+					}
+					
 					setPlayerDice();
 				}
 			}
@@ -224,7 +197,8 @@ public class GameControl
 			{
 				if (hasMove(diceValue, currentPlayer))
 				{
-					moveLastMovedPawnToInitialSquare();
+					Notifications.notify3Consecutive6Penalty();
+					removeLastMovedPawn();
 				}
 
 				board.nextPlayer();
@@ -240,7 +214,14 @@ public class GameControl
 			else
 			{
 				if (diceValue != 6)
+				{
 					board.nextPlayer();
+				}
+				else
+				{
+					Notifications.notify6RepeatMove();
+				}
+				
 				setPlayerDice();
 			}
 
@@ -248,7 +229,7 @@ public class GameControl
 		}
 	};
 
-	private void moveLastMovedPawnToInitialSquare()
+	private void removeLastMovedPawn()
 	{
 		if (lastMovedPawnDestinationType == SquareType.TRACKSQUARE)
 		{
@@ -260,12 +241,11 @@ public class GameControl
 				track.removePawn(lastMovedPawnPosition, currentPlayer);
 			} catch (Exception e)
 			{
-				// TODO Auto-generated catch block
+				Notifications.notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 
-			track.addPawn(BoardPositions.getInitialSquarePosition(currentPlayer), currentPlayer);
-
+			board.getYard(currentPlayer).addPawn();
 		}
 	}
 
@@ -371,7 +351,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -395,7 +375,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -419,7 +399,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -444,7 +424,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -488,7 +468,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -568,7 +548,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(x - 1, y + 1, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -589,7 +569,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}

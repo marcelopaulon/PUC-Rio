@@ -47,14 +47,15 @@ public class Program
 		createMainMenu(board);
 		createGamePanel(board);
 
-		gameControl.startGame();
-
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setSize(defaultDimension);
 		window.setVisible(true);
+		
+		Notifications.notifyGameStart();
+		gameControl.startGame();
 	}
 
 	public static void main(String[] arndt)

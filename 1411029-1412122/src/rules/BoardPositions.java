@@ -1,6 +1,13 @@
 package rules;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map.Entry;
+
+import boardInfo.Board;
+import game.Notifications;
 import playerInfo.PlayerColor;
+import utils.Utils;
 
 public class BoardPositions
 {
@@ -17,7 +24,7 @@ public class BoardPositions
 			case YELLOW:
 				return 20;
 			default:
-				// TODO: Exception?
+				Notifications.notifyError("getPositionOfLastSquareOfPlayer -> invalid color");
 				return -1;
 		}
 	}
@@ -36,7 +43,7 @@ public class BoardPositions
 				return 22;
 		}
 
-		// TODO: Exception?
+		Notifications.notifyError("getInitialSquarePosition -> invalid color");
 		return -1;
 	}
 
@@ -87,5 +94,30 @@ public class BoardPositions
 		}
 
 		return null;
+	}
+	
+	public static String[] getPlayerPositions(Board board)
+	{
+		String[] positions = new String[4];
+		PlayerColor winner = board.getCurrentPlayer();
+		positions[0] = PlayerColor.getPlayerName(winner);
+
+		Hashtable<PlayerColor, Integer> distances = new Hashtable<PlayerColor, Integer>();
+
+		for (int i = 1; i <= 4; i++)
+		{
+			if (i == winner.asInt())
+				continue;
+			distances.put(PlayerColor.get(i), board.getDistanceToPocketSum(PlayerColor.get(i)));
+		}
+
+		ArrayList<Entry<?, Integer>> orderedPlayers = Utils.sortHashtableByIntegerValue(distances);
+
+		for (int i = 1; i <= 3; i++)
+		{
+			positions[i] = PlayerColor.getPlayerName((PlayerColor) orderedPlayers.get(i - 1).getKey());
+		}
+
+		return positions;
 	}
 }

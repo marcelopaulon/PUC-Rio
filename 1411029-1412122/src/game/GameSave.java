@@ -29,7 +29,7 @@ public class GameSave
 			saveFile = Cryptography.decrypt(scannerFile.nextLine()).split("\n");
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 
 			return null;
@@ -204,7 +204,7 @@ public class GameSave
 			fileOut.write(Cryptography.encrypt(saveString.toString()));
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
+			Notifications.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 
