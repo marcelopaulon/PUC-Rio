@@ -180,7 +180,7 @@ public class GameControl {
 		
 		String[] positions = getPlayerPositions();
 		
-		String message = "O jogador " + positions[0] + " venceu esta partida.\n2ï¿½ lugar: " + positions[1] + "\n3ï¿½ lugar: " + positions[2] + "\n4ï¿½ lugar: " + positions[3] + "\nObrigado por ludar.";
+		String message = "O jogador " + positions[0] + " venceu esta partida.\n2º lugar: " + positions[1] + "\n3º lugar: " + positions[2] + "\n4º lugar: " + positions[3] + "\nObrigado por ludar.";
 		
 		JOptionPane.showMessageDialog(GamePanel.getInstance(), message, "Fim de jogo",
 				JOptionPane.WARNING_MESSAGE);
@@ -204,8 +204,15 @@ public class GameControl {
 			}
 			else
 			{
-				if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
-				setPlayerDice();
+				if(hasMove(10, board.getCurrentPlayer())) // O jogador que chegar com um peão à sua casa final poderá avançará 10 casas com algum de seus outros peões.
+				{
+					setPlayer10Moves(board.getCurrentPlayer());
+				}
+				else
+				{
+					if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
+					setPlayerDice();
+				}
 			}
 			
 			GamePanel.requestRedraw();
@@ -231,13 +238,19 @@ public class GameControl {
 			}
 			else
 			{
-				if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
-				setPlayerDice();
+				if(hasMove(10, board.getCurrentPlayer())) // O jogador que chegar com um peão à sua casa final poderá avançará 10 casas com algum de seus outros peões.
+				{
+					setPlayer10Moves(board.getCurrentPlayer());
+				}
+				else
+				{
+					if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
+					setPlayerDice();
+				}
 			}
 			
 			GamePanel.requestRedraw();
 		}
-		
 	};
 	
 	private ActionListener diceActionListener = new ActionListener()
@@ -297,6 +310,35 @@ public class GameControl {
 			
 			track.addPawn(BoardPositions.getInitialSquarePosition(currentPlayer), currentPlayer);
 			
+		}
+	}
+	
+	private void setPlayer10Moves(PlayerColor currentPlayer) {
+		System.out.println("----------------- SET 10 MOVES ---------------------------");
+		
+		for(int position = 1; position <= 52; position++)
+		{
+			Square origin = board.getTrack().getSquareAt(position);
+			if(origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
+			{
+				if(canMoveInsideTrack(10, currentPlayer, position))
+				{
+					System.out.println("CAN MOVE INSIDE TRACK");
+					setPlayerTrackToTrackMoves(10, currentPlayer, position);
+				}
+				
+				if(canMoveFromTrackToLane(10, currentPlayer, position))
+				{
+					System.out.println("CAN MOVE FROM TRACK TO LANE");
+					setPlayerTrackToLaneMoves(10, currentPlayer, position);
+				}
+				
+				if(canMoveFromTrackToPocket(10, currentPlayer, position))
+				{
+					System.out.println("CAN MOVE FROM TRACK TO POCKET");
+					setPlayerTrackToPocketMoves(currentPlayer, position);
+				}
+			}
 		}
 	}
 	
