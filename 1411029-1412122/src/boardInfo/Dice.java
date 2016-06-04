@@ -11,7 +11,7 @@ public class Dice {
 	
 	public static int rollDice()
 	{
-		curValue = 6;//randomNumberGenerator.nextInt(6) + 1;
+		curValue = randomNumberGenerator.nextInt(6) + 1;
 		if(curValue == 6) consecutive6++;
 		return curValue;
 	}
