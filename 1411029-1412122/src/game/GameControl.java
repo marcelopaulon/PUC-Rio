@@ -90,7 +90,7 @@ public class GameControl {
 
 	};
 	
-	private ActionListener moveFromTrackToLaneActionListener = new ActionListener()
+	private ActionListener moveToLaneActionListener = new ActionListener()
 	{
 
 		@Override
@@ -101,26 +101,6 @@ public class GameControl {
 			resetHighlights();
 			
 			System.out.println("Test - track to lane action listener executed");
-			
-			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
-			setPlayerDice();
-			
-			GamePanel.requestRedraw();
-		}
-
-	};
-	
-	private ActionListener moveFromLaneToLaneActionListener = new ActionListener()
-	{
-
-		@Override
-		public void onActionExecuted(boolean capturedPawn) {
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-			
-			resetHighlights();
-			
-			System.out.println("Test - lane to lane action listener executed");
 			
 			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
@@ -193,7 +173,7 @@ public class GameControl {
 				JOptionPane.WARNING_MESSAGE);
 	}
 	
-	private ActionListener moveFromLaneToPocketActionListener = new ActionListener()
+	private ActionListener moveToPocketActionListener = new ActionListener()
 	{
 
 		@Override
@@ -203,7 +183,7 @@ public class GameControl {
 			
 			resetHighlights();
 			
-			System.out.println("Test - lane to pocket action listener executed");
+			System.out.println("Test - to pocket action listener executed");
 			
 			if(gameFinished())
 			{
@@ -226,40 +206,7 @@ public class GameControl {
 		}
 
 	};
-	
-	private ActionListener moveFromTrackToPocketActionListener = new ActionListener()
-	{
-
-		@Override
-		public void onActionExecuted(boolean capturedPawn) {
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-			
-			resetHighlights();
-			
-			System.out.println("Test - track to pocket action listener executed");
-			
-			if(gameFinished())
-			{
-				notifyGameEnd();
-			}
-			else
-			{
-				if(hasMove(10, board.getCurrentPlayer())) // O jogador que chegar com um peão à sua casa final poderá avançará 10 casas com algum de seus outros peões.
-				{
-					setPlayer10Moves(board.getCurrentPlayer());
-				}
-				else
-				{
-					if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
-					setPlayerDice();
-				}
-			}
-			
-			GamePanel.requestRedraw();
-		}
-	};
-	
+		
 	private ActionListener diceActionListener = new ActionListener()
 	{
 
@@ -322,17 +269,16 @@ public class GameControl {
 	
 	private void setPlayer20Moves(PlayerColor currentPlayer) {
 		System.out.println("----------------- SET 20 BONUS MOVES ---------------------------");
-		
-		setBonusMoves(currentPlayer, 20);
+		setTrackMoves(currentPlayer, 20);
 	}
 	
 	private void setPlayer10Moves(PlayerColor currentPlayer) {
 		System.out.println("----------------- SET 10 BONUS MOVES ---------------------------");
-		
-		setBonusMoves(currentPlayer, 10);
+		setTrackMoves(currentPlayer, 10);
 	}
 	
-	private void setBonusMoves(PlayerColor currentPlayer, int steps) {
+	private void setTrackMoves(PlayerColor currentPlayer, int steps)
+	{
 		for(int position = 1; position <= 52; position++)
 		{
 			Square origin = board.getTrack().getSquareAt(position);
@@ -358,44 +304,8 @@ public class GameControl {
 			}
 		}
 	}
-
-	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
-	{
-		System.out.println("----------------- SET ---------------------------");
-		
-		if(diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3) diceValue = 7; //Se um jogador obtiver um 6 após lançar o dado, avançar sete casas caso não tenha mais peões para retirar de sua casa inicial.
-				
-		if(canMoveFromYardToTrack(diceValue, currentPlayer))
-		{
-			System.out.println("CAN MOVE FROM YARD TO TRACK");
-			setPlayerYardToTrackMoves();
-		}
-		
-		for(int position = 1; position <= 52; position++)
-		{
-			Square origin = board.getTrack().getSquareAt(position);
-			if(origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
-			{
-				if(canMoveInsideTrack(diceValue, currentPlayer, position))
-				{
-					System.out.println("CAN MOVE INSIDE TRACK");
-					setPlayerTrackToTrackMoves(diceValue, currentPlayer, position);
-				}
-				
-				if(canMoveFromTrackToLane(diceValue, currentPlayer, position))
-				{
-					System.out.println("CAN MOVE FROM TRACK TO LANE");
-					setPlayerTrackToLaneMoves(diceValue, currentPlayer, position);
-				}
-				
-				if(canMoveFromTrackToPocket(diceValue, currentPlayer, position))
-				{
-					System.out.println("CAN MOVE FROM TRACK TO POCKET");
-					setPlayerTrackToPocketMoves(currentPlayer, position);
-				}
-			}
-		}
-		
+	
+	private void setLaneMoves(PlayerColor currentPlayer, int diceValue) {
 		for(int position = 1; position <= 5; position++)
 		{
 			if(board.getLane(currentPlayer).getSquareAt(position).getPawnCount() > 0)
@@ -413,6 +323,23 @@ public class GameControl {
 				}
 			}
 		}
+	}
+
+	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
+	{
+		System.out.println("----------------- SET ---------------------------");
+		
+		if(diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3) diceValue = 7; //Se um jogador obtiver um 6 após lançar o dado, avançar sete casas caso não tenha mais peões para retirar de sua casa inicial.
+				
+		if(canMoveFromYardToTrack(diceValue, currentPlayer))
+		{
+			System.out.println("CAN MOVE FROM YARD TO TRACK");
+			setPlayerYardToTrackMoves();
+		}
+		
+		setTrackMoves(currentPlayer, diceValue);
+		
+		setLaneMoves(currentPlayer, diceValue);
 		
 	}
 	
@@ -422,7 +349,7 @@ public class GameControl {
 		MoveFromLaneToPocketAction action;
 		
 		try {
-			action = new MoveFromLaneToPocketAction(board.getLane(currentPlayer), pawnPosition, board.getPocket(currentPlayer), moveFromLaneToPocketActionListener);
+			action = new MoveFromLaneToPocketAction(board.getLane(currentPlayer), pawnPosition, board.getPocket(currentPlayer), moveToPocketActionListener);
 
 			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
@@ -442,7 +369,7 @@ public class GameControl {
 		
 		try {
 			int lanePosition = pawnPosition + diceValue;
-			action = new MoveFromLaneToLaneAction(board.getLane(currentPlayer), pawnPosition, lanePosition, moveFromLaneToLaneActionListener);
+			action = new MoveFromLaneToLaneAction(board.getLane(currentPlayer), pawnPosition, lanePosition, moveToLaneActionListener);
 
 			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
@@ -462,7 +389,7 @@ public class GameControl {
 		MoveFromTrackToPocketAction action;
 		
 		try {
-			action = new MoveFromTrackToPocketAction(origin, board.getPocket(currentPlayer), moveFromTrackToPocketActionListener);
+			action = new MoveFromTrackToPocketAction(origin, board.getPocket(currentPlayer), moveToPocketActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
@@ -483,7 +410,7 @@ public class GameControl {
 		
 		try {
 			int lanePosition = pawnPosition + diceValue - BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
-			action = new MoveFromTrackToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveFromTrackToLaneActionListener);
+			action = new MoveFromTrackToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveToLaneActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
