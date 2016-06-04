@@ -18,6 +18,11 @@ public abstract class SquareList
 
 	public Square getSquareAt(int position)
 	{
+		if(position > squareList.length) 
+		{
+			return null;
+		}
+		
 		return squareList[position - 1];
 	}
 

@@ -25,7 +25,7 @@ public class MovementRules
 		if (pawnPosition + diceValue < 6)
 		{
 			Square destination = lane.getSquareAt(pawnPosition + diceValue);
-			if (destination.getPawnCount() < 2)
+			if (destination != null && destination.getPawnCount() < 2)
 				return true;
 		}
 
@@ -53,7 +53,7 @@ public class MovementRules
 					return false; // destination é o pocket.
 				}
 
-				if (destination.getPawnCount() < 2)
+				if (destination != null && destination.getPawnCount() < 2)
 					return true;
 				else
 					return false;
@@ -97,7 +97,7 @@ public class MovementRules
 				return false;
 		}
 
-		if (destination.getPawnCount() < 2)
+		if (destination != null && destination.getPawnCount() < 2)
 			return true;
 
 		return false;
