@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ import boardInfo.Track;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;
 import utils.Cryptography;
+import utils.ConstantsEnum.Action;
 
 public class GameSave
 {
@@ -27,7 +29,24 @@ public class GameSave
 
 		try
 		{
-			saveFile = Cryptography.decrypt(scannerFile.nextLine()).split("\n");
+			String line = scannerFile.nextLine();
+			if(!scannerFile.hasNextLine())
+			{
+				saveFile = Cryptography.decrypt(line).split("\n");
+			}
+			else
+			{
+				List<String> save = new LinkedList<String>();
+				save.add(line);
+				
+				while(scannerFile.hasNext())
+				{
+					line = scannerFile.nextLine();
+					save.add(line);
+				}
+				
+				saveFile = save.toArray(new String[0]);
+			}
 		} catch (Exception e)
 		{
 			Notifications.notifyError(e.getMessage());
@@ -43,6 +62,7 @@ public class GameSave
 		int line = 0;
 
 		PlayerColor currentPlayer;
+		Action currentAction;
 		int currentDice, consecutive6;
 		Track track = new Track();
 		Yard[] yards = new Yard[4];
@@ -59,6 +79,13 @@ public class GameSave
 
 		currentPlayer = PlayerColor.get(Integer.valueOf(parser));
 
+		// Reading Current Action
+		line++;
+		parser = saveFile[line];
+		parser = parser.substring(10);
+			
+		currentAction = Action.SELECTPAWN; // Action.valueOf(parser);
+		
 		// Reading Current Dice
 		line++;
 		parser = saveFile[line];
@@ -156,14 +183,15 @@ public class GameSave
 
 		Dice.setCurValue(currentDice);
 		Dice.setConsecutive6(consecutive6);
-		return new Board(track, lanes, yards, pockets, currentPlayer);
+		return new Board(track, lanes, yards, pockets, currentPlayer, currentAction);
 	}
 
-	public static void saveToFile(Board board, File file) throws IOException
+	public static void saveToFile(Board board, File file, boolean shouldEncryptSave) throws IOException
 	{
 		StringBuilder saveString = new StringBuilder();
 
 		saveString.append("CURPLAYER=" + board.getCurrentPlayer().asInt());
+		saveString.append("\nCURACTION=" + board.getCurrentAction()); //TODO: Implement asInt()?
 		saveString.append("\nCURDICE=" + Dice.getCurValue());
 		saveString.append("\nCONSECUTIVE6=" + Dice.getConsecutive6());
 
@@ -211,7 +239,14 @@ public class GameSave
 
 		try
 		{
-			fileOut.write(Cryptography.encrypt(saveString.toString()));
+			if(shouldEncryptSave)
+			{
+				fileOut.write(Cryptography.encrypt(saveString.toString()));
+			}
+			else
+			{
+				fileOut.write(saveString.toString());
+			}
 		} catch (Exception e)
 		{
 			Notifications.notifyError(e.getMessage());

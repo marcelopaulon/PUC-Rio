@@ -21,6 +21,7 @@ import rendering.LaneView;
 import rendering.TrackView;
 import rendering.YardView;
 import utils.ConstantsEnum;
+import utils.ConstantsEnum.Action;
 import utils.ConstantsEnum.SquareType;
 import utils.Coordinate;
 
@@ -28,7 +29,7 @@ public class GameControl
 {
 
 	private Board board;
-
+	
 	public static int lastMovedPawnPosition;
 	public static SquareType lastMovedPawnDestinationType;
 
@@ -187,6 +188,7 @@ public class GameControl
 
 			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
+			board.setCurrentAction(Action.SELECTPAWN); //Dado já foi rolado
 
 			// Se obtiver um 6 pela terceira vez consecutiva, o último de seus
 			// peões que foi movimentado voltará para a casa inicial. No caso do
@@ -225,6 +227,7 @@ public class GameControl
 				setPlayerDice();
 			}
 
+			board.setCurrentAction(Action.ROLLDICE);
 			GamePanel.requestRedraw();
 		}
 	};

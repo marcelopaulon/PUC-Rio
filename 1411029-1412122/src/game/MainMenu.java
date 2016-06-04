@@ -26,7 +26,7 @@ public class MainMenu extends JPanel
 	private static final long serialVersionUID = 3921775669569750261L;
 
 	private GameControl gameControl;
-
+	
 	public MainMenu(GameControl gameControl)
 	{
 		this();
@@ -113,7 +113,7 @@ public class MainMenu extends JPanel
 					{
 						File f = getSelectedFile();
 						if (f.exists() && getDialogType() == SAVE_DIALOG)
-						{
+						{							
 							int result = JOptionPane.showConfirmDialog(this,
 									"O arquivo já existe. Deseja sobrescrevê-lo?", "Arquivo já existe",
 									JOptionPane.YES_NO_CANCEL_OPTION);
@@ -135,6 +135,7 @@ public class MainMenu extends JPanel
 						super.approveSelection();
 					}
 				};
+				
 				chooser.setCurrentDirectory(new File("./saves"));
 				chooser.setFileFilter(new FileNameExtensionFilter(".ludosave", "ludosave"));
 				int retorno = chooser.showSaveDialog(null);
@@ -158,9 +159,22 @@ public class MainMenu extends JPanel
 					try
 					{
 						Board board = gameControl.getLoadedBoard();
-						GameSave.saveToFile(board, file);
+						
+						int result = JOptionPane.showConfirmDialog(chooser,
+								"Deseja criptografar o jogo salvo?", "Criptografia",
+								JOptionPane.YES_NO_OPTION);
+						
+						boolean shouldEncryptSave = false;
+						
+						if(result == JOptionPane.YES_OPTION)
+						{
+							shouldEncryptSave = true;
+						}
+						
+						GameSave.saveToFile(board, file, shouldEncryptSave);
 					} catch (IOException ex)
 					{
+						Notifications.notifyError(ex.getMessage());
 						ex.printStackTrace();
 					}
 				}

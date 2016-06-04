@@ -2,6 +2,7 @@ package boardInfo;
 
 import playerInfo.PlayerColor;
 import rules.BoardPositions;
+import utils.ConstantsEnum.Action;
 
 public class Board
 {
@@ -18,19 +19,23 @@ public class Board
 	private Pocket[] pockets;
 
 	private PlayerColor currentPlayer;
+	
+	// Current action/phase of the current turn
+	private Action currentAction;
 
 	public Board()
 	{
 		resetBoard();
 	}
 
-	public Board(Track track, Lane[] lanes, Yard[] yards, Pocket[] pockets, PlayerColor currentPlayer)
+	public Board(Track track, Lane[] lanes, Yard[] yards, Pocket[] pockets, PlayerColor currentPlayer, Action currentAction)
 	{
 		this.track = track;
 		this.lanes = lanes;
 		this.yards = yards;
 		this.pockets = pockets;
 		this.currentPlayer = currentPlayer;
+		this.currentAction = currentAction;
 	}
 
 	public void resetBoard()
@@ -141,4 +146,13 @@ public class Board
 
 		return distance;
 	}
+	
+	public Action getCurrentAction() {
+		return currentAction;
+	}
+
+	public void setCurrentAction(Action currentAction) {
+		this.currentAction = currentAction;
+	}
+	
 }
