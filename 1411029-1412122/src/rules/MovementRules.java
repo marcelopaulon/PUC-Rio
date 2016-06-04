@@ -33,7 +33,7 @@ public class MovementRules {
 		
 		for(int j = 0; j < diceValue; j++)
 		{
-			if(pawnPosition + j == lastSquareOfCurrentPlayer) //Se ele chega na última casa com um nï¿½mero inferior ao tirado do dado, ele entra na lane.
+			if(pawnPosition + j == lastSquareOfCurrentPlayer) //Se ele chega na última casa com um número inferior ao tirado do dado, ele entra na lane.
 			{ 
 				Square destination;
 				
