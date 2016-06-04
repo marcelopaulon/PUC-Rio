@@ -23,7 +23,7 @@ public class Barriers
 		return false;
 	}
 
-	public static boolean currentPlayerHasBarrierAt(Track track, PlayerColor currentPlayer, int position)
+	public static boolean currentPlayerHasBarrierAtTrack(Track track, PlayerColor currentPlayer, int position)
 	{
 		if (BoardPositions.isShelterPosition(position))
 		{
@@ -37,6 +37,19 @@ public class Barriers
 			return true;
 		}
 
+		return false;
+	}
+	
+	public static boolean currentPlayerHasBarrier(Track track, PlayerColor currentPlayer)
+	{
+		for(int position = 1; position <= 52; position++)
+		{
+			if(currentPlayerHasBarrierAtTrack(track, currentPlayer, position))
+			{
+				return true;
+			}
+		}
+		
 		return false;
 	}
 }

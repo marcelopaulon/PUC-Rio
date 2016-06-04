@@ -102,6 +102,21 @@ public class MovementRules
 
 		return false;
 	}
+	
+	public static boolean canMovePawnFromBarrier(Track track, int diceValue, PlayerColor currentPlayer) {
+		for(int position = 1; position <= 52; position++)
+		{
+			if(Barriers.currentPlayerHasBarrierAtTrack(track, currentPlayer, position))
+			{
+				if (MovementRules.canMoveInsideTrack(track, diceValue, currentPlayer, position))
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 
 	public static boolean canMoveFromYardToTrack(Yard yard, int diceValue, PlayerColor currentPlayer)
 	{

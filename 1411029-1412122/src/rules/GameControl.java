@@ -1,5 +1,8 @@
 package rules;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;
@@ -327,19 +330,42 @@ public class GameControl
 			Notifications.notify6Becomes7Bonus();
 			diceValue = 7;
 		}
-
-		if (MovementRules.canMoveFromYardToTrack(board.getYard(currentPlayer), diceValue, currentPlayer))
+		
+		if((diceValue == 6 || diceValue == 7)
+				&& Barriers.currentPlayerHasBarrier(board.getTrack(), currentPlayer)
+				&& MovementRules.canMovePawnFromBarrier(board.getTrack(), diceValue, currentPlayer))
 		{
-			System.out.println("CAN MOVE FROM YARD TO TRACK");
-			setPlayerYardToTrackMoves();
+			setMovePawnFromBarrierMoves(currentPlayer, diceValue);
 		}
-
-		setTrackMoves(currentPlayer, diceValue);
-
-		setLaneMoves(currentPlayer, diceValue);
-
+		else
+		{
+			if (MovementRules.canMoveFromYardToTrack(board.getYard(currentPlayer), diceValue, currentPlayer))
+			{
+				System.out.println("CAN MOVE FROM YARD TO TRACK");
+				setPlayerYardToTrackMoves();
+			}
+	
+			setTrackMoves(currentPlayer, diceValue);
+	
+			setLaneMoves(currentPlayer, diceValue);
+		}
 	}
 
+	private void setMovePawnFromBarrierMoves(PlayerColor currentPlayer, int diceValue) {
+		for (int position = 1; position <= 52; position++)
+		{
+			Square origin = board.getTrack().getSquareAt(position);
+			if (origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
+			{
+				if (Barriers.currentPlayerHasBarrierAtTrack(board.getTrack(), currentPlayer, position))
+				{
+					System.out.println("CAN OPEN BARRIER");
+					setPlayerTrackToTrackMoves(diceValue, currentPlayer, position);
+				}
+			}
+		}
+	}
+	
 	private void setPlayerLaneToPocketMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition)
 	{
 		LaneView.setSquareHighlight(currentPlayer, pawnPosition);
@@ -364,7 +390,6 @@ public class GameControl
 
 	private void setPlayerLaneToLaneMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition)
 	{
-
 		LaneView.setSquareHighlight(currentPlayer, pawnPosition);
 
 		MoveFromLaneToLaneAction action;
