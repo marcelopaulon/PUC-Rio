@@ -324,6 +324,7 @@ public class GameControl
 		// caso não tenha mais peões para retirar de sua casa inicial.
 		if (diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3)
 		{
+			Notifications.notify6Becomes7Bonus();
 			diceValue = 7;
 		}
 

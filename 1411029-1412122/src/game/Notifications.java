@@ -41,22 +41,26 @@ public class Notifications
 
 	public static void notifyCaptureBonus()
 	{
-		notifyInfo("Avance 20 casas", "Você capturou uma peça de outro jogador. Avance 20 casas com qualquer um de seus peões.");
+		notifyInfo("BÔNUS! :)", "Você capturou uma peça de outro jogador. Avance 20 casas com qualquer um de seus peões.");
 	}
 	
 	public static void notifyExitBonus()
 	{
-		notifyInfo("Avance 10 casas", "Você chegou a casa de destino. Avance 10 casas com qualquer um de seus peões.");
+		notifyInfo("BÔNUS! :)", "Você chegou a casa de destino. Avance 10 casas com qualquer um de seus peões.");
 	}
 	
 	public static void notify3Consecutive6Penalty()
 	{
-		notifyInfo("Volte para a casa inicial", "Você tirou 3 dados 6 consecutivos. Volte com o último peão movido para a casa inicial.");
+		notifyInfo("AZAR... :(", "Você tirou 3 dados 6 consecutivos. Volte com o último peão movido para a casa inicial.");
 	}
 
 	public static void notify6RepeatMove()
 	{
-		notifyInfo("Continue jogando", "Você tirou um dado 6. Lance o dado novamente.");
+		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Lance o dado novamente.");
+	}
+
+	public static void notify6Becomes7Bonus() {
+		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Como não há mais peças na sua casa inicial, você ganha um movimento extra!");
 	}
 
 }
