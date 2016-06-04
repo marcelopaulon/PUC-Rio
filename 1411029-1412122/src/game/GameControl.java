@@ -18,14 +18,19 @@ import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Dice;
 import boardInfo.Square;
+import boardInfo.Track;
 import playerInfo.PlayerColor;
 import utils.ConstantsEnum;
+import utils.ConstantsEnum.SquareType;
 import utils.Coordinate;
 import utils.Utils;
 
 public class GameControl {
 
 	private Board board;
+	
+	public static int lastMovedPawnPosition;
+	public static SquareType lastMovedPawnDestinationType; 
 		
 	public GameControl(Board board)
 	{
@@ -52,6 +57,7 @@ public class GameControl {
 			
 			resetHighlights();
 			
+			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
 		}
 
@@ -69,7 +75,7 @@ public class GameControl {
 			
 			System.out.println("Test - track to track action listener executed");
 			
-			if(Dice.getCurValue() != 6) board.nextPlayer();
+			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -89,7 +95,7 @@ public class GameControl {
 			
 			System.out.println("Test - track to lane action listener executed");
 			
-			if(Dice.getCurValue() != 6) board.nextPlayer();
+			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -109,7 +115,7 @@ public class GameControl {
 			
 			System.out.println("Test - lane to lane action listener executed");
 			
-			if(Dice.getCurValue() != 6) board.nextPlayer();
+			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
 			
 			GamePanel.requestRedraw();
@@ -198,7 +204,7 @@ public class GameControl {
 			}
 			else
 			{
-				if(Dice.getCurValue() != 6) board.nextPlayer();
+				if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 				setPlayerDice();
 			}
 			
@@ -225,7 +231,7 @@ public class GameControl {
 			}
 			else
 			{
-				if(Dice.getCurValue() != 6) board.nextPlayer();
+				if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 				setPlayerDice();
 			}
 			
@@ -249,6 +255,18 @@ public class GameControl {
 			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
 			
+			if(diceValue == 6 && Dice.getConsecutive6() == 3) // Se obtiver um 6 pela terceira vez consecutiva, o último de seus peões que foi movimentado voltará para a casa inicial. No caso do último peão movimentado já ter chegado até uma das casas da reta final, ele permanecerá em sua posição, não retornado à casa inicial.
+			{
+				if(hasMove(diceValue, currentPlayer))
+				{
+					moveLastMovedPawnToInitialSquare();
+				}
+				
+				board.nextPlayer();
+				setPlayerDice();
+				GamePanel.requestRedraw();
+				return;
+			}
 			
 			if(hasMove(diceValue, currentPlayer))
 			{
@@ -262,15 +280,32 @@ public class GameControl {
 			
 			GamePanel.requestRedraw();
 		}
-
 	};
+	
+	private void moveLastMovedPawnToInitialSquare() {
+		if(lastMovedPawnDestinationType == SquareType.TRACKSQUARE)
+		{
+			PlayerColor currentPlayer = board.getCurrentPlayer();
+			Track track = board.getTrack();
+			
+			try {
+				track.removePawn(lastMovedPawnPosition, currentPlayer);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			track.addPawn(BoardPositions.getInitialSquarePosition(currentPlayer), currentPlayer);
+			
+		}
+	}
 	
 	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
 	{
 		System.out.println("----------------- SET ---------------------------");
 		
-		if(diceValue == 6 && board.getYard(currentPlayer).getCount() == 0) diceValue = 7; //Se um jogador obtiver um 6 após lançar o dado, avançar sete casas caso não tenha mais peões para retirar de sua casa inicial.
-		
+		if(diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3) diceValue = 7; //Se um jogador obtiver um 6 após lançar o dado, avançar sete casas caso não tenha mais peões para retirar de sua casa inicial.
+				
 		if(canMoveFromYardToTrack(diceValue, currentPlayer))
 		{
 			System.out.println("CAN MOVE FROM YARD TO TRACK");
@@ -430,7 +465,7 @@ public class GameControl {
 				shouldRemoveOpponent = false;
 			}
 			
-			action = new MoveFromTrackToTrackAction(board, origin, destination, shouldRemoveOpponent, moveFromTrackToTrackActionListener);
+			action = new MoveFromTrackToTrackAction(board, origin, destination, destinationPos, shouldRemoveOpponent, moveFromTrackToTrackActionListener);
 
 			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);

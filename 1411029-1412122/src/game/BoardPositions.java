@@ -5,18 +5,34 @@ import playerInfo.PlayerColor;
 public class BoardPositions {
 	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer){
 		switch(currentPlayer){
-		case BLUE:
-			return 33;
-		case GREEN:
-			return 7;
-		case RED:
-			return 46;
-		case YELLOW:
-			return 20;
-		default:
-			//TODO: Exception?
-			return -1;
+			case BLUE:
+				return 33;
+			case GREEN:
+				return 7;
+			case RED:
+				return 46;
+			case YELLOW:
+				return 20;
+			default:
+				//TODO: Exception?
+				return -1;
+			}
+	}
+	
+	public static int getInitialSquarePosition(PlayerColor color){
+		switch(color){
+			case BLUE:
+				return 35;
+			case GREEN:
+				return 9;
+			case RED:
+				return 48;
+			case YELLOW:
+				return 22;
 		}
+		
+		//TODO: Exception?
+		return -1;
 	}
 	
 	public static PlayerColor isInitialSquarePosition(int position){

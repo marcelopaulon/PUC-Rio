@@ -7,10 +7,23 @@ public class Dice {
 	
 	private static int curValue = 1;
 	
+	private static int consecutive6 = 0;
+	
 	public static int rollDice()
 	{
-		curValue = randomNumberGenerator.nextInt(6) + 1;
+		curValue = 6;//randomNumberGenerator.nextInt(6) + 1;
+		if(curValue == 6) consecutive6++;
 		return curValue;
+	}
+	
+	public static int getConsecutive6()
+	{
+		return consecutive6;
+	}
+	
+	public static void resetConsecutive6()
+	{
+		consecutive6 = 0;
 	}
 	
 	public static int getCurValue()

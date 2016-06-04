@@ -4,8 +4,11 @@ import actions.common.Action;
 import actions.common.ActionListener;
 import boardInfo.Board;
 import boardInfo.Yard;
+import game.BoardPositions;
+import game.GameControl;
 import game.GamePanel;
 import playerInfo.PlayerColor;
+import utils.ConstantsEnum.SquareType;
 
 public class MoveFromYardToTrackAction extends Action {
 
@@ -24,27 +27,13 @@ public class MoveFromYardToTrackAction extends Action {
 		
 		yard.removePawn();
 		
-		int position = -1;
-		
-		if(color == PlayerColor.GREEN) 
-		{
-			position = 9;
-		}
-		else if(color == PlayerColor.YELLOW) 
-		{
-			position = 22;
-		}
-		else if(color == PlayerColor.BLUE) 
-		{
-			position = 35;
-		}
-		else if(color == PlayerColor.RED) 
-		{
-			position = 48;
-		}
+		int position = BoardPositions.getInitialSquarePosition(color);
 		
 		board.getTrack().addPawn(position, color);
-				
+		
+		GameControl.lastMovedPawnPosition = position;
+		GameControl.lastMovedPawnDestinationType = SquareType.TRACKSQUARE;
+		
 		GamePanel.requestRedraw();
 	}
 

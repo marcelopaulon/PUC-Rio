@@ -4,6 +4,8 @@ import actions.common.Action;
 import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
+import game.GameControl;
+import utils.ConstantsEnum.SquareType;
 
 public class MoveFromLaneToLaneAction extends Action
 {
@@ -31,5 +33,8 @@ public class MoveFromLaneToLaneAction extends Action
 		}
 		
 		lane.addPawn(toLanePosition);
+		
+		GameControl.lastMovedPawnPosition = toLanePosition;
+		GameControl.lastMovedPawnDestinationType = SquareType.LANESQUARE;
 	}
 }

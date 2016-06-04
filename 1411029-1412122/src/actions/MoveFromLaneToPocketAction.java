@@ -5,6 +5,8 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
 import boardInfo.Pocket;
+import game.GameControl;
+import utils.ConstantsEnum.SquareType;
 
 public class MoveFromLaneToPocketAction extends Action {
 
@@ -32,6 +34,9 @@ public class MoveFromLaneToPocketAction extends Action {
 		}
 		
 		toPocket.addPawn();
+		
+		GameControl.lastMovedPawnPosition = toPocket.getColor().asInt();
+		GameControl.lastMovedPawnDestinationType = SquareType.POCKETSQUARE;
 	}
 
 }

@@ -5,6 +5,8 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Pocket;
 import boardInfo.Square;
+import game.GameControl;
+import utils.ConstantsEnum.SquareType;
 
 public class MoveFromTrackToPocketAction extends Action  {
 
@@ -27,7 +29,11 @@ public class MoveFromTrackToPocketAction extends Action  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		toPocket.addPawn();
+		
+		GameControl.lastMovedPawnPosition = toPocket.getColor().asInt();
+		GameControl.lastMovedPawnDestinationType = SquareType.POCKETSQUARE;
 	}
 	
 }

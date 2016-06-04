@@ -8,21 +8,25 @@ import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Pawn;
 import boardInfo.Square;
+import game.GameControl;
 import playerInfo.PlayerColor;
+import utils.ConstantsEnum.SquareType;
 
 public class MoveFromTrackToTrackAction extends Action {
 
 	private Board board;
 	private Square fromSquare;
 	private Square toSquare;
+	private int toSquarePosition;
 	private boolean shouldRemoveOpponent;
 	
-	public MoveFromTrackToTrackAction(Board board, Square fromSquare, Square toSquare, boolean shouldRemoveOpponent, ActionListener actionListener) throws Exception
+	public MoveFromTrackToTrackAction(Board board, Square fromSquare, Square toSquare, int toSquarePosition, boolean shouldRemoveOpponent, ActionListener actionListener) throws Exception
 	{
 		super(actionListener);
 		this.board = board;
 		this.fromSquare = fromSquare;
 		this.toSquare = toSquare;
+		this.toSquarePosition = toSquarePosition;
 		this.shouldRemoveOpponent = shouldRemoveOpponent;
 	}
 	
@@ -51,6 +55,9 @@ public class MoveFromTrackToTrackAction extends Action {
 		}
 		
 		toSquare.addPawn(new Pawn(color));
+		
+		GameControl.lastMovedPawnPosition = toSquarePosition;
+		GameControl.lastMovedPawnDestinationType = SquareType.TRACKSQUARE;
 		
 		try {
 			fromSquare.removePawn(color);

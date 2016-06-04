@@ -74,6 +74,8 @@ public class Board {
 	}
 
 	public PlayerColor nextPlayer() {
+		Dice.resetConsecutive6();
+		
 		if(this.currentPlayer == PlayerColor.GREEN)
 		{
 			this.currentPlayer = PlayerColor.YELLOW;
@@ -95,6 +97,7 @@ public class Board {
 	}
 	
 	private void resetCurrentPlayer() {
+		Dice.resetConsecutive6();
 		this.currentPlayer = PlayerColor.GREEN;
 	}
 	
