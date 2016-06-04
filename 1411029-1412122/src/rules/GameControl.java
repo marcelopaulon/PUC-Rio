@@ -1,8 +1,5 @@
 package rules;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;

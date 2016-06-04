@@ -13,6 +13,7 @@ import rendering.LaneView;
 import rendering.PocketView;
 import rendering.TrackView;
 import rendering.YardView;
+import rendering.common.View;
 
 public class GamePanel extends JPanel
 {
@@ -27,10 +28,10 @@ public class GamePanel extends JPanel
 	// Game Board
 	private Board board;
 
-	private YardView yardView;
-	private PocketView pocketView;
-	private LaneView laneView;
-	private TrackView trackView;
+	private View yardView;
+	private View pocketView;
+	private View laneView;
+	private View trackView;
 
 	public GamePanel(Board board)
 	{
@@ -75,12 +76,12 @@ public class GamePanel extends JPanel
 
 	public static void resetHighlights()
 	{
-		instance.trackView.clearSquareHighlight();
+		((TrackView) instance.trackView).clearSquareHighlight();
 		YardView.setYardHighlight(null);
-		instance.laneView.clearSquareHighlight(PlayerColor.GREEN);
-		instance.laneView.clearSquareHighlight(PlayerColor.BLUE);
-		instance.laneView.clearSquareHighlight(PlayerColor.YELLOW);
-		instance.laneView.clearSquareHighlight(PlayerColor.RED);
+		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.GREEN);
+		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.BLUE);
+		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.YELLOW);
+		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.RED);
 	}
 
 	private void renderBoard(Graphics2D g2d)
