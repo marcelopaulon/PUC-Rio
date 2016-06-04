@@ -22,7 +22,7 @@ public class Barriers {
 		return false;
 	}
 	
-	private boolean currentPlayerHasBarrierAt(Track track, PlayerColor currentPlayer, int position)
+	public static boolean currentPlayerHasBarrierAt(Track track, PlayerColor currentPlayer, int position)
 	{
 		if(BoardPositions.isShelterPosition(position))
 		{

@@ -114,7 +114,7 @@ public class GameControl {
 		else if(color == PlayerColor.RED) player = "vermelho";
 		else {
 			try {
-				throw new Exception("Erro - jogador invï¿½lido");
+				throw new Exception("Erro - jogador inválido");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
