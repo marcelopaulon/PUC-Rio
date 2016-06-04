@@ -28,14 +28,7 @@ public class Program {
 		GamePanel gamePanel = new GamePanel(board);
 		window.add(gamePanel, BorderLayout.CENTER);
 	}
-	
-	private void createGameInfoPanel(Board board)
-	{
-		GameInfoPanel gameInfoPanel = new GameInfoPanel(board);
-		window.add(gameInfoPanel, BorderLayout.EAST);
-		gameInfoPanel.setVisible(true);
-	}
-	
+		
 	private void showSplashScreen()
 	{
 		new SplashScreen();
@@ -52,7 +45,6 @@ public class Program {
 		
 		createMainMenu(board);
 		createGamePanel(board);
-		createGameInfoPanel(board);
 		
 		gameControl.startGame();
 		
