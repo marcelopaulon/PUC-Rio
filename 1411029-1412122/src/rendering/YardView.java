@@ -14,16 +14,19 @@ import utils.Coordinate;
 
 public class YardView extends View {
 
+	private static YardView instance;
+	
 	private Board board;
 	
 	private PlayerColor yardHighlight;
 		
 	public YardView(Board board)
 	{
+		instance = this;
 		this.board = board;
 	}
 	
-	public Coordinate getCoordinates(int i)
+	public static Coordinate getCoordinates(int i)
 	{
 		double coordinateX = (i-1) % 2;
 		double coordinateY = (i-1) / 2;
@@ -92,17 +95,17 @@ public class YardView extends View {
 		}
 	}
 
-	public void setYardHighlight(PlayerColor yardHighlight) {
-		this.yardHighlight = yardHighlight;
+	public static void setYardHighlight(PlayerColor yardHighlight) {
+		instance.yardHighlight = yardHighlight;
 	}
 	
-	public Coordinate getYardHighlightPawnCoordinate()
+	public static Coordinate getYardHighlightPawnCoordinate()
 	{
-		PlayerColor playerColor = board.getCurrentPlayer();
+		PlayerColor playerColor = instance.board.getCurrentPlayer();
 
 		Coordinate coordinate = getCoordinates(playerColor.asInt());
 		
-		int pawns = board.getYard(playerColor).getCount();
+		int pawns = instance.board.getYard(playerColor).getCount();
 		
 		int k = 0;
 		if(pawns - 1 > 1) k = 1;
@@ -113,7 +116,7 @@ public class YardView extends View {
 		return new Coordinate(pawnX, pawnY);
 	}
 	
-	public Coordinate getYardDiceCoordinates(PlayerColor yardDice)
+	public static Coordinate getYardDiceCoordinates(PlayerColor yardDice)
 	{
 		Coordinate coordinate = getCoordinates(yardDice.asInt());
 

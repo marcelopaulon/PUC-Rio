@@ -20,6 +20,9 @@ import boardInfo.Dice;
 import boardInfo.Square;
 import boardInfo.Track;
 import playerInfo.PlayerColor;
+import rendering.LaneView;
+import rendering.TrackView;
+import rendering.YardView;
 import utils.ConstantsEnum;
 import utils.ConstantsEnum.SquareType;
 import utils.Coordinate;
@@ -36,17 +39,7 @@ public class GameControl {
 	{
 		this.board = board;
 	}
-	
-	private void resetHighlights()
-	{
-		GamePanel.trackView.clearSquareHighlight();
-		GamePanel.yardView.setYardHighlight(null);
-		GamePanel.laneView.clearSquareHighlight(PlayerColor.GREEN);
-		GamePanel.laneView.clearSquareHighlight(PlayerColor.BLUE);
-		GamePanel.laneView.clearSquareHighlight(PlayerColor.YELLOW);
-		GamePanel.laneView.clearSquareHighlight(PlayerColor.RED);
-	}
-	
+		
 	private ActionListener removeFromYardActionListener = new ActionListener()
 	{
 
@@ -55,7 +48,7 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			resetHighlights();
+			GamePanel.resetHighlights();
 			
 			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
 			setPlayerDice();
@@ -71,7 +64,7 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			resetHighlights();
+			GamePanel.resetHighlights();
 			
 			System.out.println("Test - track to track action listener executed");
 			
@@ -98,7 +91,7 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			resetHighlights();
+			GamePanel.resetHighlights();
 			
 			System.out.println("Test - track to lane action listener executed");
 			
@@ -181,7 +174,7 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			resetHighlights();
+			GamePanel.resetHighlights();
 			
 			System.out.println("Test - to pocket action listener executed");
 			
@@ -215,7 +208,7 @@ public class GameControl {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
-			resetHighlights();
+			GamePanel.resetHighlights();
 			
 			System.out.println("Dice rolled");
 			
@@ -344,14 +337,14 @@ public class GameControl {
 	}
 	
 	private void setPlayerLaneToPocketMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
-		GamePanel.laneView.setSquareHighlight(currentPlayer, pawnPosition);
+		LaneView.setSquareHighlight(currentPlayer, pawnPosition);
 		
 		MoveFromLaneToPocketAction action;
 		
 		try {
 			action = new MoveFromLaneToPocketAction(board.getLane(currentPlayer), pawnPosition, board.getPocket(currentPlayer), moveToPocketActionListener);
 
-			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
+			Coordinate coordinates = LaneView.getPawnCoordinate(currentPlayer, pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -363,7 +356,7 @@ public class GameControl {
 	
 	private void setPlayerLaneToLaneMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
 		
-		GamePanel.laneView.setSquareHighlight(currentPlayer, pawnPosition);
+		LaneView.setSquareHighlight(currentPlayer, pawnPosition);
 		
 		MoveFromLaneToLaneAction action;
 		
@@ -371,7 +364,7 @@ public class GameControl {
 			int lanePosition = pawnPosition + diceValue;
 			action = new MoveFromLaneToLaneAction(board.getLane(currentPlayer), pawnPosition, lanePosition, moveToLaneActionListener);
 
-			Coordinate coordinates = GamePanel.laneView.getPawnCoordinate(currentPlayer, pawnPosition);
+			Coordinate coordinates = LaneView.getPawnCoordinate(currentPlayer, pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -384,14 +377,14 @@ public class GameControl {
 	private void setPlayerTrackToPocketMoves(PlayerColor currentPlayer, int pawnPosition) {
 		Square origin = board.getTrack().getSquareAt(pawnPosition);
 		
-		GamePanel.trackView.setSquareHighlight(pawnPosition);
+		TrackView.setSquareHighlight(pawnPosition);
 		
 		MoveFromTrackToPocketAction action;
 		
 		try {
 			action = new MoveFromTrackToPocketAction(origin, board.getPocket(currentPlayer), moveToPocketActionListener);
 
-			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
+			Coordinate coordinates = TrackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -404,7 +397,7 @@ public class GameControl {
 	private void setPlayerTrackToLaneMoves(int diceValue, PlayerColor currentPlayer, int pawnPosition) {
 		Square origin = board.getTrack().getSquareAt(pawnPosition);
 		
-		GamePanel.trackView.setSquareHighlight(pawnPosition);
+		TrackView.setSquareHighlight(pawnPosition);
 		
 		MoveFromTrackToLaneAction action;
 		
@@ -412,7 +405,7 @@ public class GameControl {
 			int lanePosition = pawnPosition + diceValue - BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 			action = new MoveFromTrackToLaneAction(origin, board.getLane(currentPlayer), lanePosition, moveToLaneActionListener);
 
-			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
+			Coordinate coordinates = TrackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -439,7 +432,7 @@ public class GameControl {
 		
 		Square destination = board.getTrack().getSquareAt(destinationPos);
 				
-		GamePanel.trackView.setSquareHighlight(pawnPosition);
+		TrackView.setSquareHighlight(pawnPosition);
 		
 		MoveFromTrackToTrackAction action;
 		
@@ -453,7 +446,7 @@ public class GameControl {
 			
 			action = new MoveFromTrackToTrackAction(board, origin, destination, destinationPos, shouldRemoveOpponent, moveFromTrackToTrackActionListener);
 
-			Coordinate coordinates = GamePanel.trackView.getPawnCoordinate(pawnPosition);
+			Coordinate coordinates = TrackView.getPawnCoordinate(pawnPosition);
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -635,7 +628,7 @@ public class GameControl {
 		try {
 			action = new RollDiceAction(diceActionListener);
 			
-			Coordinate diceCoordinates = GamePanel.yardView.getYardDiceCoordinates(board.getCurrentPlayer());
+			Coordinate diceCoordinates = YardView.getYardDiceCoordinates(board.getCurrentPlayer());
 			int x = (int) diceCoordinates.getX();
 			int y = (int) diceCoordinates.getY();
 			
@@ -657,14 +650,14 @@ public class GameControl {
 	
 	private void setPlayerYardToTrackMoves()
 	{
-		GamePanel.yardView.setYardHighlight(board.getCurrentPlayer());
+		YardView.setYardHighlight(board.getCurrentPlayer());
 		
 		MoveFromYardToTrackAction action;
 		
 		try {
 			action = new MoveFromYardToTrackAction(board, removeFromYardActionListener);
 
-			Coordinate coordinates = GamePanel.yardView.getYardHighlightPawnCoordinate();
+			Coordinate coordinates = YardView.getYardHighlightPawnCoordinate();
 			int pawnX = (int) (coordinates.getX() / ConstantsEnum.squareSize + 1);
 			int pawnY = (int) (coordinates.getY() / ConstantsEnum.squareSize + 1);
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
@@ -690,7 +683,7 @@ public class GameControl {
 	
 	public void loadMap(Board savedMap, int currentDiceValue) {
 		ActionManager.getInstance().resetActions();
-		resetHighlights();
+		GamePanel.resetHighlights();
 		
 		this.board = savedMap;
 		

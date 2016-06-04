@@ -13,6 +13,8 @@ import utils.Coordinate;
 
 public class LaneView extends View {
 	
+	private static LaneView instance;
+	
 	private Lane greenLane;
 	private Lane yellowLane;
 	private Lane blueLane;
@@ -20,6 +22,8 @@ public class LaneView extends View {
 	
 	public LaneView(Lane greenLane, Lane yellowLane, Lane blueLane, Lane redLane)
 	{
+		instance = this;
+		
 		this.greenLane = greenLane;
 		this.yellowLane = yellowLane;
 		this.blueLane = blueLane;
@@ -137,24 +141,24 @@ public class LaneView extends View {
 		renderRedLane(g2d);
 	}
 
-	public Coordinate getPawnCoordinate(PlayerColor laneColor, int position) throws Exception {
+	public static Coordinate getPawnCoordinate(PlayerColor laneColor, int position) throws Exception {
 		Hashtable<Integer, Coordinate> list = null;
 		
 		if(laneColor == PlayerColor.GREEN)
 		{
-			list = greenLaneCoordinates;
+			list = instance.greenLaneCoordinates;
 		}
 		else if(laneColor == PlayerColor.YELLOW)
 		{
-			list = yellowLaneCoordinates;
+			list = instance.yellowLaneCoordinates;
 		}
 		else if(laneColor == PlayerColor.BLUE)
 		{
-			list = blueLaneCoordinates;
+			list = instance.blueLaneCoordinates;
 		}
 		else if(laneColor == PlayerColor.RED)
 		{
-			list = redLaneCoordinates;
+			list = instance.redLaneCoordinates;
 		}
 		else
 		{
@@ -191,9 +195,9 @@ public class LaneView extends View {
 		return list;
 	}
 
-	public void setSquareHighlight(PlayerColor laneColor, int pawnPosition) {
+	public static void setSquareHighlight(PlayerColor laneColor, int pawnPosition) {
 		try {
-			getHighlightList(laneColor).add(pawnPosition);
+			instance.getHighlightList(laneColor).add(pawnPosition);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

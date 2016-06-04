@@ -16,10 +16,14 @@ import utils.Coordinate;
 
 public class TrackView extends View 
 {
+	private static TrackView instance;
+	
 	private Track track;
 	
 	public TrackView(Track track)
 	{
+		instance = this;
+		
 		this.track = track;
 		calculateGreenAreaCoordinates();
 		calculateYellowAreaCoordinates();
@@ -184,12 +188,12 @@ public class TrackView extends View
 		}
 	}
 
-	public void setSquareHighlight(int position) {
-		squareHighlight.add(position);
+	public static void setSquareHighlight(int position) {
+		instance.squareHighlight.add(position);
 	}
 
-	public Coordinate getPawnCoordinate(int position) throws Exception {
-		return pawnCoordinates.get(position);
+	public static Coordinate getPawnCoordinate(int position) throws Exception {
+		return instance.pawnCoordinates.get(position);
 	}
 
 	public void clearSquareHighlight() {

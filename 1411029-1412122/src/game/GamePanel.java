@@ -21,10 +21,10 @@ public class GamePanel extends JPanel {
 	// Game Board
 	private Board board;
 	
-	public static YardView yardView;
-	public static PocketView pocketView;
-	public static LaneView laneView;
-	public static TrackView trackView;
+	private YardView yardView;
+	private PocketView pocketView;
+	private LaneView laneView;
+	private TrackView trackView;
 
 	public GamePanel(Board board)
 	{
@@ -62,6 +62,16 @@ public class GamePanel extends JPanel {
 	    pocketView = new PocketView(board);
 	    laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW), board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
 	    trackView = new TrackView(board.getTrack());
+	}
+	
+	public static void resetHighlights()
+	{
+		instance.trackView.clearSquareHighlight();
+		YardView.setYardHighlight(null);
+		instance.laneView.clearSquareHighlight(PlayerColor.GREEN);
+		instance.laneView.clearSquareHighlight(PlayerColor.BLUE);
+		instance.laneView.clearSquareHighlight(PlayerColor.YELLOW);
+		instance.laneView.clearSquareHighlight(PlayerColor.RED);
 	}
 	
 	private void renderBoard(Graphics2D g2d)
