@@ -206,6 +206,7 @@ public class GameControl
 
 				board.nextPlayer();
 				setPlayerDice();
+				board.setCurrentAction(Action.ROLLDICE);
 				GamePanel.requestRedraw();
 				return;
 			}
@@ -225,10 +226,10 @@ public class GameControl
 					Notifications.notify6RepeatMove();
 				}
 				
+				board.setCurrentAction(Action.ROLLDICE);
 				setPlayerDice();
 			}
-
-			board.setCurrentAction(Action.ROLLDICE);
+			
 			GamePanel.requestRedraw();
 		}
 	};

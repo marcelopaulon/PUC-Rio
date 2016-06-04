@@ -54,6 +54,7 @@ public class Board
 		}
 
 		resetCurrentPlayer();
+		this.setCurrentAction(Action.ROLLDICE);
 	}
 
 	public Track getTrack()
