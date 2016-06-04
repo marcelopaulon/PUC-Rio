@@ -15,7 +15,8 @@ public abstract class PawnList
 		if (pawns != null)
 		{
 			this.pawns = pawns;
-		} else
+		}
+		else
 		{
 			reset();
 		}

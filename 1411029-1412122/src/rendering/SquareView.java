@@ -45,31 +45,29 @@ public class SquareView extends View
 
 	private void configureSpecialSquares()
 	{
-		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, squareSize), GameColor.Green); // Green
-																											// start
-		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize + 2 * squareSize), GameColor.Yellow); // Yellow
-																															// start
-		specialTrackSquares.put(new Coordinate(yardSize, 2 * yardSize + squareSize), GameColor.Blue); // Blue
-																										// start
-		specialTrackSquares.put(new Coordinate(squareSize, yardSize), GameColor.Red); // Red
-																						// start
+		// Green start
+		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, squareSize), GameColor.Green);
 
-		specialTrackSquares.put(new Coordinate(yardSize, squareSize), Color.BLACK); // Green
-																					// area
-																					// safe
-																					// square
-		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize), Color.BLACK); // Yellow
-																									// area
-																									// safe
-																									// square
-		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, 2 * yardSize + squareSize), Color.BLACK); // Blue
-																													// area
-																													// safe
-																													// square
-		specialTrackSquares.put(new Coordinate(squareSize, yardSize + 2 * squareSize), Color.BLACK); // Red
-																										// area
-																										// safe
-																										// square
+		// Yellow start
+		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize + 2 * squareSize), GameColor.Yellow);
+
+		// Blue start
+		specialTrackSquares.put(new Coordinate(yardSize, 2 * yardSize + squareSize), GameColor.Blue);
+
+		// Red start
+		specialTrackSquares.put(new Coordinate(squareSize, yardSize), GameColor.Red);
+
+		// Green area safe square
+		specialTrackSquares.put(new Coordinate(yardSize, squareSize), Color.BLACK);
+
+		// Yellow area safe square
+		specialTrackSquares.put(new Coordinate(yardSize + 7 * squareSize, yardSize), Color.BLACK);
+
+		// Blue area safe square
+		specialTrackSquares.put(new Coordinate(yardSize + 2 * squareSize, 2 * yardSize + squareSize), Color.BLACK);
+
+		// Red area safe square
+		specialTrackSquares.put(new Coordinate(squareSize, yardSize + 2 * squareSize), Color.BLACK);
 	}
 
 	private boolean isSpecialSquare(float x, float y)
@@ -137,11 +135,13 @@ public class SquareView extends View
 				if (i == 1)
 				{
 					yIdx = 0;
-				} else if (i == 2)
+				}
+				else if (i == 2)
 				{
 					xIdx = 0;
 					yIdx = 1;
-				} else if (i == 3)
+				}
+				else if (i == 3)
 				{
 					xIdx = 1;
 					yIdx = 1;
@@ -192,7 +192,8 @@ public class SquareView extends View
 			if (colors.size() == 1)
 			{
 				renderSingleColor(g2d, colors.get(0), pawnCount);
-			} else
+			}
+			else
 			{
 				renderMultipleColor(g2d, square);
 			}

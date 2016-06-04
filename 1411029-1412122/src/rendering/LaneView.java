@@ -154,16 +154,20 @@ public class LaneView extends View
 		if (laneColor == PlayerColor.GREEN)
 		{
 			list = instance.greenLaneCoordinates;
-		} else if (laneColor == PlayerColor.YELLOW)
+		}
+		else if (laneColor == PlayerColor.YELLOW)
 		{
 			list = instance.yellowLaneCoordinates;
-		} else if (laneColor == PlayerColor.BLUE)
+		}
+		else if (laneColor == PlayerColor.BLUE)
 		{
 			list = instance.blueLaneCoordinates;
-		} else if (laneColor == PlayerColor.RED)
+		}
+		else if (laneColor == PlayerColor.RED)
 		{
 			list = instance.redLaneCoordinates;
-		} else
+		}
+		else
 		{
 			throw new Exception("Invalid player color");
 		}
@@ -178,16 +182,20 @@ public class LaneView extends View
 		if (laneColor == PlayerColor.GREEN)
 		{
 			list = greenLaneSquareHighlight;
-		} else if (laneColor == PlayerColor.YELLOW)
+		}
+		else if (laneColor == PlayerColor.YELLOW)
 		{
 			list = yellowLaneSquareHighlight;
-		} else if (laneColor == PlayerColor.BLUE)
+		}
+		else if (laneColor == PlayerColor.BLUE)
 		{
 			list = blueLaneSquareHighlight;
-		} else if (laneColor == PlayerColor.RED)
+		}
+		else if (laneColor == PlayerColor.RED)
 		{
 			list = redLaneSquareHighlight;
-		} else
+		}
+		else
 		{
 			throw new Exception("Invalid player color");
 		}

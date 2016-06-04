@@ -38,22 +38,17 @@ public class MovementRules
 
 		for (int j = 0; j < diceValue; j++)
 		{
-			if (pawnPosition + j == lastSquareOfCurrentPlayer) // Se ele chega
-																// na última
-																// casa com um
-																// número
-																// inferior ao
-																// tirado do
-																// dado, ele
-																// entra na
-																// lane.
+			// Se ele chega na última casa com um número inferior ao tirado do
+			// dado, ele entra na lane.
+			if (pawnPosition + j == lastSquareOfCurrentPlayer)
 			{
 				Square destination;
 
 				if (diceValue != 6)
 				{
 					destination = lane.getSquareAt(pawnPosition + diceValue - lastSquareOfCurrentPlayer);
-				} else
+				}
+				else
 				{
 					return false; // destination é o pocket.
 				}
@@ -72,13 +67,8 @@ public class MovementRules
 	{
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
-		if (pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6) // está
-																			// na
-																			// última
-																			// casa
-																			// e
-																			// tirou
-																			// 6
+		// está na última casa e tirou 6
+		if (pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6)
 		{
 			return true;
 		}
@@ -98,10 +88,11 @@ public class MovementRules
 
 		for (int j = 0; j < diceValue; j++)
 		{
+			// Se ele chega na útima casa com um número inferior ao tirado do
+			// dado, ele entra na lane. Logo, não pode continuar na track.
 			if (pawnPosition + j == lastSquareOfCurrentPlayer)
-				return false; // Se ele chega na útima casa com um número
-								// inferior ao tirado do dado, ele entra na
-								// lane. Logo, não pode continuar na track.
+				return false;
+
 			if (pawnPosition + j <= 52 && Barriers.opponentHasBarrierAt(track, currentPlayer, pawnPosition + j))
 				return false;
 		}

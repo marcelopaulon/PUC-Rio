@@ -37,7 +37,8 @@ public class PocketView extends View
 				coordinates[0].setX(coordinates[0].getX() + yardSize / 2);
 				coordinates[2].setX(coordinates[2].getX() + yardSize / 2);
 			}
-		} else
+		}
+		else
 		{
 			coordinates[2] = new Coordinate((int) (rectSize + 3 * yardSize / 12), (int) (rectSize - 3 * yardSize / 12));
 

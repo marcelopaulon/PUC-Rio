@@ -42,13 +42,14 @@ public class MoveFromTrackToTrackAction extends Action
 		if (toSquare.getPawnCount() > 0 && shouldRemoveOpponent)
 		{
 			List<PlayerColor> colors = toSquare.getPawnsColors();
-			if (colors.get(0) != color) // Opponent in destination, must capture
-										// it
+
+			// Opponent in destination, must capture it
+			if (colors.get(0) != color)
 			{
 				PlayerColor opponentColor = colors.get(0);
 
-				board.getYard(opponentColor).addPawn(); // Adds pawn to
-														// opponent's yard
+				// Adds pawn to opponent's yard
+				board.getYard(opponentColor).addPawn();
 
 				try
 				{

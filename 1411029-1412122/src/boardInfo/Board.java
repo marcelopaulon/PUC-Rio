@@ -83,13 +83,16 @@ public class Board
 		if (this.currentPlayer == PlayerColor.GREEN)
 		{
 			this.currentPlayer = PlayerColor.YELLOW;
-		} else if (this.currentPlayer == PlayerColor.YELLOW)
+		}
+		else if (this.currentPlayer == PlayerColor.YELLOW)
 		{
 			this.currentPlayer = PlayerColor.BLUE;
-		} else if (this.currentPlayer == PlayerColor.BLUE)
+		}
+		else if (this.currentPlayer == PlayerColor.BLUE)
 		{
 			this.currentPlayer = PlayerColor.RED;
-		} else if (this.currentPlayer == PlayerColor.RED)
+		}
+		else if (this.currentPlayer == PlayerColor.RED)
 		{
 			this.currentPlayer = PlayerColor.GREEN;
 		}
@@ -122,18 +125,15 @@ public class Board
 			{
 				if (track.getSquareAt(i).getPawnsColors().contains(player))
 					if (i > lastPosition)
-						distance += track.getSquareAt(i).getPawnCount() * (5 + lastPosition + 52 - i); // 5
-																										// is
-																										// added
-																										// because
-																										// of
-																										// the
-																										// lane
-																										// length
+					{
+						// 5 is added because of the lane length
+						distance += track.getSquareAt(i).getPawnCount() * (5 + lastPosition + 52 - i);
+					}
 					else
-						distance += track.getSquareAt(i).getPawnCount() * (5 + lastPosition - i); // same
-																									// as
-																									// above
+					{
+						// same as above
+						distance += track.getSquareAt(i).getPawnCount() * (5 + lastPosition - i);
+					}
 			}
 		}
 

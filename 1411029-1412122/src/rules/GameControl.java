@@ -71,22 +71,13 @@ public class GameControl
 
 			System.out.println("Test - track to track action listener executed");
 
-			if (capturedPawn && hasMove(20, board.getCurrentPlayer())) // O
-																		// jogador
-																		// que
-																		// capturou
-																		// poderá
-																		// avançar
-																		// 20
-																		// casas
-																		// com
-																		// qualquer
-																		// um de
-																		// seus
-																		// peões.
+			// O jogador que capturou poderá avançar 20 casas com qualquer um de
+			// seus peões.
+			if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 			{
 				setPlayer20Moves(board.getCurrentPlayer());
-			} else
+			}
+			else
 			{
 				if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
 					board.nextPlayer();
@@ -187,18 +178,16 @@ public class GameControl
 			{
 				String[] positions = getPlayerPositions();
 				Notifications.notifyGameEnd(positions);
-			} else
+			}
+			else
 			{
-				if (hasMove(10, board.getCurrentPlayer())) // O jogador que
-															// chegar com um
-															// peão à sua casa
-															// final poderá
-															// avançará 10 casas
-															// com algum de seus
-															// outros peões.
+				// O jogador que chegar com um peão à sua casa final avançará 10
+				// casas com algum de seus outros peões.
+				if (hasMove(10, board.getCurrentPlayer()))
 				{
 					setPlayer10Moves(board.getCurrentPlayer());
-				} else
+				}
+				else
 				{
 					if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
 						board.nextPlayer();
@@ -226,30 +215,12 @@ public class GameControl
 			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
 
-			if (diceValue == 6 && Dice.getConsecutive6() == 3) // Se obtiver um
-																// 6 pela
-																// terceira vez
-																// consecutiva,
-																// o último de
-																// seus peões
-																// que foi
-																// movimentado
-																// voltará para
-																// a casa
-																// inicial. No
-																// caso do
-																// último peão
-																// movimentado
-																// já ter
-																// chegado até
-																// uma das casas
-																// da reta
-																// final, ele
-																// permanecerá
-																// em sua
-																// posição, não
-																// retornado à
-																// casa inicial.
+			// Se obtiver um 6 pela terceira vez consecutiva, o último de seus
+			// peões que foi movimentado voltará para a casa inicial. No caso do
+			// último peão movimentado já ter chegado até uma das casas da reta
+			// final, ele permanecerá em sua posição, não retornado à casa
+			// inicial.
+			if (diceValue == 6 && Dice.getConsecutive6() == 3)
 			{
 				if (hasMove(diceValue, currentPlayer))
 				{
@@ -265,7 +236,8 @@ public class GameControl
 			if (hasMove(diceValue, currentPlayer))
 			{
 				setPlayerMoves(diceValue, currentPlayer);
-			} else
+			}
+			else
 			{
 				if (diceValue != 6)
 					board.nextPlayer();
@@ -363,10 +335,12 @@ public class GameControl
 	{
 		System.out.println("----------------- SET ---------------------------");
 
+		// Se um jogador obtiver um 6 após lançar o dado, avançar sete casas
+		// caso não tenha mais peões para retirar de sua casa inicial.
 		if (diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3)
-			diceValue = 7; // Se um jogador obtiver um 6 após lançar o dado,
-							// avançar sete casas caso não tenha mais peões para
-							// retirar de sua casa inicial.
+		{
+			diceValue = 7;
+		}
 
 		if (MovementRules.canMoveFromYardToTrack(board.getYard(currentPlayer), diceValue, currentPlayer))
 		{
@@ -484,7 +458,8 @@ public class GameControl
 		if (pawnPosition + diceValue > 52)
 		{
 			destinationPos = pawnPosition + diceValue - 52;
-		} else
+		}
+		else
 		{
 			destinationPos = pawnPosition + diceValue;
 		}
@@ -647,7 +622,8 @@ public class GameControl
 		if (hasMove(currentDiceValue, board.getCurrentPlayer()))
 		{
 			setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
-		} else
+		}
+		else
 		{
 			setPlayerDice();
 		}

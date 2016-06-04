@@ -15,6 +15,11 @@ import javax.swing.JPanel;
 public class SplashScreen extends JFrame
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2211633856588410827L;
+
 	public SplashScreen()
 	{
 		super();

@@ -17,6 +17,11 @@ import rendering.YardView;
 public class GamePanel extends JPanel
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -283067601327612170L;
+
 	private static GamePanel instance = null;
 
 	// Game Board

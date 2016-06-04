@@ -20,6 +20,11 @@ import javax.swing.JOptionPane;
 public class MainMenu extends JPanel
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3921775669569750261L;
+
 	private GameControl gameControl;
 
 	public MainMenu(GameControl gameControl)
@@ -98,6 +103,11 @@ public class MainMenu extends JPanel
 			try
 			{
 				JFileChooser chooser = new JFileChooser() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -6647937141202512730L;
+
 					@Override
 					public void approveSelection()
 					{
@@ -136,10 +146,12 @@ public class MainMenu extends JPanel
 					if (Utils.getFileExtension(file.getName()).equalsIgnoreCase("ludosave"))
 					{
 						// filename is OK as-is
-					} else
+					}
+					else
 					{
-						file = new File(file.toString() + ".ludosave"); // append
-																		// .ludosave
+						// append .ludosave
+						file = new File(file.toString() + ".ludosave");
+
 						file = new File(file.getParentFile(), Utils.getFileBaseName(file.getName()) + ".ludosave");
 					}
 

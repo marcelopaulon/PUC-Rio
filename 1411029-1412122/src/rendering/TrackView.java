@@ -126,7 +126,8 @@ public class TrackView extends View
 			coordinateYs[2] = (int) (coordinate.getY() + squareSize / 8.0);
 
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
-		} else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.YELLOW)
+		}
+		else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.YELLOW)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize - squareSize / 8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize / 8.0);
@@ -138,7 +139,8 @@ public class TrackView extends View
 			coordinateYs[2] = (int) (coordinate.getY() + squareSize / 2.0);
 
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
-		} else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.BLUE)
+		}
+		else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.BLUE)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize / 8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize - squareSize / 8.0);
@@ -150,7 +152,8 @@ public class TrackView extends View
 			coordinateYs[2] = (int) (coordinate.getY() + squareSize - squareSize / 8.0);
 
 			renderTrackFlowIndicator(g2d, coordinateXs, coordinateYs);
-		} else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.RED)
+		}
+		else if (BoardPositions.isInitialSquarePosition(position) == PlayerColor.RED)
 		{
 			coordinateXs[0] = (int) (coordinate.getX() + squareSize / 8.0);
 			coordinateYs[0] = (int) (coordinate.getY() + squareSize / 8.0);

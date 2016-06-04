@@ -71,17 +71,12 @@ public class GameSave
 
 		while (parser.contains("TRACK"))
 		{
-			Integer trackPosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); // trackPosition
-																														// is
-																														// always
-																														// between
-																														// =
-																														// and
-																														// &
-			parser = parser.substring(parser.indexOf("&") + 1); // removing
-																// first part of
-																// the parser
-																// string
+			// trackPosition is always between = and &
+			Integer trackPosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
+
+			// removing the first part of the parser string
+			parser = parser.substring(parser.indexOf("&") + 1);
+
 			Integer color = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
 			Integer count = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 
@@ -95,13 +90,9 @@ public class GameSave
 		// Reading Lanes, Yards and Pockets
 		while (parser.contains("YARD"))
 		{
-			Integer yardColor = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); // yardColor
-																													// is
-																													// always
-																													// between
-																													// =
-																													// and
-																													// &
+			// yardColor is always between = and &
+			Integer yardColor = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
+
 			Integer yardCount = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 
 			line++;
@@ -123,26 +114,20 @@ public class GameSave
 			{
 				line++;
 				parser = saveFile[line];
-			} else
+			}
+			else
 			{
 				parser = "END OF FILE";
 			}
 
 			while (parser.contains("LANE"))
 			{
-				Integer lanePosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&"))); // lanePosition
-																														// is
-																														// always
-																														// between
-																														// =
-																														// and
-																														// &
-				parser = parser.substring(parser.indexOf("&") + 1); // removing
-																	// first
-																	// part of
-																	// the
-																	// parser
-																	// string
+				// lanePosition is always between = and &
+				Integer lanePosition = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
+
+				// removing the first part of the parser string
+				parser = parser.substring(parser.indexOf("&") + 1);
+
 				Integer color = Integer.valueOf(parser.substring(parser.indexOf("=") + 1, parser.indexOf("&")));
 				Integer count = Integer.valueOf(parser.substring(parser.lastIndexOf("=") + 1));
 
@@ -153,7 +138,8 @@ public class GameSave
 				{
 					line++;
 					parser = saveFile[line];
-				} else
+				}
+				else
 				{
 					parser = "END OF FILE";
 				}
