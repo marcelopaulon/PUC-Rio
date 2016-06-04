@@ -84,7 +84,7 @@ public class GameSave
 		parser = saveFile[line];
 		parser = parser.substring(10);
 			
-		currentAction = Action.SELECTPAWN; // Action.valueOf(parser);
+		currentAction = Action.valueOf(parser);
 		
 		// Reading Current Dice
 		line++;
@@ -191,7 +191,7 @@ public class GameSave
 		StringBuilder saveString = new StringBuilder();
 
 		saveString.append("CURPLAYER=" + board.getCurrentPlayer().asInt());
-		saveString.append("\nCURACTION=" + board.getCurrentAction()); //TODO: Implement asInt()?
+		saveString.append("\nCURACTION=" + board.getCurrentAction());
 		saveString.append("\nCURDICE=" + Dice.getCurValue());
 		saveString.append("\nCONSECUTIVE6=" + Dice.getConsecutive6());
 

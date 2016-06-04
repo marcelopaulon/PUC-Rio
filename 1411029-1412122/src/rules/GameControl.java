@@ -79,6 +79,7 @@ public class GameControl
 			if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 			{
 				Notifications.notifyCaptureBonus();
+				board.setCurrentAction(Action.SELECTPAWNBONUS20);
 				setPlayer20Moves(board.getCurrentPlayer());
 			}
 			else
@@ -142,8 +143,7 @@ public class GameControl
 
 			if (MovementRules.gameFinished(board.getPocket(board.getCurrentPlayer())))
 			{
-				String[] positions = BoardPositions.getPlayerPositions(board);
-				Notifications.notifyGameEnd(positions);
+				endGame();
 			}
 			else
 			{
@@ -152,6 +152,7 @@ public class GameControl
 				if (hasMove(10, board.getCurrentPlayer()))
 				{
 					Notifications.notifyExitBonus();
+					board.setCurrentAction(Action.SELECTPAWNBONUS10);
 					setPlayer10Moves(board.getCurrentPlayer());
 				}
 				else
@@ -590,6 +591,13 @@ public class GameControl
 
 		setPlayerDice();
 	}
+	
+	private void endGame()
+	{
+		String[] positions = BoardPositions.getPlayerPositions(board);
+		board.setCurrentAction(Action.GAMEENDED);
+		Notifications.notifyGameEnd(positions);
+	}
 
 	public void loadMap(Board savedMap, int currentDiceValue)
 	{
@@ -602,14 +610,37 @@ public class GameControl
 
 		GamePanel.requestViewReset();
 
-		if (hasMove(currentDiceValue, board.getCurrentPlayer()))
+		Action currentAction = savedMap.getCurrentAction();
+		
+		switch(currentAction)
 		{
-			setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
+			case GAMEENDED:
+				endGame();
+				break;
+			case ROLLDICE:
+				setPlayerDice();
+				break;
+			case SELECTPAWN:
+				if (hasMove(currentDiceValue, board.getCurrentPlayer()))
+				{
+					setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
+				}
+				else
+				{
+					Notifications.notifyError("Erro ao definir ação de seleção");
+				}
+				break;
+			case SELECTPAWNBONUS10:
+				setPlayer10Moves(board.getCurrentPlayer());
+				break;
+			case SELECTPAWNBONUS20:
+				setPlayer20Moves(board.getCurrentPlayer());
+				break;
+			default:
+				Notifications.notifyError("Erro ao definir ação");
+				break;
 		}
-		else
-		{
-			setPlayerDice();
-		}
+			
 
 		GamePanel.requestRedraw();
 	}

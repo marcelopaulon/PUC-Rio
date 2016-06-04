@@ -37,8 +37,8 @@ public class MainMenu extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{
-			Notifications.notifyGameStart();
 			gameControl.startGame();
+			Notifications.notifyGameStart();
 		}
 	};
 
