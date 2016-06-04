@@ -8,10 +8,10 @@ import java.util.List;
 
 import boardInfo.Square;
 import boardInfo.Track;
-import game.BoardPositions;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
 import rendering.common.View;
+import rules.BoardPositions;
 import utils.Coordinate;
 
 public class TrackView extends View 

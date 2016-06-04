@@ -4,10 +4,10 @@ import actions.common.Action;
 import actions.common.ActionListener;
 import boardInfo.Board;
 import boardInfo.Yard;
-import game.BoardPositions;
-import game.GameControl;
 import game.GamePanel;
 import playerInfo.PlayerColor;
+import rules.BoardPositions;
+import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
 public class MoveFromYardToTrackAction extends Action {

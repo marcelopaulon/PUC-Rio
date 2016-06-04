@@ -5,7 +5,7 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
 import boardInfo.Pocket;
-import game.GameControl;
+import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
 public class MoveFromLaneToPocketAction extends Action {

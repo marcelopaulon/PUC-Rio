@@ -5,7 +5,7 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Pocket;
 import boardInfo.Square;
-import game.GameControl;
+import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
 public class MoveFromTrackToPocketAction extends Action  {

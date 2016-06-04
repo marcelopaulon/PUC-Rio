@@ -5,6 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import boardInfo.Board;
 import boardInfo.Dice;
+import rules.GameControl;
 import utils.Utils;
 
 import java.awt.event.ActionEvent;

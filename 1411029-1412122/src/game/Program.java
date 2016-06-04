@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import boardInfo.Board;
 import gfx.DiceAssets;
+import rules.GameControl;
 
 public class Program {
 

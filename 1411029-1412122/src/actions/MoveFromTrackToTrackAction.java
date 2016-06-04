@@ -8,8 +8,8 @@ import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Pawn;
 import boardInfo.Square;
-import game.GameControl;
 import playerInfo.PlayerColor;
+import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
 public class MoveFromTrackToTrackAction extends Action {

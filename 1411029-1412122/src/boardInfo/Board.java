@@ -1,7 +1,7 @@
 package boardInfo;
 
-import game.BoardPositions;
 import playerInfo.PlayerColor;
+import rules.BoardPositions;
 
 public class Board {
 	// Game track
