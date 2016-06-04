@@ -51,7 +51,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -67,7 +67,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -75,8 +75,15 @@ public class GameControl {
 			
 			System.out.println("Test - track to track action listener executed");
 			
-			if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
-			setPlayerDice();
+			if(capturedPawn && hasMove(20, board.getCurrentPlayer())) // O jogador que capturou poderá avançar 20 casas com qualquer um de seus peões.
+			{
+				setPlayer20Moves(board.getCurrentPlayer());
+			}
+			else
+			{
+				if(Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3) board.nextPlayer();
+				setPlayerDice();
+			}
 			
 			GamePanel.requestRedraw();
 		}
@@ -87,7 +94,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -107,7 +114,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -190,7 +197,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -224,7 +231,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -257,7 +264,7 @@ public class GameControl {
 	{
 
 		@Override
-		public void onActionExecuted() {
+		public void onActionExecuted(boolean capturedPawn) {
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 			
@@ -313,27 +320,37 @@ public class GameControl {
 		}
 	}
 	
-	private void setPlayer10Moves(PlayerColor currentPlayer) {
-		System.out.println("----------------- SET 10 MOVES ---------------------------");
+	private void setPlayer20Moves(PlayerColor currentPlayer) {
+		System.out.println("----------------- SET 20 BONUS MOVES ---------------------------");
 		
+		setBonusMoves(currentPlayer, 20);
+	}
+	
+	private void setPlayer10Moves(PlayerColor currentPlayer) {
+		System.out.println("----------------- SET 10 BONUS MOVES ---------------------------");
+		
+		setBonusMoves(currentPlayer, 10);
+	}
+	
+	private void setBonusMoves(PlayerColor currentPlayer, int steps) {
 		for(int position = 1; position <= 52; position++)
 		{
 			Square origin = board.getTrack().getSquareAt(position);
 			if(origin.getPawnCount() > 0 && origin.getPawnsColors().contains(currentPlayer))
 			{
-				if(canMoveInsideTrack(10, currentPlayer, position))
+				if(canMoveInsideTrack(steps, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE INSIDE TRACK");
-					setPlayerTrackToTrackMoves(10, currentPlayer, position);
+					setPlayerTrackToTrackMoves(steps, currentPlayer, position);
 				}
 				
-				if(canMoveFromTrackToLane(10, currentPlayer, position))
+				if(canMoveFromTrackToLane(steps, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE FROM TRACK TO LANE");
-					setPlayerTrackToLaneMoves(10, currentPlayer, position);
+					setPlayerTrackToLaneMoves(steps, currentPlayer, position);
 				}
 				
-				if(canMoveFromTrackToPocket(10, currentPlayer, position))
+				if(canMoveFromTrackToPocket(steps, currentPlayer, position))
 				{
 					System.out.println("CAN MOVE FROM TRACK TO POCKET");
 					setPlayerTrackToPocketMoves(currentPlayer, position);
@@ -341,7 +358,7 @@ public class GameControl {
 			}
 		}
 	}
-	
+
 	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
 	{
 		System.out.println("----------------- SET ---------------------------");

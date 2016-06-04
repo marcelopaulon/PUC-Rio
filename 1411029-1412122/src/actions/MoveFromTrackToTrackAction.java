@@ -46,6 +46,7 @@ public class MoveFromTrackToTrackAction extends Action {
 				board.getYard(opponentColor).addPawn(); // Adds pawn to opponent's yard
 				
 				try {
+					super.capturedPawn = true;
 					toSquare.removePawn(opponentColor);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

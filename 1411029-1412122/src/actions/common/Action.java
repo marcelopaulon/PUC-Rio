@@ -3,6 +3,8 @@ package actions.common;
 public abstract class Action implements IAction {
 	private ActionListener listener;
 	
+	protected boolean capturedPawn = false;
+	
 	public Action(ActionListener listener) throws Exception
 	{
 		if(listener == null) throw new Exception("ActionListener cannot be null.");
@@ -11,6 +13,6 @@ public abstract class Action implements IAction {
 	
 	protected void onActionExecuted()
 	{
-		listener.onActionExecuted();
+		listener.onActionExecuted(capturedPawn);
 	}
 }
