@@ -19,6 +19,7 @@ import utils.Cryptography;
 
 public class GameSave
 {
+	// TODO - Add support to saving/loading during bonus actions (+10 / +20 after entering pocket and capturing opponent)
 	public static Board loadFromFile(File file) throws FileNotFoundException
 	{
 		Scanner scannerFile = new Scanner(file);
@@ -42,7 +43,7 @@ public class GameSave
 		int line = 0;
 
 		PlayerColor currentPlayer;
-		int currentDice;
+		int currentDice, consecutive6;
 		Track track = new Track();
 		Yard[] yards = new Yard[4];
 		Pocket[] pockets = new Pocket[4];
@@ -62,8 +63,15 @@ public class GameSave
 		line++;
 		parser = saveFile[line];
 		parser = parser.substring(8);
-
+		
 		currentDice = Integer.valueOf(parser);
+		
+		// Reading Current Consecutive 6's
+		line++;
+		parser = saveFile[line];
+		parser = parser.substring(13);
+
+		consecutive6 = Integer.valueOf(parser);
 
 		// Reading Track Positions
 		line++;
@@ -147,6 +155,7 @@ public class GameSave
 		}
 
 		Dice.setCurValue(currentDice);
+		Dice.setConsecutive6(consecutive6);
 		return new Board(track, lanes, yards, pockets, currentPlayer);
 	}
 
@@ -156,6 +165,7 @@ public class GameSave
 
 		saveString.append("CURPLAYER=" + board.getCurrentPlayer().asInt());
 		saveString.append("\nCURDICE=" + Dice.getCurValue());
+		saveString.append("\nCONSECUTIVE6=" + Dice.getConsecutive6());
 
 		Track track = board.getTrack();
 

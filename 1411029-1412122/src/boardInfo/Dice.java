@@ -28,6 +28,11 @@ public class Dice
 		consecutive6 = 0;
 	}
 
+	public static void setConsecutive6(int value)
+	{
+		consecutive6 = value;
+	}
+	
 	public static int getCurValue()
 	{
 		return curValue;
