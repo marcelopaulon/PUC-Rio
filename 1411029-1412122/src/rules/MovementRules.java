@@ -44,13 +44,13 @@ public class MovementRules
 			{
 				Square destination;
 
-				if (diceValue != 6)
+				if (diceValue == 6 && j == 0) //Jogador tirou 6 e está na última posição do tabuleiro
 				{
-					destination = lane.getSquareAt(pawnPosition + diceValue - lastSquareOfCurrentPlayer);
+					return false; // destination é o pocket.
 				}
 				else
 				{
-					return false; // destination é o pocket.
+					destination = lane.getSquareAt(pawnPosition + diceValue - lastSquareOfCurrentPlayer);
 				}
 
 				if (destination != null && destination.getPawnCount() < 2)
