@@ -74,8 +74,8 @@ public class GameControl
 
 			System.out.println("Test - track to track action listener executed");
 
-			// O jogador que capturou poder· avanÁar 20 casas com qualquer um de
-			// seus peıes.
+			// O jogador que capturou poder√° avan√ßar 20 casas com qualquer um de
+			// seus pe√µes.
 			if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 			{
 				Notifications.notifyCaptureBonus();
@@ -147,8 +147,8 @@ public class GameControl
 			}
 			else
 			{
-				// O jogador que chegar com um pe„o ‡ sua casa final avanÁar· 10
-				// casas com algum de seus outros peıes.
+				// O jogador que chegar com um pe√£o √† sua casa final avan√ßar√° 10
+				// casas com algum de seus outros pe√µes.
 				if (hasMove(10, board.getCurrentPlayer()))
 				{
 					Notifications.notifyExitBonus();
@@ -189,12 +189,12 @@ public class GameControl
 
 			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
-			board.setCurrentAction(Action.SELECTPAWN); //Dado j· foi rolado
+			board.setCurrentAction(Action.SELECTPAWN); //Dado j√° foi rolado
 
-			// Se obtiver um 6 pela terceira vez consecutiva, o ˙ltimo de seus
-			// peıes que foi movimentado voltar· para a casa inicial. No caso do
-			// ˙ltimo pe„o movimentado j· ter chegado atÈ uma das casas da reta
-			// final, ele permanecer· em sua posiÁ„o, n„o retornado ‡ casa
+			// Se obtiver um 6 pela terceira vez consecutiva, o √∫ltimo de seus
+			// pe√µes que foi movimentado voltar√° para a casa inicial. No caso do
+			// √∫ltimo pe√£o movimentado j√° ter chegado at√© uma das casas da reta
+			// final, ele permanecer√° em sua posi√ß√£o, n√£o retornado √† casa
 			// inicial.
 			if (diceValue == 6 && Dice.getConsecutive6() == 3)
 			{
@@ -320,8 +320,8 @@ public class GameControl
 	{
 		System.out.println("----------------- SET ---------------------------");
 
-		// Se um jogador obtiver um 6 apÛs lanÁar o dado, avanÁar sete casas
-		// caso n„o tenha mais peıes para retirar de sua casa inicial.
+		// Se um jogador obtiver um 6 ap√≥s lan√ßar o dado, avan√ßar sete casas
+		// caso n√£o tenha mais pe√µes para retirar de sua casa inicial.
 		if (diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3)
 		{
 			Notifications.notify6Becomes7Bonus();
@@ -651,7 +651,7 @@ public class GameControl
 				}
 				else
 				{
-					Notifications.notifyError("Erro ao definir aÁ„o de seleÁ„o");
+					Notifications.notifyError("Erro ao definir a√ß√£o de sele√ß√£o");
 				}
 				break;
 			case SELECTPAWNBONUS10:
@@ -661,7 +661,7 @@ public class GameControl
 				setPlayer20Moves(board.getCurrentPlayer());
 				break;
 			default:
-				Notifications.notifyError("Erro ao definir aÁ„o");
+				Notifications.notifyError("Erro ao definir a√ß√£o");
 				break;
 		}
 			

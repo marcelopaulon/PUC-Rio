@@ -114,7 +114,7 @@ public enum PlayerColor
 		{
 			try
 			{
-				throw new Exception("Erro - jogador inv·lido");
+				throw new Exception("Erro - jogador inv√°lido");
 			} catch (Exception e)
 			{
 				Notifications.notifyError(e.getMessage());
