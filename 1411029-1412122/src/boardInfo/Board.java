@@ -148,11 +148,13 @@ public class Board
 		return distance;
 	}
 	
-	public Action getCurrentAction() {
+	public Action getCurrentAction() 
+	{
 		return currentAction;
 	}
 
-	public void setCurrentAction(Action currentAction) {
+	public void setCurrentAction(Action currentAction) 
+	{
 		this.currentAction = currentAction;
 	}
 	

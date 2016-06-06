@@ -9,7 +9,10 @@ public abstract class Action implements IAction
 	public Action(ActionListener listener) throws Exception
 	{
 		if (listener == null)
+		{
 			throw new Exception("ActionListener cannot be null.");
+		}
+		
 		this.listener = listener;
 	}
 
