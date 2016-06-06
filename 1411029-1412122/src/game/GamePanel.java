@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
@@ -16,7 +18,7 @@ import rendering.TrackView;
 import rendering.YardView;
 import rendering.common.View;
 
-public class GamePanel extends JPanel implements IViewManager
+public class GamePanel extends JPanel implements IViewManager, Observer
 {
 
 	/**
@@ -44,15 +46,11 @@ public class GamePanel extends JPanel implements IViewManager
 		setForeground(Color.white);
 
 		this.board = board;
+		board.addObserver(this);
 
 		resetViews();
 
 		this.addMouseListener(new BoardMouseListener(Notifications.getInstance()));
-	}
-
-	public static GamePanel getInstance()
-	{
-		return instance;
 	}
 
 	public static PlayerColor getCurrentPlayer()
@@ -73,12 +71,16 @@ public class GamePanel extends JPanel implements IViewManager
 	@Override
 	public void resetHighlights()
 	{
-		((TrackView) instance.trackView).clearSquareHighlight();
+		TrackView trackView = (TrackView) instance.trackView;
+		trackView.clearSquareHighlight();
+		
 		YardView.setYardHighlight(null);
-		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.GREEN);
-		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.BLUE);
-		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.YELLOW);
-		((LaneView) instance.laneView).clearSquareHighlight(PlayerColor.RED);
+		
+		LaneView laneView = (LaneView) instance.laneView;
+		laneView.clearSquareHighlight(PlayerColor.GREEN);
+		laneView.clearSquareHighlight(PlayerColor.BLUE);
+		laneView.clearSquareHighlight(PlayerColor.YELLOW);
+		laneView.clearSquareHighlight(PlayerColor.RED);
 	}
 
 	private void renderBoard(Graphics2D g2d)
@@ -100,8 +102,7 @@ public class GamePanel extends JPanel implements IViewManager
 		renderBoard(g2d);
 	}
 
-	@Override
-	public void refresh() {
+	private void refresh() {
 		try {
 			if (instance != null)
 			{
@@ -119,7 +120,13 @@ public class GamePanel extends JPanel implements IViewManager
 	@Override
 	public void resetBoard(Board savedMap) {
 		this.board = savedMap;
+		board.addObserver(this);
 		instance.resetViews();
 		this.refresh();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		refresh();
 	}
 }

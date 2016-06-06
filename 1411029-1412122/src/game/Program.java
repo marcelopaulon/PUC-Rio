@@ -11,8 +11,7 @@ import rules.GameControl;
 
 public class Program
 {
-
-	private JFrame window;
+	private static JFrame window;
 
 	private GameControl gameControl;
 
@@ -57,6 +56,11 @@ public class Program
 		
 		Notifications.getInstance().notifyGameStart();
 		gameControl.startGame();
+	}
+	
+	public static JFrame getWindow()
+	{
+		return window;
 	}
 
 	public static void main(String[] arndt)

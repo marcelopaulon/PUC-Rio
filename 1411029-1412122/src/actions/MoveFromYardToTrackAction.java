@@ -2,6 +2,7 @@ package actions;
 
 import actions.common.Action;
 import actions.common.ActionListener;
+import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;
@@ -23,6 +24,8 @@ public class MoveFromYardToTrackAction extends Action
 	@Override
 	public void execute() throws Exception
 	{
+		ActionManager.getInstance().resetActions();
+		
 		PlayerColor color = board.getCurrentPlayer();
 		Yard yard = board.getYard(color);
 

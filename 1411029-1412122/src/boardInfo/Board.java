@@ -1,10 +1,12 @@
 package boardInfo;
 
+import java.util.Observable;
+
 import playerInfo.PlayerColor;
 import rules.BoardPositions;
 import utils.ConstantsEnum.Action;
 
-public class Board
+public class Board extends Observable
 {
 	// Game track
 	private Track track;
@@ -156,6 +158,11 @@ public class Board
 	public void setCurrentAction(Action currentAction) 
 	{
 		this.currentAction = currentAction;
+	}
+	
+	public void setChanged()
+	{
+		super.setChanged();
 	}
 	
 }

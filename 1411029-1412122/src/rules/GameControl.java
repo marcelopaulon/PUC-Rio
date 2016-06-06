@@ -49,9 +49,6 @@ public class GameControl
 		@Override
 		public void onActionExecuted(boolean capturedPawn)
 		{
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-
 			viewManager.resetHighlights();
 
 			if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
@@ -65,7 +62,8 @@ public class GameControl
 			
 			setPlayerDice();
 			
-			viewManager.refresh();
+			board.setChanged();
+			board.notifyObservers();
 		}
 
 	};
@@ -75,9 +73,6 @@ public class GameControl
 		@Override
 		public void onActionExecuted(boolean capturedPawn)
 		{
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-
 			viewManager.resetHighlights();
 
 			System.out.println("Test - track to track action listener executed");
@@ -108,7 +103,8 @@ public class GameControl
 				notificationManager.notifyError("Erro ao movimentar peça dentro da track: " + e.getMessage());
 			}
 
-			viewManager.refresh();
+			board.setChanged();
+			board.notifyObservers();
 		}
 
 	};
@@ -118,9 +114,6 @@ public class GameControl
 		@Override
 		public void onActionExecuted(boolean capturedPawn)
 		{
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-
 			viewManager.resetHighlights();
 
 			System.out.println("Test - track to lane action listener executed");
@@ -136,7 +129,8 @@ public class GameControl
 			
 			setPlayerDice();
 
-			viewManager.refresh();
+			board.setChanged();
+			board.notifyObservers();
 		}
 
 	};
@@ -146,9 +140,6 @@ public class GameControl
 		@Override
 		public void onActionExecuted(boolean capturedPawn)
 		{
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-
 			viewManager.resetHighlights();
 
 			System.out.println("Test - to pocket action listener executed");
@@ -186,7 +177,8 @@ public class GameControl
 				}
 			}
 
-			viewManager.refresh();
+			board.setChanged();
+			board.notifyObservers();
 		}
 
 	};
@@ -196,9 +188,6 @@ public class GameControl
 		@Override
 		public void onActionExecuted(boolean capturedPawn)
 		{
-			ActionManager actionManager = ActionManager.getInstance();
-			actionManager.resetActions();
-
 			viewManager.resetHighlights();
 
 			System.out.println("Dice rolled");
@@ -227,7 +216,10 @@ public class GameControl
 				board.nextPlayer();
 				setPlayerDice();
 				board.setCurrentAction(Action.ROLLDICE);
-				viewManager.refresh();
+				
+				board.setChanged();
+				board.notifyObservers();
+				
 				return;
 			}
 
@@ -254,7 +246,8 @@ public class GameControl
 				notificationManager.notifyError("Erro ao definir jogadas: " + e.getMessage());
 			}
 			
-			viewManager.refresh();
+			board.setChanged();
+			board.notifyObservers();
 		}
 	};
 
@@ -707,6 +700,7 @@ public class GameControl
 				break;
 		}
 		
-		viewManager.refresh();
+		board.setChanged();
+		board.notifyObservers();
 	}
 }

@@ -2,7 +2,6 @@ package playerInfo;
 
 import java.awt.Color;
 
-import game.Notifications;
 import gfx.GameColor;
 
 public enum PlayerColor
@@ -97,8 +96,9 @@ public enum PlayerColor
 	 * @param playerColor
 	 *            PlayerColor player color.
 	 * @return Player name
+	 * @throws Exception 
 	 */
-	public static String getPlayerName(PlayerColor color)
+	public static String getPlayerName(PlayerColor color) throws Exception
 	{
 		String player = null;
 
@@ -112,14 +112,7 @@ public enum PlayerColor
 			player = "vermelho";
 		else
 		{
-			try
-			{
-				throw new Exception("Erro - jogador inválido");
-			} catch (Exception e)
-			{
-				Notifications.getInstance().notifyError(e.getMessage());
-				e.printStackTrace();
-			}
+			throw new Exception("Erro - jogador inválido");
 		}
 
 		return player;

@@ -20,7 +20,7 @@ public class Notifications implements INotificationManager
 	
 	private void notify(String title, String message, int type)
 	{
-		JOptionPane.showMessageDialog(GamePanel.getInstance(), message, title, type);
+		JOptionPane.showMessageDialog(Program.getWindow(), message, title, type);
 	}
 	
 	private void notifyInfo(String title, String message)

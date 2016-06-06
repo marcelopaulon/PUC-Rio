@@ -2,6 +2,7 @@ package actions;
 
 import actions.common.Action;
 import actions.common.ActionListener;
+import actions.common.ActionManager;
 import boardInfo.Dice;
 
 public class RollDiceAction extends Action
@@ -15,6 +16,8 @@ public class RollDiceAction extends Action
 	@Override
 	public void execute()
 	{
+		ActionManager.getInstance().resetActions();
+		
 		Dice.rollDice();
 	}
 
