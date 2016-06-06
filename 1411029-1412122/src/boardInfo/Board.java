@@ -112,7 +112,7 @@ public class Board
 		this.currentPlayer = PlayerColor.GREEN;
 	}
 
-	public int getDistanceToPocketSum(PlayerColor player)
+	public int getDistanceToPocketSum(PlayerColor player) throws Exception
 	{
 		int distance = 0;
 

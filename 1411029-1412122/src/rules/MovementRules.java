@@ -32,7 +32,7 @@ public class MovementRules
 		return false;
 	}
 
-	public static boolean canMoveFromTrackToLane(Lane lane, int diceValue, PlayerColor currentPlayer, int pawnPosition)
+	public static boolean canMoveFromTrackToLane(Lane lane, int diceValue, PlayerColor currentPlayer, int pawnPosition) throws Exception
 	{
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
@@ -63,7 +63,7 @@ public class MovementRules
 		return false;
 	}
 
-	public static boolean canMoveFromTrackToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition)
+	public static boolean canMoveFromTrackToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition) throws Exception
 	{
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
@@ -76,7 +76,7 @@ public class MovementRules
 		return false;
 	}
 
-	public static boolean canMoveInsideTrack(Track track, int diceValue, PlayerColor currentPlayer, int pawnPosition)
+	public static boolean canMoveInsideTrack(Track track, int diceValue, PlayerColor currentPlayer, int pawnPosition) throws Exception
 	{
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
@@ -103,7 +103,7 @@ public class MovementRules
 		return false;
 	}
 	
-	public static boolean canMovePawnFromBarrier(Track track, int diceValue, PlayerColor currentPlayer) {
+	public static boolean canMovePawnFromBarrier(Track track, int diceValue, PlayerColor currentPlayer) throws Exception {
 		for(int position = 1; position <= 52; position++)
 		{
 			if(Barriers.currentPlayerHasBarrierAtTrack(track, currentPlayer, position))

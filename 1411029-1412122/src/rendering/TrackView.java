@@ -172,6 +172,11 @@ public class TrackView extends View
 	@Override
 	public void render(Graphics2D g2d)
 	{
+		int count = 0;
+		for(int i = 1; i <= 52; i++)
+			count += track.getSquareAt(i).getPawnCount();
+		System.out.println("RENDER " + count);
+		
 		for (int i = 1; i <= 52; i++)
 		{
 			try
@@ -187,7 +192,7 @@ public class TrackView extends View
 				}
 			} catch (Exception e)
 			{
-				Notifications.notifyError(e.getMessage());
+				Notifications.getInstance().notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

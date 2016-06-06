@@ -14,8 +14,8 @@ import boardInfo.Dice;
 import boardInfo.Lane;
 import boardInfo.Square;
 import boardInfo.Track;
-import game.GamePanel;
-import game.Notifications;
+import game.common.INotificationManager;
+import game.common.IViewManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
 import rendering.TrackView;
@@ -32,10 +32,16 @@ public class GameControl
 	
 	public static int lastMovedPawnPosition;
 	public static SquareType lastMovedPawnDestinationType;
+	
+	private IViewManager viewManager;
+	
+	private INotificationManager notificationManager;
 
-	public GameControl(Board board)
+	public GameControl(Board board, IViewManager viewManager, INotificationManager notificationManager)
 	{
 		this.board = board;
+		this.viewManager = viewManager;
+		this.notificationManager = notificationManager;
 	}
 
 	private ActionListener removeFromYardActionListener = new ActionListener() {
@@ -46,7 +52,7 @@ public class GameControl
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 
-			GamePanel.resetHighlights();
+			viewManager.resetHighlights();
 
 			if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
 			{
@@ -54,10 +60,12 @@ public class GameControl
 			}
 			else if(Dice.getCurValue() == 6)
 			{
-				Notifications.notify6RepeatMove();
+				notificationManager.notify6RepeatMove();
 			}
 			
 			setPlayerDice();
+			
+			viewManager.refresh();
 		}
 
 	};
@@ -70,33 +78,37 @@ public class GameControl
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 
-			GamePanel.resetHighlights();
+			viewManager.resetHighlights();
 
 			System.out.println("Test - track to track action listener executed");
 
 			// O jogador que capturou poderá avançar 20 casas com qualquer um de
 			// seus peões.
-			if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
-			{
-				Notifications.notifyCaptureBonus();
-				board.setCurrentAction(Action.SELECTPAWNBONUS20);
-				setPlayer20Moves(board.getCurrentPlayer());
-			}
-			else
-			{
-				if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+			try {
+				if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 				{
-					board.nextPlayer();
+					notificationManager.notifyCaptureBonus();
+					board.setCurrentAction(Action.SELECTPAWNBONUS20);
+					setPlayer20Moves(board.getCurrentPlayer());
 				}
-				else if(Dice.getCurValue() == 6)
+				else
 				{
-					Notifications.notify6RepeatMove();
+					if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+					{
+						board.nextPlayer();
+					}
+					else if(Dice.getCurValue() == 6)
+					{
+						notificationManager.notify6RepeatMove();
+					}
+					
+					setPlayerDice();
 				}
-				
-				setPlayerDice();
+			} catch (Exception e) {
+				notificationManager.notifyError("Erro ao movimentar peça dentro da track: " + e.getMessage());
 			}
 
-			GamePanel.requestRedraw();
+			viewManager.refresh();
 		}
 
 	};
@@ -109,7 +121,7 @@ public class GameControl
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 
-			GamePanel.resetHighlights();
+			viewManager.resetHighlights();
 
 			System.out.println("Test - track to lane action listener executed");
 
@@ -119,12 +131,12 @@ public class GameControl
 			}
 			else if(Dice.getCurValue() == 6)
 			{
-				Notifications.notify6RepeatMove();
+				notificationManager.notify6RepeatMove();
 			}
 			
 			setPlayerDice();
 
-			GamePanel.requestRedraw();
+			viewManager.refresh();
 		}
 
 	};
@@ -137,7 +149,7 @@ public class GameControl
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 
-			GamePanel.resetHighlights();
+			viewManager.resetHighlights();
 
 			System.out.println("Test - to pocket action listener executed");
 
@@ -149,28 +161,32 @@ public class GameControl
 			{
 				// O jogador que chegar com um peão à sua casa final avançará 10
 				// casas com algum de seus outros peões.
-				if (hasMove(10, board.getCurrentPlayer()))
-				{
-					Notifications.notifyExitBonus();
-					board.setCurrentAction(Action.SELECTPAWNBONUS10);
-					setPlayer10Moves(board.getCurrentPlayer());
-				}
-				else
-				{
-					if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+				try {
+					if (hasMove(10, board.getCurrentPlayer()))
 					{
-						board.nextPlayer();
+						notificationManager.notifyExitBonus();
+						board.setCurrentAction(Action.SELECTPAWNBONUS10);
+						setPlayer10Moves(board.getCurrentPlayer());
 					}
-					else if(Dice.getCurValue() == 6)
+					else
 					{
-						Notifications.notify6RepeatMove();
+						if (Dice.getCurValue() != 6 || Dice.getConsecutive6() == 3)
+						{
+							board.nextPlayer();
+						}
+						else if(Dice.getCurValue() == 6)
+						{
+							notificationManager.notify6RepeatMove();
+						}
+						
+						setPlayerDice();
 					}
-					
-					setPlayerDice();
+				} catch (Exception e) {
+					notificationManager.notifyError("Erro ao movimentar peça para pocket: " + e.getMessage());
 				}
 			}
 
-			GamePanel.requestRedraw();
+			viewManager.refresh();
 		}
 
 	};
@@ -183,7 +199,7 @@ public class GameControl
 			ActionManager actionManager = ActionManager.getInstance();
 			actionManager.resetActions();
 
-			GamePanel.resetHighlights();
+			viewManager.resetHighlights();
 
 			System.out.println("Dice rolled");
 
@@ -198,39 +214,47 @@ public class GameControl
 			// inicial.
 			if (diceValue == 6 && Dice.getConsecutive6() == 3)
 			{
-				if (hasMove(diceValue, currentPlayer))
-				{
-					Notifications.notify3Consecutive6Penalty();
-					removeLastMovedPawn();
+				try {
+					if (hasMove(diceValue, currentPlayer))
+					{
+						notificationManager.notify3Consecutive6Penalty();
+						removeLastMovedPawn();
+					}
+				} catch (Exception e) {
+					notificationManager.notifyError("Erro ao retornar peão para casa inicial: " + e.getMessage());
 				}
 
 				board.nextPlayer();
 				setPlayerDice();
 				board.setCurrentAction(Action.ROLLDICE);
-				GamePanel.requestRedraw();
+				viewManager.refresh();
 				return;
 			}
 
-			if (hasMove(diceValue, currentPlayer))
-			{
-				setPlayerMoves(diceValue, currentPlayer);
-			}
-			else
-			{
-				if (diceValue != 6)
+			try {
+				if (hasMove(diceValue, currentPlayer))
 				{
-					board.nextPlayer();
+					setPlayerMoves(diceValue, currentPlayer);
 				}
 				else
 				{
-					Notifications.notify6RepeatMove();
+					if (diceValue != 6)
+					{
+						board.nextPlayer();
+					}
+					else
+					{
+						notificationManager.notify6RepeatMove();
+					}
+					
+					board.setCurrentAction(Action.ROLLDICE);
+					setPlayerDice();
 				}
-				
-				board.setCurrentAction(Action.ROLLDICE);
-				setPlayerDice();
+			} catch (Exception e) {
+				notificationManager.notifyError("Erro ao definir jogadas: " + e.getMessage());
 			}
 			
-			GamePanel.requestRedraw();
+			viewManager.refresh();
 		}
 	};
 
@@ -246,7 +270,7 @@ public class GameControl
 				track.removePawn(lastMovedPawnPosition, currentPlayer);
 			} catch (Exception e)
 			{
-				Notifications.notifyError(e.getMessage());
+				notificationManager.notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -257,16 +281,26 @@ public class GameControl
 	private void setPlayer20Moves(PlayerColor currentPlayer)
 	{
 		System.out.println("----------------- SET 20 BONUS MOVES ---------------------------");
-		setTrackMoves(currentPlayer, 20);
+		
+		try {
+			setTrackMoves(currentPlayer, 20);
+		} catch (Exception e) {
+			notificationManager.notifyError("Erro ao definir bônus (20): " + e.getMessage());
+		}
 	}
 
 	private void setPlayer10Moves(PlayerColor currentPlayer)
 	{
 		System.out.println("----------------- SET 10 BONUS MOVES ---------------------------");
-		setTrackMoves(currentPlayer, 10);
+		
+		try {
+			setTrackMoves(currentPlayer, 10);
+		} catch (Exception e) {
+			notificationManager.notifyError("Erro ao definir bônus (10): " + e.getMessage());
+		}
 	}
 
-	private void setTrackMoves(PlayerColor currentPlayer, int steps)
+	private void setTrackMoves(PlayerColor currentPlayer, int steps) throws Exception
 	{
 		for (int position = 1; position <= 52; position++)
 		{
@@ -316,7 +350,7 @@ public class GameControl
 		}
 	}
 
-	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer)
+	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer) throws Exception
 	{
 		System.out.println("----------------- SET ---------------------------");
 
@@ -324,7 +358,7 @@ public class GameControl
 		// caso não tenha mais peões para retirar de sua casa inicial.
 		if (diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3)
 		{
-			Notifications.notify6Becomes7Bonus();
+			notificationManager.notify6Becomes7Bonus();
 			diceValue = 7;
 		}
 		
@@ -380,7 +414,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -403,7 +437,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -427,7 +461,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -452,7 +486,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -496,12 +530,12 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	private boolean hasMove(int diceValue, PlayerColor currentPlayer)
+	private boolean hasMove(int diceValue, PlayerColor currentPlayer) throws Exception
 	{
 		if (MovementRules.canMoveFromYardToTrack(board.getYard(currentPlayer), diceValue, currentPlayer))
 		{
@@ -576,7 +610,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(x - 1, y + 1, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -597,7 +631,7 @@ public class GameControl
 			ActionManager.getInstance().registerAction(pawnX, pawnY, action);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			notificationManager.notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -611,28 +645,32 @@ public class GameControl
 	{
 		ActionManager.getInstance().resetActions();
 		board.resetBoard();
-		GamePanel.requestViewReset();
+		viewManager.resetBoard(board);
 
 		setPlayerDice();
 	}
 	
 	private void endGame()
 	{
-		String[] positions = BoardPositions.getPlayerPositions(board);
+		String[] positions;
+		try {
+			positions = BoardPositions.getPlayerPositions(board);
+			notificationManager.notifyGameEnd(positions);
+		} catch (Exception e) {
+			notificationManager.notifyError("Erro ao obter placar: " + e.getMessage());
+		}
+		
 		board.setCurrentAction(Action.GAMEENDED);
-		Notifications.notifyGameEnd(positions);
 	}
 
 	public void loadMap(Board savedMap, int currentDiceValue)
 	{
 		ActionManager.getInstance().resetActions();
-		GamePanel.resetHighlights();
+		viewManager.resetHighlights();
 
 		this.board = savedMap;
 
-		GamePanel.getInstance().setBoard(savedMap);
-
-		GamePanel.requestViewReset();
+		viewManager.resetBoard(savedMap);
 
 		Action currentAction = savedMap.getCurrentAction();
 		
@@ -645,14 +683,18 @@ public class GameControl
 				setPlayerDice();
 				break;
 			case SELECTPAWN:
+			try {
 				if (hasMove(currentDiceValue, board.getCurrentPlayer()))
 				{
 					setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
 				}
 				else
 				{
-					Notifications.notifyError("Erro ao definir ação de seleção");
+					throw new Exception("Não há movimentos disponíveis");
 				}
+			} catch (Exception e) {
+				notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());
+			}
 				break;
 			case SELECTPAWNBONUS10:
 				setPlayer10Moves(board.getCurrentPlayer());
@@ -661,11 +703,10 @@ public class GameControl
 				setPlayer20Moves(board.getCurrentPlayer());
 				break;
 			default:
-				Notifications.notifyError("Erro ao definir ação");
+				notificationManager.notifyError("Erro ao definir ação");
 				break;
 		}
-			
-
-		GamePanel.requestRedraw();
+		
+		viewManager.refresh();
 	}
 }

@@ -4,7 +4,6 @@ import actions.common.Action;
 import actions.common.ActionListener;
 import boardInfo.Board;
 import boardInfo.Yard;
-import game.GamePanel;
 import playerInfo.PlayerColor;
 import rules.BoardPositions;
 import rules.GameControl;
@@ -22,7 +21,7 @@ public class MoveFromYardToTrackAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		PlayerColor color = board.getCurrentPlayer();
 		Yard yard = board.getYard(color);
@@ -35,8 +34,6 @@ public class MoveFromYardToTrackAction extends Action
 
 		GameControl.lastMovedPawnPosition = position;
 		GameControl.lastMovedPawnDestinationType = SquareType.TRACKSQUARE;
-
-		GamePanel.requestRedraw();
 	}
 
 }

@@ -26,19 +26,11 @@ public class MoveFromTrackToLaneAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		ActionManager.getInstance().resetActions();
 
-		try
-		{
-			fromSquare.removePawn(toLane.getColor());
-		} catch (Exception e)
-		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-		}
-
+		fromSquare.removePawn(toLane.getColor());
 		toLane.addPawn(toLanePosition);
 
 		GameControl.lastMovedPawnPosition = toLanePosition;

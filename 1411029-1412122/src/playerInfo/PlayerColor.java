@@ -117,7 +117,7 @@ public enum PlayerColor
 				throw new Exception("Erro - jogador inválido");
 			} catch (Exception e)
 			{
-				Notifications.notifyError(e.getMessage());
+				Notifications.getInstance().notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

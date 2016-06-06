@@ -211,7 +211,7 @@ public class LaneView extends View
 			instance.getHighlightList(laneColor).add(pawnPosition);
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			Notifications.getInstance().notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -223,7 +223,7 @@ public class LaneView extends View
 			getHighlightList(laneColor).clear();
 		} catch (Exception e)
 		{
-			Notifications.notifyError(e.getMessage());
+			Notifications.getInstance().notifyError(e.getMessage());
 			e.printStackTrace();
 		}
 	}

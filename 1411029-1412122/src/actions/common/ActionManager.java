@@ -35,7 +35,7 @@ public class ActionManager
 		actionList.clear();
 	}
 
-	public void executeAction(int positionX, int positionY)
+	public void executeAction(int positionX, int positionY) throws Exception
 	{
 		Coordinate coordinate = new Coordinate(positionX, positionY);
 

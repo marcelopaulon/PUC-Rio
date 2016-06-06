@@ -38,7 +38,7 @@ public class MainMenu extends JPanel
 		public void actionPerformed(ActionEvent arg0)
 		{
 			gameControl.startGame();
-			Notifications.notifyGameStart();
+			Notifications.getInstance().notifyGameStart();
 		}
 	};
 
@@ -83,12 +83,11 @@ public class MainMenu extends JPanel
 				Board map = showLoadMapDialog();
 				if (map != null)
 				{
-					Board savedMap = map;
-					gameControl.loadMap(savedMap, Dice.getCurValue());
+					gameControl.loadMap(map, Dice.getCurValue());
 				}
 			} catch (Exception exception)
 			{
-				Notifications.notifyGameLoadingError();
+				Notifications.getInstance().notifyGameLoadingError();
 			}
 		}
 	};
@@ -174,7 +173,7 @@ public class MainMenu extends JPanel
 						GameSave.saveToFile(board, file, shouldEncryptSave);
 					} catch (IOException ex)
 					{
-						Notifications.notifyError(ex.getMessage());
+						Notifications.getInstance().notifyError(ex.getMessage());
 						ex.printStackTrace();
 					}
 				}

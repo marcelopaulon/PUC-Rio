@@ -8,7 +8,6 @@ import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Pawn;
 import boardInfo.Square;
-import game.Notifications;
 import playerInfo.PlayerColor;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
@@ -34,7 +33,7 @@ public class MoveFromTrackToTrackAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		ActionManager.getInstance().resetActions();
 
@@ -53,15 +52,8 @@ public class MoveFromTrackToTrackAction extends Action
 				board.getYard(opponentColor).addPawn();
 
 				// Remove opponent pawn
-				try
-				{
-					super.capturedPawn = true;
-					toSquare.removePawn(opponentColor);
-				} catch (Exception e)
-				{
-					Notifications.notifyError(e.getMessage());
-					e.printStackTrace();
-				} 
+				super.capturedPawn = true;
+				toSquare.removePawn(opponentColor);
 			}
 		}
 
@@ -70,14 +62,7 @@ public class MoveFromTrackToTrackAction extends Action
 		GameControl.lastMovedPawnPosition = toSquarePosition;
 		GameControl.lastMovedPawnDestinationType = SquareType.TRACKSQUARE;
 
-		try
-		{
-			fromSquare.removePawn(color);
-		} catch (Exception e)
-		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-		}
+		fromSquare.removePawn(color);
 	}
 
 }

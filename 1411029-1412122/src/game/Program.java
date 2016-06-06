@@ -18,16 +18,18 @@ public class Program
 
 	private static Dimension defaultDimension = new Dimension(527, 582);
 
-	private void createMainMenu(Board board)
+	private MainMenu createMainMenu(Board board)
 	{
 		MainMenu mainMenu = new MainMenu(gameControl);
 		window.add(mainMenu, BorderLayout.PAGE_START);
+		return mainMenu;
 	}
 
-	private void createGamePanel(Board board)
+	private GamePanel createGamePanel(Board board)
 	{
 		GamePanel gamePanel = new GamePanel(board);
 		window.add(gamePanel, BorderLayout.CENTER);
+		return gamePanel;
 	}
 
 	private void showSplashScreen()
@@ -41,12 +43,11 @@ public class Program
 		window = new JFrame("Super LUDO 2k16.1");
 
 		Board board = new Board();
-
-		gameControl = new GameControl(board);
-
+		
+		gameControl = new GameControl(board, createGamePanel(board), new Notifications());
+		
 		createMainMenu(board);
-		createGamePanel(board);
-
+		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setMinimumSize(defaultDimension);
 		window.pack();
@@ -54,7 +55,7 @@ public class Program
 		window.setSize(defaultDimension);
 		window.setVisible(true);
 		
-		Notifications.notifyGameStart();
+		Notifications.getInstance().notifyGameStart();
 		gameControl.startGame();
 	}
 

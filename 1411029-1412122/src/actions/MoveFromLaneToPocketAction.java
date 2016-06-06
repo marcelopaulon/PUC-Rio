@@ -5,7 +5,6 @@ import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
 import boardInfo.Pocket;
-import game.Notifications;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
@@ -26,19 +25,11 @@ public class MoveFromLaneToPocketAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		ActionManager.getInstance().resetActions();
 
-		try
-		{
-			fromLane.removePawn(fromLanePosition);
-		} catch (Exception e)
-		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-		}
-
+		fromLane.removePawn(fromLanePosition);
 		toPocket.addPawn();
 
 		GameControl.lastMovedPawnPosition = toPocket.getColor().asInt();

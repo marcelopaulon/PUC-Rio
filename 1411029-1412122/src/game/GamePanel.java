@@ -8,6 +8,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import boardInfo.Board;
+import game.common.IViewManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
 import rendering.PocketView;
@@ -15,7 +16,7 @@ import rendering.TrackView;
 import rendering.YardView;
 import rendering.common.View;
 
-public class GamePanel extends JPanel
+public class GamePanel extends JPanel implements IViewManager
 {
 
 	/**
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel
 
 		resetViews();
 
-		this.addMouseListener(new BoardMouseListener());
+		this.addMouseListener(new BoardMouseListener(Notifications.getInstance()));
 	}
 
 	public static GamePanel getInstance()
@@ -59,11 +60,6 @@ public class GamePanel extends JPanel
 		return instance.board.getCurrentPlayer();
 	}
 
-	public void setBoard(Board board)
-	{
-		this.board = board;
-	}
-
 	private void resetViews()
 	{
 		// Create the game views
@@ -74,7 +70,8 @@ public class GamePanel extends JPanel
 		trackView = new TrackView(board.getTrack());
 	}
 
-	public static void resetHighlights()
+	@Override
+	public void resetHighlights()
 	{
 		((TrackView) instance.trackView).clearSquareHighlight();
 		YardView.setYardHighlight(null);
@@ -103,20 +100,26 @@ public class GamePanel extends JPanel
 		renderBoard(g2d);
 	}
 
-	public static void requestRedraw()
-	{
-		if (instance != null)
-		{
-			instance.repaint();
+	@Override
+	public void refresh() {
+		try {
+			if (instance != null)
+			{
+				instance.repaint();
+			}
+			else
+			{
+				throw new Exception("Erro ao renderizar mapa");
+			}
+		} catch (Exception e) {
+			Notifications.getInstance().notifyError(e.getMessage());
 		}
 	}
-
-	public static void requestViewReset()
-	{
-		if (instance != null)
-		{
-			instance.resetViews();
-			instance.repaint();
-		}
+	
+	@Override
+	public void resetBoard(Board savedMap) {
+		this.board = savedMap;
+		instance.resetViews();
+		this.refresh();
 	}
 }

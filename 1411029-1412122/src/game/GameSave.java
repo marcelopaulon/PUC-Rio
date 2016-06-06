@@ -1,8 +1,6 @@
 package game;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +20,7 @@ import utils.ConstantsEnum.Action;
 public class GameSave
 {
 	// TODO - Add support to saving/loading during bonus actions (+10 / +20 after entering pocket and capturing opponent)
-	public static Board loadFromFile(File file) throws FileNotFoundException
+	public static Board loadFromFile(File file) throws Exception
 	{
 		Scanner scannerFile = new Scanner(file);
 		String[] saveFile = null;
@@ -47,12 +45,9 @@ public class GameSave
 				
 				saveFile = save.toArray(new String[0]);
 			}
-		} catch (Exception e)
+		} catch (Exception e) 
 		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-
-			return null;
+			throw e;
 		} finally
 		{
 			scannerFile.close();
@@ -186,7 +181,7 @@ public class GameSave
 		return new Board(track, lanes, yards, pockets, currentPlayer, currentAction);
 	}
 
-	public static void saveToFile(Board board, File file, boolean shouldEncryptSave) throws IOException
+	public static void saveToFile(Board board, File file, boolean shouldEncryptSave) throws Exception
 	{
 		StringBuilder saveString = new StringBuilder();
 
@@ -237,20 +232,13 @@ public class GameSave
 
 		PrintWriter fileOut = new PrintWriter(file);
 
-		try
+		if(shouldEncryptSave)
 		{
-			if(shouldEncryptSave)
-			{
-				fileOut.write(Cryptography.encrypt(saveString.toString()));
-			}
-			else
-			{
-				fileOut.write(saveString.toString());
-			}
-		} catch (Exception e)
+			fileOut.write(Cryptography.encrypt(saveString.toString()));
+		}
+		else
 		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
+			fileOut.write(saveString.toString());
 		}
 
 		fileOut.close();

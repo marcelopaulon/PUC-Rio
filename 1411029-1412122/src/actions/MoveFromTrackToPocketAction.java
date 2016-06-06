@@ -24,18 +24,11 @@ public class MoveFromTrackToPocketAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		ActionManager.getInstance().resetActions();
-		try
-		{
-			fromSquare.removePawn(toPocket.getColor());
-		} catch (Exception e)
-		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-		}
-
+		
+		fromSquare.removePawn(toPocket.getColor());
 		toPocket.addPawn();
 
 		GameControl.lastMovedPawnPosition = toPocket.getColor().asInt();

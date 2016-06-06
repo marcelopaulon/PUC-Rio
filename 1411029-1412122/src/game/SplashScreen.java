@@ -36,7 +36,7 @@ public class SplashScreen extends JFrame
 			image = ImageIO.read(new File("res/splash.png"));
 		} catch (IOException e)
 		{
-			Notifications.notifyError("Erro ao carregar splash screen");
+			Notifications.getInstance().notifyError("Erro ao carregar splash screen");
 			e.printStackTrace();
 		}
 

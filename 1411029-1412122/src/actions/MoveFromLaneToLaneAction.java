@@ -4,7 +4,6 @@ import actions.common.Action;
 import actions.common.ActionListener;
 import actions.common.ActionManager;
 import boardInfo.Lane;
-import game.Notifications;
 import rules.GameControl;
 import utils.ConstantsEnum.SquareType;
 
@@ -24,19 +23,11 @@ public class MoveFromLaneToLaneAction extends Action
 	}
 
 	@Override
-	public void execute()
+	public void execute() throws Exception
 	{
 		ActionManager.getInstance().resetActions();
 
-		try
-		{
-			lane.removePawn(fromLanePosition);
-		} catch (Exception e)
-		{
-			Notifications.notifyError(e.getMessage());
-			e.printStackTrace();
-		}
-
+		lane.removePawn(fromLanePosition);
 		lane.addPawn(toLanePosition);
 
 		GameControl.lastMovedPawnPosition = toLanePosition;

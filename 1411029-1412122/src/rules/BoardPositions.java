@@ -5,13 +5,12 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 
 import boardInfo.Board;
-import game.Notifications;
 import playerInfo.PlayerColor;
 import utils.Utils;
 
 public class BoardPositions
 {
-	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer)
+	public static int getPositionOfLastSquareOfPlayer(PlayerColor currentPlayer) throws Exception
 	{
 		switch (currentPlayer)
 		{
@@ -24,12 +23,11 @@ public class BoardPositions
 			case YELLOW:
 				return 20;
 			default:
-				Notifications.notifyError("getPositionOfLastSquareOfPlayer -> invalid color");
-				return -1;
+				throw new Exception("getPositionOfLastSquareOfPlayer -> invalid color");
 		}
 	}
 
-	public static int getInitialSquarePosition(PlayerColor color)
+	public static int getInitialSquarePosition(PlayerColor color) throws Exception
 	{
 		switch (color)
 		{
@@ -43,8 +41,7 @@ public class BoardPositions
 				return 22;
 		}
 
-		Notifications.notifyError("getInitialSquarePosition -> invalid color");
-		return -1;
+		throw new Exception("getInitialSquarePosition -> invalid color");
 	}
 
 	public static PlayerColor isInitialSquarePosition(int position)
@@ -96,7 +93,7 @@ public class BoardPositions
 		return null;
 	}
 	
-	public static String[] getPlayerPositions(Board board)
+	public static String[] getPlayerPositions(Board board) throws Exception
 	{
 		String[] positions = new String[4];
 		PlayerColor winner = board.getCurrentPlayer();
