@@ -17,7 +17,7 @@ public class PreProcessor {
 		this.path = path;
 	}
 	
-	public void start()
+	public void start(int numWords)
 	{
 		populateRawReviews(path + "neg", 0, 0.50);
 		populateRawReviews(path + "pos", 50, 0.50);
@@ -27,7 +27,7 @@ public class PreProcessor {
 		removeSimilarWords();
 		
 		Map<String, Integer> map = Utils.sortByValue(this.bagOfWords);
-		String[] words = new String[500];
+		String[] words = new String[numWords];
 		
 		int minimumPresence = (int) (bagOfWords.size() * 0.005);
 		
@@ -35,7 +35,7 @@ public class PreProcessor {
 		for(Map.Entry<String, Integer> entry : map.entrySet())
     	{
 			if(entry.getValue() < minimumPresence) continue;
-			if(i >= 500) break;
+			if(i >= numWords) break;
 			
 			words[i] = entry.getKey();
 			
@@ -45,8 +45,6 @@ public class PreProcessor {
 		new ArffWriter().createArffFile(words, path);
 	}
 	
-
-
 	private void removeSimilarWords()
 	{
 		int threshold = (int) (bagOfWords.size() * 0.001);
@@ -171,7 +169,7 @@ public class PreProcessor {
 	
 	public static void main(String[] args) {
 		String path = "\\dataset\\movie_review_dataset\\all\\";
-		new PreProcessor(path).start();
+		new PreProcessor(path).start(60);
 	}
 
 }
