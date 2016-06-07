@@ -187,7 +187,7 @@ public class TrackView extends View
 				}
 			} catch (Exception e)
 			{
-				Notifications.getInstance().notifyError(e.getMessage());
+				Notifications.getInstance(null).notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

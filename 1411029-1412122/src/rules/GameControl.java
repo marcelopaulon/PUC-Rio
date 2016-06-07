@@ -14,7 +14,7 @@ import boardInfo.Dice;
 import boardInfo.Lane;
 import boardInfo.Square;
 import boardInfo.Track;
-import game.common.INotificationManager;
+import game.common.NotificationManager;
 import game.common.IViewManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
@@ -35,9 +35,9 @@ public class GameControl
 	
 	private IViewManager viewManager;
 	
-	private INotificationManager notificationManager;
+	private NotificationManager notificationManager;
 
-	public GameControl(Board board, IViewManager viewManager, INotificationManager notificationManager)
+	public GameControl(Board board, IViewManager viewManager, NotificationManager notificationManager)
 	{
 		this.board = board;
 		this.viewManager = viewManager;

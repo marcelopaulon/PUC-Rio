@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements IViewManager, Observer
 
 		resetViews();
 
-		this.addMouseListener(new BoardMouseListener(Notifications.getInstance()));
+		this.addMouseListener(new BoardMouseListener(Notifications.getInstance(board)));
 	}
 
 	public static PlayerColor getCurrentPlayer()
@@ -113,7 +113,7 @@ public class GamePanel extends JPanel implements IViewManager, Observer
 				throw new Exception("Erro ao renderizar mapa");
 			}
 		} catch (Exception e) {
-			Notifications.getInstance().notifyError(e.getMessage());
+			Notifications.getInstance(null).notifyError(e.getMessage());
 		}
 	}
 	

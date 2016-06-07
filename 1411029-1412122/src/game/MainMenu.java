@@ -38,7 +38,7 @@ public class MainMenu extends JPanel
 		public void actionPerformed(ActionEvent arg0)
 		{
 			gameControl.startGame();
-			Notifications.getInstance().notifyGameStart();
+			Notifications.getInstance(null).notifyGameStart();
 		}
 	};
 
@@ -87,7 +87,7 @@ public class MainMenu extends JPanel
 				}
 			} catch (Exception exception)
 			{
-				Notifications.getInstance().notifyGameLoadingError();
+				Notifications.getInstance(null).notifyGameLoadingError();
 			}
 		}
 	};
@@ -173,7 +173,7 @@ public class MainMenu extends JPanel
 						GameSave.saveToFile(board, file, shouldEncryptSave);
 					} catch (IOException ex)
 					{
-						Notifications.getInstance().notifyError(ex.getMessage());
+						Notifications.getInstance(null).notifyError(ex.getMessage());
 						ex.printStackTrace();
 					}
 				}
