@@ -35,13 +35,13 @@ public class Notifications implements INotificationManager
 	
 	public void notifyGameStart()
 	{
-		notifyInfo("Jogo Iniciado", "Clique no dado para comeï¿½ar");
+		notifyInfo("Jogo Iniciado", "Clique no dado para começar");
 	}
 
 	public void notifyGameEnd(String[] positions)
 	{
-		String message = "O jogador " + positions[0] + " venceu esta partida.\n2ï¿½ lugar: " + positions[1]
-				+ "\n3ï¿½ lugar: " + positions[2] + "\n4ï¿½ lugar: " + positions[3] + "\nObrigado por ludar.";
+		String message = "O jogador " + positions[0] + " venceu esta partida.\n2º lugar: " + positions[1]
+				+ "\n3º lugar: " + positions[2] + "\n4º lugar: " + positions[3] + "\nObrigado por ludar.";
 
 		notifyInfo("Fim de jogo", message);
 	}
@@ -53,26 +53,26 @@ public class Notifications implements INotificationManager
 
 	public void notifyCaptureBonus()
 	{
-		notifyInfo("Bï¿½NUS! :)", "Vocï¿½ capturou uma peï¿½a de outro jogador. Avance 20 casas com qualquer um de seus peï¿½es.");
+		notifyInfo("BÔNUS! :)", "Você capturou uma peça de outro jogador. Avance 20 casas com qualquer um de seus peões.");
 	}
 	
 	public void notifyExitBonus()
 	{
-		notifyInfo("Bï¿½NUS! :)", "Vocï¿½ chegou a casa de destino. Avance 10 casas com qualquer um de seus peï¿½es.");
+		notifyInfo("BÔNUS! :)", "Você chegou a casa de destino. Avance 10 casas com qualquer um de seus peões.");
 	}
 	
 	public void notify3Consecutive6Penalty()
 	{
-		notifyInfo("AZAR... :(", "Vocï¿½ tirou 3 dados 6 consecutivos. Volte com o ï¿½ltimo peï¿½o movido para a casa inicial.");
+		notifyInfo("AZAR... :(", "Você tirou 3 dados 6 consecutivos. Volte com o último peão movido para a casa inicial.");
 	}
 
 	public void notify6RepeatMove()
 	{
-		notifyInfo("Bï¿½NUS! :)", "Vocï¿½ tirou um dado 6. Lance o dado novamente.");
+		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Lance o dado novamente.");
 	}
 
 	public void notify6Becomes7Bonus() {
-		notifyInfo("Bï¿½NUS! :)", "Vocï¿½ tirou um dado 6. Como nï¿½o hï¿½ mais peï¿½as na sua casa inicial, vocï¿½ ganha um movimento extra!");
+		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Como não há mais peças na sua casa inicial, você ganha um movimento extra!");
 	}
 
 }
