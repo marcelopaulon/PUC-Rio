@@ -114,7 +114,7 @@ public class MainMenu extends JPanel
 						if (f.exists() && getDialogType() == SAVE_DIALOG)
 						{							
 							int result = JOptionPane.showConfirmDialog(this,
-									"O arquivo jÃ¡ existe. Deseja sobrescrevÃª-lo?", "Arquivo jÃ¡ existe",
+									"O arquivo já existe. Deseja sobrescrevê-lo?", "Arquivo já existe",
 									JOptionPane.YES_NO_CANCEL_OPTION);
 							switch (result)
 							{

@@ -77,8 +77,8 @@ public class GameControl
 
 			System.out.println("Test - track to track action listener executed");
 
-			// O jogador que capturou poder√° avan√ßar 20 casas com qualquer um de
-			// seus pe√µes.
+			// O jogador que capturou poder· avanÁar 20 casas com qualquer um de
+			// seus peıes.
 			try {
 				if (capturedPawn && hasMove(20, board.getCurrentPlayer()))
 				{
@@ -100,7 +100,7 @@ public class GameControl
 					setPlayerDice();
 				}
 			} catch (Exception e) {
-				notificationManager.notifyError("Erro ao movimentar pe√ßa dentro da track: " + e.getMessage());
+				notificationManager.notifyError("Erro ao movimentar peÁa dentro da track: " + e.getMessage());
 			}
 
 			board.setChanged();
@@ -150,8 +150,8 @@ public class GameControl
 			}
 			else
 			{
-				// O jogador que chegar com um pe√£o √† sua casa final avan√ßar√° 10
-				// casas com algum de seus outros pe√µes.
+				// O jogador que chegar com um pe„o ‡ sua casa final avanÁar· 10
+				// casas com algum de seus outros peıes.
 				try {
 					if (hasMove(10, board.getCurrentPlayer()))
 					{
@@ -173,7 +173,7 @@ public class GameControl
 						setPlayerDice();
 					}
 				} catch (Exception e) {
-					notificationManager.notifyError("Erro ao movimentar pe√ßa para pocket: " + e.getMessage());
+					notificationManager.notifyError("Erro ao movimentar peÁa para pocket: " + e.getMessage());
 				}
 			}
 
@@ -194,12 +194,12 @@ public class GameControl
 
 			int diceValue = Dice.getCurValue();
 			PlayerColor currentPlayer = board.getCurrentPlayer();
-			board.setCurrentAction(Action.SELECTPAWN); //Dado j√° foi rolado
+			board.setCurrentAction(Action.SELECTPAWN); //Dado j· foi rolado
 
-			// Se obtiver um 6 pela terceira vez consecutiva, o √∫ltimo de seus
-			// pe√µes que foi movimentado voltar√° para a casa inicial. No caso do
-			// √∫ltimo pe√£o movimentado j√° ter chegado at√© uma das casas da reta
-			// final, ele permanecer√° em sua posi√ß√£o, n√£o retornado √† casa
+			// Se obtiver um 6 pela terceira vez consecutiva, o ˙ltimo de seus
+			// peıes que foi movimentado voltar· para a casa inicial. No caso do
+			// ˙ltimo pe„o movimentado j· ter chegado atÈ uma das casas da reta
+			// final, ele permanecer· em sua posiÁ„o, n„o retornado ‡ casa
 			// inicial.
 			if (diceValue == 6 && Dice.getConsecutive6() == 3)
 			{
@@ -210,7 +210,7 @@ public class GameControl
 						removeLastMovedPawn();
 					}
 				} catch (Exception e) {
-					notificationManager.notifyError("Erro ao retornar pe√£o para casa inicial: " + e.getMessage());
+					notificationManager.notifyError("Erro ao retornar pe„o para casa inicial: " + e.getMessage());
 				}
 
 				board.nextPlayer();
@@ -278,7 +278,7 @@ public class GameControl
 		try {
 			setTrackMoves(currentPlayer, 20);
 		} catch (Exception e) {
-			notificationManager.notifyError("Erro ao definir b√¥nus (20): " + e.getMessage());
+			notificationManager.notifyError("Erro ao definir bÙnus (20): " + e.getMessage());
 		}
 	}
 
@@ -289,7 +289,7 @@ public class GameControl
 		try {
 			setTrackMoves(currentPlayer, 10);
 		} catch (Exception e) {
-			notificationManager.notifyError("Erro ao definir b√¥nus (10): " + e.getMessage());
+			notificationManager.notifyError("Erro ao definir bÙnus (10): " + e.getMessage());
 		}
 	}
 
@@ -347,8 +347,8 @@ public class GameControl
 	{
 		System.out.println("----------------- SET ---------------------------");
 
-		// Se um jogador obtiver um 6 ap√≥s lan√ßar o dado, avan√ßar sete casas
-		// caso n√£o tenha mais pe√µes para retirar de sua casa inicial.
+		// Se um jogador obtiver um 6 apÛs lanÁar o dado, avanÁar sete casas
+		// caso n„o tenha mais peıes para retirar de sua casa inicial.
 		if (diceValue == 6 && board.getYard(currentPlayer).getCount() == 0 && Dice.getConsecutive6() < 3)
 		{
 			notificationManager.notify6Becomes7Bonus();
@@ -683,10 +683,10 @@ public class GameControl
 				}
 				else
 				{
-					throw new Exception("N√£o h√° movimentos dispon√≠veis");
+					throw new Exception("N„o h· movimentos disponÌveis");
 				}
 			} catch (Exception e) {
-				notificationManager.notifyError("Erro ao definir a√ß√£o de sele√ß√£o: " + e.getMessage());
+				notificationManager.notifyError("Erro ao definir aÁ„o de seleÁ„o: " + e.getMessage());
 			}
 				break;
 			case SELECTPAWNBONUS10:
@@ -696,7 +696,7 @@ public class GameControl
 				setPlayer20Moves(board.getCurrentPlayer());
 				break;
 			default:
-				notificationManager.notifyError("Erro ao definir a√ß√£o");
+				notificationManager.notifyError("Erro ao definir aÁ„o");
 				break;
 		}
 		

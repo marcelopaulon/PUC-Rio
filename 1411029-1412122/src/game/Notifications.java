@@ -35,13 +35,13 @@ public class Notifications implements INotificationManager
 	
 	public void notifyGameStart()
 	{
-		notifyInfo("Jogo Iniciado", "Clique no dado para começar");
+		notifyInfo("Jogo Iniciado", "Clique no dado para come�ar");
 	}
 
 	public void notifyGameEnd(String[] positions)
 	{
-		String message = "O jogador " + positions[0] + " venceu esta partida.\n2º lugar: " + positions[1]
-				+ "\n3º lugar: " + positions[2] + "\n4º lugar: " + positions[3] + "\nObrigado por ludar.";
+		String message = "O jogador " + positions[0] + " venceu esta partida.\n2� lugar: " + positions[1]
+				+ "\n3� lugar: " + positions[2] + "\n4� lugar: " + positions[3] + "\nObrigado por ludar.";
 
 		notifyInfo("Fim de jogo", message);
 	}
@@ -53,26 +53,26 @@ public class Notifications implements INotificationManager
 
 	public void notifyCaptureBonus()
 	{
-		notifyInfo("BÔNUS! :)", "Você capturou uma peça de outro jogador. Avance 20 casas com qualquer um de seus peões.");
+		notifyInfo("B�NUS! :)", "Voc� capturou uma pe�a de outro jogador. Avance 20 casas com qualquer um de seus pe�es.");
 	}
 	
 	public void notifyExitBonus()
 	{
-		notifyInfo("BÔNUS! :)", "Você chegou a casa de destino. Avance 10 casas com qualquer um de seus peões.");
+		notifyInfo("B�NUS! :)", "Voc� chegou a casa de destino. Avance 10 casas com qualquer um de seus pe�es.");
 	}
 	
 	public void notify3Consecutive6Penalty()
 	{
-		notifyInfo("AZAR... :(", "Você tirou 3 dados 6 consecutivos. Volte com o último peão movido para a casa inicial.");
+		notifyInfo("AZAR... :(", "Voc� tirou 3 dados 6 consecutivos. Volte com o �ltimo pe�o movido para a casa inicial.");
 	}
 
 	public void notify6RepeatMove()
 	{
-		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Lance o dado novamente.");
+		notifyInfo("B�NUS! :)", "Voc� tirou um dado 6. Lance o dado novamente.");
 	}
 
 	public void notify6Becomes7Bonus() {
-		notifyInfo("BÔNUS! :)", "Você tirou um dado 6. Como não há mais peças na sua casa inicial, você ganha um movimento extra!");
+		notifyInfo("B�NUS! :)", "Voc� tirou um dado 6. Como n�o h� mais pe�as na sua casa inicial, voc� ganha um movimento extra!");
 	}
 
 }
