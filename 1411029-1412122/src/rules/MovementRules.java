@@ -1,4 +1,4 @@
-package rules;
+ï»¿package rules;
 
 import boardInfo.Lane;
 import boardInfo.Pocket;
@@ -38,15 +38,15 @@ public class MovementRules
 
 		for (int j = 0; j < diceValue; j++)
 		{
-			// Se ele chega na última casa com um número inferior ao tirado do
+			// Se ele chega na Ãºltima casa com um nÃºmero inferior ao tirado do
 			// dado, ele entra na lane.
 			if (pawnPosition + j == lastSquareOfCurrentPlayer)
 			{
 				Square destination;
 
-				if (diceValue == 6 && j == 0) //Jogador tirou 6 e está na última posição do tabuleiro
+				if (diceValue == 6 && j == 0) //Jogador tirou 6 e estÃ¡ na Ãºltima posiÃ§Ã£o do tabuleiro
 				{
-					return false; // destination é o pocket.
+					return false; // destination Ã© o pocket.
 				}
 				else
 				{
@@ -67,7 +67,7 @@ public class MovementRules
 	{
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
-		// está na última casa e tirou 6
+		// estÃ¡ na Ãºltima casa e tirou 6
 		if (pawnPosition == lastSquareOfCurrentPlayer && diceValue == 6)
 		{
 			return true;
@@ -88,8 +88,8 @@ public class MovementRules
 
 		for (int j = 0; j < diceValue; j++)
 		{
-			// Se ele chega na última casa com um número inferior ao tirado do
-			// dado, ele entra na lane. Logo, não pode continuar na track.
+			// Se ele chega na Ãºltima casa com um nÃºmero inferior ao tirado do
+			// dado, ele entra na lane. Logo, nÃ£o pode continuar na track.
 			if (pawnPosition + j == lastSquareOfCurrentPlayer)
 				return false;
 

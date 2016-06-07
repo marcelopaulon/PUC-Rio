@@ -1,4 +1,4 @@
-package playerInfo;
+﻿package playerInfo;
 
 import java.awt.Color;
 
@@ -112,7 +112,7 @@ public enum PlayerColor
 			player = "vermelho";
 		else
 		{
-			throw new Exception("Erro - jogador inv�lido");
+			throw new Exception("Erro - jogador inválido");
 		}
 
 		return player;
