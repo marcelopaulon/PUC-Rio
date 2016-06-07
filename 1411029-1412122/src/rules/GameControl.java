@@ -683,7 +683,8 @@ public class GameControl
 				}
 				else
 				{
-					throw new Exception("Não há movimentos disponíveis");
+					board.nextPlayer();
+					setPlayerDice();
 				}
 			} catch (Exception e) {
 				notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());
