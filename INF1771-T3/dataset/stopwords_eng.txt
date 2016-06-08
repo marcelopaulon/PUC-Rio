@@ -1,3 +1,12 @@
+betty
+sinatra
+seagal
+bruno
+lincoln
+bourne
+holly
+matthau
+stanwyck
 a
 a's
 able

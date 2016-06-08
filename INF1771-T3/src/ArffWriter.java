@@ -3,13 +3,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 public class ArffWriter {
 
-	public void createArffFile(String[] words, String path) {
+	public void createArffFile(String[] words, String path, HashMap<ScoreKey, Double> selectedWordsScores) {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("test.arff", "UTF-8");
@@ -32,18 +34,18 @@ public class ArffWriter {
 		
 		writer.println("@DATA");
 		
-		writeReviewData(path + "all\\neg", writer, words, "Negative", 0, 0.50);
-		writeReviewData(path + "all\\pos", writer, words, "Positive", 50, 0.50);
+		writeReviewData(path + "neg", writer, words, "Negative", selectedWordsScores, 0, 0.50);
+		writeReviewData(path + "pos", writer, words, "Positive", selectedWordsScores, 50, 0.50);
 		
 		writer.close();
 	}
 	
-	private void writeReviewData(String path, PrintWriter writer, String[] words, String classificator, int currentGlobalProgress, double multiplier)
+	private void writeReviewData(String path, PrintWriter writer, String[] words, String classificator, HashMap<ScoreKey, Double> selectedWordsScores, int currentGlobalProgress, double multiplier)
 	{
 		String basePath = new File("").getAbsolutePath();
 	    System.out.println(basePath + path);
 	    
-		File directory= new File(basePath + path);
+		File directory = new File(basePath + path);
 		File[] files = directory.listFiles();
 		int total = files.length;
 		int i = 0;
@@ -53,7 +55,7 @@ public class ArffWriter {
 		   if (FilenameUtils.getExtension(file.getName()).equals("txt"))
 		   {
 			   Double progress = currentGlobalProgress + ((double) i / (double) total) * multiplier * 100;
-		       writeArff(file, writer, words, classificator);
+		       writeArff(file, writer, words, classificator, selectedWordsScores);
 		       
 		       if(i % 100 == 0)
 		       {
@@ -63,7 +65,7 @@ public class ArffWriter {
 		}
 	}
 	
-	private void writeArff(File file, PrintWriter writer, String[] words, String classificator) {
+	private void writeArff(File file, PrintWriter writer, String[] words, String classificator, HashMap<ScoreKey, Double> selectedWordsScores) {
 		Integer[] data = new Integer[words.length];
 		
 		for(int i = 0; i < data.length; i++)
@@ -83,15 +85,47 @@ public class ArffWriter {
 		
 		String[] reviewWords = TextUtils.splitWords(review);
 		
+		boolean hasMatch = false;
+		
 		for(int i = 0; i < words.length; i++)
 		{
 			for(int j = 0; j < reviewWords.length; j++)
 			{
-				if(words[i].equals(reviewWords[j]))
+				String selectedWord = words[i];
+				String reviewWord = reviewWords[j];
+				
+				if(selectedWord.equals(reviewWord))
 				{
+					if(!hasMatch)
+					{
+						hasMatch = true;
+					}
+					
 					data[i]++;
 				}
+				else
+				{
+					for(Map.Entry<ScoreKey, Double> scoreEntry : selectedWordsScores.entrySet())
+			        {
+						ScoreKey scoreKey = scoreEntry.getKey();
+						if(scoreKey.k1 == reviewWord || scoreKey.k2 == reviewWord)
+						{
+							if(!hasMatch)
+							{
+								hasMatch = true;
+							}
+							
+							data[i]++;
+						}			    		
+			        }
+				}
 			}
+		}
+		
+		if(!hasMatch)
+		{
+			// Skips reviews without any of the selected words
+			return;
 		}
 		
 		StringBuilder dataStr = new StringBuilder();
