@@ -47,7 +47,7 @@ public class PreProcessor {
 		
 		for(Map.Entry<String, Integer> entry : mapNeg.entrySet())
     	{
-			if(mapPos.containsKey(entry.getKey()) && mapPos.get(entry.getKey()) > 0.25 * entry.getValue()) 
+			if(mapPos.containsKey(entry.getKey()) && mapPos.get(entry.getKey()) > 0.35 * entry.getValue()) 
 			{
 				continue;
 			}
@@ -61,7 +61,7 @@ public class PreProcessor {
 		
 		for(Map.Entry<String, Integer> entry : mapPos.entrySet())
     	{
-			if(mapNeg.containsKey(entry.getKey()) && mapNeg.get(entry.getKey()) > 0.30 * entry.getValue())
+			if(mapNeg.containsKey(entry.getKey()) && mapNeg.get(entry.getKey()) > 0.55 * entry.getValue())
 			{
 				continue;
 			}
@@ -251,7 +251,7 @@ public class PreProcessor {
 			stopWords.add(stopWordsArr[i].trim().toLowerCase());
 		}
 		
-		new PreProcessor(path, stopWords).start(80);
+		new PreProcessor(path, stopWords).start(100);
 	}
 
 }
