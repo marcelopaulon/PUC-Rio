@@ -1,0 +1,169 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     C__Users_Marcelo_workspace_INF1771-T3_dataset_movie_review_dataset_all-weka.filters.unsupervised.attribute.StringToWordVector-R1-W1000-prune-rate-1.0-T-I-N0-stemmerweka.core.stemmers.SnowballStemmer-stopwords-handlerweka.core.stopwords.WordsFromFile -stopwords C:\Users\Marcelo\workspace\INF1771-T3\dataset\stopwords_eng.txt-M1-tokenizerweka.core.tokenizers.WordTokenizer -delimiters " \r\n\t.,;:\'\"()?!"-weka.filters.unsupervised.attribute.Remove-R2-28-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.BestFirst -D 1 -N 5-weka.filters.unsupervised.attribute.Remove-R2
+Instances:    50000
+Attributes:   58
+              Avoid
+              amateurish
+              amazing
+              annoying
+              awful
+              bad
+              beautiful
+              boring
+              bother
+              bunch
+              couldn
+              crap
+              dreadful
+              dull
+              enjoyed
+              excellent
+              fails
+              great
+              horrible
+              insult
+              lame
+              laughable
+              love
+              loved
+              mess
+              minutes
+              money
+              painful
+              pathetic
+              pointless
+              poor
+              poorly
+              predictable
+              reason
+              recently
+              redeeming
+              ridiculous
+              rubbish
+              script
+              stupid
+              supposed
+              terrible
+              today
+              unfunny
+              waste
+              wasted
+              wonderful
+              worse
+              worst
+              beautifully
+              emotions
+              fantastic
+              favourite
+              funniest
+              outstanding
+              underrated
+              unusual
+              @@class@@
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: neg, pos
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+        -2.2328 * (normalized) Avoid
+ +      -1.3303 * (normalized) amateurish
+ +       0.8678 * (normalized) amazing
+ +      -0.8668 * (normalized) annoying
+ +      -1.5253 * (normalized) awful
+ +      -0.8664 * (normalized) bad
+ +       0.5067 * (normalized) beautiful
+ +      -0.9674 * (normalized) boring
+ +      -0.8681 * (normalized) bother
+ +      -0.2999 * (normalized) bunch
+ +      -0.4982 * (normalized) couldn
+ +      -0.8667 * (normalized) crap
+ +      -1.213  * (normalized) dreadful
+ +      -1.2595 * (normalized) dull
+ +       0.5667 * (normalized) enjoyed
+ +       0.8676 * (normalized) excellent
+ +      -1.3997 * (normalized) fails
+ +       0.5656 * (normalized) great
+ +      -0.8671 * (normalized) horrible
+ +      -1.1339 * (normalized) insult
+ +      -1.2145 * (normalized) lame
+ +      -1.3745 * (normalized) laughable
+ +       0.2664 * (normalized) love
+ +       0.486  * (normalized) loved
+ +      -1.0197 * (normalized) mess
+ +      -0.5675 * (normalized) minutes
+ +      -0.333  * (normalized) money
+ +      -0.5671 * (normalized) painful
+ +      -0.8995 * (normalized) pathetic
+ +      -1.2354 * (normalized) pointless
+ +      -0.8663 * (normalized) poor
+ +      -1.5156 * (normalized) poorly
+ +      -0.602  * (normalized) predictable
+ +      -0.2993 * (normalized) reason
+ +       0.2662 * (normalized) recently
+ +      -1.6668 * (normalized) redeeming
+ +      -0.867  * (normalized) ridiculous
+ +      -1.0752 * (normalized) rubbish
+ +      -0.4027 * (normalized) script
+ +      -0.8665 * (normalized) stupid
+ +      -0.8667 * (normalized) supposed
+ +      -1.1335 * (normalized) terrible
+ +       0.636  * (normalized) today
+ +      -1.6078 * (normalized) unfunny
+ +      -1.7335 * (normalized) waste
+ +      -1.3317 * (normalized) wasted
+ +       0.7971 * (normalized) wonderful
+ +      -0.8672 * (normalized) worse
+ +      -1.7324 * (normalized) worst
+ +       0.9695 * (normalized) beautifully
+ +       0.6327 * (normalized) emotions
+ +       1.0038 * (normalized) fantastic
+ +       0.8347 * (normalized) favourite
+ +       0.9701 * (normalized) funniest
+ +       0.8342 * (normalized) outstanding
+ +       0.9147 * (normalized) underrated
+ +       0.6    * (normalized) unusual
+ +       0.7335
+
+Number of kernel evaluations: 1540885107 (25.575% cached)
+
+
+
+Time taken to build model: 472.11 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       39480               78.96   %
+Incorrectly Classified Instances     10520               21.04   %
+Kappa statistic                          0.5792
+Mean absolute error                      0.2104
+Root mean squared error                  0.4587
+Relative absolute error                 42.08   %
+Root relative squared error             91.7388 %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,732    0,153    0,827      0,732    0,777      0,583    0,790     0,740     neg
+                 0,847    0,268    0,760      0,847    0,801      0,583    0,790     0,720     pos
+Weighted Avg.    0,790    0,210    0,793      0,790    0,789      0,583    0,790     0,730     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 18302  6698 |     a = neg
+  3822 21178 |     b = pos
+
