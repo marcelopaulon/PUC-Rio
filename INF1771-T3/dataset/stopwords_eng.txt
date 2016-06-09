@@ -1,4 +1,18 @@
 betty
+david
+james
+stewart
+charlie
+scott
+frank
+jean
+harry
+turkey
+mst3k
+tony
+william
+paul
+york
 sinatra
 seagal
 bruno
@@ -638,3 +652,5 @@ top
 7
 8
 9
+90
+30

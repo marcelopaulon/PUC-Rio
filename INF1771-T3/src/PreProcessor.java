@@ -41,51 +41,65 @@ public class PreProcessor {
 		
 		Map<String, Integer> mapNeg = Utils.sortByValueDesc(this.bagOfWordsNeg);
 		Map<String, Integer> mapPos = Utils.sortByValueDesc(this.bagOfWordsPos);
-		String[] words = new String[numWords];
-				
-		int i = 0;
+		List<String> words = new ArrayList<String>();
+		
+		words.add("good");
+		
+		int i = 1;
 		
 		for(Map.Entry<String, Integer> entry : mapNeg.entrySet())
     	{
-			if(mapPos.containsKey(entry.getKey()) && mapPos.get(entry.getKey()) > 0.35 * entry.getValue()) 
+			String currentWord = entry.getKey();
+			
+			if(mapPos.containsKey(currentWord) && mapPos.get(currentWord) > 0.55 * entry.getValue()) 
+			{
+				continue;
+			}
+			
+			if(words.contains(currentWord))
 			{
 				continue;
 			}
 			
 			if(i >= numWords / 2) break;
 			
-			words[i] = entry.getKey();
+			words.add(currentWord);
 			
 			i++;
     	}
 		
 		for(Map.Entry<String, Integer> entry : mapPos.entrySet())
     	{
-			if(mapNeg.containsKey(entry.getKey()) && mapNeg.get(entry.getKey()) > 0.55 * entry.getValue())
+			String currentWord = entry.getKey();
+			
+			if(mapNeg.containsKey(currentWord) && mapNeg.get(currentWord) > 0.65 * entry.getValue())
+			{
+				continue;
+			}
+			
+			if(words.contains(currentWord))
 			{
 				continue;
 			}
 			
 			if(i >= numWords) break;
 			
-			words[i] = entry.getKey();
+			words.add(currentWord);
 			
 			i++;
     	}
 		
 		HashMap<ScoreKey, Double> selectedWordsScores = new HashMap<ScoreKey, Double>();
 		
-		List<String> wordsList = Arrays.asList(words);
-		
 		for(Map.Entry<ScoreKey, Double> scoreEntry : scores.entrySet())
     	{
-			if(wordsList.contains(scoreEntry.getKey().k1) || wordsList.contains(scoreEntry.getKey().k2))
+			if(words.contains(scoreEntry.getKey().k1) || words.contains(scoreEntry.getKey().k2))
 			{
 				selectedWordsScores.put(scoreEntry.getKey(), scoreEntry.getValue());
 			}
     	}
 		
-		new ArffWriter().createArffFile(words, path, selectedWordsScores);
+		new ArffWriter().createArffFile(words.toArray(new String[0]), path, selectedWordsScores);
 	}
 	
 	private void removeSimilarWords(HashMap<String, Integer> bagOfWords)
@@ -251,7 +265,7 @@ public class PreProcessor {
 			stopWords.add(stopWordsArr[i].trim().toLowerCase());
 		}
 		
-		new PreProcessor(path, stopWords).start(100);
+		new PreProcessor(path, stopWords).start(350);
 	}
 
 }

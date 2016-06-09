@@ -125,6 +125,7 @@ public class ArffWriter {
 		if(!hasMatch)
 		{
 			// Skips reviews without any of the selected words
+			System.out.println(review);
 			return;
 		}
 		
