@@ -219,7 +219,7 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
     tempPTNode = tempPTNode->next;
   }
 
-  // TODO: Discover how to estimate optimal time interval
+  // if Time since last reset > maxPages, resetFlags
   if((lastFlagResetTime == -1 && simulationInfo.time > simulationInfo.maxPages) || (lastFlagResetTime > 0 && simulationInfo.time - lastFlagResetTime > simulationInfo.maxPages)) {
     resetFlags();
   }

@@ -15,21 +15,24 @@ Foram utilizadas 3 estruturas de dados:
 Para iniciar a simulação, deve-se executar o comando "./sim-virtual <tipo do algoritmo> ../input/<entrada> <tamanho da página> <tamanho da memória física> <-D no caso de ser realizado o modo de depuração> <tipo de depuração(apenas se o modo de depuração for chamado)>".
 
 Abaixo segue-se os resultados de uma análise de desempenho dos três modos de simulação para o mesmo tamanho de memória física(128KB) e dois tamanhos de página diferentes(8KB e 32KB).
-Para cada divisória, nº de page-faults/nº de páginas escritas. Para modo depuração, NÃO se houve erro e SIM se ocorreu tudo bem.
+Para cada divisória, nº de page-faults/nº de páginas escritas.
 
 				
-8 KB				  LRU			LRU -D 1		  LRU -D 2			  NRU			NRU -D 1		  NRU -D 2			  SEC			SEC -D 1			SEC -D 2
-matriz.log		108062 / 38102	108062 / 38102 - SIM	SIM			121022 / 38777	120717 / 38756 - SIM	SIM			102555 / 38170	102555 / 38170 - SIM	  SIM
-compilador.log	42797 / 10466	42797 / 10466 - SIM		SIM			56647 / 11294	56637 / 11367 - SIM		SIM			44942 / 10572	44942 / 10572 - SIM		  SIM
-compressor.log	11113 / 3400	11113 / 3400 - SIM		SIM			11113 / 3400	11113 / 3400 - SIM		SIM			11113 / 3400	11113 / 3400 - SIM		  SIM
-simulador.log	90375 / 45440	90375 / 45440 - SIM		SIM			99502 / 46370	99422 / 46412 - SIM		SIM			92344 / 45655	92344 / 45655 - SIM		  SIM
+8 KB				  LRU				  NRU				  SEC					
+matriz.log		108062 / 38102		120717 / 38756		102555 / 38170
+compilador.log	42797 / 10466		56637 / 11367		44942 / 10572
+compressor.log	11113 / 3400		11113 / 3400		11113 / 3400
+simulador.log	90375 / 45440		99422 / 46412		92344 / 45655
 									
 												
-32 KB				  LRU			 LRU -D 1		  LRU -D 2			  NRU			 NRU -D 1		  NRU -D 2			  SEC			 SEC -D 1		    SEC -D 2
-matriz.log		139413 / 39326	 139413 / 39326 - SIM	SIM			163203 / 41192	 163352 / 41232 - SIM	SIM			149103 / 40057	 149103 / 40057 - SIM	  SIM
-compilador.log	109468 / 14818	 109468 / 14818 - SIM	SIM			149986 / 17608	 149949 / 17672 - SIM	SIM			124753 / 15717	 124753 / 15717 - SIM	  SIM
-compressor.log	14302 / 3930	 14302 / 3930 - SIM		SIM			17073 / 4247	 16978 / 4220 - SIM		SIM			14648 / 3965	 14648 / 3965 - SIM		  SIM
-simulador.log	111810 / 47502	 111810 / 47502 - SIM	SIM			133561 / 49823	 133249 / 49877 - SIM	SIM			118673 / 48104	 118673 / 48104 - SIM	  SIM
+32 KB				  LRU				 NRU			 	  SEC		    
+matriz.log		139413 / 39326		163352 / 41232		149103 / 40057
+compilador.log	109468 / 14818		149949 / 17672		124753 / 15717
+compressor.log	14302 / 3930		16978 / 4220		14648 / 3965
+simulador.log	111810 / 47502		133249 / 49877		118673 / 48104
 
 ==Conclusão
+Para 8 KB de tamanho de página, no arquivo matriz.log o SEC teve menor número de pagefaults/writes (seguido pelo LRU e pelo NRU). No compilador.log e no simulador.log, o LRU teve o menor número de pagefaults/writes (seguido pelo SEC e pelo NRU).
+Para 32 KB de tamanho de página, LRU teve menor número de pagefaults/writes em todos os arquivos, seguido pelo SEC, e depois pelo NRU.
+
 Os testes demonstram que o simulador funciona como esperado e podemos concluir, pelos dados observados, que um tamanho de página maior acaba provocando um maior número de page faults e de páginas criadas.
