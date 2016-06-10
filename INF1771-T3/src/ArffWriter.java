@@ -11,10 +11,10 @@ import org.apache.commons.io.FilenameUtils;
 
 public class ArffWriter {
 
-	public HashMap<String, Integer> wordGlobalFrequency = new HashMap<String, Integer>();
+	public HashMap<String, Integer> selectedWordsDocumentPresence = new HashMap<String, Integer>();
 	private int totalNumberOfDocuments = 0;
 	
-	private void computeFrequencies(String path, String[] words, HashMap<ScoreKey, Double> selectedWordsScores, int currentGlobalProgress, double multiplier)
+	private void computeDocumentPresence(String path, String[] words, HashMap<ScoreKey, Double> selectedWordsScores, int currentGlobalProgress, double multiplier)
 	{
 		String basePath = new File("").getAbsolutePath();
 	    System.out.println(basePath + path);
@@ -31,7 +31,7 @@ public class ArffWriter {
 		   if (FilenameUtils.getExtension(file.getName()).equals("txt"))
 		   {
 			   Double progress = currentGlobalProgress + ((double) i / (double) total) * multiplier * 100;
-		       computeFrequency(file, words, selectedWordsScores);
+		       computePresence(file, words, selectedWordsScores);
 		       
 		       if(i % 100 == 0)
 		       {
@@ -41,7 +41,7 @@ public class ArffWriter {
 		}
 	}
 	
-	private void computeFrequency(File file, String[] words, HashMap<ScoreKey, Double> selectedWordsScores) {
+	private void computePresence(File file, String[] words, HashMap<ScoreKey, Double> selectedWordsScores) {
 		
 		String review = null;
 		
@@ -64,37 +64,46 @@ public class ArffWriter {
 				
 				if(selectedWord.equals(reviewWord))
 				{
-					if(!wordGlobalFrequency.containsKey(reviewWord))
+					if(!selectedWordsDocumentPresence.containsKey(reviewWord))
 					{
-						wordGlobalFrequency.put(reviewWord, 0);
+						selectedWordsDocumentPresence.put(reviewWord, 0);
 					}
 					
-					wordGlobalFrequency.put(reviewWord, wordGlobalFrequency.get(reviewWord) + 1);
+					selectedWordsDocumentPresence.put(reviewWord, selectedWordsDocumentPresence.get(reviewWord) + 1);
+					break;
 				}
 				else
 				{
+					boolean match = false;
+					
 					for(Map.Entry<ScoreKey, Double> scoreEntry : selectedWordsScores.entrySet())
 			        {
 						ScoreKey scoreKey = scoreEntry.getKey();
 						if(scoreKey.k1 == reviewWord)
 						{
-							if(!wordGlobalFrequency.containsKey(scoreKey.k2))
+							if(!selectedWordsDocumentPresence.containsKey(scoreKey.k2))
 							{
-								wordGlobalFrequency.put(scoreKey.k2, 0);
+								selectedWordsDocumentPresence.put(scoreKey.k2, 0);
 							}
 							
-							wordGlobalFrequency.put(scoreKey.k2, wordGlobalFrequency.get(scoreKey.k2) + 1);
+							selectedWordsDocumentPresence.put(scoreKey.k2, selectedWordsDocumentPresence.get(scoreKey.k2) + 1);
+							match = true;
+							break;
 						}
 						else if(scoreKey.k2 == reviewWord)
 						{
-							if(!wordGlobalFrequency.containsKey(scoreKey.k1))
+							if(!selectedWordsDocumentPresence.containsKey(scoreKey.k1))
 							{
-								wordGlobalFrequency.put(scoreKey.k1, 0);
+								selectedWordsDocumentPresence.put(scoreKey.k1, 0);
 							}
 							
-							wordGlobalFrequency.put(scoreKey.k1, wordGlobalFrequency.get(scoreKey.k1) + 1);
+							selectedWordsDocumentPresence.put(scoreKey.k1, selectedWordsDocumentPresence.get(scoreKey.k1) + 1);
+							match = true;
+							break;
 						}	
 			        }
+					
+					if(match) break;
 				}
 			}
 		}
@@ -112,8 +121,8 @@ public class ArffWriter {
 			e.printStackTrace();
 		}
 		
-		computeFrequencies(path + "neg", words, selectedWordsScores, 0, 0.50);
-		computeFrequencies(path + "pos", words, selectedWordsScores, 50, 0.50);
+		computeDocumentPresence(path + "neg", words, selectedWordsScores, 0, 0.50);
+		computeDocumentPresence(path + "pos", words, selectedWordsScores, 50, 0.50);
 				
 		writer.println("@RELATION movies");
 		
@@ -226,7 +235,7 @@ public class ArffWriter {
 		for(int i = 0; i < data.length; i++)
 		{
 			double tf = (double) data[i] / (double) reviewWords.length;
-			double idf = Math.log((double) totalNumberOfDocuments / (double) wordGlobalFrequency.get(words[i].trim().toLowerCase()));
+			double idf = Math.log((double) totalNumberOfDocuments / (double) selectedWordsDocumentPresence.get(words[i].trim().toLowerCase()));
 			dataStr.append(String.valueOf(tf * idf) + ",");
 		}
 		
