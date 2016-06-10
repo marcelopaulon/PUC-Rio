@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -265,7 +264,7 @@ public class PreProcessor {
 			stopWords.add(stopWordsArr[i].trim().toLowerCase());
 		}
 		
-		new PreProcessor(path, stopWords).start(350);
+		new PreProcessor(path, stopWords).start(250);
 	}
 
 }
