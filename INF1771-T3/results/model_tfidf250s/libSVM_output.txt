@@ -1,0 +1,40 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.LibSVM -S 0 -K 2 -D 3 -G 0.0 -R 0.0 -N 0.5 -M 40.0 -C 1.0 -E 0.001 -P 0.1 -model "C:\\Program Files\\Weka-3-8" -seed 1
+Relation:     movies
+Instances:    49643
+Attributes:   251
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+LibSVM wrapper, original code by Yasser EL-Manzalawy (= WLSVM)
+
+Time taken to build model: 398.25 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       24823               50.003  %
+Incorrectly Classified Instances     24820               49.997  %
+Kappa statistic                          0     
+Mean absolute error                      0.5   
+Root mean squared error                  0.7071
+Relative absolute error                 99.994  %
+Root relative squared error            141.4171 %
+Total Number of Instances            49643     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    1,000    0,500      1,000    0,667      0,000    0,500     0,500     Positive
+                 0,000    0,000    0,000      0,000    0,000      0,000    0,500     0,500     Negative
+Weighted Avg.    0,500    0,500    0,250      0,500    0,333      0,000    0,500     0,500     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 24823     0 |     a = Positive
+ 24820     0 |     b = Negative
+

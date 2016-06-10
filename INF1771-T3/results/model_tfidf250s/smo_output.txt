@@ -1,0 +1,305 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     movies
+Instances:    49643
+Attributes:   251
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: Positive, Negative
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+        -1.5581 * (normalized) good
+ +      18.0034 * (normalized) bad
+ +      12.0598 * (normalized) worst
+ +      11.2806 * (normalized) awful
+ +       2.4404 * (normalized) money
+ +      11.5301 * (normalized) poor
+ +       6.9725 * (normalized) stupid
+ +       9.7024 * (normalized) waste
+ +       7.8151 * (normalized) worse
+ +       1.2774 * (normalized) low
+ +       2.0822 * (normalized) guess
+ +       2.8696 * (normalized) crap
+ +       3.0549 * (normalized) decent
+ +       1.5111 * (normalized) god
+ +       1.9826 * (normalized) hour
+ +       5.489  * (normalized) ridiculous
+ +       3.2877 * (normalized) save
+ +       4.0108 * (normalized) cheap
+ +       2.2241 * (normalized) looked
+ +       0.5914 * (normalized) gore
+ +       0.9183 * (normalized) hell
+ +       3.2493 * (normalized) clich
+ +       7.8971 * (normalized) dull
+ +       2.519  * (normalized) apparently
+ +       5.4398 * (normalized) avoid
+ +       8.6006 * (normalized) poorly
+ +       2.1931 * (normalized) silly
+ +       7.3703 * (normalized) lame
+ +       3.4068 * (normalized) bunch
+ +       5.8112 * (normalized) badly
+ +       6.9545 * (normalized) mess
+ +       7.2925 * (normalized) wasted
+ +       4.3685 * (normalized) weak
+ +       4.1907 * (normalized) dumb
+ +       2.0567 * (normalized) rent
+ +       6.8232 * (normalized) fails
+ +       3.2737 * (normalized) joke
+ +       1.601  * (normalized) sit
+ +       4.7928 * (normalized) pointless
+ +       1.5647 * (normalized) total
+ +       2.1157 * (normalized) spent
+ +       4.1754 * (normalized) flat
+ +       1.7233 * (normalized) cover
+ +       1.0248 * (normalized) plain
+ +       3.0746 * (normalized) bored
+ +       2.5959 * (normalized) trash
+ +       5.1805 * (normalized) laughable
+ +       1.409  * (normalized) nudity
+ +       2.1512 * (normalized) fake
+ +       1.2837 * (normalized) yeah
+ +      -0.1211 * (normalized) sequences
+ +       4.6831 * (normalized) failed
+ +       2.8733 * (normalized) barely
+ +       0.9073 * (normalized) alien
+ +       0.7954 * (normalized) kills
+ +       1.7366 * (normalized) shoot
+ +       1.5899 * (normalized) weren
+ +       1.418  * (normalized) grade
+ +       3.2616 * (normalized) makers
+ +       2.1038 * (normalized) stick
+ +       0.9018 * (normalized) slasher
+ +       1.7557 * (normalized) random
+ +       4.6666 * (normalized) whatsoever
+ +       1.2318 * (normalized) utterly
+ +       0.3249 * (normalized) decide
+ +       4.4597 * (normalized) sucks
+ +       3.5873 * (normalized) mediocre
+ +       4.4687 * (normalized) wooden
+ +       1.4864 * (normalized) holes
+ +       1.471  * (normalized) porn
+ +       2.4009 * (normalized) supposedly
+ +       1.7492 * (normalized) paid
+ +       4.7727 * (normalized) lacks
+ +       2.142  * (normalized) rip
+ +       1.4656 * (normalized) confusing
+ +       2.2038 * (normalized) ugly
+ +       1.0933 * (normalized) cgi
+ +       3.6453 * (normalized) thin
+ +       5.9704 * (normalized) unfunny
+ +       1.1101 * (normalized) wood
+ +       2.2178 * (normalized) victims
+ +       5.5272 * (normalized) bland
+ +       2.1347 * (normalized) blame
+ +       2.5836 * (normalized) watchable
+ +       2.0893 * (normalized) sat
+ +       4.6417 * (normalized) skip
+ +       1.0446 * (normalized) fat
+ +       2.2584 * (normalized) hated
+ +       3.4322 * (normalized) lousy
+ +       1.8097 * (normalized) stock
+ +       2.1248 * (normalized) sucked
+ +       3.0702 * (normalized) absurd
+ +       2.2522 * (normalized) utter
+ +       3.6757 * (normalized) irritating
+ +       4.7744 * (normalized) amateurish
+ +       2.1038 * (normalized) explained
+ +       2.501  * (normalized) costs
+ +       5.1901 * (normalized) tedious
+ +       1.6508 * (normalized) animal
+ +       1.9493 * (normalized) lacking
+ +       2.2671 * (normalized) terribly
+ +       1.7053 * (normalized) advice
+ +       2.4814 * (normalized) horribly
+ +       2.4575 * (normalized) unrealistic
+ +       3.3521 * (normalized) endless
+ +       2.3448 * (normalized) frankly
+ +       1.8632 * (normalized) disgusting
+ +       1.5068 * (normalized) saved
+ +       2.051  * (normalized) favor
+ +       4.3293 * (normalized) asleep
+ +       1.029  * (normalized) cash
+ +       2.5444 * (normalized) sake
+ +       1.2644 * (normalized) logic
+ +       1.445  * (normalized) chick
+ +       2.7551 * (normalized) atrocious
+ +       3.4811 * (normalized) remotely
+ +       2.2568 * (normalized) blah
+ +       3.1509 * (normalized) walked
+ +       0.9482 * (normalized) asian
+ +       2.8115 * (normalized) pile
+ +       1.3195 * (normalized) par
+ +       1.2054 * (normalized) heck
+ +       2.5262 * (normalized) junk
+ +       1.8538 * (normalized) werewolf
+ +       3.0289 * (normalized) ruined
+ +      -9.1895 * (normalized) great
+ +      -4.8683 * (normalized) love
+ +      -2.356  * (normalized) life
+ +      -2.2522 * (normalized) years
+ +      -2.035  * (normalized) world
+ +      -0.8424 * (normalized) young
+ +      -1.3436 * (normalized) series
+ +      -0.5094 * (normalized) role
+ +      -1.3419 * (normalized) family
+ +      -8.7062 * (normalized) excellent
+ +      -4.0606 * (normalized) fun
+ +      -1.8912 * (normalized) war
+ +      -2.4059 * (normalized) dvd
+ +      -2.7123 * (normalized) shows
+ +      -1.6512 * (normalized) true
+ +      -1.6978 * (normalized) job
+ +      -1.2799 * (normalized) plays
+ +      -3.5049 * (normalized) perfect
+ +      -3.2825 * (normalized) classic
+ +      -4.2553 * (normalized) loved
+ +      -2.0628 * (normalized) enjoy
+ +      -0.953  * (normalized) recommend
+ +      -2.6268 * (normalized) human
+ +      -4.5928 * (normalized) amazing
+ +      -2.7129 * (normalized) today
+ +      -3.4722 * (normalized) heart
+ +      -0.3686 * (normalized) drama
+ +      -1.641  * (normalized) lives
+ +      -4.7644 * (normalized) enjoyed
+ +      -4.196  * (normalized) highly
+ +      -2.1152 * (normalized) works
+ +      -1.1215 * (normalized) fine
+ +      -1.8529 * (normalized) city
+ +      -2.3613 * (normalized) strong
+ +      -1.6856 * (normalized) simple
+ +      -1.2699 * (normalized) score
+ +      -0.8363 * (normalized) roles
+ +      -5.8246 * (normalized) fantastic
+ +      -2.1879 * (normalized) documentary
+ +      -0.4569 * (normalized) moment
+ +      -0.4667 * (normalized) view
+ +      -0.9396 * (normalized) important
+ +      -3.4824 * (normalized) moving
+ +      -2.4655 * (normalized) enjoyable
+ +      -1.341  * (normalized) happy
+ +      -4.5245 * (normalized) superb
+ +      -0.5078 * (normalized) supporting
+ +      -1.8908 * (normalized) oscar
+ +      -1.1608 * (normalized) finds
+ +      -1.6417 * (normalized) tale
+ +      -1.9155 * (normalized) tells
+ +      -2.0767 * (normalized) realistic
+ +      -0.5047 * (normalized) songs
+ +      -1.4924 * (normalized) easy
+ +      -1.665  * (normalized) ways
+ +      -1.5787 * (normalized) release
+ +      -2.9273 * (normalized) perfectly
+ +      -2.8866 * (normalized) surprised
+ +      -2.2054 * (normalized) beauty
+ +      -1.7357 * (normalized) season
+ +      -0.4829 * (normalized) theme
+ +      -1.0238 * (normalized) famous
+ +      -3.2512 * (normalized) unique
+ +      -2.1786 * (normalized) memorable
+ +      -1.2623 * (normalized) believable
+ +      -1.4574 * (normalized) society
+ +      -0.9553 * (normalized) meets
+ +      -1.859  * (normalized) brings
+ +      -1.1902 * (normalized) era
+ +      -3.4443 * (normalized) sweet
+ +      -1.205  * (normalized) dream
+ +      -0.1929 * (normalized) older
+ +      -5.2416 * (normalized) beautifully
+ +      -1.6906 * (normalized) unlike
+ +      -1.2131 * (normalized) recently
+ +      -0.851  * (normalized) match
+ +      -3.5901 * (normalized) solid
+ +      -0.7    * (normalized) married
+ +      -2.899  * (normalized) terrific
+ +      -3.8887 * (normalized) touching
+ +      -0.8001 * (normalized) century
+ +      -2.4989 * (normalized) effective
+ +      -3.2037 * (normalized) outstanding
+ +      -1.2245 * (normalized) images
+ +      -2.6875 * (normalized) bond
+ +      -1.3506 * (normalized) sees
+ +      -2.2293 * (normalized) genius
+ +      -2.1148 * (normalized) edge
+ +      -2.181  * (normalized) complex
+ +      -1.4449 * (normalized) impressive
+ +      -3.4372 * (normalized) rare
+ +      -3.149  * (normalized) stunning
+ +      -1.4511 * (normalized) touch
+ +      -5.6048 * (normalized) gem
+ +      -1.8389 * (normalized) lovely
+ +      -1.1903 * (normalized) west
+ +      -1.6043 * (normalized) south
+ +      -2.7918 * (normalized) noir
+ +      -0.9767 * (normalized) trip
+ +      -0.4152 * (normalized) adult
+ +      -1.9297 * (normalized) twists
+ +      -1.5245 * (normalized) themes
+ +      -1.1017 * (normalized) paris
+ +      -2.2649 * (normalized) comedies
+ +      -1.1952 * (normalized) award
+ +      -0.7858 * (normalized) ray
+ +      -3.905  * (normalized) wonderfully
+ +      -2.2835 * (normalized) ride
+ +      -1.2587 * (normalized) magic
+ +      -0.5088 * (normalized) loves
+ +      -2.4183 * (normalized) intense
+ +      -1.2237 * (normalized) festival
+ +      -1.0294 * (normalized) kelly
+ +      -1.4484 * (normalized) knowing
+ +      -5.0479 * (normalized) funniest
+ +      -1.5683 * (normalized) dreams
+ +      -1.5674 * (normalized) stands
+ +      -1.6789 * (normalized) fresh
+ +      -2.0347 * (normalized) helps
+ +      -1.5971 * (normalized) gorgeous
+ +      -0.4454 * (normalized) smith
+ +      -0.9068 * (normalized) key
+ +      -2.2593 * (normalized) compelling
+ +      -2.1138 * (normalized) impressed
+ +      -0.4732 * (normalized) marriage
+ +       0.1648
+
+Number of kernel evaluations: 93232720 (38.748% cached)
+
+
+
+Time taken to build model: 58.61 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       41126               82.8435 %
+Incorrectly Classified Instances      8517               17.1565 %
+Kappa statistic                          0.6569
+Mean absolute error                      0.1716
+Root mean squared error                  0.4142
+Relative absolute error                 34.313  %
+Root relative squared error             82.8408 %
+Total Number of Instances            49643     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,860    0,203    0,809      0,860    0,834      0,658    0,828     0,766     Positive
+                 0,797    0,140    0,850      0,797    0,823      0,658    0,828     0,779     Negative
+Weighted Avg.    0,828    0,172    0,830      0,828    0,828      0,658    0,828     0,773     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 21346  3477 |     a = Positive
+  5040 19780 |     b = Negative
+
