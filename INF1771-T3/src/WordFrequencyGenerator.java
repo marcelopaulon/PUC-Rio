@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -31,6 +30,8 @@ public class WordFrequencyGenerator {
 			System.exit(-1);
 		}
 		
+		if(this.wordList == null) System.exit(-1);
+		
 		this.bagOfWords = new HashMap<String, Integer>();
 		this.path = path;
 	}
@@ -40,7 +41,7 @@ public class WordFrequencyGenerator {
 		bagOfWords.clear();
 		for(int i = 0; i < wordList.length; i++)
 		{
-			bagOfWords.put(wordList[i].trim(), 0);
+			bagOfWords.put(wordList[i].trim().toLowerCase(), 0);
 		}
 		
 		countWordsInRawReviews(path + "neg", 0, 0.50);
@@ -57,11 +58,12 @@ public class WordFrequencyGenerator {
 			e.printStackTrace();
 		}
 		
-		for(Map.Entry<String, Integer> entry : bagOfWords.entrySet())
+		for(String selectedWord : wordList)
 		{
-			for(int i = 0; i < entry.getValue(); i++)
+			String word = selectedWord.trim().toLowerCase();
+			for(int i = 0; i < bagOfWords.get(word); i++)
 			{
-				writer.print(entry.getKey() + " ");
+				writer.print(word + " ");
 			}
 			
 			writer.println("");
@@ -110,7 +112,7 @@ public class WordFrequencyGenerator {
 		
 		for(int i = 0; i < words.length; i++)
 		{
-			String word = words[i];
+			String word = words[i].trim().toLowerCase();
 			if(word.length() < 2) continue;
 			
 			if(this.bagOfWords.containsKey(word))
@@ -122,7 +124,7 @@ public class WordFrequencyGenerator {
 
 	public static void main(String[] args) {
 		String path = "\\dataset\\movie_review_dataset\\all\\";
-		String wordspath = "\\dataset\\model1_words.txt";
+		String wordspath = "\\results\\model_tfidf250s\\model_tfidf250s_Words.txt";
 		new WordFrequencyGenerator(path, wordspath).start();
 	}
 }
