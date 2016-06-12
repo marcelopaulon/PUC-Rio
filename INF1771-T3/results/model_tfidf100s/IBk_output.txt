@@ -1,0 +1,42 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 1 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     movies
+Instances:    47626
+Attributes:   101
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 1 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0.04 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       33965               71.3161 %
+Incorrectly Classified Instances     13661               28.6839 %
+Kappa statistic                          0.4267
+Mean absolute error                      0.2887
+Root mean squared error                  0.5322
+Relative absolute error                 57.7551 %
+Root relative squared error            106.4392 %
+Total Number of Instances            47626     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,744    0,317    0,697      0,744    0,720      0,428    0,717     0,657     Positive
+                 0,683    0,256    0,731      0,683    0,706      0,428    0,717     0,676     Negative
+Weighted Avg.    0,713    0,286    0,714      0,713    0,713      0,428    0,717     0,667     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 17523  6041 |     a = Positive
+  7620 16442 |     b = Negative
+
