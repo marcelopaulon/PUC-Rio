@@ -50,7 +50,7 @@ public class PreProcessor {
     	{
 			String currentWord = entry.getKey();
 			
-			if(mapPos.containsKey(currentWord) && mapPos.get(currentWord) > 0.55 * entry.getValue()) 
+			if(mapPos.containsKey(currentWord) && mapPos.get(currentWord) > 0.45 * entry.getValue()) 
 			{
 				continue;
 			}
@@ -71,7 +71,7 @@ public class PreProcessor {
     	{
 			String currentWord = entry.getKey();
 			
-			if(mapNeg.containsKey(currentWord) && mapNeg.get(currentWord) > 0.65 * entry.getValue())
+			if(mapNeg.containsKey(currentWord) && mapNeg.get(currentWord) > 0.45 * entry.getValue())
 			{
 				continue;
 			}
@@ -264,7 +264,7 @@ public class PreProcessor {
 			stopWords.add(stopWordsArr[i].trim().toLowerCase());
 		}
 		
-		new PreProcessor(path, stopWords).start(250);
+		new PreProcessor(path, stopWords).start(100);
 	}
 
 }

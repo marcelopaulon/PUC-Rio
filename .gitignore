@@ -51,7 +51,7 @@ local.properties
 
 # Dataset
 
-dataset/
+movie_review_dataset/
 
 # OS generated files #
 ######################
