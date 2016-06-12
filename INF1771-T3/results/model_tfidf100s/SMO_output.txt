@@ -1,0 +1,155 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     movies
+Instances:    47626
+Attributes:   101
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: Positive, Negative
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+        -2.279  * (normalized) good
+ +      19.7863 * (normalized) bad
+ +      13.1583 * (normalized) worst
+ +       4.2825 * (normalized) minutes
+ +       7.6915 * (normalized) script
+ +      11.817  * (normalized) awful
+ +       2.9244 * (normalized) money
+ +      11.9712 * (normalized) poor
+ +      10.2908 * (normalized) boring
+ +       7.7323 * (normalized) stupid
+ +      11.0861 * (normalized) terrible
+ +      10.4047 * (normalized) waste
+ +       8.8149 * (normalized) worse
+ +       5.0213 * (normalized) supposed
+ +      10.2092 * (normalized) horrible
+ +       2.9419 * (normalized) couldn
+ +       3.8587 * (normalized) crap
+ +       3.2596 * (normalized) decent
+ +       5.2562 * (normalized) annoying
+ +       6.4847 * (normalized) ridiculous
+ +       3.0298 * (normalized) save
+ +       3.737  * (normalized) attempt
+ +       4.8452 * (normalized) cheap
+ +       3.6052 * (normalized) clich
+ +       7.7478 * (normalized) dull
+ +       2.7129 * (normalized) apparently
+ +       6.7274 * (normalized) avoid
+ +       9.7486 * (normalized) poorly
+ +       2.8394 * (normalized) predictable
+ +       7.8649 * (normalized) lame
+ +       4.375  * (normalized) bunch
+ +       1.6039 * (normalized) monster
+ +       6.3866 * (normalized) badly
+ +       7.8663 * (normalized) mess
+ +       7.4013 * (normalized) wasted
+ +       4.41   * (normalized) weak
+ +       4.6553 * (normalized) dumb
+ +       7.3882 * (normalized) fails
+ +       3.7771 * (normalized) joke
+ +       5.8224 * (normalized) pointless
+ +       1.7064 * (normalized) total
+ +       1.6677 * (normalized) zombie
+ +       6.344  * (normalized) pathetic
+ +       5.458  * (normalized) garbage
+ +       4.2132 * (normalized) flat
+ +       1.2851 * (normalized) plain
+ +       2.9454 * (normalized) bored
+ +       2.7234 * (normalized) trash
+ +       5.926  * (normalized) laughable
+ +       2.3578 * (normalized) fake
+ +      -9.4479 * (normalized) great
+ +      -9.1552 * (normalized) excellent
+ +      -2.73   * (normalized) beautiful
+ +      -5.8097 * (normalized) wonderful
+ +      -3.664  * (normalized) perfect
+ +      -4.2787 * (normalized) loved
+ +      -4.3876 * (normalized) amazing
+ +      -7.143  * (normalized) brilliant
+ +      -2.7235 * (normalized) today
+ +      -5.8845 * (normalized) favorite
+ +      -4.1231 * (normalized) heart
+ +      -5.2471 * (normalized) enjoyed
+ +      -4.1495 * (normalized) highly
+ +      -2.7598 * (normalized) strong
+ +      -6.6219 * (normalized) fantastic
+ +      -5.248  * (normalized) greatest
+ +      -4.4255 * (normalized) superb
+ +      -1.8905 * (normalized) oscar
+ +      -2.4875 * (normalized) realistic
+ +      -3.2885 * (normalized) perfectly
+ +      -2.2743 * (normalized) beauty
+ +      -2.0224 * (normalized) season
+ +      -3.7283 * (normalized) powerful
+ +      -3.3426 * (normalized) masterpiece
+ +      -3.5016 * (normalized) unique
+ +      -2.1414 * (normalized) memorable
+ +      -3.0077 * (normalized) incredible
+ +      -3.7668 * (normalized) sweet
+ +      -5.4143 * (normalized) beautifully
+ +      -1.6035 * (normalized) recommended
+ +      -1.5149 * (normalized) portrayal
+ +      -4.4423 * (normalized) awesome
+ +      -2.9393 * (normalized) journey
+ +      -3.5622 * (normalized) solid
+ +      -2.6776 * (normalized) terrific
+ +      -4.2619 * (normalized) touching
+ +      -4.5354 * (normalized) subtle
+ +      -3.5447 * (normalized) outstanding
+ +      -2.7199 * (normalized) bond
+ +      -2.428  * (normalized) edge
+ +      -2.5049 * (normalized) complex
+ +      -3.0884 * (normalized) emotions
+ +      -1.7297 * (normalized) charming
+ +      -3.4602 * (normalized) rare
+ +      -3.2387 * (normalized) stunning
+ +      -5.6413 * (normalized) gem
+ +      -2.8491 * (normalized) noir
+ +      -4.2228 * (normalized) fascinating
+ +      -2.1044 * (normalized) feelings
+ +      -1.7699 * (normalized) themes
+ -       0.3003
+
+Number of kernel evaluations: 19373071 (50.894% cached)
+
+
+
+Time taken to build model: 7.76 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       39363               82.6502 %
+Incorrectly Classified Instances      8263               17.3498 %
+Kappa statistic                          0.6532
+Mean absolute error                      0.1735
+Root mean squared error                  0.4165
+Relative absolute error                 34.7033 %
+Root relative squared error             83.3107 %
+Total Number of Instances            47626     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,862    0,208    0,802      0,862    0,831      0,655    0,827     0,760     Positive
+                 0,792    0,138    0,854      0,792    0,822      0,655    0,827     0,781     Negative
+Weighted Avg.    0,827    0,173    0,828      0,827    0,826      0,655    0,827     0,771     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 20302  3262 |     a = Positive
+  5001 19061 |     b = Negative
+
