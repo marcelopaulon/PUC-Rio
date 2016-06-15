@@ -2,7 +2,7 @@ package boardInfo;
 
 import playerInfo.PlayerColor;
 
-public class Square extends PawnList
+public final class Square extends PawnList
 {
 	private PlayerColor areaColor;
 

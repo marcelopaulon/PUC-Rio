@@ -6,7 +6,7 @@ import playerInfo.PlayerColor;
 import rules.BoardPositions;
 import utils.ConstantsEnum.Action;
 
-public class Board extends Observable
+public final class Board extends Observable
 {
 	// Game track
 	private Track track;

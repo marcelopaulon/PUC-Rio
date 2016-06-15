@@ -17,7 +17,7 @@ import playerInfo.PlayerColor;
 import utils.Cryptography;
 import utils.ConstantsEnum.Action;
 
-public class GameSave
+class GameSave
 {
 	// TODO - Add support to saving/loading during bonus actions (+10 / +20 after entering pocket and capturing opponent)
 	public static Board loadFromFile(File file) throws Exception

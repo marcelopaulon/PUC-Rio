@@ -1,6 +1,6 @@
 package boardInfo;
 
-public class Yard
+public final class Yard
 {
 	private int pawnCount;
 

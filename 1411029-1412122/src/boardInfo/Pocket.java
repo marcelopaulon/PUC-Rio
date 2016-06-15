@@ -2,7 +2,7 @@ package boardInfo;
 
 import playerInfo.PlayerColor;
 
-public class Pocket extends PawnList
+public final class Pocket extends PawnList
 {
 	private PlayerColor color;
 
