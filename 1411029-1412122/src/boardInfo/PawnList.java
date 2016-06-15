@@ -1,9 +1,8 @@
-package boardInfo.common;
+package boardInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import boardInfo.Pawn;
 import playerInfo.PlayerColor;
 
 public abstract class PawnList

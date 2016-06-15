@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class MainMenu extends JPanel
+class MainMenu extends JPanel
 {
 
 	/**

@@ -1,4 +1,4 @@
-package actions.common;
+package actions;
 
 import java.util.HashMap;
 

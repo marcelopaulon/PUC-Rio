@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import boardInfo.Board;
 import boardInfo.Lane;
 import game.Notifications;
 import gfx.GameColor;
@@ -17,19 +18,21 @@ public class LaneView extends View
 
 	private static LaneView instance;
 
+	private Board board;
 	private Lane greenLane;
 	private Lane yellowLane;
 	private Lane blueLane;
 	private Lane redLane;
 
-	public LaneView(Lane greenLane, Lane yellowLane, Lane blueLane, Lane redLane)
+	public LaneView(Board board)
 	{
 		instance = this;
 
-		this.greenLane = greenLane;
-		this.yellowLane = yellowLane;
-		this.blueLane = blueLane;
-		this.redLane = redLane;
+		this.board = board;
+		this.greenLane = board.getLane(PlayerColor.GREEN);
+		this.yellowLane = board.getLane(PlayerColor.YELLOW);
+		this.blueLane = board.getLane(PlayerColor.BLUE);
+		this.redLane = board.getLane(PlayerColor.RED);;
 
 		calculateGreenLaneCoordinates();
 		calculateYellowLaneCoordinates();
@@ -101,7 +104,7 @@ public class LaneView extends View
 		{
 			Coordinate coordinate = greenLaneCoordinates.get(i);
 			boolean highlight = greenLaneSquareHighlight.contains(i);
-			new SquareView(greenLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Green,
+			new SquareView(board, greenLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Green,
 					highlight).render(g2d);
 		}
 	}
@@ -112,7 +115,7 @@ public class LaneView extends View
 		{
 			Coordinate coordinate = yellowLaneCoordinates.get(i);
 			boolean highlight = yellowLaneSquareHighlight.contains(i);
-			new SquareView(yellowLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(),
+			new SquareView(board, yellowLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(),
 					GameColor.Yellow, highlight).render(g2d);
 		}
 	}
@@ -123,7 +126,7 @@ public class LaneView extends View
 		{
 			Coordinate coordinate = blueLaneCoordinates.get(i);
 			boolean highlight = blueLaneSquareHighlight.contains(i);
-			new SquareView(blueLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Blue,
+			new SquareView(board, blueLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Blue,
 					highlight).render(g2d);
 		}
 	}
@@ -134,7 +137,7 @@ public class LaneView extends View
 		{
 			Coordinate coordinate = redLaneCoordinates.get(i);
 			boolean highlight = redLaneSquareHighlight.contains(i);
-			new SquareView(redLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Red,
+			new SquareView(board, redLane.getSquareAt(i), (int) coordinate.getX(), (int) coordinate.getY(), GameColor.Red,
 					highlight).render(g2d);
 		}
 	}

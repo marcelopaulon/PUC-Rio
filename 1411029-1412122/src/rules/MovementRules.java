@@ -7,7 +7,7 @@ import boardInfo.Track;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;
 
-public class MovementRules
+class MovementRules
 {
 
 	public static boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition)

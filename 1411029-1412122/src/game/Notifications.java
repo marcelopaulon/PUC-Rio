@@ -3,7 +3,6 @@
 import javax.swing.JOptionPane;
 
 import boardInfo.Board;
-import game.common.NotificationManager;
 
 public class Notifications extends NotificationManager
 {

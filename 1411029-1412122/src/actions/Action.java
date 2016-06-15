@@ -1,4 +1,4 @@
-package actions.common;
+package actions;
 
 public abstract class Action implements IAction
 {

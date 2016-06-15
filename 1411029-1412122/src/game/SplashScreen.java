@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SplashScreen extends JFrame
+class SplashScreen extends JFrame
 {
 
 	/**

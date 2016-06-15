@@ -1,5 +1,7 @@
 ﻿package rules;
 
+import actions.ActionListener;
+import actions.ActionManager;
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;
@@ -7,15 +9,13 @@ import actions.MoveFromTrackToPocketAction;
 import actions.MoveFromTrackToTrackAction;
 import actions.MoveFromYardToTrackAction;
 import actions.RollDiceAction;
-import actions.common.ActionListener;
-import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Dice;
 import boardInfo.Lane;
 import boardInfo.Square;
 import boardInfo.Track;
-import game.common.NotificationManager;
-import game.common.IViewManager;
+import game.IViewManager;
+import game.NotificationManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
 import rendering.TrackView;

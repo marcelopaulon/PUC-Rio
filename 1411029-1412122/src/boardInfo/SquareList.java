@@ -1,7 +1,5 @@
-package boardInfo.common;
+package boardInfo;
 
-import boardInfo.Pawn;
-import boardInfo.Square;
 import playerInfo.PlayerColor;
 
 public abstract class SquareList
