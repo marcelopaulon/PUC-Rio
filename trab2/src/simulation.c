@@ -87,7 +87,7 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
 
 static void pageFault_add(PTE * pageTableEntry) {
   simulationInfo.pageFaults++;
-  
+
   if(simulationInfo.debugLevel > 1) {
     printf("\nPage fault - new - %x\n", pageTableEntry->address);
   }
@@ -95,7 +95,7 @@ static void pageFault_add(PTE * pageTableEntry) {
 
 static void pageFault_replace(PTE * pageTableEntry) {
   simulationInfo.pageFaults++;
-  
+
   if(simulationInfo.debugLevel > 1) {
     printf("\nPage fault - %x\n", pageTableEntry->address);
   }
@@ -170,7 +170,7 @@ void resetFlags() {
     }
 
     tempPTNode->current->status = 0;
-    
+
     tempPTNode = tempPTNode->next;
   }
 }
@@ -205,10 +205,9 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
       return;
     }
 
-    if(tempPTNode->current->address == address)
+    if(tempPTNode->current->address >> bits == (unsigned int) pageIndex)
     {
       accessMemory(tempPTNode->current, rw);
-
       return;
     }
 
@@ -219,7 +218,7 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
     tempPTNode = tempPTNode->next;
   }
 
-  // if Time since last reset > maxPages, resetFlags
+  // if Time since last reset > maxPages * 1024, resetFlags
   if((lastFlagResetTime == -1 && simulationInfo.time > simulationInfo.maxPages * 1024) || (lastFlagResetTime > 0 && simulationInfo.time - lastFlagResetTime > simulationInfo.maxPages * 1024)) {
     resetFlags();
   }

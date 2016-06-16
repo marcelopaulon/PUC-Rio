@@ -1,14 +1,14 @@
 ﻿INF1019 - SISTEMAS DE COMPUTAÇÃO - 2016.1
 Relatório - Trabalho 2
 
-Alunos: 
+Alunos:
         Marcelo Paulon (1411029)
         Gustavo Aranha (1320755)
 
-Foram criados três módulos para simularem 3 algoritmos de substituição de página: o algoritmo de LRU, NRU e de Segunda Chance. O simulador tem como entrada os arquivos compilador.log, matriz.log, compressor.log e simulador.log fornecidos. 
+Foram criados três módulos para simularem 3 algoritmos de substituição de página: o algoritmo de LRU, NRU e de Segunda Chance. O simulador tem como entrada os arquivos compilador.log, matriz.log, compressor.log e simulador.log fornecidos.
 Também é possível executar dois modos de depuração, D=1, que exibe informações adicionais da simulação, e D=2, que acompanha a simulação passo-a-passo.
 O módulo sim-virtual chama o módulo simulador, que configura a simulação através dos parâmetros de entrada apresentados e chama o módulo para o algoritmo especificado, e depois executa a simulação.
-Foram utilizadas 3 estruturas de dados: 
+Foram utilizadas 3 estruturas de dados:
 -SimulationInfo: contém as informações da simulação;
 -PTE: contém as informações da página, endereço, último tempo de acesso, estado("R", página referenciada, "M", página modificada).
 -PageTableNode: nó da lista encadeada, contém a "página atual".
@@ -20,17 +20,17 @@ Para cada divisória, nº de page-faults/nº de páginas escritas.
 
 16KB
 					  LRU				  NRU				  SEC
-matriz.log		129868 / 38527		141546 / 39757		132901 / 38674
-compilador.log	69762 / 12089		92375 / 13731		72374 / 12328
-compressor.log	11279 / 3505		12322 / 3550		11375 / 3488
-simulador.log	97163 / 46200		113543 / 47748		99577 / 46410
-									
-												
-32 KB				  LRU				 NRU			 	  SEC		    
-matriz.log		139413 / 39326		163352 / 41232		149103 / 40057
-compilador.log	109468 / 14818		149949 / 17672		124753 / 15717
-compressor.log	14302 / 3930		16978 / 4220		14648 / 3965
-simulador.log	111810 / 47502		133249 / 49877		118673 / 48104
+matriz.log		279236 / 43998		313794 / 44664		289725 / 44309
+compilador.log	156690 / 15033		202561 / 23279		167077 / 17786
+compressor.log	7033 / 380	      	10068 / 1042		8755 / 444
+simulador.log	155689 / 27579		209360 / 39935		173131 / 32487
+
+
+32 KB				  LRU				 NRU			 	  SEC
+matriz.log		332851 / 45310		411622 / 48925		378645 / 46782
+compilador.log	210633 / 25454		277207 / 35192		242741 / 30840
+compressor.log	77734 / 4766		118799 / 11410		97132 / 5762
+simulador.log	206695 / 45238		278385 / 60047		248831 / 55691
 
 ==Conclusão
 Para 16 KB de tamanho de página, o LRU teve o menor número de pagefaults/writes (seguido pelo SEC e pelo NRU), exceto com o arquivo "compressor.log" como entrada, em que o método SEC teve um menor número de pagewrites, mas sendo uma diferença pequena com o do LRU.
