@@ -78,7 +78,7 @@ void simulation_configure(int pageSizeKB, int physicalMemorySizeKB)
 
   bits = getNeededBits(simulationInfo.pageSize * 1024);
 
-  simulationInfo.maxPages = (physicalMemorySizeKB / pageSizeKB) * 1024;
+  simulationInfo.maxPages = (physicalMemorySizeKB / pageSizeKB);
 
   if(simulationInfo.debugLevel > 0) {
     printf("maxPages = %d; bits = %d;\n\n", simulationInfo.maxPages, bits);
@@ -220,7 +220,7 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
   }
 
   // if Time since last reset > maxPages, resetFlags
-  if((lastFlagResetTime == -1 && simulationInfo.time > simulationInfo.maxPages) || (lastFlagResetTime > 0 && simulationInfo.time - lastFlagResetTime > simulationInfo.maxPages)) {
+  if((lastFlagResetTime == -1 && simulationInfo.time > simulationInfo.maxPages * 1024) || (lastFlagResetTime > 0 && simulationInfo.time - lastFlagResetTime > simulationInfo.maxPages * 1024)) {
     resetFlags();
   }
 
