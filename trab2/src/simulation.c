@@ -115,10 +115,10 @@ static void pageFault_replace(PTE * pageTableEntry) {
   }
 }
 
-static PTE * createPTE(unsigned int address, char rw, int time) {
+static PTE * createPTE(unsigned int startingAddress, char rw, int time) {
   PTE * newPTE;
   newPTE = (PTE *) malloc(sizeof(PTE));
-  newPTE->address = address;
+  newPTE->address = startingAddress;
   newPTE->lastAccessTime = time;
   newPTE->rBit = 0x01;
 
@@ -200,7 +200,7 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
 
     if(tempPTNode->current == NULL)
     {
-      tempPTNode->current = createPTE(address, rw, simulationInfo.time);
+      tempPTNode->current = createPTE(pageIndex << bits, rw, simulationInfo.time);
       pageFault_add(tempPTNode->current);
       return;
     }
@@ -223,5 +223,5 @@ void simulation_simulateMemoryAccess(unsigned int address, char rw)
     resetFlags();
   }
 
-  pageFault_replace( createPTE(address, rw, simulationInfo.time) );
+  pageFault_replace( createPTE(pageIndex << bits, rw, simulationInfo.time) );
 }
