@@ -33,7 +33,7 @@ compressor.log	77734 / 4766		118799 / 11410		97132 / 5762
 simulador.log	206695 / 45238		278385 / 60047		248831 / 55691
 
 ==Conclusão
-Para 16 KB de tamanho de página, o LRU teve o menor número de pagefaults/writes (seguido pelo SEC e pelo NRU), exceto com o arquivo "compressor.log" como entrada, em que o método SEC teve um menor número de pagewrites, mas sendo uma diferença pequena com o do LRU.
+Para 16 KB de tamanho de página, o LRU teve o menor número de pagefaults/writes (seguido pelo SEC e pelo NRU, em todos os arquivos).
 Para 32 KB de tamanho de página, LRU teve menor número de pagefaults/writes (seguido pelo SEC e pelo NRU, em todos os arquivos).
 
 Os testes demonstram que o simulador funciona como esperado e podemos concluir, pelos dados observados, que um tamanho de página maior acaba provocando um maior número de page faults e de páginas criadas.
