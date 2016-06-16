@@ -1,0 +1,154 @@
+Relatório - Laboratório 5
+
+/*
+ Gustavo Aranha - 1320755
+ Marcelo Paulon - 1411029
+*/
+
+1) Faça um programa para criar dois processos que se comunicam via pipe. O Pai lê do pipe enquanto o filho escreve no pipe. Exiba o resultado do que foi escrito e lido.
+
+int main(void)
+{
+  int fd[2]; // descritor dos pipes
+  int pid;
+  char buffer[1024];
+
+  if(pipe(fd) < 0) {
+    printf("Erro ao abrir os pipes");
+    exit(-1);
+  }
+  
+  pid = fork();
+  if(pid == 0) { // Processo filho
+    close(fd[0]); // fd[0] (leitura) desnecessário
+    write(fd[1], "Kek", 4); // 4 bytes (Kek\0)
+    printf("'Kek' foi escrito\n");
+    return 0;
+  }
+
+  // Processo pai
+
+  close(fd[1]); // fd[1] (escrita) desnecessário
+  read(fd[0], buffer, 4); // 4 bytes (Kek\0)
+
+  printf("Foi lido: '%s'\n", buffer);
+  
+  return 0;
+}
+
+Execução:
+'Kek' foi escrito
+Foi lido: 'Kek'
+
+Reflexão: Foi aberto o pipe (fd). Daí, foi criado o processo filho, que fechou o pipe de leitura (desnecessário), escreveu a palavra "Kek" no pipe de escrita (através de um write no pipe de escrita, para que o processo pai tenha acesso a essa informação), imprimiu que a palavra foi escrita, e encerrou. No processo pai, foi fechado o pipe de escrita (desnecessário), e foram lidos os 4 bytes da string que foi escrita pelo processo filho (através de um read, no pipe de leitura). Daí, o processo pai imprimiu os 4 bytes lidos ("Kek"), exatamente como esperado.
+
+2) Faça um programa para redirecionar a entrada e a saída, lendo os dados de um arquivo e gerando a saída em outro.
+
+Arquivo entrada.txt:
+Kek 1
+
+int main(void)
+{
+  int fileIN, fileOUT;
+  char kek[4];
+  int kekCount;
+
+  fileIN = open("entrada.txt", O_RDONLY);
+  fileOUT = open("saida.txt", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRUSR|S_IRGRP|S_IROTH|S_IWUSR);
+  
+  if(fileIN < 0) {
+    printf("Erro ao abrir arquivo entrada.txt\n");
+    exit(-1);
+  }
+
+  if(fileOUT < 0) {
+    printf("Erro ao abrir arquivo saida.txt\n");
+    exit(-2);
+  }
+
+  if(dup2(fileIN, 0) == -1)
+  {
+    printf("Erro ao redirecionar stdin\n");
+    exit(-3);
+  }
+
+  if(dup2(fileOUT, 1) == -1)
+  {
+    printf("Erro ao redirecionar stdout\n");
+    exit(-1);
+  }
+
+  scanf("%s %d", &kek, &kekCount);
+  if(strcmp("Kek", kek) != 0)
+  {
+    printf("[ERRO] - Nao foi encontrada a palavra Kek na entrada\n");
+  }
+  kekCount++;
+  printf("O proximo kek eh %d", kekCount);
+  
+  close(fileIN);
+  close(fileOUT);
+
+  return 0;
+}
+
+Execução:
+saida.txt:
+O proximo kek eh 2
+
+Reflexão: Foi aberto o arquivo entrada.txt (como somente leitura), e o arquivo saida.txt (em que foram passados os parametros que indicam que ele deve ser criado se não existir, deve ser aberto para escrita, o conteúdo escrito deve ser escrito após o final do arquivo, se existir deve ter seu conteúdo apagado, e deve setar permissões de leitura para o owner, group e outros usuários, e de escrita para o owner). Daí, foi feito o redirecionamento da entrada (stdin) para o arquivo entrada.txt, e o redirecionamento da saída (stdout) para o arquivo saida.txt, através do dup2. Daí, foi lido da entrada a string Kek e o número 1. O número foi incrementado, e foi escrito no stdin a string "O proximo kek eh 2", como esperado. Daí, ambos os arquivos foram fechados, e o programa terminou.
+
+3) Faça um programa para criar um pipe e executar dois processos que são utilitários do Unix que se comuniquem através do pipe criado (a shell faz isso). 
+
+int main(void)
+{
+  int fd[2]; // descritor dos pipes
+  int pid;
+  char buffer[1024];
+
+  if(pipe(fd) < 0) {
+    printf("Erro ao abrir os pipes");
+    exit(-1);
+  }
+  
+  pid = fork();
+  if(pid == 0) { // Processo filho
+    close(fd[0]); // fd[0] (leitura) desnecessário
+    
+    if(dup2(fd[1], 1) == -1) {  // Redireciona stdout para o pipe de escrita
+      printf("Erro ao redirecionar stdout\n");
+      exit(-2);
+    }
+
+    system("ps aux"); // executa ps aux
+
+    return 0;
+  }
+
+  // Processo pai
+
+  close(fd[1]); // fd[1] (escrita) desnecessário
+
+  if(dup2(fd[0], 0) == -1) { // Redireciona o stdin para o pipe de leitura
+      printf("Erro ao redirecionar stdin\n");
+      exit(-3);
+  }
+
+  system("grep watchdog"); // executa grep watchdog
+
+  return 0;
+}
+
+Execução:
+root        12  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/0]
+root        13  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/1]
+root        20  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/2]
+root        27  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/3]
+root        34  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/4]
+root        41  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/5]
+root        48  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/6]
+root        55  0.0  0.0      0     0 ?        S    11:00   0:00 [watchdog/7]
+c1411029  3732  0.0  0.0 117000  2320 pts/0    S+   12:14   0:00 grep watchdog
+
+Reflexão: Foi aberto o pipe, e criado um processo filho. O processo filho fechou o pipe de leitura (desnecessário), redirecionou a saída (stdout) para o pipe de escrita (através do dup2 em fd[1]), e executou o comando "ps aux", para listar os processos executando no sistema. Daí, no processo pai, foi fechado o pipe de escrita (desnecessário), e o stdin foi redirecionado para o pipe de leitura (através do dup2 em fd[0]). Daí, foi executado o comando "grep watchdog", e foram exibidos no console os processos executando no sistema filtrados por "watchdog" pelo grep. O equivalente a isto na shell seria executar ps aux | grep watchdog.
+

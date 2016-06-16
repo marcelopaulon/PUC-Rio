@@ -1,0 +1,167 @@
+Relatório - Laboratório 6
+
+/*
+ Gustavo Aranha - 1320755
+ Marcelo Paulon - 1411029
+*/
+
+1) Abra duas seções de terminais 
+- Na primeira, execute um programa que fica em 
+loop lendo de uma FIFO para depois escrever na 
+saída padrão (tela) 
+- Na segunda, execute um programa que fica lendo 
+da entrada padrão (teclado) e depois escreve na 
+mesma FIFO 
+
+ex1-1.c
+--
+
+int main(void)
+{
+
+  int fpFIFO;
+  char ch;
+
+  if(access("fifo1", F_OK) == -1 && mkfifo("fifo1", S_IRUSR | S_IWUSR) != 0)
+  {
+    printf("Erro na criacao da FIFO!");
+    exit(-1);
+  }
+
+  printf("Abrindo a FIFO para leitura\n\n");
+  if((fpFIFO = open("fifo1", O_RDONLY) ) < 0 )
+  {
+    printf("Erro ao abrir a FIFO para leitura!");
+    exit(-2);
+  }
+  
+
+  while(read (fpFIFO, &ch, sizeof(ch)) > 0)
+    putchar(ch);
+ 
+  printf("\nFim da leitura");
+ 
+  close(fpFIFO);
+ 
+  return 0;
+}
+
+ex1-2.c
+--
+
+#define BUFFER 1024
+
+int main(void)
+{
+
+  int fpFIFO;
+  char mensagem[BUFFER];
+  
+  printf("Abrindo a FIFO para escrita\n");
+  if((fpFIFO = open("fifo1", O_WRONLY) ) < 0 )
+  {
+    printf("Erro ao abrir a FIFO para escrita!");
+    exit(-2);
+  }
+
+  printf("Pressione ENTER para enviar a mensagem\n\n");
+  
+  scanf("%[^\n]s", mensagem);
+
+  write(fpFIFO, mensagem, strlen(mensagem) + 1);
+
+  printf("Fim da escrita\n");
+
+  close(fpFIFO);
+  return 0;
+}
+
+Execução:
+Janela 1: ./ex1-1
+Abrindo a FIFO para leitura
+
+Janela 2: ./ex1-2
+Abrindo a FIFO Para escrita
+Pressione ENTER Para enviar a mensagem
+
+Teste 1234 (Pressionado a tecla ENTER)
+Fim da escrita
+
+Janela 1:
+Teste 1234
+Fim da leitura
+
+Reflexão: Foi criado um FIFO no programa 1, que abriu esta FIFO Para leitura, de maneira a bloquear até que fosse encerrada a escrita por outro processo. No programa 2, esta mesma FIFO foi aberta para escrita, e foi escrita nela a mensagem digitada no teclado ("Teste 1234"). Quando terminou de escrever, o programa 2 fechou a FIFO para escrita, e nisto o programa 1 continuou sua execução, imprimindo a mensagem que foi escrita na FIFO (Teste 1234), fechando-a, e encerrando a execução.
+
+2) Escreva um programa que primeiro cria uma FIFO e em seguida cria dois processos filho que escrevem uma string na FIFO. 
+- O pai dá um waitpid em seguida lê as strings desse FIFO e exibe na tela.
+
+int main(void)
+{
+
+  int fpFIFO, pid1, pid2, status;
+  char ch;
+  if(access("fifo2", F_OK) == -1 && mkfifo("fifo2", S_IRUSR | S_IWUSR) != 0)
+  {
+    printf("Erro na criacao da FIFO!");
+    exit(-1);
+  }
+
+  printf("Abrindo a FIFO para leitura\n\n");
+  if((fpFIFO = open("fifo2", O_RDONLY | O_NONBLOCK) ) < 0 )
+  {
+    printf("Erro ao abrir a FIFO para leitura!");
+    exit(-2);
+  }
+  
+  pid1 = fork();
+  if(pid1 == 0)
+  {
+    printf("Abrindo a FIFO para escrita no processo 1\n\n");
+    if((fpFIFO = open("fifo2", O_WRONLY) ) < 0 )
+    {
+      printf("Erro ao abrir a FIFO para escrita no processo 1!");
+      exit(-3);
+    }
+    write(fpFIFO, "Kek1", 5);
+    close(fpFIFO);
+    return 0;
+  }
+  pid2 = fork();
+  if(pid2 == 0)
+  {
+    printf("Abrindo a FIFO para escrita no processo 2\n\n");
+    if((fpFIFO = open("fifo2", O_WRONLY) ) < 0 )
+    {
+      printf("Erro ao abrir a FIFO para escrita no processo 2!");
+      exit(-3);
+    }
+    write(fpFIFO, "Kek2", 5);
+    close(fpFIFO);
+    return 0;
+  }
+
+  waitpid(pid1, &status, 0);
+  waitpid(pid2, &status, 0);
+
+  while(read (fpFIFO, &ch, sizeof(ch)) > 0)
+    putchar(ch);
+ 
+  printf("\nFim da leitura");
+ 
+  close(fpFIFO);
+ 
+  return 0;
+}
+
+Execução:
+Abrindo a FIFO para leitura
+
+Abrindo a FIFO para escrita no processo 1
+
+Abrindo a FIFO para escrita no processo 2
+
+Kek1Kek2
+
+Reflexão: O programa criou uma FIFO, a abriu para leitura de maneira a não bloquear a execução, e criou 2 processos. O 1º processo abriu esta FIFO para escrita e escreveu a string "Kek1", a fechou, e encerrou. O 2º processo fez o mesmo que o 1º, só que ao invés disso escreveu "Kek2". O programa estava esperando o término de ambos os processos, através dos waitpids, e quando estes foram encerrados, o programa escreveu o que foi escrito na FIFO (Kek1Kek2), conforme esperado, fechando a FIFO, e encerrando a execução. 
+
