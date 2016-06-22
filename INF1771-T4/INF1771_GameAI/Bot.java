@@ -1,4 +1,4 @@
-package INF1771_GameAI;
+﻿package INF1771_GameAI;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import INF1771_GameClient.Socket.*;
 
 public class Bot implements Runnable {
 
-	private String name = "INF1771 Bot Example1";
+	protected String name = "INF1771 Bot Example1"; //Modificada para protected para os bots extendidos poderem acessá-la
 	private String host = "godel.galgos.inf.puc-rio.br";
 
 	HandleClient client = new HandleClient();
@@ -19,7 +19,7 @@ public class Bot implements Runnable {
 	List<ShotInfo> shotList = new ArrayList<ShotInfo>();
 	List<ScoreBoard> scoreList = new ArrayList<ScoreBoard>();
 
-	GameAI gameAi = new GameAI();
+	protected GameAI gameAi = new GameAI(); //Modificada para protected para os bots extendidos poderem acessá-la
 
 	long time = 0;
 

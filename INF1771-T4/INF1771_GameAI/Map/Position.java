@@ -1,4 +1,4 @@
-package INF1771_GameAI.Map;
+﻿package INF1771_GameAI.Map;
 
 public class Position {
 	/**

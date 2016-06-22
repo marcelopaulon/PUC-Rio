@@ -1,4 +1,4 @@
-package INF1771_GameAI;
+﻿package INF1771_GameAI;
 import INF1771_GameAI.Map.*;
 import java.util.ArrayList;
 import java.util.List;
