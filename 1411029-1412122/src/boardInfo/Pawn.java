@@ -2,7 +2,7 @@ package boardInfo;
 
 import playerInfo.PlayerColor;
 
-public class Pawn
+public final class Pawn
 {
 	private PlayerColor color;
 	private int walkCount;

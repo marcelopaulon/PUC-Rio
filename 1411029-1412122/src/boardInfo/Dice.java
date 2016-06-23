@@ -2,7 +2,7 @@ package boardInfo;
 
 import java.util.Random;
 
-public class Dice
+public final class Dice
 {
 	private static Random randomNumberGenerator = new Random();
 

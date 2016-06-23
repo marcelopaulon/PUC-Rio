@@ -3,7 +3,7 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class SplashScreenKeyListener implements KeyListener
+class SplashScreenKeyListener implements KeyListener
 {
 
 	private Thread thread;

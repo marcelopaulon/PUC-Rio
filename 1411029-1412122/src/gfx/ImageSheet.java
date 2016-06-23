@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * Class used to store a Image Sheet
  */
-public class ImageSheet
+class ImageSheet
 {
 	/**
 	 * Image file containing all tiles set to be used

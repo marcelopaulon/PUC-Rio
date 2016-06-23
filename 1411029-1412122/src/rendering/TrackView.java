@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import boardInfo.Board;
 import boardInfo.Square;
 import boardInfo.Track;
 import game.Notifications;
@@ -19,13 +20,16 @@ public class TrackView extends View
 {
 	private static TrackView instance;
 
+	private Board board;
 	private Track track;
 
-	public TrackView(Track track)
+	public TrackView(Board board)
 	{
 		instance = this;
 
-		this.track = track;
+		this.board = board;
+		this.track = board.getTrack();
+		
 		calculateGreenAreaCoordinates();
 		calculateYellowAreaCoordinates();
 		calculateBlueAreaCoordinates();
@@ -178,7 +182,7 @@ public class TrackView extends View
 			{
 				Coordinate coordinate = getPawnCoordinate(i);
 				Square square = track.getSquareAt(i);
-				new SquareView(square, (int) coordinate.getX(), (int) coordinate.getY(), null,
+				new SquareView(board, square, (int) coordinate.getX(), (int) coordinate.getY(), null,
 						squareHighlight.contains(i)).render(g2d);
 
 				if (square.getPawnCount() == 0 && BoardPositions.isInitialSquarePosition(i) != null)
@@ -187,7 +191,7 @@ public class TrackView extends View
 				}
 			} catch (Exception e)
 			{
-				Notifications.getInstance().notifyError(e.getMessage());
+				Notifications.getInstance(null).notifyError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

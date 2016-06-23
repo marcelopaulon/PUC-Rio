@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SplashScreen extends JFrame
+class SplashScreen extends JFrame
 {
 
 	/**
@@ -36,7 +36,7 @@ public class SplashScreen extends JFrame
 			image = ImageIO.read(new File("res/splash.png"));
 		} catch (IOException e)
 		{
-			Notifications.getInstance().notifyError("Erro ao carregar splash screen");
+			Notifications.getInstance(null).notifyError("Erro ao carregar splash screen");
 			e.printStackTrace();
 		}
 

@@ -1,4 +1,4 @@
-package playerInfo;
+﻿package playerInfo;
 
 import java.awt.Color;
 

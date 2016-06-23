@@ -3,15 +3,14 @@ package game;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import actions.common.ActionManager;
-import game.common.INotificationManager;
+import actions.ActionManager;
 import utils.ConstantsEnum;
 
-public class BoardMouseListener implements MouseListener
+class BoardMouseListener implements MouseListener
 {
-	private INotificationManager notificationManager;
+	private NotificationManager notificationManager;
 	
-	public BoardMouseListener(INotificationManager notificationManager)
+	public BoardMouseListener(NotificationManager notificationManager)
 	{
 		this.notificationManager = notificationManager;
 	}

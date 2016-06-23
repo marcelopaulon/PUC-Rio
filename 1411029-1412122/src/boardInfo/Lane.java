@@ -1,6 +1,5 @@
 package boardInfo;
 
-import boardInfo.common.SquareList;
 import playerInfo.PlayerColor;
 
 public final class Lane extends SquareList

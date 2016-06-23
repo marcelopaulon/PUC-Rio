@@ -4,7 +4,7 @@ import boardInfo.Square;
 import boardInfo.Track;
 import playerInfo.PlayerColor;
 
-public class Barriers
+class Barriers
 {
 	public static boolean opponentHasBarrierAt(Track track, PlayerColor currentPlayer, int position)
 	{

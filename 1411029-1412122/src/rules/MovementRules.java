@@ -1,4 +1,4 @@
-package rules;
+﻿package rules;
 
 import boardInfo.Lane;
 import boardInfo.Pocket;
@@ -7,7 +7,7 @@ import boardInfo.Track;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;
 
-public class MovementRules
+class MovementRules
 {
 
 	public static boolean canMoveFromLaneToPocket(int diceValue, PlayerColor currentPlayer, int pawnPosition)
@@ -81,14 +81,17 @@ public class MovementRules
 		int lastSquareOfCurrentPlayer = BoardPositions.getPositionOfLastSquareOfPlayer(currentPlayer);
 
 		Square destination;
+		int destinationPosition;
 		if (pawnPosition + diceValue > 52)
-			destination = track.getSquareAt(pawnPosition + diceValue - 52);
+			destinationPosition = pawnPosition + diceValue - 52;
 		else
-			destination = track.getSquareAt(pawnPosition + diceValue);
+			destinationPosition = pawnPosition + diceValue;
 
+		destination = track.getSquareAt(destinationPosition);
+		
 		for (int j = 0; j < diceValue; j++)
 		{
-			// Se ele chega na útima casa com um número inferior ao tirado do
+			// Se ele chega na última casa com um número inferior ao tirado do
 			// dado, ele entra na lane. Logo, não pode continuar na track.
 			if (pawnPosition + j == lastSquareOfCurrentPlayer)
 				return false;
@@ -97,7 +100,7 @@ public class MovementRules
 				return false;
 		}
 
-		if (destination != null && destination.getPawnCount() < 2)
+		if (destination != null && (BoardPositions.isShelterPosition(destinationPosition) || destination.getPawnCount() < 2))
 			return true;
 
 		return false;

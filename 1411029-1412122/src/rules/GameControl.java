@@ -1,5 +1,7 @@
-package rules;
+﻿package rules;
 
+import actions.ActionListener;
+import actions.ActionManager;
 import actions.MoveFromLaneToLaneAction;
 import actions.MoveFromLaneToPocketAction;
 import actions.MoveFromTrackToLaneAction;
@@ -7,15 +9,13 @@ import actions.MoveFromTrackToPocketAction;
 import actions.MoveFromTrackToTrackAction;
 import actions.MoveFromYardToTrackAction;
 import actions.RollDiceAction;
-import actions.common.ActionListener;
-import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Dice;
 import boardInfo.Lane;
 import boardInfo.Square;
 import boardInfo.Track;
-import game.common.INotificationManager;
-import game.common.IViewManager;
+import game.IViewManager;
+import game.NotificationManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
 import rendering.TrackView;
@@ -35,9 +35,9 @@ public class GameControl
 	
 	private IViewManager viewManager;
 	
-	private INotificationManager notificationManager;
+	private NotificationManager notificationManager;
 
-	public GameControl(Board board, IViewManager viewManager, INotificationManager notificationManager)
+	public GameControl(Board board, IViewManager viewManager, NotificationManager notificationManager)
 	{
 		this.board = board;
 		this.viewManager = viewManager;
@@ -683,7 +683,8 @@ public class GameControl
 				}
 				else
 				{
-					throw new Exception("Não há movimentos disponíveis");
+					board.nextPlayer();
+					setPlayerDice();
 				}
 			} catch (Exception e) {
 				notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());

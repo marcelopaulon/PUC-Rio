@@ -8,8 +8,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.Hashtable;
 import java.util.List;
 
+import boardInfo.Board;
 import boardInfo.Square;
-import game.GamePanel;
 import gfx.GameColor;
 import playerInfo.PlayerColor;
 import rendering.common.View;
@@ -23,9 +23,12 @@ public class SquareView extends View
 	private Color fillColor;
 	private boolean highlight;
 	private Square square;
+	private Board board;
 
-	public SquareView(Square square, float x, float y, Color fillColor, boolean highlight)
+	public SquareView(Board board, Square square, float x, float y, Color fillColor, boolean highlight)
 	{
+		this.board = board;
+		
 		this.x = x;
 		this.y = y;
 		this.fillColor = fillColor;
@@ -110,7 +113,7 @@ public class SquareView extends View
 
 	private void renderMultipleColor(Graphics2D g2d, Square square)
 	{
-		PlayerColor currentPlayer = GamePanel.getCurrentPlayer();
+		PlayerColor currentPlayer = board.getCurrentPlayer();
 		List<PlayerColor> colors = square.getPawnsColors();
 
 		double squareSize4th = squareSize / 2.0;

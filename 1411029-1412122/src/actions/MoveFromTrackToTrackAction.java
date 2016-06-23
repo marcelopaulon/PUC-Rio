@@ -2,11 +2,7 @@ package actions;
 
 import java.util.List;
 
-import actions.common.Action;
-import actions.common.ActionListener;
-import actions.common.ActionManager;
 import boardInfo.Board;
-import boardInfo.Pawn;
 import boardInfo.Square;
 import playerInfo.PlayerColor;
 import rules.GameControl;
@@ -57,7 +53,7 @@ public class MoveFromTrackToTrackAction extends Action
 			}
 		}
 
-		toSquare.addPawn(new Pawn(color));
+		toSquare.addPawn(color);
 
 		GameControl.lastMovedPawnPosition = toSquarePosition;
 		GameControl.lastMovedPawnDestinationType = SquareType.TRACKSQUARE;

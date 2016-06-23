@@ -10,7 +10,6 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import boardInfo.Board;
-import game.common.IViewManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
 import rendering.PocketView;
@@ -18,7 +17,7 @@ import rendering.TrackView;
 import rendering.YardView;
 import rendering.common.View;
 
-public class GamePanel extends JPanel implements IViewManager, Observer
+class GamePanel extends JPanel implements IViewManager, Observer
 {
 
 	/**
@@ -50,7 +49,7 @@ public class GamePanel extends JPanel implements IViewManager, Observer
 
 		resetViews();
 
-		this.addMouseListener(new BoardMouseListener(Notifications.getInstance()));
+		this.addMouseListener(new BoardMouseListener(Notifications.getInstance(board)));
 	}
 
 	public static PlayerColor getCurrentPlayer()
@@ -63,9 +62,8 @@ public class GamePanel extends JPanel implements IViewManager, Observer
 		// Create the game views
 		yardView = new YardView(board);
 		pocketView = new PocketView(board);
-		laneView = new LaneView(board.getLane(PlayerColor.GREEN), board.getLane(PlayerColor.YELLOW),
-				board.getLane(PlayerColor.BLUE), board.getLane(PlayerColor.RED));
-		trackView = new TrackView(board.getTrack());
+		laneView = new LaneView(board);
+		trackView = new TrackView(board);
 	}
 
 	@Override
@@ -113,7 +111,7 @@ public class GamePanel extends JPanel implements IViewManager, Observer
 				throw new Exception("Erro ao renderizar mapa");
 			}
 		} catch (Exception e) {
-			Notifications.getInstance().notifyError(e.getMessage());
+			Notifications.getInstance(null).notifyError(e.getMessage());
 		}
 	}
 	

@@ -1,9 +1,8 @@
 package boardInfo;
 
-import boardInfo.common.PawnList;
 import playerInfo.PlayerColor;
 
-public class Square extends PawnList
+public final class Square extends PawnList
 {
 	private PlayerColor areaColor;
 
@@ -13,6 +12,10 @@ public class Square extends PawnList
 		this.areaColor = areaColor;
 	}
 
+	public void addPawn(PlayerColor color) {
+		super.addPawn(new Pawn(color));
+	}
+	
 	public void addPawn(Pawn pawn)
 	{
 		super.addPawn(pawn);

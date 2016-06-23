@@ -1,18 +1,22 @@
-package game;
+﻿package game;
 
 import javax.swing.JOptionPane;
 
-import game.common.INotificationManager;
+import boardInfo.Board;
 
-public class Notifications implements INotificationManager
+public class Notifications extends NotificationManager
 {
+	public Notifications(Board board) {
+		super(board);
+	}
+
 	private static Notifications instance = null;
 	
-	public static INotificationManager getInstance()
+	public static NotificationManager getInstance(Board board)
 	{
 		if(instance == null)
 		{
-			instance = new Notifications();
+			instance = new Notifications(board);
 		}
 		
 		return instance;
@@ -20,6 +24,12 @@ public class Notifications implements INotificationManager
 	
 	private void notify(String title, String message, int type)
 	{
+		if(board != null)
+		{
+			board.setChanged();
+			board.notifyObservers();
+		}
+		
 		JOptionPane.showMessageDialog(Program.getWindow(), message, title, type);
 	}
 	

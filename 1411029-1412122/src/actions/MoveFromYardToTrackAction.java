@@ -1,8 +1,5 @@
 package actions;
 
-import actions.common.Action;
-import actions.common.ActionListener;
-import actions.common.ActionManager;
 import boardInfo.Board;
 import boardInfo.Yard;
 import playerInfo.PlayerColor;

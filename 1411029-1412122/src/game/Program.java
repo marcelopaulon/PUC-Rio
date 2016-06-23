@@ -43,7 +43,7 @@ public class Program
 
 		Board board = new Board();
 		
-		gameControl = new GameControl(board, createGamePanel(board), new Notifications());
+		gameControl = new GameControl(board, createGamePanel(board), new Notifications(board));
 		
 		createMainMenu(board);
 		
@@ -54,7 +54,7 @@ public class Program
 		window.setSize(defaultDimension);
 		window.setVisible(true);
 		
-		Notifications.getInstance().notifyGameStart();
+		Notifications.getInstance(board).notifyGameStart();
 		gameControl.startGame();
 	}
 	

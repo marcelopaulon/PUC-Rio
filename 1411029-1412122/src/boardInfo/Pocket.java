@@ -1,9 +1,8 @@
 package boardInfo;
 
-import boardInfo.common.PawnList;
 import playerInfo.PlayerColor;
 
-public class Pocket extends PawnList
+public final class Pocket extends PawnList
 {
 	private PlayerColor color;
 
