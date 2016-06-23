@@ -14,7 +14,7 @@ public class Bot implements Runnable {
 	protected String name = "INF1771 Bot Example1"; //Modificada para protected para os bots extendidos poderem acessá-la
 	private String host = "godel.galgos.inf.puc-rio.br";
 
-	HandleClient client = new HandleClient();
+	private HandleClient client = new HandleClient();
 	Map<Long, PlayerInfo> playerList = new HashMap<Long, PlayerInfo>();
 	List<ShotInfo> shotList = new ArrayList<ShotInfo>();
 	List<ScoreBoard> scoreList = new ArrayList<ScoreBoard>();
@@ -29,13 +29,29 @@ public class Bot implements Runnable {
 	List<String> msg = new ArrayList<String>();
 	double msgSeconds = 0;
 	int timer_interval = 1000;
+	
+	//Método adicionado
+	public HandleClient getClient(){
+		return client;
+	}
+	
+	//Método adicionado
+	public void printCommands (String[] cmd){
+		for(String c : cmd) System.out.println(c);
+	}
+	
+	//Método adicionado
+	public void updateName(){
+		client.sendName(name);
+	}
 
 	public Bot() {
 		// Set command listener to process commands received from server
 		client.addCommandListener(new CommandListener() {
-
+			//modificado
 			@Override
 			public void receiveCommand(String[] cmd) {
+				//printCommands(cmd);
 				if (cmd != null)
 					if (cmd.length > 0)
 						try {
@@ -177,7 +193,7 @@ public class Bot implements Runnable {
 
 				if (client.connected) {
 					System.out.println("Connected");
-					client.sendName(name);
+					updateName();
 					client.sendRequestGameStatus();
 					client.sendRequestUserStatus();
 					client.sendRequestObservation();

@@ -10,7 +10,10 @@ public class MoonwalkBot extends Bot{
 	 */
 	public MoonwalkBot(){
 		super();
-		name = "Bot1";
 		gameAi = new MoonwalkAI();
+	}
+	
+	public void updateName(){
+		getClient().sendName("Bot1");
 	}
 }
