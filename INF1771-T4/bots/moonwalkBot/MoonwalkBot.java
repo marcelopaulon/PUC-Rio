@@ -9,11 +9,11 @@ public class MoonwalkBot extends Bot{
 	 * No exemplo, a modificação altera o nome e AI usada pelo bot.
 	 */
 	public MoonwalkBot(){
-		super();
+		super("Moonwalk Bot");
 		gameAi = new MoonwalkAI();
 	}
 	
-	public void updateName(){
-		getClient().sendName("Bot1");
+	public void updateName(String s){
+		getClient().sendName(s);
 	}
 }

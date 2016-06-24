@@ -9,9 +9,9 @@ import java.util.Map;
 import INF1771_GameClient.Dto.*;
 import INF1771_GameClient.Socket.*;
 
-public class Bot implements Runnable {
-
-	protected String name = "INF1771 Bot Example1"; //Modificada para protected para os bots extendidos poderem acessá-la
+public abstract class Bot implements Runnable {
+	private String botName;
+	
 	private String host = "godel.galgos.inf.puc-rio.br";
 
 	private HandleClient client = new HandleClient();
@@ -19,7 +19,7 @@ public class Bot implements Runnable {
 	List<ShotInfo> shotList = new ArrayList<ShotInfo>();
 	List<ScoreBoard> scoreList = new ArrayList<ScoreBoard>();
 
-	protected GameAI gameAi = new GameAI(); //Modificada para protected para os bots extendidos poderem acessá-la
+	protected GameAI gameAi = new GameAI();
 
 	long time = 0;
 
@@ -40,12 +40,13 @@ public class Bot implements Runnable {
 		for(String c : cmd) System.out.println(c);
 	}
 	
-	//Método adicionado
-	public void updateName(){
-		client.sendName(name);
+	public Bot(String name)
+	{
+		botName = name;
+		client.sendName(botName);
 	}
-
-	public Bot() {
+	
+	public void runBot() {
 		// Set command listener to process commands received from server
 		client.addCommandListener(new CommandListener() {
 			//modificado
@@ -193,7 +194,7 @@ public class Bot implements Runnable {
 
 				if (client.connected) {
 					System.out.println("Connected");
-					updateName();
+					client.sendName(botName);
 					client.sendRequestGameStatus();
 					client.sendRequestUserStatus();
 					client.sendRequestObservation();
