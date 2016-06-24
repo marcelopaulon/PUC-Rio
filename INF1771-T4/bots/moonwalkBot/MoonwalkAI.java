@@ -34,4 +34,9 @@ public class MoonwalkAI extends GameAI {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void GetObservationsClean(){
+		
+	}
 }

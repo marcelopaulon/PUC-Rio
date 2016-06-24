@@ -1,11 +1,16 @@
 ﻿package bots.turretBot;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import INF1771_GameAI.GameAI;
 
 public class TurretAI extends GameAI {
-	private Estado estado;
+	private Estado estado = null;
+	
+	private int i = 0;
+	
 	/*
 	 * AI criada para exemplo. AI foi extendida do exemplo do professor para facilitar.
 	 * Assim, só é necessário colocar os métodos que desejamos alterar.
@@ -18,7 +23,16 @@ public class TurretAI extends GameAI {
 		
     	switch(estado){
 	    	case VIU_INIMIGO:
-	            return "atacar";
+	    		if (i > 1) 
+	    		{
+	    			i = 0;
+	    			return "virar_esquerda";
+	    		}
+	    		else 
+	    		{ 
+	    			i++;
+	    			return "atacar";
+	    		}
 	    	default:
 	            return "virar_esquerda";
 	    }
@@ -37,24 +51,56 @@ public class TurretAI extends GameAI {
         for (String s : o)
         {
         	System.out.println("RAYNAN: " + s);
-            if(s.equals("blocked")){
-            	
-            } else if(s.contains("enemy")){//s.equals("steps")){
+            if(s.equals("blocked"))
+            {
+            	estado = null;
+            } 
+            else if(s.contains("hit"))
+            {
             	estado = Estado.VIU_INIMIGO;
-            } else if(s.equals("breeze")){
-            	
-            } else if(s.equals("flash")){
-
-            } else if(s.equals("blueLight")){
-
-            } else if(s.equals("redLight")){
-
-            } else if(s.equals("greenLight")){
-
-            } else if(s.equals("weakLight")){
-
+            }
+            else if(s.contains("enemy"))
+            {
+            	estado = Estado.VIU_INIMIGO;
+            }
+            else if(s.equals("steps"))
+            {
+            	estado = Estado.VIU_INIMIGO;
+            }
+            else if(s.equals("breeze"))
+            {
+            	estado = null;
+            } 
+            else if(s.equals("flash"))
+            {
+            	estado = null;
+            } 
+            else if(s.equals("blueLight"))
+            {
+            	estado = null;
+            } 
+            else if(s.equals("redLight"))
+            {
+            	estado = null;
+            } 
+            else if(s.equals("greenLight"))
+            {
+            	estado = null;
+            } 
+            else if(s.equals("weakLight"))
+            {
+            	estado = null;
+            }
+            else
+            {
+            	estado = null;
             }
         }
-
+        o.clear(); 
     }
+    
+	@Override
+	public void GetObservationsClean(){
+		estado = null;
+	}
 }

@@ -120,10 +120,7 @@ public abstract class GameAI
     /**
      * No observations received
      */
-    public void GetObservationsClean()
-    {
-        
-    }
+    public abstract void GetObservationsClean();
 
     /**
      * Get Decision

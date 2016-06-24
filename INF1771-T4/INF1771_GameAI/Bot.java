@@ -41,6 +41,7 @@ public abstract class Bot implements Runnable {
 			public void receiveCommand(String[] cmd) {
 				if (cmd != null)
 					if (cmd.length > 0)
+						client.sendRequestObservation();
 						try {
 							if (cmd[0].equals("o")) {
 								if (cmd.length > 1) {
@@ -163,6 +164,11 @@ public abstract class Bot implements Runnable {
 									msg.add(cmd[1] + " hit you");
 								}
 							}
+							else
+							{
+								List<String> o = new ArrayList<String>();
+								gameAi.GetObservations(o);
+							}
 
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -242,6 +248,8 @@ public abstract class Bot implements Runnable {
 	 * Execute some decision
 	 */
 	private void DoDecision() {
+		client.sendRequestObservation();
+		
 		String decision = gameAi.GetDecision();
 
 		if (decision.equals("virar_direita"))
