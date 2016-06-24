@@ -1,5 +1,7 @@
 ﻿package bots.moonwalkBot;
 
+import java.util.List;
+
 import INF1771_GameAI.GameAI;
 
 public class MoonwalkAI extends GameAI {
@@ -12,16 +14,24 @@ public class MoonwalkAI extends GameAI {
     {
         java.util.Random rand = new java.util.Random();
 
-	    	int  n = rand.nextInt(3);
-	    	switch(n){
+    	int  n = rand.nextInt(5);
+    	switch(n){
 	    	case 0:
 	            return "virar_esquerda";
 	    	case 1:
 	            return "atacar";
 	    	case 2:
+	    	case 3:
+	    	case 4:
 	            return "andar_re";
 	    }
 
     	return "";
     }
+
+	@Override
+	public void GetObservations(List<String> o) {
+		// TODO Auto-generated method stub
+		
+	}
 }

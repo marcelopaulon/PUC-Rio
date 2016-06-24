@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameAI
+public abstract class GameAI
 {
     Position player = new Position();
     String state = "ready";
@@ -115,32 +115,8 @@ public class GameAI
      * Observations received
      * @param o	 list of observations
      */
-    public void GetObservations(List<String> o)
-    {
-
-        for (String s : o)
-        {
-            if(s.equals("blocked")){
-            	
-            } else if(s.equals("steps")){
-
-            } else if(s.equals("breeze")){
-
-            } else if(s.equals("flash")){
-
-            } else if(s.equals("blueLight")){
-
-            } else if(s.equals("redLight")){
-
-            } else if(s.equals("greenLight")){
-
-            } else if(s.equals("weakLight")){
-
-            }
-        }
-
-    }
-
+    public abstract void GetObservations(List<String> o);
+    
     /**
      * No observations received
      */
@@ -153,30 +129,5 @@ public class GameAI
      * Get Decision
      * @return command string to new decision
      */
-    public String GetDecision()
-    {
-        java.util.Random rand = new java.util.Random();
-
-	    	int  n = rand.nextInt(8);
-	    	switch(n){
-	     	case 0:
-	            return "virar_direita";
-	    	case 1:
-	            return "virar_esquerda";
-	    	case 2:
-	            return "andar";
-	    	case 3:
-	            return "atacar";
-	    	case 4:
-	            return "pegar_ouro";
-	    	case 5:
-	            return "pegar_anel";
-	    	case 6:
-	            return "pegar_powerup";
-	    	case 7:
-	            return "andar_re";
-	    }
-
-    	return "";
-    }
+    public abstract String GetDecision();
 }

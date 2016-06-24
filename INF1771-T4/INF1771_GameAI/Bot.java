@@ -10,16 +10,16 @@ import INF1771_GameClient.Dto.*;
 import INF1771_GameClient.Socket.*;
 
 public abstract class Bot implements Runnable {
-	private String botName;
-	
+
+	private String name;
 	private String host = "godel.galgos.inf.puc-rio.br";
 
-	private HandleClient client = new HandleClient();
+	HandleClient client = new HandleClient();
 	Map<Long, PlayerInfo> playerList = new HashMap<Long, PlayerInfo>();
 	List<ShotInfo> shotList = new ArrayList<ShotInfo>();
 	List<ScoreBoard> scoreList = new ArrayList<ScoreBoard>();
 
-	protected GameAI gameAi = new GameAI();
+	private GameAI gameAi;
 
 	long time = 0;
 
@@ -28,31 +28,17 @@ public abstract class Bot implements Runnable {
 
 	List<String> msg = new ArrayList<String>();
 	double msgSeconds = 0;
-	int timer_interval = 1000;
-	
-	//Método adicionado
-	public HandleClient getClient(){
-		return client;
-	}
-	
-	//Método adicionado
-	public void printCommands (String[] cmd){
-		for(String c : cmd) System.out.println(c);
-	}
-	
-	public Bot(String name)
-	{
-		botName = name;
-		client.sendName(botName);
-	}
-	
-	public void runBot() {
+	int timer_interval = 100;
+
+	public Bot(String name,  GameAI gameAI) {
+		this.name = name;
+		this.gameAi = gameAI;
+		
 		// Set command listener to process commands received from server
 		client.addCommandListener(new CommandListener() {
-			//modificado
+
 			@Override
 			public void receiveCommand(String[] cmd) {
-				//printCommands(cmd);
 				if (cmd != null)
 					if (cmd.length > 0)
 						try {
@@ -194,7 +180,7 @@ public abstract class Bot implements Runnable {
 
 				if (client.connected) {
 					System.out.println("Connected");
-					client.sendName(botName);
+					client.sendName(name);
 					client.sendRequestGameStatus();
 					client.sendRequestUserStatus();
 					client.sendRequestObservation();
@@ -234,7 +220,7 @@ public abstract class Bot implements Runnable {
 	 * @param msg
 	 *            message string
 	 */
-	private void sendMsg(String msg) {
+	public void sendMsg(String msg) {
 		if (msg.trim().length() > 0)
 			client.sendSay(msg);
 	}
@@ -297,7 +283,10 @@ public abstract class Bot implements Runnable {
 
 			client.sendRequestGameStatus();
 			if (gameStatus.equals("Game"))
+			{
+				client.sendRequestObservation();
 				DoDecision();
+			}
 			else if (msgSeconds >= 5000) {
 
 				System.out.println(gameStatus);

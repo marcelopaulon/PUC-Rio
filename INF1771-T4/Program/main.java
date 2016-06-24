@@ -1,6 +1,7 @@
 package Program;
 import INF1771_GameAI.Bot;
 import bots.moonwalkBot.MoonwalkBot;
+import bots.turretBot.TurretBot;
 //import bots.pickupBot.PickupBot;
 
 public class main {
@@ -11,8 +12,7 @@ public class main {
 	}
 	
 	public static void main(String[] args) {
-		b = new MoonwalkBot();
-		b.runBot();
+		b = new TurretBot();
 	}
 
 }
