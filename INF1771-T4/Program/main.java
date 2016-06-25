@@ -3,6 +3,7 @@ import INF1771_GameAI.Bot;
 import bots.moonwalkBot.MoonwalkBot;
 import bots.turretBot.TurretBot;
 import bots.pickupBot.PickupBot;
+import bots.runnerBot.RunnerBot;
 
 public class main {
 	static Bot b;
@@ -12,7 +13,7 @@ public class main {
 	}
 	
 	public static void main(String[] args) {
-		b = new TurretBot();
+		b = new RunnerBot();
 	}
 
 }

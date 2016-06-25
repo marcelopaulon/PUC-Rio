@@ -129,8 +129,5 @@ public abstract class GameAI
     public abstract String GetDecision();
 
     //Modificado: o que fazer quando não há observações. Por default: nada
-	public void NoObservations() {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void NoObservations();
 }
