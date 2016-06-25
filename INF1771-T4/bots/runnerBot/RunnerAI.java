@@ -43,11 +43,11 @@ public class RunnerAI extends GameAI {
             } 
             else if(s.equals("blueLight"))
             {
-            	estado = null;
+            	estado = Estado.VIU_POWERUP;
             } 
             else if(s.equals("redLight"))
             {
-            	estado = null;
+            	estado = Estado.VIU_PREMIO;
             } 
             else if(s.equals("greenLight"))
             {
@@ -96,6 +96,10 @@ public class RunnerAI extends GameAI {
 				return voltaUltimoCmd;
 			case VIU_STEPS:
 				return "andar";
+			case VIU_POWERUP:
+				return "pegar_powerup";
+			case VIU_PREMIO:
+				return "pegar_ouro";
 			default:
 				return "andar";	
 		}
