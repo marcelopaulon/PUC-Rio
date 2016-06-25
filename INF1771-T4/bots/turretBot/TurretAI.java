@@ -19,10 +19,10 @@ public class TurretAI extends GameAI {
 	@Override
     public String GetDecision()
     {
-		if(estado == null) return "virar_esquerda";
+		if(estado == null) return "";
 		
     	switch(estado){
-	    	case VIU_INIMIGO:
+	    	case VIU_STEPS:
 	    		if (i > 1) 
 	    		{
 	    			i = 0;
@@ -33,8 +33,10 @@ public class TurretAI extends GameAI {
 	    			i++;
 	    			return "atacar";
 	    		}
+	    	case VIU_INIMIGO:
+	    		return "atacar";
 	    	default:
-	            return "virar_esquerda";
+	            return "";
 	    }
 
     	//return "";
@@ -55,10 +57,6 @@ public class TurretAI extends GameAI {
             if(s.equals("blocked"))
             {
             	estado = null;
-            } 
-            else if(s.contains("hit"))
-            {
-            	estado = Estado.VIU_INIMIGO;
             }
             else if(s.contains("enemy"))
             {
@@ -66,7 +64,11 @@ public class TurretAI extends GameAI {
             }
             else if(s.equals("steps"))
             {
-            	estado = Estado.VIU_INIMIGO;
+            	estado = Estado.VIU_STEPS;
+            }
+            else if(s.equals("damage"))
+            {
+            	estado = Estado.VIU_STEPS;
             }
             else if(s.equals("breeze"))
             {

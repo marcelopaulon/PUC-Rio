@@ -44,7 +44,7 @@ public abstract class Bot implements Runnable {
 						client.sendRequestObservation();
 						try {
 							//modificações
-							if(!cmd[0].equals("o")) gameAi.NoObservations();
+							if(!cmd[0].equals("o") && !cmd[0].equals("d") && !cmd[0].equals("h")) gameAi.NoObservations();
 							//fim modificações
 							if (cmd[0].equals("o")) {
 								if (cmd.length > 1) {
