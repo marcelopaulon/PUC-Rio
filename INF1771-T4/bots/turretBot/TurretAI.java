@@ -48,6 +48,7 @@ public class TurretAI extends GameAI {
     {
     	estado = null;
     	
+    	if(o.isEmpty()) System.out.println("Sem observações");
         for (String s : o)
         {
         	System.out.println("RAYNAN: " + s);
@@ -96,11 +97,18 @@ public class TurretAI extends GameAI {
             	estado = null;
             }
         }
-        o.clear(); 
+        o.clear();
+        
     }
     
 	@Override
-	public void GetObservationsClean(){
+	public void NoObservations(){
 		estado = null;
+	}
+
+	@Override
+	public void GetObservationsClean() {
+		// TODO Auto-generated method stub
+		
 	}
 }
