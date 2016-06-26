@@ -7,7 +7,7 @@ import bots.runnerBot.Estado;
 
 public class RunnerAI extends GameAI {
 	Estado estado;
-	String voltaUltimoCmd;
+	String voltaUltimoCmd; //armazena o "undo" do último comando, ou seja, o comando contrário. Usado ao encontrar perigo.
 	
 	@Override
 	public void GetObservations(List<String> o) {

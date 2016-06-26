@@ -8,10 +8,12 @@ import bots.runnerBot.Estado;
 public class SnaydleyAI extends GameAI {
 	Estado estado;
 	private int i = 0;
-	String voltaUltimoCmd;
+	String voltaUltimoCmd; //armazena o "undo" do último comando, ou seja, o comando contrário. Usado ao encontrar perigo.
+	int shotsFired; //guarda quantos tiros foram dados sem confirmação de hit
 
 	@Override
 	public void GetObservations(List<String> o) {
+		Estado anterior = estado; //armazena o estado anterior
 		estado = null;
     	
     	if(o.isEmpty()) System.out.println("Sem observações");
@@ -58,6 +60,10 @@ public class SnaydleyAI extends GameAI {
             {
             	estado = null;
             }
+            else if(s.equals("hit")){ //zera o shots fired
+            	shotsFired = 0;
+            	estado = anterior; //volta para o estado anterior
+            }
             else
             {
             	estado = null;
@@ -102,7 +108,15 @@ public class SnaydleyAI extends GameAI {
 		    	else 
 		    	{ 
 		    		i++;
-		    		return "atacar";
+		    		if(shotsFired < 20){ //evitar deadlocks, se atirou mais de 20 vezes
+		    							//sem confirmação de acerto, ande (caso do else)
+		    			shotsFired++;
+		    			return "atacar";
+		    		}
+		    		else{
+		    			shotsFired = 0; //evita que ele pare de atirar no primeiro deadlock
+		    			return "andar";
+		    		}
 		    	}
 		    case VIU_INIMIGO:
 		    	return "atacar";
