@@ -4,6 +4,7 @@ import bots.moonwalkBot.MoonwalkBot;
 import bots.turretBot.TurretBot;
 import bots.pickupBot.PickupBot;
 import bots.runnerBot.RunnerBot;
+import bots.snaydleyBot.SnaydleyBot;
 
 public class main {
 	static Bot b;
@@ -13,7 +14,7 @@ public class main {
 	}
 	
 	public static void main(String[] args) {
-		b = new RunnerBot();
+		b = new SnaydleyBot();
 	}
 
 }
