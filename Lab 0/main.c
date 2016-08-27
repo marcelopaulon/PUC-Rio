@@ -111,4 +111,7 @@ int main(void)
 	printf("Vamos liberar a matriz\n");
 	mat_libera(2, mat);
 	mat_libera(2, matVets);
+	mat_libera(3, matT);
+	mat_libera(3, matMult);
+	mat_libera(2, matMultRes);
 }
