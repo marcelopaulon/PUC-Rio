@@ -1,1 +1,8 @@
-int raynan = 1412122;
+int main(void) {
+	int raynan = 1412122;
+	int marcelo = 1411029;
+
+        double soma = raynan + marcelo + 0.5599999;
+}
+
+

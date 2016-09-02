@@ -371,8 +371,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 33
-#define YY_END_OF_BUFFER 34
+#define YY_NUM_RULES 34
+#define YY_END_OF_BUFFER 35
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -382,10 +382,10 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[70] =
     {   0,
-        0,    0,   34,   32,   31,   31,   32,    4,    5,   11,
+        0,    0,   35,   33,   31,   32,   33,    4,    5,   11,
         9,   10,   12,   28,    1,   14,    8,   16,   30,    6,
         7,   30,   30,   30,   30,   30,   30,   30,   30,    2,
-       32,    3,   31,   17,   29,   28,   13,   15,   30,   30,
+       33,    3,   31,   17,   29,   28,   13,   15,   30,   30,
        30,   30,   19,   30,   30,   30,   30,   30,   18,   29,
        30,   30,   30,   23,   24,   30,   30,   30,   21,   20,
        30,   30,   26,   30,   22,   30,   27,   25,    0
@@ -433,13 +433,13 @@ static yyconst flex_int32_t yy_meta[39] =
 
 static yyconst flex_int16_t yy_base[71] =
     {   0,
-        0,    0,   83,   84,   37,   39,   78,   84,   84,   84,
-       84,   84,   84,   33,   84,   66,   84,   65,    0,   84,
-       84,   54,   51,   50,   20,   53,   52,   45,   48,   84,
-       35,   84,   44,   84,   59,   39,   84,   84,    0,   50,
-       38,   39,    0,   35,   31,   33,   38,   37,   84,   50,
-       31,   37,   39,    0,    0,   25,   35,   29,    0,    0,
-       23,   24,    0,   30,    0,   24,    0,    0,   84,   48
+        0,    0,   79,   80,   76,   80,   73,   80,   80,   80,
+       80,   80,   80,   29,   80,   61,   80,   60,    0,   80,
+       80,   49,   46,   45,   16,   48,   47,   40,   43,   80,
+       30,   80,   64,   80,   53,   33,   80,   80,    0,   44,
+       32,   33,    0,   29,   25,   27,   32,   31,   80,   44,
+       25,   31,   33,    0,    0,   19,   29,   23,    0,    0,
+       17,   18,    0,   24,    0,   18,    0,    0,   80,   40
     } ;
 
 static yyconst flex_int16_t yy_def[71] =
@@ -453,40 +453,38 @@ static yyconst flex_int16_t yy_def[71] =
        70,   70,   70,   70,   70,   70,   70,   70,    0,   69
     } ;
 
-static yyconst flex_int16_t yy_nxt[123] =
+static yyconst flex_int16_t yy_nxt[119] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,    4,
        13,   14,   15,   16,   17,   18,   19,   20,   21,   19,
        22,   19,   23,   24,   19,   25,   19,   26,   19,   27,
-       19,   19,   19,   28,   29,   30,   31,   32,   33,   33,
-       33,   33,   35,   43,   36,   33,   33,   44,   35,   39,
-       36,   68,   67,   66,   65,   64,   63,   62,   61,   60,
-       59,   50,   58,   57,   56,   55,   54,   53,   52,   51,
-       50,   49,   48,   47,   46,   45,   42,   41,   40,   38,
-       37,   34,   69,    3,   69,   69,   69,   69,   69,   69,
+       19,   19,   19,   28,   29,   30,   31,   32,   35,   43,
+       36,   39,   35,   44,   36,   68,   67,   66,   65,   64,
+       63,   62,   61,   60,   59,   50,   58,   57,   56,   55,
+       54,   53,   52,   51,   50,   33,   49,   48,   47,   46,
+       45,   42,   41,   40,   38,   37,   34,   33,   69,    3,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
        69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
 
        69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
-       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
-       69,   69
+       69,   69,   69,   69,   69,   69,   69,   69
     } ;
 
-static yyconst flex_int16_t yy_chk[123] =
+static yyconst flex_int16_t yy_chk[119] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    5,    5,
-        6,    6,   14,   25,   14,   33,   33,   25,   36,   70,
-       36,   66,   64,   62,   61,   58,   57,   56,   53,   52,
-       51,   50,   48,   47,   46,   45,   44,   42,   41,   40,
-       35,   31,   29,   28,   27,   26,   24,   23,   22,   18,
-       16,    7,    3,   69,   69,   69,   69,   69,   69,   69,
+        1,    1,    1,    1,    1,    1,    1,    1,   14,   25,
+       14,   70,   36,   25,   36,   66,   64,   62,   61,   58,
+       57,   56,   53,   52,   51,   50,   48,   47,   46,   45,
+       44,   42,   41,   40,   35,   33,   31,   29,   28,   27,
+       26,   24,   23,   22,   18,   16,    7,    5,    3,   69,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
        69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
 
        69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
-       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
-       69,   69
+       69,   69,   69,   69,   69,   69,   69,   69
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -557,7 +555,7 @@ int addSymbol(MongaSymbol symbol, char *data)
   token.line = curLine;
   return symbol;
 }
-#line 561 "lex.yy.c"
+#line 559 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -745,7 +743,7 @@ YY_DECL
 #line 60 "monga.lex"
 
 
-#line 749 "lex.yy.c"
+#line 747 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -804,7 +802,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 84 );
+		while ( yy_base[yy_current_state] != 80 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -979,22 +977,27 @@ YY_RULE_SETUP
 return addSymbol(TK_ID, yytext);
 	YY_BREAK
 case 31:
-/* rule 31 can match eol */
 YY_RULE_SETUP
 #line 99 "monga.lex"
 /* eat up whitespace */
 	YY_BREAK
 case 32:
+/* rule 32 can match eol */
 YY_RULE_SETUP
 #line 101 "monga.lex"
-addSymbol(TK_UNKNOWN, yytext);
+curLine++;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 103 "monga.lex"
+addSymbol(TK_UNKNOWN, yytext);
+	YY_BREAK
+case 34:
+YY_RULE_SETUP
+#line 105 "monga.lex"
 ECHO;
 	YY_BREAK
-#line 998 "lex.yy.c"
+#line 1001 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1955,7 +1958,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 103 "monga.lex"
+#line 105 "monga.lex"
 
 
 

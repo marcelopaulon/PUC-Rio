@@ -96,7 +96,9 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 [A-Za-z][A-Za-z0-9]*    return addSymbol(TK_ID, yytext);
 
-[ \t\n]+          /* eat up whitespace */
+[ \t]+                  /* eat up whitespace */
+
+\n			curLine++;
 
 .           		addSymbol(TK_UNKNOWN, yytext);
 
