@@ -1,5 +1,0 @@
-#!/bin/bash
-
-lex monga.lex
-gcc -o teste lex.yy.c
-./teste a.monga
