@@ -990,7 +990,7 @@ curLine++;
 case 33:
 YY_RULE_SETUP
 #line 103 "monga.lex"
-addSymbol(TK_UNKNOWN, yytext);
+return addSymbol(TK_UNKNOWN, yytext);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP

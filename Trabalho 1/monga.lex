@@ -100,7 +100,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 \n			curLine++;
 
-.           		addSymbol(TK_UNKNOWN, yytext);
+.           		return addSymbol(TK_UNKNOWN, yytext);
 
 %%
 

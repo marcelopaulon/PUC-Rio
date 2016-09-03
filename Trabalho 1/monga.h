@@ -1,3 +1,7 @@
+#ifndef _MONGA_H
+#define _MONGA_H
+
+
 typedef enum mongaSymbol {
   TK_SEMICOLON = 256,
   TK_OPEN_KEY,
@@ -47,3 +51,5 @@ typedef struct mongaToken {
   MongaData data;
   int line;
 } MongaToken;
+
+#endif
