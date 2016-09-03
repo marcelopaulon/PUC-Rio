@@ -119,7 +119,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 	\\"n"		{ addToBuffer("\n"); }
 	\\"t"		{ addToBuffer("\t"); }
 	\\\\		{ addToBuffer("\\"); }
-	"\""		{ BEGIN(0); return addSymbol(TK_STRING, stringBuffer); }
+	"\""		{ BEGIN(0); addToBuffer("\0"); return addSymbol(TK_STRING, stringBuffer); }
 	.		{ addToBuffer(yytext); }
 }
 
@@ -159,7 +159,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 [0-9]+"."[0-9]*         return addSymbol(TK_DOUBLE_NUMBER, yytext);
 
-[A-Za-z_][A-Za-z0-9_]*    return addSymbol(TK_ID, yytext);
+[A-Za-z_][A-Za-z0-9_]*  return addSymbol(TK_ID, yytext);
 
 [ \t]+                  /* eat up whitespace */
 

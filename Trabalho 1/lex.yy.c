@@ -940,7 +940,7 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 122 "monga.lex"
-{ BEGIN(0); return addSymbol(TK_STRING, stringBuffer); }
+{ BEGIN(0); addToBuffer("\0"); return addSymbol(TK_STRING, stringBuffer); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
