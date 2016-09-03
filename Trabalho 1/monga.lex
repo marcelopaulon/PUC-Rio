@@ -48,6 +48,47 @@ MongaData getSymbolData(MongaSymbol symbol, char *data)
   return mongaData;
 }
 
+static char *stringBuffer;
+static int strBufLen = 0;
+static int strBufCount = 0;
+
+void beginBuffer()
+{
+  stringBuffer = (char *) malloc(1024 * sizeof(char));
+  if(!stringBuffer)
+  {
+    printf("Unable to allocate memory for string buffer. Exiting.");
+    exit(-1);
+  }
+
+  strBufCount = 0;
+  strBufLen = 1024;
+}
+
+void increaseBuffer()
+{
+  strBufLen += 1024;
+  stringBuffer = (char *) realloc(stringBuffer, strBufLen * sizeof(char));
+  if(!stringBuffer)
+  {
+    printf("Unable to reallocate memory for string buffer. Exiting.");
+    exit(-1);
+  }
+}
+
+void addToBuffer(char *text)
+{
+  int textLen = strlen(text);
+  if(strBufCount + textLen + 1 > strBufLen)
+  {
+    increaseBuffer();
+  }
+
+  strcat(stringBuffer, text);
+
+  strBufCount += textLen;
+}
+
 int addSymbol(MongaSymbol symbol, char *data)
 {
   token.symbol = symbol;
@@ -59,6 +100,8 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 %x COMMENT
 
+%x STRING
+
 %%
 
 "/*"			BEGIN(COMMENT);
@@ -67,6 +110,17 @@ int addSymbol(MongaSymbol symbol, char *data)
 	"*/"		BEGIN(0);
 	"\n"            curLine++;
 	.		{}
+}
+
+"\""			{ beginBuffer(); BEGIN(STRING); }
+
+<STRING>{
+	\\"\""		{ addToBuffer("\""); }
+	\\"n"		{ addToBuffer("\n"); }
+	\\"t"		{ addToBuffer("\t"); }
+	\\\\		{ addToBuffer("\\"); }
+	"\""		{ BEGIN(0); return addSymbol(TK_STRING, stringBuffer); }
+	.		{ addToBuffer(yytext); }
 }
 
 ";"			return addSymbol(TK_SEMICOLON, yytext);
