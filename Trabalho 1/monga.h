@@ -4,6 +4,7 @@
 
 typedef enum mongaSymbol {
   TK_SEMICOLON = 256,
+  TK_COMMA,
   TK_OPEN_KEY,
   TK_CLOSE_KEY,
   TK_OPEN_PARENTHESIS,

@@ -57,9 +57,20 @@ int addSymbol(MongaSymbol symbol, char *data)
 }
 %}
 
+%x COMMENT
+
 %%
 
+"/*"			BEGIN(COMMENT);
+
+<COMMENT>{
+	"*/"		BEGIN(0);
+	"\n"            curLine++;
+	.		{}
+}
+
 ";"			return addSymbol(TK_SEMICOLON, yytext);
+","			return addSymbol(TK_COMMA, yytext);
 
 "{"			return addSymbol(TK_OPEN_KEY, yytext);
 "}"			return addSymbol(TK_CLOSE_KEY, yytext);
@@ -94,7 +105,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 [0-9]+"."[0-9]*         return addSymbol(TK_DOUBLE_NUMBER, yytext);
 
-[A-Za-z][A-Za-z0-9]*    return addSymbol(TK_ID, yytext);
+[A-Za-z_][A-Za-z0-9_]*    return addSymbol(TK_ID, yytext);
 
 [ \t]+                  /* eat up whitespace */
 

@@ -21,6 +21,10 @@ char * getTokenString(int value)
         return ";";
         break;
 
+      case TK_COMMA:
+        return ",";
+        break;
+
       case TK_OPEN_KEY:
         return "{";
         break;
