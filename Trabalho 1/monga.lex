@@ -118,6 +118,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 "\""			{ beginBuffer(); BEGIN(STRING); }
 
 <STRING>{
+        \n		{ printf("Non-closed string on line %d. Exiting.\n", curLine); exit(-1); }
 	\\"\""		{ addToBuffer("\""); }
 	\\"n"		{ addToBuffer("\n"); }
 	\\"t"		{ addToBuffer("\t"); }
