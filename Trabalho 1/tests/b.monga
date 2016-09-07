@@ -1,3 +1,4 @@
+/* Retirado de: https://github.com/jpfabris/inf1715/blob/8aed4f49d5a9651d8180fdb3d5e05e4d4db40929/trab1/Teste.txt */
 int soma(int a,int b){ /*Funcao que soma dois inteiros*/
   return a+b;
 }
