@@ -5,8 +5,6 @@
 
 #include "lex.yy.h"
 
-#define DEBUG 1
-
 MongaToken token;
 
 char * getTokenString(int value)

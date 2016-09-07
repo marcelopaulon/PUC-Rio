@@ -1,6 +1,8 @@
 #if !defined(LEXYY_H)
 #define LEXYY_H
 
+#define DEBUG 0
+
 extern int yylex(void);
 
 extern FILE *yyin, *yyout;
@@ -25,10 +27,8 @@ typedef enum mongaSymbol {
   TK_GT,
   TK_AND,
   TK_OR,
-
   TK_IF,
   TK_ELSE,
-
   TK_CHAR,
   TK_FLOAT,
   TK_INT,
@@ -36,7 +36,6 @@ typedef enum mongaSymbol {
   TK_RETURN,
   TK_VOID,
   TK_WHILE,
-
   TK_ID,
   TK_UNKNOWN,
   TK_DOUBLE_NUMBER,
