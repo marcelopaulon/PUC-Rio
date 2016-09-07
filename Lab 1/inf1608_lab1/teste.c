@@ -20,7 +20,7 @@ int main(void)
 
 	if(DEBUG == 1) printf("fcos(x):\n");
 
-	for(i = 0.0; i < 3.14; countTests++, i += 0.001)
+	for(i = 0.0; i < 3.1415; countTests++, i += 0.001)
 	{
 		fcosResult = fcos(i);
 		cosResult = cos(i);
