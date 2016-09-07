@@ -3,15 +3,11 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#include "monga.h"
+#include "lex.yy.h"
 
 #define DEBUG 1
 
-extern FILE *yyin, *yyout;
-
 MongaToken token;
-
-extern int yylex (void);
 
 char * getTokenString(int value)
 {

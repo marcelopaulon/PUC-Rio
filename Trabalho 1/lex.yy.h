@@ -1,6 +1,9 @@
-#ifndef _MONGA_H
-#define _MONGA_H
+#if !defined(LEXYY_H)
+#define LEXYY_H
 
+extern int yylex(void);
+
+extern FILE *yyin, *yyout;
 
 typedef enum mongaSymbol {
   TK_SEMICOLON = 256,

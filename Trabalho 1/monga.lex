@@ -1,5 +1,5 @@
 /* scanner for the Monga language */
-/* Marcelo Paulon - 1411029 / Renan da Fonte - 1412122*/
+/* Marcelo Paulon - 1411029 / Renan da Fonte - 1412122 */
 
 %option noyywrap
 %option nounput
@@ -8,7 +8,7 @@
 %{
 /* need this for the call to strtod/strtoul/strlen/strcpy below */
 #include <string.h>
-#include "monga.h"
+#include "lex.yy.h"
 
 extern MongaToken token;
 
