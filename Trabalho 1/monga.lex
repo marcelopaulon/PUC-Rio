@@ -18,6 +18,7 @@ MongaData getSymbolData(MongaSymbol symbol, char *data)
 {
   MongaData mongaData;
   char *idStr;
+  int base;
   
   switch(symbol)
   {
@@ -36,7 +37,9 @@ MongaData getSymbolData(MongaSymbol symbol, char *data)
       mongaData.d = strtod(data, NULL);
       break;
     case TK_LONG_NUMBER:
-      mongaData.l = strtoull(data, NULL, 10);
+      base = 10;
+      if(data[0] == '0' && (data[1] == 'x' || data[1] == 'X')) base = 16;
+      mongaData.l = strtoull(data, NULL, base);
       break;
     case TK_UNKNOWN:
       printf("Unrecognized token. Stopping.\n");
@@ -154,6 +157,8 @@ int addSymbol(MongaSymbol symbol, char *data)
 "return"		return addSymbol(TK_RETURN, yytext);
 "void"			return addSymbol(TK_VOID, yytext);
 "while"			return addSymbol(TK_WHILE, yytext);
+
+0[xX][0-9a-fA-F]+       return addSymbol(TK_LONG_NUMBER, yytext);
 
 [0-9]+ 			return addSymbol(TK_LONG_NUMBER, yytext);
 
