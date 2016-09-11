@@ -127,7 +127,7 @@ int main( int argc, char **argv )
         printf(" - Value: %a\n", token.data.d);
       }
 
-      fprintf(fp, "%a", token.data.d);
+      fprintf(fp, "%a / %f", token.data.d, token.data.d);
     }
     else if(tokenNumber == TK_LONG_NUMBER)
     {
