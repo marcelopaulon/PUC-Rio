@@ -1,0 +1,62 @@
+A Linguagem Monga
+
+A linguagem Monga é um sub-conjunto bastante reduzido da inguagem C, com uma alteração na semântica de arrays (que funcionam como em Java). Ela oferece os tipos char, int, float, e arrays; estruturas de controle while e if-then-else; variáveis globais e locais; e funções com parâmetros e retorno de valores. Além disso, ela gera código objeto compatível com C, o que permite que programas Monga possam chamar funções das bibliotecas padrão de C.
+
+Léxico
+
+Comentários em Monga são como em C, delimitados por /* e */, sem aninhamento. Identificadores também são como em C. Strings são escritos entre aspas duplas ("..."), e podem conter os escapes \n, \t, e \". Numerais podem ser escritos em decimal ou em hexa (começando com 0x).
+
+A lista de palavras reservadas segue abaixo:
+
+char    else    float   if      int     new     return  void    while
+Sintaxe
+
+programa : {declaracao}
+declaracao : dec-variavel | dec-funcao
+dec-variavel : tipo lista-nomes ';'
+lista-nomes : ID { ',' ID }
+tipo : tipo-base | tipo '[' ']'
+tipo-base : 'int' | 'char' | 'float'
+dec-funcao : tipo-retorno ID '(' parametros ')' bloco
+tipo-retorno : tipo | 'void'
+parametros : /* vazio */ | parametro { ',' parametro }
+parametro : tipo ID
+bloco : '{' { dec-variavel } { comando } '}'
+comando : 'if' '(' exp ')' comando parte-else
+        | 'while' '(' exp ')' comando
+        | var '=' exp ';'
+        | 'return' [ exp ] ';'
+        | chamada ';'
+	| bloco
+parte-else : /* vazio */ | 'else' comando
+var : ID | exp '[' exp ']'
+exp : NUMERAL | LITERAL
+	| var
+	| '(' exp ')'
+	| chamada
+	| 'new' tipo '[' exp ']'
+	| '-' exp
+	| exp '+' exp
+	| exp '-' exp
+	| exp '*' exp
+	| exp '/' exp
+	| exp '==' exp
+	| exp '<=' exp
+	| exp '>=' exp
+	| exp '<' exp
+	| exp '>' exp
+	| '!' exp
+	| exp '&&' exp
+	| exp '||' exp
+chamada : ID '(' lista-exp ')'
+lista-exp : /* vazio */ | exp { ',' exp }
+Observações:
+
+A execução de um programa consiste na execução de sua função void main ().
+As expressões em if e while devem ter tipo inteiro; um valor 0 significa falso, e diferente de 0 verdadeiro.
+A expressão new tipo [exp] cria um novo array com um número exp de elementos do dado tipo. A expressão deve ter tipo inteiro.
+Operadores relacionais tem resultado do tipo int, 0 para falso e 1 para verdadeiro.
+'&&' e '||' devem usar "curto-circuito".
+A prioridade dos operadores é igual a de C.
+Em qualquer expressão, uma variável char tem seu valor automaticamente promovido para int.
+Em operações misturando int e float, os valores int devem ser convertidos para float.
