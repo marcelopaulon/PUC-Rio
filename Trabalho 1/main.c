@@ -11,72 +11,12 @@ char * getTokenString(int value)
 {
   switch(value)
   {
-      case TK_SEMICOLON:
-        return ";";
-        break;
-
-      case TK_COMMA:
-        return ",";
-        break;
-
-      case TK_OPEN_KEY:
-        return "{";
-        break;
-
-      case TK_CLOSE_KEY:
-        return "}";
-        break;
-
-      case TK_OPEN_PARENTHESIS:
-        return "(";
-        break;
-
-      case TK_CLOSE_PARENTHESIS:
-        return ")";
-        break;
-
-      case TK_OPEN_BRACKET:
-        return "[";
-        break;
-
-      case TK_CLOSE_BRACKET:
-        return "]";
-        break;
-
-      case TK_EQUALS:
-        return "=";
-        break;
-
-      case TK_PLUS:
-        return "+";
-        break;
-
-      case TK_MINUS:
-        return "-";
-        break;
-
-      case TK_ASTERISK:
-        return "*";
-        break;
-
-      case TK_SLASH:
-        return "/";
-        break;
-
       case TK_LE:
         return "<=";
         break;
 
-      case TK_LT:
-        return "<";
-        break;
-
       case TK_GE:
         return ">=";
-        break;
-
-      case TK_GT:
-        return ">";
         break;
 
       case TK_AND:
@@ -127,10 +67,6 @@ char * getTokenString(int value)
         return "IDENTIFIER_TOKEN";
         break;
 
-      case TK_UNKNOWN:
-        return "UNKNOWN_TOKEN";
-        break;
-
       case TK_DOUBLE_NUMBER:
         return "DOUBLE_NUMBER";
         break;
@@ -144,7 +80,7 @@ char * getTokenString(int value)
         break;
   }
 
-  return "Error";
+  return "TOKEN";
 }
 
 int main( int argc, char **argv )

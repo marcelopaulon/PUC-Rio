@@ -41,9 +41,6 @@ MongaData getSymbolData(MongaSymbol symbol, char *data)
       if(data[0] == '0' && (data[1] == 'x' || data[1] == 'X')) base = 16;
       mongaData.l = strtoull(data, NULL, base);
       break;
-    case TK_UNKNOWN:
-      printf("Unrecognized token. Stopping.\n");
-      exit(-1);
     default:
       break;
   }
@@ -92,7 +89,7 @@ void addToBuffer(char *text)
   strBufCount += textLen;
 }
 
-int addSymbol(MongaSymbol symbol, char *data)
+int addSymbol(int symbol, char *data)
 {
   token.symbol = symbol;
   token.data = getSymbolData(symbol, data);
@@ -127,24 +124,8 @@ int addSymbol(MongaSymbol symbol, char *data)
 	.		{ addToBuffer(yytext); }
 }
 
-";"			return addSymbol(TK_SEMICOLON, yytext);
-","			return addSymbol(TK_COMMA, yytext);
-
-"{"			return addSymbol(TK_OPEN_KEY, yytext);
-"}"			return addSymbol(TK_CLOSE_KEY, yytext);
-"("			return addSymbol(TK_OPEN_PARENTHESIS, yytext);
-")"			return addSymbol(TK_CLOSE_PARENTHESIS, yytext);
-"["			return addSymbol(TK_OPEN_BRACKET, yytext);
-"]"			return addSymbol(TK_CLOSE_BRACKET, yytext);
-"="			return addSymbol(TK_EQUALS, yytext);
-"+"			return addSymbol(TK_PLUS, yytext);
-"-"			return addSymbol(TK_MINUS, yytext);
-"*"			return addSymbol(TK_ASTERISK, yytext);
-"/"			return addSymbol(TK_SLASH, yytext);
 "<="			return addSymbol(TK_LE, yytext);
-"<"			return addSymbol(TK_LT, yytext);
 ">="			return addSymbol(TK_GE, yytext);
-">"			return addSymbol(TK_GT, yytext);
 "&&"			return addSymbol(TK_AND, yytext);
 "||"			return addSymbol(TK_OR, yytext);
 
@@ -171,7 +152,7 @@ int addSymbol(MongaSymbol symbol, char *data)
 
 \n			curLine++;
 
-.           		return addSymbol(TK_UNKNOWN, yytext);
+.           		return addSymbol(yytext[0], yytext);
 
 %%
 
