@@ -8,6 +8,7 @@
 %{
 /* need this for the call to strtod/strtoul/strlen/strcpy below */
 #include <string.h>
+#include <ctype.h>
 #include "lex.yy.h"
 
 extern MongaToken token;
@@ -27,7 +28,7 @@ MongaData getSymbolData(MongaSymbol symbol, char *data)
       idStr = malloc((strlen(data) + 1) * sizeof(char));
       if(idStr == NULL)
       {
-        printf("Unable to allocate memory. Stopping.");
+        printf("Unable to allocate memory for char buffer. Stopping.");
         exit(-1);
       }
       strcpy(idStr, data);
@@ -96,6 +97,40 @@ int addSymbol(int symbol, char *data)
   token.line = curLine;
   return symbol;
 }
+
+int addChar(char *data)
+{
+  char *temp;
+  token.symbol = TK_LONG_NUMBER;
+
+  if(yytext[1] == '\\')
+  {
+    if(isdigit(yytext[2]))
+    {
+      temp = (char *) malloc(sizeof(char) * (strlen(data) + 1));
+      if(!temp)
+      {
+        printf("Unable to allocate memory. Exiting.");
+        exit(-1);
+      }
+
+      strcpy(temp, data);
+      temp[strlen(data)-1] = '\0';
+      token.data.l = atoi(&temp[2]);
+    }
+    else
+    {
+      token.data.l = yytext[2];
+    }
+  }
+  else
+  {
+    token.data.l = yytext[1];
+  }
+
+  token.line = curLine;
+  return token.symbol;
+}
 %}
 
 %x COMMENT
@@ -144,7 +179,11 @@ int addSymbol(int symbol, char *data)
 
 [0-9]+ 			return addSymbol(TK_LONG_NUMBER, yytext);
 
+0[xX](([0-9a-fA-F]+)|([0-9a-fA-F]+"."[0-9a-fA-F]+))([pP][+\-]?[0-9]+)?         return addSymbol(TK_DOUBLE_NUMBER, yytext);
+
 [0-9]+"."[0-9]*         return addSymbol(TK_DOUBLE_NUMBER, yytext);
+
+\'([^\\]|\\.+)\'         return addChar(yytext);
 
 [A-Za-z_][A-Za-z0-9_]*  return addSymbol(TK_ID, yytext);
 

@@ -124,10 +124,10 @@ int main( int argc, char **argv )
     {
       if(DEBUG == 1)
       {
-        printf(" - Value: %f\n", token.data.d);
+        printf(" - Value: %a\n", token.data.d);
       }
 
-      fprintf(fp, "%f", token.data.d);
+      fprintf(fp, "%a", token.data.d);
     }
     else if(tokenNumber == TK_LONG_NUMBER)
     {
