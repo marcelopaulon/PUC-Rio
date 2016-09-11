@@ -24,24 +24,25 @@ float ret_float(void){
 }
 
 void main(){
-  char a=new char[20]
-  a="Teste Lexico"
-  a="Teste com string"
-  int b=10
-  int c=25
+  char a=new char[20];
+  a="Teste Lexico";
+  a="Teste com string";
+  int b=10;
+  int c=25;
   if (c > b){
-     b=b*3
+     b=b*3;
   }
   else {
     b = c;
   }
   while (c >= 0){
     if(c && b){
-     	  c=c-1
+     	  c=c-1;
     }
   }
 }
 
+/***/
 /*Testando*/
 /**/a/****/
 /***/a/****/
@@ -51,11 +52,13 @@ void main(){
 /****/a/*******/***/*b*/
 
 void main(){
-  char a=new char[20]
-  a="Testando primeira \\ string"
-  a="Testando em \n duas linhas"
-  a="\n Segunda linha"
-  a="Primeira \n Segunda \n Terceira"
-  a="Testando\ttab1\ttab2"
-  a="Testando\t\t\t 3 tabs"
+  char a=new char[20];
+  a="Testando primeira \\ string";
+  a="Testando em \n duas linhas";
+  a="\n Segunda linha";
+  a="Primeira \n Segunda \n Terceira";
+  a="Testando\ttab1\ttab2";
+  a="Testando\t\t\t 3 tabs";
+  a="/***/";
+  a="/***/";
 }
