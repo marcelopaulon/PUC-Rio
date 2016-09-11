@@ -60,5 +60,5 @@ void main(){
   a="Testando\ttab1\ttab2";
   a="Testando\t\t\t 3 tabs";
   a="/***/";
-  a="/***/";
+  a="/****/";
 }
