@@ -4,11 +4,9 @@
 
 #include "fcos.h"
 
-#define SIZE 10
-
 #define MAX 0.07969262624616703
 
-#define DEBUG 0
+#define DEBUG 1
 
 int main(void)
 {
@@ -20,13 +18,18 @@ int main(void)
 
 	if(DEBUG == 1) printf("fcos(x):\n");
 
-	for(i = 0.0; i < 3.14; countTests++, i += 0.001)
+	// Testa para alguns valores do intervalo x pertence a [0,Pi]
+	for(i = 0.0; i < 3.14159265; countTests++, i += 0.001)
 	{
 		fcosResult = fcos(i);
 		cosResult = cos(i);
 
 		difference = i - PI_2;
+
+		// Erro = |cos(x)-fcos(x)|
 		error = fabs(fcosResult - cosResult);
+
+		// Resíduo = -(x-x0)^5 / 120
 		residue = -(difference * difference * difference * difference * difference) / 120;
 
 		if(error > MAX)
@@ -35,6 +38,7 @@ int main(void)
 			exit(-1);
 		}
 
+		// Verifica se erro > |-(x-x0)^5 / 120|
 		if(error > fabs(residue)) {
 			if(DEBUG == 1) printf("FAIL: ");
 			countErrors++;
