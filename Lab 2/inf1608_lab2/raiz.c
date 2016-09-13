@@ -45,5 +45,13 @@ double bissecao (double a, double b, int p, double (*f) (double x))
 
 double pontofixo (double x0, double epsilon, double (*g) (double x))
 {
-	return 0.0;
+	double xn1, xn = x0;
+
+	do
+	{
+		xn1 = xn;
+		xn = g(xn);
+	} while (fabs(xn - xn1) >= epsilon);
+
+	return xn;
 }

@@ -10,13 +10,20 @@ double f(double m)
 
 double g(double x)
 {
-	// f(x) = 0; g(x) - x = 0
-	return ;
+	// f(x) = 0 --> g(x) - x = 0
+	// f(x) = -x^2+1.8x+2.5
+	// -x^2+1.8x+2.5 = 0
+	// x^2 = 1.8x + 2.5
+	// x = +-sqrt(1.8x + 2.5)
+	return sqrt(1.8*x+2.5);
 }
 
 int main(void)
 {
-	double result = bissecao(0, 1000, 6, f);
-	printf("m = %.6f\n", result);
+	double result = bissecao(0, 500, 6, f);
+	double result2 = pontofixo(5.0, 0.0005, g);
+
+	printf("Bissecao: m = %.6f\n", result);
+	printf("\nPonto fixo: %.6f\n", result2);
 	return;
 }
