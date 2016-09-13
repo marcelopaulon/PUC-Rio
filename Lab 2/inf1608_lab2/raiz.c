@@ -9,7 +9,6 @@ double bissecao (double a, double b, int p, double (*f) (double x))
 {
 	double error, maxError = 0.5 * pow(10.0, -p);
 	double c, temp;
-	int n = 0;
 
 	if(f(a) * f(b) >= 0)
 	{
@@ -36,8 +35,6 @@ double bissecao (double a, double b, int p, double (*f) (double x))
 		}
 
 		error /= 2.0;
-
-		n++;
 	} while(error >= maxError);
 
 	return c;
