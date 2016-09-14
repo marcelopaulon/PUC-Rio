@@ -7,8 +7,9 @@
 
 double bissecao (double a, double b, int p, double (*f) (double x))
 {
-	double error, maxError = 0.5 * pow(10.0, -p);
-	double c, temp;
+	int i, n = ceil((log((b-a)/(0.5 * pow(10.0, -p)))/log(2.0)) - 1);
+	
+	double c = -1, temp;
 
 	if(f(a) * f(b) >= 0)
 	{
@@ -16,15 +17,13 @@ double bissecao (double a, double b, int p, double (*f) (double x))
 		exit(-1);
 	}
 
-	error = b-a;
-
-	do
+	for(i = 0; i < n; i++)
 	{
 		c = (a+b)/2.0;
 		temp = f(c);
 
 		if(temp == 0) break;
-		
+
 		if(f(a) * temp < 0)
 		{
 			b = c;
@@ -33,9 +32,7 @@ double bissecao (double a, double b, int p, double (*f) (double x))
 		{
 			a = c;
 		}
-
-		error /= 2.0;
-	} while(error >= maxError);
+	}
 
 	return c;
 }
