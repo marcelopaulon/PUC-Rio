@@ -94,12 +94,6 @@ int main( int argc, char **argv )
     exit(-1);
   }
 
-  ++argv, --argc;  /* skip over program name */
-  if ( argc > 0 )
-    yyin = fopen( argv[0], "r" );
-  else
-    yyin = stdin;
-
   fprintf(fp, "START\n");
 
   while ((tokenNumber = yylex())) 

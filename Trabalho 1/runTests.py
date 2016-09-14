@@ -11,7 +11,7 @@ for file in os.listdir(testDir):
     if file.endswith(".monga"):
         totalTests = totalTests + 1
         print('\n-----------------------------------------------\nTest: ' + file + '\n')
-        os.system('./teste ' + testDir + '/' + file)
+        os.system('./teste < ' + testDir + '/' + file)
         with open('output.txt') as f:
              output = f.readlines()
         with open(testDir + '/' + os.path.splitext(file)[0] + '.expected') as f:

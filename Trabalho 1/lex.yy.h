@@ -5,8 +5,6 @@
 
 extern int yylex(void);
 
-extern FILE *yyin, *yyout;
-
 typedef enum mongaSymbol {
   TK_LE = 256,
   TK_GE,
