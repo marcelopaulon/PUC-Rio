@@ -56,6 +56,7 @@ void main(){
   a="Testando primeira \\ string";
   a="Testando em \n duas linhas";
   a="\n Segunda linha";
+  a="\n\"Entre aspas\". Tres aspas: \"\"\""
   a="Primeira \n Segunda \n Terceira";
   a="Testando\ttab1\ttab2";
   a="Testando\t\t\t 3 tabs";

@@ -97,40 +97,6 @@ int addSymbol(int symbol, char *data)
   token.line = curLine;
   return symbol;
 }
-
-int addChar(char *data)
-{
-  char *temp;
-  token.symbol = TK_LONG_NUMBER;
-
-  if(yytext[1] == '\\')
-  {
-    if(isdigit(yytext[2]))
-    {
-      temp = (char *) malloc(sizeof(char) * (strlen(data) + 1));
-      if(!temp)
-      {
-        printf("Unable to allocate memory. Exiting.");
-        exit(-1);
-      }
-
-      strcpy(temp, data);
-      temp[strlen(data)-1] = '\0';
-      token.data.l = atoi(&temp[2]);
-    }
-    else
-    {
-      token.data.l = yytext[2];
-    }
-  }
-  else
-  {
-    token.data.l = yytext[1];
-  }
-
-  token.line = curLine;
-  return token.symbol;
-}
 %}
 
 %x COMMENT
@@ -144,6 +110,7 @@ int addChar(char *data)
 <COMMENT>{
 	"*/"		BEGIN(0);
 	"\n"            curLine++;
+	<<EOF>>		{ printf("Non-closed comment on line %d. Exiting.\n", curLine); exit(-1); }
 	.		{}
 }
 
@@ -151,11 +118,13 @@ int addChar(char *data)
 
 <STRING>{
         \n		{ printf("Non-closed string on line %d. Exiting.\n", curLine); exit(-1); }
+	<<EOF>>		{ printf("Non-closed string on line %d. Exiting.\n", curLine); exit(-1); }
 	\\"\""		{ addToBuffer("\""); }
 	\\"n"		{ addToBuffer("\n"); }
 	\\"t"		{ addToBuffer("\t"); }
 	\\\\		{ addToBuffer("\\"); }
 	"\""		{ BEGIN(0); addToBuffer("\0"); return addSymbol(TK_STRING, stringBuffer); }
+	\\.		{ printf("Invalid escape character on line %d. Exiting.\n", curLine); exit(-1); }		
 	.		{ addToBuffer(yytext); }
 }
 
@@ -181,9 +150,7 @@ int addChar(char *data)
 
 0[xX](([0-9a-fA-F]+)|([0-9a-fA-F]+"."[0-9a-fA-F]+))([pP][+\-]?[0-9]+)?         return addSymbol(TK_DOUBLE_NUMBER, yytext);
 
-[0-9]+"."[0-9]*         return addSymbol(TK_DOUBLE_NUMBER, yytext);
-
-\'([^\\]|\\.+)\'         return addChar(yytext);
+[0-9]+"."[0-9]*([eE][+\-]?[0-9]+)?         return addSymbol(TK_DOUBLE_NUMBER, yytext);
 
 [A-Za-z_][A-Za-z0-9_]*  return addSymbol(TK_ID, yytext);
 

@@ -233,25 +233,29 @@ START
 59(58)
 269(59)a
 61(59)
-273(59)Primeira 
- Segunda 
- Terceira
-59(59)
+273(59)
+"Entre aspas". Tres aspas: """
 269(60)a
 61(60)
-273(60)Testando	tab1	tab2
+273(60)Primeira 
+ Segunda 
+ Terceira
 59(60)
 269(61)a
 61(61)
-273(61)Testando			 3 tabs
+273(61)Testando	tab1	tab2
 59(61)
 269(62)a
 61(62)
-273(62)/***/
+273(62)Testando			 3 tabs
 59(62)
 269(63)a
 61(63)
-273(63)/****/
+273(63)/***/
 59(63)
-125(64)
+269(64)a
+61(64)
+273(64)/****/
+59(64)
+125(65)
 END
