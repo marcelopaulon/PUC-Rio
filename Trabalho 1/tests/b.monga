@@ -63,3 +63,9 @@ void main(){
   a="/***/";
   a="/****/";
 }
+
+void compare(int a, int b) {
+  if(a >= b || b <= a) {
+    a = a + 1;
+  }
+}
