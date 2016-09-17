@@ -138,22 +138,11 @@ Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
 	int width = image.getW();
 	int height = image.getH();
 	
-	//if (width > height) 
-	{
-		float coluna_2 = position / width;
-		float linha_2 = position % width + 1;
+	float coluna_2 = position / width;
+	float linha_2 = position % width + 1;
 
-		*iIdx = linha_2;
-		*jIdx = coluna_2;
-	}
-	/*else 
-	{
-		float coluna_1 = position % height + 1;
-		float linha_1 = position / height;
-
-		*iIdx = linha_1;
-		*jIdx = coluna_1;
-	}*/
+	*iIdx = linha_2;
+	*jIdx = coluna_2;
 
 	return image.getPixel(*iIdx, *jIdx);
 }
@@ -502,7 +491,6 @@ void SuperPixels(Image& rgb, int k, double M)
  */
 int main(int argc, char** argv)
 {
-
 	Image l;
 	if (l.readBMP("AB_ufv_0675.bmp"))
 	{
