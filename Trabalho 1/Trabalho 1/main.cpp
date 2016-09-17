@@ -70,8 +70,8 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 	double minX = centerX, minY = centerY;
 	Pixel *min = new Pixel(Lab.getPixel((int)minX, (int)minY));
 
-	for (int sW = centerX - 1; sW < centerX + 2; sW++) {
-		for (int sH = centerY - 1; sH < centerY + 2; sH++) {
+	for (int sW = (int)centerX - 1; sW < centerX + 2; sW++) {
+		for (int sH = (int)centerY - 1; sH < centerY + 2; sH++) {
 			Pixel c1 = Lab.getPixel(sW, sH + 1);
 			Pixel c2 = Lab.getPixel(sW + 1, sH);
 			Pixel c3 = Lab.getPixel(sW, sH);
@@ -90,7 +90,7 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 		}
 	}
 
-	return new Cluster(*min, minX, minY);
+	return new Cluster(*min, (float)minX, (float)minY);
 }
 
 /**
@@ -145,10 +145,68 @@ void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, in
 {
 	double width = Lab.getW(), height = Lab.getH();
 
-	for (int i = 0; i < k; i++)
-	{
+	// Calcula o numero de pixels cada superpixel.
+	int s = (int)floor(sqrt(width * height / k));
 
+	// Executa por até 10 iterações, como especificado pelo algoritmo
+	for (int iteration = 0; iteration < 10; iteration++)
+	{
+		// Para cada superpixel
+		for (int i = 0; i < k; i++)
+		{
+			Cluster c = clusters[i];
+			
+			// Criar janela de tamanho 2s centrada em X, Y
+			int startX = c.getX() - s;
+			if (startX < 0) startX = 0;
+
+			int startY = c.getY() - s;
+			if (startY < 0) startY = 0;
+
+			int endX = c.getX() + s;
+			if (endX > width) endX = width;
+
+			int endY = c.getY() + s;
+			if (endY > height) endY = height;
+
+			for (int ii = startX; ii < endX; ii++)
+			{
+				for (int jj = startY; jj < endY; jj++)
+				{
+					Pixel p = Lab.getPixel(ii, jj);
+					int labelPos = computeLabelPosition(ii, jj, width);
+					int curLabel = labels[labelPos];
+
+					if (curLabel == -1 || curLabel == i) // Se a label não está definida ou se está definida para o superpixel atual
+					{
+						if (curLabel == -1)
+						{
+							labels[labelPos] = i; // Seta o cluster para o pixel não alocado
+						}
+
+						continue; // Pula para a próxima iteração
+					}
+
+					double dsPixelToCurCluster = sqrt(pow(c.getX() - ii, 2) + pow(c.getY() - jj, 2));
+					Pixel diffCurCluster = p - c.getPixel();
+					double dcPixelToCurCluster = sqrt(pow(diffCurCluster[0], 2) + pow(diffCurCluster[1], 2) + pow(diffCurCluster[2], 2));
+					double dtPixelToCurCluster = sqrt(dcPixelToCurCluster*dcPixelToCurCluster + (pow(dsPixelToCurCluster / s, 2.0) * (M*M)));
+
+					Cluster existingCluster = clusters[curLabel];
+					double dsPixelToExistingCluster = sqrt(pow(existingCluster.getX() - ii, 2) + pow(existingCluster.getY() - jj, 2));
+					Pixel diffExistingCluster = p - existingCluster.getPixel();
+					double dcPixelToExistingCluster = sqrt(pow(diffExistingCluster[0], 2) + pow(diffExistingCluster[1], 2) + pow(diffExistingCluster[2], 2));
+					double dtPixelToExistingCluster = sqrt(dcPixelToExistingCluster*dcPixelToExistingCluster + (pow(dsPixelToExistingCluster / s, 2.0) * (M*M)));
+
+					if (dtPixelToCurCluster < dtPixelToExistingCluster)
+					{
+						labels[labelPos] = i;
+					}
+				}
+			}
+		}
 	}
+	
 }
 
 void drawContoursAroundSegments( Image& rgb, int* labels, Pixel borderColor = Pixel( ) )
@@ -317,16 +375,13 @@ void SuperPixels( Image& rgb, int k, double M )
 
 	double width = lab.getW(), height = lab.getH();
 
-    // Calcula o numero de pixels cada superpixel.
-	int s = (int)floor(sqrt(width * height / k));
-
     // Inicializa os os clusters.
     Cluster* clusters;
     k = initializeClusters( clusters, lab, k );
 
     // aloca e inicializa labels.
 	int *labels;
-	int size = width * height;
+	int size = (int)(width * height);
 	labels = new int[size];
 
 	for (int i = 0; i < size; i++)
