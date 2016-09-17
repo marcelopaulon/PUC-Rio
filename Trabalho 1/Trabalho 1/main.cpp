@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.cpp
  * Trabalho de Computação Gráfica - Marcelo Paulon (1411029)
  *
@@ -20,7 +20,7 @@ using namespace std;
  * @param rgb - imagem rgb de entrada.
  * @return - imagem em Lab.
  */
-Image convertImageFromRGB2Lab( const Image& rgb )
+Image convertImageFromRGB2Lab(const Image& rgb)
 {
 	int w = rgb.getW(), h = rgb.getH();
 	Image *lab = new Image(w, h);
@@ -41,7 +41,7 @@ Image convertImageFromRGB2Lab( const Image& rgb )
  * @param Lab - imagem Lab de entrada.
  * @return - imagem em RGB.
  */
-Image convertImageFromLAB2RGB( const Image& Lab )
+Image convertImageFromLAB2RGB(const Image& Lab)
 {
 	int w = Lab.getW(), h = Lab.getH();
 	Image *rgb = new Image(w, h);
@@ -53,7 +53,7 @@ Image convertImageFromLAB2RGB( const Image& Lab )
 			rgb->setPixel(i, j, rgb->XYZTorgb(rgb->LabToXYZ(Lab.getPixel(i, j))));
 		}
 	}
-	
+
 	return *rgb;
 }
 
@@ -100,14 +100,14 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
  * @param k - numero desejado de superpixels.
  * @return - numero de superpixels.
  */
-int initializeClusters( Cluster*& clusters, Image& Lab, int k )
+int initializeClusters(Cluster*& clusters, Image& Lab, int k)
 {
 	double width = Lab.getW(), height = Lab.getH();
 	int s = (int)floor(sqrt(width * height / k));
 	int nSuperPixels = (int)floor(width * height / (s*s));
 	clusters = new Cluster[nSuperPixels];
 
-	int i=0, j=0;
+	int i = 0, j = 0;
 
 	for (int c = 0; c < nSuperPixels; c++)
 	{
@@ -133,6 +133,31 @@ int computeLabelPosition(int i, int j, int width)
 	return j * width + i;
 }
 
+Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
+{
+	int width = image.getW();
+	int height = image.getH();
+	
+	//if (width > height) 
+	{
+		float coluna_2 = position / width;
+		float linha_2 = position % width + 1;
+
+		*iIdx = linha_2;
+		*jIdx = coluna_2;
+	}
+	/*else 
+	{
+		float coluna_1 = position % height + 1;
+		float linha_1 = position / height;
+
+		*iIdx = linha_1;
+		*jIdx = coluna_1;
+	}*/
+
+	return image.getPixel(*iIdx, *jIdx);
+}
+
 /**
  * Realiza o algoritmo de superpixels.
  * @param Lab - Imagem em lab.
@@ -141,7 +166,7 @@ int computeLabelPosition(int i, int j, int width)
  * @param k - numero de superpixels.
  * @param M - compacidade.
  */
-void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, int k, double M )
+void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int k, double M)
 {
 	double width = Lab.getW(), height = Lab.getH();
 
@@ -155,7 +180,7 @@ void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, in
 		for (int i = 0; i < k; i++)
 		{
 			Cluster c = clusters[i];
-			
+
 			// Criar janela de tamanho 2s centrada em X, Y
 			int startX = c.getX() - s;
 			if (startX < 0) startX = 0;
@@ -204,184 +229,231 @@ void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, in
 					}
 				}
 			}
+		}
 
+		int nLabels = (int)(width*height);
 
+		// Recalcular centro/cor para cada superpixel
+		for (int i = 0; i < k; i++)
+		{
+			Cluster *c = &clusters[i];
+
+			double centerXSum = 0.0, centerYSum = 0.0;
+			Pixel *colorSum = new Pixel();
+			int countLabels = 0;
+
+			for (int labelIdx = 0; labelIdx < nLabels; labelIdx++)
+			{
+				int label = labels[labelIdx];
+				if (label == i) // Se a label indica que o pixel pertence ao cluster atual
+				{
+					int pixelW = -1;
+					int pixelH = -1;
+					Pixel pixel = getPixelAndLocation(Lab, labelIdx, &pixelW, &pixelH);
+
+					if (pixelW == -1 || pixelH == -1)
+					{
+						printf("Error. Unable to get pixel location. Exiting.");
+						exit(-1);
+					}
+					
+					(*colorSum)[0] += pixel[0];
+					(*colorSum)[1] += pixel[1];
+					(*colorSum)[2] += pixel[2];
+					centerXSum += pixelW;
+					centerYSum += pixelH;
+					
+					countLabels++;
+				}
+			}
+
+			c->setPosition((float)(centerXSum / countLabels), (float)(centerYSum / countLabels));
+
+			(*colorSum)[0] /= countLabels;
+			(*colorSum)[1] /= countLabels;
+			(*colorSum)[2] /= countLabels;
+			c->setPixel(*colorSum);
+
+			printf("Center recalculated - %d/10 - %d/%d\n", iteration, i, k);
 		}
 	}
-	
+
 }
 
-void drawContoursAroundSegments( Image& rgb, int* labels, Pixel borderColor = Pixel( ) )
+void drawContoursAroundSegments(Image& rgb, int* labels, Pixel borderColor = Pixel())
 {
-    int w = rgb.getW( );
-    int h = rgb.getH( );
+	int w = rgb.getW();
+	int h = rgb.getH();
 
-    const int dx8[8] = { -1, -1, 0, 1, 1, 1, 0, -1 };
-    const int dy8[8] = { 0, -1, -1, -1, 0, 1, 1, 1 };
+	const int dx8[8] = { -1, -1, 0, 1, 1, 1, 0, -1 };
+	const int dy8[8] = { 0, -1, -1, -1, 0, 1, 1, 1 };
 
-    int sz = w * h;
-    vector<bool> istaken( sz, false );
-    vector<int> contourx( sz );
-    vector<int> contoury( sz );
-    int mainindex( 0 );
-    int cind( 0 );
-    for (int j = 0; j < h; j++)
-    {
-        for (int k = 0; k < w; k++)
-        {
-            int np( 0 );
-            for (int i = 0; i < 8; i++)
-            {
-                int x = k + dx8[i];
-                int y = j + dy8[i];
+	int sz = w * h;
+	vector<bool> istaken(sz, false);
+	vector<int> contourx(sz);
+	vector<int> contoury(sz);
+	int mainindex(0);
+	int cind(0);
+	for (int j = 0; j < h; j++)
+	{
+		for (int k = 0; k < w; k++)
+		{
+			int np(0);
+			for (int i = 0; i < 8; i++)
+			{
+				int x = k + dx8[i];
+				int y = j + dy8[i];
 
-                if (( x >= 0 && x < w ) && ( y >= 0 && y < h ))
-                {
-                    int index = y * w + x;
+				if ((x >= 0 && x < w) && (y >= 0 && y < h))
+				{
+					int index = y * w + x;
 
-                    if (false == istaken[index])//comment this to obtain internal contours
-                    {
-                        if (labels[mainindex] != labels[index]) np++;
-                    }
-                }
-            }
-            if (np > 1)
-            {
-                contourx[cind] = k;
-                contoury[cind] = j;
-                istaken[mainindex] = true;
-                //img[mainindex] = color;
-                cind++;
-            }
-            mainindex++;
-        }
-    }
+					if (false == istaken[index])//comment this to obtain internal contours
+					{
+						if (labels[mainindex] != labels[index]) np++;
+					}
+				}
+			}
+			if (np > 1)
+			{
+				contourx[cind] = k;
+				contoury[cind] = j;
+				istaken[mainindex] = true;
+				//img[mainindex] = color;
+				cind++;
+			}
+			mainindex++;
+		}
+	}
 
-    int numboundpix = cind; //int(contourx.size());
-    for (int j = 0; j < numboundpix; j++)
-    {
-        for (int n = 0; n < 8; n++)
-        {
-            int x = contourx[j] + dx8[n];
-            int y = contoury[j] + dy8[n];
-            if (( x >= 0 && x < w ) && ( y >= 0 && y < h ))
-            {
-                int ind = rgb.computePosition( x, y );
-                if (!istaken[ind])
-                {
-                    rgb.setPixel( ind, borderColor );
-                }
-            }
-        }
-    }
+	int numboundpix = cind; //int(contourx.size());
+	for (int j = 0; j < numboundpix; j++)
+	{
+		for (int n = 0; n < 8; n++)
+		{
+			int x = contourx[j] + dx8[n];
+			int y = contoury[j] + dy8[n];
+			if ((x >= 0 && x < w) && (y >= 0 && y < h))
+			{
+				int ind = rgb.computePosition(x, y);
+				if (!istaken[ind])
+				{
+					rgb.setPixel(ind, borderColor);
+				}
+			}
+		}
+	}
 }
 
-void enforceLabelConnectivity( const int* labels, //input labels that need to be corrected to remove stray labels
-                               const int width,
-                               const int height,
-                               int*& nlabels, //new labels
-                               int& numlabels, //the number of labels changes in the end if segments are removed
-                               const int& K ) //the number of superpixels desired by the user
+void enforceLabelConnectivity(const int* labels, //input labels that need to be corrected to remove stray labels
+	const int width,
+	const int height,
+	int*& nlabels, //new labels
+	int& numlabels, //the number of labels changes in the end if segments are removed
+	const int& K) //the number of superpixels desired by the user
 {
-    const int dx4[4] = { -1, 0, 1, 0 };
-    const int dy4[4] = { 0, -1, 0, 1 };
+	const int dx4[4] = { -1, 0, 1, 0 };
+	const int dy4[4] = { 0, -1, 0, 1 };
 
-    const int sz = width * height;
-    const int SUPSZ = sz / K;
+	const int sz = width * height;
+	const int SUPSZ = sz / K;
 
-    for (int i = 0; i < sz; i++) nlabels[i] = -1;
-    int label( 0 );
-    int* xvec = new int[sz];
-    int* yvec = new int[sz];
-    int oindex( 0 );
-    int adjlabel( 0 ); //adjacent label
-    for (int j = 0; j < height; j++)
-    {
-        for (int k = 0; k < width; k++)
-        {
-            if (0 > nlabels[oindex])
-            {
-                nlabels[oindex] = label;
-                //--------------------
-                // Start a new segment
-                //--------------------
-                xvec[0] = k;
-                yvec[0] = j;
-                //-------------------------------------------------------
-                // Quickly find an adjacent label for use later if needed
-                //-------------------------------------------------------
-                {
-                    for (int n = 0; n < 4; n++)
-                    {
-                        int x = xvec[0] + dx4[n];
-                        int y = yvec[0] + dy4[n];
-                        if (( x >= 0 && x < width ) && ( y >= 0 && y < height ))
-                        {
-                            int nindex = y * width + x;
-                            if (nlabels[nindex] >= 0) adjlabel = nlabels[nindex];
-                        }
-                    }
-                }
+	for (int i = 0; i < sz; i++) nlabels[i] = -1;
+	int label(0);
+	int* xvec = new int[sz];
+	int* yvec = new int[sz];
+	int oindex(0);
+	int adjlabel(0); //adjacent label
+	for (int j = 0; j < height; j++)
+	{
+		for (int k = 0; k < width; k++)
+		{
+			if (0 > nlabels[oindex])
+			{
+				nlabels[oindex] = label;
+				//--------------------
+				// Start a new segment
+				//--------------------
+				xvec[0] = k;
+				yvec[0] = j;
+				//-------------------------------------------------------
+				// Quickly find an adjacent label for use later if needed
+				//-------------------------------------------------------
+				{
+					for (int n = 0; n < 4; n++)
+					{
+						int x = xvec[0] + dx4[n];
+						int y = yvec[0] + dy4[n];
+						if ((x >= 0 && x < width) && (y >= 0 && y < height))
+						{
+							int nindex = y * width + x;
+							if (nlabels[nindex] >= 0) adjlabel = nlabels[nindex];
+						}
+					}
+				}
 
-                int count( 1 );
-                for (int c = 0; c < count; c++)
-                {
-                    for (int n = 0; n < 4; n++)
-                    {
-                        int x = xvec[c] + dx4[n];
-                        int y = yvec[c] + dy4[n];
+				int count(1);
+				for (int c = 0; c < count; c++)
+				{
+					for (int n = 0; n < 4; n++)
+					{
+						int x = xvec[c] + dx4[n];
+						int y = yvec[c] + dy4[n];
 
-                        if (( x >= 0 && x < width ) && ( y >= 0 && y < height ))
-                        {
-                            int nindex = y * width + x;
+						if ((x >= 0 && x < width) && (y >= 0 && y < height))
+						{
+							int nindex = y * width + x;
 
-                            if (0 > nlabels[nindex] && labels[oindex] == labels[nindex])
-                            {
-                                xvec[count] = x;
-                                yvec[count] = y;
-                                nlabels[nindex] = label;
-                                count++;
-                            }
-                        }
+							if (0 > nlabels[nindex] && labels[oindex] == labels[nindex])
+							{
+								xvec[count] = x;
+								yvec[count] = y;
+								nlabels[nindex] = label;
+								count++;
+							}
+						}
 
-                    }
-                }
-                //-------------------------------------------------------
-                // If segment size is less then a limit, assign an
-                // adjacent label found before, and decrement label count.
-                //-------------------------------------------------------
-                if (count <= SUPSZ >> 2)
-                {
-                    for (int c = 0; c < count; c++)
-                    {
-                        int ind = yvec[c] * width + xvec[c];
-                        nlabels[ind] = adjlabel;
-                    }
-                    label--;
-                }
-                label++;
-            }
-            oindex++;
-        }
-    }
-    numlabels = label;
+					}
+				}
+				//-------------------------------------------------------
+				// If segment size is less then a limit, assign an
+				// adjacent label found before, and decrement label count.
+				//-------------------------------------------------------
+				if (count <= SUPSZ >> 2)
+				{
+					for (int c = 0; c < count; c++)
+					{
+						int ind = yvec[c] * width + xvec[c];
+						nlabels[ind] = adjlabel;
+					}
+					label--;
+				}
+				label++;
+			}
+			oindex++;
+		}
+	}
+	numlabels = label;
 
-    if (xvec) delete [] xvec;
-    if (yvec) delete [] yvec;
+	if (xvec) delete[] xvec;
+	if (yvec) delete[] yvec;
 }
 
-void SuperPixels( Image& rgb, int k, double M )
+void SuperPixels(Image& rgb, int k, double M)
 {
 	// Converte a imagem de RGB para Lab
 	Image lab = convertImageFromRGB2Lab(rgb);
 
 	double width = lab.getW(), height = lab.getH();
 
-    // Inicializa os os clusters.
-    Cluster* clusters;
-    k = initializeClusters( clusters, lab, k );
+	// Calcula o numero de pixels cada superpixel.
+	int s = (int)floor(sqrt(width * height / k));
 
-    // aloca e inicializa labels.
+	// Inicializa os os clusters.
+	Cluster* clusters;
+	k = initializeClusters(clusters, lab, k);
+
+	// Aloca e inicializa labels.
 	int *labels;
 	int size = (int)(width * height);
 	labels = new int[size];
@@ -391,19 +463,22 @@ void SuperPixels( Image& rgb, int k, double M )
 		labels[i] = -1; // Nenhum cluster alocado
 	}
 
-    // Executa o algoritmo.
+	// Executa o algoritmo.
 	performSuperPixelsAlgorithm(lab, clusters, labels, k, M);
+	
+	/*int* nlabels = new int[size];
+	enforceLabelConnectivity( labels, width, height, nlabels, k, double(size ) / double( s * s ) );
+	for (int i = 0; i < size; i++)
+	{
+		labels[i] = nlabels[i];
+	}
 
-    
-    //    int* nlabels = new int[size];
-    //    enforceLabelConnectivity( labels, w, h, nlabels, k, double(size ) / double( s * s ) );
-    //    for (int i = 0; i < size; i++)
-    //        labels[i] = nlabels[i];
+	if (nlabels)
+	{
+		delete[] nlabels;
+	}*/
 
-    //if (nlabels)
-    //    delete [] nlabels;
-
-    // define as novas cores dos pixels.
+	// define as novas cores dos pixels.
 	for (int i = 0; i < size; i++)
 	{
 		if (labels[i] != -1)
@@ -413,34 +488,34 @@ void SuperPixels( Image& rgb, int k, double M )
 		}
 	}
 
-    //Converte a imagem de volta.
+	//Converte a imagem de volta.
 	rgb = convertImageFromLAB2RGB(lab);
 
-    //Desenha os contornos. Deve passar a imagem em rgb e o vetor de labels.
-    //drawContoursAroundSegments( rgb, labels );
+	//Desenha os contornos. Deve passar a imagem em rgb e o vetor de labels.
+	drawContoursAroundSegments(rgb, labels);
 }
 
 
 
 /*
- * 
+ *
  */
-int main( int argc, char** argv )
+int main(int argc, char** argv)
 {
 
-    Image l;
-    if (l.readBMP( "AB_ufv_0675.bmp" ))
-    {
-        printf( "Leitura executada com sucesso\n" );
-    }
-    
-    SuperPixels( l, 512, 20 );
-    
-    if (l.writeBMP( "AB_ufv_06752.bmp" ))
-    {
-        printf( "Escrita executada com sucesso\n" );
-    }
+	Image l;
+	if (l.readBMP("AB_ufv_0675.bmp"))
+	{
+		printf("Leitura executada com sucesso\n");
+	}
 
-    return 0;
+	SuperPixels(l, 512, 20);
+
+	if (l.writeBMP("AB_ufv_06752.bmp"))
+	{
+		printf("Escrita executada com sucesso\n");
+	}
+
+	return 0;
 }
 
