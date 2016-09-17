@@ -1,8 +1,8 @@
 /* 
  * File:   main.cpp
- * Author: jcoelho
+ * Trabalho de Computação Gráfica - Marcelo Paulon (1411029)
  *
- * Created on September 11, 2016, 2:18 PM
+ * Created by jcoelho on September 11, 2016, 2:18 PM
  */
 
 #include <cstdlib>
@@ -16,7 +16,7 @@
 using namespace std;
 
 /**
- * converte uma imagem rgb em uma imagem Lab.
+ * Converte uma imagem rgb em uma imagem Lab.
  * @param rgb - imagem rgb de entrada.
  * @return - imagem em Lab.
  */
@@ -37,7 +37,7 @@ Image convertImageFromRGB2Lab( const Image& rgb )
 }
 
 /**
- * converte uma imagem Lab em uma imagem em rgb.
+ * Converte uma imagem Lab em uma imagem em rgb.
  * @param Lab - imagem Lab de entrada.
  * @return - imagem em RGB.
  */
@@ -57,8 +57,44 @@ Image convertImageFromLAB2RGB( const Image& Lab )
 	return *rgb;
 }
 
+/*
+* Find a local gradient minimum of a pixel in a 3x3 neighbourhood.
+*
+*/
+Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
+	int w = Lab.getW(), h = Lab.getH();
+
+	double min_grad = FLT_MAX;
+
+	double centerX = floor(i + s / 2.0), centerY = floor(j + s / 2.0);
+	double minX = centerX, minY = centerY;
+	Pixel *min = new Pixel(Lab.getPixel((int)minX, (int)minY));
+
+	for (int sW = centerX - 1; sW < centerX + 2; sW++) {
+		for (int sH = centerY - 1; sH < centerY + 2; sH++) {
+			Pixel c1 = Lab.getPixel(sW, sH + 1);
+			Pixel c2 = Lab.getPixel(sW + 1, sH);
+			Pixel c3 = Lab.getPixel(sW, sH);
+			/* Convert colour values to grayscale values (Get L coordinate) */
+			double i1 = c1[0];
+			double i2 = c2[0];
+			double i3 = c3[0];
+
+			/* Compute horizontal and vertical gradients and keep track of the
+			minimum. */
+			if (sqrt(pow(i1 - i3, 2)) + sqrt(pow(i2 - i3, 2)) < min_grad) {
+				min_grad = fabs(i1 - i3) + fabs(i2 - i3);
+				minX = sW;
+				minY = sH;
+			}
+		}
+	}
+
+	return new Cluster(*min, minX, minY);
+}
+
 /**
- * TODO: inicializa os clusters.
+ * Inicializa os clusters.
  * @param clusters - clusters que DEVEM ser alocados e inicializados.
  * @param Lab - imagem em Lab.
  * @param k - numero desejado de superpixels.
@@ -66,11 +102,39 @@ Image convertImageFromLAB2RGB( const Image& Lab )
  */
 int initializeClusters( Cluster*& clusters, Image& Lab, int k )
 {
-	return 0;
+	double width = Lab.getW(), height = Lab.getH();
+	int s = (int)floor(sqrt(width * height / k));
+	int nSuperPixels = (int)floor(width * height / (s*s));
+	clusters = new Cluster[nSuperPixels];
+
+	int i=0, j=0;
+
+	for (int c = 0; c < nSuperPixels; c++)
+	{
+		if (i + s > width)
+		{
+			i = 0;
+			j += s;
+		}
+		else
+		{
+			i += s;
+		}
+
+		clusters[c] = *findSmallestGradient(Lab, s, i, j);
+	}
+
+	return nSuperPixels;
+}
+
+int computeLabelPosition(int i, int j, int width)
+{
+	// i: width, j: height
+	return j * width + i;
 }
 
 /**
- * TODO: realiza o algoritmo de superpixels.
+ * Realiza o algoritmo de superpixels.
  * @param Lab - Imagem em lab.
  * @param clusters - clusters inicializados.
  * @param labels - labels inicializadas.
@@ -79,7 +143,12 @@ int initializeClusters( Cluster*& clusters, Image& Lab, int k )
  */
 void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, int k, double M )
 {
+	double width = Lab.getW(), height = Lab.getH();
 
+	for (int i = 0; i < k; i++)
+	{
+
+	}
 }
 
 void drawContoursAroundSegments( Image& rgb, int* labels, Pixel borderColor = Pixel( ) )
@@ -246,17 +315,28 @@ void SuperPixels( Image& rgb, int k, double M )
 	// Converte a imagem de RGB para Lab
 	Image lab = convertImageFromRGB2Lab(rgb);
 
-    //TODO: Calcula o numero de pixels cada superpixel.
+	double width = lab.getW(), height = lab.getH();
 
-    //Todo: Inicializa os os clusters.
+    // Calcula o numero de pixels cada superpixel.
+	int s = (int)floor(sqrt(width * height / k));
+
+    // Inicializa os os clusters.
     Cluster* clusters;
-    
     k = initializeClusters( clusters, lab, k );
 
 
-    //TODO: aloca e inicializa labels.
+    // aloca e inicializa labels.
+	int *labels;
+	int size = width * height;
+	labels = new int[size];
 
-    //TODO: Executa o algoritmo.
+	for (int i = 0; i < size; i++)
+	{
+		labels[i] = -1; // Nenhum cluster alocado
+	}
+
+    // Executa o algoritmo.
+	performSuperPixelsAlgorithm(lab, clusters, labels, k, M);
 
     
     //    int* nlabels = new int[size];
