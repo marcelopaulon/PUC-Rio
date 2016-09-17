@@ -324,7 +324,6 @@ void SuperPixels( Image& rgb, int k, double M )
     Cluster* clusters;
     k = initializeClusters( clusters, lab, k );
 
-
     // aloca e inicializa labels.
 	int *labels;
 	int size = width * height;
