@@ -204,6 +204,8 @@ void performSuperPixelsAlgorithm( Image& Lab, Cluster* clusters, int *labels, in
 					}
 				}
 			}
+
+
 		}
 	}
 	
@@ -401,8 +403,15 @@ void SuperPixels( Image& rgb, int k, double M )
     //if (nlabels)
     //    delete [] nlabels;
 
-    //TODO: define as novas cores dos pixels.
-
+    // define as novas cores dos pixels.
+	for (int i = 0; i < size; i++)
+	{
+		if (labels[i] != -1)
+		{
+			Cluster cluster = clusters[labels[i]];
+			lab.setPixel(i, cluster.getPixel());
+		}
+	}
 
     //Converte a imagem de volta.
 	rgb = convertImageFromLAB2RGB(lab);
