@@ -122,6 +122,7 @@ int initializeClusters(Cluster*& clusters, Image& Lab, int k)
 		}
 
 		clusters[c] = *findSmallestGradient(Lab, s, i, j);
+		clusters[c].index = c;
 	}
 
 	return nSuperPixels;
@@ -144,7 +145,7 @@ Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
 	*iIdx = linha_2;
 	*jIdx = coluna_2;
 
-	return image.getPixel(*iIdx, *jIdx);
+	return image.getPixel(position);
 }
 
 /**
@@ -221,50 +222,67 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 		}
 
 		int nLabels = (int)(width*height);
+		
+		double *centerXSum = new double[k], *centerYSum = new double[k];
+		Pixel **colorSum = new Pixel*[k];
+		int *countLabels = new int[k];
+
+		for (int i = 0; i < k; i++)
+		{
+			centerXSum[i] = 0.0;
+			centerYSum[i] = 0.0;
+			colorSum[i] = new Pixel();
+			countLabels[i] = 0.0;
+		}
 
 		// Recalcular centro/cor para cada superpixel
+		for (int labelIdx = 0; labelIdx < nLabels; labelIdx++)
+		{
+			int label = labels[labelIdx];
+			
+			if (label == -1)
+			{
+				continue;
+			}
+
+			Cluster *c = &clusters[label];
+			
+			int pixelW = -1;
+			int pixelH = -1;
+			Pixel pixel = getPixelAndLocation(Lab, labelIdx, &pixelW, &pixelH);
+
+			if (pixelW == -1 || pixelH == -1)
+			{
+				printf("Error. Unable to get pixel location. Exiting.");
+				exit(-1);
+			}
+
+			(*colorSum[c->index])[0] += pixel[0];
+			(*colorSum[c->index])[1] += pixel[1];
+			(*colorSum[c->index])[2] += pixel[2];
+			centerXSum[c->index] += pixelW;
+			centerYSum[c->index] += pixelH;
+
+			countLabels[c->index]++;
+		}
+
 		for (int i = 0; i < k; i++)
 		{
 			Cluster *c = &clusters[i];
+			c->setPosition((float)(centerXSum[i] / countLabels[i]), (float)(centerYSum[i] / countLabels[i]));
 
-			double centerXSum = 0.0, centerYSum = 0.0;
-			Pixel *colorSum = new Pixel();
-			int countLabels = 0;
-
-			for (int labelIdx = 0; labelIdx < nLabels; labelIdx++)
-			{
-				int label = labels[labelIdx];
-				if (label == i) // Se a label indica que o pixel pertence ao cluster atual
-				{
-					int pixelW = -1;
-					int pixelH = -1;
-					Pixel pixel = getPixelAndLocation(Lab, labelIdx, &pixelW, &pixelH);
-
-					if (pixelW == -1 || pixelH == -1)
-					{
-						printf("Error. Unable to get pixel location. Exiting.");
-						exit(-1);
-					}
-					
-					(*colorSum)[0] += pixel[0];
-					(*colorSum)[1] += pixel[1];
-					(*colorSum)[2] += pixel[2];
-					centerXSum += pixelW;
-					centerYSum += pixelH;
-					
-					countLabels++;
-				}
-			}
-
-			c->setPosition((float)(centerXSum / countLabels), (float)(centerYSum / countLabels));
-
-			(*colorSum)[0] /= countLabels;
-			(*colorSum)[1] /= countLabels;
-			(*colorSum)[2] /= countLabels;
-			c->setPixel(*colorSum);
+			(*colorSum[i])[0] /= countLabels[i];
+			(*colorSum[i])[1] /= countLabels[i];
+			(*colorSum[i])[2] /= countLabels[i];
+			c->setPixel(*colorSum[i]);
 
 			printf("Center recalculated - %d/10 - %d/%d\n", iteration, i, k);
 		}
+
+		delete[] centerXSum;
+		delete[] centerYSum;
+		delete[] colorSum;
+		delete[] countLabels;
 	}
 
 }
@@ -482,6 +500,8 @@ void SuperPixels(Image& rgb, int k, double M)
 
 	//Desenha os contornos. Deve passar a imagem em rgb e o vetor de labels.
 	drawContoursAroundSegments(rgb, labels);
+
+	delete[] labels;
 }
 
 
@@ -492,18 +512,17 @@ void SuperPixels(Image& rgb, int k, double M)
 int main(int argc, char** argv)
 {
 	Image l;
-	if (l.readBMP("AB_ufv_0675.bmp"))
+	if (l.readBMP("in.bmp"))
 	{
 		printf("Leitura executada com sucesso\n");
 	}
 
 	SuperPixels(l, 512, 20);
 
-	if (l.writeBMP("AB_ufv_06752.bmp"))
+	if (l.writeBMP("out.bmp"))
 	{
 		printf("Escrita executada com sucesso\n");
 	}
 
 	return 0;
 }
-

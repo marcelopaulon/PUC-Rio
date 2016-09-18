@@ -58,6 +58,13 @@ public:
      */
     Pixel getPixel( int i, int j ) const;
 
+	/**
+	* Obtem o pixel da posicao (position);
+	* @param (position) - posicao no vetor da imagem que deve ser obtido o novo pixel.
+	* @return - novo pixel.
+	*/
+	Pixel Image::getPixel(int position) const;
+
     /**
      * Obtem a largura da imagem.
      * @return - largura da imagem.

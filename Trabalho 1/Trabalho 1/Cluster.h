@@ -64,6 +64,11 @@ public:
      */
     void setPosition( float x, float y );
 
+	/**
+	 * Índice do cluster no vetor clusters
+	 */
+	int index;
+
 private:
     /**
      * Componente do Lab.

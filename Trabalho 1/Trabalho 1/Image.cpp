@@ -118,6 +118,13 @@ Pixel Image::getPixel( int i, int j ) const
 
 
 
+Pixel Image::getPixel(int position) const
+{
+	return _data[position];
+}
+
+
+
 int Image::getW( ) const
 {
     return _w;
