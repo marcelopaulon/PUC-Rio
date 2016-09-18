@@ -10,6 +10,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 #include "Image.h"
 #include "Cluster.h"
 
@@ -140,7 +141,7 @@ Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
 	int height = image.getH();
 	
 	float coluna_2 = position / width;
-	float linha_2 = position % width + 1;
+	float linha_2 = position % width;
 
 	*iIdx = linha_2;
 	*jIdx = coluna_2;
@@ -162,10 +163,15 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 
 	// Calcula o numero de pixels cada superpixel.
 	int s = (int)floor(sqrt(width * height / k));
-
+	
 	// Executa por até 10 iterações, como especificado pelo algoritmo
 	for (int iteration = 0; iteration < 10; iteration++)
 	{
+		if (iteration > 0)
+		{
+			printf("Progress: %.2f%%\n", (iteration / 10.0) * 100);
+		}
+
 		// Para cada superpixel
 		for (int i = 0; i < k; i++)
 		{
@@ -275,10 +281,8 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 			(*colorSum[i])[1] /= countLabels[i];
 			(*colorSum[i])[2] /= countLabels[i];
 			c->setPixel(*colorSum[i]);
-
-			printf("Center recalculated - %d/10 - %d/%d\n", iteration, i, k);
 		}
-
+		
 		delete[] centerXSum;
 		delete[] centerYSum;
 		delete[] colorSum;
@@ -448,6 +452,10 @@ void enforceLabelConnectivity(const int* labels, //input labels that need to be 
 
 void SuperPixels(Image& rgb, int k, double M)
 {
+	clock_t clockStart = clock(), clockEnd;
+
+	printf("Progress: 0.00%%\n");
+
 	// Converte a imagem de RGB para Lab
 	Image lab = convertImageFromRGB2Lab(rgb);
 
@@ -455,7 +463,7 @@ void SuperPixels(Image& rgb, int k, double M)
 
 	// Calcula o numero de pixels cada superpixel.
 	int s = (int)floor(sqrt(width * height / k));
-
+	
 	// Inicializa os os clusters.
 	Cluster* clusters;
 	k = initializeClusters(clusters, lab, k);
@@ -473,6 +481,8 @@ void SuperPixels(Image& rgb, int k, double M)
 	// Executa o algoritmo.
 	performSuperPixelsAlgorithm(lab, clusters, labels, k, M);
 	
+	printf("Progress: 95.00%%\n");
+
 	/*int* nlabels = new int[size];
 	enforceLabelConnectivity( labels, width, height, nlabels, k, double(size ) / double( s * s ) );
 	for (int i = 0; i < size; i++)
@@ -502,6 +512,9 @@ void SuperPixels(Image& rgb, int k, double M)
 	drawContoursAroundSegments(rgb, labels);
 
 	delete[] labels;
+
+	clockEnd = clock();
+	printf("Progress: 100.00%% - Algorithm executed in %.3f seconds\n", (clockEnd - clockStart)/(double)CLOCKS_PER_SEC);
 }
 
 
@@ -512,16 +525,21 @@ void SuperPixels(Image& rgb, int k, double M)
 int main(int argc, char** argv)
 {
 	Image l;
-	if (l.readBMP("in.bmp"))
+	const char *fileInName = "in.bmp";
+	const char *fileOutName = "out.bmp";
+
+	if (l.readBMP(fileInName))
 	{
-		printf("Leitura executada com sucesso\n");
+		printf("File: %s (%dx%dpx)\n", fileInName, l.getW(), l.getH());
 	}
 
 	SuperPixels(l, 512, 20);
 
-	if (l.writeBMP("out.bmp"))
+	printf("SuperPixels algorithm executed. Writing to file...\n");
+
+	if (l.writeBMP(fileOutName))
 	{
-		printf("Escrita executada com sucesso\n");
+		printf("Output successfully written to %s\n", fileOutName);
 	}
 
 	return 0;
