@@ -155,7 +155,6 @@
     <ClInclude Include="Pixel.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="AB_ufv_0675.bmp" />
     <Image Include="estrela.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
