@@ -105,15 +105,19 @@ int initializeClusters(Cluster*& clusters, Image& Lab, int k)
 {
 	double width = Lab.getW(), height = Lab.getH();
 	int s = (int)floor(sqrt(width * height / k));
-	int nSuperPixels = (int)floor(width * height / (s*s));
-	clusters = new Cluster[nSuperPixels];
-
+	clusters = new Cluster[k];
+	int c;
 	int i = 0, j = 0;
 
-	for (int c = 0; c < nSuperPixels; c++)
+	for (c = 0; c < k; c++)
 	{
 		if (i + s > width)
 		{
+			if (j + s > height)
+			{
+				break;
+			}
+
 			i = 0;
 			j += s;
 		}
@@ -126,7 +130,7 @@ int initializeClusters(Cluster*& clusters, Image& Lab, int k)
 		clusters[c].index = c;
 	}
 
-	return nSuperPixels;
+	return c;
 }
 
 int computeLabelPosition(int i, int j, int width)
@@ -467,6 +471,8 @@ void SuperPixels(Image& rgb, int k, double M)
 	// Inicializa os os clusters.
 	Cluster* clusters;
 	k = initializeClusters(clusters, lab, k);
+
+	printf("Clusters: %d\n", k);
 
 	// Aloca e inicializa labels.
 	int *labels;
