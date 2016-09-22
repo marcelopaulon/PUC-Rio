@@ -69,8 +69,7 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 
 	double centerX = floor(i + s / 2.0), centerY = floor(j + s / 2.0);
 	double minX = centerX, minY = centerY;
-	Pixel *min = new Pixel(Lab.getPixel((int)minX, (int)minY));
-
+	
 	for (int sW = (int)centerX - 1; sW < centerX + 2; sW++) {
 		for (int sH = (int)centerY - 1; sH < centerY + 2; sH++) {
 			Pixel c1 = Lab.getPixel(sW, sH + 1);
@@ -91,6 +90,7 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 		}
 	}
 
+	Pixel *min = new Pixel(Lab.getPixel((int)minX, (int)minY));
 	return new Cluster(*min, (float)minX, (float)minY);
 }
 
