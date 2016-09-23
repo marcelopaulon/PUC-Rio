@@ -454,7 +454,7 @@ void enforceLabelConnectivity(const int* labels, //input labels that need to be 
 	if (yvec) delete[] yvec;
 }
 
-void SuperPixels(Image& rgb, int k, double M)
+void SuperPixels(Image& rgb, int k, double M, bool noContours)
 {
 	clock_t clockStart = clock(), clockEnd;
 
@@ -514,8 +514,11 @@ void SuperPixels(Image& rgb, int k, double M)
 	//Converte a imagem de volta.
 	rgb = convertImageFromLAB2RGB(lab);
 
-	//Desenha os contornos. Deve passar a imagem em rgb e o vetor de labels.
-	drawContoursAroundSegments(rgb, labels);
+	if (!noContours)
+	{
+		//Desenha os contornos. Deve passar a imagem em rgb e o vetor de labels.
+		drawContoursAroundSegments(rgb, labels);
+	}
 
 	delete[] labels;
 
@@ -523,13 +526,27 @@ void SuperPixels(Image& rgb, int k, double M)
 	printf("Progress: 100.00%% - Algorithm executed in %.3f seconds\n", (clockEnd - clockStart)/(double)CLOCKS_PER_SEC);
 }
 
-
+/* display usage */
+int help() {
+	printf("Usage: Trabalho 1 [-k SUPERPIXELS] [-M OPACITY] [/noContours]\n");
+	printf("\t-k: number of superpixels\n");
+	printf("\t-M: compacity\n");
+	printf("\t/noContours: disables contour drawing");
+	return 1;
+}
 
 /*
  *
  */
 int main(int argc, char** argv)
 {
+	if (argc > 1)
+	{
+		if (strcmp("/h", argv[1]) == 0) {
+			return help();
+		}
+	}
+	
 	Image l;
 	const char *fileInName = "in.bmp";
 	const char *fileOutName = "out.bmp";
@@ -539,7 +556,29 @@ int main(int argc, char** argv)
 		printf("File: %s (%dx%dpx)\n", fileInName, l.getW(), l.getH());
 	}
 
-	SuperPixels(l, 512, 20);
+	int k = 512;
+	double M = 20.0;
+	bool noContours = false;
+
+	/* iterate over all arguments */
+	for (int i = 1; i < (argc - 1); i++) {
+		if (strcmp("-k", argv[i]) == 0) {
+			k = atoi(argv[++i]);
+			continue;
+		}
+		if (strcmp("-M", argv[i]) == 0) {
+			M = atof(argv[++i]);
+			continue;
+		}
+		if (strcmp("/noContours", argv[i]) == 0) {
+			noContours = true;
+			continue;
+		}
+	}
+
+	printf("SuperPixels(%d,%.2f):\n", k, M);
+
+	SuperPixels(l, k, M, noContours);
 
 	printf("SuperPixels algorithm executed. Writing to file...\n");
 
