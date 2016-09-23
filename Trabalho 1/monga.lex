@@ -15,7 +15,7 @@ extern MongaToken token;
 
 static int curLine = 1;
 
-MongaData getSymbolData(MongaSymbol symbol, char *data)
+MongaData getSymbolData(int symbol, char *data)
 {
   MongaData mongaData;
   char *idStr;
