@@ -42,7 +42,8 @@ bool ImageLoader::readBMP( float*& data, int& w, int& h, const char* path )
     WORD wordSkip; /* dado lixo WORD   */
 
     LONG i, j, k, l, linesize, got;
-    FILE* filePtr = fopen( path, "rb" );
+	FILE* filePtr;
+	fopen_s(&filePtr, path, "rb");
     assert( filePtr );
     /* verifica se eh uma imagem bmp */
     getuint( &bfType, filePtr );
@@ -145,7 +146,8 @@ bool ImageLoader::writeBMP( float* data, int w, int h, const char* path )
         return false;
 
     /* cria um novo arquivo binario */
-    FILE* filePtr = fopen( path, "wb" );
+	FILE* filePtr;
+	fopen_s(&filePtr, path, "wb");
     assert( filePtr );
 
     /* a linha deve terminar em uma double word boundary */

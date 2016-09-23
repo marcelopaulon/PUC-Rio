@@ -144,11 +144,11 @@ Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
 	int width = image.getW();
 	int height = image.getH();
 	
-	float coluna_2 = position / width;
-	float linha_2 = position % width;
+	float coluna_2 = (float)(position / width);
+	float linha_2 = (float)(position % width);
 
-	*iIdx = linha_2;
-	*jIdx = coluna_2;
+	*iIdx = (int)linha_2;
+	*jIdx = (int)coluna_2;
 
 	return image.getPixel(position);
 }
@@ -182,24 +182,24 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 			Cluster c = clusters[i];
 
 			// Criar janela de tamanho 2s centrada em X, Y
-			int startX = c.getX() - s;
+			int startX = (int)c.getX() - s;
 			if (startX < 0) startX = 0;
 
-			int startY = c.getY() - s;
+			int startY = (int)c.getY() - s;
 			if (startY < 0) startY = 0;
 
-			int endX = c.getX() + s;
-			if (endX > width) endX = width;
+			int endX = (int)c.getX() + s;
+			if (endX > width) endX = (int)width;
 
-			int endY = c.getY() + s;
-			if (endY > height) endY = height;
+			int endY = (int)c.getY() + s;
+			if (endY > height) endY = (int)height;
 
 			for (int ii = startX; ii < endX; ii++)
 			{
 				for (int jj = startY; jj < endY; jj++)
 				{
 					Pixel p = Lab.getPixel(ii, jj);
-					int labelPos = computeLabelPosition(ii, jj, width);
+					int labelPos = (int)computeLabelPosition(ii, jj, (int)width);
 					int curLabel = labels[labelPos];
 
 					if (curLabel == -1 || curLabel == i) // Se a label não está definida ou se está definida para o superpixel atual
@@ -242,7 +242,7 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 			centerXSum[i] = 0.0;
 			centerYSum[i] = 0.0;
 			colorSum[i] = new Pixel();
-			countLabels[i] = 0.0;
+			countLabels[i] = 0;
 		}
 
 		// Recalcular centro/cor para cada superpixel
