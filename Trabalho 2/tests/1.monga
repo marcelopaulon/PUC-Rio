@@ -1,0 +1,5 @@
+/*
+ * 1.monga
+ * Testing a simple variable declaration
+ */
+int a;
