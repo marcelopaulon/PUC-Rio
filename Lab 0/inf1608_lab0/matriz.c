@@ -68,14 +68,8 @@ void mat_multm (int m, int n, int q, double** A, double** B, double** C)
 		for(k = 0; k < q; k++)
 		{
 			C[i][k] = 0.0;
-		}
-	}
 
-	for(i = 0; i < m; i++)
-	{
-		for(j = 0; j < n; j++)
-		{
-			for(k = 0; k < q; k++)
+			for(j = 0; j < n; j++)
 			{
 				C[i][k] += A[i][j] * B[j][k];
 			}
