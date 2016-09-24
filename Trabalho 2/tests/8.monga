@@ -1,0 +1,5 @@
+/*
+ * 8.monga
+ * Testing a function with two paramaters declaration
+ */
+int a(char b, int[] c);

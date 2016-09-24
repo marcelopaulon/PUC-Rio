@@ -1,0 +1,5 @@
+/*
+ * 6.monga
+ * Testing a simple function declaration
+ */
+int a();
