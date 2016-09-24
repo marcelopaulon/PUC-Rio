@@ -1,0 +1,7 @@
+/*
+ * 5.monga
+ * Testing multiple int, float, char array declarations
+ */
+int[] a,b,c,d, e, f,  g;
+float[] a,b,c,d, e, f,  g;
+char[] a,b,c,d, e, f,  g;

@@ -41,7 +41,7 @@ program : definitions  {}
         ;
 
 definitions: definition {}
-           | definition definition {}
+           | definition definitions {}
            ;
 
 definition : defvar                {}
@@ -51,13 +51,17 @@ nameslist : TK_ID  {}
           | TK_ID ',' nameslist
           ;
 
-defvar : type nameslist ';'
+defvar : type nameslist ';' {}
        ;
 
-type   : TK_INT
-       | TK_CHAR
-       | TK_FLOAT
-       ;
+type : basetype       {}
+     | type '[' ']'   {}
+     ;
+
+basetype   : TK_INT   {}
+           | TK_CHAR  {}
+           | TK_FLOAT {}
+           ;
 
 %%
 

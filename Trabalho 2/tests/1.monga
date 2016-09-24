@@ -1,5 +1,5 @@
 /*
  * 1.monga
- * Testing a simple variable declaration
+ * Testing a simple int variable declaration
  */
 int a;

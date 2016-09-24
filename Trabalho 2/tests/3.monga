@@ -1,0 +1,5 @@
+/*
+ * 3.monga
+ * Testing a simple char variable declaration
+ */
+char a;
