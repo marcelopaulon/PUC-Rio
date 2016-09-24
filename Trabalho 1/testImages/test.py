@@ -2,7 +2,7 @@ import os
 import difflib
 from os.path import basename
 
-klist = [2,4,8,16,64,128,512,1024]
+klist = [2,8,16,64,128,512,1024]
 
 for file in os.listdir("."):
     if file == "in.bmp":
