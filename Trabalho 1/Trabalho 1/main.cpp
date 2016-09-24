@@ -67,7 +67,7 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 
 	double min_grad = FLT_MAX;
 
-	double centerX = floor(i + s / 2.0) - 1, centerY = floor(j + s / 2.0) - 1;
+	double centerX = floor(i + s / 2.0), centerY = floor(j + s / 2.0);
 	double minX = centerX, minY = centerY;
 	
 	for (int sW = (int)centerX - 1; sW < centerX + 2 && sW + 1 < w; sW++) {
@@ -508,10 +508,6 @@ void SuperPixels(Image& rgb, int k, double M, bool noContours)
 		{
 			Cluster cluster = clusters[labels[i]];
 			lab.setPixel(i, cluster.getPixel());
-		}
-		else
-		{
-			printf("-1\n");
 		}
 	}
 
