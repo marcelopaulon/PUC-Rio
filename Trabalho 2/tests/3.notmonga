@@ -1,0 +1,5 @@
+/*
+ * 3.notmonga
+ * Variable declaration without ending semicolon
+ */
+int nelson
