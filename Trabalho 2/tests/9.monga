@@ -2,4 +2,7 @@
  * 9.monga
  * Testing a function with six paramaters declaration
  */
-int a(char[] b, int[] c, char d, int e, float[] f, float g);
+int a(char[] b, int[] c, char d, int e, float[] f, float g)
+{
+
+}

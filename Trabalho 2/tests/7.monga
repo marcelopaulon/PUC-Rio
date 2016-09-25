@@ -2,4 +2,7 @@
  * 7.monga
  * Testing a function with one paramater declaration
  */
-int a(char b);
+int a(char b)
+{
+
+}
