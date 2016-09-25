@@ -117,53 +117,50 @@ var : TK_ID
     | expothers '[' exp ']'
     ;
 
-expunary : '+' exp
-         | '-' exp
-         | '!' exp
-         | expmult
-         ; 
+exp : expor
+    ;
 
-expmult : expadd '*' expadd
-	| expadd '%' expadd
-        | expadd '/' expadd
+expor : expand TK_OR expand
+      | expand
+      ;
+
+expand : expequal TK_AND expequal
+       | expequal
+       ;
+
+expequal : expcomp '=' '=' expcomp
+         | expcomp
+	 ;
+
+expcomp : expadd '>' expadd
+        | expadd '<' expadd
+        | expadd TK_LE expadd
+        | expadd TK_GE expadd
         | expadd
 	;
 
-expadd : expcomp '+' expcomp
-       | expcomp '-' expcomp
-       | expcomp
+expadd : expmult '+' expmult
+       | expmult '-' expmult
+       | expmult
        ;
 
-
-expcomp : expequal '>' expequal
-        | expequal '<' expequal
-        | expequal TK_LE expequal
-        | expequal TK_GE expequal
-        | expequal
+expmult : expunary '*' expunary
+        | expunary '/' expunary
+        | expunary
 	;
 
-expequal : expand '=' '=' expand
-         | expand
-	 ;
-
-expand : expor TK_AND expor
-       | expor
-       ;
-
-expor : expothers TK_OR expothers
-      | expothers
-      ;
+expunary : '-' expothers
+         | '!' expothers
+         | expothers
+         ; 
 
 expothers : numeral
        | TK_STRING
        | var
        | call
+       | '(' exp ')'
        | TK_NEW type '[' exp ']'
        ;
-
-exp : '(' exp ')'
-    | expunary
-    ;
 
 explist : exp ',' explist
         | exp
