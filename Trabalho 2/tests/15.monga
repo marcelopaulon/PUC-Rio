@@ -1,0 +1,8 @@
+/*
+ * 15.monga
+ * Testing a function returning an identifier
+ */
+void a()
+{
+    return b;
+}

@@ -89,6 +89,8 @@ basetype   : TK_INT   {}
            ;
 
 block : '{' defvars commands '}'
+      | '{' defvars '}'
+      | '{' commands '}'
       | '{' '}'
       ;
 
@@ -103,8 +105,8 @@ command : TK_IF '(' exp ')' command %prec IF_ONLY
         ;
 
 commandbasic: var '=' exp ';'
-            | TK_RETURN ';'
-            | TK_RETURN exp ';'
+            | TK_RETURN ';'  {}
+            | TK_RETURN exp ';' {}
             | call ';'
             | block
             ;
