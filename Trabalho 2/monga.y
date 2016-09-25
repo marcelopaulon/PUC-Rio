@@ -83,10 +83,10 @@ type : basetype       {}
      | type '[' ']'   {}
      ;
 
-basetype   : TK_INT   {}
-           | TK_CHAR  {}
-           | TK_FLOAT {}
-           ;
+basetype : TK_INT   {}
+         | TK_CHAR  {}
+         | TK_FLOAT {}
+         ;
 
 block : '{' defvars commands '}'
       | '{' defvars '}'
