@@ -16,6 +16,9 @@ MongaToken token;
 
 %}
 
+%nonassoc IF_ONLY
+%nonassoc TK_ELSE
+
 %token TK_LE
 %token TK_GE
 %token TK_AND
@@ -93,29 +96,74 @@ commands : command
          | command commands
          ;
 
-command : TK_RETURN ';'
-        | TK_RETURN exp ';'
+command : TK_IF '(' exp ')' command %prec IF_ONLY
+        | TK_IF '(' exp ')' command TK_ELSE command
+        | TK_WHILE '(' exp ')' command
+        | commandbasic
         ;
+
+commandbasic: var '=' exp ';'
+            | TK_RETURN ';'
+            | TK_RETURN exp ';'
+            | call ';'
+            | block
+            ;
 
 numeral : TK_DOUBLE_NUMBER
         | TK_LONG_NUMBER
         ;
 
 var : TK_ID
-    | exp '[' exp ']'
+    | expothers '[' exp ']'
     ;
 
-exp : numeral
-    | TK_STRING
-    | var
-    | '(' exp ')'
-    | call
-    | TK_NEW type '[' exp ']'
-    | modifiedexp
-    ;
+expunary : '+' exp
+         | '-' exp
+         | '!' exp
+         | expmult
+         ; 
 
-modifiedexp : '-' exp
-            ;
+expmult : expadd '*' expadd
+	| expadd '%' expadd
+        | expadd '/' expadd
+        | expadd
+	;
+
+expadd : expcomp '+' expcomp
+       | expcomp '-' expcomp
+       | expcomp
+       ;
+
+
+expcomp : expequal '>' expequal
+        | expequal '<' expequal
+        | expequal TK_LE expequal
+        | expequal TK_GE expequal
+        | expequal
+	;
+
+expequal : expand '=' '=' expand
+         | expand
+	 ;
+
+expand : expor TK_AND expor
+       | expor
+       ;
+
+expor : expothers TK_OR expothers
+      | expothers
+      ;
+
+expothers : numeral
+       | TK_STRING
+       | var
+       | call
+       | TK_NEW type '[' exp ']'
+       ;
+
+exp : '(' exp ')'
+    | expunary
+    ;
 
 explist : exp ',' explist
         | exp
