@@ -1,0 +1,8 @@
+/*
+ * 40.monga
+ * Identifier + Identifier
+ */
+void a()
+{
+    a = a + a;
+}

@@ -122,11 +122,11 @@ var : TK_ID
 exp : expor
     ;
 
-expor : expand TK_OR expand
+expor : expand TK_OR expor
       | expand
       ;
 
-expand : expequal TK_AND expequal
+expand : expequal TK_AND expand
        | expequal
        ;
 
@@ -134,20 +134,20 @@ expequal : expcomp '=' '=' expcomp
          | expcomp
 	 ;
 
-expcomp : expadd '>' expadd
-        | expadd '<' expadd
-        | expadd TK_LE expadd
-        | expadd TK_GE expadd
+expcomp : expadd '>' expcomp
+        | expadd '<' expcomp
+        | expadd TK_LE expcomp
+        | expadd TK_GE expcomp
         | expadd
 	;
 
-expadd : expmult '+' expmult
-       | expmult '-' expmult
+expadd : expmult '+' expadd
+       | expmult '-' expadd
        | expmult
        ;
 
-expmult : expunary '*' expunary
-        | expunary '/' expunary
+expmult : expunary '*' expmult
+        | expunary '/' expmult
         | expunary
 	;
 

@@ -20,7 +20,7 @@ for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
                 failedTests = failedTests + 1
             print(s)
 
-print("Fail tests:")
+print("\nFail tests:")
 
 for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
     if file.endswith(".notmonga"):
