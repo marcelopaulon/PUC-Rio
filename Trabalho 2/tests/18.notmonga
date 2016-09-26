@@ -1,0 +1,13 @@
+/*
+ * 18.notmonga
+ * Some blocks not closed inside a function
+ */
+void a()
+{
+    {
+      {}
+    }
+    {
+      {{{}}{}{}{{{
+    }
+}

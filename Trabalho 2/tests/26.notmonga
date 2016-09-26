@@ -1,10 +1,10 @@
 /*
- * 26.monga
+ * 26.notmonga
  * If comparison >
  */
 void a()
 {
-    if(a > b)
+    if(a) > if(b)
     {
         return;
     }

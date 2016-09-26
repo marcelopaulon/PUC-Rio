@@ -1,0 +1,8 @@
+/*
+ * 49.notmonga
+ * Declaring an expression
+ */
+void a()
+{
+    int a*a;
+}

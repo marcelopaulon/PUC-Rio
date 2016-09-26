@@ -1,14 +1,15 @@
 /*
- * 26.monga
- * If comparison >
+ * 29.notmonga
+ * Else with argument
  */
 void a()
 {
-    if(a > b)
+    if(a <= b)
     {
         return;
     }
-    else 
+
+    else(b <= 10)
     {
         return;
     }

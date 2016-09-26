@@ -1,0 +1,8 @@
+/*
+ * 39.notmonga
+ * Empty rvalue of assignment
+ */
+void a()
+{
+    a = ;
+}

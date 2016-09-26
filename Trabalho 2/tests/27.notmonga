@@ -1,0 +1,8 @@
+/*
+ * 27.notmonga
+ * assigning number as number
+ */
+void a()
+{
+    1 = 2;
+}

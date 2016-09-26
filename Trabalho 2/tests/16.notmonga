@@ -1,0 +1,10 @@
+/*
+ * 16.notmonga
+ * Testing function as parameter of another function
+ */
+float a(int aaa(){})
+{
+    return b;
+}
+
+

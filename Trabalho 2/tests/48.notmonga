@@ -1,0 +1,12 @@
+/*
+ * 48.notmonga
+ * Expression on lvalue of assignment or Monga isn't Wolfram Alpha
+ */
+void a()
+{
+    int a;
+    int b;
+    float c, d;
+    
+    a + b + c = d;
+}
