@@ -4,5 +4,5 @@
  */
 int a(char[] b, int[] c, char d, int e, float[] f, float g)
 {
-
+    a(b,c,d,e, f, g);
 }

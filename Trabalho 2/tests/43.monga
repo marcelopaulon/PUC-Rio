@@ -2,7 +2,7 @@
  * 43.monga
  * Identifier / Identifier
  */
-void a()
+void a(int b)
 {
-    a = a / a;
+    b = b / b;
 }
