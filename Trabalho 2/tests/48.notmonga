@@ -1,6 +1,6 @@
 /*
  * 48.notmonga
- * Expression on lvalue of assignment or Monga isn't Wolfram Alpha
+ * Expression on lvalue of assignment
  */
 void a()
 {

@@ -1,7 +1,22 @@
 /*
  * 35.monga
- * Identifier - float number
+ * Identifier - float number (multiple functions test)
  */
+void a()
+{
+    a = a - 3.1415;
+}
+
+void a()
+{
+    a = a - 3.1415;
+}
+
+void a()
+{
+    a = a - 3.1415;
+}
+
 void a()
 {
     a = a - 3.1415;
