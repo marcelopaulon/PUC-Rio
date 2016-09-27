@@ -4,6 +4,7 @@ compile: lex.yy.o y.tab.o
 test:
 	python runTests.py
 lex.yy.o:
+	lex monga.lex
 	gcc -o lex.yy.o -c lex.yy.c -Wall -Wno-maybe-uninitialized -O2
 y.tab.o:
 	yacc monga.y
@@ -11,4 +12,5 @@ y.tab.o:
 clean:
 	rm -rf *.o
 	rm -rf y.tab.c
+	rm -rf lex.yy.c
 	rm -rf output.txt
