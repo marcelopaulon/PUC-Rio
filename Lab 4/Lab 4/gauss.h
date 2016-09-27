@@ -2,4 +2,4 @@
 
 #include <math.h>
 
-void gauss(int n, double **A, double *b, double *x);
+void gauss(int n, double **AA, double *bb, double *x);

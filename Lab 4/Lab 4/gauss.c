@@ -5,7 +5,6 @@ void gauss(int n, double **A, double *b, double *x)
 	int i, j, k, p;
 	double s, f, temp;
 
-	
 	for(j = 0; j< n; j++)
 	{
 		p = j;
@@ -34,7 +33,8 @@ void gauss(int n, double **A, double *b, double *x)
 	{
 		x[j] = 0.0;
 	}
-
+	
+	return;
 	for(j = 0; j < n - 2; j++)
 	{
 		// Eliminar a coluna j
