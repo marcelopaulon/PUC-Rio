@@ -164,6 +164,11 @@ Pixel getPixelAndLocation(Image& image, int position, int *iIdx, int *jIdx)
 void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int k, double M)
 {
 	double width = Lab.getW(), height = Lab.getH();
+	double M2 = M*M;
+
+	double *centerXSum = new double[k], *centerYSum = new double[k];
+	Pixel **colorSum = new Pixel*[k];
+	int *countLabels = new int[k];
 
 	// Calcula o numero de pixels cada superpixel.
 	int s = (int)floor(sqrt(width * height / k));
@@ -212,16 +217,21 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 						continue; // Pula para a próxima iteração
 					}
 
-					double dsPixelToCurCluster = sqrt(pow(c.getX() - ii, 2) + pow(c.getY() - jj, 2));
+					double dxc = c.getX() - ii;
+					double dyc = c.getY() - jj;
+					double dsPixelToCurCluster = sqrt((dxc*dxc) + (dyc*dyc));
 					Pixel diffCurCluster = p - c.getPixel();
-					double dcPixelToCurCluster = sqrt(pow(diffCurCluster[0], 2) + pow(diffCurCluster[1], 2) + pow(diffCurCluster[2], 2));
-					double dtPixelToCurCluster = sqrt(dcPixelToCurCluster*dcPixelToCurCluster + (pow(dsPixelToCurCluster / s, 2.0) * (M*M)));
+					double dcPixelToCurCluster = sqrt((diffCurCluster[0] * diffCurCluster[0]) + (diffCurCluster[1] * diffCurCluster[1]) + (diffCurCluster[2] * diffCurCluster[2]));
+					double dtPixelToCurCluster = sqrt(dcPixelToCurCluster*dcPixelToCurCluster + ((dsPixelToCurCluster / s * dsPixelToCurCluster / s) * M2));
 
 					Cluster existingCluster = clusters[curLabel];
-					double dsPixelToExistingCluster = sqrt(pow(existingCluster.getX() - ii, 2) + pow(existingCluster.getY() - jj, 2));
+					double dxe = existingCluster.getX() - ii;
+					double dye = existingCluster.getY() - jj;
+					double dsPixelToExistingCluster = sqrt((dxe*dxe) + (dye*dye));
 					Pixel diffExistingCluster = p - existingCluster.getPixel();
-					double dcPixelToExistingCluster = sqrt(pow(diffExistingCluster[0], 2) + pow(diffExistingCluster[1], 2) + pow(diffExistingCluster[2], 2));
-					double dtPixelToExistingCluster = sqrt(dcPixelToExistingCluster*dcPixelToExistingCluster + (pow(dsPixelToExistingCluster / s, 2.0) * (M*M)));
+					double dcPixelToExistingCluster = sqrt((diffExistingCluster[0] * diffExistingCluster[0]) + (diffExistingCluster[1] * diffExistingCluster[1]) + (diffExistingCluster[2] * diffExistingCluster[2]));
+					double dss = dsPixelToExistingCluster / s;
+					double dtPixelToExistingCluster = sqrt(dcPixelToExistingCluster*dcPixelToExistingCluster + ((dss * dss) * M2));
 
 					if (dtPixelToCurCluster < dtPixelToExistingCluster)
 					{
@@ -233,10 +243,6 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 
 		int nLabels = (int)(width*height);
 		
-		double *centerXSum = new double[k], *centerYSum = new double[k];
-		Pixel **colorSum = new Pixel*[k];
-		int *countLabels = new int[k];
-
 		for (int i = 0; i < k; i++)
 		{
 			centerXSum[i] = 0.0;
@@ -286,13 +292,12 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 			(*colorSum[i])[2] /= countLabels[i];
 			c->setPixel(*colorSum[i]);
 		}
-		
-		delete[] centerXSum;
-		delete[] centerYSum;
-		delete[] colorSum;
-		delete[] countLabels;
 	}
 
+	delete[] centerXSum;
+	delete[] centerYSum;
+	delete[] colorSum;
+	delete[] countLabels;
 }
 
 void drawContoursAroundSegments(Image& rgb, int* labels, Pixel borderColor = Pixel())
