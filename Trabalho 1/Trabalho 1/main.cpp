@@ -214,7 +214,7 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 							labels[labelPos] = i; // Seta o cluster para o pixel não alocado
 						}
 
-						continue; // Pula para a próxima iteração
+						continue; // Pula para a próxima iteração (caso as distâncias estivessem sendo cacheadas, quando curLabel == i estas deveriam ser recalculadas pois o centro do cluster poderia ter mudado)
 					}
 
 					double dxc = c.getX() - ii;
