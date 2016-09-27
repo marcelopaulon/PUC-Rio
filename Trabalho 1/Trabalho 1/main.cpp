@@ -222,7 +222,8 @@ void performSuperPixelsAlgorithm(Image& Lab, Cluster* clusters, int *labels, int
 					double dsPixelToCurCluster = sqrt((dxc*dxc) + (dyc*dyc));
 					Pixel diffCurCluster = p - c.getPixel();
 					double dcPixelToCurCluster = sqrt((diffCurCluster[0] * diffCurCluster[0]) + (diffCurCluster[1] * diffCurCluster[1]) + (diffCurCluster[2] * diffCurCluster[2]));
-					double dtPixelToCurCluster = sqrt(dcPixelToCurCluster*dcPixelToCurCluster + ((dsPixelToCurCluster / s * dsPixelToCurCluster / s) * M2));
+					double dsc = dsPixelToCurCluster / s;
+					double dtPixelToCurCluster = sqrt(dcPixelToCurCluster*dcPixelToCurCluster + ((dsc * dsc) * M2));
 
 					Cluster existingCluster = clusters[curLabel];
 					double dxe = existingCluster.getX() - ii;
