@@ -460,7 +460,7 @@ void enforceLabelConnectivity(const int* labels, //input labels that need to be 
 	if (yvec) delete[] yvec;
 }
 
-void SuperPixels(Image& rgb, int k, double M, bool noContours)
+void SuperPixels(Image& rgb, int k, double M, bool noContours, bool labelConnectivity, bool colorCluster)
 {
 	clock_t clockStart = clock(), clockEnd;
 
@@ -495,28 +495,35 @@ void SuperPixels(Image& rgb, int k, double M, bool noContours)
 	
 	printf("Progress: 95.00%%\n");
 
-	/*int* nlabels = new int[size];
-	enforceLabelConnectivity( labels, width, height, nlabels, k, double(size ) / double( s * s ) );
-	for (int i = 0; i < size; i++)
+	if (labelConnectivity)
 	{
-		labels[i] = nlabels[i];
-	}
-
-	if (nlabels)
-	{
-		delete[] nlabels;
-	}*/
-
-	// define as novas cores dos pixels.
-	for (int i = 0; i < size; i++)
-	{
-		if (labels[i] != -1)
+		int* nlabels = new int[size];
+		int K = (int)(double(size) / double(s * s));
+		enforceLabelConnectivity(labels, (int)width, (int)height, nlabels, k, K);
+		for (int i = 0; i < size; i++)
 		{
-			Cluster cluster = clusters[labels[i]];
-			lab.setPixel(i, cluster.getPixel());
+			labels[i] = nlabels[i];
+		}
+
+		if (nlabels)
+		{
+			delete[] nlabels;
 		}
 	}
-
+	
+	if (colorCluster)
+	{
+		// define as novas cores dos pixels.
+		for (int i = 0; i < size; i++)
+		{
+			if (labels[i] != -1)
+			{
+				Cluster cluster = clusters[labels[i]];
+				lab.setPixel(i, cluster.getPixel());
+			}
+		}
+	}
+	
 	//Converte a imagem de volta.
 	rgb = convertImageFromLAB2RGB(lab);
 
@@ -533,12 +540,70 @@ void SuperPixels(Image& rgb, int k, double M, bool noContours)
 }
 
 /* display usage */
-int help() {
-	printf("Usage: Trabalho 1 [-k SUPERPIXELS] [-M OPACITY] [/noContours]\n");
-	printf("\t-k: number of superpixels\n");
-	printf("\t-M: compacity\n");
-	printf("\t/noContours: disables contour drawing");
+int help() 
+{
+	char buffer[1024];
+	buffer[0] = '\0';
+
+	strcat_s(buffer, "Usage: Trabalho 1 [-k SUPERPIXELS] [-M OPACITY] [/noContours]\n");
+	strcat_s(buffer, "\t-k: number of superpixels\n");
+	strcat_s(buffer, "\t-M: compacity\n");
+	strcat_s(buffer, "\t/noContours: disables contour drawing\n");
+	strcat_s(buffer, "\t/noLabelConnectivity: disables label connectivity post-processing\n");
+	strcat_s(buffer, "\t/colorCluster: colors cluster pixels (and activates /noLabelConnectivity)");
+	
+	printf("%s", buffer);
+
 	return 1;
+}
+
+/* display status */
+void printStatus(int k, double M, bool noContours, bool labelConnectivity, bool colorCluster)
+{
+	char status[1024], buffer[1024];
+
+	status[0] = '\0';
+
+	sprintf_s(buffer, "SuperPixels(%d,%.2f)\n", k, M);
+
+	strcat_s(status, buffer);
+
+	strcat_s(status, "Contours: ");
+
+	if (noContours)
+	{
+		strcat_s(status, "OFF\n");
+	}
+	else
+	{
+		strcat_s(status, "ON\n");
+	}
+
+	strcat_s(status, "Label connectivity: ");
+
+	if (labelConnectivity)
+	{
+		strcat_s(status, "ON\n");
+	}
+	else
+	{
+		strcat_s(status, "OFF\n");
+	}
+
+	strcat_s(status, "Color cluster: ");
+
+	if (colorCluster)
+	{
+		strcat_s(status, "ON\n");
+	}
+	else
+	{
+		strcat_s(status, "OFF\n");
+	}
+
+	strcat_s(status, "\n");
+
+	printf("%s", status);
 }
 
 /*
@@ -565,9 +630,11 @@ int main(int argc, char** argv)
 	int k = 512;
 	double M = 20.0;
 	bool noContours = false;
+	bool labelConnectivity = true;
+	bool colorCluster = false;
 
 	/* iterate over all arguments */
-	for (int i = 1; i < (argc - 1); i++) {
+	for (int i = 1; i < argc; i++) {
 		if (strcmp("-k", argv[i]) == 0) {
 			k = atoi(argv[++i]);
 			continue;
@@ -580,11 +647,24 @@ int main(int argc, char** argv)
 			noContours = true;
 			continue;
 		}
+		if (strcmp("/noLabelConnectivity", argv[i]) == 0) {
+			labelConnectivity = false;
+			continue;
+		}
+		if (strcmp("/colorCluster", argv[i]) == 0) {
+			colorCluster = true;
+			continue;
+		}
 	}
 
-	printf("SuperPixels(%d,%.2f):\n", k, M);
+	if (colorCluster) // If color cluster, label connectivity post-processing must be disabled
+	{
+		labelConnectivity = false;
+	}
 
-	SuperPixels(l, k, M, noContours);
+	printStatus(k, M, noContours, labelConnectivity, colorCluster);
+
+	SuperPixels(l, k, M, noContours, labelConnectivity, colorCluster);
 
 	printf("SuperPixels algorithm executed. Writing to file...\n");
 
