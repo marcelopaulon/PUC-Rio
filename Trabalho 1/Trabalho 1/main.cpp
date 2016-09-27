@@ -82,7 +82,9 @@ Cluster *findSmallestGradient(Image& Lab, int s, int i, int j) {
 
 			/* Compute horizontal and vertical gradients and keep track of the
 			minimum. */
-			if (sqrt(pow(i1 - i3, 2)) + sqrt(pow(i2 - i3, 2)) < min_grad) {
+			double i13 = i1 - i3;
+			double i23 = i2 - i3;
+			if (sqrt(i13*i13) + sqrt(i23*i23) < min_grad) {
 				min_grad = fabs(i1 - i3) + fabs(i2 - i3);
 				minX = sW;
 				minY = sH;
