@@ -12,6 +12,29 @@ void gauss(int n, double **A, double *b, double *x)
 
 	for(j = 0; j < n - 1; j++)
 	{
+		// PIVOTAMENTO
+		p = j;
+
+		for(k = j + 1; k < n; k++)
+		{
+			if(fabs(A[k][j]) > fabs(A[p][j]))
+			{
+				p = k;
+			}
+		}
+
+		for(k = j; k < n; k++)
+		{
+			temp = A[p][k];
+			A[p][k] = A[j][k];
+			A[j][k] = temp;
+		}
+
+		temp = b[p];
+		b[p] = b[j];
+		b[j] = temp;
+		// FIM PIVOTAMENTO
+
 		// Eliminar a coluna j
 		for(i = j + 1; i < n; i++)
 		{
@@ -32,29 +55,6 @@ void gauss(int n, double **A, double *b, double *x)
 		s = 0.0;
 		for(j = i + 1; j <= n - 1; j++)
 		{
-			// PIVOTAMENTO
-			p = j;
-
-			for(k = j + 1; k < n; k++)
-			{
-				if(fabs(A[k][j]) > fabs(A[p][j]))
-				{
-					p = k;
-				}
-			}
-
-			for(k = j; k < n; k++)
-			{
-				temp = A[p][k];
-				A[p][k] = A[j][k];
-				A[j][k] = temp;
-			}
-
-			temp = b[k];
-			b[k] = b[j];
-			b[j] = temp;
-			// FIM PIVOTAMENTO
-
 			s = s + A[i][j] * x[j];
 		}
 
