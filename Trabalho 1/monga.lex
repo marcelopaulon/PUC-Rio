@@ -128,6 +128,7 @@ int addSymbol(int symbol, char *data)
 	.		{ addToBuffer(yytext); }
 }
 
+"=="			return addSymbol(TK_EQ, yytext);
 "<="			return addSymbol(TK_LE, yytext);
 ">="			return addSymbol(TK_GE, yytext);
 "&&"			return addSymbol(TK_AND, yytext);

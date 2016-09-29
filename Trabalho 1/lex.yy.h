@@ -23,7 +23,8 @@ typedef enum mongaSymbol {
   TK_UNKNOWN,
   TK_DOUBLE_NUMBER,
   TK_LONG_NUMBER,
-  TK_STRING
+  TK_STRING,
+  TK_EQ
 } MongaSymbol;
 
 typedef union mongaData {
