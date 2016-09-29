@@ -1,5 +1,6 @@
 #include "gauss.h"
 
+// Aviso: A matriz A e o vetor b terão seus valores alterados após a função ser chamada
 void gauss(int n, double **A, double *b, double *x)
 {
 	int i, j, k, p;
@@ -25,11 +26,13 @@ void gauss(int n, double **A, double *b, double *x)
 
 		for(k = j; k < n; k++)
 		{
+			// troca A[j][k] com A[p][k]
 			temp = A[p][k];
 			A[p][k] = A[j][k];
 			A[j][k] = temp;
 		}
 
+		// troca b[j] com b[p]
 		temp = b[p];
 		b[p] = b[j];
 		b[j] = temp;

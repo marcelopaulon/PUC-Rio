@@ -80,5 +80,12 @@ int main(void)
 		printf("%.2f ", x2[i]);
 	}
 
+	mat_libera(3, A1);
+	mat_libera(6, A2);
+	free(b1);
+	free(b2);
+	free(x1);
+	free(x2);
+
 	return 0;
 }
