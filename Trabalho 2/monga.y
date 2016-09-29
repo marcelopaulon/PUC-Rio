@@ -37,6 +37,7 @@ MongaToken token;
 %token TK_DOUBLE_NUMBER
 %token TK_LONG_NUMBER
 %token TK_STRING
+%token TK_EQ
 
 %start program
 
@@ -130,7 +131,7 @@ expand : expequal TK_AND expand
        | expequal
        ;
 
-expequal : expcomp '=' '=' expcomp
+expequal : expcomp TK_EQ expcomp
          | expcomp
 	 ;
 

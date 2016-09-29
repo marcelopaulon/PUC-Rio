@@ -63,7 +63,8 @@ extern int yydebug;
     TK_UNKNOWN = 273,
     TK_DOUBLE_NUMBER = 274,
     TK_LONG_NUMBER = 275,
-    TK_STRING = 276
+    TK_STRING = 276,
+    TK_EQ = 277
   };
 #endif
 /* Tokens.  */
@@ -86,6 +87,7 @@ extern int yydebug;
 #define TK_DOUBLE_NUMBER 274
 #define TK_LONG_NUMBER 275
 #define TK_STRING 276
+#define TK_EQ 277
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
