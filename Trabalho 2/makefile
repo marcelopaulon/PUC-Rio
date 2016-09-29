@@ -7,7 +7,7 @@ lex.yy.o:
 	lex monga.lex
 	gcc -o lex.yy.o -c lex.yy.c -Wall -Wno-maybe-uninitialized -O2
 y.tab.o:
-	yacc monga.y
+	yacc -d monga.y
 	gcc -o y.tab.o -c y.tab.c -Wall -Wno-maybe-uninitialized -O2
 clean:
 	rm -rf *.o
