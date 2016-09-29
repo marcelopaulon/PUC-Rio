@@ -185,7 +185,7 @@ int main(void)
   }
   else
   {
-    printf("FAIL");
+    printf("FAIL - Line: %d", token.line);
   }
 
   return 0;
@@ -193,6 +193,6 @@ int main(void)
 
 void yyerror (char const *s) {
     //fprintf (stderr, "%s\n", s);
-    printf("FAIL");
+    printf("FAIL - Line: %d", token.line);
     exit(-1);
 }
