@@ -182,7 +182,7 @@ int main(void)
   }
   else
   {
-    printf("FAIL - Line: %d", token.line);
+    printf("FAIL - Unexpected token #%d on line: %d", token.symbol, token.line);
   }
 
   return 0;
@@ -190,6 +190,6 @@ int main(void)
 
 void yyerror (char const *s) {
     //fprintf (stderr, "%s\n", s);
-    printf("FAIL - Line: %d", token.line);
+    printf("FAIL - Unexpected token #%d on line: %d", token.symbol, token.line);
     exit(-1);
 }
