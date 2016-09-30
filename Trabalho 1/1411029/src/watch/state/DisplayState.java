@@ -3,7 +3,7 @@ package watch.state;
 import watch.WatchTimer;
 
 public class DisplayState extends WatchState {
-
+	
 	public DisplayState()
 	{
 		try {
@@ -16,30 +16,29 @@ public class DisplayState extends WatchState {
 	
 	@Override
 	public String status() {
-		return "Exibição";
+		return "Exibir";
 	}
-
+	
 	@Override
 	public WatchState APressed() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-
+	
 	@Override
 	public WatchState AReleased() {
 		return new SetHoursState();
 	}
-
+	
 	@Override
 	public WatchState BPressed() {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-
+	
 	@Override
 	public WatchState BReleased() {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-
+	
 }

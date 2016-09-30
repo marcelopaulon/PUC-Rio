@@ -1,5 +1,6 @@
 package watch.state;
 
+import watch.WatchInfo;
 import watch.WatchTimer;
 
 public class SetHoursState extends WatchState {
@@ -16,14 +17,12 @@ public class SetHoursState extends WatchState {
 	
 	@Override
 	public String status() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Definir horas";
 	}
 
 	@Override
 	public WatchState APressed() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
@@ -33,14 +32,12 @@ public class SetHoursState extends WatchState {
 
 	@Override
 	public WatchState BPressed() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public WatchState BReleased() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }

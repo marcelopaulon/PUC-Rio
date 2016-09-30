@@ -3,7 +3,6 @@ package watch;
 import java.util.Observable;
 
 import view.analogWatch.AnalogWatch;
-import view.buttons.ButtonsView;
 import view.digitalWatch.DigitalWatch;
 import watch.state.WatchState;
 
@@ -12,26 +11,28 @@ public class WatchFacade {
 	
 	private AnalogWatch analogWatch;
 	private DigitalWatch digitalWatch;
-	private ButtonsView buttonsView;
 	
-	public WatchFacade(Observable tickObservable)
+	public WatchFacade(Observable changeObservable)
 	{
 		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this));
-		
-		buttonsView = new ButtonsView();
-		
+				
 		digitalWatch = new DigitalWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
-		buttonsView.addObserver(digitalWatch);
-		tickObservable.addObserver(digitalWatch);
+		changeObservable.addObserver(digitalWatch);
 		
 		analogWatch = new AnalogWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
-		buttonsView.addObserver(analogWatch);
-		tickObservable.addObserver(analogWatch);
+		changeObservable.addObserver(analogWatch);
 	}
 	
 	public WatchInfo getWatchInfo()
 	{
 		return watchInfo;
+	}
+	
+	public void setTime(int hours, int minutes, int milliseconds)
+	{
+		watchInfo.hours = hours;
+		watchInfo.minutes = minutes;
+		watchInfo.milliseconds = milliseconds;
 	}
 
 	public void tick() {
@@ -62,7 +63,21 @@ public class WatchFacade {
 		{
 			watchInfo.milliseconds += 100;
 		}
-		
-		digitalWatch.update(buttonsView, watchInfo);
+	}
+
+	public void setAPressed() {
+		watchInfo.state = watchInfo.state.APressed();
+	}
+
+	public void setAReleased() {
+		watchInfo.state = watchInfo.state.AReleased();
+	}
+
+	public void setBPressed() {
+		watchInfo.state = watchInfo.state.BPressed();
+	}
+
+	public void setBReleased() {
+		watchInfo.state = watchInfo.state.BReleased();
 	}
 }

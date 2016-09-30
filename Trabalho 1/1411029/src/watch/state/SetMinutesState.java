@@ -16,14 +16,12 @@ public class SetMinutesState extends WatchState {
 	
 	@Override
 	public String status() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Definir minutos";
 	}
 
 	@Override
 	public WatchState APressed() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
@@ -33,14 +31,12 @@ public class SetMinutesState extends WatchState {
 
 	@Override
 	public WatchState BPressed() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public WatchState BReleased() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }
