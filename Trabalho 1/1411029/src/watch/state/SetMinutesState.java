@@ -1,5 +1,6 @@
 package watch.state;
 
+import watch.WatchFacade;
 import watch.WatchTimer;
 
 public class SetMinutesState extends WatchState {
@@ -36,6 +37,13 @@ public class SetMinutesState extends WatchState {
 
 	@Override
 	public WatchState BReleased() {
+		try {
+			WatchFacade.addMinute();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return this;
 	}
 

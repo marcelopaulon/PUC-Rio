@@ -7,6 +7,8 @@ import view.digitalWatch.DigitalWatch;
 import watch.state.WatchState;
 
 public class WatchFacade {
+	private static WatchFacade instance = null;
+	
 	private WatchInfo watchInfo;
 	
 	private AnalogWatch analogWatch;
@@ -14,6 +16,8 @@ public class WatchFacade {
 	
 	public WatchFacade(Observable changeObservable)
 	{
+		instance = this;
+		
 		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this));
 				
 		digitalWatch = new DigitalWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
@@ -33,6 +37,48 @@ public class WatchFacade {
 		watchInfo.hours = hours;
 		watchInfo.minutes = minutes;
 		watchInfo.milliseconds = milliseconds;
+	}
+	
+	public static void addHour() throws Exception
+	{
+		if(instance != null)
+		{
+			if(instance.watchInfo.hours + 1 >= 24)
+			{
+				instance.watchInfo.hours = 0;
+			}
+			else
+			{
+				instance.watchInfo.hours = instance.watchInfo.hours + 1;
+			}
+			
+			instance.watchInfo.milliseconds = 0;
+		}
+		else
+		{
+			throw new Exception("Facade not initialized");
+		}
+	}
+	
+	public static void addMinute() throws Exception
+	{
+		if(instance != null)
+		{
+			if(instance.watchInfo.minutes + 1 >= 60)
+			{
+				instance.watchInfo.minutes = 0;
+			}
+			else
+			{
+				instance.watchInfo.minutes = instance.watchInfo.minutes + 1;
+			}
+			
+			instance.watchInfo.milliseconds = 0;
+		}
+		else
+		{
+			throw new Exception("Facade not initialized");
+		}
 	}
 
 	public void tick() {

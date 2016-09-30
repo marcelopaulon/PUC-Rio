@@ -1,10 +1,10 @@
 package watch.state;
 
-import watch.WatchInfo;
+import watch.WatchFacade;
 import watch.WatchTimer;
 
 public class SetHoursState extends WatchState {
-
+	
 	public SetHoursState()
 	{
 		try {
@@ -37,6 +37,13 @@ public class SetHoursState extends WatchState {
 
 	@Override
 	public WatchState BReleased() {
+		try {
+			WatchFacade.addHour();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return this;
 	}
 

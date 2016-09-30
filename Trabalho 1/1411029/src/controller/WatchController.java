@@ -29,6 +29,7 @@ public class WatchController extends Observable implements ActionListener, Obser
 	public void setTime(int hours, int minutes, int milliseconds)
 	{
 		facade.setTime(hours, minutes, milliseconds);
+		
 		this.setChanged();
 		this.notifyObservers(facade.getWatchInfo());
 	}
@@ -62,5 +63,8 @@ public class WatchController extends Observable implements ActionListener, Obser
 				facade.setBReleased();
 				break;
 		}
+
+		this.setChanged();
+		this.notifyObservers(facade.getWatchInfo());	
 	}
 }
