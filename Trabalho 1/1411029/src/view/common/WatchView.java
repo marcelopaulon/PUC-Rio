@@ -14,8 +14,20 @@ public abstract class WatchView implements Observer {
 	
 	@Override
 	public final void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		WatchInfo info = (WatchInfo) arg;
 		setTime(info.hours, info.minutes, info.milliseconds);
+		
+		switch(info.state.getCode())
+		{
+			case Display:
+				displayState();
+				break;
+			case SetHours:
+				setHoursState();
+				break;
+			case SetMinutes:
+				setMinutesState();
+				break;
+		}
 	}
 }

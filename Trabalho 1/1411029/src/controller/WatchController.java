@@ -16,11 +16,9 @@ public class WatchController extends Observable implements ActionListener, Obser
 
 	private ButtonsView buttonsView;
 	
-	private WatchTimer timer;
-	
 	public WatchController()
 	{
-		timer = new WatchTimer(this);
+		new WatchTimer(this);
 		facade = new WatchFacade(this);
 		buttonsView = new ButtonsView();
 		buttonsView.addObserver(this);

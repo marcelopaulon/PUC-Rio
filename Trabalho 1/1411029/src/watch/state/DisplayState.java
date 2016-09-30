@@ -15,8 +15,8 @@ public class DisplayState extends WatchState {
 	}
 	
 	@Override
-	public String status() {
-		return "Exibir";
+	public StateCode getCode() {
+		return WatchState.StateCode.Display;
 	}
 	
 	@Override
@@ -31,13 +31,11 @@ public class DisplayState extends WatchState {
 	
 	@Override
 	public WatchState BPressed() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 	
 	@Override
 	public WatchState BReleased() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 	

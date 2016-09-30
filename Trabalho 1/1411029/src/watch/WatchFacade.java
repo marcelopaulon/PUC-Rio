@@ -82,7 +82,7 @@ public class WatchFacade {
 	}
 
 	public void tick() {
-		if(watchInfo.milliseconds + 100 >= 1000)
+		if(watchInfo.milliseconds + 100 >= 1000 * 60)
 		{
 			watchInfo.milliseconds = 0;
 			
@@ -110,7 +110,7 @@ public class WatchFacade {
 			watchInfo.milliseconds += 100;
 		}
 	}
-
+	
 	public void setAPressed() {
 		watchInfo.state = watchInfo.state.APressed();
 	}

@@ -10,14 +10,13 @@ public class SetMinutesState extends WatchState {
 		try {
 			WatchTimer.stop();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public String status() {
-		return "Definir minutos";
+	public StateCode getCode() {
+		return WatchState.StateCode.SetMinutes;
 	}
 
 	@Override

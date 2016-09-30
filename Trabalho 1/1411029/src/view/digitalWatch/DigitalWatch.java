@@ -53,6 +53,7 @@ public final class DigitalWatch extends WatchView {
 		window = new JFrame();
 		window.setTitle("Relógio Digital");
 		window.getContentPane().setLayout(new BoxLayout(window.getContentPane(), BoxLayout.X_AXIS));
+		window.setLocation(200, 50);
 		
 		Font font = new Font("Verdana", Font.PLAIN, 72);
 		
