@@ -10,6 +10,57 @@
 
 #include "lex.yy.h"
 
+#define mnew(T) ((T*) mymalloc (sizeof(T)))
+
+/*typedef enum VarE{
+    VarId, 
+    VarIndexed
+} VarE;
+
+typedef struct Var{
+    VarE tag;
+    union {
+        const char *id;
+        struct{
+            struct Exp *e1, *e2;
+        } indexed;
+    } u;
+} Var;
+
+typedef enum StatE{
+    StatWhile,
+    StatIf,
+    StatArray
+} StatE;
+
+typedef struct Stat{
+}
+
+typedef enum ExpE{
+    ExpAdd,
+    ExpSub,
+    ExpMul,
+    ExpComp,
+    ExpOr,
+    ExpAnd
+} ExpE;
+
+struct Exp{
+    ExpE tag;
+    union{
+        struct{
+            Exp *e1, *e2;
+        }bin;
+        int bi;
+        Var *var;
+    }
+}
+
+struct List{
+    char *id;
+    struct List *next;
+}*/
+
 void yyerror(const char *);
 
 MongaToken token;
@@ -38,6 +89,14 @@ MongaToken token;
 %token TK_LONG_NUMBER
 %token TK_STRING
 %token TK_EQ
+/*
+%union{
+    Exp *exp;
+    Var *var;
+    int i;
+}*/
+
+/*%type <exp> expadd expmult expothers*/
 
 %start program
 
@@ -69,8 +128,16 @@ params     : param ',' params
 param : type TK_ID
       ;
 
-nameslist : TK_ID  {}
-          | TK_ID ',' nameslist {}
+nameslist : TK_ID               {
+                                   /*$$ = mnew(List);
+                                   $$->id = $1;
+                                   $$->next = NULL;*/
+                                }
+          | TK_ID ',' nameslist {
+                                   /*$$ = mnew(List);
+                                   $$->id = $1;
+                                   $$->next = $3;*/
+                                }
           ;
 
 defvar : type nameslist ';' {}
@@ -113,7 +180,7 @@ commandbasic: var '=' exp ';'
             ;
 
 numeral : TK_DOUBLE_NUMBER
-        | TK_LONG_NUMBER
+        | TK_LONG_NUMBER {/*$$ = mnew(Exp); $$ = u.i = yylval.i;*/}
         ;
 
 var : TK_ID
@@ -131,7 +198,7 @@ expand : expand TK_AND expcomp
        | expcomp
        ;
 
-expcomp : expcomp '>' expadd
+expcomp : expcomp '>' expadd {}
         | expcomp '<' expadd
         | expcomp TK_LE expadd
         | expcomp TK_GE expadd
@@ -139,9 +206,16 @@ expcomp : expcomp '>' expadd
         | expadd
 	;
 
-expadd : expadd '+' expmult
+expadd : expadd '+' expmult	{ 
+                                 /* $$ = mnew(Exp);
+                                  $$->tag = ExpAdd;
+                                  $$->u.bin.e1 = $1;
+                                  $$->u.bin.e2 = $3;
+                                  $$ = newBinExp(ExpAdd, $1, $3);
+                                  $$->line = $2;*/
+                                }
        | expadd '-' expmult
-       | expmult
+       | expmult                { /*$$=$1;*/ }
        ;
 
 expmult : expmult '*' expunary

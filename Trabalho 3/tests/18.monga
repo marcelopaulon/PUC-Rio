@@ -1,0 +1,13 @@
+/*
+ * 18.monga
+ * Some blocks inside a function
+ */
+void a()
+{
+    {
+      {}
+    }
+    {
+      {{{}}{}}
+    }
+}

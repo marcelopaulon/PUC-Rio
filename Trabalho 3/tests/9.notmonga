@@ -1,0 +1,9 @@
+/*
+ * 9.notmonga
+ * Assigment if
+ */
+int main(void)
+{
+  int a;
+  a = if;
+}

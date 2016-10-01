@@ -1,0 +1,11 @@
+/*
+ * 21.notmonga
+ * whileif
+ */
+void a()
+{
+    while(if(1))
+    {
+
+    }
+}

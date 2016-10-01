@@ -1,0 +1,11 @@
+/*
+ * 31.monga
+ * If comparison ==
+ */
+void a()
+{
+    if(a == b)
+    {
+        return;
+    }
+}

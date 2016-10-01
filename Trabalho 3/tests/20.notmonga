@@ -1,0 +1,9 @@
+/*
+ * 20.notmonga
+ * else without if
+ */
+void a()
+{
+    else{
+    }
+}

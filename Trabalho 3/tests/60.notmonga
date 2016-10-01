@@ -1,0 +1,11 @@
+/*
+ * 60.notmonga
+ * Arrays
+ */
+void a()
+{
+    int[] a;
+    int[[]] b;
+    float[][[]][] c;
+    float[][][[][]][] d;
+}

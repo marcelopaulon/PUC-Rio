@@ -1,0 +1,9 @@
+/*
+ * 10.notmonga
+ * Assigment while
+ */
+int main(void)
+{
+  int a;
+  a = while;
+}
