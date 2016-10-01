@@ -1,7 +1,6 @@
 package watch;
 
-import java.util.Observable;
-
+import controller.WatchController;
 import view.analogWatch.AnalogWatch;
 import view.digitalWatch.DigitalWatch;
 import watch.state.WatchState;
@@ -12,15 +11,15 @@ public class WatchFacade {
 	private AnalogWatch analogWatch;
 	private DigitalWatch digitalWatch;
 	
-	public WatchFacade(Observable changeObservable, WatchTimer timer)
-	{		
-		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this, timer));
+	public WatchFacade(WatchController watchController)
+	{
+		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this, new WatchTimer(watchController)));
 		
 		digitalWatch = new DigitalWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
-		changeObservable.addObserver(digitalWatch);
+		watchController.addObserver(digitalWatch);
 		
 		analogWatch = new AnalogWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
-		changeObservable.addObserver(analogWatch);
+		watchController.addObserver(analogWatch);
 	}
 	
 	public WatchInfo getWatchInfo()

@@ -8,7 +8,6 @@ import java.util.Observer;
 import view.buttons.ButtonsView;
 import watch.ButtonInfo;
 import watch.WatchFacade;
-import watch.WatchTimer;
 
 public class WatchController extends Observable implements ActionListener, Observer
 {
@@ -18,8 +17,7 @@ public class WatchController extends Observable implements ActionListener, Obser
 	
 	public WatchController()
 	{
-		WatchTimer timer = new WatchTimer(this);
-		facade = new WatchFacade(this, timer);
+		facade = new WatchFacade(this);
 		buttonsView = new ButtonsView();
 		buttonsView.addObserver(this);
 	}

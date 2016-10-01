@@ -1,15 +1,15 @@
 package watch;
 
-import javax.swing.Timer;
+import java.awt.event.ActionListener;
 
-import controller.WatchController;
+import javax.swing.Timer;
 
 public class WatchTimer {
 	private Timer timer = null;
 	
-	public WatchTimer(WatchController watchController)
+	public WatchTimer(ActionListener actionListener)
 	{
-		timer = new Timer(100, watchController);
+		timer = new Timer(100, actionListener);
 	}
 	
 	public void start()
