@@ -18,8 +18,8 @@ public class WatchController extends Observable implements ActionListener, Obser
 	
 	public WatchController()
 	{
-		new WatchTimer(this);
-		facade = new WatchFacade(this);
+		WatchTimer timer = new WatchTimer(this);
+		facade = new WatchFacade(this, timer);
 		buttonsView = new ButtonsView();
 		buttonsView.addObserver(this);
 	}
@@ -46,23 +46,28 @@ public class WatchController extends Observable implements ActionListener, Obser
 	public void update(Observable arg0, Object arg1) {
 		ButtonInfo button = (ButtonInfo) arg1;
 		
+		boolean stateChanged = false;
+		
 		switch(button)
 		{
 			case BUTTON_A_PRESSED:
-				facade.setAPressed();
+				stateChanged = facade.setAPressed();
 				break;
 			case BUTTON_A_RELEASED:
-				facade.setAReleased();
+				stateChanged = facade.setAReleased();
 				break;
 			case BUTTON_B_PRESSED:
-				facade.setBPressed();
+				stateChanged = facade.setBPressed();
 				break;
 			case BUTTON_B_RELEASED:
-				facade.setBReleased();
+				stateChanged = facade.setBReleased();
 				break;
 		}
 
-		this.setChanged();
-		this.notifyObservers(facade.getWatchInfo());	
+		if(stateChanged == true)
+		{
+			this.setChanged();
+			this.notifyObservers(facade.getWatchInfo());
+		}
 	}
 }

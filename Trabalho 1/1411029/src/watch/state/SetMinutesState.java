@@ -1,17 +1,10 @@
 package watch.state;
 
-import watch.WatchFacade;
-import watch.WatchTimer;
-
 public class SetMinutesState extends WatchState {
 
 	public SetMinutesState()
 	{
-		try {
-			WatchTimer.stop();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		_timer.stop();
 	}
 	
 	@Override
@@ -21,7 +14,7 @@ public class SetMinutesState extends WatchState {
 
 	@Override
 	public WatchState APressed() {
-		return this;
+		return null;
 	}
 
 	@Override
@@ -31,18 +24,12 @@ public class SetMinutesState extends WatchState {
 
 	@Override
 	public WatchState BPressed() {
-		return this;
+		return null;
 	}
 
 	@Override
 	public WatchState BReleased() {
-		try {
-			WatchFacade.addMinute();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		_watch.addMinute();
 		return this;
 	}
 

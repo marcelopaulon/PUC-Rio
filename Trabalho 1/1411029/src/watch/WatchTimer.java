@@ -5,30 +5,20 @@ import javax.swing.Timer;
 import controller.WatchController;
 
 public class WatchTimer {
-	private static Timer timer = null;
+	private Timer timer = null;
 	
 	public WatchTimer(WatchController watchController)
 	{
 		timer = new Timer(100, watchController);
 	}
 	
-	public static void start() throws Exception
+	public void start()
 	{
-		if(timer == null)
-		{
-			throw new Exception("Timer not created");
-		}
-		
 		timer.start();
 	}
 	
-	public static void stop() throws Exception
+	public void stop()
 	{
-		if(timer == null)
-		{
-			throw new Exception("Timer not created");
-		}
-		
 		timer.stop();
 	}
 }

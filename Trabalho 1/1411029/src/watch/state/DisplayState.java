@@ -1,17 +1,10 @@
 package watch.state;
 
-import watch.WatchTimer;
-
 public class DisplayState extends WatchState {
 	
 	public DisplayState()
 	{
-		try {
-			WatchTimer.start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		_timer.start();
 	}
 	
 	@Override
@@ -21,7 +14,7 @@ public class DisplayState extends WatchState {
 	
 	@Override
 	public WatchState APressed() {
-		return this;
+		return null;
 	}
 	
 	@Override
@@ -31,12 +24,12 @@ public class DisplayState extends WatchState {
 	
 	@Override
 	public WatchState BPressed() {
-		return this;
+		return null;
 	}
 	
 	@Override
 	public WatchState BReleased() {
-		return this;
+		return null;
 	}
 	
 }

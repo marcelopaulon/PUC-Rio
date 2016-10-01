@@ -13,7 +13,6 @@ import view.common.WatchView;
 public final class DigitalWatch extends WatchView {
 	private JFrame window;
 	private JLabel hoursLabel;
-	private JLabel secondsLabel;
 	private JLabel separatorLabel;
 	private JLabel minutesLabel;
 	
@@ -44,8 +43,6 @@ public final class DigitalWatch extends WatchView {
 		{
 			minutesLabel.setText("0" + Integer.toString(minutes));
 		}
-		
-		secondsLabel.setText(Integer.toString(milliseconds));
 	}
 	
 	private void createWindow()
@@ -69,8 +66,6 @@ public final class DigitalWatch extends WatchView {
 		window.add(hoursLabel);
 		window.add(separatorLabel);
 		window.add(minutesLabel);
-		secondsLabel = new JLabel("0000");
-		window.add(secondsLabel);
 		window.setMinimumSize(new Dimension(235,150));
 		
 		window.pack();

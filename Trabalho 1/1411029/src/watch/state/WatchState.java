@@ -1,9 +1,11 @@
 package watch.state;
 
 import watch.WatchFacade;
+import watch.WatchTimer;
 
 public abstract class WatchState {
 	protected static WatchFacade _watch;
+	protected static WatchTimer _timer;
 	
 	public enum StateCode
 	{
@@ -12,9 +14,10 @@ public abstract class WatchState {
 		SetMinutes
 	}
 	
-	public static WatchState getInitialState(WatchFacade watch)
+	public static WatchState getInitialState(WatchFacade watch, WatchTimer timer)
 	{
 		_watch = watch;
+		_timer = timer;
 		return new DisplayState();
 	}
 	

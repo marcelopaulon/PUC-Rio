@@ -6,20 +6,16 @@ import view.analogWatch.AnalogWatch;
 import view.digitalWatch.DigitalWatch;
 import watch.state.WatchState;
 
-public class WatchFacade {
-	private static WatchFacade instance = null;
-	
+public class WatchFacade {	
 	private WatchInfo watchInfo;
 	
 	private AnalogWatch analogWatch;
 	private DigitalWatch digitalWatch;
 	
-	public WatchFacade(Observable changeObservable)
-	{
-		instance = this;
+	public WatchFacade(Observable changeObservable, WatchTimer timer)
+	{		
+		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this, timer));
 		
-		watchInfo = new WatchInfo(0, 0, 0, WatchState.getInitialState(this));
-				
 		digitalWatch = new DigitalWatch(watchInfo.hours, watchInfo.minutes, watchInfo.milliseconds);
 		changeObservable.addObserver(digitalWatch);
 		
@@ -39,46 +35,32 @@ public class WatchFacade {
 		watchInfo.milliseconds = milliseconds;
 	}
 	
-	public static void addHour() throws Exception
+	public void addHour()
 	{
-		if(instance != null)
+		if(watchInfo.hours + 1 >= 24)
 		{
-			if(instance.watchInfo.hours + 1 >= 24)
-			{
-				instance.watchInfo.hours = 0;
-			}
-			else
-			{
-				instance.watchInfo.hours = instance.watchInfo.hours + 1;
-			}
-			
-			instance.watchInfo.milliseconds = 0;
+			watchInfo.hours = 0;
 		}
 		else
 		{
-			throw new Exception("Facade not initialized");
+			watchInfo.hours = watchInfo.hours + 1;
 		}
+		
+		watchInfo.milliseconds = 0;
 	}
 	
-	public static void addMinute() throws Exception
+	public void addMinute()
 	{
-		if(instance != null)
+		if(watchInfo.minutes + 1 >= 60)
 		{
-			if(instance.watchInfo.minutes + 1 >= 60)
-			{
-				instance.watchInfo.minutes = 0;
-			}
-			else
-			{
-				instance.watchInfo.minutes = instance.watchInfo.minutes + 1;
-			}
-			
-			instance.watchInfo.milliseconds = 0;
+			watchInfo.minutes = 0;
 		}
 		else
 		{
-			throw new Exception("Facade not initialized");
+			watchInfo.minutes = watchInfo.minutes + 1;
 		}
+		
+		watchInfo.milliseconds = 0;
 	}
 
 	public void tick() {
@@ -111,19 +93,51 @@ public class WatchFacade {
 		}
 	}
 	
-	public void setAPressed() {
-		watchInfo.state = watchInfo.state.APressed();
+	public boolean setAPressed() {
+		WatchState state = watchInfo.state.APressed();
+		
+		if(state != null)
+		{
+			watchInfo.state = state;
+			return true;
+		}
+		
+		return false;
 	}
 
-	public void setAReleased() {
-		watchInfo.state = watchInfo.state.AReleased();
+	public boolean setAReleased() {
+		WatchState state = watchInfo.state.AReleased();
+		
+		if(state != null)
+		{
+			watchInfo.state = state;
+			return true;
+		}
+		
+		return false;
 	}
 
-	public void setBPressed() {
-		watchInfo.state = watchInfo.state.BPressed();
+	public boolean setBPressed() {
+		WatchState state = watchInfo.state.BPressed();
+		
+		if(state != null)
+		{
+			watchInfo.state = state;
+			return true;
+		}
+		
+		return false;
 	}
 
-	public void setBReleased() {
-		watchInfo.state = watchInfo.state.BReleased();
+	public boolean setBReleased() {
+		WatchState state = watchInfo.state.BReleased();
+		
+		if(state != null)
+		{
+			watchInfo.state = state;
+			return true;
+		}
+		
+		return false;
 	}
 }
