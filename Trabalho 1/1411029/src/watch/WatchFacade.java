@@ -71,7 +71,7 @@ public class WatchFacade {
 			{
 				watchInfo.minutes = 0;
 				
-				if(watchInfo.hours >= 24)
+				if(watchInfo.hours + 1 >= 24)
 				{
 					watchInfo.hours = 0;
 					watchInfo.minutes = 0;
