@@ -240,6 +240,7 @@ int main(void)
   if(parsingResult == 0)
   {
     printf("PASS");
+    printAST(tree);
   }
   else
   {

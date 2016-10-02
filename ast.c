@@ -56,3 +56,42 @@ CmdBasic *cmdBasicCallInit(CmdCall *call, int line)
     cmd->line = line;
     return cmd;
 }
+
+void printDefFunc(Func * deffunc)
+{
+    printf("Def func!\n");
+}
+
+void printDefVar(DefVar * defvar)
+{
+    printf("Def var!\n");
+}
+
+void printDefinition(Definition *definition)
+{
+    if(definition->type == TypeDefVar)
+    {
+        printDefVar(definition->u.defvar);
+    }
+    else if(definition->type == TypeDefFunc)
+    {
+        printDefFunc(definition->u.deffunc);
+    }
+    else
+    {
+        printf("Error - Invalid definition type. Exiting.\n");
+        exit(-1);
+    }
+}
+
+void printAST(DefinitionList *tree)
+{
+    if(tree == NULL)
+    {
+        return;
+    }
+
+    printDefinition(tree->definition);
+
+    printAST(tree->next);
+}

@@ -221,4 +221,6 @@ CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line);
 CmdBasic *cmdBasicReturnInit(Exp *exp, int line);
 CmdBasic *cmdBasicCallInit(CmdCall *call, int line);
 
+void printAST(DefinitionList *tree);
+
 #endif
