@@ -41,9 +41,12 @@ MongaToken token;
 %token <i> '+'
 %token <i> '-'
 %token <i> '*'
+%token <i> '/'
 %token <i> '='
 %token <i> '>'
 %token <i> '<'
+%token <i> '('
+%token <i> '['
 
 %union{
     Exp *exp;
@@ -57,7 +60,7 @@ MongaToken token;
     Type *type;
 }
 
-%type <exp> exp expadd expmult expunary expothers numeral
+%type <exp> exp expor expand expcomp expadd expmult expunary expothers numeral
 %type <list> nameslist
 %type <cmdbasic> commandbasic
 %type <var> var
@@ -114,12 +117,12 @@ defvars: defvar {NULL;}
        ;
 
 type : basetype       { $$ = $1; }
-     | type '[' ']'   { $$ = $1; $1->brackets++; }
+     | type '[' ']'   { $$ = $1; $$->brackets++; $$->line = $2; }
      ;
 
-basetype : TK_INT   {$$ = mnew(Type); $$->name = VarInt; $$->brackets = 0; }
-         | TK_CHAR  {$$ = mnew(Type); $$->name = VarChar; $$->brackets = 0; }
-         | TK_FLOAT {$$ = mnew(Type); $$->name = VarFloat; $$->brackets = 0; }
+basetype : TK_INT   {$$ = baseTypeInit(VarInt); }
+         | TK_CHAR  {$$ = baseTypeInit(VarChar); }
+         | TK_FLOAT {$$ = baseTypeInit(VarFloat); }
          ;
 
 block : '{' defvars commands '}' {NULL;}
@@ -138,21 +141,9 @@ command : TK_IF '(' exp ')' command %prec IF_ONLY {NULL;}
         | commandbasic {NULL;}
         ;
 
-commandbasic: var '=' exp ';' {
-                                $$ = mnew(CmdBasic);
-                                $$->var = $1;
-                                $$->exp = $3;
-                                $$->tkNumber = '=';
-                              }
-            | TK_RETURN ';'  {
-                                $$ = mnew(CmdBasic);
-                                $$->tkNumber = TK_RETURN;
-                             }
-            | TK_RETURN exp ';' {
-                                $$ = mnew(CmdBasic);
-                                $$->exp = $2;
-                                $$->tkNumber = TK_RETURN;
-                                }
+commandbasic: var '=' exp ';' { $$ = cmdBasicInit($1, $3, '='); }
+            | TK_RETURN ';'  { $$ = cmdBasicInit(NULL, NULL, TK_RETURN); }
+            | TK_RETURN exp ';' { $$ = cmdBasicInit(NULL, $2, TK_RETURN); }
             | call ';' {NULL;}
             | block {NULL;}
             ;
@@ -161,65 +152,54 @@ numeral : TK_DOUBLE_NUMBER {$$ = mnew(Exp); $$->u.f = yylval.f;}
         | TK_LONG_NUMBER {$$ = mnew(Exp); $$->u.i = yylval.i;}
         ;
 
-var : TK_ID {NULL;}
+var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; }
     | expothers '[' exp ']' {NULL;}
     ;
 
-exp : expor {NULL;}
+exp : expor { $$ = $1; }
     ;
 
-expor : expor TK_OR expand {NULL;}
-      | expand {NULL;}
+expor : expor TK_OR expand { $$ = newBinExp(ExpOr, $1, $3, $2); }
+      | expand { $$ = $1; }
       ;
 
-expand : expand TK_AND expcomp {NULL;}
-       | expcomp {NULL;}
+expand : expand TK_AND expcomp { $$ = newBinExp(ExpGreater, $1, $3, $2); }
+       | expcomp { $$ = $1; }
        ;
 
-expcomp : expcomp '>' expadd {NULL;}
-        | expcomp '<' expadd {NULL;}
-        | expcomp TK_LE expadd {NULL;}
-        | expcomp TK_GE expadd {NULL;}
-        | expcomp TK_EQ expadd {NULL;}
-        | expadd {NULL;}
-	;
+expcomp : expcomp '>' expadd { $$ = newBinExp(ExpGreater, $1, $3, $2); }
+        | expcomp '<' expadd { $$ = newBinExp(ExpLess, $1, $3, $2); }
+        | expcomp TK_LE expadd { $$ = newBinExp(ExpLessEqual, $1, $3, $2); }
+        | expcomp TK_GE expadd { $$ = newBinExp(ExpGreaterEqual, $1, $3, $2); }
+        | expcomp TK_EQ expadd { $$ = newBinExp(ExpEqual, $1, $3, $2); }
+        | expadd { $$ = $1; }
+	    ;
 
-expadd : expadd '+' expmult	    { 
-                                  $$ = mnew(Exp);
-                                  $$->tag = ExpAdd;
-                                  $$->u.bin.e1 = $1;
-                                  $$->u.bin.e2 = $3;
-                                  $$ = newBinExp(ExpAdd, $1, $3);
-                                  $$->line = $2;
-                                }
-       | expadd '-' expmult {NULL;}
-       | expmult                { $$=$1; }
+expadd : expadd '+' expmult	    { $$ = newBinExp(ExpAdd, $1, $3, $2); }
+       | expadd '-' expmult     { $$ = newBinExp(ExpSub, $1, $3, $2); }
+       | expmult                { $$ = $1; }
        ;
 
-expmult : expmult '*' expunary {NULL;}
-        | expmult '/' expunary {NULL;}
-        | expunary {NULL;}
+expmult : expmult '*' expunary { $$ = newBinExp(ExpMul, $1, $3, $2); }
+        | expmult '/' expunary { $$ = newBinExp(ExpDiv, $1, $3, $2); }
+        | expunary { $$ = $1; }
 	;
 
 expunary : '-' expothers {NULL;}
          | '!' expothers {NULL;}
-         | expothers {NULL;}
+         | expothers { $$ = $1; }
          ; 
 
-expothers : numeral {NULL;}
-       | TK_STRING {NULL;}
-       | var {NULL;}
-       | call {NULL;}
-       | '(' exp ')' {NULL;}
-       | TK_NEW type '[' exp ']' {NULL;}
+expothers : numeral { $$ = $1; }
+       | TK_STRING {$$ = mnew(Exp); $$->tag = ExpUn;  $$->u.s = $1; $$->line = -1; }
+       | var { $$ = mnew(Exp); $$->tag = ExpVar;  $$->u.var = $1; $$->line = -1; }
+       | call { $$ = mnew(Exp); $$->tag = ExpCall; $$->line = -1; /* TODO */ }
+       | '(' exp ')' { $$ = $2; }
+       | TK_NEW type '[' exp ']' { $$ = mnew(Exp); $$->tag = ExpNew; $$->u.newexp.type = $2; $$->line = $3; $$->u.newexp.exp = $4;  }
        ;
 
-explist : exp ',' explist {
-                            $$ = mnew(ExpList);
-                            $$->exp = $1;
-                            $$->next = $3;
-                          }
-        | exp {NULL;}
+explist : exp ',' explist { $$ = mnew(ExpList); $$->exp = $1; $$->next = $3; }
+        | exp { $$ = mnew(ExpList); $$->exp = $1; $$->next = NULL; }
         ;
 
 call : TK_ID '(' explist ')' {NULL;}

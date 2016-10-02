@@ -21,6 +21,7 @@ typedef struct Type Type;
 struct Type{
     VarType name;
     int brackets;
+    int line;
 };
 
 typedef struct Var{
@@ -50,9 +51,18 @@ enum ExpE{
     ExpAdd,
     ExpSub,
     ExpMul,
-    ExpComp,
+    ExpDiv,
+    ExpEqual,
+    ExpLess,
+    ExpGreater,
+    ExpLessEqual,
+    ExpGreaterEqual,
     ExpOr,
-    ExpAnd
+    ExpAnd,
+    ExpVar,
+    ExpCall,
+    ExpUn,
+    ExpNew
 };
 
 typedef struct Exp Exp;
@@ -64,7 +74,12 @@ struct Exp{
         }bin;
         int i;
         double f;
+        char *s;
         Var *var;
+        struct{
+            Type *type;
+            Exp *exp;
+        }newexp;
     } u;
     int line;
 };
@@ -95,6 +110,8 @@ struct List{
 };
 
 void *checkedMalloc(int size);
-Exp *newBinExp(ExpE expType, Exp* e1, Exp* e2);
+Exp *newBinExp(ExpE expType, Exp* e1, Exp* e2, int line);
+Type *baseTypeInit(VarType type);
+CmdBasic *cmdBasicInit(Var *var, Exp *exp, int tkNumber);
 
 #endif
