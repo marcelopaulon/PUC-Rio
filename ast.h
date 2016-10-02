@@ -11,10 +11,51 @@ typedef struct Type Type;
 typedef enum CmdE CmdE;
 typedef enum ExpE ExpE;
 typedef enum CmdBasicType CmdBasicType;
+typedef enum DefinitionType DefinitionType;
 typedef struct ExpList ExpList;
+typedef struct CmdList CmdList;
 typedef struct List List;
+typedef struct DefVarList DefVarList;
 typedef struct CmdBasic CmdBasic;
 typedef struct CmdCall CmdCall;
+typedef struct Cmd Cmd;
+typedef struct DefVar DefVar;
+typedef struct Param Param;
+typedef struct ParamList ParamList;
+typedef struct Block Block;
+typedef struct Func Func;
+typedef struct Definition Definition;
+typedef struct DefinitionList DefinitionList;
+
+enum DefinitionType {
+    TypeDefVar,
+    TypeDefFunc
+};
+
+struct Definition {
+    DefinitionType type;
+    union {
+        DefVar *defvar;
+        Func *deffunc;
+    } u;
+};
+
+struct DefinitionList{
+    Definition *definition;
+    DefinitionList *next;
+};
+
+struct Func{
+    Type *type;
+    char *id;
+    ParamList *params;
+    Block *block;
+};
+
+struct Block{
+    DefVarList *vars;
+    CmdList *cmds;
+};
 
 typedef enum VarE{
     VarId, 
@@ -33,6 +74,26 @@ struct Type{
     int line;
 };
 
+struct ParamList{
+    Param *param;
+    ParamList *next;
+};
+
+struct Param{
+    Type *type;
+    char *id;
+};
+
+struct DefVarList{
+    DefVar *defvar;
+    DefVarList *next;
+};
+
+struct DefVar{
+    Type *type;
+    List *nameslist;
+};
+
 typedef struct Var{
     VarE tag;
     Type type;
@@ -46,13 +107,27 @@ typedef struct Var{
 } Var;
 
 enum CmdE{
-    StatWhile,
-    StatIf,
-    StatArray
+    CmdWhile,
+    CmdIf,
+    CmdArray,
+    CmdBasicE
 };
 
-typedef struct Cmd{
-} Cmd;
+struct Cmd{
+    CmdE type;
+    Exp *e;
+    union{
+        Cmd *cmd;
+        struct{
+            Cmd *c1;
+            Cmd *c2;
+        } cmds;
+        CmdBasic *cmdBasic;
+        CmdCall *call;
+        CmdList *cmdList;
+    } u;
+    int line;
+};
 
 enum CmdBasicType{
     CmdBasicReturn,
@@ -108,6 +183,11 @@ struct Exp{
 struct ExpList{
     Exp *exp;
     ExpList *next;
+};
+
+struct CmdList{
+    Cmd *cmd;
+    CmdList *next;
 };
 
 struct CmdBasic{

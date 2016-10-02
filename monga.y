@@ -14,6 +14,8 @@ void yyerror(const char *);
 
 MongaToken token;
 
+DefinitionList *tree = NULL;
+
 %}
 
 %nonassoc IF_ONLY
@@ -56,48 +58,68 @@ MongaToken token;
     double f;
     char *s;
     List *list;
+    Cmd *cmd;
+    CmdList *cmdlist;
     CmdBasic *cmdbasic;
     CmdCall *cmdcall;
     ExpList *explist;
     Type *type;
+    DefVar *defvar;
+    DefVarList *defvarlist;
+    Param *param;
+    ParamList *paramlist;
+    Block *block;
+    Func *func;
+    Definition *definition;
+    DefinitionList *definitionlist;
 }
 
 %type <exp> exp expor expand expcomp expadd expmult expunary expothers numeral
 %type <list> nameslist
+%type <cmd> command
+%type <cmdlist> commands
 %type <cmdbasic> commandbasic
 %type <cmdcall> call
 %type <var> var
 %type <explist> explist
 %type <type> type basetype
+%type <defvar> defvar
+%type <defvarlist> defvars
+%type <param> param
+%type <paramlist> params funcparams
+%type <block> block
+%type <func> deffunc
+%type <definition> definition
+%type <definitionlist> definitions
 
 %start program
 
 %%
 
-program : definitions  {NULL;}
+program : definitions  { tree = $1; }
         ;
 
-definitions: definition {NULL;}
-           | definition definitions {NULL;}
+definitions: definition {$$ = mnew(DefinitionList); $$->definition = $1; $$->next = NULL;}
+           | definition definitions {$$ = mnew(DefinitionList); $$->definition = $1; $$->next = $2;}
            ;
 
-definition : defvar                {NULL;}
-           | deffunc               {NULL;}
+definition : defvar                { $$ = mnew(Definition); $$->type = TypeDefVar; $$->u.defvar = $1; }
+           | deffunc               { $$ = mnew(Definition); $$->type = TypeDefFunc; $$->u.deffunc = $1; }
            ;
 
-deffunc : type TK_ID '(' funcparams ')' block {NULL;}
-        | TK_VOID TK_ID '(' funcparams ')' block {NULL;}
+deffunc : type TK_ID '(' funcparams ')' block { $$ = mnew(Func); $$->type = $1; $$->id = $2; $$->params = $4; $$->block = $6; }
+        | TK_VOID TK_ID '(' funcparams ')' block { $$ = mnew(Func); $$->type = NULL; $$->id = $2; $$->params = $4; $$->block = $6; }
         ;
 
-funcparams : params {NULL;}
-           | {NULL;}
+funcparams : params {$$ = $1;}
+           | {$$ = NULL;}
            ;
 
-params     : param ',' params {NULL;}
-           | param {NULL;}
+params     : param ',' params {$$ = mnew(ParamList); $$->param = $1; $$->next = $3;}
+           | param {$$ = mnew(ParamList); $$->param = $1; $$->next = NULL;}
            ;
 
-param : type TK_ID {NULL;}
+param : type TK_ID { $$ = mnew(Param); $$->type = $1; $$->id = $2; }
       ;
 
 nameslist : TK_ID               { 
@@ -112,11 +134,11 @@ nameslist : TK_ID               {
                                 }
           ;
 
-defvar : type nameslist ';' {NULL;}
+defvar : type nameslist ';' {$$ = mnew(DefVar); $$->type = $1; $$->nameslist = $2;}
        ;
 
-defvars: defvar {NULL;}
-       | defvar defvars {NULL;}
+defvars: defvar {$$ = mnew(DefVarList); $$->defvar = $1; $$->next = NULL;}
+       | defvar defvars {$$ = mnew(DefVarList); $$->defvar = $1; $$->next = $2;}
        ;
 
 type : basetype       { $$ = $1; }
@@ -128,20 +150,20 @@ basetype : TK_INT   {$$ = baseTypeInit(VarInt); }
          | TK_FLOAT {$$ = baseTypeInit(VarFloat); }
          ;
 
-block : '{' defvars commands '}' {NULL;}
-      | '{' defvars '}' {NULL;}
-      | '{' commands '}' {NULL;}
-      | '{' '}' {NULL;}
+block : '{' defvars commands '}' { $$ = mnew(Block); $$->vars = $2; $$->cmds = $3; }
+      | '{' defvars '}' { $$ = mnew(Block); $$->vars = $2; $$->cmds = NULL; }
+      | '{' commands '}' { $$ = mnew(Block); $$->vars = NULL; $$->cmds = $2; }
+      | '{' '}' { $$ = mnew(Block); $$->vars = NULL; $$->cmds = NULL; }
       ;
 
-commands : command {NULL;}
-         | command commands {NULL;}
+commands : command { $$ = mnew(CmdList); $$->cmd = $1; $$->next = NULL; }
+         | command commands { $$ = mnew(CmdList); $$->cmd = $1; $$->next = $2; }
          ;
 
-command : TK_IF '(' exp ')' command %prec IF_ONLY {NULL;}
-        | TK_IF '(' exp ')' command TK_ELSE command {NULL;}
-        | TK_WHILE '(' exp ')' command {NULL;}
-        | commandbasic {NULL;}
+command : TK_IF '(' exp ')' command %prec IF_ONLY { $$ = mnew(Cmd); $$->type = CmdIf; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
+        | TK_IF '(' exp ')' command TK_ELSE command { $$ = mnew(Cmd); $$->type = CmdIf; $$->e = $3; $$->u.cmds.c1 = $5; $$->u.cmds.c2 = $7; $$->line = $1; }
+        | TK_WHILE '(' exp ')' command { $$ = mnew(Cmd); $$->type = CmdWhile; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
+        | commandbasic { $$ = mnew(Cmd); $$->type = CmdBasicE; $$->u.cmdBasic = $1; }
         ;
 
 commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }
