@@ -94,7 +94,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 48 "../monga.y" /* yacc.c:1909  */
+#line 51 "../monga.y" /* yacc.c:1909  */
 
     Exp *exp;
     Var *var;
@@ -105,9 +105,8 @@ union YYSTYPE
     CmdBasic *cmdbasic;
     ExpList *explist;
     Type *type;
-    VarType *vartype;
 
-#line 111 "y.tab.h" /* yacc.c:1909  */
+#line 110 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
