@@ -56,6 +56,7 @@ MongaToken token;
     char *s;
     List *list;
     CmdBasic *cmdbasic;
+    CmdCall *cmdcall;
     ExpList *explist;
     Type *type;
 }
@@ -63,6 +64,7 @@ MongaToken token;
 %type <exp> exp expor expand expcomp expadd expmult expunary expothers numeral
 %type <list> nameslist
 %type <cmdbasic> commandbasic
+%type <cmdcall> call
 %type <var> var
 %type <explist> explist
 %type <type> type basetype
@@ -148,12 +150,12 @@ commandbasic: var '=' exp ';' { $$ = cmdBasicInit($1, $3, '='); }
             | block {NULL;}
             ;
 
-numeral : TK_DOUBLE_NUMBER {$$ = mnew(Exp); $$->u.f = yylval.f;}
-        | TK_LONG_NUMBER {$$ = mnew(Exp); $$->u.i = yylval.i;}
+numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->tag = ExpFloat; $$->u.f = yylval.f; }
+        | TK_LONG_NUMBER { $$ = mnew(Exp); $$->tag = ExpInt; $$->u.i = yylval.i; }
         ;
 
-var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; }
-    | expothers '[' exp ']' {NULL;}
+var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; $$->line = -1; }
+    | expothers '[' exp ']' {$$ = mnew(Var); $$->tag = VarIndexed; $$->u.indexed.e1 = $1; $$->u.indexed.e2 = $3; $$->line = $2; }
     ;
 
 exp : expor { $$ = $1; }
@@ -185,15 +187,15 @@ expmult : expmult '*' expunary { $$ = newBinExp(ExpMul, $1, $3, $2); }
         | expunary { $$ = $1; }
 	;
 
-expunary : '-' expothers {NULL;}
-         | '!' expothers {NULL;}
+expunary : '-' expothers { $$ = mnew(Exp); $$->tag = ExpMinus; $$->u.un = $2; }
+         | '!' expothers { $$ = mnew(Exp); $$->tag = ExpNot; $$->u.un = $2; }
          | expothers { $$ = $1; }
          ; 
 
 expothers : numeral { $$ = $1; }
-       | TK_STRING {$$ = mnew(Exp); $$->tag = ExpUn;  $$->u.s = $1; $$->line = -1; }
+       | TK_STRING { $$ = mnew(Exp); $$->tag = ExpString;  $$->u.s = $1; $$->line = -1; }
        | var { $$ = mnew(Exp); $$->tag = ExpVar;  $$->u.var = $1; $$->line = -1; }
-       | call { $$ = mnew(Exp); $$->tag = ExpCall; $$->line = -1; /* TODO */ }
+       | call { $$ = mnew(Exp); $$->tag = ExpCall; $$->u.call = $1; $$->line = -1; }
        | '(' exp ')' { $$ = $2; }
        | TK_NEW type '[' exp ']' { $$ = mnew(Exp); $$->tag = ExpNew; $$->u.newexp.type = $2; $$->line = $3; $$->u.newexp.exp = $4;  }
        ;
@@ -202,8 +204,8 @@ explist : exp ',' explist { $$ = mnew(ExpList); $$->exp = $1; $$->next = $3; }
         | exp { $$ = mnew(ExpList); $$->exp = $1; $$->next = NULL; }
         ;
 
-call : TK_ID '(' explist ')' {NULL;}
-     | TK_ID '(' ')' {NULL;}
+call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->parameters = $3;}
+     | TK_ID '(' ')' {$$ = mnew(CmdCall); $$->id = $1; $$->parameters = NULL;}
      ;
 
 %%

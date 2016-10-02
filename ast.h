@@ -6,6 +6,15 @@
 
 #define mnew(T) ((T*) checkedMalloc (sizeof(T)))
 
+typedef struct Exp Exp;
+typedef struct Type Type;
+typedef enum CmdE CmdE;
+typedef enum ExpE ExpE;
+typedef struct ExpList ExpList;
+typedef struct List List;
+typedef struct CmdBasic CmdBasic;
+typedef struct CmdCall CmdCall;
+
 typedef enum VarE{
     VarId, 
     VarIndexed
@@ -17,7 +26,6 @@ typedef enum VarType{
     VarChar
 } VarType;
 
-typedef struct Type Type;
 struct Type{
     VarType name;
     int brackets;
@@ -33,10 +41,9 @@ typedef struct Var{
             struct Exp *e1, *e2;
         } indexed;
     } u;
+    int line;
 } Var;
 
-
-typedef enum CmdE CmdE;
 enum CmdE{
     StatWhile,
     StatIf,
@@ -46,7 +53,6 @@ enum CmdE{
 typedef struct Cmd{
 } Cmd;
 
-typedef enum ExpE ExpE;
 enum ExpE{
     ExpAdd,
     ExpSub,
@@ -61,14 +67,20 @@ enum ExpE{
     ExpAnd,
     ExpVar,
     ExpCall,
+    ExpNot,
+    ExpMinus,
     ExpUn,
-    ExpNew
+    ExpNew,
+    ExpString,
+    ExpInt,
+    ExpFloat
 };
 
-typedef struct Exp Exp;
+
 struct Exp{
     ExpE tag;
     union{
+        Exp *un;
         struct{
             Exp *e1, *e2;
         }bin;
@@ -80,30 +92,27 @@ struct Exp{
             Type *type;
             Exp *exp;
         }newexp;
+        CmdCall *call;
     } u;
     int line;
 };
 
-typedef struct ExpList ExpList;
 struct ExpList{
     Exp *exp;
     ExpList *next;
 };
 
-typedef struct CmdBasic CmdBasic;
 struct CmdBasic{
     Var *var;
     int tkNumber;
     Exp *exp;
 };
 
-typedef struct CmdCall CmdCall;
 struct CmdCall{
     char *id;
-    ExpList parameters;
+    ExpList *parameters;
 };
 
-typedef struct List List;
 struct List{
     char *id;
     struct List *next;
