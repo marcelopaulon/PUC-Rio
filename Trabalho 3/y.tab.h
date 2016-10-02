@@ -94,7 +94,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 51 "../monga.y" /* yacc.c:1909  */
+#line 52 "../monga.y" /* yacc.c:1909  */
 
     Exp *exp;
     Var *var;

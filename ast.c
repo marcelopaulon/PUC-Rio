@@ -29,12 +29,30 @@ Type *baseTypeInit(VarType type)
     return base;
 }
 
-CmdBasic *cmdBasicInit(Var *var, Exp *exp, int tkNumber)
+CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line)
 {
     CmdBasic *cmd = mnew(CmdBasic);
-    cmd->var = var;
-    cmd->exp = exp;
-    cmd->tkNumber = tkNumber;
+    cmd->type = CmdBasicVar;
+    cmd->u.varCmd.var = var;
+    cmd->u.varCmd.exp = exp;
+    cmd->line = line;
     return cmd;
 }
 
+CmdBasic *cmdBasicReturnInit(Exp *exp, int line)
+{
+    CmdBasic *cmd = mnew(CmdBasic);
+    cmd->type = CmdBasicReturn;
+    cmd->u.returnExp = exp;
+    cmd->line = line;
+    return cmd;
+}
+
+CmdBasic *cmdBasicCallInit(CmdCall *call, int line)
+{
+    CmdBasic *cmd = mnew(CmdBasic);
+    cmd->type = CmdBasicCall;
+    cmd->u.call = call;
+    cmd->line = line;
+    return cmd;
+}

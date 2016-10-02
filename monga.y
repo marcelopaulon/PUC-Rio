@@ -47,6 +47,7 @@ MongaToken token;
 %token <i> '<'
 %token <i> '('
 %token <i> '['
+%token <i> ';'
 
 %union{
     Exp *exp;
@@ -143,10 +144,10 @@ command : TK_IF '(' exp ')' command %prec IF_ONLY {NULL;}
         | commandbasic {NULL;}
         ;
 
-commandbasic: var '=' exp ';' { $$ = cmdBasicInit($1, $3, '='); }
-            | TK_RETURN ';'  { $$ = cmdBasicInit(NULL, NULL, TK_RETURN); }
-            | TK_RETURN exp ';' { $$ = cmdBasicInit(NULL, $2, TK_RETURN); }
-            | call ';' {NULL;}
+commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }
+            | TK_RETURN ';'  { $$ = cmdBasicReturnInit(NULL, $2); }
+            | TK_RETURN exp ';' { $$ = cmdBasicReturnInit($2, $3); }
+            | call ';' { $$ = cmdBasicCallInit($1, $2); }
             | block {NULL;}
             ;
 

@@ -10,6 +10,7 @@ typedef struct Exp Exp;
 typedef struct Type Type;
 typedef enum CmdE CmdE;
 typedef enum ExpE ExpE;
+typedef enum CmdBasicType CmdBasicType;
 typedef struct ExpList ExpList;
 typedef struct List List;
 typedef struct CmdBasic CmdBasic;
@@ -52,6 +53,13 @@ enum CmdE{
 
 typedef struct Cmd{
 } Cmd;
+
+enum CmdBasicType{
+    CmdBasicReturn,
+    CmdBasicCall,
+    CmdBasicVar,
+    CmdBasicBlock
+};
 
 enum ExpE{
     ExpAdd,
@@ -103,9 +111,16 @@ struct ExpList{
 };
 
 struct CmdBasic{
-    Var *var;
-    int tkNumber;
-    Exp *exp;
+    CmdBasicType type;
+    union {
+        struct{
+            Var *var;
+            Exp *exp;
+        } varCmd;
+        Exp *returnExp;
+        CmdCall *call;
+    } u;
+    int line;
 };
 
 struct CmdCall{
@@ -121,6 +136,9 @@ struct List{
 void *checkedMalloc(int size);
 Exp *newBinExp(ExpE expType, Exp* e1, Exp* e2, int line);
 Type *baseTypeInit(VarType type);
-CmdBasic *cmdBasicInit(Var *var, Exp *exp, int tkNumber);
+
+CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line);
+CmdBasic *cmdBasicReturnInit(Exp *exp, int line);
+CmdBasic *cmdBasicCallInit(CmdCall *call, int line);
 
 #endif
