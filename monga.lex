@@ -9,6 +9,7 @@
 /* need this for the call to strtod/strtoul/strlen/strcpy below */
 #include <string.h>
 #include <ctype.h>
+#include "../ast.h"
 #include "lex.yy.h"
 
 extern MongaToken token;
@@ -43,6 +44,7 @@ MongaData getSymbolData(int symbol, char *data)
       mongaData.l = strtoull(data, NULL, base);
       break;
     default:
+      mongaData.l = curLine;
       break;
   }
 

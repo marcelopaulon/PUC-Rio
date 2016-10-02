@@ -7,59 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "../ast.h"
 #include "lex.yy.h"
-
-#define mnew(T) ((T*) mymalloc (sizeof(T)))
-
-/*typedef enum VarE{
-    VarId, 
-    VarIndexed
-} VarE;
-
-typedef struct Var{
-    VarE tag;
-    union {
-        const char *id;
-        struct{
-            struct Exp *e1, *e2;
-        } indexed;
-    } u;
-} Var;
-
-typedef enum StatE{
-    StatWhile,
-    StatIf,
-    StatArray
-} StatE;
-
-typedef struct Stat{
-}
-
-typedef enum ExpE{
-    ExpAdd,
-    ExpSub,
-    ExpMul,
-    ExpComp,
-    ExpOr,
-    ExpAnd
-} ExpE;
-
-struct Exp{
-    ExpE tag;
-    union{
-        struct{
-            Exp *e1, *e2;
-        }bin;
-        int bi;
-        Var *var;
-    }
-}
-
-struct List{
-    char *id;
-    struct List *next;
-}*/
 
 void yyerror(const char *);
 
@@ -70,178 +19,211 @@ MongaToken token;
 %nonassoc IF_ONLY
 %nonassoc TK_ELSE
 
-%token TK_LE
-%token TK_GE
-%token TK_AND
-%token TK_OR
-%token TK_IF
-%token TK_ELSE
-%token TK_CHAR
-%token TK_FLOAT
-%token TK_INT
-%token TK_NEW
-%token TK_RETURN
-%token TK_VOID
-%token TK_WHILE
-%token TK_ID
-%token TK_UNKNOWN
-%token TK_DOUBLE_NUMBER
-%token TK_LONG_NUMBER
-%token TK_STRING
-%token TK_EQ
-/*
+%token <i> TK_LE
+%token <i> TK_GE
+%token <i> TK_AND
+%token <i> TK_OR
+%token <i> TK_IF
+%token <i> TK_ELSE
+%token <i> TK_CHAR
+%token <i> TK_FLOAT
+%token <i> TK_INT
+%token <i> TK_NEW
+%token <i> TK_RETURN
+%token <i> TK_VOID
+%token <i> TK_WHILE
+%token <s> TK_ID
+%token <i> TK_UNKNOWN
+%token <f> TK_DOUBLE_NUMBER
+%token <i> TK_LONG_NUMBER
+%token <s> TK_STRING
+%token <i> TK_EQ
+%token <i> '+'
+%token <i> '-'
+%token <i> '*'
+%token <i> '='
+%token <i> '>'
+%token <i> '<'
+
 %union{
     Exp *exp;
     Var *var;
     int i;
-}*/
+    double f;
+    char *s;
+    List *list;
+    CmdBasic *cmdbasic;
+    ExpList *explist;
+    Type *type;
+}
 
-/*%type <exp> expadd expmult expothers*/
+%type <exp> exp expadd expmult expunary expothers numeral
+%type <list> nameslist
+%type <cmdbasic> commandbasic
+%type <var> var
+%type <explist> explist
+%type <type> type basetype
 
 %start program
 
 %%
 
-program : definitions  {}
+program : definitions  {NULL;}
         ;
 
-definitions: definition {}
-           | definition definitions {}
+definitions: definition {NULL;}
+           | definition definitions {NULL;}
            ;
 
-definition : defvar                {}
-           | deffunc               {}
+definition : defvar                {NULL;}
+           | deffunc               {NULL;}
            ;
 
-deffunc : type TK_ID '(' funcparams ')' block {}
-        | TK_VOID TK_ID '(' funcparams ')' block {}
+deffunc : type TK_ID '(' funcparams ')' block {NULL;}
+        | TK_VOID TK_ID '(' funcparams ')' block {NULL;}
         ;
 
-funcparams : params
-           | {}
+funcparams : params {NULL;}
+           | {NULL;}
            ;
 
-params     : param ',' params
-           | param
+params     : param ',' params {NULL;}
+           | param {NULL;}
            ;
 
-param : type TK_ID
+param : type TK_ID {NULL;}
       ;
 
-nameslist : TK_ID               {
-                                   /*$$ = mnew(List);
+nameslist : TK_ID               { 
+                                   $$ = mnew(List);
                                    $$->id = $1;
-                                   $$->next = NULL;*/
+                                   $$->next = NULL;
                                 }
-          | TK_ID ',' nameslist {
-                                   /*$$ = mnew(List);
+          | TK_ID ',' nameslist { 
+                                   $$ = mnew(List);
                                    $$->id = $1;
-                                   $$->next = $3;*/
+                                   $$->next = $3;
                                 }
           ;
 
-defvar : type nameslist ';' {}
+defvar : type nameslist ';' {NULL;}
        ;
 
-defvars: defvar {}
-       | defvar defvars {}
+defvars: defvar {NULL;}
+       | defvar defvars {NULL;}
        ;
 
-type : basetype       {}
-     | type '[' ']'   {}
+type : basetype       { $$ = $1; }
+     | type '[' ']'   { $$ = $1; $1->brackets++; }
      ;
 
-basetype : TK_INT   {}
-         | TK_CHAR  {}
-         | TK_FLOAT {}
+basetype : TK_INT   {$$ = mnew(Type); $$->name = VarInt; $$->brackets = 0; }
+         | TK_CHAR  {$$ = mnew(Type); $$->name = VarChar; $$->brackets = 0; }
+         | TK_FLOAT {$$ = mnew(Type); $$->name = VarFloat; $$->brackets = 0; }
          ;
 
-block : '{' defvars commands '}'
-      | '{' defvars '}'
-      | '{' commands '}'
-      | '{' '}'
+block : '{' defvars commands '}' {NULL;}
+      | '{' defvars '}' {NULL;}
+      | '{' commands '}' {NULL;}
+      | '{' '}' {NULL;}
       ;
 
-commands : command
-         | command commands
+commands : command {NULL;}
+         | command commands {NULL;}
          ;
 
-command : TK_IF '(' exp ')' command %prec IF_ONLY
-        | TK_IF '(' exp ')' command TK_ELSE command
-        | TK_WHILE '(' exp ')' command
-        | commandbasic
+command : TK_IF '(' exp ')' command %prec IF_ONLY {NULL;}
+        | TK_IF '(' exp ')' command TK_ELSE command {NULL;}
+        | TK_WHILE '(' exp ')' command {NULL;}
+        | commandbasic {NULL;}
         ;
 
-commandbasic: var '=' exp ';'
-            | TK_RETURN ';'  {}
-            | TK_RETURN exp ';' {}
-            | call ';'
-            | block
+commandbasic: var '=' exp ';' {
+                                $$ = mnew(CmdBasic);
+                                $$->var = $1;
+                                $$->exp = $3;
+                                $$->tkNumber = '=';
+                              }
+            | TK_RETURN ';'  {
+                                $$ = mnew(CmdBasic);
+                                $$->tkNumber = TK_RETURN;
+                             }
+            | TK_RETURN exp ';' {
+                                $$ = mnew(CmdBasic);
+                                $$->exp = $2;
+                                $$->tkNumber = TK_RETURN;
+                                }
+            | call ';' {NULL;}
+            | block {NULL;}
             ;
 
-numeral : TK_DOUBLE_NUMBER
-        | TK_LONG_NUMBER {/*$$ = mnew(Exp); $$ = u.i = yylval.i;*/}
+numeral : TK_DOUBLE_NUMBER {$$ = mnew(Exp); $$->u.f = yylval.f;}
+        | TK_LONG_NUMBER {$$ = mnew(Exp); $$->u.i = yylval.i;}
         ;
 
-var : TK_ID
-    | expothers '[' exp ']'
+var : TK_ID {NULL;}
+    | expothers '[' exp ']' {NULL;}
     ;
 
-exp : expor
+exp : expor {NULL;}
     ;
 
-expor : expor TK_OR expand
-      | expand
+expor : expor TK_OR expand {NULL;}
+      | expand {NULL;}
       ;
 
-expand : expand TK_AND expcomp
-       | expcomp
+expand : expand TK_AND expcomp {NULL;}
+       | expcomp {NULL;}
        ;
 
-expcomp : expcomp '>' expadd {}
-        | expcomp '<' expadd
-        | expcomp TK_LE expadd
-        | expcomp TK_GE expadd
-        | expcomp TK_EQ expadd
-        | expadd
+expcomp : expcomp '>' expadd {NULL;}
+        | expcomp '<' expadd {NULL;}
+        | expcomp TK_LE expadd {NULL;}
+        | expcomp TK_GE expadd {NULL;}
+        | expcomp TK_EQ expadd {NULL;}
+        | expadd {NULL;}
 	;
 
-expadd : expadd '+' expmult	{ 
-                                 /* $$ = mnew(Exp);
+expadd : expadd '+' expmult	    { 
+                                  $$ = mnew(Exp);
                                   $$->tag = ExpAdd;
                                   $$->u.bin.e1 = $1;
                                   $$->u.bin.e2 = $3;
                                   $$ = newBinExp(ExpAdd, $1, $3);
-                                  $$->line = $2;*/
+                                  $$->line = $2;
                                 }
-       | expadd '-' expmult
-       | expmult                { /*$$=$1;*/ }
+       | expadd '-' expmult {NULL;}
+       | expmult                { $$=$1; }
        ;
 
-expmult : expmult '*' expunary
-        | expmult '/' expunary
-        | expunary
+expmult : expmult '*' expunary {NULL;}
+        | expmult '/' expunary {NULL;}
+        | expunary {NULL;}
 	;
 
-expunary : '-' expothers
-         | '!' expothers
-         | expothers
+expunary : '-' expothers {NULL;}
+         | '!' expothers {NULL;}
+         | expothers {NULL;}
          ; 
 
-expothers : numeral
-       | TK_STRING
-       | var
-       | call
-       | '(' exp ')'
-       | TK_NEW type '[' exp ']'
+expothers : numeral {NULL;}
+       | TK_STRING {NULL;}
+       | var {NULL;}
+       | call {NULL;}
+       | '(' exp ')' {NULL;}
+       | TK_NEW type '[' exp ']' {NULL;}
        ;
 
-explist : exp ',' explist
-        | exp
+explist : exp ',' explist {
+                            $$ = mnew(ExpList);
+                            $$->exp = $1;
+                            $$->next = $3;
+                          }
+        | exp {NULL;}
         ;
 
-call : TK_ID '(' explist ')'
-     | TK_ID '(' ')'
+call : TK_ID '(' explist ')' {NULL;}
+     | TK_ID '(' ')' {NULL;}
      ;
 
 %%
