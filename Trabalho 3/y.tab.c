@@ -173,10 +173,11 @@ union YYSTYPE
     char *s;
     List *list;
     CmdBasic *cmdbasic;
+    CmdCall *cmdcall;
     ExpList *explist;
     Type *type;
 
-#line 180 "y.tab.c" /* yacc.c:355  */
+#line 181 "y.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -191,7 +192,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 195 "y.tab.c" /* yacc.c:358  */
+#line 196 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -490,14 +491,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    74,    74,    77,    78,    81,    82,    85,    86,    89,
-      90,    93,    94,    97,   100,   105,   112,   115,   116,   119,
-     120,   123,   124,   125,   128,   129,   130,   131,   134,   135,
-     138,   139,   140,   141,   144,   145,   146,   147,   148,   151,
-     152,   155,   156,   159,   162,   163,   166,   167,   170,   171,
-     172,   173,   174,   175,   178,   179,   180,   183,   184,   185,
-     188,   189,   190,   193,   194,   195,   196,   197,   198,   201,
-     202,   205,   206
+       0,    76,    76,    79,    80,    83,    84,    87,    88,    91,
+      92,    95,    96,    99,   102,   107,   114,   117,   118,   121,
+     122,   125,   126,   127,   130,   131,   132,   133,   136,   137,
+     140,   141,   142,   143,   146,   147,   148,   149,   150,   153,
+     154,   157,   158,   161,   164,   165,   168,   169,   172,   173,
+     174,   175,   176,   177,   180,   181,   182,   185,   186,   187,
+     190,   191,   192,   195,   196,   197,   198,   199,   200,   203,
+     204,   207,   208
 };
 #endif
 
@@ -1367,441 +1368,441 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 74 "../monga.y" /* yacc.c:1646  */
+#line 76 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1373 "y.tab.c" /* yacc.c:1646  */
+#line 1374 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 77 "../monga.y" /* yacc.c:1646  */
+#line 79 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1379 "y.tab.c" /* yacc.c:1646  */
+#line 1380 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 78 "../monga.y" /* yacc.c:1646  */
+#line 80 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1385 "y.tab.c" /* yacc.c:1646  */
+#line 1386 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 81 "../monga.y" /* yacc.c:1646  */
+#line 83 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1391 "y.tab.c" /* yacc.c:1646  */
+#line 1392 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 82 "../monga.y" /* yacc.c:1646  */
+#line 84 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1397 "y.tab.c" /* yacc.c:1646  */
+#line 1398 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 85 "../monga.y" /* yacc.c:1646  */
+#line 87 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1403 "y.tab.c" /* yacc.c:1646  */
+#line 1404 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 86 "../monga.y" /* yacc.c:1646  */
+#line 88 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1409 "y.tab.c" /* yacc.c:1646  */
+#line 1410 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 89 "../monga.y" /* yacc.c:1646  */
+#line 91 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1415 "y.tab.c" /* yacc.c:1646  */
+#line 1416 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 90 "../monga.y" /* yacc.c:1646  */
+#line 92 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1421 "y.tab.c" /* yacc.c:1646  */
+#line 1422 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 93 "../monga.y" /* yacc.c:1646  */
+#line 95 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1427 "y.tab.c" /* yacc.c:1646  */
+#line 1428 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 94 "../monga.y" /* yacc.c:1646  */
+#line 96 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1433 "y.tab.c" /* yacc.c:1646  */
+#line 1434 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 97 "../monga.y" /* yacc.c:1646  */
+#line 99 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1439 "y.tab.c" /* yacc.c:1646  */
+#line 1440 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 100 "../monga.y" /* yacc.c:1646  */
+#line 102 "../monga.y" /* yacc.c:1646  */
     { 
                                    (yyval.list) = mnew(List);
                                    (yyval.list)->id = (yyvsp[0].s);
                                    (yyval.list)->next = NULL;
                                 }
-#line 1449 "y.tab.c" /* yacc.c:1646  */
+#line 1450 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 105 "../monga.y" /* yacc.c:1646  */
+#line 107 "../monga.y" /* yacc.c:1646  */
     { 
                                    (yyval.list) = mnew(List);
                                    (yyval.list)->id = (yyvsp[-2].s);
                                    (yyval.list)->next = (yyvsp[0].list);
                                 }
-#line 1459 "y.tab.c" /* yacc.c:1646  */
+#line 1460 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 112 "../monga.y" /* yacc.c:1646  */
+#line 114 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1465 "y.tab.c" /* yacc.c:1646  */
+#line 1466 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 115 "../monga.y" /* yacc.c:1646  */
+#line 117 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1471 "y.tab.c" /* yacc.c:1646  */
+#line 1472 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 116 "../monga.y" /* yacc.c:1646  */
+#line 118 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1477 "y.tab.c" /* yacc.c:1646  */
+#line 1478 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 119 "../monga.y" /* yacc.c:1646  */
+#line 121 "../monga.y" /* yacc.c:1646  */
     { (yyval.type) = (yyvsp[0].type); }
-#line 1483 "y.tab.c" /* yacc.c:1646  */
+#line 1484 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 120 "../monga.y" /* yacc.c:1646  */
+#line 122 "../monga.y" /* yacc.c:1646  */
     { (yyval.type) = (yyvsp[-2].type); (yyval.type)->brackets++; (yyval.type)->line = (yyvsp[-1].i); }
-#line 1489 "y.tab.c" /* yacc.c:1646  */
+#line 1490 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 123 "../monga.y" /* yacc.c:1646  */
+#line 125 "../monga.y" /* yacc.c:1646  */
     {(yyval.type) = baseTypeInit(VarInt); }
-#line 1495 "y.tab.c" /* yacc.c:1646  */
+#line 1496 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 124 "../monga.y" /* yacc.c:1646  */
+#line 126 "../monga.y" /* yacc.c:1646  */
     {(yyval.type) = baseTypeInit(VarChar); }
-#line 1501 "y.tab.c" /* yacc.c:1646  */
+#line 1502 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 125 "../monga.y" /* yacc.c:1646  */
+#line 127 "../monga.y" /* yacc.c:1646  */
     {(yyval.type) = baseTypeInit(VarFloat); }
-#line 1507 "y.tab.c" /* yacc.c:1646  */
+#line 1508 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 128 "../monga.y" /* yacc.c:1646  */
+#line 130 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1513 "y.tab.c" /* yacc.c:1646  */
+#line 1514 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 129 "../monga.y" /* yacc.c:1646  */
+#line 131 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1519 "y.tab.c" /* yacc.c:1646  */
+#line 1520 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 130 "../monga.y" /* yacc.c:1646  */
+#line 132 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1525 "y.tab.c" /* yacc.c:1646  */
+#line 1526 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 131 "../monga.y" /* yacc.c:1646  */
+#line 133 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1531 "y.tab.c" /* yacc.c:1646  */
+#line 1532 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 134 "../monga.y" /* yacc.c:1646  */
+#line 136 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1537 "y.tab.c" /* yacc.c:1646  */
+#line 1538 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 135 "../monga.y" /* yacc.c:1646  */
+#line 137 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1543 "y.tab.c" /* yacc.c:1646  */
+#line 1544 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 138 "../monga.y" /* yacc.c:1646  */
+#line 140 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1549 "y.tab.c" /* yacc.c:1646  */
+#line 1550 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 139 "../monga.y" /* yacc.c:1646  */
+#line 141 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1555 "y.tab.c" /* yacc.c:1646  */
+#line 1556 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 140 "../monga.y" /* yacc.c:1646  */
+#line 142 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1561 "y.tab.c" /* yacc.c:1646  */
+#line 1562 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 141 "../monga.y" /* yacc.c:1646  */
+#line 143 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1567 "y.tab.c" /* yacc.c:1646  */
+#line 1568 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 144 "../monga.y" /* yacc.c:1646  */
+#line 146 "../monga.y" /* yacc.c:1646  */
     { (yyval.cmdbasic) = cmdBasicInit((yyvsp[-3].var), (yyvsp[-1].exp), '='); }
-#line 1573 "y.tab.c" /* yacc.c:1646  */
+#line 1574 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 145 "../monga.y" /* yacc.c:1646  */
+#line 147 "../monga.y" /* yacc.c:1646  */
     { (yyval.cmdbasic) = cmdBasicInit(NULL, NULL, TK_RETURN); }
-#line 1579 "y.tab.c" /* yacc.c:1646  */
+#line 1580 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 146 "../monga.y" /* yacc.c:1646  */
+#line 148 "../monga.y" /* yacc.c:1646  */
     { (yyval.cmdbasic) = cmdBasicInit(NULL, (yyvsp[-1].exp), TK_RETURN); }
-#line 1585 "y.tab.c" /* yacc.c:1646  */
+#line 1586 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 147 "../monga.y" /* yacc.c:1646  */
+#line 149 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1591 "y.tab.c" /* yacc.c:1646  */
+#line 1592 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 148 "../monga.y" /* yacc.c:1646  */
+#line 150 "../monga.y" /* yacc.c:1646  */
     {NULL;}
-#line 1597 "y.tab.c" /* yacc.c:1646  */
+#line 1598 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 151 "../monga.y" /* yacc.c:1646  */
-    {(yyval.exp) = mnew(Exp); (yyval.exp)->u.f = yylval.f;}
-#line 1603 "y.tab.c" /* yacc.c:1646  */
+#line 153 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpFloat; (yyval.exp)->u.f = yylval.f; }
+#line 1604 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 152 "../monga.y" /* yacc.c:1646  */
-    {(yyval.exp) = mnew(Exp); (yyval.exp)->u.i = yylval.i;}
-#line 1609 "y.tab.c" /* yacc.c:1646  */
+#line 154 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpInt; (yyval.exp)->u.i = yylval.i; }
+#line 1610 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 155 "../monga.y" /* yacc.c:1646  */
-    { (yyval.var) = mnew(Var); (yyval.var)->u.id = (yyvsp[0].s); (yyval.var)->tag = VarId; }
-#line 1615 "y.tab.c" /* yacc.c:1646  */
+#line 157 "../monga.y" /* yacc.c:1646  */
+    { (yyval.var) = mnew(Var); (yyval.var)->u.id = (yyvsp[0].s); (yyval.var)->tag = VarId; (yyval.var)->line = -1; }
+#line 1616 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 156 "../monga.y" /* yacc.c:1646  */
-    {NULL;}
-#line 1621 "y.tab.c" /* yacc.c:1646  */
+#line 158 "../monga.y" /* yacc.c:1646  */
+    {(yyval.var) = mnew(Var); (yyval.var)->tag = VarIndexed; (yyval.var)->u.indexed.e1 = (yyvsp[-3].exp); (yyval.var)->u.indexed.e2 = (yyvsp[-1].exp); (yyval.var)->line = (yyvsp[-2].i); }
+#line 1622 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 159 "../monga.y" /* yacc.c:1646  */
+#line 161 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1627 "y.tab.c" /* yacc.c:1646  */
+#line 1628 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 162 "../monga.y" /* yacc.c:1646  */
+#line 164 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpOr, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1633 "y.tab.c" /* yacc.c:1646  */
+#line 1634 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 163 "../monga.y" /* yacc.c:1646  */
+#line 165 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1639 "y.tab.c" /* yacc.c:1646  */
+#line 1640 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 166 "../monga.y" /* yacc.c:1646  */
+#line 168 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpGreater, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1645 "y.tab.c" /* yacc.c:1646  */
+#line 1646 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 167 "../monga.y" /* yacc.c:1646  */
+#line 169 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1651 "y.tab.c" /* yacc.c:1646  */
+#line 1652 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 170 "../monga.y" /* yacc.c:1646  */
+#line 172 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpGreater, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1657 "y.tab.c" /* yacc.c:1646  */
+#line 1658 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 171 "../monga.y" /* yacc.c:1646  */
+#line 173 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpLess, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1663 "y.tab.c" /* yacc.c:1646  */
+#line 1664 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 172 "../monga.y" /* yacc.c:1646  */
+#line 174 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpLessEqual, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1669 "y.tab.c" /* yacc.c:1646  */
+#line 1670 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 173 "../monga.y" /* yacc.c:1646  */
+#line 175 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpGreaterEqual, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1675 "y.tab.c" /* yacc.c:1646  */
+#line 1676 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 174 "../monga.y" /* yacc.c:1646  */
+#line 176 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpEqual, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1681 "y.tab.c" /* yacc.c:1646  */
+#line 1682 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 175 "../monga.y" /* yacc.c:1646  */
+#line 177 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1687 "y.tab.c" /* yacc.c:1646  */
+#line 1688 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 178 "../monga.y" /* yacc.c:1646  */
+#line 180 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpAdd, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1693 "y.tab.c" /* yacc.c:1646  */
+#line 1694 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 179 "../monga.y" /* yacc.c:1646  */
+#line 181 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpSub, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1699 "y.tab.c" /* yacc.c:1646  */
+#line 1700 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 180 "../monga.y" /* yacc.c:1646  */
+#line 182 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1705 "y.tab.c" /* yacc.c:1646  */
+#line 1706 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 183 "../monga.y" /* yacc.c:1646  */
+#line 185 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpMul, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1711 "y.tab.c" /* yacc.c:1646  */
+#line 1712 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 184 "../monga.y" /* yacc.c:1646  */
+#line 186 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = newBinExp(ExpDiv, (yyvsp[-2].exp), (yyvsp[0].exp), (yyvsp[-1].i)); }
-#line 1717 "y.tab.c" /* yacc.c:1646  */
+#line 1718 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 185 "../monga.y" /* yacc.c:1646  */
+#line 187 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1723 "y.tab.c" /* yacc.c:1646  */
+#line 1724 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 188 "../monga.y" /* yacc.c:1646  */
-    {NULL;}
-#line 1729 "y.tab.c" /* yacc.c:1646  */
+#line 190 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpMinus; (yyval.exp)->u.un = (yyvsp[0].exp); }
+#line 1730 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 189 "../monga.y" /* yacc.c:1646  */
-    {NULL;}
-#line 1735 "y.tab.c" /* yacc.c:1646  */
+#line 191 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpNot; (yyval.exp)->u.un = (yyvsp[0].exp); }
+#line 1736 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 190 "../monga.y" /* yacc.c:1646  */
+#line 192 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1741 "y.tab.c" /* yacc.c:1646  */
+#line 1742 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 193 "../monga.y" /* yacc.c:1646  */
+#line 195 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[0].exp); }
-#line 1747 "y.tab.c" /* yacc.c:1646  */
+#line 1748 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 194 "../monga.y" /* yacc.c:1646  */
-    {(yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpUn;  (yyval.exp)->u.s = (yyvsp[0].s); (yyval.exp)->line = -1; }
-#line 1753 "y.tab.c" /* yacc.c:1646  */
+#line 196 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpString;  (yyval.exp)->u.s = (yyvsp[0].s); (yyval.exp)->line = -1; }
+#line 1754 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 195 "../monga.y" /* yacc.c:1646  */
+#line 197 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpVar;  (yyval.exp)->u.var = (yyvsp[0].var); (yyval.exp)->line = -1; }
-#line 1759 "y.tab.c" /* yacc.c:1646  */
+#line 1760 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 196 "../monga.y" /* yacc.c:1646  */
-    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpCall; (yyval.exp)->line = -1; /* TODO */ }
-#line 1765 "y.tab.c" /* yacc.c:1646  */
+#line 198 "../monga.y" /* yacc.c:1646  */
+    { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpCall; (yyval.exp)->u.call = (yyvsp[0].cmdcall); (yyval.exp)->line = -1; }
+#line 1766 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 197 "../monga.y" /* yacc.c:1646  */
+#line 199 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = (yyvsp[-1].exp); }
-#line 1771 "y.tab.c" /* yacc.c:1646  */
+#line 1772 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 198 "../monga.y" /* yacc.c:1646  */
+#line 200 "../monga.y" /* yacc.c:1646  */
     { (yyval.exp) = mnew(Exp); (yyval.exp)->tag = ExpNew; (yyval.exp)->u.newexp.type = (yyvsp[-3].type); (yyval.exp)->line = (yyvsp[-2].i); (yyval.exp)->u.newexp.exp = (yyvsp[-1].exp);  }
-#line 1777 "y.tab.c" /* yacc.c:1646  */
+#line 1778 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 201 "../monga.y" /* yacc.c:1646  */
+#line 203 "../monga.y" /* yacc.c:1646  */
     { (yyval.explist) = mnew(ExpList); (yyval.explist)->exp = (yyvsp[-2].exp); (yyval.explist)->next = (yyvsp[0].explist); }
-#line 1783 "y.tab.c" /* yacc.c:1646  */
+#line 1784 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 202 "../monga.y" /* yacc.c:1646  */
+#line 204 "../monga.y" /* yacc.c:1646  */
     { (yyval.explist) = mnew(ExpList); (yyval.explist)->exp = (yyvsp[0].exp); (yyval.explist)->next = NULL; }
-#line 1789 "y.tab.c" /* yacc.c:1646  */
+#line 1790 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 205 "../monga.y" /* yacc.c:1646  */
-    {NULL;}
-#line 1795 "y.tab.c" /* yacc.c:1646  */
+#line 207 "../monga.y" /* yacc.c:1646  */
+    {(yyval.cmdcall) = mnew(CmdCall); (yyval.cmdcall)->id = (yyvsp[-3].s); (yyval.cmdcall)->parameters = (yyvsp[-1].explist);}
+#line 1796 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 206 "../monga.y" /* yacc.c:1646  */
-    {NULL;}
-#line 1801 "y.tab.c" /* yacc.c:1646  */
+#line 208 "../monga.y" /* yacc.c:1646  */
+    {(yyval.cmdcall) = mnew(CmdCall); (yyval.cmdcall)->id = (yyvsp[-2].s); (yyval.cmdcall)->parameters = NULL;}
+#line 1802 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1805 "y.tab.c" /* yacc.c:1646  */
+#line 1806 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2029,7 +2030,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 209 "../monga.y" /* yacc.c:1906  */
+#line 211 "../monga.y" /* yacc.c:1906  */
 
 
 int main(void)

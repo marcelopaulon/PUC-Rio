@@ -103,10 +103,11 @@ union YYSTYPE
     char *s;
     List *list;
     CmdBasic *cmdbasic;
+    CmdCall *cmdcall;
     ExpList *explist;
     Type *type;
 
-#line 110 "y.tab.h" /* yacc.c:1909  */
+#line 111 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
