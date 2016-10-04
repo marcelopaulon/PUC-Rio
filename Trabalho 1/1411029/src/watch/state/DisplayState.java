@@ -14,12 +14,12 @@ public class DisplayState extends WatchState {
 	
 	@Override
 	public WatchState APressed() {
-		return null;
+		return new SetHoursState();
 	}
 	
 	@Override
 	public WatchState AReleased() {
-		return new SetHoursState();
+		return null;
 	}
 	
 	@Override

@@ -14,23 +14,23 @@ public class SetMinutesState extends WatchState {
 
 	@Override
 	public WatchState APressed() {
-		return null;
-	}
-
-	@Override
-	public WatchState AReleased() {
 		return new DisplayState();
 	}
 
 	@Override
-	public WatchState BPressed() {
+	public WatchState AReleased() {
 		return null;
 	}
 
 	@Override
-	public WatchState BReleased() {
+	public WatchState BPressed() {
 		_watch.addMinute();
 		return this;
+	}
+
+	@Override
+	public WatchState BReleased() {
+		return null;
 	}
 
 }
