@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 #include "matriz.h"
-#include "gauss.h"
 
 double ** fatoracao (int n, double **A);
 

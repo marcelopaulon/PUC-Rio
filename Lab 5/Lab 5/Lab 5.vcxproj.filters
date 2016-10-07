@@ -21,9 +21,6 @@
     <ClCompile Include="matriz.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gauss.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="teste_interp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="matriz.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gauss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
