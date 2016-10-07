@@ -15,8 +15,8 @@ int main(void)
 
 	for(i = 0; i < n; i++)
 	{
-		printf("lagrange(n, px, py, %.3f) = %.3f \n", x[i], lagrange(n, px, py, x[i]));
-		printf("avalia(n, c, %.3f) = %.3f\n\n\n", x[i], avalia(n, c, x[i]));
+		printf("lagrange(n, px, py, %.6f) = %.16g \n", x[i], lagrange(n, px, py, x[i]));
+		printf("avalia(n, c, %.6f) = %.16g\n\n\n", x[i], avalia(n, c, x[i]));
 	}
 
 	return 0;

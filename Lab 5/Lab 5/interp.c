@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdlib.h>
 
 #include "interp.h"
 
@@ -37,7 +38,7 @@ double** fatoracao (int n, double** A)
 			}
 		}
 
-		for(k = j; k < n; k++)
+		for(k = 0; k < n; k++)
 		{
 			// troca A[j][k] com A[p][k]
 			temp = A[p][k];
@@ -72,7 +73,7 @@ double * substituicao (int n, double **LU, double **P, double *b)
 {
 	int i, j;
 	double *x = mat_cria(1, n)[0];
-	double *Pb = b;	// b will be replaced by P*b
+	double *Pb = mat_cria(1, n)[0];
 
 	// b = P*b
 	mat_multv(n, n, P, b, Pb);
@@ -98,6 +99,8 @@ double * substituicao (int n, double **LU, double **P, double *b)
 
 		x[i] = x[i] / LU[i][j];
 	}
+
+	free(Pb);
 
 	return x;
 }
