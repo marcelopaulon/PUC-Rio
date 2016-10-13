@@ -2,6 +2,7 @@
 
 void printIdent(int level);
 void printType(Type * type, int nIdent);
+void printBinExpType(ExpE type, int nIdent);
 void printExp(Exp * exp, int nIdent);
 void printVar(Var * var, int nIdent);
 void printCmdCall (CmdCall * cmd, int nIdent);
@@ -112,10 +113,145 @@ void printType(Type * type, int nIdent)
     printf("\n");
 }
 
-void printExp(Exp * exp, int nIdent)
+void printBinExpType(ExpE type, int nIdent)
 {
     printIdent(nIdent);
-    printf("Expression!\n");
+    printf("Expression type: ");
+
+    switch(type){
+        case ExpAdd: printf("Addition"); break;
+        case ExpSub: printf("Subtraction"); break;
+        case ExpMul: printf("Multiplication"); break;
+        case ExpDiv: printf("Division"); break;
+        case ExpEqual: printf("Equality"); break;
+        case ExpLess: printf("Comparison (Less Than)"); break;
+        case ExpGreater: printf("Comparison (Greater Than)"); break;
+        case ExpLessEqual: printf("Comparison (Less or Equal Than)"); break;
+        case ExpGreaterEqual: printf("Comparison (Greater or Equal Than)"); break;
+        case ExpOr: printf("Logical Disjunction"); break;
+        case ExpAnd: printf("Logical Conjunction"); break;
+        default: printf("Invalid type"); exit(-6); break;
+    }
+    printf("\n");
+}
+
+void printExp(Exp * exp, int nIdent)
+{
+    if(exp == NULL) return;
+
+    printIdent(nIdent);
+    printf("Expression at line %d:\n", exp->line);
+
+    /*
+    enum ExpE{
+        ExpAdd,
+        ExpSub,
+        ExpMul,
+        ExpDiv,
+        ExpEqual,
+        ExpLess,
+        ExpGreater,
+        ExpLessEqual,
+        ExpGreaterEqual,
+        ExpOr,
+        ExpAnd,
+        ExpVar,
+        ExpCall,
+        ExpNot,
+        ExpMinus,
+        ExpUn,
+        ExpNew,
+        ExpString,
+        ExpInt,
+        ExpFloat
+    };
+
+
+    struct Exp{
+        ExpE tag;
+        union{
+            Exp *un;
+            struct{
+                Exp *e1, *e2;
+            }bin;
+            int l;
+            double d;
+            char *c;
+            Var *var;
+            struct{
+                Type *type;
+                Exp *exp;
+            }newexp;
+            CmdCall *call;
+        } u;
+        int line;
+    };
+    */
+
+    switch(exp->tag){
+        case ExpAdd:
+        case ExpSub:
+        case ExpMul:
+        case ExpDiv:
+        case ExpEqual:
+        case ExpLess:
+        case ExpGreater:
+        case ExpLessEqual:
+        case ExpGreaterEqual:
+        case ExpOr:
+        case ExpAnd:
+            printBinExpType(exp->tag, nIdent+1);
+            printExp(exp->u.bin.e1, nIdent+1);
+            printExp(exp->u.bin.e2, nIdent+1);
+        	break;
+        case ExpVar:
+            printIdent(nIdent+1);
+            printf("Expression type: Variable\n");
+            printVar(exp->u.var, nIdent+1);
+        	break;
+        case ExpCall:
+            printIdent(nIdent+1);
+            printf("Expression type: Function Call\n");
+            printCmdCall(exp->u.call, nIdent+1);
+        	break;
+        case ExpNot:
+            printIdent(nIdent+1);
+            printf("Expression type: Negation\n");
+            printExp(exp->u.un, nIdent+1);
+        	break;
+        case ExpMinus:
+            printIdent(nIdent+1);
+            printf("Expression type: Negative\n");
+            printExp(exp->u.un, nIdent+1);
+        	break;
+        case ExpNew:
+            printIdent(nIdent+1);
+            printf("Expression type: New\n");
+            printType(exp->u.newexp.type, nIdent+1);
+            printExp(exp->u.newexp.exp, nIdent+1);
+        	break;
+        case ExpString:
+            printIdent(nIdent+1);
+            printf("Expression type: String\n");
+            printIdent(nIdent+1);
+            printf("%s\n", exp->u.c);
+        	break;
+        case ExpInt:
+            printIdent(nIdent+1);
+            printf("Expression type: Int\n");
+            printIdent(nIdent+1);
+            printf("%d\n", exp->u.l);
+        	break;
+        case ExpFloat:
+            printIdent(nIdent+1);
+            printf("Expression type: Float\n");
+            printIdent(nIdent+1);
+            printf("%f\n", exp->u.d);
+        	break;
+        default:
+            printf("Invalid expression type. Exiting\n");
+            exit(-5);
+    }
 }
 
 void printVar(Var * var, int nIdent)
