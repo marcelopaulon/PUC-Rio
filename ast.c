@@ -82,8 +82,34 @@ void printIdent(int level){
 
 void printType(Type * type, int nIdent)
 {
+    int i;
+
     printIdent(nIdent);
-    printf("Type!\n");
+
+    if(type == NULL)
+    {
+        return;
+    }
+    
+    printf("Type at line %d: ", type->line); 
+
+    switch(type->name){
+        case VarFloat:
+            printf("float");
+            break;
+        case VarInt:
+            printf("int");
+            break;
+        case VarChar:
+            printf("char");
+            break;
+        default:
+            printf("Invalid type. Exiting.\n");
+            exit(-5);
+    }
+
+    for(i=0;i<type->brackets;i++) printf("[]");
+    printf("\n");
 }
 
 void printExp(Exp * exp, int nIdent)
@@ -96,7 +122,6 @@ void printVar(Var * var, int nIdent)
 {
     printIdent(nIdent);
     printf("Variable at line %d: ", var->line);
-
     switch(var->tag){
         case VarId:
             printf("ID\n");
@@ -115,24 +140,6 @@ void printVar(Var * var, int nIdent)
     }  
     
     printType(&(var->type), nIdent+1);
-    /*
-    typedef struct Var{
-        VarE tag;
-        Type type;
-        union {
-            const char *id;
-            struct{
-                struct Exp *e1, *e2;
-            } indexed;
-        } u;
-        int line;
-    } Var;
-
-    typedef enum VarE{
-        VarId, 
-        VarIndexed
-    } VarE;
-    */
 }
 
 void printCmdCall (CmdCall * cmd, int nIdent)

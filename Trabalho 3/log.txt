@@ -22,184 +22,184 @@ python runTests.py
 Pass tests:
 
 Test 1.monga: 
-['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n']
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType at line 0: int\n', '\t\tList:\n']
 
 Test 2.monga: 
-['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n']
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType at line 0: float\n', '\t\tList:\n']
 
 Test 3.monga: 
-['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n']
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType at line 0: char\n', '\t\tList:\n']
 
 Test 4.monga: 
-['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n']
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType at line 0: int\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n', 'Definition:\n', '\tDefVar:\n', '\t\tType at line 0: float\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n', 'Definition:\n', '\tDefVar:\n', '\t\tType at line 0: char\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n']
 
 Test 5.monga: 
-['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList:\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n', '\t\t(null)\n']
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType at line 5: int[]\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n', 'Definition:\n', '\tDefVar:\n', '\t\tType at line 6: float[][]\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n', 'Definition:\n', '\tDefVar:\n', '\t\tType at line 7: char[]\n', '\t\tList:\n', '\t\ta\n', '\t\tb\n', '\t\tc\n', '\t\td\n', '\t\te\n', '\t\tf\n']
 
 Test 6.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType at line 0: int\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 7.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType at line 0: int\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 8.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType at line 0: int\n', '\t\tParameters List:\n', '\t\t\tParameter: b\n', '\t\t\t\tType at line 0: char\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 9.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\t\tParameter: (null)\n', '\t\t\t\tType!\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType at line 0: int\n', '\t\tParameters List:\n', '\t\t\tParameter: b\n', '\t\t\t\tType at line 5: char[]\n', '\t\t\tParameter: c\n', '\t\t\t\tType at line 5: int[]\n', '\t\t\tParameter: d\n', '\t\t\t\tType at line 0: char\n', '\t\t\tParameter: e\n', '\t\t\t\tType at line 0: int\n', '\t\t\tParameter: f\n', '\t\t\t\tType at line 5: float[]\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 10.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 11.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 12.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 13.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 14.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 15.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 16.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType at line 0: float\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: aaa\n', '\t\tType at line 0: int\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 17.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 18.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 49\n', '\t\t\t\t\t\tCommand type: Return\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 49\n', '\t\t\t\t\t\tCommand type: Return\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 19.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: f\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 20.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 21.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 22.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 23.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 24.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 25.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 26.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 27.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 28.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 29.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 30.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 31.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 32.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 33.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 34.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 35.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 36.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 37.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 38.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 7\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 39.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 40.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 41.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 42.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 43.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 44.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 45.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 46.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 47.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n']
 
 Test 48.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 0: int\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 0: int\n', '\t\t\t\t\tList:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 11\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 12\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tb\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 13\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 14\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\td\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 15\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 16\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 17\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 18\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 19\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 20\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\td\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 21\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 22\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 23\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 24\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 25\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 26\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 27\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tb\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 28\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 29\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 30\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tc\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 49.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 9\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 50.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 9\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 51.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 52.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 53.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 54.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 55.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 56.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 57.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 58.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 59.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 8\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\ta\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Test 60.monga: 
-['PASSDefinition:\n', '\tFunc: (null)\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType!\n', '\t\t\t\t\tList:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line 0: Indexed\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line 0: Indexed\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 0\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\t(null)\n', '\t\t\t\t\t\t\tType!\n', '\t\t\t\t\t\tExpression!\n']
+['PASSDefinition:\n', '\tFunc: a\n', '\t\t\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 7: int[]\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 8: int[][]\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 9: float[][][][]\n', '\t\t\t\t\tList:\n', '\t\t\t\tDefVar:\n', '\t\t\t\t\tType at line 10: float[][][][][][]\n', '\t\t\t\t\tList:\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 13\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line 13: Indexed\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 14\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line 14: Indexed\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tExpression!\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 15\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tbb\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n', '\t\t\t\tCommand at line 0\n', '\t\t\t\t\tExpression!\n', '\t\t\t\t\tCommand type: Basic Command\n', '\t\t\t\t\tBasic Command at line 16\n', '\t\t\t\t\t\tCommand type: Variable Assignment\n', '\t\t\t\t\t\tVariable at line -1: ID\n', '\t\t\t\t\t\tbb\n', '\t\t\t\t\t\t\tType at line 0: float\n', '\t\t\t\t\t\tExpression!\n']
 
 Fail tests:
 
