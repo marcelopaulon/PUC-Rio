@@ -16,9 +16,9 @@ extern MongaToken token;
 
 static int curLine = 1;
 
-MongaData getSymbolData(int symbol, char *data)
+MONGA_UNION_TYPE getSymbolData(int symbol, char *data)
 {
-  MongaData mongaData;
+  MONGA_UNION_TYPE mongaData;
   char *idStr;
   int base;
   
@@ -97,6 +97,11 @@ int addSymbol(int symbol, char *data)
   token.symbol = symbol;
   token.data = getSymbolData(symbol, data);
   token.line = curLine;
+  
+  #ifdef YACC
+  yylval = token.data;
+  #endif
+
   return symbol;
 }
 %}

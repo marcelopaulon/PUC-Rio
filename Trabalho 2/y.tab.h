@@ -91,7 +91,34 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
+{
+#line 56 "../monga.y" /* yacc.c:1909  */
+
+    Exp *exp;
+    Var *var;
+    int l;
+    double d;
+    char *c;
+    List *list;
+    Cmd *cmd;
+    CmdList *cmdlist;
+    CmdBasic *cmdbasic;
+    CmdCall *cmdcall;
+    ExpList *explist;
+    Type *type;
+    DefVar *defvar;
+    DefVarList *defvarlist;
+    Param *param;
+    ParamList *paramlist;
+    Block *block;
+    Func *func;
+    Definition *definition;
+    DefinitionList *definitionlist;
+
+#line 121 "y.tab.h" /* yacc.c:1909  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

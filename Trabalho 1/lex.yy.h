@@ -3,6 +3,8 @@
 
 #define DEBUG 0
 
+#define MONGA_UNION_TYPE MongaData
+
 extern int yylex(void);
 
 typedef enum mongaSymbol {
@@ -35,7 +37,7 @@ typedef union mongaData {
 
 typedef struct mongaToken {
   MongaSymbol symbol;
-  MongaData data;
+  MONGA_UNION_TYPE data;
   int line;
 } MongaToken;
 

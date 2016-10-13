@@ -1,0 +1,393 @@
+echo "LEMBRE DE ME TIRAR ANTES DE ENVIAR O TRABALHO" 
+LEMBRE DE ME TIRAR ANTES DE ENVIAR O TRABALHO
+reset 
+make clean 
+make[1]: Entering directory `/home/kek/comp/Trabalho 3'
+rm -rf *.o
+rm -rf y.tab.c
+rm -rf lex.yy.c
+rm -rf lex.yy.h
+rm -rf output.txt
+make[1]: Leaving directory `/home/kek/comp/Trabalho 3'
+make
+make[1]: Entering directory `/home/kek/comp/Trabalho 3'
+lex ../monga.lex
+yacc -d ../monga.y
+cp ../lex.yy.h lex.yy.h
+gcc -o lex.yy.o -c lex.yy.c -Wall -Wno-maybe-uninitialized -O2
+gcc -o ast.o -c ../ast.c -Wall -Wno-maybe-uninitialized -O2
+gcc -o y.tab.o -c y.tab.c -Wall -Wno-maybe-uninitialized -O2
+gcc -o teste lex.yy.o ast.o y.tab.o
+python runTests.py
+Pass tests:
+
+Test 1.monga: 
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n']
+
+Test 2.monga: 
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n']
+
+Test 3.monga: 
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n']
+
+Test 4.monga: 
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n']
+
+Test 5.monga: 
+['PASSDefinition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n', 'Definition:\n', '\tDefVar:\n', '\t\tType!\n', '\t\tList!\n']
+
+Test 6.monga: 
+['NELSONa\n', 'PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 7.monga: 
+['NELSONa\n', 'PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 8.monga: 
+['NELSONa\n', 'PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\t\tParameter: b\n', '\t\t\t\tType!\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 9.monga: 
+['NELSONa\n', 'PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\t\tParameter: b\n', '\t\t\t\tType!\n', '\t\t\tParameter: c\n', '\t\t\t\tType!\n', '\t\t\tParameter: d\n', '\t\t\t\tType!\n', '\t\t\tParameter: e\n', '\t\t\t\tType!\n', '\t\t\tParameter: f\n', '\t\t\t\tType!\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 10.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 11.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 12.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 13.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 14.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 15.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 16.monga: 
+['NELSONa\n', 'NELSONaaa\n', 'PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: aaa\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 17.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 18.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 19.monga: 
+['PASSDefinition:\n', '\tFunc: f\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 20.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 21.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 22.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 23.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 24.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 25.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 26.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 27.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 28.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 29.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 30.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 31.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 32.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 33.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 34.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 35.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', 'Definition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 36.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 37.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 38.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 39.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 40.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 41.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 42.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 43.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 44.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 45.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 46.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 47.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n']
+
+Test 48.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n']
+
+Test 49.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n']
+
+Test 50.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n']
+
+Test 51.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 52.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 53.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 54.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 55.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 56.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 57.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 58.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 59.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n']
+
+Test 60.monga: 
+['PASSDefinition:\n', '\tFunc: a\n', '\t\tType!\n', '\t\tParameters List:\n', '\t\tBlock:\n', '\t\t\tDef Var List!\n', '\t\t\tCommand List:\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n', '\t\t\t\tCommand!\n']
+
+Fail tests:
+
+Test 1.notmonga: 
+['FAIL - Unexpected token #275 on line: 5']
+
+Test 2.notmonga: 
+['FAIL - Unexpected token #272 on line: 5']
+
+Test 3.notmonga: 
+['FAIL - Unexpected token #272 on line: 5']
+
+Test 4.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 5.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 6.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 7.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 8.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 9.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 10.notmonga: 
+['FAIL - Unexpected token #270 on line: 5']
+
+Test 11.notmonga: 
+['FAIL - Unexpected token #61 on line: 7']
+
+Test 12.notmonga: 
+['FAIL - Unexpected token #62 on line: 7']
+
+Test 13.notmonga: 
+['FAIL - Unexpected token #261 on line: 7']
+
+Test 14.notmonga: 
+['FAIL - Unexpected token #270 on line: 7']
+
+Test 15.notmonga: 
+['FAIL - Unexpected token #61 on line: 5']
+
+Test 16.notmonga: 
+['FAIL - Unexpected token #40 on line: 5']
+
+Test 17.notmonga: 
+['FAIL - Unexpected token #123 on line: 5']
+
+Test 18.notmonga: 
+['FAIL - Unexpected token #125 on line: 13']
+
+Test 19.notmonga: 
+['FAIL - Unexpected token #270 on line: 7']
+
+Test 20.notmonga: 
+['FAIL - Unexpected token #259 on line: 7']
+
+Test 21.notmonga: 
+['FAIL - Unexpected token #264 on line: 7']
+
+Test 22.notmonga: 
+['FAIL - Unexpected token #271 on line: 7']
+
+Test 23.notmonga: 
+['FAIL - Unexpected token #123 on line: 7']
+
+Test 24.notmonga: 
+['FAIL - Unexpected token #59 on line: 7']
+
+Test 25.notmonga: 
+['FAIL - Unexpected token #259 on line: 8']
+
+Test 26.notmonga: 
+['FAIL - Unexpected token #62 on line: 7']
+
+Test 27.notmonga: 
+['FAIL - Unexpected token #61 on line: 7']
+
+Test 28.notmonga: 
+['FAIL - Unexpected token #61 on line: 8']
+
+Test 29.notmonga: 
+['FAIL - Unexpected token #123 on line: 13']
+
+Test 30.notmonga: 
+['FAIL - Unexpected token #271 on line: 5']
+
+Test 31.notmonga: 
+['FAIL - Unexpected token #61 on line: 7']
+
+Test 32.notmonga: 
+['FAIL - Unexpected token #43 on line: 7']
+
+Test 33.notmonga: 
+['FAIL - Unexpected token #61 on line: 7']
+
+Test 34.notmonga: 
+['FAIL - Unexpected token #59 on line: 7']
+
+Test 35.notmonga: 
+['FAIL - Unexpected token #272 on line: 5']
+
+Test 36.notmonga: 
+['FAIL - Unexpected token #275 on line: 5']
+
+Test 37.notmonga: 
+['FAIL - Unexpected token #46 on line: 7']
+
+Test 38.notmonga: 
+['FAIL - Unexpected token #40 on line: 7']
+
+Test 39.notmonga: 
+['FAIL - Unexpected token #59 on line: 7']
+
+Test 40.notmonga: 
+['FAIL - Unexpected token #43 on line: 5']
+
+Test 41.notmonga: 
+['FAIL - Unexpected token #123 on line: 6']
+
+Test 42.notmonga: 
+['FAIL - Unexpected token #42 on line: 7']
+
+Test 43.notmonga: 
+['FAIL - Unexpected token #37 on line: 7']
+
+Test 44.notmonga: 
+['FAIL - Unexpected token #272 on line: 7']
+
+Test 45.notmonga: 
+['FAIL - Unexpected token #264 on line: 7']
+
+Test 46.notmonga: 
+['FAIL - Unexpected token #40 on line: 7']
+
+Test 47.notmonga: 
+['FAIL - Unexpected token #40 on line: 7']
+
+Test 48.notmonga: 
+['FAIL - Unexpected token #43 on line: 11']
+
+Test 49.notmonga: 
+['FAIL - Unexpected token #42 on line: 7']
+
+Test 50.notmonga: 
+['FAIL - Unexpected token #275 on line: 7']
+
+Test 51.notmonga: 
+['FAIL - Unexpected token #61 on line: 7']
+
+Test 52.notmonga: 
+['FAIL - Unexpected token #59 on line: 8']
+
+Test 53.notmonga: 
+['FAIL - Unexpected token #270 on line: 8']
+
+Test 54.notmonga: 
+['FAIL - Unexpected token #262 on line: 9']
+
+Test 55.notmonga: 
+['FAIL - Unexpected token #269 on line: 7']
+
+Test 56.notmonga: 
+['FAIL - Unexpected token #267 on line: 7']
+
+Test 57.notmonga: 
+['FAIL - Unexpected token #123 on line: 10']
+
+Test 58.notmonga: 
+['FAIL - Unexpected token #41 on line: 9']
+
+Test 59.notmonga: 
+['FAIL - Unexpected token #33 on line: 9']
+
+Test 60.notmonga: 
+['FAIL - Unexpected token #91 on line: 8']
+
+Finished! 60/120 tests passed.
+
+rm -rf *.o
+rm -rf y.tab.c
+rm -rf lex.yy.c
+rm -rf lex.yy.h
+rm -rf output.txt
+make[1]: Leaving directory `/home/kek/comp/Trabalho 3'

@@ -10,6 +10,8 @@
 #include "../ast.h"
 #include "lex.yy.h"
 
+#define MONGA_YACC
+
 void yyerror(const char *);
 
 MongaToken token;
@@ -21,42 +23,42 @@ DefinitionList *tree = NULL;
 %nonassoc IF_ONLY
 %nonassoc TK_ELSE
 
-%token <i> TK_LE
-%token <i> TK_GE
-%token <i> TK_AND
-%token <i> TK_OR
-%token <i> TK_IF
-%token <i> TK_ELSE
-%token <i> TK_CHAR
-%token <i> TK_FLOAT
-%token <i> TK_INT
-%token <i> TK_NEW
-%token <i> TK_RETURN
-%token <i> TK_VOID
-%token <i> TK_WHILE
-%token <s> TK_ID
-%token <i> TK_UNKNOWN
-%token <f> TK_DOUBLE_NUMBER
-%token <i> TK_LONG_NUMBER
-%token <s> TK_STRING
-%token <i> TK_EQ
-%token <i> '+'
-%token <i> '-'
-%token <i> '*'
-%token <i> '/'
-%token <i> '='
-%token <i> '>'
-%token <i> '<'
-%token <i> '('
-%token <i> '['
-%token <i> ';'
+%token <l> TK_LE
+%token <l> TK_GE
+%token <l> TK_AND
+%token <l> TK_OR
+%token <l> TK_IF
+%token <l> TK_ELSE
+%token <l> TK_CHAR
+%token <l> TK_FLOAT
+%token <l> TK_INT
+%token <l> TK_NEW
+%token <l> TK_RETURN
+%token <l> TK_VOID
+%token <l> TK_WHILE
+%token <c> TK_ID
+%token <l> TK_UNKNOWN
+%token <d> TK_DOUBLE_NUMBER
+%token <l> TK_LONG_NUMBER
+%token <c> TK_STRING
+%token <l> TK_EQ
+%token <l> '+'
+%token <l> '-'
+%token <l> '*'
+%token <l> '/'
+%token <l> '='
+%token <l> '>'
+%token <l> '<'
+%token <l> '('
+%token <l> '['
+%token <l> ';'
 
 %union{
     Exp *exp;
     Var *var;
-    int i;
-    double f;
-    char *s;
+    int l;
+    double d;
+    char *c;
     List *list;
     Cmd *cmd;
     CmdList *cmdlist;
@@ -107,7 +109,7 @@ definition : defvar                { $$ = mnew(Definition); $$->type = TypeDefVa
            | deffunc               { $$ = mnew(Definition); $$->type = TypeDefFunc; $$->u.deffunc = $1; }
            ;
 
-deffunc : type TK_ID '(' funcparams ')' block { $$ = mnew(Func); $$->type = $1; $$->id = $2; $$->params = $4; $$->block = $6; }
+deffunc : type TK_ID '(' funcparams ')' block { $$ = mnew(Func); $$->type = $1; $$->id = $2; printf("NELSON%s\n",$2); $$->params = $4; $$->block = $6; }
         | TK_VOID TK_ID '(' funcparams ')' block { $$ = mnew(Func); $$->type = NULL; $$->id = $2; $$->params = $4; $$->block = $6; }
         ;
 
@@ -173,8 +175,8 @@ commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }
             | block {NULL;}
             ;
 
-numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->tag = ExpFloat; $$->u.f = yylval.f; }
-        | TK_LONG_NUMBER { $$ = mnew(Exp); $$->tag = ExpInt; $$->u.i = yylval.i; }
+numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->tag = ExpFloat; $$->u.d = yylval.d; }
+        | TK_LONG_NUMBER { $$ = mnew(Exp); $$->tag = ExpInt; $$->u.l = yylval.l; }
         ;
 
 var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; $$->line = -1; }
@@ -216,7 +218,7 @@ expunary : '-' expothers { $$ = mnew(Exp); $$->tag = ExpMinus; $$->u.un = $2; }
          ; 
 
 expothers : numeral { $$ = $1; }
-       | TK_STRING { $$ = mnew(Exp); $$->tag = ExpString;  $$->u.s = $1; $$->line = -1; }
+       | TK_STRING { $$ = mnew(Exp); $$->tag = ExpString;  $$->u.c = $1; $$->line = -1; }
        | var { $$ = mnew(Exp); $$->tag = ExpVar;  $$->u.var = $1; $$->line = -1; }
        | call { $$ = mnew(Exp); $$->tag = ExpCall; $$->u.call = $1; $$->line = -1; }
        | '(' exp ')' { $$ = $2; }

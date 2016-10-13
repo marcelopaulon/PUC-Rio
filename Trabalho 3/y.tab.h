@@ -94,13 +94,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 54 "../monga.y" /* yacc.c:1909  */
+#line 56 "../monga.y" /* yacc.c:1909  */
 
     Exp *exp;
     Var *var;
-    int i;
-    double f;
-    char *s;
+    int l;
+    double d;
+    char *c;
     List *list;
     Cmd *cmd;
     CmdList *cmdlist;

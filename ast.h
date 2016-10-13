@@ -167,9 +167,9 @@ struct Exp{
         struct{
             Exp *e1, *e2;
         }bin;
-        int i;
-        double f;
-        char *s;
+        int l;
+        double d;
+        char *c;
         Var *var;
         struct{
             Type *type;

@@ -3,6 +3,8 @@
 
 #define DEBUG 0
 
+#define MONGA_UNION_TYPE YYSTYPE
+
 #include "y.tab.h"
 
 extern int yylex(void);
@@ -15,7 +17,7 @@ typedef union mongaData {
 
 typedef struct mongaToken {
   int symbol;
-  MongaData data;
+  YYSTYPE data;
   int line;
 } MongaToken;
 
