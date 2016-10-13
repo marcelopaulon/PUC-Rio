@@ -98,7 +98,7 @@ int addSymbol(int symbol, char *data)
   token.data = getSymbolData(symbol, data);
   token.line = curLine;
   
-  #ifdef YACC
+  #ifdef MONGA_YACC
   yylval = token.data;
   #endif
 

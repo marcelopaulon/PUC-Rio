@@ -2,7 +2,12 @@
 
 void printIdent(int level);
 void printType(Type * type, int nIdent);
-void printList(List * paramlist, int nIdent);
+void printExp(Exp * exp, int nIdent);
+void printVar(Var * var, int nIdent);
+void printCmdCall (CmdCall * cmd, int nIdent);
+void printCmdBasic(CmdBasic * cmd, int nIdent);
+void printList(List * list, int nIdent);
+void printExpList(ExpList * list, int nIdent);
 void printDefVarList(DefVarList * list, int nIdent);
 void printCmdList(CmdList * list, int nIdent);
 void printParamList(ParamList * paramlist, int nIdent);
@@ -81,16 +86,145 @@ void printType(Type * type, int nIdent)
     printf("Type!\n");
 }
 
-void printList(List * paramlist, int nIdent)
+void printExp(Exp * exp, int nIdent)
 {
     printIdent(nIdent);
-    printf("List!\n");
+    printf("Expression!\n");
+}
+
+void printVar(Var * var, int nIdent)
+{
+    printIdent(nIdent);
+    printf("Variable at line %d: ", var->line);
+
+    switch(var->tag){
+        case VarId:
+            printf("ID\n");
+            printIdent(nIdent);
+            if(var->u.id != NULL) printf("%s\n", var->u.id);
+            else printf("(null)\n");
+            break;
+        case VarIndexed:
+            printf("Indexed\n");
+            printExp(var->u.indexed.e1, nIdent + 1);
+            printExp(var->u.indexed.e2, nIdent + 1);
+            break;
+        default:
+            printf("Invalid variable tag type. Exiting.\n");
+            exit(-4);
+    }  
+    
+    printType(&(var->type), nIdent+1);
+    /*
+    typedef struct Var{
+        VarE tag;
+        Type type;
+        union {
+            const char *id;
+            struct{
+                struct Exp *e1, *e2;
+            } indexed;
+        } u;
+        int line;
+    } Var;
+
+    typedef enum VarE{
+        VarId, 
+        VarIndexed
+    } VarE;
+    */
+}
+
+void printCmdCall (CmdCall * cmd, int nIdent)
+{
+    printIdent(nIdent);
+    printf("Command Call: %s\n", cmd->id);
+
+    printExpList(cmd->parameters, nIdent+1);
+}
+
+void printCmdBasic(CmdBasic * cmd, int nIdent)
+{
+    printIdent(nIdent);
+    printf("Basic Command at line %d\n", cmd->line);
+
+    printIdent(nIdent+1);
+    printf("Command type: ");
+    switch(cmd->type){
+        case CmdBasicReturn:
+            printf("Return\n");
+            printExp(cmd->u.returnExp, nIdent + 1);
+            break;
+        case CmdBasicCall:
+            printf("Function call\n");
+            printCmdCall(cmd->u.call, nIdent + 1);
+            break;
+        case CmdBasicVar:
+            printf("Variable Assignment\n");
+            printVar(cmd->u.varCmd.var, nIdent+1);
+            printExp(cmd->u.varCmd.exp, nIdent+1);
+            break;
+        default:
+            printf("Invalid command type. Exiting.\n");
+            exit(-3);
+    }
+}
+
+void printList(List * list, int nIdent)
+{
+    List * current;
+
+    printIdent(nIdent);
+    printf("List:\n");
+
+    if(list == NULL)
+    {
+        return;
+    }
+
+    for(current = list; current->next != NULL; current = current->next)
+    {
+            printIdent(nIdent);
+
+            if(current->id != NULL) printf("%s\n", current->id);
+            else printf("(null)\n");
+    }
+}
+
+void printExpList(ExpList * list, int nIdent)
+{
+    ExpList * current;
+
+    printIdent(nIdent);
+    printf("Expression List:\n");
+
+    if(list == NULL)
+    {
+        return;
+    }
+
+    for(current = list; current->next != NULL; current = current->next)
+    {
+        printExp(current->exp, nIdent+1);
+    }
 }
 
 void printDefVarList(DefVarList * list, int nIdent)
 {
+    DefVarList * current;
+
     printIdent(nIdent);
-    printf("Def Var List!\n");
+    printf("Def Var List:\n");
+
+    if(list == NULL)
+    {
+        return;
+    }
+
+    for(current = list; current->next != NULL; current = current->next)
+    {
+        printDefVar(current->defvar, nIdent+1);
+    }
 }
 
 void printCmdList(CmdList * list, int nIdent)
@@ -141,34 +275,34 @@ void printBlock(Block * block, int nIdent)
 void printCmd(Cmd * cmd, int nIdent)
 {
     printIdent(nIdent);
-    printf("Command!\n");
-
-    /*
-    CmdE type;
-    Exp *e;
-    union{
-        Cmd *cmd;
-        struct{
-            Cmd *c1;
-            Cmd *c2;
-        } cmds;
-        CmdBasic *cmdBasic;
-        CmdCall *call;
-        CmdList *cmdList;
-    } u;
-    int line;
-    */
-
+    printf("Command at line %d\n", cmd->line);
     
+    printExp(cmd->e, nIdent+1);
 
-    /*
-        enum CmdE{
-            CmdWhile,
-            CmdIf,
-            CmdArray,
-            CmdBasicE
-        };
-    */
+    printIdent(nIdent+1);
+    printf("Command type: ");
+    switch(cmd->type){
+        case CmdWhile:
+            printf("While\n");
+            printCmd(cmd->u.cmd, nIdent+1);
+            break;
+        case CmdIf:
+            printf("If\n");
+            printCmd(cmd->u.cmd, nIdent+1);
+            break;
+        case CmdIfElse:
+            printf("If and Else\n");
+            printCmd(cmd->u.cmds.c1, nIdent+1);
+            printCmd(cmd->u.cmds.c2, nIdent+1);
+            break;
+        case CmdBasicE:
+            printf("Basic Command\n");
+            printCmdBasic(cmd->u.cmdBasic, nIdent+1);
+            break;
+        default:
+            printf("Invalid command type. Exiting.\n");
+            exit(-2);
+    }
 }
 
 void printParam(Param * param, int nIdent)

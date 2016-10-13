@@ -109,6 +109,7 @@ typedef struct Var{
 enum CmdE{
     CmdWhile,
     CmdIf,
+    CmdIfElse,
     CmdArray,
     CmdBasicE
 };

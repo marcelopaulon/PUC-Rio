@@ -3,6 +3,7 @@
 
 #define DEBUG 0
 
+#define MONGA_YACC
 #define MONGA_UNION_TYPE YYSTYPE
 
 #include "y.tab.h"
