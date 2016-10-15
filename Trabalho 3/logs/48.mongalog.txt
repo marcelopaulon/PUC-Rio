@@ -1,21 +1,22 @@
 PASSDefinition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 				DefVar:
 					Type: int
 					List:
-					a
+						a
 				DefVar:
 					Type: int
 					List:
-					b
+						b
 				DefVar:
 					Type: float
 					List:
-					c
-					d
+						c
+						d
 			Command List:
 				Command
 					Command type: Basic Command

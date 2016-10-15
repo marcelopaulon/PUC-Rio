@@ -1,28 +1,29 @@
 PASSDefinition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 				DefVar:
 					Type at line 7: int[]
 					List:
-					a
+						a
 				DefVar:
 					Type at line 8: int[][]
 					List:
-					b
+						b
 				DefVar:
 					Type at line 9: float[][][][]
 					List:
-					c
+						c
 				DefVar:
 					Type at line 10: float[][][][][][]
 					List:
-					d
+						d
 				DefVar:
 					Type: int
 					List:
-					bb
+						bb
 			Command List:
 				Command
 					Command type: Basic Command

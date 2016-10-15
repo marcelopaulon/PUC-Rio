@@ -1,6 +1,7 @@
 PASSDefinition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:
@@ -21,7 +22,8 @@ PASSDefinition:
 								3.141500
 Definition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:
@@ -42,7 +44,8 @@ Definition:
 								3.141500
 Definition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:
@@ -63,7 +66,8 @@ Definition:
 								3.141500
 Definition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:

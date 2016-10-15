@@ -1,6 +1,7 @@
 PASSDefinition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:

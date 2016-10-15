@@ -2,32 +2,32 @@ PASSDefinition:
 	DefVar:
 		Type at line 5: int[]
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g
 Definition:
 	DefVar:
 		Type at line 6: float[][]
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g
 Definition:
 	DefVar:
 		Type at line 7: char[]
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g

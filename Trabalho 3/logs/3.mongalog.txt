@@ -2,4 +2,4 @@ PASSDefinition:
 	DefVar:
 		Type: char
 		List:
-		a
+			a

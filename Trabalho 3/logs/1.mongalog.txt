@@ -2,4 +2,4 @@ PASSDefinition:
 	DefVar:
 		Type: int
 		List:
-		a
+			a

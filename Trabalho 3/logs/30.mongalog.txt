@@ -1,6 +1,7 @@
 PASSDefinition:
 	Func: a
-				Parameters List:
+		Type: void
+		Parameters List:
 		Block:
 			Def Var List:
 			Command List:
@@ -18,7 +19,12 @@ PASSDefinition:
 					Command type: While
 					Command
 						Command type: Basic Command
-						Basic Command at line 49
-							Command type: Return
-							Expression at line 33
-Invalid expression type. Exiting
+						Basic Command
+							Command type: Block
+							Block:
+								Def Var List:
+								Command List:
+									Command
+										Command type: Basic Command
+										Basic Command at line 9
+											Command type: Return

@@ -80,6 +80,15 @@ CmdBasic *cmdBasicCallInit(CmdCall *call, int line)
     return cmd;
 }
 
+CmdBasic *cmdBasicBlockInit(Block *block)
+{
+    CmdBasic *cmd = mnew(CmdBasic);
+    cmd->type = CmdBasicBlock;
+    cmd->u.block = block;
+    cmd->line = -1;
+    return cmd;
+}
+
 void printIdent(int level){
     int i;
     for(i=0;i<level;i++) printf("\t");
@@ -100,6 +109,7 @@ void printType(Type * type, int nIdent)
 
     if(type == NULL)
     {
+        printf("Type: void\n");
         return;
     }
     
@@ -265,6 +275,10 @@ void printCmdBasic(CmdBasic * cmd, int nIdent)
             printf("Function call\n");
             printCmdCall(cmd->u.call, nIdent + 1);
             break;
+        case CmdBasicBlock:
+            printf("Block\n");
+            printBlock(cmd->u.block, nIdent + 1);
+            break;
         case CmdBasicVar:
             printf("Variable Assignment\n");
             printVar(cmd->u.varCmd.var, nIdent+1);
@@ -290,7 +304,7 @@ void printList(List * list, int nIdent)
 
     for(current = list; current != NULL; current = current->next)
     {
-            printIdent(nIdent);
+            printIdent(nIdent+1);
 
             if(current->id != NULL) printf("%s\n", current->id);
             else printf("(null)\n");

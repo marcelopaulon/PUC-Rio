@@ -170,7 +170,7 @@ commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }
             | TK_RETURN ';'  { $$ = cmdBasicReturnInit(NULL, $2); }
             | TK_RETURN exp ';' { $$ = cmdBasicReturnInit($2, $3); }
             | call ';' { $$ = cmdBasicCallInit($1, $2); }
-            | block {NULL;}
+            | block { $$ = cmdBasicBlockInit($1); }
             ;
 
 numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->tag = ExpFloat; $$->u.d = yylval.d; }

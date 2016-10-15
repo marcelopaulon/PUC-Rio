@@ -2,32 +2,32 @@ PASSDefinition:
 	DefVar:
 		Type: int
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g
 Definition:
 	DefVar:
 		Type: float
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g
 Definition:
 	DefVar:
 		Type: char
 		List:
-		a
-		b
-		c
-		d
-		e
-		f
-		g
+			a
+			b
+			c
+			d
+			e
+			f
+			g

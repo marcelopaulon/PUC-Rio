@@ -199,6 +199,7 @@ struct CmdBasic{
         } varCmd;
         Exp *returnExp;
         CmdCall *call;
+        Block *block;
     } u;
     int line;
 };
@@ -220,6 +221,7 @@ Type *baseTypeInit(VarType type);
 CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line);
 CmdBasic *cmdBasicReturnInit(Exp *exp, int line);
 CmdBasic *cmdBasicCallInit(CmdCall *call, int line);
+CmdBasic *cmdBasicBlockInit(Block *block);
 
 void printAST(DefinitionList *tree);
 
