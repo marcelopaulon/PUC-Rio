@@ -142,52 +142,6 @@ void printExp(Exp * exp, int nIdent)
     printIdent(nIdent);
     printf("Expression at line %d:\n", exp->line);
 
-    /*
-    enum ExpE{
-        ExpAdd,
-        ExpSub,
-        ExpMul,
-        ExpDiv,
-        ExpEqual,
-        ExpLess,
-        ExpGreater,
-        ExpLessEqual,
-        ExpGreaterEqual,
-        ExpOr,
-        ExpAnd,
-        ExpVar,
-        ExpCall,
-        ExpNot,
-        ExpMinus,
-        ExpUn,
-        ExpNew,
-        ExpString,
-        ExpInt,
-        ExpFloat
-    };
-
-
-    struct Exp{
-        ExpE tag;
-        union{
-            Exp *un;
-            struct{
-                Exp *e1, *e2;
-            }bin;
-            int l;
-            double d;
-            char *c;
-            Var *var;
-            struct{
-                Type *type;
-                Exp *exp;
-            }newexp;
-            CmdCall *call;
-        } u;
-        int line;
-    };
-    */
-
     switch(exp->tag){
         case ExpAdd:
         case ExpSub:
@@ -325,7 +279,7 @@ void printList(List * list, int nIdent)
         return;
     }
 
-    for(current = list; current->next != NULL; current = current->next)
+    for(current = list; current != NULL; current = current->next)
     {
             printIdent(nIdent);
 
@@ -346,7 +300,7 @@ void printExpList(ExpList * list, int nIdent)
         return;
     }
 
-    for(current = list; current->next != NULL; current = current->next)
+    for(current = list; current != NULL; current = current->next)
     {
         printExp(current->exp, nIdent+1);
     }
@@ -364,7 +318,7 @@ void printDefVarList(DefVarList * list, int nIdent)
         return;
     }
 
-    for(current = list; current->next != NULL; current = current->next)
+    for(current = list; current != NULL; current = current->next)
     {
         printDefVar(current->defvar, nIdent+1);
     }
@@ -382,7 +336,7 @@ void printCmdList(CmdList * list, int nIdent)
         return;
     }
 
-    for(current = list; current->next != NULL; current = current->next)
+    for(current = list; current != NULL; current = current->next)
     {
         printCmd(current->cmd, nIdent+1);
     }
@@ -400,7 +354,7 @@ void printParamList(ParamList * list, int nIdent)
         return;
     }
 
-    for(current = list; current->next != NULL; current = current->next)
+    for(current = list; current != NULL; current = current->next)
     {
         printParam(current->param, nIdent+1);
     }
