@@ -20,13 +20,13 @@ PASSDefinition:
 							2
 				Command at line 9
 					Expression at line 9
-						Expression type: Comparison (Greater Than)
+						Expression type: Logical Conjunction
 						Expression at line 9
-							Expression type: Comparison (Greater Than)
+							Expression type: Logical Conjunction
 							Expression at line 9
-								Expression type: Comparison (Greater Than)
+								Expression type: Logical Conjunction
 								Expression at line 9
-									Expression type: Comparison (Greater Than)
+									Expression type: Logical Conjunction
 									Expression at line 9
 										Expression type: Equality
 										Expression

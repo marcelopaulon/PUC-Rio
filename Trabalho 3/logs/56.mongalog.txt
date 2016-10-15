@@ -35,9 +35,9 @@ PASSDefinition:
 										Expression type: Int
 										5
 								Expression at line 9
-									Expression type: Comparison (Greater Than)
+									Expression type: Logical Conjunction
 									Expression at line 9
-										Expression type: Comparison (Greater Than)
+										Expression type: Logical Conjunction
 										Expression at line 9
 											Expression type: Comparison (Less or Equal Than)
 											Expression
@@ -75,7 +75,7 @@ PASSDefinition:
 									Expression type: Int
 									5
 						Expression at line 9
-							Expression type: Comparison (Greater Than)
+							Expression type: Logical Conjunction
 							Expression at line 9
 								Expression type: Equality
 								Expression
