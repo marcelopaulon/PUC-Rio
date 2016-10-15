@@ -1,4 +1,5 @@
 PASSDefinition:
 	DefVar:
-				List:
+		Type: float
+		List:
 		a

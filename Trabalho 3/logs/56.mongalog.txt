@@ -4,7 +4,8 @@ PASSDefinition:
 		Block:
 			Def Var List:
 				DefVar:
-										List:
+					Type: int
+					List:
 					a
 			Command List:
 				Command

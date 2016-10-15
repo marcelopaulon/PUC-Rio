@@ -4,19 +4,24 @@ PASSDefinition:
 		Block:
 			Def Var List:
 				DefVar:
-										List:
+					Type at line 7: int[]
+					List:
 					a
 				DefVar:
-										List:
+					Type at line 8: int[][]
+					List:
 					b
 				DefVar:
-										List:
+					Type at line 9: float[][][][]
+					List:
 					c
 				DefVar:
-										List:
+					Type at line 10: float[][][][][][]
+					List:
 					d
 				DefVar:
-										List:
+					Type: int
+					List:
 					bb
 			Command List:
 				Command

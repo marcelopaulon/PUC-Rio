@@ -1,4 +1,5 @@
 PASSDefinition:
 	DefVar:
-				List:
+		Type: char
+		List:
 		a

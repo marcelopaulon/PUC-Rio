@@ -1,6 +1,7 @@
 PASSDefinition:
 	DefVar:
-				List:
+		Type at line 5: int[]
+		List:
 		a
 		b
 		c
@@ -10,7 +11,8 @@ PASSDefinition:
 		g
 Definition:
 	DefVar:
-				List:
+		Type at line 6: float[][]
+		List:
 		a
 		b
 		c
@@ -20,7 +22,8 @@ Definition:
 		g
 Definition:
 	DefVar:
-				List:
+		Type at line 7: char[]
+		List:
 		a
 		b
 		c

@@ -4,13 +4,16 @@ PASSDefinition:
 		Block:
 			Def Var List:
 				DefVar:
-										List:
+					Type: int
+					List:
 					a
 				DefVar:
-										List:
+					Type: int
+					List:
 					b
 				DefVar:
-										List:
+					Type: float
+					List:
 					c
 					d
 			Command List:
