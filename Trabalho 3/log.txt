@@ -4,426 +4,426 @@ PASSDefinition:
 		Block:
 			Def Var List:
 				DefVar:
-					Type at line 0: int
+					Type: int
 					List:
 					a
 				DefVar:
-					Type at line 0: int
+					Type: int
 					List:
 					b
 				DefVar:
-					Type at line 0: float
+					Type: float
 					List:
 					c
 					d
 			Command List:
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 11
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 0:
+							Type: float
+						Expression
 							Expression type: Int
 							6
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 12
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						b
-							Type at line 0: float
-						Expression at line 0:
+							Type: float
+						Expression
 							Expression type: Int
 							3
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 13
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 0:
+							Type: float
+						Expression
 							Expression type: Float
 							12.900000
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 14
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						d
-							Type at line 0: float
-						Expression at line 0:
+							Type: float
+						Expression
 							Expression type: Float
 							15.777770
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 15
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 15:
+							Type: float
+						Expression at line 15
 							Expression type: Addition
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-							Expression at line 0:
+									Type: float
+							Expression
 								Expression type: Int
 								1
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 16
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 16:
+							Type: float
+						Expression at line 16
 							Expression type: Addition
-							Expression at line 16:
+							Expression at line 16
 								Expression type: Addition
-								Expression at line -1:
+								Expression
 									Expression type: Variable
-									Variable at line -1: ID
+									Variable: ID
 									a
-										Type at line 0: float
-								Expression at line 0:
+										Type: float
+								Expression
 									Expression type: Int
 									1
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								1
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 17
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 17:
+							Type: float
+						Expression at line 17
 							Expression type: Addition
-							Expression at line 17:
+							Expression at line 17
 								Expression type: Addition
-								Expression at line 17:
+								Expression at line 17
 									Expression type: Addition
-									Expression at line 17:
+									Expression at line 17
 										Expression type: Addition
-										Expression at line 17:
+										Expression at line 17
 											Expression type: Addition
-											Expression at line 17:
+											Expression at line 17
 												Expression type: Addition
-												Expression at line -1:
+												Expression
 													Expression type: Variable
-													Variable at line -1: ID
+													Variable: ID
 													a
-														Type at line 0: float
-												Expression at line 0:
+														Type: float
+												Expression
 													Expression type: Int
 													1
-											Expression at line 0:
+											Expression
 												Expression type: Int
 												1
-										Expression at line 0:
+										Expression
 											Expression type: Int
 											1
-									Expression at line 0:
+									Expression
 										Expression type: Int
 										1
-								Expression at line 0:
+								Expression
 									Expression type: Int
 									1
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								1
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 18
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 18:
+							Type: float
+						Expression at line 18
 							Expression type: Addition
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								b
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 19
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 19:
+							Type: float
+						Expression at line 19
 							Expression type: Multiplication
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								c
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 20
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						d
-							Type at line 0: float
-						Expression at line 20:
+							Type: float
+						Expression at line 20
 							Expression type: Multiplication
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								c
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								c
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 21
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 21:
+							Type: float
+						Expression at line 21
 							Expression type: Division
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								c
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 22
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 22:
+							Type: float
+						Expression at line 22
 							Expression type: Multiplication
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								d
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 23
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 23:
+							Type: float
+						Expression at line 23
 							Expression type: Subtraction
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-							Expression at line -1:
+									Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								d
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 24
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 24:
+							Type: float
+						Expression at line 24
 							Expression type: Subtraction
-							Expression at line 24:
+							Expression at line 24
 								Expression type: Subtraction
-								Expression at line -1:
+								Expression
 									Expression type: Variable
-									Variable at line -1: ID
+									Variable: ID
 									a
-										Type at line 0: float
-								Expression at line -1:
+										Type: float
+								Expression
 									Expression type: Variable
-									Variable at line -1: ID
+									Variable: ID
 									d
-										Type at line 0: float
-							Expression at line -1:
+										Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								d
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 25
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 25:
+							Type: float
+						Expression at line 25
 							Expression type: Subtraction
-							Expression at line 25:
+							Expression at line 25
 								Expression type: Subtraction
-								Expression at line 25:
+								Expression at line 25
 									Expression type: Subtraction
-									Expression at line 25:
+									Expression at line 25
 										Expression type: Subtraction
-										Expression at line 25:
+										Expression at line 25
 											Expression type: Addition
-											Expression at line 25:
+											Expression at line 25
 												Expression type: Subtraction
-												Expression at line 25:
+												Expression at line 25
 													Expression type: Subtraction
-													Expression at line -1:
+													Expression
 														Expression type: Variable
-														Variable at line -1: ID
+														Variable: ID
 														a
-															Type at line 0: float
-													Expression at line 0:
+															Type: float
+													Expression
 														Expression type: Int
 														1
-												Expression at line -1:
+												Expression
 													Expression type: Variable
-													Variable at line -1: ID
+													Variable: ID
 													d
-														Type at line 0: float
-											Expression at line 0:
+														Type: float
+											Expression
 												Expression type: Int
 												1
-										Expression at line 0:
+										Expression
 											Expression type: Int
 											2
-									Expression at line -1:
+									Expression
 										Expression type: Variable
-										Variable at line -1: ID
+										Variable: ID
 										d
-											Type at line 0: float
-								Expression at line -1:
+											Type: float
+								Expression
 									Expression type: Variable
-									Variable at line -1: ID
+									Variable: ID
 									d
-										Type at line 0: float
-							Expression at line -1:
+										Type: float
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								d
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 26
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						a
-							Type at line 0: float
-						Expression at line 26:
+							Type: float
+						Expression at line 26
 							Expression type: Subtraction
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								1
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								a
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 27
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						b
-							Type at line 0: float
-						Expression at line 27:
+							Type: float
+						Expression at line 27
 							Expression type: Subtraction
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								1
-							Expression at line -1:
+							Expression
 								Expression type: Variable
-								Variable at line -1: ID
+								Variable: ID
 								c
-									Type at line 0: float
-				Command at line 0
+									Type: float
+				Command
 					Command type: Basic Command
 					Basic Command at line 28
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 28:
+							Type: float
+						Expression at line 28
 							Expression type: Division
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								2
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								3
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 29
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 29:
+							Type: float
+						Expression at line 29
 							Expression type: Division
-							Expression at line 0:
+							Expression
 								Expression type: Float
 								2.000000
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								3
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 30
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 30:
+							Type: float
+						Expression at line 30
 							Expression type: Division
-							Expression at line 0:
+							Expression
 								Expression type: Int
 								2
-							Expression at line 0:
+							Expression
 								Expression type: Float
 								3.000000
-				Command at line 0
+				Command
 					Command type: Basic Command
 					Basic Command at line 31
 						Command type: Variable Assignment
-						Variable at line -1: ID
+						Variable: ID
 						c
-							Type at line 0: float
-						Expression at line 31:
+							Type: float
+						Expression at line 31
 							Expression type: Division
-							Expression at line 0:
+							Expression
 								Expression type: Float
 								2.000000
-							Expression at line 0:
+							Expression
 								Expression type: Float
 								3.000000

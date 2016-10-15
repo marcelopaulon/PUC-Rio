@@ -1,6 +1,9 @@
 #include "ast.h"
+#define FALSE 0
+#define TRUE 1
 
 void printIdent(int level);
+void printLine(char * type, int line, int newLineAtEnd);
 void printType(Type * type, int nIdent);
 void printBinExpType(ExpE type, int nIdent);
 void printExp(Exp * exp, int nIdent);
@@ -45,6 +48,7 @@ Type *baseTypeInit(VarType type)
     Type *base = mnew(Type); 
     base->name = type; 
     base->brackets = 0;
+    base->line = -1;
     return base;
 }
 
@@ -81,6 +85,13 @@ void printIdent(int level){
     for(i=0;i<level;i++) printf("\t");
 }
 
+void printLine(char * type, int line, int newLineAtEnd){
+    printf("%s", type);
+    if(line > 0) printf(" at line %d", line);
+    if(newLineAtEnd) printf("\n");
+    else printf(": ");
+}
+
 void printType(Type * type, int nIdent)
 {
     int i;
@@ -92,7 +103,7 @@ void printType(Type * type, int nIdent)
         return;
     }
     
-    printf("Type at line %d: ", type->line); 
+    printLine("Type", type->line, FALSE); 
 
     switch(type->name){
         case VarFloat:
@@ -140,7 +151,7 @@ void printExp(Exp * exp, int nIdent)
     if(exp == NULL) return;
 
     printIdent(nIdent);
-    printf("Expression at line %d:\n", exp->line);
+    printLine("Expression", exp->line, TRUE);
 
     switch(exp->tag){
         case ExpAdd:
@@ -211,7 +222,7 @@ void printExp(Exp * exp, int nIdent)
 void printVar(Var * var, int nIdent)
 {
     printIdent(nIdent);
-    printf("Variable at line %d: ", var->line);
+    printLine("Variable", var->line, FALSE);
     switch(var->tag){
         case VarId:
             printf("ID\n");
@@ -243,7 +254,7 @@ void printCmdCall (CmdCall * cmd, int nIdent)
 void printCmdBasic(CmdBasic * cmd, int nIdent)
 {
     printIdent(nIdent);
-    printf("Basic Command at line %d\n", cmd->line);
+    printLine("Basic Command", cmd->line, TRUE);
 
     printIdent(nIdent+1);
     printf("Command type: ");
@@ -372,7 +383,7 @@ void printBlock(Block * block, int nIdent)
 void printCmd(Cmd * cmd, int nIdent)
 {
     printIdent(nIdent);
-    printf("Command at line %d\n", cmd->line);
+    printLine("Command", cmd->line, TRUE);
     
     printExp(cmd->e, nIdent+1);
 
