@@ -1,0 +1,24 @@
+PASSDefinition:
+	Func: a
+				Parameters List:
+			Parameter: b
+				Type: int
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 7
+						Command type: Variable Assignment
+						Variable: ID
+						b
+						Expression at line 7
+							Expression type: Division
+							Expression
+								Expression type: Variable
+								Variable: ID
+								b
+							Expression
+								Expression type: Variable
+								Variable: ID
+								b

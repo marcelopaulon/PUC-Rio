@@ -238,9 +238,7 @@ void printVar(Var * var, int nIdent)
         default:
             printf("Invalid variable tag type. Exiting.\n");
             exit(-4);
-    }  
-    
-    printType(&(var->type), nIdent+1);
+    }
 }
 
 void printCmdCall (CmdCall * cmd, int nIdent)

@@ -134,7 +134,7 @@ nameslist : TK_ID               {
                                 }
           ;
 
-defvar : type nameslist ';' {$$ = mnew(DefVar); $$->type = $1; $$->nameslist = $2;}
+defvar : type nameslist ';' {$$ = mnew(DefVar); $$->nameslist = $2;}
        ;
 
 defvars: defvar {$$ = mnew(DefVarList); $$->defvar = $1; $$->next = NULL;}

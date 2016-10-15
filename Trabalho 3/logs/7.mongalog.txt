@@ -1,0 +1,19 @@
+PASSDefinition:
+	Func: a
+		Type: int
+		Parameters List:
+			Parameter: b
+				Type: char
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 7
+						Command type: Function call
+						Command Call: a
+							Expression List:
+								Expression
+									Expression type: Variable
+									Variable: ID
+									b

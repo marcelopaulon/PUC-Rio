@@ -1,0 +1,84 @@
+PASSDefinition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 7
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression at line 7
+							Expression type: Subtraction
+							Expression
+								Expression type: Variable
+								Variable: ID
+								a
+							Expression
+								Expression type: Float
+								3.141500
+Definition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 12
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression at line 12
+							Expression type: Subtraction
+							Expression
+								Expression type: Variable
+								Variable: ID
+								a
+							Expression
+								Expression type: Float
+								3.141500
+Definition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 17
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression at line 17
+							Expression type: Subtraction
+							Expression
+								Expression type: Variable
+								Variable: ID
+								a
+							Expression
+								Expression type: Float
+								3.141500
+Definition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 22
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression at line 22
+							Expression type: Subtraction
+							Expression
+								Expression type: Variable
+								Variable: ID
+								a
+							Expression
+								Expression type: Float
+								3.141500

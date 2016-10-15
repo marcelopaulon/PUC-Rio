@@ -96,7 +96,6 @@ struct DefVar{
 
 typedef struct Var{
     VarE tag;
-    Type type;
     union {
         const char *id;
         struct{

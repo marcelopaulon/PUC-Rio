@@ -1,0 +1,124 @@
+PASSDefinition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+				DefVar:
+										List:
+					a
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 8
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression
+							Expression type: Int
+							2
+				Command
+					Command type: Basic Command
+					Basic Command at line 9
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression at line 9
+							Expression type: Subtraction
+							Expression at line 9
+								Expression type: Addition
+								Expression at line 9
+									Expression type: Addition
+									Expression at line 9
+										Expression type: Subtraction
+										Expression at line 9
+											Expression type: Addition
+											Expression at line 9
+												Expression type: Division
+												Expression
+													Expression type: Variable
+													Variable: ID
+													a
+												Expression
+													Expression type: Variable
+													Variable: ID
+													a
+											Expression
+												Expression type: Int
+												1
+										Expression at line 9
+											Expression type: Multiplication
+											Expression
+												Expression type: Variable
+												Variable: ID
+												a
+											Expression
+												Expression type: Int
+												2
+									Expression at line 9
+										Expression type: Multiplication
+										Expression at line 9
+											Expression type: Division
+											Expression at line 9
+												Expression type: Division
+												Expression at line 9
+													Expression type: Division
+													Expression at line 9
+														Expression type: Division
+														Expression at line 9
+															Expression type: Division
+															Expression at line 9
+																Expression type: Multiplication
+																Expression at line 9
+																	Expression type: Multiplication
+																	Expression at line 9
+																		Expression type: Multiplication
+																		Expression at line 9
+																			Expression type: Multiplication
+																			Expression
+																				Expression type: Int
+																				7
+																			Expression
+																				Expression type: Variable
+																				Variable: ID
+																				a
+																		Expression
+																			Expression type: Variable
+																			Variable: ID
+																			b
+																	Expression
+																		Expression type: Variable
+																		Variable: ID
+																		c
+																Expression
+																	Expression type: Variable
+																	Variable: ID
+																	d
+															Expression
+																Expression type: Variable
+																Variable: ID
+																e
+														Expression
+															Expression type: Variable
+															Variable: ID
+															f
+													Expression
+														Expression type: Int
+														5
+												Expression
+													Expression type: Variable
+													Variable: ID
+													f
+											Expression
+												Expression type: Variable
+												Variable: ID
+												h
+										Expression
+											Expression type: Variable
+											Variable: ID
+											a
+								Expression
+									Expression type: Int
+									2
+							Expression
+								Expression type: Int
+								1

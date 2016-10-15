@@ -1,0 +1,37 @@
+PASSDefinition:
+	Func: a
+				Parameters List:
+		Block:
+			Def Var List:
+				DefVar:
+										List:
+					a
+			Command List:
+				Command
+					Command type: Basic Command
+					Basic Command at line 8
+						Command type: Variable Assignment
+						Variable: ID
+						a
+						Expression
+							Expression type: Int
+							0
+				Command at line 9
+					Expression at line 9
+						Expression type: Equality
+						Expression
+							Expression type: Negation
+							Expression
+								Expression type: Variable
+								Variable: ID
+								a
+						Expression
+							Expression type: Int
+							0
+					Command type: While
+					Command
+						Command type: Basic Command
+						Basic Command at line 49
+							Command type: Return
+							Expression at line 33
+Invalid expression type. Exiting

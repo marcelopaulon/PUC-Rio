@@ -1,0 +1,9 @@
+PASSDefinition:
+	Func: f
+				Parameters List:
+		Block:
+			Def Var List:
+				DefVar:
+										List:
+					a
+			Command List:
