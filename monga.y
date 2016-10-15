@@ -188,7 +188,7 @@ expor : expor TK_OR expand { $$ = newBinExp(ExpOr, $1, $3, $2); }
       | expand { $$ = $1; }
       ;
 
-expand : expand TK_AND expcomp { $$ = newBinExp(ExpGreater, $1, $3, $2); }
+expand : expand TK_AND expcomp { $$ = newBinExp(ExpAnd, $1, $3, $2); }
        | expcomp { $$ = $1; }
        ;
 

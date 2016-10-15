@@ -16,7 +16,7 @@ for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
         os.system('./teste < ' + testDir + '/' + file + ' > output.txt')
         with open('output.txt') as f:
             s = f.readlines()
-            if s[0] != 'PASS':
+            if s[0].startswith('PASS') == False:
                 failedTests = failedTests + 1
             print(s)
 

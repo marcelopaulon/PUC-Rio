@@ -19,8 +19,3 @@ clean:
 	rm -rf lex.yy.c
 	rm -rf lex.yy.h
 	rm -rf output.txt
-nelson: 
-	reset 
-	echo "LEMBRE DE ME TIRAR ANTES DE ENVIAR O TRABALHO"
-	make clean 
-	make
