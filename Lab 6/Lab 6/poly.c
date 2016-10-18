@@ -14,7 +14,7 @@ Sample* Chebyshev (int n, double a, double b, double (*f) (double x))
 
 	if(s == NULL)
 	{
-		printf("Unable to allocate memory to Sample. Exiting.");
+		printf("Unable to allocate memory for Sample. Exiting.");
 		exit(-1);
 	}
 
@@ -25,7 +25,7 @@ Sample* Chebyshev (int n, double a, double b, double (*f) (double x))
 
 	if(s->x == NULL || s->y == NULL)
 	{
-		printf("Unable to allocate memory to Sample. Exiting.");
+		printf("Unable to allocate memory for sample x/y. Exiting.");
 		exit(-1);
 	}
 
@@ -38,4 +38,50 @@ Sample* Chebyshev (int n, double a, double b, double (*f) (double x))
 	}
 
 	return s;
+}
+
+double NewtonFRec(Sample *s, int i, int j)
+{
+	if(i == j)
+	{
+		return s->y[i];
+	}
+
+	return (NewtonFRec(s, i + 1, j) - NewtonFRec(s, i, j - 1))/(s->x[j] - s->x[i]);
+}
+
+double * NewtonCompute(Sample *s)
+{
+	int i;
+	double *b = (double *) malloc(sizeof(double) * s->n);
+	if(b == NULL)
+	{
+		printf("Unable to allocate memory for b. Exiting.");
+		exit(-1);
+	}
+
+	for(i = 0; i < s->n; i++)
+	{
+		b[i] = NewtonFRec(s, 0, i);
+	}
+
+	return b;
+}
+
+double NewtonEval (Sample *s, double *b, double x)
+{
+	double Pn1x = 0.0, temp = 1.0;
+	int i;
+
+	for(i = 0; i < s->n; i++)
+	{
+		if(i > 0)
+		{
+			temp *= (x - s->x[i - 1]);
+		}
+
+		Pn1x += b[i] * temp;
+	}
+
+	return Pn1x;
 }
