@@ -3,6 +3,7 @@
 #define PI 3.14159265359
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 unsigned fat(unsigned n)
@@ -71,6 +72,11 @@ int main(void)
 	}
 
 	printf("%d/%d tests passed\n", pass, pass+fail);
+
+	free(b);
+	free(s->x);
+	free(s->y);
+	free(s);
 
 	return 0;
 }
