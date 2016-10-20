@@ -78,6 +78,7 @@ double * NewtonCompute(Sample *s)
 	for(i = 0; i < s->n; i++)
 	{
 		b[i] = MEM[i][0];
+		free(MEM[i]);
 	}
 
 	free(MEM);
