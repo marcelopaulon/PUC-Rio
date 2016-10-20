@@ -40,30 +40,66 @@ Sample* Chebyshev (int n, double a, double b, double (*f) (double x))
 	return s;
 }
 
-double NewtonFRec(Sample *s, int i, int j)
+// Imprime a matriz
+void imprime(double **mat, int m, int n)
 {
-	if(i == j)
+	int i,j;
+
+	printf("\n");
+
+	for(i=0;i<m;i++)
 	{
-		return s->y[i];
+		for(j=0;j<n;j++)
+		{
+			printf("%.2f\t", mat[i][j]);
+		}
+		printf("\n");
 	}
 
-	return (NewtonFRec(s, i + 1, j) - NewtonFRec(s, i, j - 1))/(s->x[j] - s->x[i]);
+	printf("\n");
 }
 
 double * NewtonCompute(Sample *s)
 {
-	int i;
+	int i, j;
 	double *b = (double *) malloc(sizeof(double) * s->n);
-	if(b == NULL)
+	double **MEM = (double **) malloc(sizeof(double *) * s->n);
+	
+	if(b == NULL || MEM == NULL)
 	{
-		printf("Unable to allocate memory for b. Exiting.");
+		printf("Unable to allocate memory for b or MEM. Exiting.");
 		exit(-1);
 	}
 
 	for(i = 0; i < s->n; i++)
 	{
-		b[i] = NewtonFRec(s, 0, i);
+		MEM[i] = (double *) malloc(sizeof(double) * s->n);
+		if(MEM[i] == NULL)
+		{
+			printf("Unable to allocate memory for MEM[%d]. Exiting.", i);
+			exit(-1);
+		}
 	}
+
+	for(i = 0; i < s->n; i++)
+	{
+		MEM[i][i] = s->y[i];
+	}
+
+	for(i = 1; i < s->n; i++)
+	{
+		for(j = i - 1; j >= 0; j--)
+		{
+			MEM[i][j] = (MEM[i][j + 1] - MEM[i - 1][j])/(s->x[i] - s->x[j]);
+		}
+	}
+	
+	for(i = 0; i < s->n; i++)
+	{
+		b[i] = MEM[i][0];
+	}
+
+	free(MEM);
 
 	return b;
 }
