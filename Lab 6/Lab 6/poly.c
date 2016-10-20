@@ -40,25 +40,6 @@ Sample* Chebyshev (int n, double a, double b, double (*f) (double x))
 	return s;
 }
 
-// Imprime a matriz
-void imprime(double **mat, int m, int n)
-{
-	int i,j;
-
-	printf("\n");
-
-	for(i=0;i<m;i++)
-	{
-		for(j=0;j<n;j++)
-		{
-			printf("%.2f\t", mat[i][j]);
-		}
-		printf("\n");
-	}
-
-	printf("\n");
-}
-
 double * NewtonCompute(Sample *s)
 {
 	int i, j;
