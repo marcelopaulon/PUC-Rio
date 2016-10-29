@@ -17,6 +17,14 @@ int typeEquals(Type *t1, Type *t2)
     return 1;
 }
 
+int isExpNumerical(Exp *e)
+{
+    Type *type = e->type;
+    if(type->name != VarFloat && type->name != VarInt) return 0;
+    if(type->brackets != 0) return 0;
+    return 1;
+}
+
 void checkSymbolRedefinition(char *id)
 {
     if(find(table, id) != NULL)
@@ -123,6 +131,49 @@ void checkCmdCall(CmdCall *cmd)
     }
 }
 
+void checkVar(Var *var, Exp *exp)
+{
+    checkExp(exp);
+
+    if(var->tag == VarId)
+    {
+        DecList *temp = find(table, var->u.id);
+        if(temp == NULL)
+        {
+            printf("Undefined symbol %s. Exiting.\n", var->u.id);
+            exit(-1);
+        }
+
+        if(temp->type != 'p' && temp->type != 'v')
+        {
+            printf("Invalid assignment to symbol %s. Exiting.\n", var->u.id);
+            exit(-1);
+        }
+
+        if((temp->type == 'v' && !typeEquals(temp->val.v->type, exp->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, exp->type)))
+        {
+            printf("Incompatible types in assignment to symbol %s. Exiting.\n", var->u.id);
+            exit(-1);
+        }
+    }
+    else if(var->tag == VarIndexed)
+    {
+        checkExp(var->u.indexed.e1); // expothers
+        checkExp(var->u.indexed.e2); // '[' exp ']'
+
+        if(var->u.indexed.e1->type->name != exp->type->name) // TODO: Fix
+        {
+            printf("Incompatible types in assignment to symbol. Exiting.\n");
+            exit(-1);
+        }
+    }
+    else
+    {
+        printf("Invalid var tag. Exiting.\n");
+        exit(-1);
+    }
+}
+
 void checkCmdBasic(CmdBasic *cmd)
 {
     switch(cmd->type) {
@@ -143,9 +194,7 @@ void checkCmdBasic(CmdBasic *cmd)
             checkBlock(cmd->u.block);
             break;
         case CmdBasicVar:
-            //printf("Variable Assignment\n");
-            //printVar(cmd->u.varCmd.var, nIdent+1);
-            //printExp(cmd->u.varCmd.exp, nIdent+1);
+            checkVar(cmd->u.varCmd.var, cmd->u.varCmd.exp);
             break;
         default:
             printf("Invalid command type. Exiting.\n");
@@ -156,20 +205,41 @@ void checkCmdBasic(CmdBasic *cmd)
 void checkCmd(Cmd *cmd)
 {
     checkExp(cmd->e);
-
+    
     switch(cmd->type){
         case CmdWhile:
-            //printf("While\n");
-            //printCmd(cmd->u.cmd, nIdent+1);
+            checkExp(cmd->e);
+
+            if(!isExpNumerical(cmd->e))
+            {
+                printf("While expression must return a numerical type. Exiting.\n");
+                exit(-1);
+            }
+
+            checkCmd(cmd->u.cmd);
             break;
         case CmdIf:
-            //printf("If\n");
-            //printCmd(cmd->u.cmd, nIdent+1);
+            checkExp(cmd->e);
+
+            if(!isExpNumerical(cmd->e))
+            {
+                printf("If expression must return a numerical type. Exiting.\n");
+                exit(-1);
+            }
+
+            checkCmd(cmd->u.cmd);
             break;
         case CmdIfElse:
-            //printf("If and Else\n");
-            //printCmd(cmd->u.cmds.c1, nIdent+1);
-            //printCmd(cmd->u.cmds.c2, nIdent+1);
+            checkExp(cmd->e);
+
+            if(!isExpNumerical(cmd->e))
+            {
+                printf("If expression must return a numerical type. Exiting.\n");
+                exit(-1);
+            }
+
+            checkCmd(cmd->u.cmds.c1);
+            checkCmd(cmd->u.cmds.c2);
             break;
         case CmdBasicE:
             checkCmdBasic(cmd->u.cmdBasic);

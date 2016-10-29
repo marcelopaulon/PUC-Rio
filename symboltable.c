@@ -129,7 +129,7 @@ void addDecFunc(SymbolTable *p, Func *f)
     }
 }
 
-DecList *find(SymbolTable *p, char *id)
+DecList *find(SymbolTable *p, const char *id)
 {
     SymbolTable *temp = p;
     DecList *tempDec = temp->current;

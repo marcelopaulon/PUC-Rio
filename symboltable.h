@@ -30,7 +30,7 @@ void addParam(SymbolTable *p, Param *param);
 void addDecFunc(SymbolTable *p, Func *f);
 
 // Searches for an identifier on the symbol table
-DecList *find(SymbolTable *p, char *id);
+DecList *find(SymbolTable *p, const char *id);
 
 // Creates a new scope
 SymbolTable *enterScope(SymbolTable *p);
