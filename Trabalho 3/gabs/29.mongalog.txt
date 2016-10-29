@@ -8,15 +8,15 @@ PASSDefinition:
         Command at line 7
           Expression at line 7
             Expression type: Comparison (Less or Equal Than)
-            Expression resulting type:             Type: void
+            Expression resulting Type: void
             Expression
               Expression type: Variable
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Variable: ID
               a
             Expression
               Expression type: Variable
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Variable: ID
               b
           Command type: If

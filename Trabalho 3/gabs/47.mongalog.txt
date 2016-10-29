@@ -13,13 +13,13 @@ PASSDefinition:
             a
             Expression at line 7
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Float
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 2.000000

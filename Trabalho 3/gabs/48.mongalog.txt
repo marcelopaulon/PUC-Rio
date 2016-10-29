@@ -25,7 +25,7 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               6
         Command
           Command type: Basic Command
@@ -35,7 +35,7 @@ PASSDefinition:
             b
             Expression
               Expression type: Int
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               3
         Command
           Command type: Basic Command
@@ -45,7 +45,7 @@ PASSDefinition:
             c
             Expression
               Expression type: Float
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               12.900000
         Command
           Command type: Basic Command
@@ -55,7 +55,7 @@ PASSDefinition:
             d
             Expression
               Expression type: Float
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               15.777770
         Command
           Command type: Basic Command
@@ -65,15 +65,15 @@ PASSDefinition:
             a
             Expression at line 15
               Expression type: Addition
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
         Command
           Command type: Basic Command
@@ -83,22 +83,22 @@ PASSDefinition:
             a
             Expression at line 16
               Expression type: Addition
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression at line 16
                 Expression type: Addition
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable: ID
                   a
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   1
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
         Command
           Command type: Basic Command
@@ -108,50 +108,50 @@ PASSDefinition:
             a
             Expression at line 17
               Expression type: Addition
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression at line 17
                 Expression type: Addition
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Expression at line 17
                   Expression type: Addition
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Expression at line 17
                     Expression type: Addition
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Expression at line 17
                       Expression type: Addition
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Expression at line 17
                         Expression type: Addition
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         Expression
                           Expression type: Variable
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Variable: ID
                           a
                         Expression
                           Expression type: Int
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           1
                       Expression
                         Expression type: Int
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         1
                     Expression
                       Expression type: Int
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       1
                   Expression
                     Expression type: Int
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     1
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   1
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
         Command
           Command type: Basic Command
@@ -161,15 +161,15 @@ PASSDefinition:
             a
             Expression at line 18
               Expression type: Addition
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 b
         Command
@@ -180,15 +180,15 @@ PASSDefinition:
             c
             Expression at line 19
               Expression type: Multiplication
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
         Command
@@ -199,15 +199,15 @@ PASSDefinition:
             d
             Expression at line 20
               Expression type: Multiplication
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
         Command
@@ -218,15 +218,15 @@ PASSDefinition:
             c
             Expression at line 21
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
         Command
@@ -237,15 +237,15 @@ PASSDefinition:
             a
             Expression at line 22
               Expression type: Multiplication
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 d
         Command
@@ -256,15 +256,15 @@ PASSDefinition:
             a
             Expression at line 23
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 d
         Command
@@ -275,23 +275,23 @@ PASSDefinition:
             a
             Expression at line 24
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression at line 24
                 Expression type: Subtraction
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable: ID
                   a
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable: ID
                   d
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 d
         Command
@@ -302,60 +302,60 @@ PASSDefinition:
             a
             Expression at line 25
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression at line 25
                 Expression type: Subtraction
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Expression at line 25
                   Expression type: Subtraction
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Expression at line 25
                     Expression type: Subtraction
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Expression at line 25
                       Expression type: Addition
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Expression at line 25
                         Expression type: Subtraction
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         Expression at line 25
                           Expression type: Subtraction
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Expression
                             Expression type: Variable
-                            Expression resulting type:                             Type: void
+                            Expression resulting Type: void
                             Variable: ID
                             a
                           Expression
                             Expression type: Int
-                            Expression resulting type:                             Type: void
+                            Expression resulting Type: void
                             1
                         Expression
                           Expression type: Variable
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Variable: ID
                           d
                       Expression
                         Expression type: Int
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         1
                     Expression
                       Expression type: Int
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       2
                   Expression
                     Expression type: Variable
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Variable: ID
                     d
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable: ID
                   d
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 d
         Command
@@ -366,14 +366,14 @@ PASSDefinition:
             a
             Expression at line 26
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 a
         Command
@@ -384,14 +384,14 @@ PASSDefinition:
             b
             Expression at line 27
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
         Command
@@ -402,14 +402,14 @@ PASSDefinition:
             c
             Expression at line 28
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 2
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 3
         Command
           Command type: Basic Command
@@ -419,14 +419,14 @@ PASSDefinition:
             c
             Expression at line 29
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Float
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 2.000000
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 3
         Command
           Command type: Basic Command
@@ -436,14 +436,14 @@ PASSDefinition:
             c
             Expression at line 30
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 2
               Expression
                 Expression type: Float
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 3.000000
         Command
           Command type: Basic Command
@@ -453,12 +453,12 @@ PASSDefinition:
             c
             Expression at line 31
               Expression type: Division
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression
                 Expression type: Float
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 2.000000
               Expression
                 Expression type: Float
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 3.000000

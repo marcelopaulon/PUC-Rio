@@ -27,20 +27,20 @@ PASSDefinition:
             Variable at line 13: Indexed
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 b
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 0
             Expression at line 13
               Expression type: New
-              Expression resulting type:               Type: void
               Type: int
+              Expression resulting Type: void
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 200
         Command
           Command type: Basic Command
@@ -49,29 +49,29 @@ PASSDefinition:
             Variable at line 14: Indexed
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable: ID
                 c
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1
             Expression at line 14
               Expression type: New
-              Expression resulting type:               Type: void
               Type: float
+              Expression resulting Type: void
               Expression
                 Expression type: Variable
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Variable at line 14: Indexed
                   Expression
                     Expression type: Variable
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Variable: ID
                     a
                   Expression
                     Expression type: Int
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     0
         Command
           Command type: Basic Command
@@ -81,16 +81,16 @@ PASSDefinition:
             bb
             Expression
               Expression type: Variable
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Variable at line 15: Indexed
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable: ID
                   a
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   1
         Command
           Command type: Basic Command
@@ -100,40 +100,40 @@ PASSDefinition:
             bb
             Expression
               Expression type: Variable
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Variable at line 16: Indexed
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable at line 16: Indexed
                     Expression
                       Expression type: Variable
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Variable at line 16: Indexed
                         Expression
                           Expression type: Variable
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Variable at line 16: Indexed
                             Expression
                               Expression type: Variable
-                              Expression resulting type:                               Type: void
+                              Expression resulting Type: void
                               Variable: ID
                               c
                             Expression
                               Expression type: Int
-                              Expression resulting type:                               Type: void
+                              Expression resulting Type: void
                               1
                         Expression
                           Expression type: Int
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           2
                     Expression
                       Expression type: Int
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       3
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   4
         Command
           Command type: Basic Command
@@ -143,22 +143,22 @@ PASSDefinition:
             bb
             Expression
               Expression type: Variable
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Variable at line 17: Indexed
                 Expression
                   Expression type: Variable
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Variable at line 17: Indexed
                     Expression
                       Expression type: Variable
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Variable: ID
                       b
                     Expression
                       Expression type: Int
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       1
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   1

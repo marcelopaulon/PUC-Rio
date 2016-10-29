@@ -16,7 +16,7 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               2
         Command
           Command type: Basic Command
@@ -26,136 +26,136 @@ PASSDefinition:
             a
             Expression at line 9
               Expression type: Subtraction
-              Expression resulting type:               Type: void
+              Expression resulting Type: void
               Expression at line 9
                 Expression type: Addition
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 Expression at line 9
                   Expression type: Subtraction
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   Expression at line 9
                     Expression type: Division
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Expression
                       Expression type: Variable
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Variable: ID
                       a
                     Expression at line 9
                       Expression type: Addition
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Expression
                         Expression type: Variable
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         Variable: ID
                         a
                       Expression
                         Expression type: Int
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         1
                   Expression at line 9
                     Expression type: Multiplication
-                    Expression resulting type:                     Type: void
+                    Expression resulting Type: void
                     Expression at line 9
                       Expression type: Division
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Expression at line 9
                         Expression type: Division
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         Expression at line 9
                           Expression type: Division
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Expression at line 9
                             Expression type: Division
-                            Expression resulting type:                             Type: void
+                            Expression resulting Type: void
                             Expression at line 9
                               Expression type: Division
-                              Expression resulting type:                               Type: void
+                              Expression resulting Type: void
                               Expression at line 9
                                 Expression type: Multiplication
-                                Expression resulting type:                                 Type: void
+                                Expression resulting Type: void
                                 Expression at line 9
                                   Expression type: Multiplication
-                                  Expression resulting type:                                   Type: void
+                                  Expression resulting Type: void
                                   Expression at line 9
                                     Expression type: Multiplication
-                                    Expression resulting type:                                     Type: void
+                                    Expression resulting Type: void
                                     Expression at line 9
                                       Expression type: Multiplication
-                                      Expression resulting type:                                       Type: void
+                                      Expression resulting Type: void
                                       Expression at line 9
                                         Expression type: Multiplication
-                                        Expression resulting type:                                         Type: void
+                                        Expression resulting Type: void
                                         Expression
                                           Expression type: Variable
-                                          Expression resulting type:                                           Type: void
+                                          Expression resulting Type: void
                                           Variable: ID
                                           a
                                         Expression at line 9
                                           Expression type: Addition
-                                          Expression resulting type:                                           Type: void
+                                          Expression resulting Type: void
                                           Expression
                                             Expression type: Int
-                                            Expression resulting type:                                             Type: void
+                                            Expression resulting Type: void
                                             2
                                           Expression
                                             Expression type: Int
-                                            Expression resulting type:                                             Type: void
+                                            Expression resulting Type: void
                                             7
                                       Expression
                                         Expression type: Variable
-                                        Expression resulting type:                                         Type: void
+                                        Expression resulting Type: void
                                         Variable: ID
                                         a
                                     Expression
                                       Expression type: Variable
-                                      Expression resulting type:                                       Type: void
+                                      Expression resulting Type: void
                                       Variable: ID
                                       b
                                   Expression
                                     Expression type: Variable
-                                    Expression resulting type:                                     Type: void
+                                    Expression resulting Type: void
                                     Variable: ID
                                     c
                                 Expression
                                   Expression type: Variable
-                                  Expression resulting type:                                   Type: void
+                                  Expression resulting Type: void
                                   Variable: ID
                                   d
                               Expression
                                 Expression type: Variable
-                                Expression resulting type:                                 Type: void
+                                Expression resulting Type: void
                                 Variable: ID
                                 e
                             Expression
                               Expression type: Variable
-                              Expression resulting type:                               Type: void
+                              Expression resulting Type: void
                               Variable: ID
                               f
                           Expression
                             Expression type: Int
-                            Expression resulting type:                             Type: void
+                            Expression resulting Type: void
                             5
                         Expression
                           Expression type: Variable
-                          Expression resulting type:                           Type: void
+                          Expression resulting Type: void
                           Variable: ID
                           f
                       Expression
                         Expression type: Variable
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         Variable: ID
                         h
                     Expression
                       Expression type: Variable
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Variable: ID
                       a
                 Expression
                   Expression type: Int
-                  Expression resulting type:                   Type: void
+                  Expression resulting Type: void
                   2
               Expression
                 Expression type: Int
-                Expression resulting type:                 Type: void
+                Expression resulting Type: void
                 1

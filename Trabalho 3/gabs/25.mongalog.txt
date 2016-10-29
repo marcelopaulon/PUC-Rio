@@ -8,7 +8,7 @@ PASSDefinition:
         Command at line 7
           Expression
             Expression type: Int
-            Expression resulting type:             Type: void
+            Expression resulting Type: void
             1
           Command type: While
           Command
@@ -21,14 +21,14 @@ PASSDefinition:
                   Command at line 8
                     Expression at line 8
                       Expression type: Equality
-                      Expression resulting type:                       Type: void
+                      Expression resulting Type: void
                       Expression
                         Expression type: Int
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         1
                       Expression
                         Expression type: Int
-                        Expression resulting type:                         Type: void
+                        Expression resulting Type: void
                         2
                     Command type: If and Else
                     Command

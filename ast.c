@@ -177,8 +177,8 @@ void printExp(Exp * exp, int nIdent)
         case ExpAnd:
             printBinExpType(exp->tag, nIdent+1);
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printExp(exp->u.bin.e1, nIdent+1);
             printExp(exp->u.bin.e2, nIdent+1);
         	break;
@@ -186,49 +186,49 @@ void printExp(Exp * exp, int nIdent)
             printIdent(nIdent+1);
             printf("Expression type: Variable\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printVar(exp->u.var, nIdent+1);
         	break;
         case ExpCall:
             printIdent(nIdent+1);
             printf("Expression type: Function Call\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printCmdCall(exp->u.call, nIdent+1);
         	break;
         case ExpNot:
             printIdent(nIdent+1);
             printf("Expression type: Negation\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printExp(exp->u.un, nIdent+1);
         	break;
         case ExpMinus:
             printIdent(nIdent+1);
             printf("Expression type: Negative\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printExp(exp->u.un, nIdent+1);
         	break;
         case ExpNew:
             printIdent(nIdent+1);
             printf("Expression type: New\n");
-            printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
             printType(exp->u.newexp.type, nIdent+1);
+            printIdent(nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printExp(exp->u.newexp.exp, nIdent+1);
         	break;
         case ExpString:
             printIdent(nIdent+1);
             printf("Expression type: String\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printIdent(nIdent+1);
             printf("%s\n", exp->u.c);
         	break;
@@ -236,8 +236,8 @@ void printExp(Exp * exp, int nIdent)
             printIdent(nIdent+1);
             printf("Expression type: Int\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printIdent(nIdent+1);
             printf("%d\n", exp->u.l);
         	break;
@@ -245,8 +245,8 @@ void printExp(Exp * exp, int nIdent)
             printIdent(nIdent+1);
             printf("Expression type: Float\n");
             printIdent(nIdent+1);
-            printf("Expression resulting type: ");
-            printType(exp->type, nIdent+1);
+            printf("Expression resulting ");
+            printType(exp->type, 0);
             printIdent(nIdent+1);
             printf("%f\n", exp->u.d);
         	break;
@@ -282,8 +282,6 @@ void printCmdCall (CmdCall * cmd, int nIdent)
 {
     printIdent(nIdent);
     printf("Command Call: %s\n", cmd->id);
-    printIdent(nIdent);
-    printf("Type: ");
     printType(cmd->type, nIdent+1);
     printExpList(cmd->parameters, nIdent+1);
 }
