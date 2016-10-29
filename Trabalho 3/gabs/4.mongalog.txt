@@ -1,33 +1,69 @@
 PASSDefinition:
-	DefVar:
-		Type: int
-		List:
+	Def Var List:
+		DefVar:
+			Type: int
 			a
+		DefVar:
+			Type: int
 			b
+		DefVar:
+			Type: int
 			c
+		DefVar:
+			Type: int
 			d
+		DefVar:
+			Type: int
 			e
+		DefVar:
+			Type: int
 			f
+		DefVar:
+			Type: int
 			g
 Definition:
-	DefVar:
-		Type: float
-		List:
+	Def Var List:
+		DefVar:
+			Type: float
 			a
+		DefVar:
+			Type: float
 			b
+		DefVar:
+			Type: float
 			c
+		DefVar:
+			Type: float
 			d
+		DefVar:
+			Type: float
 			e
+		DefVar:
+			Type: float
 			f
+		DefVar:
+			Type: float
 			g
 Definition:
-	DefVar:
-		Type: char
-		List:
+	Def Var List:
+		DefVar:
+			Type: char
 			a
+		DefVar:
+			Type: char
 			b
+		DefVar:
+			Type: char
 			c
+		DefVar:
+			Type: char
 			d
+		DefVar:
+			Type: char
 			e
+		DefVar:
+			Type: char
 			f
+		DefVar:
+			Type: char
 			g

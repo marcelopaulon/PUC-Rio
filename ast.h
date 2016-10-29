@@ -35,7 +35,7 @@ enum DefinitionType {
 struct Definition {
     DefinitionType type;
     union {
-        DefVar *defvar;
+        DefVarList *defvarlist;
         Func *deffunc;
     } u;
 };
@@ -91,7 +91,7 @@ struct DefVarList{
 
 struct DefVar{
     Type *type;
-    List *nameslist;
+    char *id;
 };
 
 typedef struct Var{
@@ -207,11 +207,6 @@ struct CmdBasic{
 struct CmdCall{
     char *id;
     ExpList *parameters;
-};
-
-struct List{
-    char *id;
-    struct List *next;
 };
 
 void *checkedMalloc(int size);

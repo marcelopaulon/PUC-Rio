@@ -10,7 +10,6 @@ void printExp(Exp * exp, int nIdent);
 void printVar(Var * var, int nIdent);
 void printCmdCall (CmdCall * cmd, int nIdent);
 void printCmdBasic(CmdBasic * cmd, int nIdent);
-void printList(List * list, int nIdent);
 void printExpList(ExpList * list, int nIdent);
 void printDefVarList(DefVarList * list, int nIdent);
 void printCmdList(CmdList * list, int nIdent);
@@ -290,27 +289,6 @@ void printCmdBasic(CmdBasic * cmd, int nIdent)
     }
 }
 
-void printList(List * list, int nIdent)
-{
-    List * current;
-
-    printIdent(nIdent);
-    printf("List:\n");
-
-    if(list == NULL)
-    {
-        return;
-    }
-
-    for(current = list; current != NULL; current = current->next)
-    {
-            printIdent(nIdent+1);
-
-            if(current->id != NULL) printf("%s\n", current->id);
-            else printf("(null)\n");
-    }
-}
-
 void printExpList(ExpList * list, int nIdent)
 {
     ExpList * current;
@@ -449,7 +427,8 @@ void printDefVar(DefVar * defvar, int nIdent)
     printf("DefVar:\n");
 
     printType(defvar->type, nIdent + 1);
-    printList(defvar->nameslist, nIdent + 1);
+    printIdent(nIdent + 1);
+    printf("%s\n", defvar->id);
 }
 
 void printDefinition(Definition *definition, int nIdent)
@@ -459,7 +438,7 @@ void printDefinition(Definition *definition, int nIdent)
 
     if(definition->type == TypeDefVar)
     {
-        printDefVar(definition->u.defvar, nIdent+1);
+        printDefVarList(definition->u.defvarlist, nIdent+1);
     }
     else if(definition->type == TypeDefFunc)
     {

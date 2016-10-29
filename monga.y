@@ -64,7 +64,6 @@ DefinitionList *tree = NULL;
     CmdCall *cmdcall;
     ExpList *explist;
     Type *type;
-    DefVar *defvar;
     DefVarList *defvarlist;
     Param *param;
     ParamList *paramlist;
@@ -75,7 +74,7 @@ DefinitionList *tree = NULL;
 }
 
 %type <exp> exp expor expand expcomp expadd expmult expunary expothers numeral
-%type <list> nameslist
+%type <defvarlist> nameslist defvar defvars
 %type <cmd> command
 %type <cmdlist> commands
 %type <cmdbasic> commandbasic
@@ -83,8 +82,6 @@ DefinitionList *tree = NULL;
 %type <var> var
 %type <explist> explist
 %type <type> type basetype
-%type <defvar> defvar
-%type <defvarlist> defvars
 %type <param> param
 %type <paramlist> params funcparams
 %type <block> block
@@ -103,7 +100,7 @@ definitions: definition {$$ = mnew(DefinitionList); $$->definition = $1; $$->nex
            | definition definitions {$$ = mnew(DefinitionList); $$->definition = $1; $$->next = $2;}
            ;
 
-definition : defvar                { $$ = mnew(Definition); $$->type = TypeDefVar; $$->u.defvar = $1; }
+definition : defvar                { $$ = mnew(Definition); $$->type = TypeDefVar; $$->u.defvarlist = $1; }
            | deffunc               { $$ = mnew(Definition); $$->type = TypeDefFunc; $$->u.deffunc = $1; }
            ;
 
@@ -123,22 +120,31 @@ param : type TK_ID { $$ = mnew(Param); $$->type = $1; $$->id = $2; }
       ;
 
 nameslist : TK_ID               { 
-                                   $$ = mnew(List);
-                                   $$->id = $1;
+                                   $$ = mnew(DefVarList);
+                                   $$->defvar = mnew(DefVar);
+                                   $$->defvar->id = $1;
                                    $$->next = NULL;
                                 }
           | TK_ID ',' nameslist { 
-                                   $$ = mnew(List);
-                                   $$->id = $1;
+                                   $$ = mnew(DefVarList);
+                                   $$->defvar = mnew(DefVar);
+                                   $$->defvar->id = $1;
                                    $$->next = $3;
                                 }
           ;
 
-defvar : type nameslist ';' {$$ = mnew(DefVar); $$->type = $1; $$->nameslist = $2;}
+defvar : type nameslist ';' {
+                                DefVarList *temp = $2;
+                                $$ = $2; 
+                                while(temp != NULL) { 
+                                    temp->defvar->type = $1; 
+                                    temp = temp->next; 
+                                }
+                            }
        ;
 
-defvars: defvar {$$ = mnew(DefVarList); $$->defvar = $1; $$->next = NULL;}
-       | defvar defvars {$$ = mnew(DefVarList); $$->defvar = $1; $$->next = $2;}
+defvars: defvar {$$ = $1;}
+       | defvar defvars {$$ = $1; $$->next = $2;}
        ;
 
 type : basetype       { $$ = $1; }

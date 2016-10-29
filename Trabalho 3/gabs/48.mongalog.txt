@@ -6,17 +6,16 @@ PASSDefinition:
 			Def Var List:
 				DefVar:
 					Type: int
-					List:
-						a
+					a
 				DefVar:
 					Type: int
-					List:
-						b
+					b
 				DefVar:
 					Type: float
-					List:
-						c
-						d
+					c
+				DefVar:
+					Type: float
+					d
 			Command List:
 				Command
 					Command type: Basic Command

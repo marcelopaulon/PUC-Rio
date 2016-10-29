@@ -6,6 +6,5 @@ PASSDefinition:
 			Def Var List:
 				DefVar:
 					Type: int
-					List:
-						a
+					a
 			Command List:
