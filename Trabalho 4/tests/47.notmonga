@@ -1,0 +1,8 @@
+/*
+ * 47.notmonga
+ * Number is a function
+ */
+void a()
+{
+    a = a / 2.0();
+}

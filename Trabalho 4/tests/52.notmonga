@@ -1,0 +1,9 @@
+/*
+ * 52.notmonga
+ * Expression without lvalue
+ */
+void a()
+{
+    a = 2;
+    (a/a+1-a*2+7*a*b*c*d/e/f/5/f/h*a+2-1);
+}

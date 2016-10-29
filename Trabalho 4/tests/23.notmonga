@@ -1,0 +1,8 @@
+/*
+ * 23.notmonga
+ * return block
+ */
+void a()
+{
+    return {};
+}

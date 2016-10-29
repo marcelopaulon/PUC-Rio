@@ -1,0 +1,10 @@
+PASSDefinition:
+  Func: f
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+      Command List:

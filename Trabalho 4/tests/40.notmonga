@@ -1,0 +1,8 @@
+/*
+ * 40.notmonga
+ * Operator as function name
+ */
+void +()
+{
+    a = a + a;
+}

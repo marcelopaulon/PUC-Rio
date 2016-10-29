@@ -1,0 +1,8 @@
+/*
+ * 50.notmonga
+ * Declaring a number
+ */
+void a()
+{
+    int 2;
+}

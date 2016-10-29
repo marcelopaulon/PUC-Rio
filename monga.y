@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../ast.h"
+#include "../typechecking.h"
 #include "lex.yy.h"
 
 void yyerror(const char *);
@@ -246,6 +247,7 @@ int main(void)
   if(parsingResult == 0)
   {
     printf("PASS");
+    typeCheck(tree);
     printAST(tree);
   }
   else
