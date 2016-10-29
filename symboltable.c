@@ -33,6 +33,7 @@ SymbolTable *create_symbolTable(void)
     }
 
     table->current->type = 'n';
+    table->current->next = NULL;
 
     table->previous = NULL;
 
@@ -65,6 +66,35 @@ void addDecVar(SymbolTable *p, DefVar *v)
 
         temp->next->type = 'v';
         temp->next->val.v = v;
+        temp->next->next = NULL;
+    }
+}
+
+void addParam(SymbolTable *p, Param *param)
+{
+    DecList *temp = p->current;
+
+    if(temp->type == 'n')
+    {
+        temp->type = 'p';
+        temp->val.p = param;
+    }
+    else
+    {
+        while(temp->next != NULL) 
+        {
+            temp = temp->next;
+        }
+        temp->next = (DecList *) malloc(sizeof(DecList));
+        
+        if(temp->next == NULL)
+        {
+            printf("Unable to allocate memory for declist. Exiting.");
+            exit(-1);
+        }
+
+        temp->next->type = 'p';
+        temp->next->val.p = param;
         temp->next->next = NULL;
     }
 }
@@ -109,18 +139,19 @@ DecList *find(SymbolTable *p, char *id)
         return NULL;
     }
 
-    do
+    while(temp != NULL)
     {
-        do
+        while(tempDec != NULL)
         {
             if(tempDec->type == 'n') break;
             if(tempDec->type == 'v' && strcmp(tempDec->val.v->id, id) == 0) return tempDec; 
+            if(tempDec->type == 'p' && strcmp(tempDec->val.p->id, id) == 0) return tempDec; 
             if(tempDec->type == 'f' && strcmp(tempDec->val.f->id, id) == 0) return tempDec;
             tempDec = tempDec->next;
-        } while(tempDec != NULL);
+        }
 
         temp = temp->previous;
-    } while(temp != NULL);
+    }
 
     return NULL;
 }

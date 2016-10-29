@@ -5,16 +5,16 @@ typedef struct decList DecList;
 
 struct decList 
 {
-    char type; // v (dec-var) or f (dec-function) or n (none/null)
-
     DecList *next;
 
     union 
     {
         DefVar *v;
+        Param *p;
         Func *f;
     } val;
 
+    char type; // v (dec-var) or p (param) or f (dec-function) or n (none/null)
 };
 
 // Creates a symbol table
@@ -22,6 +22,9 @@ SymbolTable *create_symbolTable(void);
 
 // Adds a dec-var symbol to the current scope
 void addDecVar(SymbolTable *p, DefVar *v);
+
+// Adds a param symbol to the current scope
+void addParam(SymbolTable *p, Param *param);
 
 // Adds a dec-function symbol to the current scope
 void addDecFunc(SymbolTable *p, Func *f);
