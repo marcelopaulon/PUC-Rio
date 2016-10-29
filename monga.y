@@ -179,8 +179,8 @@ commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }
             | block { $$ = cmdBasicBlockInit($1); }
             ;
 
-numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->tag = ExpFloat; $$->u.d = yylval.d; }
-        | TK_LONG_NUMBER { $$ = mnew(Exp); $$->tag = ExpInt; $$->u.l = yylval.l; }
+numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpFloat; $$->u.d = yylval.d; }
+        | TK_LONG_NUMBER { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpInt; $$->u.l = yylval.l; }
         ;
 
 var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; $$->line = -1; }
@@ -216,17 +216,17 @@ expmult : expmult '*' expunary { $$ = newBinExp(ExpMul, $1, $3, $2); }
         | expunary { $$ = $1; }
 	;
 
-expunary : '-' expothers { $$ = mnew(Exp); $$->tag = ExpMinus; $$->u.un = $2; }
-         | '!' expothers { $$ = mnew(Exp); $$->tag = ExpNot; $$->u.un = $2; }
+expunary : '-' expothers { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpMinus; $$->u.un = $2; }
+         | '!' expothers { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpNot; $$->u.un = $2; }
          | expothers { $$ = $1; }
          ; 
 
 expothers : numeral { $$ = $1; }
-       | TK_STRING { $$ = mnew(Exp); $$->tag = ExpString;  $$->u.c = $1; $$->line = -1; }
-       | var { $$ = mnew(Exp); $$->tag = ExpVar;  $$->u.var = $1; $$->line = -1; }
-       | call { $$ = mnew(Exp); $$->tag = ExpCall; $$->u.call = $1; $$->line = -1; }
+       | TK_STRING { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpString;  $$->u.c = $1; $$->line = -1; }
+       | var { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpVar;  $$->u.var = $1; $$->line = -1; }
+       | call { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpCall; $$->u.call = $1; $$->line = -1; }
        | '(' exp ')' { $$ = $2; }
-       | TK_NEW type '[' exp ']' { $$ = mnew(Exp); $$->tag = ExpNew; $$->u.newexp.type = $2; $$->line = $3; $$->u.newexp.exp = $4;  }
+       | TK_NEW type '[' exp ']' { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpNew; $$->u.newexp.type = $2; $$->line = $3; $$->u.newexp.exp = $4;  }
        ;
 
 explist : exp ',' explist { $$ = mnew(ExpList); $$->exp = $1; $$->next = $3; }

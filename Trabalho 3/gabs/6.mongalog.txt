@@ -1,7 +1,7 @@
 PASSDefinition:
-	Func: a
-		Type: int
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
+  Func: a
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:

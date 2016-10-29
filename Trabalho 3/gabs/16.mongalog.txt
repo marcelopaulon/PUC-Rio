@@ -1,30 +1,32 @@
 PASSDefinition:
-	Func: a
-		Type: float
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 7
-						Command type: Return
-						Expression
-							Expression type: Variable
-							Variable: ID
-							b
+  Func: a
+    Type: float
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 7
+            Command type: Return
+            Expression
+              Expression type: Variable
+Expression resulting type:               Type: void
+              Variable: ID
+              b
 Definition:
-	Func: aaa
-		Type: int
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 12
-						Command type: Return
-						Expression
-							Expression type: Variable
-							Variable: ID
-							bbb
+  Func: aaa
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 12
+            Command type: Return
+            Expression
+              Expression type: Variable
+Expression resulting type:               Type: void
+              Variable: ID
+              bbb

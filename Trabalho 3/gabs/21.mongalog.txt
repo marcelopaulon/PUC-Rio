@@ -1,19 +1,20 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
-				Command at line 7
-					Expression
-						Expression type: Int
-						1
-					Command type: While
-					Command
-						Command type: Basic Command
-						Basic Command
-							Command type: Block
-							Block:
-								Def Var List:
-								Command List:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command at line 7
+          Expression
+            Expression type: Int
+Expression resulting type:             Type: void
+            1
+          Command type: While
+          Command
+            Command type: Basic Command
+            Basic Command
+              Command type: Block
+              Block:
+                Def Var List:
+                Command List:

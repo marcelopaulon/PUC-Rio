@@ -1,22 +1,25 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 7
-						Command type: Variable Assignment
-						Variable: ID
-						a
-						Expression at line 7
-							Expression type: Division
-							Expression
-								Expression type: Float
-								2.000000
-							Expression
-								Expression type: Variable
-								Variable: ID
-								a
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 7
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 7
+              Expression type: Division
+Expression resulting type:               Type: void
+              Expression
+                Expression type: Float
+Expression resulting type:                 Type: void
+                2.000000
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable: ID
+                a

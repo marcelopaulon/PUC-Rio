@@ -1,125 +1,161 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-				DefVar:
-					Type: int
-					a
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 8
-						Command type: Variable Assignment
-						Variable: ID
-						a
-						Expression
-							Expression type: Int
-							2
-				Command
-					Command type: Basic Command
-					Basic Command at line 9
-						Command type: Variable Assignment
-						Variable: ID
-						a
-						Expression at line 9
-							Expression type: Subtraction
-							Expression at line 9
-								Expression type: Addition
-								Expression at line 9
-									Expression type: Addition
-									Expression at line 9
-										Expression type: Subtraction
-										Expression at line 9
-											Expression type: Addition
-											Expression at line 9
-												Expression type: Division
-												Expression
-													Expression type: Variable
-													Variable: ID
-													a
-												Expression
-													Expression type: Variable
-													Variable: ID
-													a
-											Expression
-												Expression type: Int
-												1
-										Expression at line 9
-											Expression type: Multiplication
-											Expression
-												Expression type: Variable
-												Variable: ID
-												a
-											Expression
-												Expression type: Int
-												2
-									Expression at line 9
-										Expression type: Multiplication
-										Expression at line 9
-											Expression type: Division
-											Expression at line 9
-												Expression type: Division
-												Expression at line 9
-													Expression type: Division
-													Expression at line 9
-														Expression type: Division
-														Expression at line 9
-															Expression type: Division
-															Expression at line 9
-																Expression type: Multiplication
-																Expression at line 9
-																	Expression type: Multiplication
-																	Expression at line 9
-																		Expression type: Multiplication
-																		Expression at line 9
-																			Expression type: Multiplication
-																			Expression
-																				Expression type: Int
-																				7
-																			Expression
-																				Expression type: Variable
-																				Variable: ID
-																				a
-																		Expression
-																			Expression type: Variable
-																			Variable: ID
-																			b
-																	Expression
-																		Expression type: Variable
-																		Variable: ID
-																		c
-																Expression
-																	Expression type: Variable
-																	Variable: ID
-																	d
-															Expression
-																Expression type: Variable
-																Variable: ID
-																e
-														Expression
-															Expression type: Variable
-															Variable: ID
-															f
-													Expression
-														Expression type: Int
-														5
-												Expression
-													Expression type: Variable
-													Variable: ID
-													f
-											Expression
-												Expression type: Variable
-												Variable: ID
-												h
-										Expression
-											Expression type: Variable
-											Variable: ID
-											a
-								Expression
-									Expression type: Int
-									2
-							Expression
-								Expression type: Int
-								1
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression
+              Expression type: Int
+Expression resulting type:               Type: void
+              2
+        Command
+          Command type: Basic Command
+          Basic Command at line 9
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 9
+              Expression type: Subtraction
+Expression resulting type:               Type: void
+              Expression at line 9
+                Expression type: Addition
+Expression resulting type:                 Type: void
+                Expression at line 9
+                  Expression type: Addition
+Expression resulting type:                   Type: void
+                  Expression at line 9
+                    Expression type: Subtraction
+Expression resulting type:                     Type: void
+                    Expression at line 9
+                      Expression type: Addition
+Expression resulting type:                       Type: void
+                      Expression at line 9
+                        Expression type: Division
+Expression resulting type:                         Type: void
+                        Expression
+                          Expression type: Variable
+Expression resulting type:                           Type: void
+                          Variable: ID
+                          a
+                        Expression
+                          Expression type: Variable
+Expression resulting type:                           Type: void
+                          Variable: ID
+                          a
+                      Expression
+                        Expression type: Int
+Expression resulting type:                         Type: void
+                        1
+                    Expression at line 9
+                      Expression type: Multiplication
+Expression resulting type:                       Type: void
+                      Expression
+                        Expression type: Variable
+Expression resulting type:                         Type: void
+                        Variable: ID
+                        a
+                      Expression
+                        Expression type: Int
+Expression resulting type:                         Type: void
+                        2
+                  Expression at line 9
+                    Expression type: Multiplication
+Expression resulting type:                     Type: void
+                    Expression at line 9
+                      Expression type: Division
+Expression resulting type:                       Type: void
+                      Expression at line 9
+                        Expression type: Division
+Expression resulting type:                         Type: void
+                        Expression at line 9
+                          Expression type: Division
+Expression resulting type:                           Type: void
+                          Expression at line 9
+                            Expression type: Division
+Expression resulting type:                             Type: void
+                            Expression at line 9
+                              Expression type: Division
+Expression resulting type:                               Type: void
+                              Expression at line 9
+                                Expression type: Multiplication
+Expression resulting type:                                 Type: void
+                                Expression at line 9
+                                  Expression type: Multiplication
+Expression resulting type:                                   Type: void
+                                  Expression at line 9
+                                    Expression type: Multiplication
+Expression resulting type:                                     Type: void
+                                    Expression at line 9
+                                      Expression type: Multiplication
+Expression resulting type:                                       Type: void
+                                      Expression
+                                        Expression type: Int
+Expression resulting type:                                         Type: void
+                                        7
+                                      Expression
+                                        Expression type: Variable
+Expression resulting type:                                         Type: void
+                                        Variable: ID
+                                        a
+                                    Expression
+                                      Expression type: Variable
+Expression resulting type:                                       Type: void
+                                      Variable: ID
+                                      b
+                                  Expression
+                                    Expression type: Variable
+Expression resulting type:                                     Type: void
+                                    Variable: ID
+                                    c
+                                Expression
+                                  Expression type: Variable
+Expression resulting type:                                   Type: void
+                                  Variable: ID
+                                  d
+                              Expression
+                                Expression type: Variable
+Expression resulting type:                                 Type: void
+                                Variable: ID
+                                e
+                            Expression
+                              Expression type: Variable
+Expression resulting type:                               Type: void
+                              Variable: ID
+                              f
+                          Expression
+                            Expression type: Int
+Expression resulting type:                             Type: void
+                            5
+                        Expression
+                          Expression type: Variable
+Expression resulting type:                           Type: void
+                          Variable: ID
+                          f
+                      Expression
+                        Expression type: Variable
+Expression resulting type:                         Type: void
+                        Variable: ID
+                        h
+                    Expression
+                      Expression type: Variable
+Expression resulting type:                       Type: void
+                      Variable: ID
+                      a
+                Expression
+                  Expression type: Int
+Expression resulting type:                   Type: void
+                  2
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                1

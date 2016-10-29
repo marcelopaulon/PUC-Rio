@@ -1,69 +1,69 @@
 PASSDefinition:
-	Def Var List:
-		DefVar:
-			Type at line 5: int[]
-			a
-		DefVar:
-			Type at line 5: int[]
-			b
-		DefVar:
-			Type at line 5: int[]
-			c
-		DefVar:
-			Type at line 5: int[]
-			d
-		DefVar:
-			Type at line 5: int[]
-			e
-		DefVar:
-			Type at line 5: int[]
-			f
-		DefVar:
-			Type at line 5: int[]
-			g
+  Def Var List:
+    DefVar:
+      Type at line 5: int[]
+      a
+    DefVar:
+      Type at line 5: int[]
+      b
+    DefVar:
+      Type at line 5: int[]
+      c
+    DefVar:
+      Type at line 5: int[]
+      d
+    DefVar:
+      Type at line 5: int[]
+      e
+    DefVar:
+      Type at line 5: int[]
+      f
+    DefVar:
+      Type at line 5: int[]
+      g
 Definition:
-	Def Var List:
-		DefVar:
-			Type at line 6: float[][]
-			a
-		DefVar:
-			Type at line 6: float[][]
-			b
-		DefVar:
-			Type at line 6: float[][]
-			c
-		DefVar:
-			Type at line 6: float[][]
-			d
-		DefVar:
-			Type at line 6: float[][]
-			e
-		DefVar:
-			Type at line 6: float[][]
-			f
-		DefVar:
-			Type at line 6: float[][]
-			g
+  Def Var List:
+    DefVar:
+      Type at line 6: float[][]
+      a
+    DefVar:
+      Type at line 6: float[][]
+      b
+    DefVar:
+      Type at line 6: float[][]
+      c
+    DefVar:
+      Type at line 6: float[][]
+      d
+    DefVar:
+      Type at line 6: float[][]
+      e
+    DefVar:
+      Type at line 6: float[][]
+      f
+    DefVar:
+      Type at line 6: float[][]
+      g
 Definition:
-	Def Var List:
-		DefVar:
-			Type at line 7: char[]
-			a
-		DefVar:
-			Type at line 7: char[]
-			b
-		DefVar:
-			Type at line 7: char[]
-			c
-		DefVar:
-			Type at line 7: char[]
-			d
-		DefVar:
-			Type at line 7: char[]
-			e
-		DefVar:
-			Type at line 7: char[]
-			f
-		DefVar:
-			Type at line 7: char[]
-			g
+  Def Var List:
+    DefVar:
+      Type at line 7: char[]
+      a
+    DefVar:
+      Type at line 7: char[]
+      b
+    DefVar:
+      Type at line 7: char[]
+      c
+    DefVar:
+      Type at line 7: char[]
+      d
+    DefVar:
+      Type at line 7: char[]
+      e
+    DefVar:
+      Type at line 7: char[]
+      f
+    DefVar:
+      Type at line 7: char[]
+      g

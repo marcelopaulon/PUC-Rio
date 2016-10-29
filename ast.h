@@ -162,6 +162,7 @@ enum ExpE{
 
 struct Exp{
     ExpE tag;
+    Type *type;
     union{
         Exp *un;
         struct{
@@ -206,6 +207,7 @@ struct CmdBasic{
 
 struct CmdCall{
     char *id;
+    Type *type;
     ExpList *parameters;
 };
 

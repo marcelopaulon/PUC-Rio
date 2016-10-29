@@ -1,5 +1,5 @@
 PASSDefinition:
-	Def Var List:
-		DefVar:
-			Type: int
-			a
+  Def Var List:
+    DefVar:
+      Type: int
+      a

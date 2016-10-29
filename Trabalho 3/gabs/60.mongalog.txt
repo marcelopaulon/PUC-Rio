@@ -1,137 +1,164 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-				DefVar:
-					Type at line 7: int[]
-					a
-				DefVar:
-					Type at line 8: int[][]
-					b
-				DefVar:
-					Type at line 9: float[][][][]
-					c
-				DefVar:
-					Type at line 10: float[][][][][][]
-					d
-				DefVar:
-					Type: int
-					bb
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 13
-						Command type: Variable Assignment
-						Variable at line 13: Indexed
-							Expression
-								Expression type: Variable
-								Variable: ID
-								b
-							Expression
-								Expression type: Int
-								0
-						Expression at line 13
-							Expression type: New
-							Type: int
-							Expression
-								Expression type: Int
-								200
-				Command
-					Command type: Basic Command
-					Basic Command at line 14
-						Command type: Variable Assignment
-						Variable at line 14: Indexed
-							Expression
-								Expression type: Variable
-								Variable: ID
-								c
-							Expression
-								Expression type: Int
-								1
-						Expression at line 14
-							Expression type: New
-							Type: float
-							Expression
-								Expression type: Variable
-								Variable at line 14: Indexed
-									Expression
-										Expression type: Variable
-										Variable: ID
-										a
-									Expression
-										Expression type: Int
-										0
-				Command
-					Command type: Basic Command
-					Basic Command at line 15
-						Command type: Variable Assignment
-						Variable: ID
-						bb
-						Expression
-							Expression type: Variable
-							Variable at line 15: Indexed
-								Expression
-									Expression type: Variable
-									Variable: ID
-									a
-								Expression
-									Expression type: Int
-									1
-				Command
-					Command type: Basic Command
-					Basic Command at line 16
-						Command type: Variable Assignment
-						Variable: ID
-						bb
-						Expression
-							Expression type: Variable
-							Variable at line 16: Indexed
-								Expression
-									Expression type: Variable
-									Variable at line 16: Indexed
-										Expression
-											Expression type: Variable
-											Variable at line 16: Indexed
-												Expression
-													Expression type: Variable
-													Variable at line 16: Indexed
-														Expression
-															Expression type: Variable
-															Variable: ID
-															c
-														Expression
-															Expression type: Int
-															1
-												Expression
-													Expression type: Int
-													2
-										Expression
-											Expression type: Int
-											3
-								Expression
-									Expression type: Int
-									4
-				Command
-					Command type: Basic Command
-					Basic Command at line 17
-						Command type: Variable Assignment
-						Variable: ID
-						bb
-						Expression
-							Expression type: Variable
-							Variable at line 17: Indexed
-								Expression
-									Expression type: Variable
-									Variable at line 17: Indexed
-										Expression
-											Expression type: Variable
-											Variable: ID
-											b
-										Expression
-											Expression type: Int
-											1
-								Expression
-									Expression type: Int
-									1
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type at line 7: int[]
+          a
+        DefVar:
+          Type at line 8: int[][]
+          b
+        DefVar:
+          Type at line 9: float[][][][]
+          c
+        DefVar:
+          Type at line 10: float[][][][][][]
+          d
+        DefVar:
+          Type: int
+          bb
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 13
+            Command type: Variable Assignment
+            Variable at line 13: Indexed
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable: ID
+                b
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                0
+            Expression at line 13
+              Expression type: New
+Expression resulting type:               Type: void
+              Type: int
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                200
+        Command
+          Command type: Basic Command
+          Basic Command at line 14
+            Command type: Variable Assignment
+            Variable at line 14: Indexed
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable: ID
+                c
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                1
+            Expression at line 14
+              Expression type: New
+Expression resulting type:               Type: void
+              Type: float
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable at line 14: Indexed
+                  Expression
+                    Expression type: Variable
+Expression resulting type:                     Type: void
+                    Variable: ID
+                    a
+                  Expression
+                    Expression type: Int
+Expression resulting type:                     Type: void
+                    0
+        Command
+          Command type: Basic Command
+          Basic Command at line 15
+            Command type: Variable Assignment
+            Variable: ID
+            bb
+            Expression
+              Expression type: Variable
+Expression resulting type:               Type: void
+              Variable at line 15: Indexed
+                Expression
+                  Expression type: Variable
+Expression resulting type:                   Type: void
+                  Variable: ID
+                  a
+                Expression
+                  Expression type: Int
+Expression resulting type:                   Type: void
+                  1
+        Command
+          Command type: Basic Command
+          Basic Command at line 16
+            Command type: Variable Assignment
+            Variable: ID
+            bb
+            Expression
+              Expression type: Variable
+Expression resulting type:               Type: void
+              Variable at line 16: Indexed
+                Expression
+                  Expression type: Variable
+Expression resulting type:                   Type: void
+                  Variable at line 16: Indexed
+                    Expression
+                      Expression type: Variable
+Expression resulting type:                       Type: void
+                      Variable at line 16: Indexed
+                        Expression
+                          Expression type: Variable
+Expression resulting type:                           Type: void
+                          Variable at line 16: Indexed
+                            Expression
+                              Expression type: Variable
+Expression resulting type:                               Type: void
+                              Variable: ID
+                              c
+                            Expression
+                              Expression type: Int
+Expression resulting type:                               Type: void
+                              1
+                        Expression
+                          Expression type: Int
+Expression resulting type:                           Type: void
+                          2
+                    Expression
+                      Expression type: Int
+Expression resulting type:                       Type: void
+                      3
+                Expression
+                  Expression type: Int
+Expression resulting type:                   Type: void
+                  4
+        Command
+          Command type: Basic Command
+          Basic Command at line 17
+            Command type: Variable Assignment
+            Variable: ID
+            bb
+            Expression
+              Expression type: Variable
+Expression resulting type:               Type: void
+              Variable at line 17: Indexed
+                Expression
+                  Expression type: Variable
+Expression resulting type:                   Type: void
+                  Variable at line 17: Indexed
+                    Expression
+                      Expression type: Variable
+Expression resulting type:                       Type: void
+                      Variable: ID
+                      b
+                    Expression
+                      Expression type: Int
+Expression resulting type:                       Type: void
+                      1
+                Expression
+                  Expression type: Int
+Expression resulting type:                   Type: void
+                  1

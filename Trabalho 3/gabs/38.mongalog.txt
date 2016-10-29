@@ -1,28 +1,32 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 7
-						Command type: Variable Assignment
-						Variable: ID
-						a
-						Expression at line 7
-							Expression type: Subtraction
-							Expression
-								Expression type: Int
-								100
-							Expression
-								Expression type: Variable
-								Variable: ID
-								a
-				Command
-					Command type: Basic Command
-					Basic Command at line 8
-						Command type: Function call
-						Command Call: a
-							Expression List:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 7
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 7
+              Expression type: Subtraction
+Expression resulting type:               Type: void
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                100
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable: ID
+                a
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Function call
+            Command Call: a
+Type:               Type: void
+              Expression List:

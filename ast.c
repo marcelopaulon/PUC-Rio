@@ -35,6 +35,7 @@ void *checkedMalloc(int size)
 
 Exp *newBinExp(ExpE expTag, Exp* e1, Exp* e2, int line){
     Exp* exp = mnew(Exp);
+    exp->type = NULL;
     exp->tag = expTag;
     exp->u.bin.e1 = e1;
     exp->u.bin.e2 = e2;
@@ -90,7 +91,7 @@ CmdBasic *cmdBasicBlockInit(Block *block)
 
 void printIdent(int level){
     int i;
-    for(i=0;i<level;i++) printf("\t");
+    for(i=0;i<level;i++) printf("  ");
 }
 
 void printLine(char * type, int line, int newLineAtEnd){
@@ -175,50 +176,68 @@ void printExp(Exp * exp, int nIdent)
         case ExpOr:
         case ExpAnd:
             printBinExpType(exp->tag, nIdent+1);
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printExp(exp->u.bin.e1, nIdent+1);
             printExp(exp->u.bin.e2, nIdent+1);
         	break;
         case ExpVar:
             printIdent(nIdent+1);
             printf("Expression type: Variable\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printVar(exp->u.var, nIdent+1);
         	break;
         case ExpCall:
             printIdent(nIdent+1);
             printf("Expression type: Function Call\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printCmdCall(exp->u.call, nIdent+1);
         	break;
         case ExpNot:
             printIdent(nIdent+1);
             printf("Expression type: Negation\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printExp(exp->u.un, nIdent+1);
         	break;
         case ExpMinus:
             printIdent(nIdent+1);
             printf("Expression type: Negative\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printExp(exp->u.un, nIdent+1);
         	break;
         case ExpNew:
             printIdent(nIdent+1);
             printf("Expression type: New\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printType(exp->u.newexp.type, nIdent+1);
             printExp(exp->u.newexp.exp, nIdent+1);
         	break;
         case ExpString:
             printIdent(nIdent+1);
             printf("Expression type: String\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
             printf("%s\n", exp->u.c);
         	break;
         case ExpInt:
             printIdent(nIdent+1);
             printf("Expression type: Int\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
             printf("%d\n", exp->u.l);
         	break;
         case ExpFloat:
             printIdent(nIdent+1);
             printf("Expression type: Float\n");
+            printf("Expression resulting type: ");
+            printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
             printf("%f\n", exp->u.d);
         	break;
@@ -254,7 +273,8 @@ void printCmdCall (CmdCall * cmd, int nIdent)
 {
     printIdent(nIdent);
     printf("Command Call: %s\n", cmd->id);
-
+    printf("Type: ");
+    printType(cmd->type, nIdent+1);
     printExpList(cmd->parameters, nIdent+1);
 }
 

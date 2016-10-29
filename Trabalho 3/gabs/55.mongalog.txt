@@ -1,123 +1,157 @@
 PASSDefinition:
-	Func: a
-		Type: void
-		Parameters List:
-		Block:
-			Def Var List:
-				DefVar:
-					Type: int
-					a
-			Command List:
-				Command
-					Command type: Basic Command
-					Basic Command at line 8
-						Command type: Variable Assignment
-						Variable: ID
-						a
-						Expression
-							Expression type: Int
-							2
-				Command at line 9
-					Expression at line 9
-						Expression type: Logical Disjunction
-						Expression at line 9
-							Expression type: Logical Disjunction
-							Expression at line 9
-								Expression type: Logical Disjunction
-								Expression at line 9
-									Expression type: Logical Disjunction
-									Expression at line 9
-										Expression type: Logical Disjunction
-										Expression at line 9
-											Expression type: Logical Disjunction
-											Expression at line 9
-												Expression type: Logical Disjunction
-												Expression at line 9
-													Expression type: Equality
-													Expression
-														Expression type: Variable
-														Variable: ID
-														a
-													Expression
-														Expression type: Int
-														2
-												Expression
-													Expression type: Function Call
-													Command Call: b
-														Expression List:
-											Expression
-												Expression type: Function Call
-												Command Call: c
-													Expression List:
-														Expression
-															Expression type: Variable
-															Variable: ID
-															a
-										Expression
-											Expression type: Function Call
-											Command Call: deee
-												Expression List:
-													Expression
-														Expression type: Variable
-														Variable: ID
-														a
-													Expression
-														Expression type: Variable
-														Variable: ID
-														b
-													Expression
-														Expression type: Variable
-														Variable: ID
-														c
-													Expression
-														Expression type: Variable
-														Variable: ID
-														d
-									Expression at line 9
-										Expression type: Comparison (Less or Equal Than)
-										Expression
-											Expression type: Variable
-											Variable: ID
-											a
-										Expression
-											Expression type: Int
-											3
-								Expression at line 9
-									Expression type: Equality
-									Expression
-										Expression type: Variable
-										Variable: ID
-										a
-									Expression
-										Expression type: Int
-										2
-							Expression at line 9
-								Expression type: Equality
-								Expression
-									Expression type: Variable
-									Variable: ID
-									a
-								Expression
-									Expression type: Int
-									2
-						Expression at line 9
-							Expression type: Equality
-							Expression
-								Expression type: Variable
-								Variable: ID
-								a
-							Expression
-								Expression type: Int
-								2
-					Command type: While
-					Command
-						Command type: Basic Command
-						Basic Command
-							Command type: Block
-							Block:
-								Def Var List:
-								Command List:
-									Command
-										Command type: Basic Command
-										Basic Command at line 11
-											Command type: Return
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression
+              Expression type: Int
+Expression resulting type:               Type: void
+              2
+        Command at line 9
+          Expression at line 9
+            Expression type: Logical Disjunction
+Expression resulting type:             Type: void
+            Expression at line 9
+              Expression type: Logical Disjunction
+Expression resulting type:               Type: void
+              Expression at line 9
+                Expression type: Logical Disjunction
+Expression resulting type:                 Type: void
+                Expression at line 9
+                  Expression type: Logical Disjunction
+Expression resulting type:                   Type: void
+                  Expression at line 9
+                    Expression type: Logical Disjunction
+Expression resulting type:                     Type: void
+                    Expression at line 9
+                      Expression type: Logical Disjunction
+Expression resulting type:                       Type: void
+                      Expression at line 9
+                        Expression type: Logical Disjunction
+Expression resulting type:                         Type: void
+                        Expression at line 9
+                          Expression type: Equality
+Expression resulting type:                           Type: void
+                          Expression
+                            Expression type: Variable
+Expression resulting type:                             Type: void
+                            Variable: ID
+                            a
+                          Expression
+                            Expression type: Int
+Expression resulting type:                             Type: void
+                            2
+                        Expression
+                          Expression type: Function Call
+Expression resulting type:                           Type: void
+                          Command Call: b
+Type:                             Type: void
+                            Expression List:
+                      Expression
+                        Expression type: Function Call
+Expression resulting type:                         Type: void
+                        Command Call: c
+Type:                           Type: void
+                          Expression List:
+                            Expression
+                              Expression type: Variable
+Expression resulting type:                               Type: void
+                              Variable: ID
+                              a
+                    Expression
+                      Expression type: Function Call
+Expression resulting type:                       Type: void
+                      Command Call: deee
+Type:                         Type: void
+                        Expression List:
+                          Expression
+                            Expression type: Variable
+Expression resulting type:                             Type: void
+                            Variable: ID
+                            a
+                          Expression
+                            Expression type: Variable
+Expression resulting type:                             Type: void
+                            Variable: ID
+                            b
+                          Expression
+                            Expression type: Variable
+Expression resulting type:                             Type: void
+                            Variable: ID
+                            c
+                          Expression
+                            Expression type: Variable
+Expression resulting type:                             Type: void
+                            Variable: ID
+                            d
+                  Expression at line 9
+                    Expression type: Comparison (Less or Equal Than)
+Expression resulting type:                     Type: void
+                    Expression
+                      Expression type: Variable
+Expression resulting type:                       Type: void
+                      Variable: ID
+                      a
+                    Expression
+                      Expression type: Int
+Expression resulting type:                       Type: void
+                      3
+                Expression at line 9
+                  Expression type: Equality
+Expression resulting type:                   Type: void
+                  Expression
+                    Expression type: Variable
+Expression resulting type:                     Type: void
+                    Variable: ID
+                    a
+                  Expression
+                    Expression type: Int
+Expression resulting type:                     Type: void
+                    2
+              Expression at line 9
+                Expression type: Equality
+Expression resulting type:                 Type: void
+                Expression
+                  Expression type: Variable
+Expression resulting type:                   Type: void
+                  Variable: ID
+                  a
+                Expression
+                  Expression type: Int
+Expression resulting type:                   Type: void
+                  2
+            Expression at line 9
+              Expression type: Equality
+Expression resulting type:               Type: void
+              Expression
+                Expression type: Variable
+Expression resulting type:                 Type: void
+                Variable: ID
+                a
+              Expression
+                Expression type: Int
+Expression resulting type:                 Type: void
+                2
+          Command type: While
+          Command
+            Command type: Basic Command
+            Basic Command
+              Command type: Block
+              Block:
+                Def Var List:
+                Command List:
+                  Command
+                    Command type: Basic Command
+                    Basic Command at line 11
+                      Command type: Return
