@@ -176,6 +176,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpOr:
         case ExpAnd:
             printBinExpType(exp->tag, nIdent+1);
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printExp(exp->u.bin.e1, nIdent+1);
@@ -184,6 +185,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpVar:
             printIdent(nIdent+1);
             printf("Expression type: Variable\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printVar(exp->u.var, nIdent+1);
@@ -191,6 +193,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpCall:
             printIdent(nIdent+1);
             printf("Expression type: Function Call\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printCmdCall(exp->u.call, nIdent+1);
@@ -198,6 +201,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpNot:
             printIdent(nIdent+1);
             printf("Expression type: Negation\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printExp(exp->u.un, nIdent+1);
@@ -205,6 +209,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpMinus:
             printIdent(nIdent+1);
             printf("Expression type: Negative\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printExp(exp->u.un, nIdent+1);
@@ -212,6 +217,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpNew:
             printIdent(nIdent+1);
             printf("Expression type: New\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printType(exp->u.newexp.type, nIdent+1);
@@ -220,6 +226,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpString:
             printIdent(nIdent+1);
             printf("Expression type: String\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
@@ -228,6 +235,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpInt:
             printIdent(nIdent+1);
             printf("Expression type: Int\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
@@ -236,6 +244,7 @@ void printExp(Exp * exp, int nIdent)
         case ExpFloat:
             printIdent(nIdent+1);
             printf("Expression type: Float\n");
+            printIdent(nIdent+1);
             printf("Expression resulting type: ");
             printType(exp->type, nIdent+1);
             printIdent(nIdent+1);
@@ -273,6 +282,7 @@ void printCmdCall (CmdCall * cmd, int nIdent)
 {
     printIdent(nIdent);
     printf("Command Call: %s\n", cmd->id);
+    printIdent(nIdent);
     printf("Type: ");
     printType(cmd->type, nIdent+1);
     printExpList(cmd->parameters, nIdent+1);

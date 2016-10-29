@@ -13,13 +13,13 @@ PASSDefinition:
             a
             Expression at line 7
               Expression type: Addition
-Expression resulting type:               Type: void
+              Expression resulting type:               Type: void
               Expression
                 Expression type: Variable
-Expression resulting type:                 Type: void
+                Expression resulting type:                 Type: void
                 Variable: ID
                 a
               Expression
                 Expression type: Int
-Expression resulting type:                 Type: void
+                Expression resulting type:                 Type: void
                 1

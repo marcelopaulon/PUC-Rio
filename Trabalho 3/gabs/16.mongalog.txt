@@ -11,7 +11,7 @@ PASSDefinition:
             Command type: Return
             Expression
               Expression type: Variable
-Expression resulting type:               Type: void
+              Expression resulting type:               Type: void
               Variable: ID
               b
 Definition:
@@ -27,6 +27,6 @@ Definition:
             Command type: Return
             Expression
               Expression type: Variable
-Expression resulting type:               Type: void
+              Expression resulting type:               Type: void
               Variable: ID
               bbb

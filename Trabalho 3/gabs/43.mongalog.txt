@@ -15,14 +15,14 @@ PASSDefinition:
             b
             Expression at line 7
               Expression type: Division
-Expression resulting type:               Type: void
+              Expression resulting type:               Type: void
               Expression
                 Expression type: Variable
-Expression resulting type:                 Type: void
+                Expression resulting type:                 Type: void
                 Variable: ID
                 b
               Expression
                 Expression type: Variable
-Expression resulting type:                 Type: void
+                Expression resulting type:                 Type: void
                 Variable: ID
                 b

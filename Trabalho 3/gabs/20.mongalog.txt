@@ -16,7 +16,7 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-Expression resulting type:               Type: void
+              Expression resulting type:               Type: void
               2
         Command
           Command type: Basic Command
@@ -35,15 +35,15 @@ Expression resulting type:               Type: void
                         Command at line 11
                           Expression at line 11
                             Expression type: Equality
-Expression resulting type:                             Type: void
+                            Expression resulting type:                             Type: void
                             Expression
                               Expression type: Variable
-Expression resulting type:                               Type: void
+                              Expression resulting type:                               Type: void
                               Variable: ID
                               a
                             Expression
                               Expression type: Int
-Expression resulting type:                               Type: void
+                              Expression resulting type:                               Type: void
                               1
                           Command type: If and Else
                           Command
