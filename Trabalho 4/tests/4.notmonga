@@ -1,0 +1,8 @@
+/*
+ * 4.notmonga
+ * Var call
+ */
+
+float a(int b){
+    b();
+}
