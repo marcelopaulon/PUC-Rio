@@ -1,8 +1,0 @@
-/*
- * 45.notmonga
- * if inside assignment
- */
-void a()
-{
-	a = if(a==1) {a = a / 2;}
-}

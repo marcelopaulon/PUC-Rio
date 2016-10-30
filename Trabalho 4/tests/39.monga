@@ -1,8 +1,0 @@
-/*
- * 39.monga
- * float number - Identifier
- */
-void a()
-{
-    a = 3.1415 - a;
-}

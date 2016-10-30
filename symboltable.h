@@ -33,7 +33,7 @@ void addDecFunc(SymbolTable *p, Func *f);
 DecList *find(SymbolTable *p, const char *id);
 
 // Creates a new scope
-SymbolTable *enterScope(SymbolTable *p);
+void enterScope(SymbolTable **p);
 
 // Deletes current scope
 void leaveScope (SymbolTable **p);
@@ -43,3 +43,6 @@ int symbolTable_isEmpty (SymbolTable *p);
 
 // Frees the symbol table
 void free_symbolTable (SymbolTable *p);
+
+// Prints the symbol table
+void printST(SymbolTable *p);

@@ -1,8 +1,0 @@
-/*
- * 14.notmonga
- * Testing a function returning a function
- */
-void a()
-{
-    return void b(){};
-}

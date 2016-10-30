@@ -1,8 +1,0 @@
-/*
- * 42.notmonga
- * operator between parenthesis
- */
-void a()
-{
-    a = a (*) a;
-}

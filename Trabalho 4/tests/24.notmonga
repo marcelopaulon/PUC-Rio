@@ -1,8 +1,0 @@
-/*
- * 24.notmonga
- * number inside function
- */
-void a()
-{
-    1;
-}

@@ -1,9 +1,0 @@
-/*
- * 22.monga
- * while-if-return
- */
-void a()
-{
-    while(1)
-    	if(1==2) return;
-}

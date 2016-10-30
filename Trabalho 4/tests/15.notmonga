@@ -1,8 +1,0 @@
-/*
- * 15.notmonga
- * Testing a identifier that is a function
- */
-int c = void a()
-{
-    return b;
-}

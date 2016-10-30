@@ -1,9 +1,0 @@
-/*
- * 7.notmonga
- * Assigment if-block
- */
-int main(void)
-{
-  int a;
-  a = if(b==2){ };
-}

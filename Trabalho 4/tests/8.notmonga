@@ -1,9 +1,0 @@
-/*
- * 8.notmonga
- * Assigment while-block
- */
-int main(void)
-{
-  int a;
-  a = while(b==2){ };
-}

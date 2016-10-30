@@ -1,8 +1,0 @@
-/*
- * 43.notmonga
- * No % in monga
- */
-void a()
-{
-    a = a % a;
-}

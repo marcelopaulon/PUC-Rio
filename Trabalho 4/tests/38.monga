@@ -1,9 +1,0 @@
-/*
- * 38.monga
- * int number - Identifier + recursive call
- */
-void a()
-{
-    a = 100 - a;
-    a();
-}

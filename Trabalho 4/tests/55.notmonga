@@ -1,8 +1,0 @@
-/*
- * 55.notmonga
- * return || return
- */
-void a()
-{
-    return a || return b;
-}

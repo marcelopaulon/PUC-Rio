@@ -1,8 +1,0 @@
-/*
- * 36.monga
- * int number + Identifier
- */
-void a()
-{
-    a = 1 + a;
-}

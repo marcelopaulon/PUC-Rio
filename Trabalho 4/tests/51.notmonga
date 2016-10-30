@@ -1,8 +1,0 @@
-/*
- * 51.notmonga
- * You can't initialize a variable when you declare it in Monga
- */
-void a()
-{
-    int a = 0;
-}

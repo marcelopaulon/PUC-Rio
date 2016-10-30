@@ -1,9 +1,0 @@
-/*
- * 6.notmonga
- * Assigment return
- */
-int main(void)
-{
-  int a;
-  a = return;
-}

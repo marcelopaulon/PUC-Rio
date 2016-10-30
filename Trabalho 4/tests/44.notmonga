@@ -1,8 +1,0 @@
-/*
- * 44.notmonga
- * explicit token
- */
-void a()
-{
-    a = 2 TK_GE a;
-}

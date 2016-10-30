@@ -1,8 +1,0 @@
-/*
- * 12.monga
- * Testing a function returning a negative int constant
- */
-void a()
-{
-    return -1;
-}

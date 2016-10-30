@@ -1,8 +1,0 @@
-/*
- * 19.monga
- * Variable declaration inside function
- */
-void f()
-{
-    int a;
-}

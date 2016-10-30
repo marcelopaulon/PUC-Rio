@@ -1,8 +1,0 @@
-/*
- * 10.monga
- * Testing a function returning nothing
- */
-void a()
-{
-    return;
-}

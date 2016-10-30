@@ -1,8 +1,0 @@
-/*
- * 46.notmonga
- * Expressions aren't operators
- */
-void a()
-{
-    a = 2.0 (a && b) 1;
-}

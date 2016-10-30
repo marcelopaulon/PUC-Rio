@@ -1,8 +1,0 @@
-/*
- * 45.monga
- * Identifier / int
- */
-void a()
-{
-    a = a / 2;
-}

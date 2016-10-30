@@ -1,8 +1,0 @@
-/*
- * 37.notmonga
- * float identifier
- */
-void a()
-{
-    a = a.a + a;
-}

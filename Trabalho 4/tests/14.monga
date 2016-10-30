@@ -1,8 +1,0 @@
-/*
- * 14.monga
- * Testing a function returning a negative float constant
- */
-void a()
-{
-    return -1.2;
-}

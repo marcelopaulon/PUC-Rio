@@ -1,8 +1,0 @@
-/*
- * 33.notmonga
- * Return assingment
- */
-void a()
-{
-    return a = a + 1.0;
-}

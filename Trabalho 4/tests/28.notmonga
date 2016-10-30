@@ -1,9 +1,0 @@
-/*
- * 28.notmonga
- * Assign number as variable
- */
-void a()
-{
-    int a;
-    2 = a;
-}

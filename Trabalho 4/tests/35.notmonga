@@ -1,8 +1,0 @@
-/*
- * 35.notmonga
- * Assignment as parameter
- */
-void a(a = a - 3.1415)
-{
-    
-}

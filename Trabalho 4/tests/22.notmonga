@@ -1,8 +1,0 @@
-/*
- * 22.notmonga
- * return while
- */
-void a()
-{
-    return while(1);
-}

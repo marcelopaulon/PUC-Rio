@@ -1,9 +1,0 @@
-/*
- * 53.notmonga
- * Void array
- */
-void a()
-{
-    int a;
-    a = new void[10/10];
-}

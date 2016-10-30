@@ -1,8 +1,0 @@
-/*
- * 34.notmonga
- * Variable = operator
- */
-void a()
-{
-    a = -;
-}

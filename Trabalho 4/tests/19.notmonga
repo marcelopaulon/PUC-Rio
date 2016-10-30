@@ -1,8 +1,0 @@
-/*
- * 19.notmonga
- * Declaring variable as void
- */
-void f()
-{
-    void a;
-}

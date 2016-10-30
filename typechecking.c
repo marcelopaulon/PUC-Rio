@@ -175,7 +175,7 @@ void checkCmdCall(CmdCall *cmd)
 
     ExpList * l1;
     ParamList * l2;
-    
+
     if(temp == NULL)
     {
         printf("Undefined symbol %s called as function. Exiting.\n", cmd->id);
@@ -354,7 +354,7 @@ void checkCmdList(CmdList *cmdList)
 
 void checkBlock(Block *block)
 {
-    table = enterScope(table);
+    enterScope(&table);
     checkDefVarList(block->vars);
     checkCmdList(block->cmds);
     leaveScope(&table);
@@ -363,12 +363,13 @@ void checkBlock(Block *block)
 void checkDefFunc(Func *deffunc)
 {
     checkSymbolRedefinition(deffunc->id);
-
+    
     curFunction = deffunc->id;
     curReturnType = deffunc->type;
-    addDecFunc(table, deffunc);
     
-    table = enterScope(table);
+    addDecFunc(table, deffunc);
+
+    enterScope(&table);
 
     checkParamList(deffunc->params);
     checkBlock(deffunc->block);

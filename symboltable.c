@@ -132,15 +132,10 @@ void addDecFunc(SymbolTable *p, Func *f)
 DecList *find(SymbolTable *p, const char *id)
 {
     SymbolTable *temp = p;
-    DecList *tempDec = temp->current;
     
-    if(tempDec->type == 'n')
-    {
-        return NULL;
-    }
-
     while(temp != NULL)
     {
+        DecList *tempDec = temp->current;
         while(tempDec != NULL)
         {
             if(tempDec->type == 'n') break;
@@ -156,11 +151,36 @@ DecList *find(SymbolTable *p, const char *id)
     return NULL;
 }
 
-SymbolTable *enterScope(SymbolTable *p)
+void printST(SymbolTable *p)
+{
+    SymbolTable *temp = p;
+
+    printf("Symbol table:\n");
+
+    while(temp != NULL)
+    {
+        DecList *tempDec = temp->current;
+        printf("Scope:\n");
+        while(tempDec != NULL)
+        {
+            if(tempDec->type == 'n') break;
+            if(tempDec->type == 'v') printf("\tType: %d Name: %s\n", tempDec->type, tempDec->val.v->id); 
+            if(tempDec->type == 'p') printf("\tType: %d Name: %s\n", tempDec->type, tempDec->val.p->id); 
+            if(tempDec->type == 'f') printf("\tType: %d Name: %s\n", tempDec->type, tempDec->val.f->id);
+            tempDec = tempDec->next;
+        }
+
+        temp = temp->previous;
+    }
+
+    printf("\n");
+}
+
+void enterScope(SymbolTable **p)
 {
     SymbolTable *new = create_symbolTable();
-    new->previous = p;
-    return new;    
+    new->previous = *p;
+    *p = new;    
 }
 
 void leaveScope (SymbolTable **p)
@@ -168,7 +188,7 @@ void leaveScope (SymbolTable **p)
     SymbolTable *temp = (*p);
     DecList *tempDec = temp->current, *tempDec2;
 
-    (*p) = temp->previous;
+    *p = temp->previous;
     
     while(tempDec != NULL)
     {
