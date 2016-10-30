@@ -9,9 +9,14 @@ static char *curFunction = NULL;
 static Type *curReturnType = NULL;
 
 void checkBlock(Block *block);
+void checkCmdCall(CmdCall *cmd);
+Type *checkVar(Var *var, Exp *exp);
 
 int typeEquals(Type *t1, Type *t2)
 {
+    if(t1 == NULL && t2 != NULL) return 0;
+    if(t2 == NULL && t1 != NULL) return 0;
+    if(t1 == NULL && t2 == NULL) return 1;
     if(t1->name != t2->name) return 0;
     if(t1->brackets != t2->brackets) return 0;
     return 1;
@@ -20,6 +25,7 @@ int typeEquals(Type *t1, Type *t2)
 int isExpNumerical(Exp *e)
 {
     Type *type = e->type;
+
     if(type->name != VarFloat && type->name != VarInt) return 0;
     if(type->brackets != 0) return 0;
     return 1;
@@ -68,7 +74,83 @@ void checkDefVarList(DefVarList *defvarlist)
 
 void checkExp(Exp *exp)
 {
+    if(exp == NULL) return;
 
+    switch(exp->tag){
+        case ExpAdd:
+        case ExpSub:
+        case ExpMul:
+        case ExpDiv:
+        case ExpEqual:
+        case ExpLess:
+        case ExpGreater:
+        case ExpLessEqual:
+        case ExpGreaterEqual:
+        case ExpOr:
+        case ExpAnd:
+            checkExp(exp->u.bin.e1);
+            checkExp(exp->u.bin.e2); // TODO CAST
+            exp->type = exp->u.bin.e1->type;
+        	break;
+        case ExpVar:
+            exp->type = checkVar(exp->u.var, NULL); // TODO CHECK NULL
+        	break;
+        case ExpCall:
+            checkCmdCall(exp->u.call);
+            exp->type = exp->u.call->type;
+        	break;
+        case ExpNot:
+        case ExpMinus:
+            checkExp(exp->u.un);
+            exp->type = exp->u.un->type;
+        	break;
+        case ExpNew:      
+            checkExp(exp->u.newexp.exp);
+            exp->type = exp->u.newexp.exp->type; 
+        	break;
+        case ExpString:
+            exp->type = (Type *) malloc(sizeof(Type));
+            if(exp->type == NULL)
+            {
+                printf("Unable to allocate memory for Type. Exiting.");
+                exit(-1);
+            }
+
+            exp->type->name = VarChar;
+            exp->type->brackets = 0;
+            exp->type->line = -1;
+            
+        	break;
+        case ExpInt:
+            exp->type = (Type *) malloc(sizeof(Type));
+            if(exp->type == NULL)
+            {
+                printf("Unable to allocate memory for Type. Exiting.");
+                exit(-1);
+            }
+
+            exp->type->name = VarInt;
+            exp->type->brackets = 0;
+            exp->type->line = -1;
+
+        	break;
+        case ExpFloat:
+            exp->type = (Type *) malloc(sizeof(Type));
+            if(exp->type == NULL)
+            {
+                printf("Unable to allocate memory for Type. Exiting.");
+                exit(-1);
+            }
+
+            exp->type->name = VarFloat;
+            exp->type->brackets = 0;
+            exp->type->line = -1;
+            
+        	break;
+        default:
+            printf("Invalid expression type. Exiting\n");
+            exit(-5);
+    }
 }
 
 void checkExpList(ExpList *expList)
@@ -131,9 +213,12 @@ void checkCmdCall(CmdCall *cmd)
     }
 }
 
-void checkVar(Var *var, Exp *exp)
+Type *checkVar(Var *var, Exp *exp)
 {
-    checkExp(exp);
+    if(exp != NULL)
+    {
+        checkExp(exp);
+    }
 
     if(var->tag == VarId)
     {
@@ -150,22 +235,27 @@ void checkVar(Var *var, Exp *exp)
             exit(-1);
         }
 
-        if((temp->type == 'v' && !typeEquals(temp->val.v->type, exp->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, exp->type)))
+        if(exp != NULL && ((temp->type == 'v' && !typeEquals(temp->val.v->type, exp->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, exp->type))))
         {
             printf("Incompatible types in assignment to symbol %s. Exiting.\n", var->u.id);
             exit(-1);
         }
+
+        if(temp->type == 'v') return temp->val.v->type;
+        else return temp->val.p->type;
     }
     else if(var->tag == VarIndexed)
     {
         checkExp(var->u.indexed.e1); // expothers
         checkExp(var->u.indexed.e2); // '[' exp ']'
 
-        if(var->u.indexed.e1->type->name != exp->type->name) // TODO: Fix
+        if(exp != NULL && var->u.indexed.e1->type->name != exp->type->name) // TODO: Fix
         {
             printf("Incompatible types in assignment to symbol. Exiting.\n");
             exit(-1);
         }
+
+        return var->u.indexed.e1->type;
     }
     else
     {
@@ -178,14 +268,16 @@ void checkCmdBasic(CmdBasic *cmd)
 {
     switch(cmd->type) {
         case CmdBasicReturn:
-            checkExp(cmd->u.returnExp);
-
-            if(!typeEquals(cmd->u.returnExp->type, curReturnType))
+            if(cmd->u.returnExp != NULL)
             {
-                printf("Function %s - invalid return type on line XXX. Exiting.", curFunction);
-                exit(-1);
-            }
+                checkExp(cmd->u.returnExp);
 
+                if(!typeEquals(cmd->u.returnExp->type, curReturnType))
+                {
+                    printf("Function %s - invalid return type on line XXX. Exiting.", curFunction);
+                    exit(-1);
+                }
+            }
             break;
         case CmdBasicCall:
             checkCmdCall(cmd->u.call);
@@ -204,12 +296,9 @@ void checkCmdBasic(CmdBasic *cmd)
 
 void checkCmd(Cmd *cmd)
 {
-    checkExp(cmd->e);
-    
     switch(cmd->type){
         case CmdWhile:
             checkExp(cmd->e);
-
             if(!isExpNumerical(cmd->e))
             {
                 printf("While expression must return a numerical type. Exiting.\n");
@@ -220,7 +309,6 @@ void checkCmd(Cmd *cmd)
             break;
         case CmdIf:
             checkExp(cmd->e);
-
             if(!isExpNumerical(cmd->e))
             {
                 printf("If expression must return a numerical type. Exiting.\n");
@@ -231,7 +319,6 @@ void checkCmd(Cmd *cmd)
             break;
         case CmdIfElse:
             checkExp(cmd->e);
-
             if(!isExpNumerical(cmd->e))
             {
                 printf("If expression must return a numerical type. Exiting.\n");
