@@ -151,6 +151,21 @@ DecList *find(SymbolTable *p, const char *id)
     return NULL;
 }
 
+DecList *findCurrentScope(SymbolTable *p, const char *id)
+{    
+    DecList *tempDec = p->current;
+    while(tempDec != NULL)
+    {
+        if(tempDec->type == 'n') break;
+        if(tempDec->type == 'v' && strcmp(tempDec->val.v->id, id) == 0) return tempDec; 
+        if(tempDec->type == 'p' && strcmp(tempDec->val.p->id, id) == 0) return tempDec; 
+        if(tempDec->type == 'f' && strcmp(tempDec->val.f->id, id) == 0) return tempDec;
+        tempDec = tempDec->next;
+    }
+
+    return NULL;
+}
+
 void printST(SymbolTable *p)
 {
     SymbolTable *temp = p;

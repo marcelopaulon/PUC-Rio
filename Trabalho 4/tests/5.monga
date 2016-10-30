@@ -3,5 +3,5 @@
  * Testing multiple int, float, char array declarations
  */
 int[] a,b,c,d, e, f,  g;
-float[][] a,b,c,d, e, f,  g;
-char[] a,b,c,d, e, f,  g;
+float[][] a1,b1,c1,d1, e1, f1,  g1;
+char[] a2,b2,c2,d2, e2, f2,  g2;

@@ -3,7 +3,7 @@
 
 #include "typechecking.h"
 
-static SymbolTable *table;
+static SymbolTable *table = NULL;
 
 static char *curFunction = NULL;
 static Type *curReturnType = NULL;
@@ -33,7 +33,7 @@ int isExpNumerical(Exp *e)
 
 void checkSymbolRedefinition(char *id)
 {
-    if(find(table, id) != NULL)
+    if(findCurrentScope(table, id) != NULL)
     {
         printf("Symbol %s has already been defined in this scope. Exiting.\n", id);
         exit(-1);
@@ -401,7 +401,7 @@ void typeCheck(DefinitionList *tree)
         return;
     }
 
-    table = create_symbolTable();
+    if(table == NULL) table = create_symbolTable();
 
     checkDefinition(tree->definition);
 

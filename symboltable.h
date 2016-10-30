@@ -32,6 +32,9 @@ void addDecFunc(SymbolTable *p, Func *f);
 // Searches for an identifier on the symbol table
 DecList *find(SymbolTable *p, const char *id);
 
+// Searches for an identifier on the current scope
+DecList *findCurrentScope(SymbolTable *p, const char *id);
+
 // Creates a new scope
 void enterScope(SymbolTable **p);
 

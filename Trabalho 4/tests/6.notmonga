@@ -1,0 +1,11 @@
+/*
+ * 6.notmonga
+ * Symbol already defined
+ */
+
+float a(){
+    int b;
+    int c;
+    float c;
+}
+
