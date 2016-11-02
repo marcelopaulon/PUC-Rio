@@ -218,22 +218,21 @@ void checkCmdCall(CmdCall *cmd)
 
     f = temp->val.f;
     cmd->type = f->type;
-    checkExpList(cmd->parameters);
-    
+    checkExpList(cmd->parameters); 
     l1 = cmd->parameters;
     l2 = f->params;
-    
-    while(l1 != NULL) {
+  
+    while(l1 != NULL && l2 != NULL) {
         if(!typeEquals(l1->exp->type, l2->param->type))
         {
             printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
             exit(-1);
         }
 
-        l1 = l1->next;  
+        l1 = l1->next;
         l2 = l2->next;
     }
-    
+
     if(l1 != NULL || l2 != NULL)
     {
         printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
