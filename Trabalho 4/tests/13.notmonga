@@ -1,0 +1,8 @@
+/*
+ * 13.notmonga
+ * Testing different return type
+ */
+
+char main (){
+    return 0.2;
+}

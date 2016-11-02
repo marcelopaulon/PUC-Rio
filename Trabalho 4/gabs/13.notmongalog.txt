@@ -1,0 +1,1 @@
+PASSFunction main - invalid return type on line 7. Exiting.

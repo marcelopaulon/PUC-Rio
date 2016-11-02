@@ -119,7 +119,7 @@ void checkExp(Exp *exp)
 
         	break;
         case ExpVar:
-            exp->type = checkVar(exp->u.var, NULL); // TODO CHECK NULL
+            exp->type = checkVar(exp->u.var, NULL);
         	break;
         case ExpCall:
             checkCmdCall(exp->u.call);
@@ -301,7 +301,7 @@ void checkCmdBasic(CmdBasic *cmd)
 
                 if(!typeEquals(cmd->u.returnExp->type, curReturnType))
                 {
-                    printf("Function %s - invalid return type on line XXX. Exiting.", curFunction);
+                    printf("Function %s - invalid return type on line %d. Exiting.\n", curFunction, cmd->line);
                     exit(-1);
                 }
             }
