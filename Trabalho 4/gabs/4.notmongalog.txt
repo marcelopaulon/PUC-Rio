@@ -1,1 +1,1 @@
-PASSAttempted to call non-function symbol b. Exiting.
+PASSAttempted to call non-function symbol b on line 7. Exiting.

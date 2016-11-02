@@ -178,13 +178,13 @@ void checkCmdCall(CmdCall *cmd)
 
     if(temp == NULL)
     {
-        printf("Undefined symbol %s called as function. Exiting.\n", cmd->id);
+        printf("Undefined symbol %s called as function on line %d. Exiting.\n", cmd->id, cmd->line);
         exit(-1);
     }
 
     if(temp->type != 'f')
     {  
-        printf("Attempted to call non-function symbol %s. Exiting.\n", cmd->id);
+        printf("Attempted to call non-function symbol %s on line %d. Exiting.\n", cmd->id, cmd->line);
         exit(-1);
     }
 
@@ -198,7 +198,7 @@ void checkCmdCall(CmdCall *cmd)
     while(l1 != NULL) {
         if(!typeEquals(l1->exp->type, l2->param->type))
         {
-            printf("Incompatible call signature for function %s. Exiting.\n", cmd->id);
+            printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
             exit(-1);
         }
 
@@ -208,7 +208,7 @@ void checkCmdCall(CmdCall *cmd)
     
     if(l1 != NULL || l2 != NULL)
     {
-        printf("Incompatible call signature for function %s. Exiting.\n", cmd->id);
+        printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
         exit(-1);
     }
 }

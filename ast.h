@@ -209,6 +209,7 @@ struct CmdCall{
     char *id;
     Type *type;
     ExpList *parameters;
+    int line;
 };
 
 void *checkedMalloc(int size);

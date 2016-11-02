@@ -234,8 +234,8 @@ explist : exp ',' explist { $$ = mnew(ExpList); $$->exp = $1; $$->next = $3; }
         | exp { $$ = mnew(ExpList); $$->exp = $1; $$->next = NULL; }
         ;
 
-call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->parameters = $3;}
-     | TK_ID '(' ')' {$$ = mnew(CmdCall); $$->id = $1; $$->parameters = NULL;}
+call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$->parameters = $3;}
+     | TK_ID '(' ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$->parameters = NULL;}
      ;
 
 %%
