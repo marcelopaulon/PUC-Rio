@@ -276,7 +276,7 @@ Type *checkVar(Var *var, Exp *exp)
         checkExp(var->u.indexed.e1); // expothers
         checkExp(var->u.indexed.e2); // '[' exp ']'
 
-        if(exp != NULL && var->u.indexed.e1->type->name != exp->type->name) // TODO: Fix
+        if(exp != NULL && !typeEquals(var->u.indexed.e1->type, exp->type))
         {
             printf("Incompatible types in assignment to symbol. Exiting.\n");
             exit(-1);

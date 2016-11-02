@@ -1,0 +1,11 @@
+/*
+ * 12.notmonga
+ * Testing different types
+ */
+
+int main (){
+    int a;
+    int[][] b;
+    b[0] = a;
+    return a;
+}
