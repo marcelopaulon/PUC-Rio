@@ -43,6 +43,22 @@ Exp *newBinExp(ExpE expTag, Exp* e1, Exp* e2, int line){
     return exp;
 }
 
+Exp *castIntToFloat(Exp *e)
+{
+    Exp* exp = mnew(Exp);
+
+    if(e->type->name != VarInt || e->type->brackets > 0)
+    {
+        printf("Invalid cast to float. Exiting.\n");
+        exit(-1);
+    }
+
+    exp->type = baseTypeInit(VarFloat);
+    exp->tag = ExpCastIntToFloat;
+    exp->u.un = e;
+    return exp;
+}
+
 Type *baseTypeInit(VarType type)
 {
     Type *base = mnew(Type); 
@@ -250,8 +266,13 @@ void printExp(Exp * exp, int nIdent)
             printIdent(nIdent+1);
             printf("%f\n", exp->u.d);
         	break;
+        case ExpCastIntToFloat:
+            printIdent(nIdent+1);
+            printf("Expression type: Cast from int to float\n");
+            printExp(exp->u.un, nIdent + 1);
+            break;
         default:
-            printf("Invalid expression type. Exiting\n");
+            printf("Invalid expression type %d. Exiting\n", exp->tag);
             exit(-5);
     }
 }

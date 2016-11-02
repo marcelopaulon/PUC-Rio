@@ -156,7 +156,8 @@ enum ExpE{
     ExpNew,
     ExpString,
     ExpInt,
-    ExpFloat
+    ExpFloat,
+    ExpCastIntToFloat
 };
 
 
@@ -215,6 +216,8 @@ struct CmdCall{
 void *checkedMalloc(int size);
 Exp *newBinExp(ExpE expType, Exp* e1, Exp* e2, int line);
 Type *baseTypeInit(VarType type);
+
+Exp *castIntToFloat(Exp *exp);
 
 CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line);
 CmdBasic *cmdBasicReturnInit(Exp *exp, int line);

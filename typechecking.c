@@ -89,8 +89,34 @@ void checkExp(Exp *exp)
         case ExpOr:
         case ExpAnd:
             checkExp(exp->u.bin.e1);
-            checkExp(exp->u.bin.e2); // TODO CAST
-            exp->type = exp->u.bin.e1->type;
+            checkExp(exp->u.bin.e2);
+
+            if(exp->u.bin.e1->type->brackets > 0 || exp->u.bin.e2->type->brackets > 0)
+            {
+                printf("Invalid array comparison. Exiting.\n");
+                exit(-1);
+            }
+            
+            if(exp->u.bin.e1->type->name == exp->u.bin.e2->type->name)
+            {
+                exp->type = exp->u.bin.e1->type;
+            }
+            else if(exp->u.bin.e1->type->name == VarFloat && exp->u.bin.e2->type->name == VarInt)
+            {
+                exp->u.bin.e2 = castIntToFloat(exp->u.bin.e2);
+                exp->type = exp->u.bin.e1->type;
+            }
+            else if(exp->u.bin.e1->type->name == VarInt && exp->u.bin.e2->type->name == VarFloat)
+            {
+                exp->u.bin.e1 = castIntToFloat(exp->u.bin.e1);
+                exp->type = exp->u.bin.e2->type;
+            }
+            else
+            {
+                printf("Invalid expression. Exiting.\n");
+                exit(-1);
+            }
+
         	break;
         case ExpVar:
             exp->type = checkVar(exp->u.var, NULL); // TODO CHECK NULL
@@ -147,8 +173,10 @@ void checkExp(Exp *exp)
             exp->type->line = -1;
             
         	break;
+        case ExpCastIntToFloat:
+            break;
         default:
-            printf("Invalid expression type. Exiting\n");
+            printf("Invalid expression type %d. Exiting\n", exp->tag);
             exit(-5);
     }
 }
