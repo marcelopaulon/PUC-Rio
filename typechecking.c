@@ -274,9 +274,9 @@ Type *checkVar(Var *var, Exp *exp)
     else if(var->tag == VarIndexed)
     {
         checkExp(var->u.indexed.e1); // expothers
-        checkExp(var->u.indexed.e2); // '[' exp ']'
+        checkExp(var->u.indexed.e2); // '[' expIdx ']'
 
-        if(exp != NULL && !typeEquals(var->u.indexed.e1->type, exp->type))
+        if(exp != NULL && !(var->u.indexed.e1->type->name == exp->type->name && var->u.indexed.e1->type->brackets - 1 == exp->type->brackets))
         {
             printf("Incompatible types in assignment to symbol. Exiting.\n");
             exit(-1);

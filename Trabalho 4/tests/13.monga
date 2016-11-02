@@ -1,0 +1,16 @@
+/*
+ * 13.monga
+ * Exp test float to int cast
+ */
+
+int main()
+{
+    float a;
+    int b;
+    a = 1.0;
+    b = 1;
+    if(b == 3.0)
+    {
+        /*a = a + b;*/
+    }
+}
