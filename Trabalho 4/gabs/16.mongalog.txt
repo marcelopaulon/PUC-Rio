@@ -13,6 +13,20 @@ PASSDefinition:
       Command List:
         Command
           Command type: Basic Command
+          Basic Command at line 9
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 9
+              Expression type: New
+              Type: int
+              Expression resulting Type: int[]
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                10
+        Command
+          Command type: Basic Command
           Basic Command at line 10
             Command type: Variable Assignment
             Variable at line 10: Indexed

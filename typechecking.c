@@ -130,9 +130,11 @@ void checkExp(Exp *exp)
             checkExp(exp->u.un);
             exp->type = exp->u.un->type;
         	break;
-        case ExpNew:      
+        case ExpNew:
             checkExp(exp->u.newexp.exp);
-            exp->type = exp->u.newexp.exp->type; 
+            exp->type = mnew(Type);
+            exp->type->name = exp->u.newexp.exp->type->name;
+            exp->type->brackets = exp->u.newexp.exp->type->brackets + 1;
         	break;
         case ExpString:
             exp->type = (Type *) malloc(sizeof(Type));
