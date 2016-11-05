@@ -208,9 +208,13 @@ void IupGLCanvasDummy::drawScene( )
         printf( "Error : %s\n", gluErrorString( err ) );
     }
 	
-    //Aplica uma transformacao de escala.
     _modelViewMatrix.push( );
-	_modelViewMatrix.scale(50, 50, 0);
+	
+	_modelViewMatrix.lookAt(6, 0, 0, 0, 0, 0, 1, 1, 0);
+	
+
+	//Aplica uma transformacao de escala.
+	_modelViewMatrix.scale(20, 20, 20);
 
     //compila o shader se este nao tiver sido compilado ainda
     if (!_shader->isAllocated( ))
@@ -283,9 +287,14 @@ void IupGLCanvasDummy::resizeCanvas( int width, int height )
 {
     //Define o viewport.
     glViewport( 0, 0, width, height );
-
+	
     _projectionMatrix.loadIdentity( );
-    _projectionMatrix.ortho( -10, 10, -10, 10, -1, 1 );
+    //_projectionMatrix.ortho( -10, 10, -10, 10, -1, 1 );
+
+	if (height == 0) height = 1;                        // To prevent divide by 0
+	GLfloat aspect = (GLfloat)width / (GLfloat)height; // Compute aspect ratio
+
+	_projectionMatrix.perspective(90, aspect, 1.0, 11.0);
 }
 
 
