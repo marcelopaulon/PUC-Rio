@@ -32,6 +32,8 @@ IupGLCanvasDummy::IupGLCanvasDummy( )
 
 void IupGLCanvasDummy::createWindow( )
 {
+	parseOff();
+
     //Cria botao de sair.
     Ihandle *exitButton = IupButton( "Sair", NULL );
 
@@ -205,12 +207,10 @@ void IupGLCanvasDummy::drawScene( )
     {
         printf( "Error : %s\n", gluErrorString( err ) );
     }
-
-	parseOff();
-
+	
     //Aplica uma transformacao de escala.
     _modelViewMatrix.push( );
-	_modelViewMatrix.scale(5, 5, 0);
+	_modelViewMatrix.scale(50, 50, 0);
 
     //compila o shader se este nao tiver sido compilado ainda
     if (!_shader->isAllocated( ))
@@ -225,6 +225,31 @@ void IupGLCanvasDummy::drawScene( )
     int vertexParam = glGetAttribLocation( glShader, "vtx" );
     glVertexAttribPointer( vertexParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexList[0]);
     glEnableVertexAttribArray( vertexParam );
+
+	std::vector<float> colorList;
+
+	for (int i = 0; i < trianglesList.size(); i++)
+	{
+		colorList.push_back(1);
+		colorList.push_back(0);
+		colorList.push_back(0);
+		colorList.push_back(1);
+
+		colorList.push_back(0);
+		colorList.push_back(1);
+		colorList.push_back(0);
+		colorList.push_back(1);
+
+		colorList.push_back(0);
+		colorList.push_back(0);
+		colorList.push_back(1);
+		colorList.push_back(1);
+	}
+
+	//Transfere as cores para a placa.
+	int colorParam = glGetAttribLocation(glShader, "color");
+	glVertexAttribPointer(colorParam, 4, GL_FLOAT, GL_FALSE, 0, &colorList[0]);
+	glEnableVertexAttribArray(colorParam);
 
     //Obtem a modelview projection (mvp)
     {
