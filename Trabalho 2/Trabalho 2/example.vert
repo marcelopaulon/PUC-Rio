@@ -71,6 +71,6 @@ void main(void)
 	vec4 specularLighting = vec4(0,0,0,0);
 	*/
 
-	colorFr = vec4(diffuseLighting + specularLighting,1);
+	colorFr = vec4(ambientLighting + diffuseLighting + specularLighting,1);
 	
 }

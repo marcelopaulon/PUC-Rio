@@ -24,6 +24,9 @@
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
 {
+
+	s_instance = this;
+
     //Cria janela e define suas configuracoes.
     createWindow( );
 }
@@ -131,6 +134,8 @@ void IupGLCanvasDummy::initializeCanvas( )
 {
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
 
+	eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
+
     //Aloca shader.
     _shader = new GraphicsShader( );
 
@@ -199,6 +204,11 @@ void IupGLCanvasDummy::parseOff()
 	calcNormals();
 }
 
+// Allocating and initializing IupGLCanvasDummy's
+// static data member.  The pointer is being
+// allocated - not the object inself.
+IupGLCanvasDummy *IupGLCanvasDummy::s_instance = 0;
+
 void IupGLCanvasDummy::calcNormals()
 {
 	vertexNormal = new vec3[nVertex];
@@ -262,8 +272,6 @@ void IupGLCanvasDummy::drawScene( )
 	
     _modelViewMatrix.push( );
 	
-	float eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
-
 	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
 	
 	//Aplica uma transformacao de escala.
@@ -433,6 +441,38 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* canvas, float delta, int x,
 
 int IupGLCanvasDummy::keypressCallback(Ihandle * self, int c, int press)
 {
+	printf("Pressed!");
 
+	if (c == K_W)
+	{
+		IupGLCanvasDummy::s_instance->eyeX += 0.1;
+	}
+	else if (c == K_S)
+	{
+		IupGLCanvasDummy::s_instance->eyeX -= 0.1;
+	}
+	else if (c == K_A)
+	{
+		IupGLCanvasDummy::s_instance->eyeY += 0.1;
+	}
+	else if (c == K_D)
+	{
+		IupGLCanvasDummy::s_instance->eyeY -= 0.1;
+	}
+	else if (c == K_R)
+	{
+		IupGLCanvasDummy::s_instance->eyeZ += 0.1;
+	}
+	else if (c == K_F)
+	{
+		IupGLCanvasDummy::s_instance->eyeZ -= 0.1;
+	}
+	
+	
+	IupGLCanvasDummy::s_instance->drawScene();
+	IupRedraw(self, 0);
+
+	//IupGLCanvasDummy::s_instance->eyeZ++;
+	//IupGLCanvasDummy::s_instance->eyeZ++;
 	return IUP_DEFAULT;
 }

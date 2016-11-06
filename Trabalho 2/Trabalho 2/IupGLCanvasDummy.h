@@ -16,11 +16,14 @@
 
 class IupGLCanvasDummy
 {
+
 public:
+	static IupGLCanvasDummy *s_instance;
+
     /**
      * Construtor default da classe.
      */
-    IupGLCanvasDummy( );
+	IupGLCanvasDummy();
 
     /**
      * Destrutor da classe.
@@ -36,6 +39,10 @@ public:
      * Oculta a janela.
      */
     void hide( );
+
+public:
+
+	float eyeX, eyeY, eyeZ;
 
 private:
 
