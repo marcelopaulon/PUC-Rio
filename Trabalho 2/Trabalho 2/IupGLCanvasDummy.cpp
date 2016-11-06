@@ -194,6 +194,56 @@ void IupGLCanvasDummy::parseOff()
 			line += a;
 		}
 	}
+
+	calcNormals();
+}
+
+void IupGLCanvasDummy::calcNormals()
+{
+	vertexNormals = new vec3[nVertex];
+
+	// 1. Initialize every vertex normal to (0,0,0)
+	for (int i = 0; i < nVertex; i++) vertexNormals[i].x = vertexNormals[i].y = vertexNormals[i].z = 0.0;
+
+	// 2. For every face compute face normal fn
+	for (int i = 0; i < nTriangles; i++)
+	{
+		offTriangle triangle = trianglesList[i];
+		vec3 U, V;
+		vec3 v1 = vertexList[triangle.v1], v2 = vertexList[triangle.v2], v3 = vertexList[triangle.v3];
+		U.x = v2.x - v1.x;
+		U.y = v2.y - v1.y;
+		U.z = v2.z - v1.z;
+
+		V.x = v3.x - v1.x;
+		V.y = v3.y - v1.y;
+		V.z = v3.z - v1.z;
+
+		float FNx, FNy, FNz;
+
+		FNx = U.y*V.z - U.z*V.y;
+
+		FNy = U.z*V.x - U.x*V.z;
+
+		FNz = U.x*V.y - U.y*V.x;
+
+		// 3. For every vertex of the face add fn to the vertex normal
+		vertexNormals[triangle.v1].x += FNx;
+		vertexNormals[triangle.v1].y += FNy;
+		vertexNormals[triangle.v1].z += FNz;
+
+		vertexNormals[triangle.v2].x += FNx;
+		vertexNormals[triangle.v2].y += FNy;
+		vertexNormals[triangle.v2].z += FNz;
+
+		vertexNormals[triangle.v3].x += FNx;
+		vertexNormals[triangle.v3].y += FNy;
+		vertexNormals[triangle.v3].z += FNz;
+
+		//printf("FNx=%.6f, FNy=%.6f, FNz=%.6f\n", FNx, FNy, FNz);
+	}
+
+	// 4. Normalize every vertex normal (done in glsl)
 }
 
 
@@ -210,9 +260,10 @@ void IupGLCanvasDummy::drawScene( )
 	
     _modelViewMatrix.push( );
 	
-	_modelViewMatrix.lookAt(6, 0, 0, 0, 0, 0, 1, 1, 0);
-	
+	float eyeX = 6, eyeY = 2.0, eyeZ = 0;
 
+	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
+	
 	//Aplica uma transformacao de escala.
 	_modelViewMatrix.scale(20, 20, 20);
 
@@ -224,12 +275,7 @@ void IupGLCanvasDummy::drawScene( )
     _shader->load( );
 
     unsigned int glShader = _shader->getShaderIndex( );
-
-    //Transfere os vertices para a placa.
-    int vertexParam = glGetAttribLocation( glShader, "vtx" );
-    glVertexAttribPointer( vertexParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexList[0]);
-    glEnableVertexAttribArray( vertexParam );
-
+	
 	std::vector<float> colorList;
 
 	for (int i = 0; i < trianglesList.size(); i++)
@@ -239,43 +285,79 @@ void IupGLCanvasDummy::drawScene( )
 		colorList.push_back(0);
 		colorList.push_back(1);
 
-		colorList.push_back(0);
+		//colorList.push_back(0);
 		colorList.push_back(1);
+		colorList.push_back(0); // remove
 		colorList.push_back(0);
 		colorList.push_back(1);
 
+		colorList.push_back(1); // remove
 		colorList.push_back(0);
 		colorList.push_back(0);
-		colorList.push_back(1);
+		//colorList.push_back(1);
 		colorList.push_back(1);
 	}
+	
+	//Transfere a matriz modelview para a placa.
+	int mvmatrixParam = glGetUniformLocation(glShader, "mv");
+	glUniformMatrix4fv(mvmatrixParam, 1, GL_FALSE, (float*)_modelViewMatrix);
+
+    //Obtem a modelview projection (mvp)
+    {
+		_projectionMatrix.push();
+		
+        //Multiplica a modelview pela projection.
+        _projectionMatrix.multMatrix( ( float* ) _modelViewMatrix );
+
+        //Transfere a matriz modelview projection para a placa.
+        int mvpmatrixParam = glGetUniformLocation( glShader, "mvp" );
+        glUniformMatrix4fv(mvpmatrixParam, 1, GL_FALSE, ( float* ) _projectionMatrix );
+
+        _projectionMatrix.pop( );
+    }
+
+	// Calculate normalMatrix
+	{
+		_modelViewMatrix.push();
+
+		float *normalMatrix = new float[3*3];
+		_modelViewMatrix.getMatrixInverseTransposed(normalMatrix);
+
+		// Send normalMatrix to the video card
+		int normalMatrixParam = glGetUniformLocation(glShader, "normalMatrix");
+		glUniformMatrix3fv(normalMatrixParam, 1, GL_FALSE, (float*)normalMatrix);
+		delete[] normalMatrix;
+
+		_modelViewMatrix.pop();
+	}
+
+	//Transfere os vertices para a placa.
+	int vertexParam = glGetAttribLocation(glShader, "vtx");
+	glVertexAttribPointer(vertexParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexList[0]);
+	glEnableVertexAttribArray(vertexParam);
 
 	//Transfere as cores para a placa.
 	int colorParam = glGetAttribLocation(glShader, "color");
 	glVertexAttribPointer(colorParam, 4, GL_FLOAT, GL_FALSE, 0, &colorList[0]);
 	glEnableVertexAttribArray(colorParam);
 
-    //Obtem a modelview projection (mvp)
-    {
-        _projectionMatrix.push( );
-        _modelViewMatrix.push( );
-		
-        //Multiplica a modelview pela projection.
-        _projectionMatrix.multMatrix( ( float* ) _modelViewMatrix );
+	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
+	int lightPositionParam = glGetUniformLocation(glShader, "lightPosition");
+	glUniform3f(lightPositionParam, eyeX, eyeY, eyeZ);
 
-        //Transfere a matriz para a placa.
-        int matrixParam = glGetUniformLocation( glShader, "mvp" );
-        glUniformMatrix4fv( matrixParam, 1, GL_FALSE, ( float* ) _projectionMatrix );
+	int eyeParam = glGetUniformLocation(glShader, "eye");
+	glUniform3f(eyeParam, eyeX, eyeY, eyeZ);
 
-        _projectionMatrix.pop( );
-        _modelViewMatrix.pop( );
-    }
+	// Send normals to the video card
+	int vertexNormalParam = glGetAttribLocation(glShader, "vertexNormal");
+	glVertexAttribPointer(vertexNormalParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexNormals[0]);
+	glEnableVertexAttribArray(vertexNormalParam);
     
     //Desempilha a matriz que foi empilhada para fazer a transformacao de escala.
     _modelViewMatrix.pop( );
 
     //Desenha os elementos.
-    glDrawElements( GL_TRIANGLES, 3*trianglesList.size(), GL_UNSIGNED_INT, &trianglesList[0] );
+    glDrawElements( GL_TRIANGLES, 3*nTriangles, GL_UNSIGNED_INT, &trianglesList[0] );
 	
     //Descarrega o programa da placa.
     _shader->unload( );

@@ -110,9 +110,13 @@ private:
 	std::vector<vec3> vertexList;
 	std::vector<offTriangle> trianglesList;
 	
+	vec3 *vertexNormals;
+
 	int nVertex, nTriangles;
 
 	void parseOff();
+
+	void calcNormals();
 
     /**
      * Callback do botao de fechar a janela.
