@@ -255,7 +255,7 @@ void IupGLCanvasDummy::calcNormals()
 	}
 
 	// 4. Normalize every vertex normal (done in glsl)
-	
+	int foo = 1;
 }
 
 
@@ -290,9 +290,9 @@ void IupGLCanvasDummy::drawScene( )
 
 	for (int i = 0; i < nVertex; i++)
 	{
-		colorList.push_back(1);
-		colorList.push_back(0);
-		colorList.push_back(0);
+		colorList.push_back(0.5);
+		colorList.push_back(0.1);
+		colorList.push_back(0.7);
 		colorList.push_back(1);
 	}
 	
