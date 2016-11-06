@@ -110,7 +110,7 @@ private:
 	std::vector<vec3> vertexList;
 	std::vector<offTriangle> trianglesList;
 	
-	vec3 *vertexNormals;
+	vec3 *vertexNormal;
 
 	int nVertex, nTriangles;
 
@@ -169,6 +169,8 @@ private:
      */
     static int buttonCanvasCallback( Ihandle* canvas, int button, int pressed,
                                      int x, int y, char* status );
+
+	static int keypressCallback(Ihandle * self, int c, int press);
 
 };
 

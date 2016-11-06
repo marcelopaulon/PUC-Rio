@@ -70,8 +70,9 @@ void IupGLCanvasDummy::createWindow( )
     IupSetCallback( canvas, IUP_ACTION, ( Icallback ) actionCanvasCallback );
     IupSetCallback( canvas, IUP_RESIZE_CB, ( Icallback ) resizeCanvasCallback );
     IupSetCallback( canvas, IUP_BUTTON_CB, ( Icallback ) buttonCanvasCallback );
-    IupSetCallback( canvas, IUP_WHEEL_CB, ( Icallback ) wheelCanvasCallback );
-
+	IupSetCallback( canvas, IUP_WHEEL_CB, ( Icallback )wheelCanvasCallback);
+	IupSetCallback( canvas, IUP_KEYPRESS_CB, ( Icallback )keypressCallback);
+	
     //Mapeia o dialogo.
     IupMap( _dialog );
 
@@ -142,7 +143,7 @@ void IupGLCanvasDummy::initializeCanvas( )
 
 void IupGLCanvasDummy::parseOff()
 {
-	std::ifstream in("bunny_0.off");
+	std::ifstream in("klingon_starship.off");
 	std::string line;
 	int curLine = 1;
 	
@@ -200,10 +201,10 @@ void IupGLCanvasDummy::parseOff()
 
 void IupGLCanvasDummy::calcNormals()
 {
-	vertexNormals = new vec3[nVertex];
+	vertexNormal = new vec3[nVertex];
 
 	// 1. Initialize every vertex normal to (0,0,0)
-	for (int i = 0; i < nVertex; i++) vertexNormals[i].x = vertexNormals[i].y = vertexNormals[i].z = 0.0;
+	for (int i = 0; i < nVertex; i++) vertexNormal[i].x = vertexNormal[i].y = vertexNormal[i].z = 0.0;
 
 	// 2. For every face compute face normal fn
 	for (int i = 0; i < nTriangles; i++)
@@ -228,22 +229,23 @@ void IupGLCanvasDummy::calcNormals()
 		FNz = U.x*V.y - U.y*V.x;
 
 		// 3. For every vertex of the face add fn to the vertex normal
-		vertexNormals[triangle.v1].x += FNx;
-		vertexNormals[triangle.v1].y += FNy;
-		vertexNormals[triangle.v1].z += FNz;
+		vertexNormal[triangle.v1].x += FNx;
+		vertexNormal[triangle.v1].y += FNy;
+		vertexNormal[triangle.v1].z += FNz;
 
-		vertexNormals[triangle.v2].x += FNx;
-		vertexNormals[triangle.v2].y += FNy;
-		vertexNormals[triangle.v2].z += FNz;
+		vertexNormal[triangle.v2].x += FNx;
+		vertexNormal[triangle.v2].y += FNy;
+		vertexNormal[triangle.v2].z += FNz;
 
-		vertexNormals[triangle.v3].x += FNx;
-		vertexNormals[triangle.v3].y += FNy;
-		vertexNormals[triangle.v3].z += FNz;
+		vertexNormal[triangle.v3].x += FNx;
+		vertexNormal[triangle.v3].y += FNy;
+		vertexNormal[triangle.v3].z += FNz;
 
 		//printf("FNx=%.6f, FNy=%.6f, FNz=%.6f\n", FNx, FNy, FNz);
 	}
 
 	// 4. Normalize every vertex normal (done in glsl)
+	
 }
 
 
@@ -260,12 +262,12 @@ void IupGLCanvasDummy::drawScene( )
 	
     _modelViewMatrix.push( );
 	
-	float eyeX = 6, eyeY = 2.0, eyeZ = 0;
+	float eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
 
 	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
 	
 	//Aplica uma transformacao de escala.
-	_modelViewMatrix.scale(20, 20, 20);
+	_modelViewMatrix.scale(1, 1, 1);
 
     //compila o shader se este nao tiver sido compilado ainda
     if (!_shader->isAllocated( ))
@@ -278,25 +280,20 @@ void IupGLCanvasDummy::drawScene( )
 	
 	std::vector<float> colorList;
 
-	for (int i = 0; i < trianglesList.size(); i++)
+	for (int i = 0; i < nVertex; i++)
 	{
 		colorList.push_back(1);
 		colorList.push_back(0);
 		colorList.push_back(0);
 		colorList.push_back(1);
-
-		//colorList.push_back(0);
-		colorList.push_back(1);
-		colorList.push_back(0); // remove
-		colorList.push_back(0);
-		colorList.push_back(1);
-
-		colorList.push_back(1); // remove
-		colorList.push_back(0);
-		colorList.push_back(0);
-		//colorList.push_back(1);
-		colorList.push_back(1);
 	}
+	
+	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
+	int lightPositionParam = glGetUniformLocation(glShader, "lightPosition");
+	glUniform3f(lightPositionParam, eyeX, eyeY, eyeZ);
+
+	int eyeParam = glGetUniformLocation(glShader, "eye");
+	glUniform3f(eyeParam, eyeX, eyeY, eyeZ);
 	
 	//Transfere a matriz modelview para a placa.
 	int mvmatrixParam = glGetUniformLocation(glShader, "mv");
@@ -340,17 +337,10 @@ void IupGLCanvasDummy::drawScene( )
 	int colorParam = glGetAttribLocation(glShader, "color");
 	glVertexAttribPointer(colorParam, 4, GL_FLOAT, GL_FALSE, 0, &colorList[0]);
 	glEnableVertexAttribArray(colorParam);
-
-	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
-	int lightPositionParam = glGetUniformLocation(glShader, "lightPosition");
-	glUniform3f(lightPositionParam, eyeX, eyeY, eyeZ);
-
-	int eyeParam = glGetUniformLocation(glShader, "eye");
-	glUniform3f(eyeParam, eyeX, eyeY, eyeZ);
-
+	
 	// Send normals to the video card
 	int vertexNormalParam = glGetAttribLocation(glShader, "vertexNormal");
-	glVertexAttribPointer(vertexNormalParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexNormals[0]);
+	glVertexAttribPointer(vertexNormalParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexNormal[0]);
 	glEnableVertexAttribArray(vertexNormalParam);
     
     //Desempilha a matriz que foi empilhada para fazer a transformacao de escala.
@@ -439,4 +429,10 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* canvas, float delta, int x,
                                            int y, char* status )
 {
     return IUP_DEFAULT;
+}
+
+int IupGLCanvasDummy::keypressCallback(Ihandle * self, int c, int press)
+{
+
+	return IUP_DEFAULT;
 }
