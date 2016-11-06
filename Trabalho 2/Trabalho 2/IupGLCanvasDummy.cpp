@@ -20,7 +20,11 @@
 #include <string>
 #include <fstream>
 
+#define FILENAME "bunny_0.off"
+#define SCALE 25, 25, 25
 
+#define FILENAME "klingon_starship.off"
+#define SCALE 1, 1, 1
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
 {
@@ -148,7 +152,7 @@ void IupGLCanvasDummy::initializeCanvas( )
 
 void IupGLCanvasDummy::parseOff()
 {
-	std::ifstream in("klingon_starship.off");
+	std::ifstream in(FILENAME);
 	std::string line;
 	int curLine = 1;
 	
@@ -275,7 +279,7 @@ void IupGLCanvasDummy::drawScene( )
 	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
 	
 	//Aplica uma transformacao de escala.
-	_modelViewMatrix.scale(1, 1, 1);
+	_modelViewMatrix.scale(SCALE);
 
     //compila o shader se este nao tiver sido compilado ainda
     if (!_shader->isAllocated( ))
