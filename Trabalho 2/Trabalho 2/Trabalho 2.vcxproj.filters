@@ -46,8 +46,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="example.frag" />
-    <None Include="example.vert" />
     <None Include="glew32.dll" />
     <None Include="apple.off" />
     <None Include="bimba.off" />
@@ -65,6 +63,8 @@
     <None Include="fragment.vert" />
     <None Include="vertex.frag" />
     <None Include="vertex.vert" />
+    <None Include="example.frag" />
+    <None Include="example.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="icosaedro.txt" />

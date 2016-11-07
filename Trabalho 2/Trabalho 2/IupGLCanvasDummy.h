@@ -18,7 +18,6 @@ class IupGLCanvasDummy
 {
 
 public:
-	static IupGLCanvasDummy *s_instance;
 
     /**
      * Construtor default da classe.

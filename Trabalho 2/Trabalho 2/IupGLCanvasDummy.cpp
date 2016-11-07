@@ -20,17 +20,19 @@
 #include <string>
 #include <fstream>
 
-#define FILENAME "bunny_0.off"
-#define SCALE 25, 25, 25
 
 #define FILENAME "klingon_starship.off"
 #define SCALE 1, 1, 1
 
+#define FILENAME "icosaedro.off"
+#define SCALE 1, 1, 1
+
+#define FILENAME "bunny_1.off"
+#define SCALE 25, 25, 25
+
+
 IupGLCanvasDummy::IupGLCanvasDummy( )
 {
-
-	s_instance = this;
-
     //Cria janela e define suas configuracoes.
     createWindow( );
 }
@@ -137,16 +139,17 @@ std::string IupGLCanvasDummy::readFile( const char* name )
 void IupGLCanvasDummy::initializeCanvas( )
 {
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
+	glEnable(GL_DEPTH_TEST);
 
 	eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
 
     //Aloca shader.
     _shader = new GraphicsShader( );
 
-    std::string vertexShader = readFile( "example.vert" );
+    std::string vertexShader = readFile( "vertex.vert" );
     _shader->setVertexProgram( vertexShader.c_str( ), vertexShader.size( ) );
 
-    std::string fragmentShader = readFile( "example.frag" );
+    std::string fragmentShader = readFile( "vertex.frag" );
     _shader->setFragmentProgram( fragmentShader.c_str( ), fragmentShader.size( ) );
 }
 
@@ -208,11 +211,6 @@ void IupGLCanvasDummy::parseOff()
 	calcNormals();
 }
 
-// Allocating and initializing IupGLCanvasDummy's
-// static data member.  The pointer is being
-// allocated - not the object inself.
-IupGLCanvasDummy *IupGLCanvasDummy::s_instance = 0;
-
 void IupGLCanvasDummy::calcNormals()
 {
 	vertexNormal = new vec3[nVertex];
@@ -258,15 +256,33 @@ void IupGLCanvasDummy::calcNormals()
 		//printf("FNx=%.6f, FNy=%.6f, FNz=%.6f\n", FNx, FNy, FNz);
 	}
 
-	// 4. Normalize every vertex normal (done in glsl)
-	int foo = 1;
+	// 4. Normalize every vertex normal
+	for (int i = 0; i < nTriangles; i++)
+	{
+		offTriangle triangle = trianglesList[i];
+		
+		float v1Norm = sqrt(vertexNormal[triangle.v1].x*vertexNormal[triangle.v1].x + vertexNormal[triangle.v1].y*vertexNormal[triangle.v1].y + vertexNormal[triangle.v1].z*vertexNormal[triangle.v1].z);
+		vertexNormal[triangle.v1].x /= v1Norm;
+		vertexNormal[triangle.v1].y /= v1Norm;
+		vertexNormal[triangle.v1].z /= v1Norm;
+
+		float v2Norm = sqrt(vertexNormal[triangle.v2].x*vertexNormal[triangle.v2].x + vertexNormal[triangle.v2].y*vertexNormal[triangle.v2].y + vertexNormal[triangle.v2].z*vertexNormal[triangle.v2].z);
+		vertexNormal[triangle.v2].x /= v2Norm;
+		vertexNormal[triangle.v2].y /= v2Norm;
+		vertexNormal[triangle.v2].z /= v2Norm;
+
+		float v3Norm = sqrt(vertexNormal[triangle.v3].x*vertexNormal[triangle.v3].x + vertexNormal[triangle.v3].y*vertexNormal[triangle.v3].y + vertexNormal[triangle.v3].z*vertexNormal[triangle.v3].z);
+		vertexNormal[triangle.v3].x /= v3Norm;
+		vertexNormal[triangle.v3].y /= v3Norm;
+		vertexNormal[triangle.v3].z /= v3Norm;
+	}
 }
 
 
 void IupGLCanvasDummy::drawScene( )
 {
     //Limpa a janela.
-    glClear( GL_COLOR_BUFFER_BIT );
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     GLenum err = glGetError( );
 
     if (err != GL_NO_ERROR)
@@ -378,7 +394,7 @@ void IupGLCanvasDummy::resizeCanvas( int width, int height )
 	if (height == 0) height = 1;                        // To prevent divide by 0
 	GLfloat aspect = (GLfloat)width / (GLfloat)height; // Compute aspect ratio
 
-	_projectionMatrix.perspective(90, aspect, 1.0, 11.0);
+	_projectionMatrix.perspective(60, aspect, 1.0, 11.0);
 }
 
 
@@ -446,34 +462,34 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* canvas, float delta, int x,
 int IupGLCanvasDummy::keypressCallback(Ihandle * self, int c, int press)
 {
 	printf("Pressed!");
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *) IupGetAttribute(self, "THIS");
 
 	if (c == K_W)
 	{
-		IupGLCanvasDummy::s_instance->eyeX += 0.1;
+		canvas->eyeX += 0.1;
 	}
 	else if (c == K_S)
 	{
-		IupGLCanvasDummy::s_instance->eyeX -= 0.1;
+		canvas->eyeX -= 0.1;
 	}
 	else if (c == K_A)
 	{
-		IupGLCanvasDummy::s_instance->eyeY += 0.1;
+		canvas->eyeY += 0.1;
 	}
 	else if (c == K_D)
 	{
-		IupGLCanvasDummy::s_instance->eyeY -= 0.1;
+		canvas->eyeY -= 0.1;
 	}
 	else if (c == K_R)
 	{
-		IupGLCanvasDummy::s_instance->eyeZ += 0.1;
+		canvas->eyeZ += 0.1;
 	}
 	else if (c == K_F)
 	{
-		IupGLCanvasDummy::s_instance->eyeZ -= 0.1;
+		canvas->eyeZ -= 0.1;
 	}
 	
-	
-	IupGLCanvasDummy::s_instance->drawScene();
+	canvas->drawScene();
 	IupRedraw(self, 0);
 
 	//IupGLCanvasDummy::s_instance->eyeZ++;
