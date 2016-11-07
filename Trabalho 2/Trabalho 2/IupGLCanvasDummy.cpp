@@ -156,10 +156,11 @@ void IupGLCanvasDummy::initializeCanvas( )
 void IupGLCanvasDummy::parseOff()
 {
 	std::ifstream in(FILENAME);
-	std::string line;
+	std::string str;
 	int curLine = 1;
+	int temp;
 	
-	if (in.fail())
+	if (!in || in.fail())
 	{
 		printf("Unable to open .off file. Exiting.");
 		exit(-1);
@@ -168,44 +169,35 @@ void IupGLCanvasDummy::parseOff()
 	vertexList.clear();
 	trianglesList.clear();
 
-	char a;
-	while (in.get(a) && a != EOF)
+	while (!in.eof())
 	{
-		if (a == '\n')
+		if (curLine == 1 && (in >> str, str) != "OFF")
 		{
-			if (curLine == 1 && line != "OFF")
-			{
-				printf("OFF header not found. Exiting.");
-				exit(-1);
-			}
+			printf("OFF header not found. Exiting.");
+			exit(-1);
+		}
 			
-			if (curLine == 2)
-			{
-				sscanf(line.c_str(), "%d %d 0", &nVertex, &nTriangles);
-			}
-			else if(curLine > 1)
-			{
-				if (curLine < 2 + nVertex + 1)
-				{
-					vec3 vertex;
-					sscanf(line.c_str(), "%f %f %f", &vertex.x, &vertex.y, &vertex.z);
-					vertexList.push_back(vertex);
-				}
-				else
-				{
-					offTriangle triangle;
-					sscanf(line.c_str(), "3 %u %u %u", &triangle.v1, &triangle.v2, &triangle.v3);
-					trianglesList.push_back(triangle);
-				}
-			}
-						
-			line.clear();
-			curLine++;
-		}
-		else
+		if (curLine == 2)
 		{
-			line += a;
+			in >> nVertex >> nTriangles >> temp;
 		}
+		else if(curLine > 1)
+		{
+			if (curLine < 2 + nVertex + 1)
+			{
+				vec3 vertex;
+				in >> vertex.x >> vertex.y >> vertex.z;
+				vertexList.push_back(vertex);
+			}
+			else
+			{
+				offTriangle triangle;
+				in >> temp >> triangle.v1 >> triangle.v2 >> triangle.v3;
+				trianglesList.push_back(triangle);
+			}
+		}
+
+		curLine++;
 	}
 
 	calcNormals();
