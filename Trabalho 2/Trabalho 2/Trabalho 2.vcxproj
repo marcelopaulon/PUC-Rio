@@ -49,8 +49,6 @@
     <None Include="planck.off" />
     <None Include="singleTriangle.off" />
     <None Include="triangle.off" />
-    <None Include="example.frag" />
-    <None Include="example.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="icosaedro.txt" />

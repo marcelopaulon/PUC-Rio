@@ -1,8 +1,8 @@
 /* 
  * File:   IupGLCanvasDummy.h
- * Author: jeferson
+ * Author: Marcelo Paulon
  *
- * Created on August 31, 2014, 9:28 AM
+ * Created by jeferson on August 31, 2014, 9:28 AM
  */
 
 #ifndef IUPGLCANVASDUMMY_H
@@ -38,9 +38,27 @@ public:
      * Oculta a janela.
      */
     void hide( );
+	
+	/**
+	* Set shaders
+	*/
+	void IupGLCanvasDummy::setShading();
+
+	/**
+	* Redraw canvas
+	*/
+	void IupGLCanvasDummy::redraw();
+
+	/*
+	* Should use Phong Fragment Shading
+	*/
+	bool fragmentShading;
 
 public:
 
+	/**
+	* Componentes da câmera.
+	*/
 	float eyeX, eyeY, eyeZ;
 
 private:
@@ -49,6 +67,11 @@ private:
      * Ponteiro para o dialogo.
      */
     Ihandle *_dialog;
+
+	/**
+	* Ponteiro para o iupGlCanvas.
+	*/
+	Ihandle *iupGlCanvas;
 
     /**
      * Matriz de projecao OpenGL
@@ -70,6 +93,31 @@ private:
      */
     GraphicsShader* _shader;
 
+	/*
+	* Vertex shader - Phong Vertex Shading
+	*/
+	std::string phongVVertexShader;
+
+	/*
+	* Fragment shader - Phong Vertex Shading
+	*/
+	std::string phongVFragmentShader;
+
+	/*
+	* Vertex shader - Phong Fragment Shading
+	*/
+	std::string phongFVertexShader;
+
+	/*
+	* Fragment shader - Phong Fragment Shading
+	*/
+	std::string phongFFragmentShader;
+
+	/*
+	* Indicates if the shader was changed
+	*/
+	bool shaderUpdated;
+	
 private:
 
     /**
@@ -77,6 +125,11 @@ private:
      */
     void createWindow( );
 
+	/**
+	* Cria o painel de controle
+	*/
+	Ihandle * createPanel( );
+	
     /**
      * Incializa algumas propriedades do canvas OpenGL.
      */
@@ -103,25 +156,55 @@ private:
 	
 private:
 	
+	/**
+	* OpenGL vec3
+	*/
 	struct vec3
 	{
 		float x, y, z;
 	};
 
+	/**
+	* Triângulo de um arquivo .off (índices dos vértices)
+	*/
 	struct offTriangle
 	{
 		unsigned int v1, v2, v3;
 	};
 
+	/**
+	* Lista de vértices carregados.
+	*/
 	std::vector<vec3> vertexList;
+
+	/**
+	* Lista de triângulos carregados.
+	*/
 	std::vector<offTriangle> trianglesList;
 	
+	/**
+	* Vetor de normais dos vértices.
+	*/
 	vec3 *vertexNormal;
 
-	int nVertex, nTriangles;
+	/**
+	* Quantidade de vértices carregados
+	*/
+	int nVertex;
+		
+	/**
+	* Quantidade de triângulos carregados.
+	*/
+	int nTriangles;
 
-	void parseOff();
+	/**
+	* Carrega um arquivo .off.
+	*/
+	void parseOff(char *fileName);
 
+	/**
+	* Calcula as normais dos vértices.
+	*/
 	void calcNormals();
 
     /**
@@ -177,6 +260,10 @@ private:
                                      int x, int y, char* status );
 
 	static int keypressCallback(Ihandle * self, int c, int press);
+
+	static int IupGLCanvasDummy::setFragmentShading(Ihandle* self, int state);
+
+	static int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state);
 
 };
 

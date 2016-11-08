@@ -63,8 +63,6 @@
     <None Include="fragment.vert" />
     <None Include="vertex.frag" />
     <None Include="vertex.vert" />
-    <None Include="example.frag" />
-    <None Include="example.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="icosaedro.txt" />

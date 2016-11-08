@@ -55,7 +55,7 @@ void main(void)
 	// L = vetor unitário que aponta do vértice para a fonte de luz
 	vec3 L = normalize(lpos - vertexPosition);
 	
-	vec3 ambientLighting = vec3(scene_ambient) * vec3(mymaterial.diffuse);
+	vec3 ambientLighting = vec3(scene_ambient) * vec3(light0.diffuse);
 	vec3 diffuseLighting = vec3(light0.diffuse) * vec3(mymaterial.diffuse) * max(dot(normal, L), 0.0);
 		
 	vec3 v = normalize(-vertexPosition); // mv * vtx

@@ -1,8 +1,8 @@
 /* 
  * File:   IupGLCanvasDummy.cpp
- * Author: jeferson
+ * Author: Marcelo Paulon
  * 
- * Created on August 31, 2014, 9:28 AM
+ * Created by jeferson on August 31, 2014, 9:28 AM
  */
 
 #include "IupGLCanvasDummy.h"
@@ -39,54 +39,76 @@ IupGLCanvasDummy::IupGLCanvasDummy( )
 
 
 
+Ihandle * IupGLCanvasDummy::createPanel()
+{
+	Ihandle *vertexShadingToggle = IupToggle("Phong - Vertex", "setVertexShading");
+	Ihandle *fragmentShadingToggle = IupToggle("Phong - Fragment", "setFragmentShading");
+	Ihandle *togglesVbox = IupVbox(vertexShadingToggle, fragmentShadingToggle, NULL);
+	Ihandle *shadingSelector = IupRadio(togglesVbox);
+
+	//Define callbacks dos toggles.
+	IupSetCallback(vertexShadingToggle, IUP_ACTION, (Icallback)setVertexShading);
+	IupSetCallback(fragmentShadingToggle, IUP_ACTION, (Icallback)setFragmentShading);
+
+	// Cria frame de seleção de iluminação
+	Ihandle *shadingPane = IupFrame(shadingSelector);
+	IupSetAttribute(shadingPane, "TITLE", "Shading type");
+
+	//Cria botao de sair.
+	Ihandle *exitButton = IupButton("Exit", NULL);
+
+	//Define os atributos do botao
+	IupSetAttribute(exitButton, IUP_RASTERSIZE, "80x32");
+	IupSetAttribute(exitButton, IUP_TIP, "Fecha a janela.");
+
+	//Cria composicao para o botao.
+	Ihandle *hboxButton = IupHbox(exitButton, NULL);
+
+	//Define callbacks do botao.
+	IupSetCallback(exitButton, IUP_ACTION, (Icallback)exitButtonCallback);
+
+	return IupVbox(shadingPane, hboxButton, NULL);
+}
+
+
+
 void IupGLCanvasDummy::createWindow( )
 {
-	parseOff();
-
-    //Cria botao de sair.
-    Ihandle *exitButton = IupButton( "Sair", NULL );
-
+	parseOff(FILENAME);
+	
     //Cria canvas.
-    Ihandle *canvas = IupGLCanvas( NULL );
-
-    //Cria composicao para o botao.
-    Ihandle *hboxButton = IupHbox( IupFill( ), exitButton, NULL );
-
-    //Cria composicao final.
-    Ihandle *vboxFinal = IupVbox( canvas, hboxButton, NULL );
+	iupGlCanvas = IupGLCanvas( NULL );
+	
+	Ihandle *vboxPanel = createPanel();
+	
+	//Cria composicao final.
+	Ihandle *hbox = IupHbox(iupGlCanvas, vboxPanel, NULL);
 
     //Cria dialogo.
-    _dialog = IupDialog( vboxFinal );
-
-    //Define os atributos do botao
-    IupSetAttribute( exitButton, IUP_RASTERSIZE, "80x32" );
-    IupSetAttribute( exitButton, IUP_TIP, "Fecha a janela." );
-
+    _dialog = IupDialog(hbox);
+	
     //Define os atributos do canvas.
-    IupSetAttribute( canvas, IUP_RASTERSIZE, "600x600" );
-    IupSetAttribute( canvas, IUP_BUFFER, IUP_DOUBLE );
-    IupSetAttribute( canvas, IUP_EXPAND, IUP_YES );
+    IupSetAttribute(iupGlCanvas, IUP_RASTERSIZE, "600x600");
+    IupSetAttribute(iupGlCanvas, IUP_BUFFER, IUP_DOUBLE);
+    IupSetAttribute(iupGlCanvas, IUP_EXPAND, IUP_YES);
 
     //Define propriedades do dialogo.
     IupSetAttribute( _dialog, IUP_MARGIN, "10x10" );
-    IupSetAttribute( _dialog, IUP_TITLE, "OpenGL + Canvas Dummy" );
+    IupSetAttribute( _dialog, IUP_TITLE, "OpenGL Phong Shading" );
     IupSetAttribute( _dialog, "THIS", ( char* ) this );
-
-    //Define callbacks do botao.
-    IupSetCallback( exitButton, IUP_ACTION, ( Icallback ) exitButtonCallback );
-
+	
     //Define as callbacks do canvas.
-    IupSetCallback( canvas, IUP_ACTION, ( Icallback ) actionCanvasCallback );
-    IupSetCallback( canvas, IUP_RESIZE_CB, ( Icallback ) resizeCanvasCallback );
-    IupSetCallback( canvas, IUP_BUTTON_CB, ( Icallback ) buttonCanvasCallback );
-	IupSetCallback( canvas, IUP_WHEEL_CB, ( Icallback )wheelCanvasCallback);
-	IupSetCallback( canvas, IUP_KEYPRESS_CB, ( Icallback )keypressCallback);
+    IupSetCallback(iupGlCanvas, IUP_ACTION, ( Icallback ) actionCanvasCallback);
+    IupSetCallback(iupGlCanvas, IUP_RESIZE_CB, ( Icallback ) resizeCanvasCallback);
+    IupSetCallback(iupGlCanvas, IUP_BUTTON_CB, ( Icallback ) buttonCanvasCallback);
+	IupSetCallback(iupGlCanvas, IUP_WHEEL_CB, ( Icallback )wheelCanvasCallback);
+	IupSetCallback(iupGlCanvas, IUP_KEYPRESS_CB, ( Icallback )keypressCallback);
 	
     //Mapeia o dialogo.
     IupMap( _dialog );
 
     //Torna o canvas como corrente.
-    IupGLMakeCurrent( canvas );
+    IupGLMakeCurrent(iupGlCanvas);
 
     //Incialia propriedades dos canvas.
     initializeCanvas( );
@@ -136,6 +158,24 @@ std::string IupGLCanvasDummy::readFile( const char* name )
 
 
 
+void IupGLCanvasDummy::setShading()
+{
+	if (!fragmentShading)
+	{
+		_shader->setVertexProgram(phongVVertexShader.c_str(), phongVVertexShader.size());
+		_shader->setFragmentProgram(phongVFragmentShader.c_str(), phongVFragmentShader.size());
+	}
+	else
+	{
+		_shader->setVertexProgram(phongFVertexShader.c_str(), phongFVertexShader.size());
+		_shader->setFragmentProgram(phongFFragmentShader.c_str(), phongFFragmentShader.size());
+	}
+
+	shaderUpdated = true;
+}
+
+
+
 void IupGLCanvasDummy::initializeCanvas( )
 {
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
@@ -146,16 +186,22 @@ void IupGLCanvasDummy::initializeCanvas( )
     //Aloca shader.
     _shader = new GraphicsShader( );
 
-    std::string vertexShader = readFile( "vertex.vert" );
-    _shader->setVertexProgram( vertexShader.c_str( ), vertexShader.size( ) );
+	phongVVertexShader = readFile("vertex.vert");
 
-    std::string fragmentShader = readFile( "vertex.frag" );
-    _shader->setFragmentProgram( fragmentShader.c_str( ), fragmentShader.size( ) );
+	phongVFragmentShader = readFile("vertex.frag");
+
+	phongFVertexShader = readFile("fragment.vert");
+
+	phongFFragmentShader = readFile("fragment.frag");
+
+	fragmentShading = false;
+
+	setShading();
 }
 
-void IupGLCanvasDummy::parseOff()
+void IupGLCanvasDummy::parseOff(char *filename)
 {
-	std::ifstream in(FILENAME);
+	std::ifstream in(filename);
 	std::string str;
 	int curLine = 1;
 	int temp;
@@ -288,10 +334,13 @@ void IupGLCanvasDummy::drawScene( )
 	
 	//Aplica uma transformacao de escala.
 	_modelViewMatrix.scale(SCALE);
-
-    //compila o shader se este nao tiver sido compilado ainda
-    if (!_shader->isAllocated( ))
-        _shader->compileShader( );
+	
+	//compila o shader se este estiver sido alterado ou nao tiver sido compilado ainda
+	if (shaderUpdated || !_shader->isAllocated())
+	{
+		_shader->compileShader();
+		shaderUpdated = false;
+	}
 
     //Carrega o programa na placa.
     _shader->load( );
@@ -453,38 +502,69 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* canvas, float delta, int x,
 
 int IupGLCanvasDummy::keypressCallback(Ihandle * self, int c, int press)
 {
-	printf("Pressed!");
 	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *) IupGetAttribute(self, "THIS");
 
-	if (c == K_W)
+	if (c == K_W || c == K_w)
 	{
 		canvas->eyeX += 0.1;
 	}
-	else if (c == K_S)
+	else if (c == K_S || c == K_s)
 	{
 		canvas->eyeX -= 0.1;
 	}
-	else if (c == K_A)
+	else if (c == K_A || c == K_a)
 	{
 		canvas->eyeY += 0.1;
 	}
-	else if (c == K_D)
+	else if (c == K_D || c == K_d)
 	{
 		canvas->eyeY -= 0.1;
 	}
-	else if (c == K_R)
+	else if (c == K_R || c == K_r)
 	{
 		canvas->eyeZ += 0.1;
 	}
-	else if (c == K_F)
+	else if (c == K_F || c == K_f)
 	{
 		canvas->eyeZ -= 0.1;
 	}
 	
-	canvas->drawScene();
-	IupRedraw(self, 0);
+	canvas->redraw();
 
-	//IupGLCanvasDummy::s_instance->eyeZ++;
-	//IupGLCanvasDummy::s_instance->eyeZ++;
 	return IUP_DEFAULT;
+}
+
+int IupGLCanvasDummy::setFragmentShading(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->fragmentShading = true;
+	canvas->setShading();
+
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->fragmentShading = false;
+	canvas->setShading();
+
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+void IupGLCanvasDummy::redraw()
+{
+	IupRedraw(iupGlCanvas, 0);
 }
