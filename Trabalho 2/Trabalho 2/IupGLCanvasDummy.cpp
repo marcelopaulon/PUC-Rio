@@ -22,13 +22,10 @@
 
 
 #define FILENAME "klingon_starship.off"
-#define SCALE 1, 1, 1
 
 #define FILENAME "icosaedro.off"
-#define SCALE 1, 1, 1
 
 #define FILENAME "bunny_1.off"
-#define SCALE 25, 25, 25
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
@@ -75,7 +72,8 @@ Ihandle * IupGLCanvasDummy::createPanel()
 void IupGLCanvasDummy::createWindow( )
 {
 	parseOff(FILENAME);
-	
+	scale = 25.0;
+
     //Cria canvas.
 	iupGlCanvas = IupGLCanvas( NULL );
 	
@@ -205,6 +203,8 @@ void IupGLCanvasDummy::parseOff(char *filename)
 	std::string str;
 	int curLine = 1;
 	int temp;
+
+	mouseWheelScrollCounter = 0.0;
 	
 	if (!in || in.fail())
 	{
@@ -333,7 +333,7 @@ void IupGLCanvasDummy::drawScene( )
 	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
 	
 	//Aplica uma transformacao de escala.
-	_modelViewMatrix.scale(SCALE);
+	_modelViewMatrix.scale(scale, scale, scale);
 	
 	//compila o shader se este estiver sido alterado ou nao tiver sido compilado ainda
 	if (shaderUpdated || !_shader->isAllocated())
@@ -435,7 +435,7 @@ void IupGLCanvasDummy::resizeCanvas( int width, int height )
 	if (height == 0) height = 1;                        // To prevent divide by 0
 	GLfloat aspect = (GLfloat)width / (GLfloat)height; // Compute aspect ratio
 
-	_projectionMatrix.perspective(60, aspect, 1.0, 11.0);
+	_projectionMatrix.perspective(60, aspect, 1.0, 36.0);
 }
 
 
@@ -494,9 +494,32 @@ int IupGLCanvasDummy::buttonCanvasCallback( Ihandle* canvas, int button, int pre
 
 
 
-int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* canvas, float delta, int x,
+int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* self, float delta, int x,
                                            int y, char* status )
 {
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	float factor = 3.0;
+
+	canvas->mouseWheelScrollCounter += delta;
+	
+	if (canvas->mouseWheelScrollCounter > 0.0)
+	{
+		canvas->mouseWheelScrollCounter = 0.0;
+		canvas->scale += factor;
+		canvas->redraw();
+	}
+	else if (canvas->mouseWheelScrollCounter < 0.0)
+	{
+		canvas->mouseWheelScrollCounter = 0.0;
+
+		if (canvas->scale - factor > 0)
+		{
+			canvas->scale -= factor;
+			canvas->redraw();
+		}
+	}
+
     return IUP_DEFAULT;
 }
 

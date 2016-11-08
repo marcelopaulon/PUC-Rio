@@ -37,7 +37,7 @@ struct material
 material mymaterial = material(
   vec4(colorFr),
   vec4(1.0, 1.0, 1.0, 1.0),
-  5.0
+  128.0
 );
 
 void main(void)

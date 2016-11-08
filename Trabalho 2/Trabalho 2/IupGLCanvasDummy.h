@@ -53,6 +53,16 @@ public:
 	* Should use Phong Fragment Shading
 	*/
 	bool fragmentShading;
+	
+	/*
+	* Mouse wheel scroll counter
+	*/
+	float mouseWheelScrollCounter;
+
+	/*
+	* Scale
+	*/
+	float scale;
 
 public:
 
@@ -117,7 +127,7 @@ private:
 	* Indicates if the shader was changed
 	*/
 	bool shaderUpdated;
-	
+		
 private:
 
     /**
