@@ -50,13 +50,13 @@ void main(void)
 	// L = vetor unitário que aponta do vértice para a fonte de luz
 	vec3 L = normalize(lpos - vertexPosition);
 	
-	vec3 ambientLighting = vec3(scene_ambient) * vec3(light0.diffuse);
-	vec3 diffuseLighting = vec3(light0.diffuse) * vec3(mymaterial.diffuse) * max(dot(normalizedNormal, L), 0.0);
+	vec4 ambientLighting = scene_ambient * light0.diffuse * mymaterial.diffuse;
+	vec4 diffuseLighting = light0.diffuse * mymaterial.diffuse * max(dot(normalizedNormal, L), 0.0);
 		
 	vec3 v = normalize(-vertexPosition); // mv * vtxFrag
 	vec3 r = reflect(-L, normalizedNormal);
 
-	vec3 specularLighting = vec3(light0.specular) * vec3(mymaterial.diffuse) * pow(max(dot(r,v), 0.0), mymaterial.shininess);
+	vec4 specularLighting = light0.specular * mymaterial.diffuse * pow(max(dot(r,v), 0.0), mymaterial.shininess);
 	
-	fragmentColor = vec4(ambientLighting + diffuseLighting + specularLighting, 1);
+	fragmentColor = ambientLighting + diffuseLighting + specularLighting;
 }

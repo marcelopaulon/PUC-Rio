@@ -20,12 +20,9 @@
 #include <string>
 #include <fstream>
 
-
-#define FILENAME "klingon_starship.off"
-
 #define FILENAME "icosaedro.off"
-
 #define FILENAME "bunny_1.off"
+#define FILENAME "klingon_starship.off"
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
@@ -499,7 +496,7 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* self, float delta, int x,
 {
 	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
 
-	float factor = 3.0;
+	float factor = 0.5;
 
 	canvas->mouseWheelScrollCounter += delta;
 	
