@@ -184,7 +184,7 @@ numeral : TK_DOUBLE_NUMBER { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpFloat
         | TK_LONG_NUMBER { $$ = mnew(Exp); $$->type = NULL; $$->tag = ExpInt; $$->u.l = yylval.l; }
         ;
 
-var : TK_ID { $$ = mnew(Var); $$->u.id = $1; $$->tag = VarId; $$->line = -1; }
+var : TK_ID { $$ = mnew(Var); $$->u.def.id = $1; $$->tag = VarId; $$->line = -1; }
     | expothers '[' exp ']' {$$ = mnew(Var); $$->tag = VarIndexed; $$->u.indexed.e1 = $1; $$->u.indexed.e2 = $3; $$->line = $2; }
     ;
 
@@ -234,7 +234,7 @@ explist : exp ',' explist { $$ = mnew(ExpList); $$->exp = $1; $$->next = $3; }
         | exp { $$ = mnew(ExpList); $$->exp = $1; $$->next = NULL; }
         ;
 
-call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$->parameters = $3;}
+call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$->parameters = $3; $$->func = NULL; }
      | TK_ID '(' ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$->parameters = NULL;}
      ;
 

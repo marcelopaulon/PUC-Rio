@@ -97,7 +97,11 @@ struct DefVar{
 typedef struct Var{
     VarE tag;
     union {
-        const char *id;
+        union {
+            const char *id;
+            DefVar *dec;
+            Param *p;
+        } def;
         struct{
             struct Exp *e1, *e2;
         } indexed;
@@ -209,6 +213,7 @@ struct CmdBasic{
 struct CmdCall{
     char *id;
     Type *type;
+    Func *func;
     ExpList *parameters;
     int line;
 };

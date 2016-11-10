@@ -285,7 +285,7 @@ void printVar(Var * var, int nIdent)
         case VarId:
             printf("ID\n");
             printIdent(nIdent);
-            if(var->u.id != NULL) printf("%s\n", var->u.id);
+            if(var->u.def.dec->id != NULL) printf("%s\n", var->u.def.dec->id);
             else printf("(null)\n");
             break;
         case VarIndexed:

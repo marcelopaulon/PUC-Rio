@@ -219,6 +219,8 @@ void checkCmdCall(CmdCall *cmd)
     }
 
     f = temp->val.f;
+
+    cmd->func = f;
     cmd->type = f->type;
     checkExpList(cmd->parameters); 
     l1 = cmd->parameters;
@@ -251,27 +253,33 @@ Type *checkVar(Var *var, Exp *exp)
 
     if(var->tag == VarId)
     {
-        DecList *temp = find(table, var->u.id);
+        DecList *temp = find(table, var->u.def.id);
         if(temp == NULL)
         {
-            printf("Undefined symbol %s. Exiting.\n", var->u.id);
+            printf("Undefined symbol %s. Exiting.\n", var->u.def.id);
             exit(-1);
         }
 
         if(temp->type != 'p' && temp->type != 'v')
         {
-            printf("Invalid assignment to symbol %s. Exiting.\n", var->u.id);
+            printf("Invalid assignment to symbol %s. Exiting.\n", var->u.def.id);
             exit(-1);
         }
 
         if(exp != NULL && ((temp->type == 'v' && !typeEquals(temp->val.v->type, exp->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, exp->type))))
         {
-            printf("Incompatible types in assignment to symbol %s. Exiting.\n", var->u.id);
+            printf("Incompatible types in assignment to symbol %s. Exiting.\n", var->u.def.id);
             exit(-1);
         }
 
-        if(temp->type == 'v') return temp->val.v->type;
-        else return temp->val.p->type;
+        if(temp->type == 'v') {
+            var->u.def.dec = temp->val.v;
+            return temp->val.v->type;
+        }
+        else {
+            var->u.def.p = temp->val.p;
+            return temp->val.p->type;
+        }
     }
     else if(var->tag == VarIndexed)
     {
