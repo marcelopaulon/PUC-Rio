@@ -111,7 +111,7 @@ Definition:
             Command type: Variable Assignment
             Variable: ID
             x
-            Expression
+            Expression at line 24
               Expression type: Int
               Expression resulting Type: int
               2
@@ -161,7 +161,7 @@ Definition:
                         Command Call: c
                           Type: int
                           Expression List:
-                            Expression
+                            Expression at line 25
                               Expression type: Variable
                               Expression resulting Type: int
                               Variable: ID
@@ -172,22 +172,22 @@ Definition:
                       Command Call: deee
                         Type: int
                         Expression List:
-                          Expression
+                          Expression at line 25
                             Expression type: Variable
                             Expression resulting Type: int
                             Variable: ID
                             x
-                          Expression
+                          Expression at line 25
                             Expression type: Variable
                             Expression resulting Type: int
                             Variable: ID
                             y
-                          Expression
+                          Expression at line 25
                             Expression type: Variable
                             Expression resulting Type: int
                             Variable: ID
                             z
-                          Expression
+                          Expression at line 25
                             Expression type: Variable
                             Expression resulting Type: int
                             Variable: ID

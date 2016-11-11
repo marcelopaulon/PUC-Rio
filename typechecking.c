@@ -306,6 +306,7 @@ Type *checkVar(Var *var, Exp **exp, int line)
     }
     else if(var->tag == VarIndexed)
     {
+        Type *temp = mnew(Type);
         checkExp(var->u.indexed.e1); // expothers
         checkExp(var->u.indexed.e2); // '[' expIdx ']'
 
@@ -315,7 +316,9 @@ Type *checkVar(Var *var, Exp **exp, int line)
             exit(-1);
         }
 
-        return var->u.indexed.e1->type;
+        temp->name = var->u.indexed.e1->type->name;
+        temp->brackets = var->u.indexed.e1->type->brackets - 1;
+        return temp;
     }
     else
     {
