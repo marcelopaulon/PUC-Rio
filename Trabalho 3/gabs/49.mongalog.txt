@@ -16,7 +16,7 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-              Expression resulting Type: void
+              Expression resulting Type: int
               2
         Command
           Command type: Basic Command
@@ -26,15 +26,15 @@ PASSDefinition:
             a
             Expression at line 9
               Expression type: Multiplication
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
                 a
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
                 a
         Command
@@ -45,54 +45,54 @@ PASSDefinition:
             a
             Expression at line 10
               Expression type: Multiplication
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression at line 10
                 Expression type: Multiplication
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Expression at line 10
                   Expression type: Multiplication
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Expression at line 10
                     Expression type: Multiplication
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression at line 10
                       Expression type: Multiplication
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Expression at line 10
                         Expression type: Multiplication
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         Expression
                           Expression type: Variable
-                          Expression resulting Type: void
+                          Expression resulting Type: int
                           Variable: ID
                           a
                         Expression
                           Expression type: Variable
-                          Expression resulting Type: void
+                          Expression resulting Type: int
                           Variable: ID
                           a
                       Expression
                         Expression type: Variable
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         Variable: ID
                         a
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                   Expression
                     Expression type: Variable
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Variable: ID
                     a
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   a
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
                 a

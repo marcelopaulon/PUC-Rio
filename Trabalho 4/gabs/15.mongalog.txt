@@ -14,7 +14,7 @@ PASSDefinition:
             Command type: Variable Assignment
             Variable: ID
             a
-            Expression
+            Expression at line 9
               Expression type: Int
               Expression resulting Type: int
               11
@@ -24,7 +24,7 @@ PASSDefinition:
             Command type: Variable Assignment
             Variable: ID
             a
-            Expression
+            Expression at line 10
               Expression type: Negative
               Expression resulting Type: int
               Expression

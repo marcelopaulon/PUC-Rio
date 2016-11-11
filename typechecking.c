@@ -93,7 +93,7 @@ void checkExp(Exp *exp)
 
             if(exp->u.bin.e1->type->brackets > 0 || exp->u.bin.e2->type->brackets > 0)
             {
-                printf("Invalid array comparison. Exiting.\n");
+                printf("Invalid array comparison on line %d. Exiting.\n", exp->line);
                 exit(-1);
             }
             
@@ -113,7 +113,7 @@ void checkExp(Exp *exp)
             }
             else
             {
-                printf("Invalid expression. Exiting.\n");
+                printf("Invalid expression on line %d. Exiting.\n", exp->line);
                 exit(-1);
             }
 
@@ -132,9 +132,8 @@ void checkExp(Exp *exp)
         	break;
         case ExpNew:
             checkExp(exp->u.newexp.exp);
-            exp->type = mnew(Type);
-            exp->type->name = exp->u.newexp.exp->type->name;
-            exp->type->brackets = exp->u.newexp.exp->type->brackets + 1;
+            exp->type = exp->u.newexp.type;
+            exp->type->brackets++;
         	break;
         case ExpString:
             exp->type = (Type *) malloc(sizeof(Type));
@@ -183,7 +182,7 @@ void checkExp(Exp *exp)
     }
 }
 
-void checkExpList(ExpList *expList)
+void checkExpList(ExpList *expList, int line)
 {
     ExpList * current;
 
@@ -194,6 +193,7 @@ void checkExpList(ExpList *expList)
 
     for(current = expList; current != NULL; current = current->next)
     {
+        current->exp->line = line;
         checkExp(current->exp);
     }
 }
@@ -222,7 +222,7 @@ void checkCmdCall(CmdCall *cmd)
 
     cmd->func = f;
     cmd->type = f->type;
-    checkExpList(cmd->parameters); 
+    checkExpList(cmd->parameters, cmd->line); 
     l1 = cmd->parameters;
     l2 = f->params;
   

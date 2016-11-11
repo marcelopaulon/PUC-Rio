@@ -1,1 +1,1 @@
-PASSInvalid assignment to symbol foo. Exiting.
+PASSInvalid assignment to symbol foo at line 11. Exiting.

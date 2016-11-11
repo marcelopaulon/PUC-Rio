@@ -7,126 +7,130 @@ PASSDefinition:
         DefVar:
           Type: int
           a
+        DefVar:
+          Type: char
+          c
       Command List:
         Command
           Command type: Basic Command
-          Basic Command at line 8
+          Basic Command at line 9
             Command type: Variable Assignment
             Variable: ID
             a
             Expression
               Expression type: Int
-              Expression resulting Type: void
+              Expression resulting Type: int
               2
-        Command at line 9
-          Expression at line 9
+        Command at line 10
+          Expression at line 10
             Expression type: Logical Disjunction
-            Expression resulting Type: void
-            Expression at line 9
+            Expression resulting Type: int
+            Expression at line 10
               Expression type: Logical Disjunction
-              Expression resulting Type: void
-              Expression at line 9
+              Expression resulting Type: int
+              Expression at line 10
                 Expression type: Equality
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   a
                 Expression
                   Expression type: Int
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   5
               Expression
                 Expression type: Negation
-                Expression resulting Type: void
-                Expression at line 9
+                Expression resulting Type: int
+                Expression at line 10
                   Expression type: Logical Conjunction
-                  Expression resulting Type: void
-                  Expression at line 9
+                  Expression resulting Type: int
+                  Expression at line 10
                     Expression type: Logical Conjunction
-                    Expression resulting Type: void
-                    Expression at line 9
+                    Expression resulting Type: int
+                    Expression at line 10
                       Expression type: Comparison (Less or Equal Than)
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Expression
                         Expression type: Variable
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         Variable: ID
                         a
                       Expression
                         Expression type: Int
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         6
-                    Expression at line 9
+                    Expression at line 10
                       Expression type: Equality
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Expression
                         Expression type: Variable
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         Variable: ID
                         a
                       Expression
                         Expression type: Int
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         5
-                  Expression at line 9
+                  Expression at line 10
                     Expression type: Equality
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                     Expression
                       Expression type: Int
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       6
-            Expression at line 9
+            Expression at line 10
               Expression type: Logical Conjunction
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression
                 Expression type: Negation
-                Expression resulting Type: void
-                Expression at line 9
+                Expression resulting Type: int
+                Expression at line 10
                   Expression type: Logical Disjunction
-                  Expression resulting Type: void
-                  Expression at line 9
+                  Expression resulting Type: int
+                  Expression at line 10
                     Expression type: Equality
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                     Expression
                       Expression type: Int
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       5
-                  Expression at line 9
+                  Expression at line 10
                     Expression type: Equality
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                     Expression
                       Expression type: Int
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       6
-              Expression at line 9
+              Expression at line 10
                 Expression type: Equality
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   a
                 Expression
-                  Expression type: String
-                  Expression resulting Type: void
-                  V
+                  Expression type: Variable
+                  Expression resulting Type: int
+                  Variable: ID
+                  c
           Command type: While
           Command
             Command type: Basic Command
@@ -137,5 +141,5 @@ PASSDefinition:
                 Command List:
                   Command
                     Command type: Basic Command
-                    Basic Command at line 11
+                    Basic Command at line 12
                       Command type: Return

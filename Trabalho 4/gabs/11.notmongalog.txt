@@ -1,1 +1,1 @@
-PASSIncompatible types in assignment to symbol a. Exiting.
+PASSIncompatible types in assignment to symbol a at line 8. Exiting.

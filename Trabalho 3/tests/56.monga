@@ -5,8 +5,9 @@
 void a()
 {
     int a;
+    char c;
     a = 2;
-    while(a == 5 || a <= 6 && a == 5 && a == 6 || a == 5 || a == 6 && a == "V")
+    while(a == 5 || a <= 6 && a == 5 && a == 6 || a == 5 || a == 6 && a == c)
     {
         return;
     }

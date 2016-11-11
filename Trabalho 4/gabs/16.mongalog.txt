@@ -19,7 +19,7 @@ PASSDefinition:
             a
             Expression at line 9
               Expression type: New
-              Type: int
+              Type: int[]
               Expression resulting Type: int[]
               Expression
                 Expression type: Int
@@ -39,7 +39,7 @@ PASSDefinition:
                 Expression type: Int
                 Expression resulting Type: int
                 0
-            Expression
+            Expression at line 10
               Expression type: Variable
               Expression resulting Type: int
               Variable: ID

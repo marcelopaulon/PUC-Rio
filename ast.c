@@ -72,6 +72,12 @@ CmdBasic *cmdBasicVarInit(Var *var, Exp *exp, int line)
 {
     CmdBasic *cmd = mnew(CmdBasic);
     cmd->type = CmdBasicVar;
+
+    if(exp != NULL)
+    {
+        exp->line = line;
+    }
+
     cmd->u.varCmd.var = var;
     cmd->u.varCmd.exp = exp;
     cmd->line = line;

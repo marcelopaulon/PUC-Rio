@@ -17,7 +17,7 @@ PASSDefinition:
             Command type: Variable Assignment
             Variable: ID
             a
-            Expression
+            Expression at line 10
               Expression type: Float
               Expression resulting Type: float
               1.000000
@@ -27,7 +27,7 @@ PASSDefinition:
             Command type: Variable Assignment
             Variable: ID
             b
-            Expression
+            Expression at line 11
               Expression type: Int
               Expression resulting Type: int
               1

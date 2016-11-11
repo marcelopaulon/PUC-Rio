@@ -16,80 +16,80 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-              Expression resulting Type: void
+              Expression resulting Type: int
               2
         Command at line 9
           Expression at line 9
             Expression type: Logical Conjunction
-            Expression resulting Type: void
+            Expression resulting Type: int
             Expression at line 9
               Expression type: Logical Conjunction
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression at line 9
                 Expression type: Logical Conjunction
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Expression at line 9
                   Expression type: Logical Conjunction
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Expression at line 9
                     Expression type: Equality
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                     Expression
                       Expression type: Int
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       2
                   Expression at line 9
                     Expression type: Comparison (Less or Equal Than)
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Expression
                       Expression type: Variable
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       Variable: ID
                       a
                     Expression
                       Expression type: Int
-                      Expression resulting Type: void
+                      Expression resulting Type: int
                       3
                 Expression at line 9
                   Expression type: Equality
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Expression
                     Expression type: Variable
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     Variable: ID
                     a
                   Expression
                     Expression type: Int
-                    Expression resulting Type: void
+                    Expression resulting Type: int
                     2
               Expression at line 9
                 Expression type: Equality
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   a
                 Expression
                   Expression type: Int
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   2
             Expression at line 9
               Expression type: Equality
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
                 a
               Expression
                 Expression type: Int
-                Expression resulting Type: void
+                Expression resulting Type: int
                 2
           Command type: If
           Command

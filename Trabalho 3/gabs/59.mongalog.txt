@@ -16,23 +16,23 @@ PASSDefinition:
             a
             Expression
               Expression type: Int
-              Expression resulting Type: void
+              Expression resulting Type: int
               0
         Command at line 9
           Expression at line 9
             Expression type: Equality
-            Expression resulting Type: void
+            Expression resulting Type: int
             Expression
               Expression type: Negation
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
                 a
             Expression
               Expression type: Int
-              Expression resulting Type: void
+              Expression resulting Type: int
               0
           Command type: While
           Command
@@ -50,5 +50,5 @@ PASSDefinition:
                       a
                       Expression
                         Expression type: Int
-                        Expression resulting Type: void
+                        Expression resulting Type: int
                         1

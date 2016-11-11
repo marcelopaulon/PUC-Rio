@@ -2,11 +2,27 @@
  * 55.monga
  * ||
  */
+
+int b()
+{
+return 2;
+}
+
+int c(int a)
+{
+return 2*a;
+}
+
+int deee(int a, int b, int c, int d)
+{
+return a*b*c*d;
+}
+
 void a()
 {
-    int a;
-    a = 2;
-    while(a == 2 || b() || c(a) || deee(a,b,c,d) || a <= 3 || a == 2 || a == 2 || a == 2)
+    int x, y, z, w;
+    x = 2;
+    while(x == 2 || b() || c(x) || deee(x, y, z, w) || x <= 3 || x == 2 || x == 2 || x == 2)
     {
         return;
     }
