@@ -10,7 +10,7 @@ static Type *curReturnType = NULL;
 
 void checkBlock(Block *block);
 void checkCmdCall(CmdCall *cmd);
-Type *checkVar(Var *var, Exp *exp);
+Type *checkVar(Var *var, Exp **exp, int line);
 
 int typeEquals(Type *t1, Type *t2)
 {
@@ -119,7 +119,7 @@ void checkExp(Exp *exp)
 
         	break;
         case ExpVar:
-            exp->type = checkVar(exp->u.var, NULL);
+            exp->type = checkVar(exp->u.var, NULL, exp->line);
         	break;
         case ExpCall:
             checkCmdCall(exp->u.call);
@@ -244,11 +244,11 @@ void checkCmdCall(CmdCall *cmd)
     }
 }
 
-Type *checkVar(Var *var, Exp *exp)
+Type *checkVar(Var *var, Exp **exp, int line)
 {
     if(exp != NULL)
     {
-        checkExp(exp);
+        checkExp(*exp);
     }
 
     if(var->tag == VarId)
@@ -256,19 +256,25 @@ Type *checkVar(Var *var, Exp *exp)
         DecList *temp = find(table, var->u.def.id);
         if(temp == NULL)
         {
-            printf("Undefined symbol %s. Exiting.\n", var->u.def.id);
+            printf("Undefined symbol %s at line %d. Exiting.\n", var->u.def.id, line);
             exit(-1);
         }
 
         if(temp->type != 'p' && temp->type != 'v')
         {
-            printf("Invalid assignment to symbol %s. Exiting.\n", var->u.def.id);
+            printf("Invalid assignment to symbol %s at line %d. Exiting.\n", var->u.def.id, line);
             exit(-1);
         }
 
-        if(exp != NULL && ((temp->type == 'v' && !typeEquals(temp->val.v->type, exp->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, exp->type))))
+        if(exp != NULL && (*exp)->type->name == VarInt && (*exp)->type->brackets == 0 && ((temp->type == 'p' && temp->val.p->type->name == VarFloat && temp->val.p->type->brackets == 0) || (temp->type == 'v' && temp->val.v->type->name == VarFloat && temp->val.v->type->brackets == 0)))
         {
-            printf("Incompatible types in assignment to symbol %s. Exiting.\n", var->u.def.id);
+            Exp *temp = castIntToFloat(*exp);
+            *exp = temp;
+        }
+
+        if(exp != NULL && ((temp->type == 'v' && !typeEquals(temp->val.v->type, (*exp)->type)) || (temp->type == 'p' && !typeEquals(temp->val.p->type, (*exp)->type))))
+        {
+            printf("Incompatible types in assignment to symbol %s at line %d. Exiting.\n", var->u.def.id, line);
             exit(-1);
         }
 
@@ -303,9 +309,9 @@ Type *checkVar(Var *var, Exp *exp)
         checkExp(var->u.indexed.e1); // expothers
         checkExp(var->u.indexed.e2); // '[' expIdx ']'
 
-        if(exp != NULL && !(var->u.indexed.e1->type->name == exp->type->name && var->u.indexed.e1->type->brackets - 1 == exp->type->brackets))
+        if(exp != NULL && !(var->u.indexed.e1->type->name == (*exp)->type->name && var->u.indexed.e1->type->brackets - 1 == (*exp)->type->brackets))
         {
-            printf("Incompatible types in assignment to symbol. Exiting.\n");
+            printf("Incompatible types in assignment to symbol at line %d. Exiting.\n", line);
             exit(-1);
         }
 
@@ -313,7 +319,7 @@ Type *checkVar(Var *var, Exp *exp)
     }
     else
     {
-        printf("Invalid var tag. Exiting.\n");
+        printf("Invalid var tag at line %d. Exiting.\n", line);
         exit(-1);
     }
 }
@@ -340,7 +346,7 @@ void checkCmdBasic(CmdBasic *cmd)
             checkBlock(cmd->u.block);
             break;
         case CmdBasicVar:
-            checkVar(cmd->u.varCmd.var, cmd->u.varCmd.exp);
+            checkVar(cmd->u.varCmd.var, &(cmd->u.varCmd.exp), cmd->line);
             break;
         default:
             printf("Invalid command type. Exiting.\n");

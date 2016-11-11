@@ -1,11 +1,6 @@
 lex ../monga.lex
 yacc -d ../monga.y
 cp ../lex.yy.h lex.yy.h
-gcc -o lex.yy.o -c lex.yy.c -Wall -Wno-maybe-uninitialized -O2
-gcc -o ast.o -c ../ast.c -Wall -Wno-maybe-uninitialized -O2
-gcc -o symboltable.o -c ../symboltable.c -Wall -Wno-maybe-uninitialized -O2
-gcc -o typechecking.o -c ../typechecking.c -Wall -Wno-maybe-uninitialized -O2
-gcc -o y.tab.o -c y.tab.c -Wall -Wno-maybe-uninitialized -O2
 gcc -o teste lex.yy.o ast.o symboltable.o typechecking.o y.tab.o
 python runTests.py
 Pass tests:
@@ -203,7 +198,7 @@ Test 35.monga:
 --- output
 +++ expected
 @@ -1 +1,100 @@
--PASSIncompatible types in assignment to symbol a. Exiting.
+-PASSIncompatible types in assignment to symbol a at line 9. Exiting.
 
 +PASSDefinition:
 
@@ -420,746 +415,150 @@ SUCCESS!
 
 
 Test 38.monga: 
---- output
-+++ expected
-@@ -1 +1,32 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Subtraction
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Int
-
-+                Expression resulting Type: void
-
-+                100
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 8
-
-+            Command type: Function call
-
-+            Command Call: a
-
-+              Type: void
-
-+              Expression List:
-
-
-FAIL
+SUCCESS!
 
 
 Test 39.monga: 
---- output
-+++ expected
-@@ -1 +1,25 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Subtraction
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Float
-
-+                Expression resulting Type: void
-
-+                3.141500
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 40.monga: 
---- output
-+++ expected
-@@ -1 +1,26 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Addition
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 41.monga: 
---- output
-+++ expected
-@@ -1 +1,26 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Subtraction
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 42.monga: 
---- output
-+++ expected
-@@ -1 +1,26 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Multiplication
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 43.monga: 
---- output
-+++ expected
-@@ -15,14 +15,14 @@
-             b
 
-             Expression at line 7
-
-               Expression type: Division
-
--              Expression resulting Type: int
-
-+              Expression resulting Type: void
-
-               Expression
-
-                 Expression type: Variable
-
--                Expression resulting Type: int
-
-+                Expression resulting Type: void
-
-                 Variable: ID
-
-                 b
-
-               Expression
-
-                 Expression type: Variable
-
--                Expression resulting Type: int
-
-+                Expression resulting Type: void
-
-                 Variable: ID
-
-                 b
-
-
-FAIL
+SUCCESS!
 
 
 Test 44.monga: 
---- output
-+++ expected
-@@ -1 +1,25 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Division
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Int
-
-+                Expression resulting Type: void
-
-+                2
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 45.monga: 
---- output
-+++ expected
-@@ -1 +1,25 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Division
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+              Expression
-
-+                Expression type: Int
-
-+                Expression resulting Type: void
-
-+                2
-
-
-FAIL
+SUCCESS!
 
 
 Test 46.monga: 
---- output
-+++ expected
-@@ -1 +1,25 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Division
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Float
-
-+                Expression resulting Type: void
-
-+                2.000000
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-
-FAIL
+SUCCESS!
 
 
 Test 47.monga: 
---- output
-+++ expected
-@@ -1 +1,25 @@
--PASSInvalid assignment to symbol a. Exiting.
 
-+PASSDefinition:
-
-+  Func: a
-
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 7
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression at line 7
-
-+              Expression type: Division
-
-+              Expression resulting Type: void
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+              Expression
-
-+                Expression type: Float
-
-+                Expression resulting Type: void
-
-+                2.000000
-
-
-FAIL
+SUCCESS!
 
 
 Test 48.monga: 
 --- output
 +++ expected
-@@ -1 +1,464 @@
--PASSIncompatible types in assignment to symbol a. Exiting.
+@@ -25,7 +25,7 @@
+             a
 
-+PASSDefinition:
+             Expression
 
-+  Func: a
+               Expression type: Int
 
-+    Type: void
-
-+    Parameters List:
-
-+    Block:
-
-+      Def Var List:
-
-+        DefVar:
-
-+          Type: int
-
-+          a
-
-+        DefVar:
-
-+          Type: int
-
-+          b
-
-+        DefVar:
-
-+          Type: float
-
-+          c
-
-+        DefVar:
-
-+          Type: float
-
-+          d
-
-+      Command List:
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 11
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            a
-
-+            Expression
-
-+              Expression type: Int
+-              Expression resulting Type: int
 
 +              Expression resulting Type: void
 
-+              6
+               6
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 12
+@@ -35,7 +35,7 @@
+             b
 
-+            Command type: Variable Assignment
+             Expression
 
-+            Variable: ID
+               Expression type: Int
 
-+            b
-
-+            Expression
-
-+              Expression type: Int
+-              Expression resulting Type: int
 
 +              Expression resulting Type: void
 
-+              3
+               3
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 13
+@@ -45,7 +45,7 @@
+             c
 
-+            Command type: Variable Assignment
+             Expression
 
-+            Variable: ID
+               Expression type: Float
 
-+            c
-
-+            Expression
-
-+              Expression type: Float
+-              Expression resulting Type: float
 
 +              Expression resulting Type: void
 
-+              12.900000
+               12.900000
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 14
+@@ -55,7 +55,7 @@
+             d
 
-+            Command type: Variable Assignment
+             Expression
 
-+            Variable: ID
+               Expression type: Float
 
-+            d
-
-+            Expression
-
-+              Expression type: Float
+-              Expression resulting Type: float
 
 +              Expression resulting Type: void
 
-+              15.777770
+               15.777770
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 15
+@@ -65,15 +65,15 @@
+             a
 
-+            Command type: Variable Assignment
+             Expression at line 15
 
-+            Variable: ID
+               Expression type: Addition
 
-+            a
+-              Expression resulting Type: int
 
-+            Expression at line 15
+-              Expression
 
-+              Expression type: Addition
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-              Expression
+
+-                Expression type: Int
+
+-                Expression resulting Type: int
 
 +              Expression resulting Type: void
 
@@ -1179,179 +578,218 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                1
+                 1
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 16
+@@ -83,22 +83,22 @@
+             a
 
-+            Command type: Variable Assignment
+             Expression at line 16
 
-+            Variable: ID
+               Expression type: Addition
 
-+            a
-
-+            Expression at line 16
-
-+              Expression type: Addition
+-              Expression resulting Type: int
 
 +              Expression resulting Type: void
 
-+              Expression at line 16
+               Expression at line 16
 
-+                Expression type: Addition
+                 Expression type: Addition
 
-+                Expression resulting Type: void
-
-+                Expression
-
-+                  Expression type: Variable
-
-+                  Expression resulting Type: void
-
-+                  Variable: ID
-
-+                  a
-
-+                Expression
-
-+                  Expression type: Int
-
-+                  Expression resulting Type: void
-
-+                  1
-
-+              Expression
-
-+                Expression type: Int
+-                Expression resulting Type: int
 
 +                Expression resulting Type: void
 
-+                1
+                 Expression
 
-+        Command
+                   Expression type: Variable
 
-+          Command type: Basic Command
+-                  Expression resulting Type: int
 
-+          Basic Command at line 17
++                  Expression resulting Type: void
 
-+            Command type: Variable Assignment
+                   Variable: ID
 
-+            Variable: ID
+                   a
 
-+            a
+                 Expression
 
-+            Expression at line 17
+                   Expression type: Int
 
-+              Expression type: Addition
+-                  Expression resulting Type: int
+
++                  Expression resulting Type: void
+
+                   1
+
+               Expression
+
+                 Expression type: Int
+
+-                Expression resulting Type: int
+
++                Expression resulting Type: void
+
+                 1
+
+         Command
+
+           Command type: Basic Command
+
+@@ -108,50 +108,50 @@
+             a
+
+             Expression at line 17
+
+               Expression type: Addition
+
+-              Expression resulting Type: int
 
 +              Expression resulting Type: void
 
-+              Expression at line 17
+               Expression at line 17
 
-+                Expression type: Addition
+                 Expression type: Addition
+
+-                Expression resulting Type: int
 
 +                Expression resulting Type: void
 
-+                Expression at line 17
+                 Expression at line 17
 
-+                  Expression type: Addition
+                   Expression type: Addition
+
+-                  Expression resulting Type: int
 
 +                  Expression resulting Type: void
 
-+                  Expression at line 17
+                   Expression at line 17
 
-+                    Expression type: Addition
+                     Expression type: Addition
+
+-                    Expression resulting Type: int
 
 +                    Expression resulting Type: void
 
-+                    Expression at line 17
+                     Expression at line 17
 
-+                      Expression type: Addition
+                       Expression type: Addition
 
-+                      Expression resulting Type: void
-
-+                      Expression at line 17
-
-+                        Expression type: Addition
-
-+                        Expression resulting Type: void
-
-+                        Expression
-
-+                          Expression type: Variable
-
-+                          Expression resulting Type: void
-
-+                          Variable: ID
-
-+                          a
-
-+                        Expression
-
-+                          Expression type: Int
-
-+                          Expression resulting Type: void
-
-+                          1
-
-+                      Expression
-
-+                        Expression type: Int
-
-+                        Expression resulting Type: void
-
-+                        1
-
-+                    Expression
-
-+                      Expression type: Int
+-                      Expression resulting Type: int
 
 +                      Expression resulting Type: void
 
-+                      1
+                       Expression at line 17
 
-+                  Expression
+                         Expression type: Addition
 
-+                    Expression type: Int
+-                        Expression resulting Type: int
+
++                        Expression resulting Type: void
+
+                         Expression
+
+                           Expression type: Variable
+
+-                          Expression resulting Type: int
+
++                          Expression resulting Type: void
+
+                           Variable: ID
+
+                           a
+
+                         Expression
+
+                           Expression type: Int
+
+-                          Expression resulting Type: int
+
++                          Expression resulting Type: void
+
+                           1
+
+                       Expression
+
+                         Expression type: Int
+
+-                        Expression resulting Type: int
+
++                        Expression resulting Type: void
+
+                         1
+
+                     Expression
+
+                       Expression type: Int
+
+-                      Expression resulting Type: int
+
++                      Expression resulting Type: void
+
+                       1
+
+                   Expression
+
+                     Expression type: Int
+
+-                    Expression resulting Type: int
 
 +                    Expression resulting Type: void
 
-+                    1
+                     1
 
-+                Expression
+                 Expression
 
-+                  Expression type: Int
+                   Expression type: Int
+
+-                  Expression resulting Type: int
 
 +                  Expression resulting Type: void
 
-+                  1
+                   1
 
-+              Expression
+               Expression
 
-+                Expression type: Int
+                 Expression type: Int
+
+-                Expression resulting Type: int
 
 +                Expression resulting Type: void
 
-+                1
+                 1
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 18
+@@ -161,15 +161,15 @@
+             a
 
-+            Command type: Variable Assignment
+             Expression at line 18
 
-+            Variable: ID
+               Expression type: Addition
 
-+            a
+-              Expression resulting Type: int
 
-+            Expression at line 18
+-              Expression
 
-+              Expression type: Addition
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
 
 +              Expression resulting Type: void
 
@@ -1371,25 +809,26 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                Variable: ID
+                 Variable: ID
 
-+                b
+                 b
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+@@ -180,19 +180,17 @@
+             c
 
-+          Basic Command at line 19
+             Expression at line 19
 
-+            Command type: Variable Assignment
+               Expression type: Multiplication
 
-+            Variable: ID
+-              Expression resulting Type: float
 
-+            c
+-              Expression
 
-+            Expression at line 19
+-                Expression type: Variable
 
-+              Expression type: Multiplication
+-                Expression resulting Type: float
 
 +              Expression resulting Type: void
 
@@ -1399,11 +838,23 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                Variable: ID
+                 Variable: ID
 
-+                c
+                 c
 
-+              Expression
+               Expression
+
+-                Expression type: Cast from int to float
+
+-                Expression
+
+-                  Expression type: Variable
+
+-                  Expression resulting Type: int
+
+-                  Variable: ID
+
+-                  a
 
 +                Expression type: Variable
 
@@ -1413,59 +864,26 @@ Test 48.monga:
 
 +                a
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 20
+           Basic Command at line 20
 
-+            Command type: Variable Assignment
+@@ -201,15 +199,15 @@
+             d
 
-+            Variable: ID
+             Expression at line 20
 
-+            d
+               Expression type: Multiplication
 
-+            Expression at line 20
+-              Expression resulting Type: float
 
-+              Expression type: Multiplication
+-              Expression
 
-+              Expression resulting Type: void
+-                Expression type: Variable
 
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                c
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                c
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 21
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            c
-
-+            Expression at line 21
-
-+              Expression type: Division
+-                Expression resulting Type: float
 
 +              Expression resulting Type: void
 
@@ -1475,11 +893,54 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                Variable: ID
+                 Variable: ID
 
-+                c
+                 c
+
+               Expression
+
+                 Expression type: Variable
+
+-                Expression resulting Type: float
+
++                Expression resulting Type: void
+
+                 Variable: ID
+
+                 c
+
+         Command
+
+@@ -220,84 +218,82 @@
+             c
+
+             Expression at line 21
+
+               Expression type: Division
+
+-              Expression resulting Type: float
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: float
+
++              Expression resulting Type: void
 
 +              Expression
+
++                Expression type: Variable
+
++                Expression resulting Type: void
+
+                 Variable: ID
+
+                 c
+
+               Expression
+
+-                Expression type: Cast from int to float
 
 +                Expression type: Variable
 
@@ -1589,23 +1050,149 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                Expression
+                 Expression
 
-+                  Expression type: Variable
+                   Expression type: Variable
 
-+                  Expression resulting Type: void
-
-+                  Variable: ID
-
-+                  a
-
-+                Expression
-
-+                  Expression type: Variable
+-                  Expression resulting Type: int
 
 +                  Expression resulting Type: void
 
-+                  Variable: ID
+                   Variable: ID
+
+                   a
+
+-        Command
+
+-          Command type: Basic Command
+
+-          Basic Command at line 22
+
+-            Command type: Variable Assignment
+
+-            Variable: ID
+
+-            a
+
+-            Expression at line 22
+
+-              Expression type: Multiplication
+
+-              Expression resulting Type: int
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-        Command
+
+-          Command type: Basic Command
+
+-          Basic Command at line 23
+
+-            Command type: Variable Assignment
+
+-            Variable: ID
+
+-            a
+
+-            Expression at line 23
+
+-              Expression type: Subtraction
+
+-              Expression resulting Type: int
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
+
+-        Command
+
+-          Command type: Basic Command
+
+-          Basic Command at line 24
+
+-            Command type: Variable Assignment
+
+-            Variable: ID
+
+-            a
+
+-            Expression at line 24
+
+-              Expression type: Subtraction
+
+-              Expression resulting Type: int
+
+-              Expression at line 24
+
+-                Expression type: Subtraction
+
+-                Expression resulting Type: int
+
+                 Expression
+
+                   Expression type: Variable
+
+-                  Expression resulting Type: int
+
++                  Expression resulting Type: void
+
+                   Variable: ID
+
+-                  a
+
+-                Expression
+
+-                  Expression type: Variable
+
+-                  Expression resulting Type: int
+
+-                  Variable: ID
+
+-                  b
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                a
 
 +                  d
 
@@ -1619,121 +1206,162 @@ Test 48.monga:
 
 +                d
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 25
+           Basic Command at line 25
 
-+            Command type: Variable Assignment
+@@ -306,62 +302,62 @@
+             a
 
-+            Variable: ID
+             Expression at line 25
 
-+            a
+               Expression type: Subtraction
 
-+            Expression at line 25
-
-+              Expression type: Subtraction
+-              Expression resulting Type: int
 
 +              Expression resulting Type: void
 
-+              Expression at line 25
+               Expression at line 25
 
-+                Expression type: Subtraction
+                 Expression type: Subtraction
+
+-                Expression resulting Type: int
 
 +                Expression resulting Type: void
 
-+                Expression at line 25
+                 Expression at line 25
 
-+                  Expression type: Subtraction
+                   Expression type: Subtraction
+
+-                  Expression resulting Type: int
 
 +                  Expression resulting Type: void
 
-+                  Expression at line 25
+                   Expression at line 25
 
-+                    Expression type: Subtraction
+                     Expression type: Subtraction
+
+-                    Expression resulting Type: int
 
 +                    Expression resulting Type: void
 
-+                    Expression at line 25
+                     Expression at line 25
 
-+                      Expression type: Addition
+                       Expression type: Addition
+
+-                      Expression resulting Type: int
 
 +                      Expression resulting Type: void
 
-+                      Expression at line 25
+                       Expression at line 25
 
-+                        Expression type: Subtraction
+                         Expression type: Subtraction
+
+-                        Expression resulting Type: int
 
 +                        Expression resulting Type: void
 
-+                        Expression at line 25
+                         Expression at line 25
 
-+                          Expression type: Subtraction
+                           Expression type: Subtraction
 
-+                          Expression resulting Type: void
-
-+                          Expression
-
-+                            Expression type: Variable
-
-+                            Expression resulting Type: void
-
-+                            Variable: ID
-
-+                            a
-
-+                          Expression
-
-+                            Expression type: Int
-
-+                            Expression resulting Type: void
-
-+                            1
-
-+                        Expression
-
-+                          Expression type: Variable
+-                          Expression resulting Type: int
 
 +                          Expression resulting Type: void
 
-+                          Variable: ID
+                           Expression
+
+                             Expression type: Variable
+
+-                            Expression resulting Type: int
+
++                            Expression resulting Type: void
+
+                             Variable: ID
+
+                             a
+
+                           Expression
+
+                             Expression type: Int
+
+-                            Expression resulting Type: int
+
++                            Expression resulting Type: void
+
+                             1
+
+                         Expression
+
+                           Expression type: Variable
+
+-                          Expression resulting Type: int
+
++                          Expression resulting Type: void
+
+                           Variable: ID
+
+-                          b
 
 +                          d
 
-+                      Expression
+                       Expression
 
-+                        Expression type: Int
+                         Expression type: Int
+
+-                        Expression resulting Type: int
 
 +                        Expression resulting Type: void
 
-+                        1
+                         1
 
-+                    Expression
+                     Expression
 
-+                      Expression type: Int
+                       Expression type: Int
+
+-                      Expression resulting Type: int
 
 +                      Expression resulting Type: void
 
-+                      2
+                       2
 
-+                  Expression
+                   Expression
 
-+                    Expression type: Variable
+                     Expression type: Variable
+
+-                    Expression resulting Type: int
 
 +                    Expression resulting Type: void
 
-+                    Variable: ID
+                     Variable: ID
+
+-                    b
 
 +                    d
 
-+                Expression
+                 Expression
 
-+                  Expression type: Variable
+                   Expression type: Variable
+
+-                  Expression resulting Type: int
 
 +                  Expression resulting Type: void
 
-+                  Variable: ID
+                   Variable: ID
+
+-                  b
+
+-              Expression
+
+-                Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                b
 
 +                  d
 
@@ -1747,57 +1375,26 @@ Test 48.monga:
 
 +                d
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 26
+           Basic Command at line 26
 
-+            Command type: Variable Assignment
+@@ -370,14 +366,14 @@
+             a
 
-+            Variable: ID
+             Expression at line 26
 
-+            a
+               Expression type: Subtraction
 
-+            Expression at line 26
+-              Expression resulting Type: int
 
-+              Expression type: Subtraction
+-              Expression
 
-+              Expression resulting Type: void
+-                Expression type: Int
 
-+              Expression
-
-+                Expression type: Int
-
-+                Expression resulting Type: void
-
-+                1
-
-+              Expression
-
-+                Expression type: Variable
-
-+                Expression resulting Type: void
-
-+                Variable: ID
-
-+                a
-
-+        Command
-
-+          Command type: Basic Command
-
-+          Basic Command at line 27
-
-+            Command type: Variable Assignment
-
-+            Variable: ID
-
-+            b
-
-+            Expression at line 27
-
-+              Expression type: Subtraction
+-                Expression resulting Type: int
 
 +              Expression resulting Type: void
 
@@ -1807,11 +1404,56 @@ Test 48.monga:
 
 +                Expression resulting Type: void
 
-+                1
+                 1
+
+               Expression
+
+                 Expression type: Variable
+
+-                Expression resulting Type: int
+
++                Expression resulting Type: void
+
+                 Variable: ID
+
+                 a
+
+         Command
+
+@@ -388,35 +384,33 @@
+             b
+
+             Expression at line 27
+
+               Expression type: Subtraction
+
+-              Expression resulting Type: int
+
+-              Expression
+
+-                Expression type: Int
+
+-                Expression resulting Type: int
+
++              Expression resulting Type: void
 
 +              Expression
 
-+                Expression type: Variable
++                Expression type: Int
+
++                Expression resulting Type: void
+
+                 1
+
+               Expression
+
+                 Expression type: Variable
+
+-                Expression resulting Type: int
+
+-                Variable: ID
+
+-                b
 
 +                Expression resulting Type: void
 
@@ -1819,17 +1461,43 @@ Test 48.monga:
 
 +                c
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 28
+           Basic Command at line 28
 
-+            Command type: Variable Assignment
+             Command type: Variable Assignment
 
-+            Variable: ID
+             Variable: ID
 
-+            c
+             c
+
+-            Expression
+
+-              Expression type: Cast from int to float
+
+-              Expression at line 28
+
+-                Expression type: Division
+
+-                Expression resulting Type: int
+
+-                Expression
+
+-                  Expression type: Int
+
+-                  Expression resulting Type: int
+
+-                  2
+
+-                Expression
+
+-                  Expression type: Int
+
+-                  Expression resulting Type: int
+
+-                  3
 
 +            Expression at line 28
 
@@ -1853,33 +1521,44 @@ Test 48.monga:
 
 +                3
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 29
+           Basic Command at line 29
 
-+            Command type: Variable Assignment
+@@ -425,17 +419,15 @@
+             c
 
-+            Variable: ID
+             Expression at line 29
 
-+            c
+               Expression type: Division
 
-+            Expression at line 29
-
-+              Expression type: Division
+-              Expression resulting Type: float
 
 +              Expression resulting Type: void
 
-+              Expression
+               Expression
 
-+                Expression type: Float
+                 Expression type: Float
+
+-                Expression resulting Type: float
 
 +                Expression resulting Type: void
 
-+                2.000000
+                 2.000000
 
-+              Expression
+               Expression
+
+-                Expression type: Cast from int to float
+
+-                Expression
+
+-                  Expression type: Int
+
+-                  Expression resulting Type: int
+
+-                  3
 
 +                Expression type: Int
 
@@ -1887,21 +1566,32 @@ Test 48.monga:
 
 +                3
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 30
+           Basic Command at line 30
 
-+            Command type: Variable Assignment
+@@ -444,16 +436,14 @@
+             c
 
-+            Variable: ID
+             Expression at line 30
 
-+            c
+               Expression type: Division
 
-+            Expression at line 30
+-              Expression resulting Type: float
 
-+              Expression type: Division
+-              Expression
+
+-                Expression type: Cast from int to float
+
+-                Expression
+
+-                  Expression type: Int
+
+-                  Expression resulting Type: int
+
+-                  2
 
 +              Expression resulting Type: void
 
@@ -1913,47 +1603,50 @@ Test 48.monga:
 
 +                2
 
-+              Expression
+               Expression
 
-+                Expression type: Float
+                 Expression type: Float
+
+-                Expression resulting Type: float
 
 +                Expression resulting Type: void
 
-+                3.000000
+                 3.000000
 
-+        Command
+         Command
 
-+          Command type: Basic Command
+           Command type: Basic Command
 
-+          Basic Command at line 31
+@@ -463,12 +453,12 @@
+             c
 
-+            Command type: Variable Assignment
+             Expression at line 31
 
-+            Variable: ID
+               Expression type: Division
 
-+            c
-
-+            Expression at line 31
-
-+              Expression type: Division
+-              Expression resulting Type: float
 
 +              Expression resulting Type: void
 
-+              Expression
+               Expression
 
-+                Expression type: Float
+                 Expression type: Float
 
-+                Expression resulting Type: void
-
-+                2.000000
-
-+              Expression
-
-+                Expression type: Float
+-                Expression resulting Type: float
 
 +                Expression resulting Type: void
 
-+                3.000000
+                 2.000000
+
+               Expression
+
+                 Expression type: Float
+
+-                Expression resulting Type: float
+
++                Expression resulting Type: void
+
+                 3.000000
 
 
 FAIL
@@ -2355,7 +2048,7 @@ Test 51.monga:
 --- output
 +++ expected
 @@ -1 +1,161 @@
--PASSUndefined symbol b. Exiting.
+-PASSUndefined symbol b at line -1. Exiting.
 
 +PASSDefinition:
 
@@ -2687,7 +2380,7 @@ Test 52.monga:
 --- output
 +++ expected
 @@ -1 +1,161 @@
--PASSUndefined symbol b. Exiting.
+-PASSUndefined symbol b at line -1. Exiting.
 
 +PASSDefinition:
 
@@ -3019,7 +2712,7 @@ Test 53.monga:
 --- output
 +++ expected
 @@ -1 +1,161 @@
--PASSUndefined symbol b. Exiting.
+-PASSUndefined symbol b at line -1. Exiting.
 
 +PASSDefinition:
 
@@ -4812,7 +4505,7 @@ Test 60.monga:
 --- output
 +++ expected
 @@ -1 +1,164 @@
--PASSIncompatible types in assignment to symbol. Exiting.
+-PASSIncompatible types in assignment to symbol at line 14. Exiting.
 
 +PASSDefinition:
 
@@ -5328,7 +5021,7 @@ Test 59.notmonga:
 Test 60.notmonga: 
 ['FAIL - Unexpected token #91 on line: 8']
 
-Finished! 95/120 tests passed.
+Finished! 105/120 tests passed.
 
 rm -rf *.o
 rm -rf y.tab.c

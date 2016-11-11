@@ -19,12 +19,12 @@ void a()
     c = c * a;
     d = c * c;
     c = c/a;
-    a = a*d;
-    a = a-d;
-    a = a - d - d;
-    a = a - 1 - d + 1 - 2 - d - d - d;
+    a = a*a;
+    a = a-a;
+    a = a - b - a;
+    a = a - 1 - b + 1 - 2 - b - b - b;
     a = 1-a;
-    b = 1-c;
+    b = 1-b;
     c = 2/3;
     c = 2.0/3;
     c = 2/3.0;

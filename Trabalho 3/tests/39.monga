@@ -4,5 +4,6 @@
  */
 void a()
 {
+    float a;
     a = 3.1415 - a;
 }

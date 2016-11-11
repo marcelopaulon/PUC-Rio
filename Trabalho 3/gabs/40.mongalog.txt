@@ -4,23 +4,32 @@ PASSDefinition:
     Parameters List:
     Block:
       Def Var List:
+        DefVar:
+          Type: int
+          b
+        DefVar:
+          Type: int
+          c
+        DefVar:
+          Type: int
+          d
       Command List:
         Command
           Command type: Basic Command
-          Basic Command at line 7
+          Basic Command at line 8
             Command type: Variable Assignment
             Variable: ID
-            a
-            Expression at line 7
+            b
+            Expression at line 8
               Expression type: Addition
-              Expression resulting Type: void
+              Expression resulting Type: int
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
-                a
+                c
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: int
                 Variable: ID
-                a
+                d

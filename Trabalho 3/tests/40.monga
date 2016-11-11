@@ -4,5 +4,6 @@
  */
 void a()
 {
-    a = a + a;
+    int b, c, d;
+    b = c + d;
 }
