@@ -4,6 +4,6 @@
  */
 
 float a(int b){
-    char c;
+    float c;
     a(c);
 }

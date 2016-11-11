@@ -17,7 +17,7 @@ int typeEquals(Type *t1, Type *t2)
     if(t1 == NULL && t2 != NULL) return 0;
     if(t2 == NULL && t1 != NULL) return 0;
     if(t1 == NULL && t2 == NULL) return 1;
-    if(t1->name != t2->name) return 0;
+    if(t1->name != t2->name && !(t1->name == VarInt && t2->name == VarChar) && !(t1->name == VarChar && t2->name == VarInt)) return 0;
     if(t1->brackets != t2->brackets) return 0;
     return 1;
 }
@@ -274,11 +274,28 @@ Type *checkVar(Var *var, Exp *exp)
 
         if(temp->type == 'v') {
             var->u.def.dec = temp->val.v;
-            return temp->val.v->type;
+            if(temp->val.v->type->name != VarChar) {
+                return temp->val.v->type;
+            }
+            else {
+                Type *type = mnew(Type);
+                type->name = VarInt;
+                type->brackets = temp->val.v->type->brackets;
+                return type;
+            }
         }
         else {
             var->u.def.p = temp->val.p;
-            return temp->val.p->type;
+
+            if(temp->val.p->type->name != VarChar) {
+                return temp->val.p->type;
+            }
+            else {
+                Type *type = mnew(Type);
+                type->name = VarInt;
+                type->brackets = temp->val.p->type->brackets;
+                return type;
+            }
         }
     }
     else if(var->tag == VarIndexed)

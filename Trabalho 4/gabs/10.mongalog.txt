@@ -19,6 +19,6 @@ PASSDefinition:
               Expression List:
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: char
+                  Expression resulting Type: int
                   Variable: ID
                   c
