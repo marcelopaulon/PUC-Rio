@@ -1,6 +1,6 @@
 /*
  * 13.monga
- * Exp test float to int cast
+ * Exp test int to float cast
  */
 
 int main()
@@ -9,8 +9,8 @@ int main()
     int b;
     a = 1.0;
     b = 1;
-    if(b == 3.0)
+    if(a == 3.0)
     {
-        /*a = a + b;*/
+        a = a + b;
     }
 }

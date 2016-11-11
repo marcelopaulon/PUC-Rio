@@ -91,12 +91,6 @@ void checkExp(Exp *exp)
             checkExp(exp->u.bin.e1);
             checkExp(exp->u.bin.e2);
 
-            if(exp->u.bin.e1->type->brackets > 0 || exp->u.bin.e2->type->brackets > 0)
-            {
-                printf("Invalid array comparison on line %d. Exiting.\n", exp->line);
-                exit(-1);
-            }
-            
             if(exp->u.bin.e1->type->name == exp->u.bin.e2->type->name)
             {
                 exp->type = exp->u.bin.e1->type;
@@ -114,6 +108,12 @@ void checkExp(Exp *exp)
             else
             {
                 printf("Invalid expression on line %d. Exiting.\n", exp->line);
+                exit(-1);
+            }
+
+            if(!typeEquals(exp->u.bin.e1->type, exp->u.bin.e2->type))
+            {
+                printf("Invalid array comparison on line %d. Exiting.\n", exp->line);
                 exit(-1);
             }
 

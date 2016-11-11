@@ -36,12 +36,10 @@ PASSDefinition:
             Expression type: Equality
             Expression resulting Type: float
             Expression
-              Expression type: Cast from int to float
-              Expression
-                Expression type: Variable
-                Expression resulting Type: int
-                Variable: ID
-                b
+              Expression type: Variable
+              Expression resulting Type: float
+              Variable: ID
+              a
             Expression
               Expression type: Float
               Expression resulting Type: float
@@ -54,3 +52,24 @@ PASSDefinition:
               Block:
                 Def Var List:
                 Command List:
+                  Command
+                    Command type: Basic Command
+                    Basic Command at line 14
+                      Command type: Variable Assignment
+                      Variable: ID
+                      a
+                      Expression at line 14
+                        Expression type: Addition
+                        Expression resulting Type: float
+                        Expression
+                          Expression type: Variable
+                          Expression resulting Type: float
+                          Variable: ID
+                          a
+                        Expression
+                          Expression type: Cast from int to float
+                          Expression
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            b

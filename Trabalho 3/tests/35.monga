@@ -5,23 +5,17 @@
 
 void a()
 {
-    char a;
-    a = a - 3.1415;
-}
-
-void a()
-{
-    int a;
-    a = a - 3.1415;
-}
-
-void a()
-{
     float a;
     a = a - 3.1415;
 }
 
-void a()
+void b()
+{
+    float a;
+    a = 3.1415 - a;
+}
+
+void c()
 {
     float[] a;
     a = new float[1];

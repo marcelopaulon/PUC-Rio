@@ -14,7 +14,7 @@ PASSDefinition:
         Command at line 8
           Expression at line 8
             Expression type: Comparison (Less or Equal Than)
-            Expression resulting Type: int
+            Expression resulting Type: float
             Expression
               Expression type: Variable
               Expression resulting Type: float
