@@ -2,7 +2,7 @@
  * 14.monga
  * Testing a function returning a negative float constant
  */
-void a()
+float a()
 {
     return -1.2;
 }

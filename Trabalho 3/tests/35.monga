@@ -2,22 +2,28 @@
  * 35.monga
  * Identifier - float number (multiple functions test)
  */
+
 void a()
 {
+    char a;
     a = a - 3.1415;
 }
 
 void a()
 {
+    int a;
     a = a - 3.1415;
 }
 
 void a()
 {
+    float a;
     a = a - 3.1415;
 }
 
 void a()
 {
-    a = a - 3.1415;
+    float[] a;
+    a = new float[1];
+    a[0] = a[0] - 3.1415;
 }

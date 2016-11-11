@@ -4,14 +4,17 @@ PASSDefinition:
     Parameters List:
     Block:
       Def Var List:
+        DefVar:
+          Type: float
+          b
       Command List:
         Command
           Command type: Basic Command
-          Basic Command at line 7
+          Basic Command at line 8
             Command type: Return
             Expression
               Expression type: Variable
-              Expression resulting Type: void
+              Expression resulting Type: float
               Variable: ID
               b
 Definition:
@@ -20,13 +23,16 @@ Definition:
     Parameters List:
     Block:
       Def Var List:
+        DefVar:
+          Type: int
+          bbb
       Command List:
         Command
           Command type: Basic Command
-          Basic Command at line 12
+          Basic Command at line 14
             Command type: Return
             Expression
               Expression type: Variable
-              Expression resulting Type: void
+              Expression resulting Type: int
               Variable: ID
               bbb

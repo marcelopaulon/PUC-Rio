@@ -4,10 +4,12 @@
  */
 float a()
 {
+    float b;
     return b;
 }
 
 int aaa()
 {
+    int bbb;
     return bbb;
 }

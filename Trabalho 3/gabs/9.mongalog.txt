@@ -22,35 +22,35 @@ PASSDefinition:
           Basic Command at line 7
             Command type: Function call
             Command Call: a
-              Type: void
+              Type: int
               Expression List:
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int[]
                   Variable: ID
                   b
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type at line 5: int[]
                   Variable: ID
                   c
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   d
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   e
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type at line 5: float[]
                   Variable: ID
                   f
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: float
                   Variable: ID
                   g

@@ -4,19 +4,27 @@ PASSDefinition:
     Parameters List:
     Block:
       Def Var List:
+        DefVar:
+          Type: int
+          a
+        DefVar:
+          Type: float
+          b
       Command List:
-        Command at line 7
-          Expression at line 7
+        Command at line 9
+          Expression at line 9
             Expression type: Comparison (Less Than)
-            Expression resulting Type: void
+            Expression resulting Type: float
+            Expression
+              Expression type: Cast from int to float
+              Expression
+                Expression type: Variable
+                Expression resulting Type: int
+                Variable: ID
+                a
             Expression
               Expression type: Variable
-              Expression resulting Type: void
-              Variable: ID
-              a
-            Expression
-              Expression type: Variable
-              Expression resulting Type: void
+              Expression resulting Type: float
               Variable: ID
               b
           Command type: If
@@ -29,5 +37,5 @@ PASSDefinition:
                 Command List:
                   Command
                     Command type: Basic Command
-                    Basic Command at line 9
+                    Basic Command at line 11
                       Command type: Return

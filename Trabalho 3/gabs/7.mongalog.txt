@@ -12,10 +12,10 @@ PASSDefinition:
           Basic Command at line 7
             Command type: Function call
             Command Call: a
-              Type: void
+              Type: int
               Expression List:
                 Expression
                   Expression type: Variable
-                  Expression resulting Type: void
+                  Expression resulting Type: int
                   Variable: ID
                   b

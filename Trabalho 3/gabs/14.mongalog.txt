@@ -1,6 +1,6 @@
 PASSDefinition:
   Func: a
-    Type: void
+    Type: float
     Parameters List:
     Block:
       Def Var List:
@@ -11,8 +11,8 @@ PASSDefinition:
             Command type: Return
             Expression
               Expression type: Negative
-              Expression resulting Type: void
+              Expression resulting Type: float
               Expression
                 Expression type: Float
-                Expression resulting Type: void
+                Expression resulting Type: float
                 1.200000

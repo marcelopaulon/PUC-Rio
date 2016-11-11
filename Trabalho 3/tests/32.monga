@@ -4,5 +4,6 @@
  */
 void a()
 {
+    char a;
     a = a + 1;
 }

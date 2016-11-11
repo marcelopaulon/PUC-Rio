@@ -2,7 +2,8 @@
  * 15.monga
  * Testing a function returning an identifier
  */
-void a()
+int a()
 {
+    int b;
     return b;
 }

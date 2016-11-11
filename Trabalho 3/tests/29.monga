@@ -4,6 +4,7 @@
  */
 void a()
 {
+    float a,b;
     if(a <= b)
     {
         return;

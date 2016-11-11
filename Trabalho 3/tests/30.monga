@@ -4,6 +4,7 @@
  */
 void a()
 {
+    int a,b;
     while(a > b)
     {
         return;

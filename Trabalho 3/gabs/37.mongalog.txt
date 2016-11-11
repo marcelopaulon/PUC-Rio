@@ -4,22 +4,25 @@ PASSDefinition:
     Parameters List:
     Block:
       Def Var List:
+        DefVar:
+          Type: float
+          a
       Command List:
         Command
           Command type: Basic Command
-          Basic Command at line 7
+          Basic Command at line 8
             Command type: Variable Assignment
             Variable: ID
             a
-            Expression at line 7
+            Expression at line 8
               Expression type: Addition
-              Expression resulting Type: void
+              Expression resulting Type: float
               Expression
                 Expression type: Float
-                Expression resulting Type: void
+                Expression resulting Type: float
                 1.000000
               Expression
                 Expression type: Variable
-                Expression resulting Type: void
+                Expression resulting Type: float
                 Variable: ID
                 a
