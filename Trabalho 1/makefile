@@ -1,8 +1,6 @@
-all: compile test clean
+all: compile clean
 compile: lex.yy.o main.o
 	gcc -o teste lex.yy.o main.o
-test:
-	python runTests.py
 lex.yy.o:
 	lex ../monga.lex
 	gcc -o lex.yy.o -c lex.yy.c -Wall -Wno-maybe-uninitialized -O2

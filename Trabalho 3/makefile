@@ -1,8 +1,6 @@
-all: compile test clean
+all: compile clean
 compile: flexC lex.yy.o ast.o symboltable.o typechecking.o y.tab.o
 	gcc -o teste lex.yy.o ast.o symboltable.o typechecking.o y.tab.o
-test:
-	python runTests.py
 flexC:
 	lex ../monga.lex
 	yacc -d ../monga.y
