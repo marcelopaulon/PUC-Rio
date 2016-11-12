@@ -53,8 +53,8 @@ void main(void)
 	vec4 ambientLighting = scene_ambient * light0.diffuse * mymaterial.diffuse;
 	vec4 diffuseLighting = light0.diffuse * mymaterial.diffuse * max(dot(normalizedNormal, L), 0.0);
 		
-	vec3 v = normalize(-vertexPosition); // mv * vtxFrag
-	vec3 r = reflect(-L, normalizedNormal);
+	vec3 v = normalize(vertexPosition); // mv * vtxFrag
+	vec3 r = reflect(L, normalizedNormal);
 
 	vec4 specularLighting = light0.specular * mymaterial.diffuse * pow(max(dot(r,v), 0.0), mymaterial.shininess);
 	

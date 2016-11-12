@@ -107,7 +107,7 @@ void OpenGLMatrixManager::rotate( float a, float x, float y, float z )
     //Fonte: http://www.opengl.org/sdk/docs/man2/xhtml/glRotate.xml
 
     //Converte o angulo para radianos
-    float angle = a * M_PI / 180.0;
+    float angle = (float)(a * M_PI / 180.0);
 
     float c = cos( ( float ) angle );
     float s = sin( ( float ) angle );
@@ -222,10 +222,10 @@ void OpenGLMatrixManager::perspective( float fovY, float aspect, float zNear, fl
     //Fonte: http://www.opengl.org/sdk/docs/man2/xhtml/gluPerspective.xml
 
     //Converte para radianos.
-    float angle = fovY * M_PI / 180.0;
+    float angle = (float)(fovY * M_PI / 180.0);
 
     //Calcula a contange.
-    float f = 1.0 / tan( angle / 2.0 );
+    float f = (float)(1.0 / tan( angle / 2.0 ));
 
     float p[16] = { ( float ) ( f / aspect ), 0.0f, 0.0f, 0.0f,
                     0.0f, ( float ) f, 0.0f, 0.0f,

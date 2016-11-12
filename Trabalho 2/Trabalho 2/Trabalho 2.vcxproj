@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dirent.h" />
     <ClInclude Include="GraphicsShader.h" />
     <ClInclude Include="IupGLCanvasDummy.h" />
     <ClInclude Include="Math4f.h" />
@@ -32,26 +33,26 @@
     <ClCompile Include="OpenGLMatrixManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="apple.off" />
-    <None Include="bimba.off" />
-    <None Include="bunny_0.off" />
-    <None Include="bunny_1.off" />
-    <None Include="domo.off" />
-    <None Include="vertex.frag" />
-    <None Include="vertex.vert" />
-    <None Include="fertility.off" />
-    <None Include="flower.off" />
-    <None Include="fragment.frag" />
-    <None Include="fragment.vert" />
     <None Include="glew32.dll" />
-    <None Include="icosaedro.off" />
-    <None Include="klingon_starship.off" />
-    <None Include="planck.off" />
-    <None Include="singleTriangle.off" />
-    <None Include="triangle.off" />
+    <None Include="models\apple.off" />
+    <None Include="models\bimba.off" />
+    <None Include="models\bunny_0.off" />
+    <None Include="models\bunny_1.off" />
+    <None Include="models\domo.off" />
+    <None Include="models\fertility.off" />
+    <None Include="models\flower.off" />
+    <None Include="models\icosaedro.off" />
+    <None Include="models\klingon_starship.off" />
+    <None Include="models\planck.off" />
+    <None Include="models\singleTriangle.off" />
+    <None Include="models\triangle.off" />
+    <None Include="shaders\fragment.frag" />
+    <None Include="shaders\fragment.vert" />
+    <None Include="shaders\vertex.frag" />
+    <None Include="shaders\vertex.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="icosaedro.txt" />
+    <Text Include="models\icosaedro.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{04B5183D-CEE4-47FE-9C8D-51A7C5686C6D}</ProjectGuid>

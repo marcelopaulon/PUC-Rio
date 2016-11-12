@@ -59,8 +59,8 @@ void main(void)
 	vec4 ambientLighting = scene_ambient * light0.diffuse * mymaterial.diffuse;
 	vec4 diffuseLighting = light0.diffuse * mymaterial.diffuse * max(dot(normal, L), 0.0);
 	
-	vec3 v = normalize(-vertexPosition); // mv * vtx
-	vec3 r = reflect(-L, normal);
+	vec3 v = normalize(vertexPosition); // mv * vtx
+	vec3 r = reflect(L, normal);
 
 	vec4 specularLighting = light0.specular * mymaterial.diffuse * pow(max(dot(r,v), 0.0), mymaterial.shininess);
 	

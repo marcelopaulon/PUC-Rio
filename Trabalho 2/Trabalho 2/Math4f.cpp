@@ -204,7 +204,7 @@ Math4f Math4f::inverse( )
         - at( 1, 0 ) * at( 0, 1 ) * at( 2, 2 )
         + at( 0, 0 ) * at( 1, 1 ) * at( 2, 2 );
 
-    return inverseMatrix * ( 1.0 / determinant( ) );
+    return inverseMatrix * ( 1.0f / determinant( ) );
 }
 
 

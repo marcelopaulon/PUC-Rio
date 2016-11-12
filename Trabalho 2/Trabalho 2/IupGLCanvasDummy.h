@@ -23,7 +23,7 @@ public:
      * Construtor default da classe.
      */
 	IupGLCanvasDummy();
-
+		
     /**
      * Destrutor da classe.
      */
@@ -63,6 +63,8 @@ public:
 	* Scale
 	*/
 	float scale;
+
+	void updatePanelInfo();
 
 public:
 
@@ -140,6 +142,29 @@ private:
 	*/
 	Ihandle * createPanel( );
 	
+	/**
+	* Cria o toggle de seleção de shader
+	*/
+	Ihandle * createShaderSelectionToggle();
+
+	/**
+	* Cria o painel de informações
+	*/
+	Ihandle * createInfoPanel();
+	
+	std::string getEyeInfoString();
+
+	std::string getScaleInfoString();
+
+	Ihandle *eyeLabel;
+
+	Ihandle *scaleLabel;
+
+	/**
+	* Cria o toggle de seleção de modelos
+	*/
+	Ihandle * createModelSelectionToggle();
+
     /**
      * Incializa algumas propriedades do canvas OpenGL.
      */
@@ -149,7 +174,7 @@ private:
      * Realiza o redesenho da cena OpenGL.
      */
     void drawScene( );
-
+	
     /**
      * Trata evento de redimensionar o canvas OpenGL.
      * @param width - nova larguda do canvas.
@@ -210,7 +235,7 @@ private:
 	/**
 	* Carrega um arquivo .off.
 	*/
-	void parseOff(char *fileName);
+	void parseOff(const char *fileName);
 
 	/**
 	* Calcula as normais dos vértices.
@@ -274,6 +299,8 @@ private:
 	static int IupGLCanvasDummy::setFragmentShading(Ihandle* self, int state);
 
 	static int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state);
+
+	static int IupGLCanvasDummy::setModel(Ihandle * self, int state);
 
 };
 

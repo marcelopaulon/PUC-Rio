@@ -8,6 +8,10 @@
 #include "IupGLCanvasDummy.h"
 
 #include <iostream>
+#include <iomanip>
+#include <sstream>
+
+#include "dirent.h"
 
 #include <cstdlib>
 #include <cstdio>
@@ -20,9 +24,7 @@
 #include <string>
 #include <fstream>
 
-#define FILENAME "icosaedro.off"
-#define FILENAME "bunny_1.off"
-#define FILENAME "klingon_starship.off"
+#define FILENAME "models/apple.off"
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
@@ -32,8 +34,41 @@ IupGLCanvasDummy::IupGLCanvasDummy( )
 }
 
 
+std::string IupGLCanvasDummy::getEyeInfoString()
+{
+	std::stringstream os;
+	os.precision(2);
+	os << "\t\tEyeX = " << eyeX << " EyeY = " << eyeY << " EyeZ = " << eyeZ << "\t\t";
 
-Ihandle * IupGLCanvasDummy::createPanel()
+	return os.str();
+}
+
+
+
+std::string IupGLCanvasDummy::getScaleInfoString()
+{
+	std::stringstream os;
+	os.precision(2);
+	os << "Scale = " << scale << "\t\t";
+
+	return os.str();
+}
+
+
+
+Ihandle * IupGLCanvasDummy::createInfoPanel()
+{
+	eyeLabel = IupLabel(getEyeInfoString().c_str());
+	scaleLabel = IupLabel(getScaleInfoString().c_str());
+	
+	Ihandle *panel = IupVbox(eyeLabel, scaleLabel);
+
+	return panel;
+}
+
+
+
+Ihandle * IupGLCanvasDummy::createShaderSelectionToggle()
 {
 	Ihandle *vertexShadingToggle = IupToggle("Phong - Vertex", "setVertexShading");
 	Ihandle *fragmentShadingToggle = IupToggle("Phong - Fragment", "setFragmentShading");
@@ -46,8 +81,51 @@ Ihandle * IupGLCanvasDummy::createPanel()
 
 	// Cria frame de seleção de iluminação
 	Ihandle *shadingPane = IupFrame(shadingSelector);
-	IupSetAttribute(shadingPane, "TITLE", "Shading type");
+	IupSetStrAttribute(shadingPane, "TITLE", "Shading type");
 
+	return shadingPane;
+}
+
+
+
+Ihandle * IupGLCanvasDummy::createModelSelectionToggle()
+{
+	std::vector<std::string> files;
+
+	DIR *dir;
+	struct dirent *ent;
+	if ((dir = opendir("models")) != NULL) {
+		/* print all the files and directories within directory */
+		while ((ent = readdir(dir)) != NULL) {
+			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, ".."))
+			{
+				files.push_back(ent->d_name);
+			}
+		}
+		closedir(dir);
+	}
+
+	Ihandle *togglesVbox = IupVbox(NULL);
+
+	for (int i = 0; i < files.size(); i++)
+	{
+		Ihandle *toggle = IupToggle(files.at(i).c_str(), "setModel");
+		IupSetCallback(toggle, IUP_ACTION, (Icallback)setModel);
+		IupAppend(togglesVbox, toggle);
+	}
+	
+	Ihandle *modelSelector = IupRadio(togglesVbox);
+
+	// Cria frame de seleção de iluminação
+	Ihandle *panel = IupFrame(modelSelector);
+	IupSetStrAttribute(panel, "TITLE", "Model");
+	
+	return panel;
+}
+
+Ihandle * IupGLCanvasDummy::createPanel()
+{
+	
 	//Cria botao de sair.
 	Ihandle *exitButton = IupButton("Exit", NULL);
 
@@ -61,7 +139,7 @@ Ihandle * IupGLCanvasDummy::createPanel()
 	//Define callbacks do botao.
 	IupSetCallback(exitButton, IUP_ACTION, (Icallback)exitButtonCallback);
 
-	return IupVbox(shadingPane, hboxButton, NULL);
+	return IupVbox(createInfoPanel(), createShaderSelectionToggle(), createModelSelectionToggle(), hboxButton, NULL);
 }
 
 
@@ -69,8 +147,7 @@ Ihandle * IupGLCanvasDummy::createPanel()
 void IupGLCanvasDummy::createWindow( )
 {
 	parseOff(FILENAME);
-	scale = 25.0;
-
+	
     //Cria canvas.
 	iupGlCanvas = IupGLCanvas( NULL );
 	
@@ -83,7 +160,7 @@ void IupGLCanvasDummy::createWindow( )
     _dialog = IupDialog(hbox);
 	
     //Define os atributos do canvas.
-    IupSetAttribute(iupGlCanvas, IUP_RASTERSIZE, "600x600");
+    IupSetAttribute(iupGlCanvas, IUP_RASTERSIZE, "800x600");
     IupSetAttribute(iupGlCanvas, IUP_BUFFER, IUP_DOUBLE);
     IupSetAttribute(iupGlCanvas, IUP_EXPAND, IUP_YES);
 
@@ -157,13 +234,13 @@ void IupGLCanvasDummy::setShading()
 {
 	if (!fragmentShading)
 	{
-		_shader->setVertexProgram(phongVVertexShader.c_str(), phongVVertexShader.size());
-		_shader->setFragmentProgram(phongVFragmentShader.c_str(), phongVFragmentShader.size());
+		_shader->setVertexProgram(phongVVertexShader.c_str(), (int)phongVVertexShader.size());
+		_shader->setFragmentProgram(phongVFragmentShader.c_str(), (int)phongVFragmentShader.size());
 	}
 	else
 	{
-		_shader->setVertexProgram(phongFVertexShader.c_str(), phongFVertexShader.size());
-		_shader->setFragmentProgram(phongFFragmentShader.c_str(), phongFFragmentShader.size());
+		_shader->setVertexProgram(phongFVertexShader.c_str(), (int)phongFVertexShader.size());
+		_shader->setFragmentProgram(phongFFragmentShader.c_str(), (int)phongFFragmentShader.size());
 	}
 
 	shaderUpdated = true;
@@ -175,31 +252,33 @@ void IupGLCanvasDummy::initializeCanvas( )
 {
     glClearColor( 1.0, 1.0, 1.0, 1.0 );
 	glEnable(GL_DEPTH_TEST);
-
-	eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
-
+	
     //Aloca shader.
     _shader = new GraphicsShader( );
 
-	phongVVertexShader = readFile("vertex.vert");
+	phongVVertexShader = readFile("shaders/vertex.vert");
 
-	phongVFragmentShader = readFile("vertex.frag");
+	phongVFragmentShader = readFile("shaders/vertex.frag");
 
-	phongFVertexShader = readFile("fragment.vert");
+	phongFVertexShader = readFile("shaders/fragment.vert");
 
-	phongFFragmentShader = readFile("fragment.frag");
+	phongFFragmentShader = readFile("shaders/fragment.frag");
 
 	fragmentShading = false;
 
 	setShading();
 }
 
-void IupGLCanvasDummy::parseOff(char *filename)
+void IupGLCanvasDummy::parseOff(const char *filename)
 {
 	std::ifstream in(filename);
 	std::string str;
 	int curLine = 1;
-	int temp;
+	int itemp;
+	double ftemp;
+
+	scale = 1.0;
+	eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
 
 	mouseWheelScrollCounter = 0.0;
 	
@@ -222,7 +301,7 @@ void IupGLCanvasDummy::parseOff(char *filename)
 			
 		if (curLine == 2)
 		{
-			in >> nVertex >> nTriangles >> temp;
+			in >> nVertex >> nTriangles >> itemp;
 		}
 		else if(curLine > 1)
 		{
@@ -234,9 +313,25 @@ void IupGLCanvasDummy::parseOff(char *filename)
 			}
 			else
 			{
-				offTriangle triangle;
-				in >> temp >> triangle.v1 >> triangle.v2 >> triangle.v3;
-				trianglesList.push_back(triangle);
+				in >> itemp;
+
+				if (itemp == 3)
+				{
+					offTriangle triangle;
+					in >> triangle.v1 >> triangle.v2 >> triangle.v3;
+					trianglesList.push_back(triangle);
+				}
+				else
+				{
+					printf("Warning: This program can only parse triangles in off files. Skipping entry.\n");
+					
+					nTriangles--;
+
+					for (int i = 0; i < itemp; i++)
+					{
+						in >> ftemp;
+					}
+				}
 			}
 		}
 
@@ -287,8 +382,6 @@ void IupGLCanvasDummy::calcNormals()
 		vertexNormal[triangle.v3].x += FNx;
 		vertexNormal[triangle.v3].y += FNy;
 		vertexNormal[triangle.v3].z += FNz;
-
-		//printf("FNx=%.6f, FNy=%.6f, FNz=%.6f\n", FNx, FNy, FNz);
 	}
 
 	// 4. Normalize every vertex normal
@@ -348,10 +441,10 @@ void IupGLCanvasDummy::drawScene( )
 
 	for (int i = 0; i < nVertex; i++)
 	{
-		colorList.push_back(0.5);
-		colorList.push_back(0.1);
-		colorList.push_back(0.7);
-		colorList.push_back(1);
+		colorList.push_back(0.5f);
+		colorList.push_back(0.1f);
+		colorList.push_back(0.7f);
+		colorList.push_back(1.0f);
 	}
 	
 	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
@@ -417,6 +510,14 @@ void IupGLCanvasDummy::drawScene( )
 	
     //Descarrega o programa da placa.
     _shader->unload( );
+}
+
+
+
+void IupGLCanvasDummy::updatePanelInfo()
+{
+	IupSetStrAttribute(eyeLabel, "TITLE", getEyeInfoString().c_str());
+	IupSetStrAttribute(scaleLabel, "TITLE", getScaleInfoString().c_str());
 }
 
 
@@ -498,6 +599,9 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* self, float delta, int x,
 
 	float factor = 0.5;
 
+	if (canvas->scale < 1) factor = 0.1;
+	if (canvas->scale < 0.2) factor = 0.01;
+
 	canvas->mouseWheelScrollCounter += delta;
 	
 	if (canvas->mouseWheelScrollCounter > 0.0)
@@ -517,6 +621,8 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* self, float delta, int x,
 		}
 	}
 
+	canvas->updatePanelInfo();
+
     return IUP_DEFAULT;
 }
 
@@ -526,30 +632,31 @@ int IupGLCanvasDummy::keypressCallback(Ihandle * self, int c, int press)
 
 	if (c == K_W || c == K_w)
 	{
-		canvas->eyeX += 0.1;
+		canvas->eyeX += 0.1f;
 	}
 	else if (c == K_S || c == K_s)
 	{
-		canvas->eyeX -= 0.1;
+		canvas->eyeX -= 0.1f;
 	}
 	else if (c == K_A || c == K_a)
 	{
-		canvas->eyeY += 0.1;
+		canvas->eyeY += 0.1f;
 	}
 	else if (c == K_D || c == K_d)
 	{
-		canvas->eyeY -= 0.1;
+		canvas->eyeY -= 0.1f;
 	}
 	else if (c == K_R || c == K_r)
 	{
-		canvas->eyeZ += 0.1;
+		canvas->eyeZ += 0.1f;
 	}
 	else if (c == K_F || c == K_f)
 	{
-		canvas->eyeZ -= 0.1;
+		canvas->eyeZ -= 0.1f;
 	}
 	
 	canvas->redraw();
+	canvas->updatePanelInfo();
 
 	return IUP_DEFAULT;
 }
@@ -578,6 +685,24 @@ int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state)
 	canvas->setShading();
 
 	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::setModel(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	std::string filename = IupGetAttribute(self, "TITLE");
+	filename = "models/" + filename;
+	canvas->parseOff(filename.c_str());
+
+	canvas->redraw();
+	canvas->updatePanelInfo();
 
 	return IUP_DEFAULT;
 }
