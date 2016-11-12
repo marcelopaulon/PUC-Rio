@@ -54,15 +54,14 @@ vec4 calcColor(lightSource light, vec3 normalizedNormal)
 	// L = vetor unitário que aponta do vértice para a fonte de luz
 	vec3 L = normalize(lpos - vertexPosition);
 	
-	vec4 ambientLighting = scene_ambient * light.diffuse * mymaterial.diffuse;
 	vec4 diffuseLighting = light.diffuse * mymaterial.diffuse * max(dot(normalizedNormal, L), 0.0);
 	
 	vec3 v = normalize(vertexPosition); // mv * vtx
 	vec3 r = reflect(L, normalizedNormal);
 
-	vec4 specularLighting = light.specular * mymaterial.diffuse * pow(max(dot(r,v), 0.0), mymaterial.shininess);
+	vec4 specularLighting = light.specular * mymaterial.specular * pow(max(dot(r,v), 0.0), mymaterial.shininess);
 	
-	return ambientLighting + diffuseLighting + specularLighting;
+	return diffuseLighting + specularLighting;
 }
 
 void main(void)
@@ -98,6 +97,9 @@ void main(void)
 	vec3 normalizedNormal = normalize(normal);
 
 	vec4 finalColor = vec4(0.0, 0.0, 0.0, 0.0);
+	
+	vec4 ambientLighting = scene_ambient * mymaterial.diffuse;
+	finalColor += ambientLighting;
 
 	finalColor += calcColor(light0, normalizedNormal);
 

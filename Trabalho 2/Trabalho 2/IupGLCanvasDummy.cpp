@@ -24,7 +24,7 @@
 #include <string>
 #include <fstream>
 
-#define FILENAME "models/apple.off"
+#define FILENAME "models/bunny.off"
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
@@ -653,8 +653,8 @@ int IupGLCanvasDummy::wheelCanvasCallback( Ihandle* self, float delta, int x,
 
 	float factor = 0.5;
 
-	if (canvas->scale < 1) factor = 0.1;
-	if (canvas->scale < 0.2) factor = 0.01;
+	if (canvas->scale < 1) factor = 0.1f;
+	if (canvas->scale < 0.2) factor = 0.01f;
 
 	canvas->mouseWheelScrollCounter += delta;
 	
