@@ -56,7 +56,7 @@ vec4 calcColor(lightSource light, vec3 normalizedNormal)
 	
 	vec4 diffuseLighting = light.diffuse * mymaterial.diffuse * max(dot(normalizedNormal, L), 0.0);
 	
-	vec3 v = normalize(vertexPosition); // mv * vtx
+	vec3 v = normalize(vertexPosition); // mv * vtxFrag
 	vec3 r = reflect(L, normalizedNormal);
 
 	vec4 specularLighting = light.specular * mymaterial.specular * pow(max(dot(r,v), 0.0), mymaterial.shininess);
