@@ -53,6 +53,9 @@ public:
 	* Should use Phong Fragment Shading
 	*/
 	bool fragmentShading;
+
+	unsigned int materialType;
+	unsigned int drawSecondLight;
 	
 	/*
 	* Mouse wheel scroll counter
@@ -151,6 +154,10 @@ private:
 	* Cria o painel de informações
 	*/
 	Ihandle * createInfoPanel();
+
+	Ihandle * createMaterialPanel();
+
+	Ihandle * createLightsPanel();
 	
 	std::string getEyeInfoString();
 
@@ -300,7 +307,17 @@ private:
 
 	static int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state);
 
+	static int IupGLCanvasDummy::set1Light(Ihandle* self, int state);
+
+	static int IupGLCanvasDummy::set2Lights(Ihandle* self, int state);
+
 	static int IupGLCanvasDummy::setModel(Ihandle * self, int state);
+
+	static int IupGLCanvasDummy::setBlackPlasticMaterial(Ihandle* self, int state);
+
+	static int IupGLCanvasDummy::setBlackIvoryMaterial(Ihandle* self, int state);
+
+	static int IupGLCanvasDummy::setBronzeMaterial(Ihandle* self, int state);
 
 };
 

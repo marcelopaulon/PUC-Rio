@@ -123,6 +123,50 @@ Ihandle * IupGLCanvasDummy::createModelSelectionToggle()
 	return panel;
 }
 
+
+
+Ihandle * IupGLCanvasDummy::createLightsPanel()
+{
+	Ihandle *l1toggle = IupToggle("One light (eye)", "setMaterial");
+	Ihandle *l2toggle = IupToggle("Two lights (eye and near to eye)", "setMaterial");
+	Ihandle *togglesVbox = IupVbox(l1toggle, l2toggle, NULL);
+	Ihandle *lightsSelector = IupRadio(togglesVbox);
+
+	//Define callbacks dos toggles.
+	IupSetCallback(l1toggle, IUP_ACTION, (Icallback)set1Light);
+	IupSetCallback(l2toggle, IUP_ACTION, (Icallback)set2Lights);
+
+	// Cria frame de seleção de iluminação
+	Ihandle *lightsPane = IupFrame(lightsSelector);
+	IupSetStrAttribute(lightsPane, "TITLE", "Lights");
+
+	return lightsPane;
+}
+
+
+
+Ihandle * IupGLCanvasDummy::createMaterialPanel()
+{
+	Ihandle *blackPlasticToggle = IupToggle("Black plastic", "setMaterial");
+	Ihandle *blackIvoryToggle = IupToggle("Black ivory", "setMaterial");
+	Ihandle *bronzeToggle = IupToggle("Bronze", "setMaterial");
+	Ihandle *togglesVbox = IupVbox(blackPlasticToggle, blackIvoryToggle, bronzeToggle, NULL);
+	Ihandle *materialSelector = IupRadio(togglesVbox);
+
+	//Define callbacks dos toggles.
+	IupSetCallback(blackPlasticToggle, IUP_ACTION, (Icallback)setBlackPlasticMaterial);
+	IupSetCallback(blackIvoryToggle, IUP_ACTION, (Icallback)setBlackIvoryMaterial);
+	IupSetCallback(bronzeToggle, IUP_ACTION, (Icallback)setBronzeMaterial);
+
+	// Cria frame de seleção de iluminação
+	Ihandle *materialPane = IupFrame(materialSelector);
+	IupSetStrAttribute(materialPane, "TITLE", "Material type");
+
+	return materialPane;
+}
+
+
+
 Ihandle * IupGLCanvasDummy::createPanel()
 {
 	
@@ -139,7 +183,7 @@ Ihandle * IupGLCanvasDummy::createPanel()
 	//Define callbacks do botao.
 	IupSetCallback(exitButton, IUP_ACTION, (Icallback)exitButtonCallback);
 
-	return IupVbox(createInfoPanel(), createShaderSelectionToggle(), createModelSelectionToggle(), hboxButton, NULL);
+	return IupVbox(createInfoPanel(), createShaderSelectionToggle(), createMaterialPanel(), createLightsPanel(), createModelSelectionToggle(), hboxButton, NULL);
 }
 
 
@@ -147,6 +191,8 @@ Ihandle * IupGLCanvasDummy::createPanel()
 void IupGLCanvasDummy::createWindow( )
 {
 	parseOff(FILENAME);
+	materialType = 1;
+	drawSecondLight = 0;
 	
     //Cria canvas.
 	iupGlCanvas = IupGLCanvas( NULL );
@@ -454,10 +500,18 @@ void IupGLCanvasDummy::drawScene( )
 	int eyeParam = glGetUniformLocation(glShader, "eye");
 	glUniform3f(eyeParam, eyeX, eyeY, eyeZ);
 	
+
+	// Transfere o tipo do material para a placa
+	int mtParam = glGetUniformLocation(glShader, "materialType");
+	glUniform1ui(mtParam, materialType);
+	
+	int lightParam = glGetUniformLocation(glShader, "drawSecondLight");
+	glUniform1ui(lightParam, drawSecondLight);
+
 	//Transfere a matriz modelview para a placa.
 	int mvmatrixParam = glGetUniformLocation(glShader, "mv");
 	glUniformMatrix4fv(mvmatrixParam, 1, GL_FALSE, (float*)_modelViewMatrix);
-
+	
     //Obtem a modelview projection (mvp)
     {
 		_projectionMatrix.push();
@@ -703,6 +757,76 @@ int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 
 	canvas->redraw();
 	canvas->updatePanelInfo();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::setBlackPlasticMaterial(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->materialType = 1;
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::setBlackIvoryMaterial(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->materialType = 2;
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::setBronzeMaterial(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->materialType = 3;
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::set1Light(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->drawSecondLight = 0;
+	canvas->redraw();
+
+	return IUP_DEFAULT;
+}
+
+
+
+int IupGLCanvasDummy::set2Lights(Ihandle* self, int state)
+{
+	if (state != 1) return IUP_DEFAULT;
+
+	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
+
+	canvas->drawSecondLight = 1;
+	canvas->redraw();
 
 	return IUP_DEFAULT;
 }
