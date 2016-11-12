@@ -437,7 +437,7 @@ void IupGLCanvasDummy::drawScene( )
 
     unsigned int glShader = _shader->getShaderIndex( );
 	
-	std::vector<float> colorList;
+	/*std::vector<float> colorList;
 
 	for (int i = 0; i < nVertex; i++)
 	{
@@ -445,7 +445,7 @@ void IupGLCanvasDummy::drawScene( )
 		colorList.push_back(0.1f);
 		colorList.push_back(0.7f);
 		colorList.push_back(1.0f);
-	}
+	}*/
 	
 	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
 	int lightPositionParam = glGetUniformLocation(glShader, "lightPosition");
@@ -493,9 +493,9 @@ void IupGLCanvasDummy::drawScene( )
 	glEnableVertexAttribArray(vertexParam);
 
 	//Transfere as cores para a placa.
-	int colorParam = glGetAttribLocation(glShader, "color");
+	/*int colorParam = glGetAttribLocation(glShader, "color");
 	glVertexAttribPointer(colorParam, 4, GL_FLOAT, GL_FALSE, 0, &colorList[0]);
-	glEnableVertexAttribArray(colorParam);
+	glEnableVertexAttribArray(colorParam);*/
 	
 	// Send normals to the video card
 	int vertexNormalParam = glGetAttribLocation(glShader, "vertexNormal");

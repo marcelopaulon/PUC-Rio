@@ -1,7 +1,7 @@
 #version 410
 
 out vec4 fragmentColor;
-in vec4 colorFr;
+//in vec4 colorFr;
 
 uniform vec3 eye;
 uniform vec3 lightPosition;
@@ -25,7 +25,7 @@ lightSource light0 = lightSource(
   vec4(1.0,  1.0,  1.0, 1.0)
 );
 
-vec4 scene_ambient = vec4(0.05, 0.05, 0.05, 1.0);
+vec4 scene_ambient = vec4(0.21, 0.13, 0.05, 1.0);
 
 struct material
 {
@@ -35,8 +35,8 @@ struct material
 };
 
 material mymaterial = material(
-  vec4(colorFr),
-  vec4(1.0, 1.0, 1.0, 1.0),
+  vec4(0.71, 0.43, 0.18, 1.0),
+  vec4(0.39, 0.27, 0.17, 1.0),
   128.0
 );
 

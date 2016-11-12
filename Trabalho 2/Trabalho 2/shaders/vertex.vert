@@ -1,7 +1,7 @@
 #version 410
 
 in vec4 vtx;
-in vec4 color;
+//in vec4 color;
 in vec3 vertexNormal;
 
 uniform vec3 eye;
@@ -27,7 +27,7 @@ lightSource light0 = lightSource(
   vec4(1.0,  1.0,  1.0, 1.0)
 );
 
-vec4 scene_ambient = vec4(0.05, 0.05, 0.05, 1.0);
+vec4 scene_ambient = vec4(0.21, 0.13, 0.05, 1.0);
 
 struct material
 {
@@ -37,8 +37,8 @@ struct material
 };
 
 material mymaterial = material(
-  vec4(color),
-  vec4(1.0, 1.0, 1.0, 1.0),
+  vec4(0.71, 0.43, 0.18, 1.0),
+  vec4(0.39, 0.27, 0.17, 1.0),
   128.0
 );
 

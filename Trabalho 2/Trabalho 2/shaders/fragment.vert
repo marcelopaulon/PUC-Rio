@@ -1,14 +1,14 @@
 #version 410
 
 in vec4 vtx;
-in vec4 color;
+//in vec4 color;
 in vec3 vertexNormal;
 
 uniform mat4 mvp;
 
 uniform mat3 normalMatrix; // Inv. transporta da mv
 
-out vec4 colorFr;
+//out vec4 colorFr;
 
 out vec3 normal;
 
@@ -22,5 +22,5 @@ void main(void)
 	
 	normal = normalize(normalMatrix * vertexNormal);
 	vtxFrag = vtx;
-	colorFr = color;
+	//colorFr = color;
 }
