@@ -24,7 +24,7 @@
 #include <string>
 #include <fstream>
 
-#define FILENAME "models/bunny.off"
+#define FILENAME "models/apple.off"
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
