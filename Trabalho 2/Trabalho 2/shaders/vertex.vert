@@ -50,7 +50,7 @@ material mymaterial;
 
 vec4 calcColor(lightSource light)
 {
-	vec3 lpos = vec3(mv * light.position);
+	vec3 lpos = vec3(light.position);
 	vec3 vertexPosition = vec3(mv * vtx);
 
 	vec3 normal = normalize(normalMatrix * vertexNormal);

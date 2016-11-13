@@ -48,7 +48,7 @@ material mymaterial;
 
 vec4 calcColor(lightSource light, vec3 normalizedNormal)
 {
-	vec3 lpos = vec3(mv * light.position);
+	vec3 lpos = vec3(light.position);
 	vec3 vertexPosition = vec3(mv * vtxFrag);
 		
 	// L = vetor unitário que aponta do vértice para a fonte de luz
