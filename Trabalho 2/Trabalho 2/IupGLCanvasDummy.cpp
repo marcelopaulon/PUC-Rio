@@ -29,6 +29,8 @@
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
 {
+	vertexNormal = nullptr;
+
     //Cria janela e define suas configuracoes.
     createWindow( );
 }
@@ -389,6 +391,8 @@ void IupGLCanvasDummy::parseOff(const char *filename)
 
 void IupGLCanvasDummy::calcNormals()
 {
+	if (vertexNormal != nullptr) delete[] vertexNormal;
+
 	vertexNormal = new vec3[nVertex];
 
 	// 1. Initialize every vertex normal to (0,0,0)
