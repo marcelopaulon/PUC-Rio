@@ -66,6 +66,8 @@
     <None Include="shaders\fragment.vert" />
     <None Include="shaders\vertex.frag" />
     <None Include="shaders\vertex.vert" />
+    <None Include="models\bunny.off" />
+    <None Include="models\dragon.off" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="models\icosaedro.txt" />

@@ -36,9 +36,11 @@
     <None Include="glew32.dll" />
     <None Include="models\apple.off" />
     <None Include="models\bimba.off" />
+    <None Include="models\bunny.off" />
     <None Include="models\bunny_0.off" />
     <None Include="models\bunny_1.off" />
     <None Include="models\domo.off" />
+    <None Include="models\dragon.off" />
     <None Include="models\fertility.off" />
     <None Include="models\flower.off" />
     <None Include="models\icosaedro.off" />

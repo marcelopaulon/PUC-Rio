@@ -470,7 +470,7 @@ void IupGLCanvasDummy::drawScene( )
 	
     _modelViewMatrix.push( );
 	
-	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 1, 1, 0);
+	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0);
 	
 	//Aplica uma transformacao de escala.
 	_modelViewMatrix.scale(scale, scale, scale);
