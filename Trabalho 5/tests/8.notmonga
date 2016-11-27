@@ -1,0 +1,15 @@
+/*
+ * 8.notmonga
+ * Array comparison fail 2
+ */
+
+int main()
+{
+    int a;
+    float[] b;
+    
+    if(a + b == 3)
+    {
+        
+    }
+}

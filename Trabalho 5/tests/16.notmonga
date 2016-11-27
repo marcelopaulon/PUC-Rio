@@ -1,0 +1,14 @@
+/*
+ * 15.notmonga
+ * Testing if-else char
+ */
+
+int main (){
+    if("VAGNER"){
+     return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}

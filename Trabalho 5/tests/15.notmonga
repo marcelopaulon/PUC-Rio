@@ -1,0 +1,10 @@
+/*
+ * 15.notmonga
+ * Testing if char
+ */
+
+int main (){
+    if("VAGNER"){
+     return 0;
+    }
+}

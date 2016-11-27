@@ -1,0 +1,9 @@
+/*
+ * 11.notmonga
+ * Testing variable assignment to constant of another type
+ */
+
+int main (){
+    char a;
+    a = 2.5;
+}

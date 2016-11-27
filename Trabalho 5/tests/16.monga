@@ -1,0 +1,12 @@
+/*
+ * 16.monga
+ * Testing new expression
+ */
+
+int main()
+{
+    int[] a; int b;
+    a = new int[10];
+    a[0] = b;
+    return 0;
+}

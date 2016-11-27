@@ -1,0 +1,9 @@
+/*
+ * 1.notmonga
+ * Testing different type function call
+ */
+
+float a(int b){
+    float c;
+    a(c);
+}

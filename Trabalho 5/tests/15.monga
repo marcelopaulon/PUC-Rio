@@ -1,0 +1,12 @@
+/*
+ * 15.monga
+ * Testing unary expression
+ */
+
+int main()
+{
+    int a;
+    a = 11;
+    a = -a;
+    return 0;
+}

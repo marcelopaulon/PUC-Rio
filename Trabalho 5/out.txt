@@ -1,0 +1,7 @@
+;TODO: Gen definition
+  define i32 @a() #0 {
+    %t1 = alloca i32
+    store i32 1, i32* %t1
+    %t2 = load i32* %t1
+    ret i32 %t2
+  }

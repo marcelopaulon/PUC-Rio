@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "../ast.h"
 #include "../typechecking.h"
+#include "../llvm.h"
 #include "lex.yy.h"
 
 void yyerror(const char *);
@@ -240,15 +241,30 @@ call : TK_ID '(' explist ')' {$$ = mnew(CmdCall); $$->id = $1; $$->line = $2; $$
 
 %%
 
-int main(void)
+int main(int argc, char* argv[])
 {
   int parsingResult = yyparse();
+  char *filename;
+  FILE *fp;
+
+  if(argc == 2)
+  {
+    filename = argv[1];
+    fp = fopen(filename, "w");
+
+    if(!fp)
+    {
+        printf("Error - unable to open file for writing. Exiting.\n");
+        exit(-1);
+    }
+  }  
 
   if(parsingResult == 0)
   {
     printf("PASS");
     typeCheck(tree);
     printAST(tree);
+    if(argc == 2) createLLVM(tree, fp);
   }
   else
   {
