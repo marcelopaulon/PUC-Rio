@@ -1,4 +1,7 @@
 int a()
 {
-    return 1;
+    int a, b;
+    a = 55;
+    b = 2;
+    return a - b;
 }

@@ -10,14 +10,14 @@ void genVar(Var * var, int nIdent, FILE *fp);
 void genCmdCall (CmdCall * cmd, int nIdent, FILE *fp);
 void genCmdBasic(CmdBasic * cmd, int nIdent, FILE *fp);
 void genExpList(ExpList * list, int nIdent, FILE *fp);
-void genDefVarList(DefVarList * list, int nIdent, FILE *fp);
+void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal);
 void genCmdList(CmdList * list, int nIdent, FILE *fp);
 void genParamList(ParamList * paramlist, int nIdent, FILE *fp);
 void genBlock(Block * block, int nIdent, FILE *fp);
 void genCmd(Cmd * cmd, int nIdent, FILE *fp);
 void genParam(Param * param, int nIdent, FILE *fp);
 void genDefFunc(Func * deffunc, int nIdent, FILE *fp);
-void genDefVar(DefVar * defvar, int nIdent, FILE *fp);
+void genDefVar(DefVar * defvar, int nIdent, FILE *fp, int isGlobal);
 void genDefinition(Definition *definition, int nIdent, FILE *fp);
 
 static int curTempVar = 0;
@@ -47,7 +47,7 @@ void genDefinition(Definition *definition, int nIdent, FILE *fp)
 
     if(definition->type == TypeDefVar)
     {
-        genDefVarList(definition->u.defvarlist, nIdent+1, fp);
+        genDefVarList(definition->u.defvarlist, nIdent+1, fp, 1);
     }
     else if(definition->type == TypeDefFunc)
     {
@@ -61,13 +61,24 @@ void genDefinition(Definition *definition, int nIdent, FILE *fp)
     }
 }
 
-void genDefVar(DefVar * defvar, int nIdent, FILE * fp)
+void genDefVar(DefVar * defvar, int nIdent, FILE * fp, int isGlobal)
 {
     genIdent(nIdent, fp);
-    fprintf(fp, "@%s = common global ", defvar->id);
 
-    genType(defvar->type, fp);
-    fprintf(fp, " 0\n");
+    defvar->isGlobal = isGlobal;
+
+    defvar->varNumber = getNextTempVar();
+
+    if(isGlobal != 0) {
+        fprintf(fp, "@t%d = common global ", defvar->varNumber);
+        genType(defvar->type, fp);
+        fprintf(fp, " 0\n");
+    }
+    else {
+        fprintf(fp, "%%t%d = alloca ", defvar->varNumber);
+        genType(defvar->type, fp);
+        fprintf(fp, "\n");
+    }
 }
 
 void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
@@ -77,6 +88,7 @@ void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
 
     genType(deffunc->type, fp);
 
+    //deffunc->varNumber = getNextTempVar();
     fprintf(fp, " @%s(", deffunc->id);
 
     genParamList(deffunc->params, nIdent + 1, fp);
@@ -138,14 +150,14 @@ void genCmdList(CmdList *list, int nIdent, FILE *fp)
 void genBlock(Block * block, int nIdent, FILE *fp){
     fprintf(fp, "{\n");
 
-    genDefVarList(block->vars, nIdent+1, fp);
+    genDefVarList(block->vars, nIdent+1, fp, 0);
     genCmdList(block->cmds, nIdent+1, fp);
 
     genIdent(nIdent, fp);
     fprintf(fp, "}\n");
 }
 
-void genDefVarList(DefVarList * list, int nIdent, FILE *fp)
+void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal)
 {
     DefVarList * current;
     
@@ -156,7 +168,7 @@ void genDefVarList(DefVarList * list, int nIdent, FILE *fp)
 
     for(current = list; current != NULL; current = current->next)
     {
-        genDefVar(current->defvar, nIdent+1, fp);
+        genDefVar(current->defvar, nIdent+1, fp, isGlobal);
     }
 }
 
@@ -192,14 +204,35 @@ void genBinExpType(ExpE type, int nIdent, FILE *fp) {
 int genExp(Exp *exp, int nIdent, FILE *fp) {
     if(exp == NULL)
     {
-        return -1;
+        return -3;
     }
 
     switch(exp->tag){
         case ExpAdd:
         case ExpSub:
         case ExpMul:
-        case ExpDiv:
+        case ExpDiv: {
+            int e1 = genExp(exp->u.bin.e1, nIdent, fp);
+            int e2 = genExp(exp->u.bin.e2, nIdent, fp);
+            int ret = getNextTempVar();
+            int temp1 = getNextTempVar(), temp2 = getNextTempVar();
+            char *op;
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp1, e1);
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp2, e2);
+
+            if(exp->tag == ExpAdd) op = "add";
+            else if(exp->tag == ExpSub) op = "sub";
+            else if(exp->tag == ExpMul) op = "mul";
+            else if(exp->tag == ExpDiv) op = "sdiv";
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = %s i32 %%t%d, %%t%d\n", ret, op, temp1, temp2);
+            return ret;
+        }
         case ExpEqual:
         case ExpLess:
         case ExpGreater:
@@ -214,14 +247,45 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             //printExp(exp->u.bin.e1, nIdent);
             //printExp(exp->u.bin.e2, nIdent);
             break;
-        case ExpVar:
-            //printIdent(nIdent);
-            //printf("Expression type: Variable\n");
-            //printIdent(nIdent);
-            //printf("Expression resulting ");
-            //printType(exp->type, 0);
-            //printVar(exp->u.var, nIdent+1);
-            break;
+        case ExpVar: {
+            //exp->u.var
+            //char *storeId;
+
+//            switch(exp->u.var->tag){
+//                case VarId:
+//                    if(exp->u.var->u.def.dec->id != NULL)
+//                    {
+//                        storeId = exp->u.var->u.def.dec->id;
+//                    }
+//                    else
+//                    {
+//                        printf("Null variable identifier. Exiting.\n");
+//                        exit(-1);
+//                    }
+//                    break;
+//                case VarIndexed:
+//                    //printf("Indexed\n");
+//                    //printExp(var->u.indexed.e1, nIdent + 1);
+//                    //printExp(var->u.indexed.e2, nIdent + 1);
+//                    break;
+//                default:
+//                    printf("Invalid variable tag type. Exiting.\n");
+//                    exit(-4);
+//            }
+// EXP VAR(Var) =  EXP(a + b);
+            // Var
+            //store i32 2, i32* %b
+
+//            int temp = getNextTempVar(), ret = getNextTempVar();
+//            genIdent(nIdent, fp);
+//            fprintf(fp, "%%t%d = alloca i32\n", temp);
+//            genIdent(nIdent, fp);
+//            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
+//            genIdent(nIdent, fp);
+//            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
+            return exp->u.var->u.def.dec->varNumber;
+        }
+
         case ExpCall:
             //printIdent(nIdent);
             //printf("Expression type: Function Call\n");
@@ -293,11 +357,27 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             exit(-5);
     }
 
-    return -1;
+    return -2;
 }
 
 void genVar(Var *var, int nIdent, FILE *fp) {
+    //printIdent(nIdent);
+    //printf("Expression type: Variable\n");
+    //printIdent(nIdent);
+    //printf("Expression resulting ");
+    //printType(exp->type, 0);
+    //printVar(exp->u.var, nIdent+1);
 
+
+    // TODO: Tratar varindexed
+
+    if(!var->u.def.dec->isGlobal) {
+        fprintf(fp, "%%t%d", var->u.def.dec->varNumber);
+    }
+    else
+    {
+        fprintf(fp, "@t%d", var->u.def.dec->varNumber);
+    }
 }
 
 void genCmdCall(CmdCall *cmd, int nIdent, FILE *fp) {
@@ -325,11 +405,31 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
         case CmdBasicBlock:
             //genBlock(cmd->u.block, nIdent, fp);
             break;
-        case CmdBasicVar:
-            //printf("Variable Assignment\n");
-            //genVar(cmd->u.varCmd.var, nIdent, fp);
-            //genExp(cmd->u.varCmd.exp, nIdent, fp);
+        case CmdBasicVar: {
+            int expNameId = genExp(cmd->u.varCmd.exp, nIdent, fp);
+
+            // TODO CHeck e = -1, then get var name
+            genIdent(nIdent, fp);
+            fprintf(fp, "store ");
+            genType(cmd->u.varCmd.exp->type, fp);
+            fprintf(fp, " %%t%d, ", expNameId);
+
+            switch(cmd->u.varCmd.var->tag)
+            {
+                case VarId:
+                    genType(cmd->u.varCmd.var->u.def.dec->type, fp);
+                    break;
+                case VarIndexed:
+                    // TODO
+                    break;
+            }
+
+            fprintf(fp, "* ");
+            genVar(cmd->u.varCmd.var, nIdent, fp);
+            fprintf(fp, "\n");
+
             break;
+        }
         default:
             printf("Invalid command type. Exiting.\n");
             exit(-3);

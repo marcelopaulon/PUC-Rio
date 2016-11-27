@@ -6,8 +6,12 @@
 a:                                      # @a
 	.cfi_startproc
 # BB#0:
-	movl	$1, -4(%rsp)
-	movl	$1, %eax
+	movl	$55, -12(%rsp)
+	movl	$55, -4(%rsp)
+	movl	$2, -16(%rsp)
+	movl	$2, -8(%rsp)
+	movl	-4(%rsp), %eax
+	addl	$-2, %eax
 	ret
 .Ltmp0:
 	.size	a, .Ltmp0-a

@@ -50,6 +50,7 @@ struct Func{
     char *id;
     ParamList *params;
     Block *block;
+    //int varNumber;
 };
 
 struct Block{
@@ -92,13 +93,15 @@ struct DefVarList{
 struct DefVar{
     Type *type;
     char *id;
+    int isGlobal;
+    int varNumber;
 };
 
 typedef struct Var{
     VarE tag;
     union {
         union {
-            const char *id;
+            const char *id; // Access only before type checking
             DefVar *dec;
             Param *p;
         } def;
