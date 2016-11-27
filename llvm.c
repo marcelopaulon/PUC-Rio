@@ -329,13 +329,11 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
 //            printf("%s\n", exp->u.c);
             break;
         case ExpInt: {
-            int temp = getNextTempVar(), ret = getNextTempVar();
+            int ret = getNextTempVar();
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = alloca i32\n", temp);
+            fprintf(fp, "%%t%d = alloca i32\n", ret);
             genIdent(nIdent, fp);
-            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
+            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, ret);
             return ret;
         }
         case ExpFloat:
@@ -407,12 +405,16 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             break;
         case CmdBasicVar: {
             int expNameId = genExp(cmd->u.varCmd.exp, nIdent, fp);
+            int temp = getNextTempVar();
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp, expNameId);
 
             // TODO CHeck e = -1, then get var name
             genIdent(nIdent, fp);
             fprintf(fp, "store ");
             genType(cmd->u.varCmd.exp->type, fp);
-            fprintf(fp, " %%t%d, ", expNameId);
+            fprintf(fp, " %%t%d, ", temp);
 
             switch(cmd->u.varCmd.var->tag)
             {

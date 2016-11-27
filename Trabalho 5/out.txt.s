@@ -10,8 +10,10 @@ a:                                      # @a
 	movl	$55, -4(%rsp)
 	movl	$2, -16(%rsp)
 	movl	$2, -8(%rsp)
-	movl	-4(%rsp), %eax
-	addl	$-2, %eax
+	movl	-4(%rsp), %ecx
+	movl	%ecx, %eax
+	cltd
+	idivl	%ecx
 	ret
 .Ltmp0:
 	.size	a, .Ltmp0-a

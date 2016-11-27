@@ -3,5 +3,5 @@ int a()
     int a, b;
     a = 55;
     b = 2;
-    return a - b;
+    return a / a;
 }
