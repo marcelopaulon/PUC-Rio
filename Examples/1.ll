@@ -1,4 +1,4 @@
-;TODO: Gen definition
+
   define i32 @a() #0 {
       %t1 = alloca i32
     %t2 = alloca i32

@@ -95,7 +95,9 @@ void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
 
     fprintf(fp, ") #0 ");
 
+    fprintf(fp, "{\n");
     genBlock(deffunc->block, nIdent, fp);
+    fprintf(fp, "}\n");
 
 }
 
@@ -148,13 +150,10 @@ void genCmdList(CmdList *list, int nIdent, FILE *fp)
 }
 
 void genBlock(Block * block, int nIdent, FILE *fp){
-    fprintf(fp, "{\n");
-
     genDefVarList(block->vars, nIdent+1, fp, 0);
     genCmdList(block->cmds, nIdent+1, fp);
 
     genIdent(nIdent, fp);
-    fprintf(fp, "}\n");
 }
 
 void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal)
@@ -401,7 +400,7 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             //genCmdCall(cmd->u.call, nIdent, fp);
             break;
         case CmdBasicBlock:
-            //genBlock(cmd->u.block, nIdent, fp);
+            genBlock(cmd->u.block, nIdent, fp);
             break;
         case CmdBasicVar: {
             int expNameId = genExp(cmd->u.varCmd.exp, nIdent, fp);
