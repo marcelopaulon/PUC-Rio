@@ -1,11 +1,11 @@
-int a()
+float a()
 {
-    int a;
-    a = 1;
+    float a;
+    a = 1.0;
     {
-        int a, b;
-        a = 55;
-        b = 2;
+        float a, b;
+        a = 55.0;
+        b = 2.0;
         return a / b;
     }
 }

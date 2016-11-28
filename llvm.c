@@ -122,6 +122,7 @@ void genLine(char * type, int line, int newLineAtEnd, FILE *fp){
 void genType(Type *type, FILE *fp) {
     switch(type->name){
         case VarFloat:
+            fprintf(fp,"float");
             break;
         case VarInt:
             fprintf(fp,"i32");
@@ -216,20 +217,35 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             int ret = getNextTempVar();
             int temp1 = getNextTempVar(), temp2 = getNextTempVar();
             char *op;
+            char *type;
+
+            if(exp->u.bin.e1->type->name == VarFloat)
+            {
+                type = "float";
+
+                if(exp->tag == ExpAdd) op = "fadd";
+                else if(exp->tag == ExpSub) op = "fsub";
+                else if(exp->tag == ExpMul) op = "fmul";
+                else  op = "fdiv";
+            }
+            else
+            {
+                type = "i32";
+
+                if(exp->tag == ExpAdd) op = "add";
+                else if(exp->tag == ExpSub) op = "sub";
+                else if(exp->tag == ExpMul) op = "mul";
+                else  op = "sdiv";
+            }
 
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp1, e1);
+            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp1, type, e1);
 
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp2, e2);
-
-            if(exp->tag == ExpAdd) op = "add";
-            else if(exp->tag == ExpSub) op = "sub";
-            else if(exp->tag == ExpMul) op = "mul";
-            else if(exp->tag == ExpDiv) op = "sdiv";
+            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp2, type, e2);
 
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = %s i32 %%t%d, %%t%d\n", ret, op, temp1, temp2);
+            fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, temp1, temp2);
             return ret;
         }
         case ExpEqual:
@@ -335,15 +351,14 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, ret);
             return ret;
         }
-        case ExpFloat:
-//            printIdent(nIdent);
-//            printf("Expression type: Float\n");
-//            printIdent(nIdent);
-//            printf("Expression resulting ");
-//            printType(exp->type, 0);
-//            printIdent(nIdent);
-//            printf("%f\n", exp->u.d);
-            break;
+        case ExpFloat: {
+            int ret = getNextTempVar();
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = alloca float\n", ret);
+            genIdent(nIdent, fp);
+            fprintf(fp, "store float %e, float* %%t%d\n", exp->u.d, ret);
+            return ret;
+        }
         case ExpCastIntToFloat:
 //            printIdent(nIdent);
 //            printf("Expression type: Cast from int to float\n");
@@ -405,9 +420,19 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
         case CmdBasicVar: {
             int expNameId = genExp(cmd->u.varCmd.exp, nIdent, fp);
             int temp = getNextTempVar();
+            char *type;
+
+            if(cmd->u.varCmd.exp->type->name == VarFloat)
+            {
+                type = "float";
+            }
+            else
+            {
+                type = "i32";
+            }
 
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load i32* %%t%d\n", temp, expNameId);
+            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp, type, expNameId);
 
             // TODO CHeck e = -1, then get var name
             genIdent(nIdent, fp);

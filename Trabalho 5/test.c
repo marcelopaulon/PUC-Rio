@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-int a();
+float a();
 
 int main(void)
 {
-    printf("Teste a(): %d\n", a());
+    printf("Teste a(): %f\n", a());
     return 0;
 }

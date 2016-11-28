@@ -1,22 +1,22 @@
 ;TODO: Gen definition
-  define i32 @a() #0 {
-      %t1 = alloca i32
-    %t2 = alloca i32
-    store i32 1, i32* %t2
-    %t3 = load i32* %t2
-    store i32 %t3, i32* %t1
-        %t4 = alloca i32
-        %t5 = alloca i32
-      %t6 = alloca i32
-      store i32 55, i32* %t6
-      %t7 = load i32* %t6
-      store i32 %t7, i32* %t4
-      %t8 = alloca i32
-      store i32 2, i32* %t8
-      %t9 = load i32* %t8
-      store i32 %t9, i32* %t5
-      %t11 = load i32* %t4
-      %t12 = load i32* %t5
-      %t10 = sdiv i32 %t11, %t12
-      ret i32 %t10
+  define float @a() #0 {
+      %t1 = alloca float
+    %t2 = alloca float
+    store float 1.000000e+00, float* %t2
+    %t3 = load float* %t2
+    store float %t3, float* %t1
+        %t4 = alloca float
+        %t5 = alloca float
+      %t6 = alloca float
+      store float 5.500000e+01, float* %t6
+      %t7 = load float* %t6
+      store float %t7, float* %t4
+      %t8 = alloca float
+      store float 2.000000e+00, float* %t8
+      %t9 = load float* %t8
+      store float %t9, float* %t5
+      %t11 = load float* %t4
+      %t12 = load float* %t5
+      %t10 = fdiv float %t11, %t12
+      ret float %t10
       }
