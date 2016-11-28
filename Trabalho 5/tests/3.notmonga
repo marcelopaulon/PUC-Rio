@@ -1,8 +1,0 @@
-/*
- * 3.notmonga
- * Undefined function call
- */
-
-float a(int b){
-    d();
-}

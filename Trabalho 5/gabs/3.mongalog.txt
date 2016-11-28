@@ -1,5 +1,0 @@
-PASSDefinition:
-  Def Var List:
-    DefVar:
-      Type: char
-      a

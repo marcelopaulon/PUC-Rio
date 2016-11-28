@@ -201,6 +201,16 @@ void genBinExpType(ExpE type, int nIdent, FILE *fp) {
 
 }
 
+union fodase
+{
+    double d;
+    long long l;
+};
+
+void doubleToHex(double d, char *strOut){
+    sprintf(strOut, "%e", (float)d);
+}
+
 int genExp(Exp *exp, int nIdent, FILE *fp) {
     if(exp == NULL)
     {
@@ -215,7 +225,6 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             int e1 = genExp(exp->u.bin.e1, nIdent, fp);
             int e2 = genExp(exp->u.bin.e2, nIdent, fp);
             int ret = getNextTempVar();
-            int temp1 = getNextTempVar(), temp2 = getNextTempVar();
             char *op;
             char *type;
 
@@ -239,13 +248,7 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             }
 
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp1, type, e1);
-
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp2, type, e2);
-
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, temp1, temp2);
+            fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, e1, e2);
             return ret;
         }
         case ExpEqual:
@@ -298,7 +301,21 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
 //            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
 //            genIdent(nIdent, fp);
 //            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
-            return exp->u.var->u.def.dec->varNumber;
+            int ret = getNextTempVar();
+            char *type;
+
+            if(exp->u.var->u.def.dec->type->name == VarFloat)
+            {
+                type = "float";
+            }
+            else
+            {
+                type = "i32";
+            }
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
+            return ret;
         }
 
         case ExpCall:
@@ -344,26 +361,39 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
 //            printf("%s\n", exp->u.c);
             break;
         case ExpInt: {
+            int temp = getNextTempVar();
             int ret = getNextTempVar();
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = alloca i32\n", ret);
+            fprintf(fp, "%%t%d = alloca i32\n", temp);
             genIdent(nIdent, fp);
-            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, ret);
+            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
             return ret;
         }
         case ExpFloat: {
+            int temp = getNextTempVar();
             int ret = getNextTempVar();
+            char floatValHex[19];
+            doubleToHex(exp->u.d, floatValHex);
+
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = alloca float\n", ret);
+            fprintf(fp, "%%t%d = alloca float\n", temp);
             genIdent(nIdent, fp);
-            fprintf(fp, "store float %e, float* %%t%d\n", exp->u.d, ret);
+            fprintf(fp, "store float %s, float* %%t%d\n", floatValHex, temp);
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load float* %%t%d\n", ret, temp);
             return ret;
         }
-        case ExpCastIntToFloat:
-//            printIdent(nIdent);
-//            printf("Expression type: Cast from int to float\n");
-//            printExp(exp->u.un, nIdent);
-            break;
+        case ExpCastIntToFloat: {
+            int temp = genExp(exp->u.un, nIdent + 1, fp);
+            int ret = getNextTempVar();
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = sitofp i32 %%t%d to float\n", ret, temp);
+
+            return ret;
+        }
         default:
             printf("Invalid expression type %d. Exiting\n", exp->tag);
             exit(-5);
@@ -419,26 +449,12 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             break;
         case CmdBasicVar: {
             int expNameId = genExp(cmd->u.varCmd.exp, nIdent, fp);
-            int temp = getNextTempVar();
-            char *type;
-
-            if(cmd->u.varCmd.exp->type->name == VarFloat)
-            {
-                type = "float";
-            }
-            else
-            {
-                type = "i32";
-            }
-
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load %s* %%t%d\n", temp, type, expNameId);
 
             // TODO CHeck e = -1, then get var name
             genIdent(nIdent, fp);
             fprintf(fp, "store ");
             genType(cmd->u.varCmd.exp->type, fp);
-            fprintf(fp, " %%t%d, ", temp);
+            fprintf(fp, " %%t%d, ", expNameId);
 
             switch(cmd->u.varCmd.var->tag)
             {

@@ -1,5 +1,13 @@
-/*
- * 1.monga
- * Testing a simple int variable declaration
- */
-int a;
+float a()
+{
+    float a;
+    int b;
+    float c;
+
+    a = 2.00;
+    b = 1;
+    c = a + 1.0 + 1 + b/2.0;
+
+    return c;
+}
+

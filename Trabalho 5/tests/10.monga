@@ -1,9 +1,0 @@
-/*
- * 10.monga
- * Function call with variable
- */
-
-float a(char b){
-    char c;
-    a(c);
-}

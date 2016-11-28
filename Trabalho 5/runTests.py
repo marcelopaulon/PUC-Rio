@@ -14,11 +14,15 @@ for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
     if file.endswith(".monga"):
         totalTests = totalTests + 1
         print('\nTest ' + file + ': ')
-        os.system('./teste < ' + testDir + '/' + file + ' > output.txt')
+        os.system('./teste output.txt < ' + testDir + '/' + file)
+
+        os.system('llc output.txt')
+        os.system('gcc -Wall test.c out.txt.s -o testeMongaGen')
+        os.system('./testeMongaGen > output.txt')
 
         with open('output.txt') as f:
              output = f.readlines()
-        with open(gabsDir + '/' + os.path.splitext(file)[0] + '.mongalog.txt') as f:
+        with open(gabsDir + '/' + os.path.splitext(file)[0] + '.monga.expected') as f:
              expected = f.readlines()
 
         differences = 0
