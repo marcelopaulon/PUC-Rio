@@ -1,9 +1,19 @@
-float a()
+int vagner()
 {
-    float b;
+    return 56;
+}
+
+int a()
+{
+    int b;
     int c;
-    b = 1.3;
-    c =  2;
+    b = 1;
+    c =  10;
+    if(b<c)
+    {
+        return vagner();
+    }
+
     return b;
 }
 
