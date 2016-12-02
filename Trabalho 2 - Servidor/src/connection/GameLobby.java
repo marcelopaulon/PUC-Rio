@@ -12,6 +12,7 @@ import game.Board;
  */
 public class GameLobby {
 	private List<ClientConnection> playerList;
+	private int currentPlayer;
 	private boolean ready;
 	private boolean gameEnded;
 	private Board board;
@@ -75,8 +76,10 @@ public class GameLobby {
 	 * Sends the current board to every player in the match.
 	 */
 	public void sendBoard(){
+		int curPlayer = UpdateCurrentPlayer();
 		for(ClientConnection client : playerList){
 			client.getStream().println(board); //sends the current board
+			client.getStream().println(curPlayer); //sends the current player
 			client.getStream().print(gameEnded); //sends false if the game has not ended yet
 		}
 	}
@@ -95,5 +98,21 @@ public class GameLobby {
 	 */
 	public void setGameStatus(boolean gameEnded){
 		this.gameEnded = gameEnded;
+	}
+
+	/**
+	 * Changes the current player and returns it
+	 * @return the current player
+	 */
+	private int UpdateCurrentPlayer() {
+		if(currentPlayer == playerList.size()){
+			currentPlayer = 0;
+		}
+		
+		else{
+			currentPlayer++;
+		}
+		
+		return currentPlayer;
 	}
 }
