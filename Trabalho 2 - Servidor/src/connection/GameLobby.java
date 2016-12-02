@@ -105,8 +105,8 @@ public class GameLobby {
 	 * @return the current player
 	 */
 	private int UpdateCurrentPlayer() {
-		if(currentPlayer == playerList.size()){
-			currentPlayer = 0;
+		if(currentPlayer >= 4){
+			currentPlayer = 1;
 		}
 		
 		else{

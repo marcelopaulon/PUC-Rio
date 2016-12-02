@@ -633,7 +633,7 @@ public class GameControl
 		setPlayerDice();
 	}
 	
-	private void endGame()
+	public void endGame()
 	{
 		String[] positions;
 		try {

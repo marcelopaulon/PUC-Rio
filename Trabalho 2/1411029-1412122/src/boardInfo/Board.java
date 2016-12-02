@@ -107,6 +107,10 @@ public final class Board extends Observable
 
 		return this.currentPlayer;
 	}
+	
+	public void setPlayer(PlayerColor nextPlayer){
+		this.currentPlayer = nextPlayer;
+	}
 
 	private void resetCurrentPlayer()
 	{

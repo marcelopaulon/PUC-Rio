@@ -19,7 +19,7 @@ import playerInfo.PlayerColor;
 import utils.Cryptography;
 import utils.ConstantsEnum.Action;
 
-class GameSave
+public class GameSave
 {
 	// TODO - Add support to saving/loading during bonus actions (+10 / +20 after entering pocket and capturing opponent)
 	public static Board loadFromFile(File file) throws Exception
@@ -58,8 +58,14 @@ class GameSave
 		return loadGame(saveFile);
 	}
 	
-	public static Board loadFromServer(String board) throws Exception{
-		String[] saveFile = Cryptography.decrypt(board).split("\n");
+	public static Board loadFromServer(String board){
+		String[] saveFile = null;
+		try {
+			saveFile = Cryptography.decrypt(board).split("\n");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return loadGame(saveFile);
 	}
