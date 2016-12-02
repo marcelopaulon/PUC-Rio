@@ -1,7 +1,9 @@
 package game;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -52,7 +54,17 @@ class GameSave
 		{
 			scannerFile.close();
 		}
-
+		
+		return loadGame(saveFile);
+	}
+	
+	public static Board loadFromServer(String board) throws Exception{
+		String[] saveFile = Cryptography.decrypt(board).split("\n");
+		
+		return loadGame(saveFile);
+	}
+	
+	private static Board loadGame(String[] saveFile){
 		String parser;
 		int line = 0;
 
@@ -183,6 +195,30 @@ class GameSave
 
 	public static void saveToFile(Board board, File file, boolean shouldEncryptSave) throws Exception
 	{
+		StringBuilder saveString = saveGame(board);
+
+		PrintWriter fileOut = new PrintWriter(file);
+
+		if(shouldEncryptSave)
+		{
+			fileOut.write(Cryptography.encrypt(saveString.toString()));
+		}
+		else
+		{
+			fileOut.write(saveString.toString());
+		}
+
+		fileOut.close();
+	}
+	
+	public static void saveToServer(Board board, PrintStream server) throws Exception{
+		StringBuilder saveString = saveGame(board);
+		String stringToServer = Cryptography.encrypt(saveString.toString());
+		
+		server.println(stringToServer);
+	}
+	
+	private static StringBuilder saveGame(Board board){
 		StringBuilder saveString = new StringBuilder();
 
 		saveString.append("CURPLAYER=" + board.getCurrentPlayer().asInt());
@@ -229,18 +265,7 @@ class GameSave
 				}
 			}
 		}
-
-		PrintWriter fileOut = new PrintWriter(file);
-
-		if(shouldEncryptSave)
-		{
-			fileOut.write(Cryptography.encrypt(saveString.toString()));
-		}
-		else
-		{
-			fileOut.write(saveString.toString());
-		}
-
-		fileOut.close();
+		return saveString;
 	}
+	
 }
