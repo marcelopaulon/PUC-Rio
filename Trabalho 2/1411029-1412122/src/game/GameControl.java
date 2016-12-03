@@ -1,4 +1,4 @@
-package game;
+﻿package game;
 
 import boardInfo.Board;
 import boardInfo.Dice;
@@ -18,6 +18,8 @@ import utils.Coordinate;
 public class GameControl
 {
 
+	private int onlinePlayerNumber = -1;
+	
 	private Board board;
 	
 	public static int lastMovedPawnPosition;
@@ -27,8 +29,9 @@ public class GameControl
 	
 	private NotificationManager notificationManager;
 
-	public GameControl(Board board, IViewManager viewManager, NotificationManager notificationManager)
+	public GameControl(int playerNumber, Board board, IViewManager viewManager, NotificationManager notificationManager)
 	{
+		this.onlinePlayerNumber = playerNumber;
 		this.board = board;
 		this.viewManager = viewManager;
 		this.notificationManager = notificationManager;
@@ -571,30 +574,33 @@ public class GameControl
 
 	private void setPlayerDice()
 	{
-		RollDiceAction action;
-
-		try
+		if(board.getCurrentPlayer().asInt() == this.onlinePlayerNumber)
 		{
-			action = new RollDiceAction(diceActionListener);
-
-			Coordinate diceCoordinates = YardView.getYardDiceCoordinates(board.getCurrentPlayer());
-			int x = (int) diceCoordinates.getX();
-			int y = (int) diceCoordinates.getY();
-
-			ActionManager.getInstance().registerAction(x, y, action);
-			ActionManager.getInstance().registerAction(x + 1, y, action);
-			ActionManager.getInstance().registerAction(x - 1, y, action);
-			ActionManager.getInstance().registerAction(x, y + 1, action);
-			ActionManager.getInstance().registerAction(x, y - 1, action);
-
-			ActionManager.getInstance().registerAction(x + 1, y + 1, action);
-			ActionManager.getInstance().registerAction(x - 1, y - 1, action);
-			ActionManager.getInstance().registerAction(x + 1, y - 1, action);
-			ActionManager.getInstance().registerAction(x - 1, y + 1, action);
-		} catch (Exception e)
-		{
-			notificationManager.notifyError(e.getMessage());
-			e.printStackTrace();
+			RollDiceAction action;
+			
+			try
+			{
+				action = new RollDiceAction(diceActionListener);
+	
+				Coordinate diceCoordinates = YardView.getYardDiceCoordinates(board.getCurrentPlayer());
+				int x = (int) diceCoordinates.getX();
+				int y = (int) diceCoordinates.getY();
+	
+				ActionManager.getInstance().registerAction(x, y, action);
+				ActionManager.getInstance().registerAction(x + 1, y, action);
+				ActionManager.getInstance().registerAction(x - 1, y, action);
+				ActionManager.getInstance().registerAction(x, y + 1, action);
+				ActionManager.getInstance().registerAction(x, y - 1, action);
+	
+				ActionManager.getInstance().registerAction(x + 1, y + 1, action);
+				ActionManager.getInstance().registerAction(x - 1, y - 1, action);
+				ActionManager.getInstance().registerAction(x + 1, y - 1, action);
+				ActionManager.getInstance().registerAction(x - 1, y + 1, action);
+			} catch (Exception e)
+			{
+				notificationManager.notifyError(e.getMessage());
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -629,7 +635,7 @@ public class GameControl
 		ActionManager.getInstance().resetActions();
 		board.resetBoard();
 		viewManager.resetBoard(board);
-
+		
 		setPlayerDice();
 	}
 	
@@ -645,7 +651,7 @@ public class GameControl
 		
 		board.setCurrentAction(Action.GAMEENDED);
 	}
-
+	
 	public void loadMap(Board savedMap, int currentDiceValue)
 	{
 		ActionManager.getInstance().resetActions();
@@ -654,41 +660,44 @@ public class GameControl
 		this.board = savedMap;
 
 		viewManager.resetBoard(savedMap);
-
-		Action currentAction = savedMap.getCurrentAction();
 		
-		switch(currentAction)
+		if(board.getCurrentPlayer().asInt() == this.onlinePlayerNumber)
 		{
-			case GAMEENDED:
-				endGame();
-				break;
-			case ROLLDICE:
-				setPlayerDice();
-				break;
-			case SELECTPAWN:
-			try {
-				if (hasMove(currentDiceValue, board.getCurrentPlayer()))
-				{
-					setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
-				}
-				else
-				{
-					board.nextPlayer();
+			Action currentAction = savedMap.getCurrentAction();
+			
+			switch(currentAction)
+			{
+				case GAMEENDED:
+					endGame();
+					break;
+				case ROLLDICE:
 					setPlayerDice();
+					break;
+				case SELECTPAWN:
+				try {
+					if (hasMove(currentDiceValue, board.getCurrentPlayer()))
+					{
+						setPlayerMoves(currentDiceValue, board.getCurrentPlayer());
+					}
+					else
+					{
+						board.nextPlayer();
+						setPlayerDice();
+					}
+				} catch (Exception e) {
+					notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());
 				}
-			} catch (Exception e) {
-				notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());
+					break;
+				case SELECTPAWNBONUS10:
+					setPlayer10Moves(board.getCurrentPlayer());
+					break;
+				case SELECTPAWNBONUS20:
+					setPlayer20Moves(board.getCurrentPlayer());
+					break;
+				default:
+					notificationManager.notifyError("Erro ao definir ação");
+					break;
 			}
-				break;
-			case SELECTPAWNBONUS10:
-				setPlayer10Moves(board.getCurrentPlayer());
-				break;
-			case SELECTPAWNBONUS20:
-				setPlayer20Moves(board.getCurrentPlayer());
-				break;
-			default:
-				notificationManager.notifyError("Erro ao definir ação");
-				break;
 		}
 		
 		board.setChanged();

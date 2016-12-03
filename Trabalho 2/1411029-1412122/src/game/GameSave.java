@@ -3,7 +3,6 @@ package game;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -63,7 +62,7 @@ public class GameSave
 		try {
 			saveFile = Cryptography.decrypt(board).split("\n");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println(board);
 			e.printStackTrace();
 		}
 		
@@ -88,7 +87,13 @@ public class GameSave
 
 		// Reading Current Player
 		parser = saveFile[line];
+		try{ //TODO: fix and debug
 		parser = parser.substring(10);
+		}
+		catch(StringIndexOutOfBoundsException e){
+			System.out.println(parser);
+			e.printStackTrace();
+		}
 
 		currentPlayer = PlayerColor.get(Integer.valueOf(parser));
 

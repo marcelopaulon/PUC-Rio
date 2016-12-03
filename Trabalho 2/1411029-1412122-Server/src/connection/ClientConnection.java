@@ -4,8 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-import game.Board;
-
 /**
  * Class that sends and receives game data from the players
  */
@@ -14,6 +12,7 @@ public class ClientConnection extends Thread{
 	private PrintStream stream;
 	private Scanner scanner;
 	private GameLobby lobby;
+	private int playerNumber;
 	
 	/**
 	 * Constructor
@@ -21,18 +20,23 @@ public class ClientConnection extends Thread{
 	 * @param lobby - GameLobby that the player is connected to
 	 * @throws IOException - when it's unable to get a stream
 	 */
-	public ClientConnection(Socket socket, GameLobby lobby) throws IOException {
+	public ClientConnection(int playerNumber, Socket socket, GameLobby lobby) throws IOException {
 		this.socket = socket;
 		this.stream = new PrintStream(socket.getOutputStream());
 		this.scanner = new Scanner(socket.getInputStream());
 		this.lobby = lobby;
+		this.playerNumber = playerNumber;
+		
+		this.stream.println("NeLSOn"); // Network Ludo Sign-On
+		this.stream.println(playerNumber);
 	}
 	
 	public void run(){
 		
 		//Runs while game hasn't ended
 		while(scanner.hasNextLine() && (!lobby.getGameStatus())){ //game hasn't ended
-			lobby.setBoard(scanner.nextLine());
+			String message = scanner.nextLine();
+			lobby.setBoard(message);
 			lobby.setGameStatus(scanner.nextBoolean());
 		}
 		

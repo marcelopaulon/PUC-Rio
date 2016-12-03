@@ -1,10 +1,12 @@
-package game;
+package gui;
 
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import boardInfo.Board;
 import boardInfo.Dice;
+import game.GameControl;
+import game.GameSave;
 import notifications.Notifications;
 import utils.Utils;
 
@@ -17,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-class MainMenu extends JPanel
+public class MainMenu extends JPanel
 {
 
 	/**

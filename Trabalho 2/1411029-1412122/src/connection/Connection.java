@@ -10,34 +10,52 @@ import game.GameControl;
 import game.GameSave;
 import playerInfo.PlayerColor;
 
-public class Connection extends Thread{
+public class Connection extends Thread {
 	private Socket cli;
 	private PrintStream serverStream;
 	private Scanner scanner;
 	private GameControl game;
 	private boolean gameEnded;
 	
-	public Connection(String ip, int port, GameControl gameControl) throws UnknownHostException, IOException{
+	public Connection(String ip, int port) throws UnknownHostException, IOException{
 		this.cli = new Socket(ip, port);
 		System.out.println("O cliente se conectou ao servidor!");
 		
 		serverStream = new PrintStream(cli.getOutputStream());
 		scanner = new Scanner(cli.getInputStream());
-		game = gameControl;
 		gameEnded = false;
-		
+	}
+	
+	public void startGame(GameControl control)
+	{
+		game = control;
 		start();
 	}
 	
 	public void run(){
-		while(scanner.hasNextLine() && !gameEnded){
-			game.loadMap(GameSave.loadFromServer(scanner.nextLine()), Dice.getCurValue());
-			game.getLoadedBoard().setPlayer(PlayerColor.get(scanner.nextInt()));
-			gameEnded = scanner.nextBoolean();
+		String check = scanner.nextLine();
+		
+		if(!check.equalsIgnoreCase("NeLSOn"))
+		{
+			System.out.println("Não foi possível iniciar a conexão! Falha ao receber dados (Valor recebido: " + check +")");
 		}
-		
-		game.endGame();
-		
+		else
+		{
+			int player = scanner.nextInt();
+			// TODO set player
+			System.out.println("CHEGOU O PLAYER " + player);
+			
+			System.out.println("Esperando início do jogo");
+			while(scanner.hasNextLine() && scanner.nextLine().equals(""));
+			
+			while(scanner.hasNextLine() && !gameEnded){
+				game.loadMap(GameSave.loadFromServer(scanner.nextLine()), Dice.getCurValue());
+				gameEnded = scanner.nextBoolean();
+			}
+			
+			game.endGame();
+		}
+				
 		try {
 			Disconnect();
 		} catch (IOException e) {
@@ -54,6 +72,11 @@ public class Connection extends Thread{
 		serverStream.close();
 		cli.close();
 		System.out.println("O cliente terminou de executar!");
+	}
+	
+	public int getPlayerNumber()
+	{
+		return 2;
 	}
 	
 	

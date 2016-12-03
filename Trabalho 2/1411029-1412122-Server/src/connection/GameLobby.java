@@ -4,38 +4,56 @@ import java.io.IOException;
 import java.net.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import game.Board;
 
 /**
  * Class that manages the players' connections and the game.
  */
-public class GameLobby {
+public class GameLobby extends Observable {
 	private List<ClientConnection> playerList;
-	private int currentPlayer;
 	private boolean ready;
 	private boolean gameEnded;
 	private Board board;
 	
+	private int playerCount = 0;
+	
 	/**
 	 * Game Lobby constructor
 	 */
-	public GameLobby(){
+	public GameLobby(Observer ob){
 		playerList = new LinkedList<ClientConnection>();
 		ready = false;
 		gameEnded = false;
-		Board board = new Board();
+		this.addObserver(ob);
+	}
+	
+	private void sendLog(String message)
+	{
+		System.out.println(message);
+		notifyObservers(message);
 	}
 	
 	/**
 	 * Treats incoming connections
 	 * @param socket - socket of a player connection
-	 * @throws IOException when the connection is not successful
 	 */
-	public void IncreasePlayers(Socket socket) throws IOException{
-		playerList.add(new ClientConnection(socket,this));
-		if(playerList.size() == 4){
-			ready = true;
+	public void IncreasePlayers(Socket socket) {
+		playerCount++;
+		
+		try {
+			playerList.add(new ClientConnection(playerCount, socket, this));
+			
+			if(playerList.size() == 4)
+			{
+				ready = true;
+				sendLog("O jogo irá começar");
+			}
+		} catch (IOException e) {
+			sendLog("Erro ao incrementar lista de jogadores");
+			e.printStackTrace();
 		}
 	}
 	
@@ -65,7 +83,7 @@ public class GameLobby {
 	
 	/**
 	 * Changes the current board (for example, when a player has finished its turn.
-	 * @param board - the current board (savefile)
+	 * @param board - the current board (saveFile)
 	 */
 	public void setBoard(String board){
 		this.board.setBoard(board);
@@ -76,10 +94,10 @@ public class GameLobby {
 	 * Sends the current board to every player in the match.
 	 */
 	public void sendBoard(){
-		int curPlayer = UpdateCurrentPlayer();
+		sendLog("Enviando tabuleiro aos clientes conectados");
+		
 		for(ClientConnection client : playerList){
 			client.getStream().println(board); //sends the current board
-			client.getStream().println(curPlayer); //sends the current player
 			client.getStream().print(gameEnded); //sends false if the game has not ended yet
 		}
 	}
@@ -98,21 +116,5 @@ public class GameLobby {
 	 */
 	public void setGameStatus(boolean gameEnded){
 		this.gameEnded = gameEnded;
-	}
-
-	/**
-	 * Changes the current player and returns it
-	 * @return the current player
-	 */
-	private int UpdateCurrentPlayer() {
-		if(currentPlayer >= 4){
-			currentPlayer = 1;
-		}
-		
-		else{
-			currentPlayer++;
-		}
-		
-		return currentPlayer;
 	}
 }

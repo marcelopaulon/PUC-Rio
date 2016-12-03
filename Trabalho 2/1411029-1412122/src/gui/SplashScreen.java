@@ -1,4 +1,4 @@
-package game;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
@@ -12,9 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.Program;
 import notifications.Notifications;
 
-class SplashScreen extends JFrame
+public class SplashScreen extends JFrame
 {
 
 	/**

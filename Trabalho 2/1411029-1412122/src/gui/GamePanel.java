@@ -1,4 +1,4 @@
-package game;
+package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import boardInfo.Board;
+import game.IViewManager;
 import notifications.Notifications;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
@@ -18,7 +19,7 @@ import rendering.TrackView;
 import rendering.View;
 import rendering.YardView;
 
-class GamePanel extends JPanel implements IViewManager, Observer
+public class GamePanel extends JPanel implements IViewManager, Observer
 {
 
 	/**
