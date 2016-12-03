@@ -3,7 +3,6 @@
 #include "ast.h"
 
 void genIdent(int level, FILE *fp);
-void genLine(char * type, int line, int newLineAtEnd, FILE *fp);
 void genType(Type *type, FILE *fp);
 int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp);
 int genExp(Exp * exp, int nIdent, FILE *fp);
@@ -55,8 +54,6 @@ void createLLVM(DefinitionList *tree, FILE *fp)
 
 void genDefinition(Definition *definition, int nIdent, FILE *fp)
 {
-    fprintf(fp, ";TODO: Gen definition\n");
-
     if(definition->type == TypeDefVar)
     {
         genDefVarList(definition->u.defvarlist, nIdent+1, fp, 1);
@@ -126,9 +123,6 @@ void genIdent(int level, FILE *fp){
     }
 }
 
-void genLine(char * type, int line, int newLineAtEnd, FILE *fp){
-}
-
 void genType(Type *type, FILE *fp) {
     switch(type->name){
         case VarFloat:
@@ -196,12 +190,10 @@ void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
             //genCmd(cmd->u.cmd, nIdent);
             break;
         case CmdIf: {
-            //printf("If\n");
-            //genCmd(cmd->u.cmd, nIdent);
             int lf = getNextTempLabel();
             int lt = getNextTempLabel();
 
-            int cond = genCond(cmd->e, lt, lf, nIdent, fp);
+            genCond(cmd->e, lt, lf, nIdent, fp);
 
             genLabel(lt, fp);
             genCmd(cmd->u.cmd, nIdent, fp);
@@ -259,7 +251,7 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             int t = getNextTempVar();
 
             genIdent(nIdent,fp);
-            fprintf(fp,"%%t%d = %ccmp eq ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'));
+            fprintf(fp,"%%t%d = %ccmp%seq ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), (e->u.bin.e1->type->name == VarInt ? " " : " o"));
 
             genType(e->u.bin.e1->type, fp);
 
@@ -268,17 +260,10 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             return t;
         }
 
-        //TODO: outras comparação
         default: {
-            int nt = getNextTempVar();
-            int te = genExp(e, nIdent, fp);
-            fprintf(fp,"%%t%d = icmp eq i32 %%t%d, 0\nbr i1 %%t%d, label %%l%d, label %%l%d",
-            nt, te, nt, lt, lf);
+            printf("Invalid type - genCond. Extiting.\n");
+            exit(-1);
         }
-
-
-
-
     }
 }
 
@@ -413,9 +398,9 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             int t = genExp(exp->u.un, nIdent, fp);
             int ret = getNextTempVar();
             genIdent(nIdent,fp);
-            fprintf(fp, "%%t%d = mul ", ret);
-            genType(exp->type, fp);
-            fprintf(fp, " %%t%d, -1\n", t);
+            fprintf(fp, "%%t%d = %smul ", ret, (exp->type->name == VarInt ? "" : "f"));
+            genType(exp->u.un->type, fp);
+            fprintf(fp, " %%t%d, -1%s\n", t, (exp->type->name == VarInt ? "" : ".0"));
             //printIdent(nIdent);
             //printf("Expression type: Negative\n");
             //printIdent(nIdent);
@@ -456,7 +441,6 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
         case ExpFloat: {
             int temp = getNextTempVar();
             int ret = getNextTempVar();
-            char floatValHex[19];
             genIdent(nIdent, fp);
             fprintf(fp, "%%t%d = alloca float\n", temp);
             genIdent(nIdent, fp);
