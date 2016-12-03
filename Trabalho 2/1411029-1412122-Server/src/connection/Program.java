@@ -3,6 +3,7 @@ package connection;
 import java.io.IOException;
 import java.net.*;
 import java.util.Observable;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -84,17 +85,42 @@ public class Program extends Observable {
 			sendLog("Erro ao abrir porta " + port + ". Execução interrompida");
 		}
 		
+		boolean firstConnection = true;
+				
 		if(server != null)
 		{
 			//Creates lobby (where player connections and the game are managed)
 			GameLobby lobby = new GameLobby(loggerUI);
+			
+			Timer timer = new Timer();
+			
+			long start = 0;
 			
 			//While the game has not started, accept incoming player connections and pass them to the lobby
 			while(!lobby.checkStatus()){
 				Socket client = null;
 				
 				try {
+					if(firstConnection)
+					{
+						server.setSoTimeout(60 * 3 * 1000);
+					}
+					else
+					{
+						server.setSoTimeout((int) (60 * 3 * 1000 - (System.currentTimeMillis() - start)));
+					}
+					
 					client = server.accept();
+					
+					if(firstConnection)
+					{
+						firstConnection = false;
+						start = System.currentTimeMillis();
+					}
+				} catch(SocketTimeoutException e) {
+					sendLog("O servidor será encerrado pois após 3 minutos os 4 usuários não entraram no servidor.");
+					closeServer();
+					return;
 				} catch (IOException e) {
 					sendLog("Erro ao abrir conexão");
 					e.printStackTrace();
