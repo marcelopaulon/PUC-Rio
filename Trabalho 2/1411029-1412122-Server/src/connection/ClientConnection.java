@@ -13,6 +13,7 @@ public class ClientConnection extends Thread{
 	private Scanner scanner;
 	private GameLobby lobby;
 	private int playerNumber;
+	private static int playersDisconnected = 0;
 	
 	/**
 	 * Constructor
@@ -58,15 +59,24 @@ public class ClientConnection extends Thread{
 		
 		//Closing input stream scanner
 		scanner.close();
+
+		lobby.sendBoard();
 		
 		//Closing connection
 		try {
 			socket.close();
+			System.out.println("Socket do player " + playerNumber + " fechado.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		playersDisconnected++;
+		
+		if(playersDisconnected == 4)
+		{
+			Program.getInstance().closeServer();
+		}
 	}
 	
 	/**

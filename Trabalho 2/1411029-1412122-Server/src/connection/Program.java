@@ -10,6 +10,17 @@ import javax.swing.JOptionPane;
 import gui.Logger;
 
 public class Program extends Observable {
+	private static Program instance = null;
+	
+	public static Program getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new Program();
+		}
+		return instance;
+	}
+	
 	private int tryGetPort(JFrame window)
 	{
 		String s = (String)JOptionPane.showInputDialog(
@@ -42,12 +53,15 @@ public class Program extends Observable {
 		new Program();
 	}
 	
+	private ServerSocket server = null;
+	private int port = -1;
+	
 	public Program()
 	{
+		instance = this;
 		JFrame window = new JFrame();
 		window.setSize(1200, 700);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int port = -1;
 		
 		while(port == -1)
 		{
@@ -62,7 +76,6 @@ public class Program extends Observable {
 		window.setVisible(true);
 		
 		//Opens server port
-		ServerSocket server = null;
 		try {
 			server = new ServerSocket(port);
 			sendLog("Porta " + port + " aberta!");
@@ -92,17 +105,17 @@ public class Program extends Observable {
 			}
 			
 			lobby.sendBoard();
-			
-			//Wait for the game to end
-			while(!lobby.getGameStatus());
-			
-			//Close connection
-			try {
-				server.close();
-			} catch (IOException e) {
-				sendLog("Não foi possível fechar a porta " + port);
-				e.printStackTrace();
-			}
 		}
+	}
+	
+	public void closeServer(){
+		try 
+		{
+			server.close();
+			sendLog("Servidor terminou de executar.");
+		} catch (IOException e) {
+			sendLog("Não foi possível fechar a porta " + port);
+			e.printStackTrace();
+		}	
 	}
 }

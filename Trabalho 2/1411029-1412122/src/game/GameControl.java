@@ -5,6 +5,7 @@ import boardInfo.Dice;
 import boardInfo.Lane;
 import boardInfo.Square;
 import boardInfo.Track;
+import connection.Connection;
 import notifications.NotificationManager;
 import playerInfo.PlayerColor;
 import rendering.LaneView;
@@ -153,6 +154,13 @@ public class GameControl
 			if (MovementRules.gameFinished(board.getPocket(board.getCurrentPlayer())))
 			{
 				endGame();
+				
+				try {
+					Connection.sendToServer(Connection.game);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("Unable to send data to server");
+				}
 			}
 			else
 			{
