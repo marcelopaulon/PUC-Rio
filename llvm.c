@@ -35,6 +35,7 @@ int getNextTempLabel()
 }
 
 void genLabel(int label, FILE* fp){
+    fprintf(fp, "\nbr label %%l%d\n", label);
     fprintf(fp, "\nl%d:\n", label);
 }
 
@@ -252,6 +253,21 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             return t;
         }
 
+        case ExpEqual: {
+            int r1 = genExp(e->u.bin.e1,nIdent,fp);
+            int r2 = genExp(e->u.bin.e2,nIdent,fp);
+            int t = getNextTempVar();
+
+            genIdent(nIdent,fp);
+            fprintf(fp,"%%t%d = %ccmp eq ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'));
+
+            genType(e->u.bin.e1->type, fp);
+
+            fprintf(fp, " %%t%d, %%t%d\nbr i1 %%t%d, label %%l%d, label %%l%d",
+                    r1, r2, t, lt, lf);
+            return t;
+        }
+
         //TODO: outras comparação
         default: {
             int nt = getNextTempVar();
@@ -393,14 +409,21 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             //printType(exp->type, 0);
             //printExp(exp->u.un, nIdent);
             break;
-        case ExpMinus:
+        case ExpMinus: {
+            int t = genExp(exp->u.un, nIdent, fp);
+            int ret = getNextTempVar();
+            genIdent(nIdent,fp);
+            fprintf(fp, "%%t%d = mul ", ret);
+            genType(exp->type, fp);
+            fprintf(fp, " %%t%d, -1\n", t);
             //printIdent(nIdent);
             //printf("Expression type: Negative\n");
             //printIdent(nIdent);
             //printf("Expression resulting ");
             //printType(exp->type, 0);
             //printExp(exp->u.un, nIdent);
-            break;
+            return ret;
+        }
         case ExpNew:
 //            printIdent(nIdent);
 //            printf("Expression type: New\n");
