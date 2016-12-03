@@ -46,10 +46,33 @@ public class Connection extends Thread {
 			System.out.println("CHEGOU O PLAYER " + player);
 			
 			System.out.println("Esperando início do jogo");
-			while(scanner.hasNextLine() && scanner.nextLine().equals(""));
-			
-			while(scanner.hasNextLine() && !gameEnded){
-				game.loadMap(GameSave.loadFromServer(scanner.nextLine()), Dice.getCurValue());
+
+			while(!gameEnded)
+			{
+				if(!scanner.hasNextLine())
+				{
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					continue;
+				}
+				
+				String message = scanner.nextLine();
+				
+				while(message.equals("") || message == null || message.equals("null"))
+				{
+					if(scanner.hasNextLine()) 
+					{
+						message = scanner.nextLine();
+					}
+				}
+				
+				System.out.println(message);
+				game.loadMap(GameSave.loadFromServer(message), Dice.getCurValue());
 				gameEnded = scanner.nextBoolean();
 			}
 			

@@ -29,6 +29,8 @@ public class ClientConnection extends Thread{
 		
 		this.stream.println("NeLSOn"); // Network Ludo Sign-On
 		this.stream.println(playerNumber);
+		
+		start();
 	}
 	
 	public void run(){

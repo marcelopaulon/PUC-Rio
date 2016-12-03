@@ -16,7 +16,7 @@ public class GameLobby extends Observable {
 	private List<ClientConnection> playerList;
 	private boolean ready;
 	private boolean gameEnded;
-	private Board board;
+	private Board board = new Board();
 	
 	private int playerCount = 0;
 	
@@ -97,8 +97,10 @@ public class GameLobby extends Observable {
 		sendLog("Enviando tabuleiro aos clientes conectados");
 		
 		for(ClientConnection client : playerList){
-			client.getStream().println(board); //sends the current board
+			System.out.println(board);
+			client.getStream().println(board.getBoard()); //sends the current board
 			client.getStream().print(gameEnded); //sends false if the game has not ended yet
+			System.out.println("Board sent via NeLSOn");
 		}
 	}
 	

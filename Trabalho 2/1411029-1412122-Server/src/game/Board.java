@@ -14,9 +14,14 @@ public class Board {
 	 * Default constructor that sets the board for a new game.
 	 */
 	public Board(){
-		Scanner scannerFile = new Scanner("saves/gameStartCrypto.ludosave");
-		this.setBoard(scannerFile.nextLine());
-		scannerFile.close();
+		Scanner scannerFile;
+		try {
+			scannerFile = new Scanner(new File("saves/gameStartCrypto.ludosave"));
+			this.setBoard(scannerFile.nextLine());
+			scannerFile.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
