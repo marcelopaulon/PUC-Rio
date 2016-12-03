@@ -86,8 +86,9 @@ public final class Board extends Observable
 
 	public PlayerColor nextPlayer()
 	{
+		this.setCurrentAction(Action.ROLLDICE);
 		Dice.resetConsecutive6();
-
+		
 		if (this.currentPlayer == PlayerColor.GREEN)
 		{
 			this.currentPlayer = PlayerColor.YELLOW;

@@ -66,6 +66,7 @@ public class ConnectionDialog extends JDialog {
 				  createGameWindow();
 				  connection.startGame(gameControl);
 				  dispose();
+				  startGame();
 			  } catch(NumberFormatException e1)
 			  {
 				  JOptionPane.showMessageDialog(null, "Número de porta inválido");
@@ -134,7 +135,7 @@ public class ConnectionDialog extends JDialog {
 		
 		Board board = new Board();
 		
-		gameControl = new GameControl(connection.getPlayerNumber(), board, createGamePanel(board), Notifications.getInstance(window, board));
+		gameControl = new GameControl(board, createGamePanel(board), Notifications.getInstance(window, board));
 		
 		//createMainMenu(board);
 		
@@ -143,6 +144,10 @@ public class ConnectionDialog extends JDialog {
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setSize(defaultDimension);
+	}
+	
+	private void startGame()
+	{
 		window.setVisible(true);
 		
 		Notifications.getInstance().notifyGameStart();

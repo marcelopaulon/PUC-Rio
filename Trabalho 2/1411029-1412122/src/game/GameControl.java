@@ -17,7 +17,6 @@ import utils.Coordinate;
 
 public class GameControl
 {
-
 	private int onlinePlayerNumber = -1;
 	
 	private Board board;
@@ -25,16 +24,27 @@ public class GameControl
 	public static int lastMovedPawnPosition;
 	public static SquareType lastMovedPawnDestinationType;
 	
+	private boolean gameEnded = false;
+	
 	private IViewManager viewManager;
 	
 	private NotificationManager notificationManager;
 
-	public GameControl(int playerNumber, Board board, IViewManager viewManager, NotificationManager notificationManager)
+	public GameControl(Board board, IViewManager viewManager, NotificationManager notificationManager)
 	{
-		this.onlinePlayerNumber = playerNumber;
 		this.board = board;
 		this.viewManager = viewManager;
 		this.notificationManager = notificationManager;
+	}
+	
+	public boolean hasGameEnded()
+	{
+		return gameEnded;
+	}
+	
+	public void setOnlinePlayerNumber(int player)
+	{
+		this.onlinePlayerNumber = player;
 	}
 
 	private ActionListener removeFromYardActionListener = new ActionListener() {
@@ -51,6 +61,7 @@ public class GameControl
 			else if(Dice.getCurValue() == 6)
 			{
 				notificationManager.notify6RepeatMove();
+				board.setCurrentAction(Action.ROLLDICE);
 			}
 			
 			setPlayerDice();
@@ -88,6 +99,7 @@ public class GameControl
 					else if(Dice.getCurValue() == 6)
 					{
 						notificationManager.notify6RepeatMove();
+						board.setCurrentAction(Action.ROLLDICE);
 					}
 					
 					setPlayerDice();
@@ -118,6 +130,7 @@ public class GameControl
 			else if(Dice.getCurValue() == 6)
 			{
 				notificationManager.notify6RepeatMove();
+				board.setCurrentAction(Action.ROLLDICE);
 			}
 			
 			setPlayerDice();
@@ -161,6 +174,7 @@ public class GameControl
 						else if(Dice.getCurValue() == 6)
 						{
 							notificationManager.notify6RepeatMove();
+							board.setCurrentAction(Action.ROLLDICE);
 						}
 						
 						setPlayerDice();
@@ -230,6 +244,7 @@ public class GameControl
 					else
 					{
 						notificationManager.notify6RepeatMove();
+						board.setCurrentAction(Action.ROLLDICE);
 					}
 					
 					board.setCurrentAction(Action.ROLLDICE);
@@ -338,6 +353,7 @@ public class GameControl
 
 	private void setPlayerMoves(int diceValue, PlayerColor currentPlayer) throws Exception
 	{
+		
 		System.out.println("----------------- SET ---------------------------");
 
 		// Se um jogador obtiver um 6 após lançar o dado, avançar sete casas
@@ -573,7 +589,7 @@ public class GameControl
 	}
 
 	private void setPlayerDice()
-	{
+	{		
 		if(board.getCurrentPlayer().asInt() == this.onlinePlayerNumber)
 		{
 			RollDiceAction action;
@@ -629,7 +645,7 @@ public class GameControl
 	{
 		return board;
 	}
-
+	
 	public void startGame()
 	{
 		ActionManager.getInstance().resetActions();
@@ -641,6 +657,7 @@ public class GameControl
 	
 	public void endGame()
 	{
+		gameEnded = true;
 		String[] positions;
 		try {
 			positions = BoardPositions.getPlayerPositions(board);
@@ -681,8 +698,7 @@ public class GameControl
 					}
 					else
 					{
-						board.nextPlayer();
-						setPlayerDice();
+						notificationManager.notifyError("Erro de sincronização.");
 					}
 				} catch (Exception e) {
 					notificationManager.notifyError("Erro ao definir ação de seleção: " + e.getMessage());

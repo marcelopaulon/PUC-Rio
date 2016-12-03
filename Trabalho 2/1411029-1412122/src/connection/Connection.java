@@ -4,17 +4,15 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-import boardInfo.Board;
 import boardInfo.Dice;
 import game.GameControl;
 import game.GameSave;
-import playerInfo.PlayerColor;
 
 public class Connection extends Thread {
 	private Socket cli;
-	private PrintStream serverStream;
+	private static PrintStream serverStream;
 	private Scanner scanner;
-	private GameControl game;
+	public static GameControl game;
 	private boolean gameEnded;
 	
 	public Connection(String ip, int port) throws UnknownHostException, IOException{
@@ -42,8 +40,9 @@ public class Connection extends Thread {
 		else
 		{
 			int player = scanner.nextInt();
-			// TODO set player
+			
 			System.out.println("CHEGOU O PLAYER " + player);
+			game.setOnlinePlayerNumber(player);
 			
 			System.out.println("Esperando início do jogo");
 
@@ -71,9 +70,16 @@ public class Connection extends Thread {
 					}
 				}
 				
-				System.out.println(message);
-				game.loadMap(GameSave.loadFromServer(message), Dice.getCurValue());
-				gameEnded = scanner.nextBoolean();
+				synchronized(this) //região crítica
+				{
+					System.out.println(message);
+					String[] msgsplit = message.split("ludoseparator");
+					for(String s : msgsplit){
+						System.out.println(s);
+					}
+					game.loadMap(GameSave.loadFromServer(msgsplit[0]), Dice.getCurValue());
+					gameEnded = Boolean.parseBoolean(msgsplit[1]);
+				}
 			}
 			
 			game.endGame();
@@ -87,8 +93,8 @@ public class Connection extends Thread {
 		}
 	}
 	
-	public void sendToServer(Board board) throws Exception{
-		GameSave.saveToServer(board, serverStream);
+	public static void sendToServer(GameControl game) throws Exception{
+		GameSave.saveToServer(game, serverStream);
 	}
 	
 	public void Disconnect() throws IOException{
@@ -96,11 +102,5 @@ public class Connection extends Thread {
 		cli.close();
 		System.out.println("O cliente terminou de executar!");
 	}
-	
-	public int getPlayerNumber()
-	{
-		return 2;
-	}
-	
-	
+		
 }

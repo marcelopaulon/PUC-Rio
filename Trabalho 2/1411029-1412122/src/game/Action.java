@@ -1,5 +1,7 @@
 package game;
 
+import connection.Connection;
+
 public abstract class Action implements IAction
 {
 	private ActionListener listener;
@@ -16,8 +18,15 @@ public abstract class Action implements IAction
 		this.listener = listener;
 	}
 
-	protected void onActionExecuted()
+	protected final void onActionExecuted()
 	{
 		listener.onActionExecuted(capturedPawn);
+		
+		try {
+			Connection.sendToServer(Connection.game);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Unable to send data to server");
+		}
 	}
 }

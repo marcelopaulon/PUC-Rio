@@ -38,8 +38,22 @@ public class ClientConnection extends Thread{
 		//Runs while game hasn't ended
 		while(scanner.hasNextLine() && (!lobby.getGameStatus())){ //game hasn't ended
 			String message = scanner.nextLine();
+			
+			synchronized(this) //região crítica
+			{
+				System.out.println(message);
+				String[] msgsplit = message.split("ludoseparator");
+				for(String s : msgsplit){
+					System.out.println(s);
+				}
+				lobby.setBoard(msgsplit[0]);
+				System.out.println("Board recebido: " + msgsplit[0]);
+				lobby.setGameStatus(Boolean.parseBoolean(msgsplit[1]));
+				System.out.println("Game status recebido: " + msgsplit[1]);
+			}
+			/*
 			lobby.setBoard(message);
-			lobby.setGameStatus(scanner.nextBoolean());
+			lobby.setGameStatus(scanner.nextBoolean());*/
 		}
 		
 		//Closing input stream scanner

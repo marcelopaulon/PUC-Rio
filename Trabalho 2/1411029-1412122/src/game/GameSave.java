@@ -87,13 +87,7 @@ public class GameSave
 
 		// Reading Current Player
 		parser = saveFile[line];
-		try{ //TODO: fix and debug
 		parser = parser.substring(10);
-		}
-		catch(StringIndexOutOfBoundsException e){
-			System.out.println(parser);
-			e.printStackTrace();
-		}
 
 		currentPlayer = PlayerColor.get(Integer.valueOf(parser));
 
@@ -201,6 +195,7 @@ public class GameSave
 
 		Dice.setCurValue(currentDice);
 		Dice.setConsecutive6(consecutive6);
+		
 		return new Board(track, lanes, yards, pockets, currentPlayer, currentAction);
 	}
 
@@ -222,11 +217,13 @@ public class GameSave
 		fileOut.close();
 	}
 	
-	public static void saveToServer(Board board, PrintStream server) throws Exception{
-		StringBuilder saveString = saveGame(board);
+	public static void saveToServer(GameControl control, PrintStream server) throws Exception{
+		if(Dice.getCurValue() == 6) Dice.setConsecutive6(Dice.getConsecutive6() + 1);
+		else Dice.setConsecutive6(0);
+		StringBuilder saveString = saveGame(control.getLoadedBoard());
 		String stringToServer = Cryptography.encrypt(saveString.toString());
 		
-		server.println(stringToServer);
+		server.println(stringToServer + "ludoseparator" + control.hasGameEnded());
 	}
 	
 	private static StringBuilder saveGame(Board board){

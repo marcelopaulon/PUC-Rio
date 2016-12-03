@@ -87,6 +87,7 @@ public class GameLobby extends Observable {
 	 */
 	public void setBoard(String board){
 		this.board.setBoard(board);
+		System.out.println();
 		if(ready) sendBoard();
 	}
 	
@@ -98,8 +99,8 @@ public class GameLobby extends Observable {
 		
 		for(ClientConnection client : playerList){
 			System.out.println(board);
-			client.getStream().println(board.getBoard()); //sends the current board
-			client.getStream().print(gameEnded); //sends false if the game has not ended yet
+			client.getStream().println(board.getBoard() + "ludoseparator" + gameEnded); //sends the current board as a string
+			//client.getStream().print(gameEnded); //sends false if the game has not ended yet
 			System.out.println("Board sent via NeLSOn");
 		}
 	}
