@@ -1,9 +1,19 @@
 #include <stdio.h>
+#include <string.h>
 
 int a();
+float b();
 
-int main(void)
+int main(int argc, char* argv[])
 {
-    printf("Teste a(): %d\n", a());
+    if(argc == 2 && strcmp(argv[1], "float") == 0)
+    {
+        printf("Teste b(): %f\n", b());
+    }
+    else
+    {
+        printf("Teste a(): %d\n", a());
+    }
+
     return 0;
 }

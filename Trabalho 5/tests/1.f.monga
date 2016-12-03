@@ -1,4 +1,8 @@
-float a()
+/*
+ * 1.monga
+ * Arithmetic operations between integers and floats
+ */
+float b()
 {
     float a;
     int b;
@@ -11,3 +15,7 @@ float a()
     return c;
 }
 
+int a()
+{
+   return 0;
+}

@@ -6,10 +6,10 @@
 .LCPI0_1:
 	.long	1073741824              # float 2
 	.text
-	.globl	a
+	.globl	b
 	.align	16, 0x90
-	.type	a,@function
-a:                                      # @a
+	.type	b,@function
+b:                                      # @b
 	.cfi_startproc
 # BB#0:
 	movl	$1073741824, -16(%rsp)  # imm = 0x40000000
@@ -30,7 +30,20 @@ a:                                      # @a
 	vmovss	%xmm0, -12(%rsp)
 	ret
 .Ltmp0:
-	.size	a, .Ltmp0-a
+	.size	b, .Ltmp0-b
+	.cfi_endproc
+
+	.globl	a
+	.align	16, 0x90
+	.type	a,@function
+a:                                      # @a
+	.cfi_startproc
+# BB#0:
+	movl	$0, -4(%rsp)
+	xorl	%eax, %eax
+	ret
+.Ltmp1:
+	.size	a, .Ltmp1-a
 	.cfi_endproc
 
 

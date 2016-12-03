@@ -8,16 +8,16 @@ gabsDir = "gabs"
 totalTests = 0
 failedTests = 0
 
-print("Pass tests:")
-
+print("Integer tests:")
+print(os.listdir(testDir))
 for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
-    if file.endswith(".monga"):
+    if file.endswith(".i.monga"):
         totalTests = totalTests + 1
         print('\nTest ' + file + ': ')
         os.system('./teste output.txt < ' + testDir + '/' + file)
 
         os.system('llc output.txt')
-        os.system('gcc -Wall test.c out.txt.s -o testeMongaGen')
+        os.system('gcc -Wall test.c output.txt.s -o testeMongaGen')
         os.system('./testeMongaGen > output.txt')
 
         with open('output.txt') as f:
@@ -35,18 +35,22 @@ for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
             print("\nFAIL\n")
             failedTests = failedTests + 1
 
-print("\nFail tests:")
+print("\nFloat tests:")
 
 for file in sorted(os.listdir(testDir), key=lambda x: int(x.split('.', 1)[0])):
-    if file.endswith(".notmonga"):
+    if file.endswith(".f.monga"):
         totalTests = totalTests + 1
         print('\nTest ' + file + ': ')
-        os.system('./teste < ' + testDir + '/' + file + ' > output.txt')
+        os.system('./teste output.txt < ' + testDir + '/' + file)
+
+        os.system('llc output.txt')
+        os.system('gcc -Wall test.c output.txt.s -o testeMongaGen')
+        os.system('./testeMongaGen float > output.txt')
 
         with open('output.txt') as f:
-             output = f.readlines()
-        with open(gabsDir + '/' + os.path.splitext(file)[0] + '.notmongalog.txt') as f:
-             expected = f.readlines()
+            output = f.readlines()
+        with open(gabsDir + '/' + os.path.splitext(file)[0] + '.monga.expected') as f:
+            expected = f.readlines()
 
         differences = 0
         for line in difflib.unified_diff(output, expected, fromfile='output', tofile='expected', lineterm=''):
