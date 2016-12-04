@@ -1,18 +1,26 @@
-  define i8 @c() #0 {
-    %t1 = alloca i8
-    store i8 118, i8* %t1
-    %t2 = load i8* %t1
-    ret i8 %t2
+  define i32 @a() #0 {
+    %t1 = alloca i32
+    store i32 6, i32* %t1
+    %t2 = load i32* %t1
+    %t3 = alloca i32
+    store i32 10, i32* %t3
+    %t4 = load i32* %t3
+    %t5 = alloca i32
+    store i32 5, i32* %t5
+    %t6 = load i32* %t5
+    %t7 = mul i32 %t4, %t6
+    %t8 = add i32 %t2, %t7
+    ret i32 %t8
   }
   define float @b() #0 {
-    %t3 = alloca float
-    store float 0x0000000000000000,float* %t3
-    %t4 = load float* %t3
-    ret float %t4
+    %t9 = alloca float
+    store float 0x0000000000000000,float* %t9
+    %t10 = load float* %t9
+    ret float %t10
   }
-  define i32 @a() #0 {
-    %t5 = alloca i32
-    store i32 0, i32* %t5
-    %t6 = load i32* %t5
-    ret i32 %t6
+  define i8 @c() #0 {
+    %t11 = alloca i8
+    store i8 86, i8* %t11
+    %t12 = load i8* %t11
+    ret i8 %t12
   }

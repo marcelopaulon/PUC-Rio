@@ -1,16 +1,18 @@
 	.file	"out.txt"
 	.text
-	.globl	c
+	.globl	a
 	.align	16, 0x90
-	.type	c,@function
-c:                                      # @c
+	.type	a,@function
+a:                                      # @a
 	.cfi_startproc
 # BB#0:
-	movb	$118, -1(%rsp)
-	movb	$118, %al
+	movl	$6, -4(%rsp)
+	movl	$10, -8(%rsp)
+	movl	$5, -12(%rsp)
+	movl	$56, %eax
 	ret
 .Ltmp0:
-	.size	c, .Ltmp0-c
+	.size	a, .Ltmp0-a
 	.cfi_endproc
 
 	.globl	b
@@ -26,17 +28,17 @@ b:                                      # @b
 	.size	b, .Ltmp1-b
 	.cfi_endproc
 
-	.globl	a
+	.globl	c
 	.align	16, 0x90
-	.type	a,@function
-a:                                      # @a
+	.type	c,@function
+c:                                      # @c
 	.cfi_startproc
 # BB#0:
-	movl	$0, -4(%rsp)
-	xorl	%eax, %eax
+	movb	$86, -1(%rsp)
+	movb	$86, %al
 	ret
 .Ltmp2:
-	.size	a, .Ltmp2-a
+	.size	c, .Ltmp2-c
 	.cfi_endproc
 
 

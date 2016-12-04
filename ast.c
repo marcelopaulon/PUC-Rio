@@ -316,6 +316,7 @@ void printCmdCall (CmdCall * cmd, int nIdent)
 void printCmdBasic(CmdBasic * cmd, int nIdent)
 {
     printIdent(nIdent);
+
     printLine("Basic Command", cmd->line, TRUE);
 
     printIdent(nIdent+1);

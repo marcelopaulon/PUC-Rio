@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "llvm.h"
-#include "ast.h"
 
 void genIdent(int level, FILE *fp);
 void genType(Type *type, FILE *fp);
@@ -100,7 +99,6 @@ void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
 
     genType(deffunc->type, fp);
 
-    //deffunc->varNumber = getNextTempVar();
     fprintf(fp, " @%s", deffunc->id);
 
     genParamList(deffunc->params, nIdent + 1, fp);
@@ -264,8 +262,7 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
         }
 
         case ExpNot: {
-            genCond(e->u.bin.e2,lf,lt,nIdent,fp);
-            break;
+            return genCond(e->u.un,lf,lt,nIdent,fp);
         }
 
         //TODO: and, etc
@@ -301,7 +298,7 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
         }
 
         default: {
-            printf("Invalid type - genCond. Extiting.\n");
+            printf("Invalid type - genCond. Exiting.\n");
             exit(-1);
         }
     }
@@ -318,6 +315,70 @@ void doubleToHex(double d, FILE *strOut){
     for(i = sizeof(double) - 1; i >= 0; i--) fprintf(strOut, "%02x", buff[i]);
 }
 
+int genArith(Exp *exp, int nIdent, FILE *fp)
+{
+    int e1 = genExp(exp->u.bin.e1, nIdent, fp);
+    int e2 = genExp(exp->u.bin.e2, nIdent, fp);
+    int ret = getNextTempVar();
+    char *op;
+    char *type;
+
+    if(exp->u.bin.e1->type->name == VarFloat)
+    {
+        type = "float";
+
+        if(exp->tag == ExpAdd) op = "fadd";
+        else if(exp->tag == ExpSub) op = "fsub";
+        else if(exp->tag == ExpMul) op = "fmul";
+        else  op = "fdiv";
+    }
+    else
+    {
+        type = "i32";
+
+        if(exp->tag == ExpAdd) op = "add";
+        else if(exp->tag == ExpSub) op = "sub";
+        else if(exp->tag == ExpMul) op = "mul";
+        else  op = "sdiv";
+    }
+
+    genIdent(nIdent, fp);
+    fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, e1, e2);
+    return ret;
+}
+
+int genExpVar(Exp *exp, int nIdent, FILE *fp)
+{
+    int ret = getNextTempVar();
+    char *type;
+
+    genIdent(nIdent, fp);
+
+    if(exp->u.var->decType == VarParam)
+    {
+        ret = exp->u.var->u.def.p->varNumber;
+    }
+    else
+    {
+        if(exp->u.var->u.def.dec->type->name == VarFloat)
+        {
+            type = "float";
+        }
+        else if(exp->u.var->u.def.dec->type->name == VarChar)
+        {
+            type = "i8";
+        }
+        else
+        {
+            type = "i32";
+        }
+
+        fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
+    }
+
+    return ret;
+}
+
 int genExp(Exp *exp, int nIdent, FILE *fp) {
     if(exp == NULL)
     {
@@ -328,36 +389,8 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
         case ExpAdd:
         case ExpSub:
         case ExpMul:
-        case ExpDiv: {
-            int e1 = genExp(exp->u.bin.e1, nIdent, fp);
-            int e2 = genExp(exp->u.bin.e2, nIdent, fp);
-            int ret = getNextTempVar();
-            char *op;
-            char *type;
-
-            if(exp->u.bin.e1->type->name == VarFloat)
-            {
-                type = "float";
-
-                if(exp->tag == ExpAdd) op = "fadd";
-                else if(exp->tag == ExpSub) op = "fsub";
-                else if(exp->tag == ExpMul) op = "fmul";
-                else  op = "fdiv";
-            }
-            else
-            {
-                type = "i32";
-
-                if(exp->tag == ExpAdd) op = "add";
-                else if(exp->tag == ExpSub) op = "sub";
-                else if(exp->tag == ExpMul) op = "mul";
-                else  op = "sdiv";
-            }
-
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, e1, e2);
-            return ret;
-        }
+        case ExpDiv:
+            return genArith(exp, nIdent, fp);
         case ExpEqual:
         case ExpLess:
         case ExpGreater:
@@ -365,48 +398,12 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
         case ExpGreaterEqual:
         case ExpOr:
         case ExpAnd:
-            //printBinExpType(exp->tag, nIdent);
-            //printIdent(nIdent);
-            //printf("Expression resulting ");
-            //printType(exp->type, 0);
-            //printExp(exp->u.bin.e1, nIdent);
-            //printExp(exp->u.bin.e2, nIdent);
-            break;
-        case ExpVar: {
-            int ret = getNextTempVar();
-            char *type;
-
-            genIdent(nIdent, fp);
-
-            if(exp->u.var->decType == VarParam)
-            {
-                ret = exp->u.var->u.def.p->varNumber;
-            }
-            else
-            {
-                if(exp->u.var->u.def.dec->type->name == VarFloat)
-                {
-                    type = "float";
-                }
-                else if(exp->u.var->u.def.dec->type->name == VarChar)
-                {
-                    type = "i8";
-                }
-                else
-                {
-                    type = "i32";
-                }
-
-                fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
-            }
-
-            return ret;
-        }
-
+        case ExpNot:
+            return -4; // These are being handled on genCond function
+        case ExpVar:
+            return genExpVar(exp, nIdent, fp);
         case ExpCall:
             return genCmdCall(exp->u.call, nIdent, fp);
-        case ExpNot:{ //TODO
-        }
         case ExpMinus: {
             int t = genExp(exp->u.un, nIdent, fp);
             int ret = getNextTempVar();
