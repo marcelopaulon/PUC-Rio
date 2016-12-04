@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "llvm.h"
+#include "ast.h"
 
 void genIdent(int level, FILE *fp);
 void genType(Type *type, FILE *fp);
@@ -81,9 +82,20 @@ void genDefVar(DefVar * defvar, int nIdent, FILE * fp, int isGlobal)
     defvar->varNumber = getNextTempVar();
 
     if(isGlobal != 0) {
+        char *initValue;
         fprintf(fp, "@t%d = common global ", defvar->varNumber);
         genType(defvar->type, fp);
-        fprintf(fp, " 0\n");
+
+        if(defvar->type->name == VarFloat)
+        {
+            initValue = " 0.0";
+        }
+        else
+        {
+            initValue = " 0";
+        }
+
+        fprintf(fp, " %s\n", initValue);
     }
     else {
         fprintf(fp, "%%t%d = alloca ", defvar->varNumber);
@@ -375,6 +387,8 @@ int genExpVar(Exp *exp, int nIdent, FILE *fp)
     }
     else
     {
+        char *accessType;
+
         if(exp->u.var->u.def.dec->type->name == VarFloat)
         {
             type = "float";
@@ -388,7 +402,16 @@ int genExpVar(Exp *exp, int nIdent, FILE *fp)
             type = "i32";
         }
 
-        fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
+        if(exp->u.var->u.def.dec->isGlobal)
+        {
+            accessType = "@";
+        }
+        else
+        {
+            accessType = "%";
+        }
+
+        fprintf(fp, "%%t%d = load %s* %st%d\n", ret, type, accessType, exp->u.var->u.def.dec->varNumber);
     }
 
     return ret;

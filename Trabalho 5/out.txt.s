@@ -1,58 +1,20 @@
 	.file	"out.txt"
 	.text
-	.globl	a
+	.globl	changeGlobal
 	.align	16, 0x90
-	.type	a,@function
-a:                                      # @a
+	.type	changeGlobal,@function
+changeGlobal:                           # @changeGlobal
 	.cfi_startproc
 # BB#0:
-	pushq	%rbp
-.Ltmp2:
-	.cfi_def_cfa_offset 16
-.Ltmp3:
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-.Ltmp4:
-	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
-	movl	$1, -8(%rbp)
-	movl	$1, -4(%rbp)
-	movl	$1, -12(%rbp)
-	movl	$2, -16(%rbp)
-	movb	$1, %al
-	testb	%al, %al
-	je	.LBB0_1
-# BB#2:                                 # %l2
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rcx
-	movq	%rcx, %rsp
-	cmpl	$7, -4(%rbp)
-	movl	$7, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rcx
-	movq	%rcx, %rsp
-	jne	.LBB0_4
-# BB#3:                                 # %l4
-	movl	$0, -16(%rax)
-	movl	$0, -4(%rbp)
-	jmp	.LBB0_5
-.LBB0_1:                                # %l1
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rcx
-	movq	%rcx, %rsp
-	movl	$2, -16(%rax)
-	movl	$2, -4(%rbp)
-	jmp	.LBB0_5
-.LBB0_4:                                # %l5
-	movl	$7, -16(%rax)
-	movl	$7, -4(%rbp)
-.LBB0_5:                                # %l3
-	movl	-4(%rbp), %eax
-	movq	%rbp, %rsp
-	popq	%rbp
+	movl	$1058642330, -4(%rsp)   # imm = 0x3F19999A
+	movl	$1058642330, t1(%rip)   # imm = 0x3F19999A
+	movl	$5, -8(%rsp)
+	movl	$5, t2(%rip)
+	movl	$0, -12(%rsp)
+	xorl	%eax, %eax
 	ret
-.Ltmp5:
-	.size	a, .Ltmp5-a
+.Ltmp0:
+	.size	changeGlobal, .Ltmp0-changeGlobal
 	.cfi_endproc
 
 	.globl	b
@@ -61,11 +23,33 @@ a:                                      # @a
 b:                                      # @b
 	.cfi_startproc
 # BB#0:
-	movl	$0, -4(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
+	pushq	%rax
+.Ltmp2:
+	.cfi_def_cfa_offset 16
+	movl	$2, 4(%rsp)
+	movl	$1073741824, t1(%rip)   # imm = 0x40000000
+	movl	$2, (%rsp)
+	movl	$2, t2(%rip)
+	callq	changeGlobal
+	vcvtsi2ssl	t2(%rip), %xmm0, %xmm0
+	vaddss	t1(%rip), %xmm0, %xmm0
+	popq	%rax
 	ret
-.Ltmp6:
-	.size	b, .Ltmp6-b
+.Ltmp3:
+	.size	b, .Ltmp3-b
+	.cfi_endproc
+
+	.globl	a
+	.align	16, 0x90
+	.type	a,@function
+a:                                      # @a
+	.cfi_startproc
+# BB#0:
+	movl	$0, -4(%rsp)
+	xorl	%eax, %eax
+	ret
+.Ltmp4:
+	.size	a, .Ltmp4-a
 	.cfi_endproc
 
 	.globl	c
@@ -77,9 +61,13 @@ c:                                      # @c
 	movb	$86, -1(%rsp)
 	movb	$86, %al
 	ret
-.Ltmp7:
-	.size	c, .Ltmp7-c
+.Ltmp5:
+	.size	c, .Ltmp5-c
 	.cfi_endproc
 
+	.type	t1,@object              # @t1
+	.comm	t1,4,4
+	.type	t2,@object              # @t2
+	.comm	t2,4,4
 
 	.section	".note.GNU-stack","",@progbits
