@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "llvm.h"
-#include "ast.h"
 
 void genIdent(int level, FILE *fp);
 void genType(Type *type, FILE *fp);
