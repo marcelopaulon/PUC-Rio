@@ -63,6 +63,11 @@ typedef enum VarE{
     VarIndexed
 } VarE;
 
+typedef enum VarDecType{
+    VarDec,
+    VarParam
+} VarDecType;
+
 typedef enum VarType{
     VarFloat,
     VarInt,
@@ -83,6 +88,7 @@ struct ParamList{
 struct Param{
     Type *type;
     char *id;
+    int varNumber;
 };
 
 struct DefVarList{
@@ -99,6 +105,8 @@ struct DefVar{
 
 typedef struct Var{
     VarE tag;
+    VarDecType decType;
+
     union {
         union {
             const char *id; // Access only before type checking

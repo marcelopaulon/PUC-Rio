@@ -1,15 +1,18 @@
 #include <string.h>
+#include <math.h>
+#include <stdio.h>
+
 #include "llvm.h"
 #include "ast.h"
 
 void genIdent(int level, FILE *fp);
 void genType(Type *type, FILE *fp);
+void genWhile(Cmd *cmd, int nIdent, FILE *fp);
 int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp);
 int genExp(Exp * exp, int nIdent, FILE *fp);
 void genVar(Var * var, int nIdent, FILE *fp);
 int genCmdCall (CmdCall * cmd, int nIdent, FILE *fp);
 void genCmdBasic(CmdBasic * cmd, int nIdent, FILE *fp);
-void genExpList(ExpList * list, int nIdent, FILE *fp);
 void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal);
 void genCmdList(CmdList * list, int nIdent, FILE *fp);
 void genParamList(ParamList * paramlist, int nIdent, FILE *fp);
@@ -105,6 +108,7 @@ void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
     fprintf(fp, " #0 ");
 
     fprintf(fp, "{\n");
+
     genBlock(deffunc->block, nIdent, fp);
     fprintf(fp, "}\n");
 
@@ -113,7 +117,8 @@ void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
 void genParam(Param * param, int nIdent, FILE * fp)
 {
     genType(param->type, fp);
-    fprintf(fp, " %s, ", param->id);
+    param->varNumber = getNextTempVar();
+    fprintf(fp, " %%t%d", param->varNumber);
 }
 
 void genIdent(int level, FILE *fp){
@@ -123,24 +128,30 @@ void genIdent(int level, FILE *fp){
     }
 }
 
-void genType(Type *type, FILE *fp) {
+char *getType(Type *type)
+{
     switch(type->name){
         case VarFloat:
-            fprintf(fp,"float");
-            break;
+            return "float";
         case VarInt:
-            fprintf(fp,"i32");
-            break;
+            return "i32";
         case VarChar:
-            break;
+            return "CHAR-NOT-IMPLEMENTED"; // TODO
     }
+
+    return "Invalid type";
+}
+
+void genType(Type *type, FILE *fp) {
+    fprintf(fp, "%s", getType(type));
 }
 
 void genParamList(ParamList * paramlist, int nIdent, FILE *fp){
     ParamList * current;
     fprintf(fp,"(");
     for(current = paramlist; current != NULL; current = current->next) {
-        genParam(current, nIdent, fp);
+        genParam(current->param, nIdent, fp);
+        if(current->next != NULL) fprintf(fp, ",");
     }
     fprintf(fp,")");
 }
@@ -187,7 +198,7 @@ void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
 
     switch(cmd->type){
         case CmdWhile:
-            //genCmd(cmd->u.cmd, nIdent);
+            genWhile(cmd, nIdent, fp);
             break;
         case CmdIf: {
             int lf = getNextTempLabel();
@@ -214,6 +225,34 @@ void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
     }
 }
 
+void genWhile(Cmd *cmd, int nIdent, FILE *fp){
+    int lWhile = getNextTempLabel();
+    int lBreak = getNextTempLabel();
+
+    genCond(cmd->e, lWhile, lBreak, nIdent, fp);
+
+    genLabel(lWhile, fp);
+    genCmd(cmd->u.cmd, nIdent+1, fp);
+    genCond(cmd->e, lWhile, lBreak, nIdent, fp);
+
+    genLabel(lBreak, fp);
+}
+
+int genCondComp(Exp *e, char* opcode, int lt, int lf, int nIdent, FILE *fp) {
+    int r1 = genExp(e->u.bin.e1,nIdent,fp);
+    int r2 = genExp(e->u.bin.e2,nIdent,fp);
+    int t = getNextTempVar();
+
+    genIdent(nIdent,fp);
+    fprintf(fp,"%%t%d = %ccmp %s ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), opcode);
+
+    genType(e->u.bin.e1->type, fp);
+
+    fprintf(fp, " %%t%d, %%t%d\nbr i1 %%t%d, label %%l%d, label %%l%d",
+            r1, r2, t, lt, lf);
+    return t;
+}
+
 int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
     switch(e->tag){
         case ExpOr: {
@@ -229,20 +268,21 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             break;
         }
 
-        //TODO: o r, and, not, etc
+        //TODO: and, etc
         case ExpLess: {
-            int r1 = genExp(e->u.bin.e1,nIdent,fp);
-            int r2 = genExp(e->u.bin.e2,nIdent,fp);
-            int t = getNextTempVar();
+            return genCondComp(e, "slt", lt, lf, nIdent, fp);
+        }
 
-            genIdent(nIdent,fp);
-            fprintf(fp,"%%t%d = %ccmp %clt ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), (e->u.bin.e1->type->name == VarInt ? 's' : 'u'));
+        case ExpLessEqual: {
+            return genCondComp(e, "sle", lt, lf, nIdent, fp);
+        }
 
-            genType(e->u.bin.e1->type, fp);
+        case ExpGreater: {
+            return genCondComp(e, "sgt", lt, lf, nIdent, fp);
+        }
 
-            fprintf(fp, " %%t%d, %%t%d\nbr i1 %%t%d, label %%l%d, label %%l%d",
-            r1, r2, t, lt, lf);
-            return t;
+        case ExpGreaterEqual: {
+            return genCondComp(e, "sge", lt, lf, nIdent, fp);
         }
 
         case ExpEqual: {
@@ -265,6 +305,8 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             exit(-1);
         }
     }
+
+    return -3;
 }
 
 void doubleToHex(double d, FILE *strOut){
@@ -331,69 +373,36 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             //printExp(exp->u.bin.e2, nIdent);
             break;
         case ExpVar: {
-            //exp->u.var
-            //char *storeId;
-
-//            switch(exp->u.var->tag){
-//                case VarId:
-//                    if(exp->u.var->u.def.dec->id != NULL)
-//                    {
-//                        storeId = exp->u.var->u.def.dec->id;
-//                    }
-//                    else
-//                    {
-//                        printf("Null variable identifier. Exiting.\n");
-//                        exit(-1);
-//                    }
-//                    break;
-//                case VarIndexed:
-//                    //printf("Indexed\n");
-//                    //printExp(var->u.indexed.e1, nIdent + 1);
-//                    //printExp(var->u.indexed.e2, nIdent + 1);
-//                    break;
-//                default:
-//                    printf("Invalid variable tag type. Exiting.\n");
-//                    exit(-4);
-//            }
-// EXP VAR(Var) =  EXP(a + b);
-            // Var
-            //store i32 2, i32* %b
-
-//            int temp = getNextTempVar(), ret = getNextTempVar();
-//            genIdent(nIdent, fp);
-//            fprintf(fp, "%%t%d = alloca i32\n", temp);
-//            genIdent(nIdent, fp);
-//            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
-//            genIdent(nIdent, fp);
-//            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
             int ret = getNextTempVar();
             char *type;
 
-            if(exp->u.var->u.def.dec->type->name == VarFloat)
+            genIdent(nIdent, fp);
+
+            if(exp->u.var->decType == VarParam)
             {
-                type = "float";
+                ret = exp->u.var->u.def.p->varNumber;
             }
             else
             {
-                type = "i32";
+                if(exp->u.var->u.def.dec->type->name == VarFloat)
+                {
+                    type = "float";
+                }
+                else
+                {
+                    type = "i32";
+                }
+
+                fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
             }
 
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load %s* %%t%d\n", ret, type, exp->u.var->u.def.dec->varNumber);
             return ret;
         }
 
         case ExpCall:
             return genCmdCall(exp->u.call, nIdent, fp);
-            break;
-        case ExpNot:
-            //printIdent(nIdent);
-            //printf("Expression type: Negation\n");
-            //printIdent(nIdent);
-            //printf("Expression resulting ");
-            //printType(exp->type, 0);
-            //printExp(exp->u.un, nIdent);
-            break;
+        case ExpNot:{ //TODO
+        }
         case ExpMinus: {
             int t = genExp(exp->u.un, nIdent, fp);
             int ret = getNextTempVar();
@@ -401,12 +410,6 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
             fprintf(fp, "%%t%d = %smul ", ret, (exp->type->name == VarInt ? "" : "f"));
             genType(exp->u.un->type, fp);
             fprintf(fp, " %%t%d, -1%s\n", t, (exp->type->name == VarInt ? "" : ".0"));
-            //printIdent(nIdent);
-            //printf("Expression type: Negative\n");
-            //printIdent(nIdent);
-            //printf("Expression resulting ");
-            //printType(exp->type, 0);
-            //printExp(exp->u.un, nIdent);
             return ret;
         }
         case ExpNew:
@@ -489,20 +492,55 @@ void genVar(Var *var, int nIdent, FILE *fp) {
 }
 
 int genCmdCall(CmdCall *cmd, int nIdent, FILE *fp) {
+    ExpList * current;
+
     int ret = getNextTempVar();
+    const int bufferSize = 4096;
+    int buffer = bufferSize;
+    char *callArgs = (char *) malloc(sizeof(char) * buffer);
+    int length = 2;
+
+    if(callArgs == NULL)
+    {
+        printf("Unable to allocate memory for argument list. Exiting.\n");
+        exit(-1);
+    }
+
+    sprintf(callArgs,"(");
+
+    for(current = cmd->parameters; current != NULL; current = current->next) {
+        int arg = genExp(current->exp, nIdent, fp);
+        char *type = getType(current->exp->type);
+
+        length += 2 + floor(log10(abs(arg))) + 1 + 7; // 7 -> type
+        if(length > buffer)
+        {
+            buffer += bufferSize;
+            callArgs = (char *) realloc(callArgs, sizeof(char) * buffer);
+
+            if(callArgs == NULL)
+            {
+                printf("Unable to reallocate memory for argument list. Exiting.\n");
+                exit(-1);
+            }
+        }
+
+        sprintf(callArgs + strlen(callArgs), "%s %%t%d", type, arg);
+        if(current->next != NULL) sprintf(callArgs, ",");
+    }
+
+    sprintf(callArgs + strlen(callArgs),")");
+
     genIdent(nIdent, fp);
     fprintf(fp,"%%t%d = call ", ret);
 
-    genType(cmd->func->type, fp);
+    genType(cmd->type, fp);
 
-    fprintf(fp," @%s", cmd->func->id);
-    genParamList(cmd->func->params,nIdent,fp);
+    fprintf(fp," @%s%s\n", cmd->id, callArgs);
+
+    free(callArgs);
 
     return ret;
-}
-
-void genExpList(ExpList *list, int nIdent, FILE *fp) {
-
 }
 
 void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
@@ -516,8 +554,8 @@ void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             break;
         }
         case CmdBasicCall: {
-            //int temp = genCmdCall(cmd->u.call, nIdent, fp);
-            //break;
+            genCmdCall(cmd->u.call, nIdent, fp);
+            break;
         }
         case CmdBasicBlock:
             genBlock(cmd->u.block, nIdent, fp);

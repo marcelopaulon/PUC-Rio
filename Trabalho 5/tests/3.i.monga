@@ -1,0 +1,20 @@
+/*
+ * 3.i.monga
+ * While
+ */
+
+int a()
+{
+    int i;
+    i = 0;
+    while(i < 51){
+        i = i + 1;
+    }
+
+    return i;
+}
+
+float b()
+{
+   return 0.0;
+}
