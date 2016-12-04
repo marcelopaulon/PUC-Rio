@@ -209,11 +209,26 @@ void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
             genLabel(lf, fp);
             break;
         }
-        case CmdIfElse:
-            //printf("If and Else\n");
-            //genCmd(cmd->u.cmds.c1, nIdent);
-            //genCmd(cmd->u.cmds.c2, nIdent);
+        case CmdIfElse: {
+            int lt = getNextTempLabel();
+            int lf = getNextTempLabel();
+            int lAfterElse = getNextTempLabel();
+
+            genCond(cmd->e, lt, lf, nIdent, fp);
+
+            genLabel(lt, fp);
+            genCmd(cmd->u.cmds.c1, nIdent, fp);
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "br label %%l%d\n", lAfterElse);
+
+            genLabel(lf, fp);
+            genCmd(cmd->u.cmds.c2, nIdent, fp);
+
+            genLabel(lAfterElse, fp);
+
             break;
+        }
         case CmdBasicE:
             genCmdBasic(cmd->u.cmdBasic, nIdent, fp);
             break;

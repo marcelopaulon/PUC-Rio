@@ -6,13 +6,53 @@
 a:                                      # @a
 	.cfi_startproc
 # BB#0:
-	movl	$6, -4(%rsp)
-	movl	$10, -8(%rsp)
-	movl	$5, -12(%rsp)
-	movl	$56, %eax
+	pushq	%rbp
+.Ltmp2:
+	.cfi_def_cfa_offset 16
+.Ltmp3:
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+.Ltmp4:
+	.cfi_def_cfa_register %rbp
+	subq	$16, %rsp
+	movl	$1, -8(%rbp)
+	movl	$1, -4(%rbp)
+	movl	$1, -12(%rbp)
+	movl	$2, -16(%rbp)
+	movb	$1, %al
+	testb	%al, %al
+	je	.LBB0_1
+# BB#2:                                 # %l2
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rcx
+	movq	%rcx, %rsp
+	cmpl	$7, -4(%rbp)
+	movl	$7, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rcx
+	movq	%rcx, %rsp
+	jne	.LBB0_4
+# BB#3:                                 # %l4
+	movl	$0, -16(%rax)
+	movl	$0, -4(%rbp)
+	jmp	.LBB0_5
+.LBB0_1:                                # %l1
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rcx
+	movq	%rcx, %rsp
+	movl	$2, -16(%rax)
+	movl	$2, -4(%rbp)
+	jmp	.LBB0_5
+.LBB0_4:                                # %l5
+	movl	$7, -16(%rax)
+	movl	$7, -4(%rbp)
+.LBB0_5:                                # %l3
+	movl	-4(%rbp), %eax
+	movq	%rbp, %rsp
+	popq	%rbp
 	ret
-.Ltmp0:
-	.size	a, .Ltmp0-a
+.Ltmp5:
+	.size	a, .Ltmp5-a
 	.cfi_endproc
 
 	.globl	b
@@ -24,8 +64,8 @@ b:                                      # @b
 	movl	$0, -4(%rsp)
 	vxorps	%xmm0, %xmm0, %xmm0
 	ret
-.Ltmp1:
-	.size	b, .Ltmp1-b
+.Ltmp6:
+	.size	b, .Ltmp6-b
 	.cfi_endproc
 
 	.globl	c
@@ -37,8 +77,8 @@ c:                                      # @c
 	movb	$86, -1(%rsp)
 	movb	$86, %al
 	ret
-.Ltmp2:
-	.size	c, .Ltmp2-c
+.Ltmp7:
+	.size	c, .Ltmp7-c
 	.cfi_endproc
 
 
