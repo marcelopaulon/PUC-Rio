@@ -1,0 +1,26 @@
+/*
+ * 2.f.monga
+ * Sum of 3 numbers (2 floats 1 int)
+ */
+
+float sum(float a, int b, float c)
+{
+    return a + b + c;
+}
+
+float b()
+{
+    float a;
+    a = 14;
+    return sum(a * 100000, 12 * 1000, 122);
+}
+
+int a()
+{
+   return 0;
+}
+
+char c()
+{
+    return "V";
+}

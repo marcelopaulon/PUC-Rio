@@ -229,8 +229,17 @@ void checkCmdCall(CmdCall *cmd)
     while(l1 != NULL && l2 != NULL) {
         if(!typeEquals(l1->exp->type, l2->param->type))
         {
-            printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
-            exit(-1);
+            if(l1->exp->type->name == VarInt && l1->exp->type->brackets == 0
+               && l2->param->type->name == VarFloat && l2->param->type->brackets == 0)
+            {
+                Exp *temp = castIntToFloat(l1->exp);
+                l1->exp = temp;
+            }
+            else
+            {
+                printf("Incompatible call signature for function %s on line %d. Exiting.\n", cmd->id, cmd->line);
+                exit(-1);
+            }
         }
 
         l1 = l1->next;
