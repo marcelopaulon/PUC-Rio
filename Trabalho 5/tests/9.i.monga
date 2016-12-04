@@ -1,0 +1,36 @@
+/*
+ * 9.i.monga
+ * tests OR tests
+ */
+
+int a()
+{
+    int value;
+
+    value = 1;
+
+    if(value == 1 || 1 < 0)
+    {
+        value = 2;
+    }
+
+    else
+    {
+        if(1 < 0 || value == 1)
+        {
+            value = 10;
+        }
+    }
+
+    return value;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

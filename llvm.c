@@ -292,7 +292,14 @@ int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             return genCond(e->u.un,lf,lt,nIdent,fp);
         }
 
-        //TODO: and, etc
+        case ExpAnd: {
+            int nl = getNextTempLabel();
+            genCond(e->u.bin.e1,nl,lf,nIdent,fp);
+            genLabel(nl,fp);
+            genCond(e->u.bin.e2,lt,lf,nIdent,fp);
+            break;
+        }
+
         case ExpLess: {
             return genCondComp(e, "slt", lt, lf, nIdent, fp);
         }
