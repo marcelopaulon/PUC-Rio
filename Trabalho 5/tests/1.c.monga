@@ -1,10 +1,10 @@
 /*
- * 1.i.monga
+ * 1.c.monga
  * Testing int return
  */
-int a()
+char c()
 {
-    return 6 + 10*5;
+    return "v";
 }
 
 float b()
@@ -12,7 +12,7 @@ float b()
    return 0.0;
 }
 
-char c()
+int a()
 {
-    return "V";
+    return 0;
 }

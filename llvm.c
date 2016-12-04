@@ -136,7 +136,7 @@ char *getType(Type *type)
         case VarInt:
             return "i32";
         case VarChar:
-            return "CHAR-NOT-IMPLEMENTED"; // TODO
+            return "i8";
     }
 
     return "Invalid type";
@@ -388,6 +388,10 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
                 {
                     type = "float";
                 }
+                else if(exp->u.var->u.def.dec->type->name == VarChar)
+                {
+                    type = "i8";
+                }
                 else
                 {
                     type = "i32";
@@ -421,15 +425,18 @@ int genExp(Exp *exp, int nIdent, FILE *fp) {
 //            printType(exp->type, 0);
 //            printExp(exp->u.newexp.exp, nIdent);
             break;
-        case ExpString:
-//            printIdent(nIdent);
-//            printf("Expression type: String\n");
-//            printIdent(nIdent);
-//            printf("Expression resulting ");
-//            printType(exp->type, 0);
-//            printIdent(nIdent);
-//            printf("%s\n", exp->u.c);
-            break;
+        case ExpString: {
+            int temp = getNextTempVar();
+            int ret = getNextTempVar();
+
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = alloca i8\n", temp);
+            genIdent(nIdent, fp);
+            fprintf(fp, "store i8 %d, i8* %%t%d\n", exp->u.c[0], temp);
+            genIdent(nIdent, fp);
+            fprintf(fp, "%%t%d = load i8* %%t%d\n", ret, temp);
+            return ret;
+        }
         case ExpInt: {
             int temp = getNextTempVar();
             int ret = getNextTempVar();

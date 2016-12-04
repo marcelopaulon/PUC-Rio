@@ -19,3 +19,8 @@ int a()
 {
    return 0;
 }
+
+char c()
+{
+    return "V";
+}

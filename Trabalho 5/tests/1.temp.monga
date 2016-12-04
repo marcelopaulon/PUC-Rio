@@ -17,3 +17,7 @@ float a()
     return b;
 }
 
+char c()
+{
+    return "V";
+}

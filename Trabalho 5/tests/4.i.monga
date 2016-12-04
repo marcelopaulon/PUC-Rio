@@ -22,3 +22,8 @@ float b()
 {
    return 0.0;
 }
+
+char c()
+{
+    return "V";
+}
