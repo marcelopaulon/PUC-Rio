@@ -1,0 +1,34 @@
+/*
+ * 5.i.monga
+ * sum of numbers between imin and imax
+ */
+
+int sum(int a, int imin, int imax)
+{
+    int i;
+    int sum;
+    i = imin;
+    sum = 0;
+
+    while(i <= imax){
+        sum = sum + i;
+        i = i + a;
+    }
+
+    return sum;
+}
+
+int a()
+{
+    return sum(1,0,4);
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

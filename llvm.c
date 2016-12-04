@@ -533,7 +533,7 @@ int genCmdCall(CmdCall *cmd, int nIdent, FILE *fp) {
         }
 
         sprintf(callArgs + strlen(callArgs), "%s %%t%d", type, arg);
-        if(current->next != NULL) sprintf(callArgs, ",");
+        if(current->next != NULL) sprintf(callArgs + strlen(callArgs), ",");
     }
 
     sprintf(callArgs + strlen(callArgs),")");
