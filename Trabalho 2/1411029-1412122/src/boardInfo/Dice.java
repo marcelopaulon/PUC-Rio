@@ -15,7 +15,6 @@ public final class Dice
 		curValue = randomNumberGenerator.nextInt(6) + 1;
 		if (curValue == 6)
 			consecutive6++;
-		System.out.println("Consecutives 6s: " + consecutive6);
 		return curValue;
 	}
 

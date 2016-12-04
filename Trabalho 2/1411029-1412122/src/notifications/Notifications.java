@@ -42,7 +42,7 @@ public class Notifications extends NotificationManager
 		JOptionPane.showMessageDialog(window, message, title, type);
 	}
 	
-	private void notifyInfo(String title, String message)
+	public void notifyInfo(String title, String message)
 	{
 		notify(title, message, JOptionPane.INFORMATION_MESSAGE);
 	}

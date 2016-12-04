@@ -18,6 +18,8 @@ public class GameLobby extends Observable {
 	private boolean gameEnded;
 	private Board board = new Board();
 	
+	private String firstPlayerNickname;
+	
 	private int playerCount = 0;
 	
 	/**
@@ -42,14 +44,23 @@ public class GameLobby extends Observable {
 	 */
 	public void IncreasePlayers(Socket socket) {
 		playerCount++;
-		
+				
 		try {
-			playerList.add(new ClientConnection(playerCount, socket, this));
+			ClientConnection client = new ClientConnection(playerCount, socket, this);
+			playerList.add(client);
+
+			if(playerCount == 1)
+			{
+				firstPlayerNickname = client.getNickname();
+			}
+			
+			sendMessage("O jogador \"" + client.getNickname() + "\" entrou na sala");
 			
 			if(playerList.size() == 4)
 			{
 				ready = true;
 				sendLog("O jogo irá começar");
+				sendMessage("O jogo irá começar. " + firstPlayerNickname + ", clique no dado para iniciar o jogo.");
 			}
 		} catch (IOException e) {
 			sendLog("Erro ao incrementar lista de jogadores");
@@ -87,8 +98,19 @@ public class GameLobby extends Observable {
 	 */
 	public void setBoard(String board){
 		this.board.setBoard(board);
-		System.out.println();
 		if(ready) sendBoard();
+	}
+	
+	/**
+	 * Sends a message to every player in the match.
+	 */
+	public void sendMessage(String message){
+		sendLog("Enviando a mensagem \"" + message + "\" aos clientes conectados");
+		
+		for(ClientConnection client : playerList){
+			client.getStream().println("MESSAGE" + message);
+			//System.out.println("Message sent");
+		}
 	}
 	
 	/**
@@ -98,10 +120,8 @@ public class GameLobby extends Observable {
 		sendLog("Enviando tabuleiro aos clientes conectados");
 		
 		for(ClientConnection client : playerList){
-			System.out.println(board);
 			client.getStream().println(board.getBoard() + "ludoseparator" + gameEnded); //sends the current board as a string
-			//client.getStream().print(gameEnded); //sends false if the game has not ended yet
-			System.out.println("Board sent via NeLSOn");
+			//System.out.println("Board sent");
 		}
 	}
 	

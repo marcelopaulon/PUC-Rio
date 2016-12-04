@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import game.PlayerColor;
+
 /**
  * Class that sends and receives game data from the players
  */
@@ -13,6 +15,7 @@ public class ClientConnection extends Thread{
 	private Scanner scanner;
 	private GameLobby lobby;
 	private int playerNumber;
+	private String nickname;
 	private static int playersDisconnected = 0;
 	
 	/**
@@ -29,7 +32,18 @@ public class ClientConnection extends Thread{
 		this.playerNumber = playerNumber;
 		
 		this.stream.println("NeLSOn"); // Network Ludo Sign-On
+		
+		playerNumber++;
+		if(playerNumber == 5) playerNumber = 1;
+		
 		this.stream.println(playerNumber);
+		
+		try {
+			nickname = this.scanner.nextLine() + " (" + PlayerColor.getPlayerName(PlayerColor.get(playerNumber)) + ")";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		start();
 	}
@@ -40,21 +54,19 @@ public class ClientConnection extends Thread{
 		while(scanner.hasNextLine() && (!lobby.getGameStatus())){ //game hasn't ended
 			String message = scanner.nextLine();
 			
-			synchronized(this) //região crítica
-			{
-				System.out.println(message);
-				String[] msgsplit = message.split("ludoseparator");
-				for(String s : msgsplit){
-					System.out.println(s);
+			synchronized(this)
+			{				
+				if(message.startsWith("MESSAGE"))
+				{
+					lobby.sendMessage(message);
 				}
-				lobby.setBoard(msgsplit[0]);
-				System.out.println("Board recebido: " + msgsplit[0]);
-				lobby.setGameStatus(Boolean.parseBoolean(msgsplit[1]));
-				System.out.println("Game status recebido: " + msgsplit[1]);
+				else
+				{
+					String[] msgsplit = message.split("ludoseparator");
+					lobby.setBoard(msgsplit[0]);
+					lobby.setGameStatus(Boolean.parseBoolean(msgsplit[1]));
+				}
 			}
-			/*
-			lobby.setBoard(message);
-			lobby.setGameStatus(scanner.nextBoolean());*/
 		}
 		
 		//Closing input stream scanner
@@ -67,7 +79,6 @@ public class ClientConnection extends Thread{
 			socket.close();
 			System.out.println("Socket do player " + playerNumber + " fechado.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -85,5 +96,9 @@ public class ClientConnection extends Thread{
 	 */
 	public PrintStream getStream() {
 		return stream;
+	}
+
+	public String getNickname() {
+		return nickname;
 	}
 }

@@ -11,6 +11,8 @@ public abstract class NotificationManager {
 		this.board = board;
 	}
 	
+	public abstract void notifyInfo(String title, String message);
+	
 	public abstract void notify6RepeatMove();
 
 	public abstract void notifyCaptureBonus();

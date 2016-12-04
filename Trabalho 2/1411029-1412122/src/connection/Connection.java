@@ -7,6 +7,7 @@ import java.util.*;
 import boardInfo.Dice;
 import game.GameControl;
 import game.GameSave;
+import notifications.Notifications;
 
 public class Connection extends Thread {
 	private Socket cli;
@@ -15,11 +16,12 @@ public class Connection extends Thread {
 	public static GameControl game;
 	private boolean gameEnded;
 	
-	public Connection(String ip, int port) throws UnknownHostException, IOException{
+	public Connection(String nickname, String ip, int port) throws UnknownHostException, IOException{
 		this.cli = new Socket(ip, port);
 		System.out.println("O cliente se conectou ao servidor!");
 		
 		serverStream = new PrintStream(cli.getOutputStream());
+		serverStream.println(nickname);
 		scanner = new Scanner(cli.getInputStream());
 		gameEnded = false;
 	}
@@ -41,7 +43,7 @@ public class Connection extends Thread {
 		{
 			int player = scanner.nextInt();
 			
-			System.out.println("CHEGOU O PLAYER " + player);
+			System.out.println("Player " + player + " entrou");
 			game.setOnlinePlayerNumber(player);
 			
 			System.out.println("Esperando início do jogo");
@@ -70,15 +72,18 @@ public class Connection extends Thread {
 					}
 				}
 				
-				synchronized(this) //região crítica
-				{
-					System.out.println(message);
-					String[] msgsplit = message.split("ludoseparator");
-					for(String s : msgsplit){
-						System.out.println(s);
+				synchronized(this)
+				{					
+					if(message.startsWith("MESSAGE"))
+					{
+						Notifications.getInstance().notifyInfo("Mensagem do servidor", message.substring(7));
 					}
-					game.loadMap(GameSave.loadFromServer(msgsplit[0]), Dice.getCurValue());
-					gameEnded = Boolean.parseBoolean(msgsplit[1]);
+					else
+					{
+						String[] msgsplit = message.split("ludoseparator");
+						game.loadMap(GameSave.loadFromServer(msgsplit[0]), Dice.getCurValue());
+						gameEnded = Boolean.parseBoolean(msgsplit[1]);						
+					}
 				}
 			}
 			

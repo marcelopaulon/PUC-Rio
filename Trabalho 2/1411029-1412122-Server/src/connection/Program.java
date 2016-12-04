@@ -3,7 +3,6 @@ package connection;
 import java.io.IOException;
 import java.net.*;
 import java.util.Observable;
-import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -92,8 +91,6 @@ public class Program extends Observable {
 			//Creates lobby (where player connections and the game are managed)
 			GameLobby lobby = new GameLobby(loggerUI);
 			
-			Timer timer = new Timer();
-			
 			long start = 0;
 			
 			//While the game has not started, accept incoming player connections and pass them to the lobby
@@ -119,6 +116,7 @@ public class Program extends Observable {
 					}
 				} catch(SocketTimeoutException e) {
 					sendLog("O servidor será encerrado pois após 3 minutos os 4 usuários não entraram no servidor.");
+					lobby.sendMessage("Desconectado. O tempo limite (3 minutos) para preenchimento da sessão se esgotou.");
 					closeServer();
 					return;
 				} catch (IOException e) {

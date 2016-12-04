@@ -16,7 +16,7 @@ public class Board {
 	public Board(){
 		Scanner scannerFile;
 		try {
-			scannerFile = new Scanner(new File("saves/CRYPTOHAPPYENDING.ludosave"));
+			scannerFile = new Scanner(new File("saves/gameStartCrypto.ludosave"));
 			this.setBoard(scannerFile.nextLine());
 			scannerFile.close();
 		} catch (FileNotFoundException e) {

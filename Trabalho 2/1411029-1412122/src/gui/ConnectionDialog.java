@@ -29,6 +29,7 @@ public class ConnectionDialog extends JDialog {
 	
 	private JTextField ip;
 	private JTextField port;
+	private JTextField nickname;
 	
 	private static JFrame window;
 
@@ -56,13 +57,11 @@ public class ConnectionDialog extends JDialog {
 		okButton.addActionListener(new ActionListener()
 		{
 		  public void actionPerformed(ActionEvent e)
-		  {
-			  System.out.println("Deve começar a thread");
-			  
+		  {			  
 			  try {
 				  int portNumber = Integer.parseInt(port.getText());
 				  
-				  connection = new Connection(ip.getText(), portNumber);
+				  connection = new Connection(nickname.getText(), ip.getText(), portNumber);
 				  createGameWindow();
 				  connection.startGame(gameControl);
 				  dispose();
@@ -107,18 +106,28 @@ public class ConnectionDialog extends JDialog {
 		port = new JTextField();
 		port.setText("5002");
 		portPanel.add(port, BorderLayout.SOUTH);
-		BorderLayout layout = new BorderLayout(0, 0);
 		
+		JPanel nicknamePanel = new JPanel();
+		nicknamePanel.add(new JLabel("Nickname"), BorderLayout.NORTH);
+		nickname = new JTextField();
+		nickname.setText("Player " + ((int)(Math.random() * 100)));
+		nicknamePanel.add(nickname, BorderLayout.SOUTH);
+		
+		BorderLayout layout = new BorderLayout(0, 0);
 		form.setLayout(layout);
 		
-		form.add(ipPanel, BorderLayout.NORTH);
-		form.add(portPanel, BorderLayout.SOUTH);
+		JPanel connectionPanel = new JPanel();
+		connectionPanel.add(ipPanel, BorderLayout.NORTH);
+		connectionPanel.add(portPanel, BorderLayout.SOUTH);
+		
+		form.add(connectionPanel, BorderLayout.NORTH);
+		form.add(nicknamePanel, BorderLayout.SOUTH);
 		
 		getContentPane().add(form, BorderLayout.NORTH);
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		
 		this.pack();
-		
+		this.setLocationRelativeTo(null);
 	}
 	
 
@@ -150,7 +159,6 @@ public class ConnectionDialog extends JDialog {
 	{
 		window.setVisible(true);
 		
-		Notifications.getInstance().notifyGameStart();
 		gameControl.startGame();
 	}
 	
