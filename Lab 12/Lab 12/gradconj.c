@@ -193,7 +193,7 @@ int main(void)
 	Cholesky(n1, R1);
 	printMatriz(n1, n1, R1);
 
-	printf("Conjugate Gradient:\n");
+	printf("Conjugate Gradient:\n x = [");
 	ConjugateGradient(n1, A1, b1, x1);
 	for(i = 0; i < n1; i++)
 	{
