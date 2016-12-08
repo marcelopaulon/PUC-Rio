@@ -3,7 +3,10 @@
 #define _CSI
 
 #include "Point.h"
+#include "matriz.h"
+#include "gauss.h"
 
+#include <cstdlib>
 #include <iostream>
 
 class CubicSplineInterpolation 
@@ -40,6 +43,12 @@ private:
 	void setupDelta();
 	void setupUpsilon();
 	void setupGamma();
+	void setupLambda();
+	void setupMi();
+	void setupMatrix();
+	double calcA(int i);
+	double calcB(int i);
+	double calcC(int i);
 
 
 };

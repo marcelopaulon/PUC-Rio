@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gauss.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="matriz.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,18 +24,24 @@
     <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="matriz.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gauss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gauss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="matriz.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CubicSplineInterpolation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matriz.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
