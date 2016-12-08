@@ -99,9 +99,17 @@ void ConjugateGradient (int n, double** A, double* b, double* x)
 		for(j = 0; j < n; j++)
 		{
 			alpha += (r[j] * r[j]) / (d[j] * Ad[j]);
+		}
+
+		for(j = 0; j < n; j++)
+		{
 			x[j] = x[j] + alpha * d[j];
 			nextR[j] = r[j] - alpha * Ad[j];
 			beta += (nextR[j] * nextR[j]) / (r[j] * r[j]);
+		}
+
+		for(j = 0; j < n; j++)
+		{
 			d[j] = nextR[j] + beta*d[j];
 		}
 
