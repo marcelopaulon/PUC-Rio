@@ -37,6 +37,8 @@ private:
 	double * _h;
 	double * _gamma;
 	double * _upsilon;
+	Point * _R;
+	Point * _L;
 
 	void setup();
 	void setupH();

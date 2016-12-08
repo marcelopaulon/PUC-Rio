@@ -1,147 +1,91 @@
 #ifndef _GAUSS
 #define _GAUSS
 
-//#include "gauss.h"
-//
-//// Aviso: A matriz A e o vetor b terão seus valores alterados após a função ser chamada
-//void gauss(int n, double **A, double *b, double *x)
-//{
-//	int i, j, k, p;
-//	double s, f, temp;
-//	
-//	for(j = 0; j < n; j++)
-//	{
-//		x[j] = 0.0;
-//	}
-//
-//	for(j = 0; j < n - 1; j++)
-//	{
-//		// PIVOTAMENTO
-//		p = j;
-//
-//		for(k = j + 1; k < n; k++)
-//		{
-//			if(fabs(A[k][j]) > fabs(A[p][j]))
-//			{
-//				p = k;
-//			}
-//		}
-//
-//		for(k = j; k < n; k++)
-//		{
-//			// troca A[j][k] com A[p][k]
-//			temp = A[p][k];
-//			A[p][k] = A[j][k];
-//			A[j][k] = temp;
-//		}
-//
-//		// troca b[j] com b[p]
-//		temp = b[p];
-//		b[p] = b[j];
-//		b[j] = temp;
-//		// FIM PIVOTAMENTO
-//
-//		// Eliminar a coluna j
-//		for(i = j + 1; i < n; i++)
-//		{
-//			// Eliminar A[i][j]
-//			f = A[i][j] / A[j][j];
-//
-//			for(k = j; k < n; k++)
-//			{
-//				A[i][k] = A[i][k] - A[j][k] * f;
-//			}
-//
-//			b[i] = b[i] - b[j] * f;
-//		}
-//	}
-//
-//	for(i = n - 1; i >= 0; i--)
-//	{
-//		s = 0.0;
-//		for(j = i + 1; j <= n - 1; j++)
-//		{
-//			s = s + A[i][j] * x[j];
-//		}
-//
-//		x[i] = (b[i] - s) / A[i][i];
-//	}
-//}
 
+
+
+
+
+////Marcelo
 #include "gauss.h"
-#include "matriz.h"
-
 #include <cstdlib>
-#include <cmath>
 
-void gauss(int n, double** D, double* b, double* x)
+// Aviso: A matriz A e o vetor b terão seus valores alterados após a função ser chamada
+void gauss(int n, double **D, double *v, double *x)
 {
-	int i, j, k;
-	double temp, f;
-	double *v;
+	int i, j, k, p;
+	double s, f, temp, *b;
+
 	//copia D para A
 	double **A = mat_duplica(D, n, n);
-	v = (double*)malloc(n * sizeof(double));
-	//copia b para v
+	b = (double*)malloc(n * sizeof(double));
+	//copia v para b
 	for (i = 0; i < n; i++)
 	{
-		v[i] = b[i];
+		b[i] = v[i];
 	}
 
-	//faz pivotamento
-
-	//acha maior
-	for (i = 0, j = 0; j < n; j++)
+	for(j = 0; j < n; j++)
 	{
-		if (fabs(A[j][0]) > fabs(A[i][0]))
+		x[j] = 0.0;
+	}
+
+	for(j = 0; j < n - 1; j++)
+	{
+		// PIVOTAMENTO
+		p = j;
+
+		for(k = j + 1; k < n; k++)
 		{
-			i = j;
+			if(fabs(A[k][j]) > fabs(A[p][j]))
+			{
+				p = k;
+			}
 		}
-	}
-	//troca posições
-	for (k = 0; k < n; k++)
-	{
-		temp = A[i][k];
-		A[i][k] = A[0][k];
-		A[0][k] = temp;
-	}
-	temp = v[i];
-	v[i] = v[0];
-	v[0] = temp;
 
-
-
-	//faz matriz triangular
-	for (j = 0; j < n - 1; j++)
-		//para j de 0 até penúltima coluna,
-	{
-		for (i = j + 1; i < n; i++)
-			//elimina coluna j:
+		for(k = j; k < n; k++)
 		{
-			//elimina Aij
+			// troca A[j][k] com A[p][k]
+			temp = A[p][k];
+			A[p][k] = A[j][k];
+			A[j][k] = temp;
+		}
+
+		// troca b[j] com b[p]
+		temp = b[p];
+		b[p] = b[j];
+		b[j] = temp;
+		// FIM PIVOTAMENTO
+
+		
+
+		// Eliminar a coluna j
+		for(i = j + 1; i < n; i++)
+		{
+			// Eliminar A[i][j]
 			f = A[i][j] / A[j][j];
-			for (k = j; k < n; k++)
+			
+			for(k = j; k < n; k++)
 			{
 				A[i][k] = A[i][k] - A[j][k] * f;
 			}
-			v[i] = v[i] - v[j] * f;
+
+			b[i] = b[i] - b[j] * f;
 		}
 	}
 
-
-
-	//obtem x[n-1]
-	x[n - 1] = v[n - 1] / A[n - 1][n - 1];
-	//usa a matriz triangular para obter x[i]'s:
-	for (i = n - 2; i >= 0; i--)
+	for(i = n - 1; i >= 0; i--)
 	{
-		for (k = i + 1; k < n; k++)
+		s = 0.0;
+		for(j = i + 1; j <= n - 1; j++)
 		{
-			v[i] -= A[i][k] * x[k];
+			s = s + A[i][j] * x[j];
 		}
-		x[i] = v[i] / A[i][i];
+
+		x[i] = (b[i] - s) / A[i][i];
 	}
-	return;
+
+	printMatriz(n, n, A);
 }
 
 #endif // !_GAUSS

@@ -72,7 +72,7 @@ void CubicSplineInterpolation::setupLambda()
 	_lambda = new double[_n];
 	
 	//spline aberta:
-	_lambda[0] = _lambda[_n - 1] = 0;
+	_lambda[0] = _lambda[_n - 1] = 1.0;
 	
 	for (int i = 1; i < _n - 1; i++)
 	{
@@ -181,23 +181,48 @@ void CubicSplineInterpolation::setup()
 		tempPY[i] = _points[i].getY();
 	}
 
+	printf("GaussX:\n");
 	gauss(_n, _A, tempPX, tempDX);
+	printf("GaussY:\n");
 	gauss(_n, _A, tempPY, tempDY);
-
-
-
-	
+		
 	//y
 
 	for(int i = 0; i < _n; i++)
 	{
 		double sum = 2.0 * (_h[i] + _h[i+1]);
 		_gamma[i] = sum / (_upsilon[i] * _h[i] * _h[i+1] + sum);
-		std::cout << "[" << i << "] h = " << _h[i] << " delta = " << _delta[i] << " upsilon = " << _upsilon[i] << " gamma = " << _gamma[i] <<  " lambda = " << _lambda[i] << "tempDX = " << tempDX[i] << "tempDY = " << tempDY[i] <<std::endl;
+		//std::cout << "[" << i << "] h = " << _h[i] << " delta = " << _delta[i] << " upsilon = " << _upsilon[i] << " gamma = " << _gamma[i] <<  " lambda = " << _lambda[i] << "mi = " << _mi[i] <<std::endl;
+		std::cout << tempDX[i] << " " << tempDY[i] << std::endl;
 	}
 
 	std::cout << "[" << _n << "] h = " << _h[_n] << std::endl;
 
 	printf("matriz:\n");
 	printMatriz(_n, _n, _A);
+
+	// Calcula R e L
+	_R = new Point[_n - 1];
+	_L = new Point[_n - 1];
+
+	for (int i = 0; i < _n - 1; i++)
+	{
+		double Rx, Ry, Lx, Ly;
+
+		Rx = (1 - _mi[i]) * tempDX[i] + _mi[i] * tempDX[i + 1];
+		Ry = (1 - _mi[i]) * tempDY[i] + _mi[i] * tempDY[i + 1];
+
+		Lx = (1 - _lambda[i + 1]) * tempDX[i] + _lambda[i + 1] * tempDX[i + 1];
+		Ly = (1 - _lambda[i + 1]) * tempDY[i] + _lambda[i + 1] * tempDY[i + 1];
+
+		_R[i] = Point(Rx, Ry);
+		_L[i] = Point(Lx, Ly);
+
+		std::cout << "R[" << i << "] = " << _R[i].getX() << ", " << _R[i].getY() << std::endl;
+		std::cout << "L[" << i << "] = " << _L[i].getX() << ", " << _L[i].getY() << std::endl;
+	}
+
+	
+
+
 }
