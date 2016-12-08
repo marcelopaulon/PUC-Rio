@@ -35,6 +35,17 @@ int main(void)
 
 	csi->calculateSpline();
 	
-	csi->calculatePoint(1, 2.0);
+	for (int i = 0; i < n -1; i++)
+	{
+		for (double t = 0.0; t <= 1.0; t += 0.1)
+		{
+			Point point = csi->calculatePoint(i, t);
+
+			std::cout << point.getX() << ";" << point.getY() << std::endl;
+
+		}
+	}
+
+	
 	return 0;
 }

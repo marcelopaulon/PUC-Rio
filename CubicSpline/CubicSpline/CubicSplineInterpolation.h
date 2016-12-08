@@ -52,6 +52,8 @@ private:
 	double calcB(int i);
 	double calcC(int i);
 
+	double calcCasteljau(double b0, double b1, double b2, double b3, double t);
+	double casteljauB(double b0, double b1, double b2, double b3, int i, double t);
 
 };
 

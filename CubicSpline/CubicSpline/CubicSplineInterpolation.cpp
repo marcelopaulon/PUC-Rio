@@ -14,7 +14,10 @@ CubicSplineInterpolation::CubicSplineInterpolation(Point *points, int n)
 
 Point CubicSplineInterpolation::calculatePoint(int i, double t)
 {
-	return Point(56,56);
+	double pointX = calcCasteljau(_points[i].getX(), _R[i].getX(), _L[i].getX(), _points[i + 1].getX(), t);
+	double pointY = calcCasteljau(_points[i].getY(), _R[i].getY(), _L[i].getY(), _points[i + 1].getY(), t);
+
+	return Point(pointX, pointY);
 }
 
 void CubicSplineInterpolation::calculateSpline()
@@ -111,6 +114,43 @@ double CubicSplineInterpolation::calcC(int i)
 {
 	return _delta[i] * _mi[i];
 }
+
+double CubicSplineInterpolation::calcCasteljau(double b0, double b1, double b2, double b3, double t)
+{
+	return casteljauB(b0, b1, b2, b3, 0, t);
+}
+
+//calcula castejau de b(3)(i)(t) (usando k = 3), não recursivamente
+double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, double b3, int i, double t)
+{
+	double c1 = (1 - t)*((1 - t)*((1 - t)*b0 + t*b1) + t*((1 - t)*b1 + t*b2));
+	double c2 = t*((1 - t)*((1 - t)*b1 + t*b2) + t*((1 - t)*b2 + t*b3));
+	return c1 + c2;
+}
+
+//calcula recursivament casteljau de B(k)(i)(t) 
+//double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, double b3, int i, int k, double t)
+//{
+//	if (k == 0)
+//	{
+//		switch (i)
+//		{
+//			case 0:
+//				return b0;
+//			case 1:
+//				return b1;
+//			case 2:
+//				return b2;
+//			case 3:
+//				return b3;
+//			default:
+//				std::cout << "Error - invalid i value on casteljauB." << std::endl;
+//				exit(-1);
+//		}
+//	}
+//
+//	return (1 - t) * casteljauB(b0, b1, b2, b3, i, k - 1, t) + t * casteljauB(b0, b1, b2, b3, i + 1, k - 1, t);
+//}
 
 void CubicSplineInterpolation::setupMatrix()
 {
