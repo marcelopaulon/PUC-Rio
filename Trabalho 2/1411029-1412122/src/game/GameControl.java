@@ -1,4 +1,4 @@
-﻿package game;
+package game;
 
 import boardInfo.Board;
 import boardInfo.Dice;

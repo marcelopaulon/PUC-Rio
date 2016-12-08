@@ -1,4 +1,4 @@
-﻿package notifications;
+package notifications;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
