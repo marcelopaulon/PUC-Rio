@@ -1,23 +1,34 @@
 #include "CubicSplineInterpolation.h"
 
-CubicSplineInterpolation::CubicSplineInterpolation(Point *points, int n)
+CubicSplineInterpolation::CubicSplineInterpolation(Point *points, int n, bool openSpline, bool uniformSpline)
 {
 	_points = new Point[n];
 
 	_n = n;
 
-	for(int i = 0; i < n; i++)
+	_uniformSpline = uniformSpline;
+	_openSpline = openSpline;
+
+
+	for (int i = 0; i < n; i++)
 	{
 		_points[i] = points[i];
 	}
+
+	setupUpsilon();
 }
 
 Point CubicSplineInterpolation::calculatePoint(int i, double t)
 {
-	double pointX = calcCasteljau(_points[i].getX(), _R[i].getX(), _L[i].getX(), _points[i + 1].getX(), t);
-	double pointY = calcCasteljau(_points[i].getY(), _R[i].getY(), _L[i].getY(), _points[i + 1].getY(), t);
+	double pointX = casteljauB(_points[i].getX(), _R[i].getX(), _L[i].getX(), _points[i + 1].getX(), t);
+	double pointY = casteljauB(_points[i].getY(), _R[i].getY(), _L[i].getY(), _points[i + 1].getY(), t);
 
 	return Point(pointX, pointY);
+}
+
+void CubicSplineInterpolation::setTension(int i, double tension)
+{
+	_upsilon[i] = tension;
 }
 
 void CubicSplineInterpolation::calculateSpline()
@@ -29,14 +40,31 @@ void CubicSplineInterpolation::setupH()
 {
 	_h = new double[_n+1];
 
-	_h[0] = 0;  // Spline aberta
-	_h[_n] = 0; // Spline aberta
-
-	// Spline com espaçamento uniforme
-	for(int i = 1; i < _n; i++)
+	if (_openSpline)
 	{
-		_h[i] = 1;
+		_h[0] = 1;
+		_h[_n] = 1;
 	}
+	else
+	{
+		_h[0] = _h[_n] = norm(_points[_n - 1], _points[0]);
+	}
+
+	if(_uniformSpline)
+	{
+		for (int i = 1; i < _n; i++)
+		{
+			_h[i] = 1;
+		}
+	}
+	else
+	{
+		for (int i = 1; i < _n; i++)
+		{
+			_h[i] = norm(_points[i], _points[i-1]);
+		}
+	}
+	
 }
 
 void CubicSplineInterpolation::setupDelta()
@@ -75,7 +103,20 @@ void CubicSplineInterpolation::setupLambda()
 	_lambda = new double[_n];
 	
 	//spline aberta:
-	_lambda[0] = _lambda[_n - 1] = 1.0;
+	if (_openSpline)
+	{
+		_lambda[0] = _lambda[_n - 1] = 1.0;
+	}
+	else
+	{
+		double num = ((_gamma[_n - 1] * _h[_n - 1]) + _h[0]);
+		_lambda[0] = num / (num + _gamma[0] * _h[1]);
+
+		num = ((_gamma[_n - 2] * _h[_n - 2]) + _h[_n-1]);
+		_lambda[_n - 1] = num / (num + _gamma[_n - 1] * _h[0]);
+
+	}
+	
 	
 	for (int i = 1; i < _n - 1; i++)
 	{
@@ -89,7 +130,18 @@ void CubicSplineInterpolation::setupMi()
 	_mi = new double[_n];
 
 	//spline aberta
-	_mi[0] = _mi[_n - 1] = 0.0;
+	if (_openSpline)
+	{
+		_mi[0] = _mi[_n - 1] = 0.0;
+	}
+	else
+	{
+		double num = _gamma[0] * _h[0];
+		_mi[0] = num / (num + _h[1] + _gamma[1] * _h[2]);
+
+		num = _gamma[_n-1] * _h[_n-1];
+		_mi[_n-1] = num / (num + _h[_n] + _gamma[0] * _h[1]);
+	}
 
 	for (int i = 1; i < _n - 1; i++)
 	{
@@ -115,13 +167,8 @@ double CubicSplineInterpolation::calcC(int i)
 	return _delta[i] * _mi[i];
 }
 
-double CubicSplineInterpolation::calcCasteljau(double b0, double b1, double b2, double b3, double t)
-{
-	return casteljauB(b0, b1, b2, b3, 0, t);
-}
-
 //calcula castejau de b(3)(i)(t) (usando k = 3), não recursivamente
-double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, double b3, int i, double t)
+double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, double b3, double t)
 {
 	double c1 = (1 - t)*((1 - t)*((1 - t)*b0 + t*b1) + t*((1 - t)*b1 + t*b2));
 	double c2 = t*((1 - t)*((1 - t)*b1 + t*b2) + t*((1 - t)*b2 + t*b3));
@@ -199,11 +246,17 @@ void CubicSplineInterpolation::setupMatrix()
 
 
 
+double CubicSplineInterpolation::norm(Point p1, Point p2)
+{
+	double norm2 = (p1.getX() - p2.getX()) * (p1.getX() - p2.getX());
+	norm2 += (p1.getY() - p2.getY()) * (p1.getY() - p2.getY());
+	return sqrt(norm2);
+}
+
 void CubicSplineInterpolation::setup()
 {
 	setupH();
 	setupDelta();
-	setupUpsilon();
 	setupGamma();
 	setupLambda();
 	setupMi();
