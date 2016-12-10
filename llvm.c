@@ -533,27 +533,19 @@ static int genExp(Exp *exp, int nIdent, FILE *fp) {
             return ret;
         }
         case ExpInt: {
-            int temp = getNextTempVar();
             int ret = getNextTempVar();
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = alloca i32\n", temp);
-            genIdent(nIdent, fp);
-            fprintf(fp, "store i32 %d, i32* %%t%d\n", exp->u.l, temp);
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load i32* %%t%d\n", ret, temp);
+            printTemp(ret, fp);
+            fprintf(fp, " = add i32 0, %d\n", exp->u.l);
             return ret;
         }
         case ExpFloat: {
-            int temp = getNextTempVar();
             int ret = getNextTempVar();
             genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = alloca float\n", temp);
-            genIdent(nIdent, fp);
-            fprintf(fp, "store float ");
+            printTemp(ret, fp);
+            fprintf(fp, " = fadd float 0.0, ");
             doubleToHex(exp->u.d, fp);
-            fprintf(fp, ",float* %%t%d\n", temp);
-            genIdent(nIdent, fp);
-            fprintf(fp, "%%t%d = load float* %%t%d\n", ret, temp);
+            fprintf(fp, "\n");
             return ret;
         }
         case ExpCastIntToFloat: {

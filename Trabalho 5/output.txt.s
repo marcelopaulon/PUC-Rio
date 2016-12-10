@@ -19,7 +19,6 @@ c:                                      # @c
 b:                                      # @b
 	.cfi_startproc
 # BB#0:
-	movl	$0, -4(%rsp)
 	vxorps	%xmm0, %xmm0, %xmm0
 	ret
 .Ltmp1:
@@ -32,7 +31,6 @@ b:                                      # @b
 a:                                      # @a
 	.cfi_startproc
 # BB#0:
-	movl	$0, -4(%rsp)
 	xorl	%eax, %eax
 	ret
 .Ltmp2:
