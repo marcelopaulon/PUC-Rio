@@ -63,6 +63,9 @@ private:
 
 	double casteljauB(double b0, double b1, double b2, double b3, double t);
 
+	//resolve o sistema linear tridiagonal usando o método de Thomas.
+	void Thomas(int n, double *a, double *b, double *c, double *dX, double *dY, double *x, double *y);
+
 };
 
 #endif

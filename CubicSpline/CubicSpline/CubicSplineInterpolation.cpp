@@ -175,6 +175,43 @@ double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, dou
 	return c1 + c2;
 }
 
+void CubicSplineInterpolation::Thomas(int n, double * a, double * b, double * c, double * dX, double *dY, double * x, double *y)
+{
+	double *cl = (double*)malloc(n * sizeof(double));
+	double *dlX = (double*)malloc(n * sizeof(double));
+	double *dlY = (double*)malloc(n * sizeof(double));
+
+
+	if (cl == nullptr || dlX == nullptr || dlY == nullptr)
+	{
+		std::cout << "Unable to allocate memory." << std::endl;
+		exit(1);
+	}
+
+	cl[0] = c[0] / b[0];
+	dlX[0] = dX[0] / b[0];
+	dlY[0] = dY[0] / b[0];
+
+	for (int i = 1; i < n; i++)
+	{
+		double div = (b[i] - a[i] * cl[i - 1]);
+		cl[i] = c[i] / div;
+
+		dlX[i] = (dX[i] - a[i] * dlX[i - 1]) / div;
+
+		dlY[i] = (dY[i] - a[i] * dlY[i - 1]) / div;
+	}
+
+	x[n - 1] = dlX[n - 1];
+	y[n - 1] = dlY[n - 1];
+
+	for (int i = n-2; i >= 0 ; i--)
+	{
+		x[i] = dlX[i] - cl[i] * x[i + 1];
+		y[i] = dlY[i] - cl[i] * y[i + 1];
+	}
+}
+
 //calcula recursivament casteljau de B(k)(i)(t) 
 //double CubicSplineInterpolation::casteljauB(double b0, double b1, double b2, double b3, int i, int k, double t)
 //{
@@ -274,25 +311,53 @@ void CubicSplineInterpolation::setup()
 		tempPY[i] = _points[i].getY();
 	}
 
+	double *a = new double[_n];
+	double *b = new double[_n];
+	double *c = new double[_n];
+
+	a[0] = 0;
+	c[_n - 1] = 0;
+
+	for (int i = 0; i < _n; i++)
+	{
+		if (i > 0)
+		{
+			c[i - 1] = _A[i - 1][i];
+		}
+
+		b[i] = _A[i][i];
+
+		if (i < _n - 1)
+		{
+			a[i + 1] = _A[i + 1][i];
+		}
+		
+	}
+
+	Thomas(_n, a, b, c, tempPX, tempPY, tempDX, tempDY);
+
+/*
 	printf("GaussX:\n");
 	gauss(_n, _A, tempPX, tempDX);
 	printf("GaussY:\n");
 	gauss(_n, _A, tempPY, tempDY);
-		
+	*/
+
 	//y
 
 	for(int i = 0; i < _n; i++)
 	{
-		double sum = 2.0 * (_h[i] + _h[i+1]);
-		_gamma[i] = sum / (_upsilon[i] * _h[i] * _h[i+1] + sum);
+		//double sum = 2.0 * (_h[i] + _h[i+1]);
+		//_gamma[i] = sum / (_upsilon[i] * _h[i] * _h[i+1] + sum);
+		
 		//std::cout << "[" << i << "] h = " << _h[i] << " delta = " << _delta[i] << " upsilon = " << _upsilon[i] << " gamma = " << _gamma[i] <<  " lambda = " << _lambda[i] << "mi = " << _mi[i] <<std::endl;
 		std::cout << tempDX[i] << " " << tempDY[i] << std::endl;
 	}
 
 	std::cout << "[" << _n << "] h = " << _h[_n] << std::endl;
 
-	printf("matriz:\n");
-	printMatriz(_n, _n, _A);
+	/*printf("matriz:\n");
+	printMatriz(_n, _n, _A);*/
 
 	// Calcula R e L
 	_R = new Point[_n - 1];
@@ -317,5 +382,12 @@ void CubicSplineInterpolation::setup()
 
 	
 
-
+	delete[] a;
+	delete[] b;
+	delete[] c;
+	delete[] tempDX;
+	delete[] tempDY;
+	delete[] tempPX;
+	delete[] tempPY;
+	mat_libera(_n, _A);
 }
