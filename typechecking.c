@@ -8,11 +8,11 @@ static SymbolTable *table = NULL;
 static char *curFunction = NULL;
 static Type *curReturnType = NULL;
 
-void checkBlock(Block *block);
-void checkCmdCall(CmdCall *cmd);
-Type *checkVar(Var *var, Exp **exp, int line);
+static void checkBlock(Block *block);
+static void checkCmdCall(CmdCall *cmd);
+static Type *checkVar(Var *var, Exp **exp, int line);
 
-int typeEquals(Type *t1, Type *t2)
+static int typeEquals(Type *t1, Type *t2)
 {
     if(t1 == NULL && t2 != NULL) return 0;
     if(t2 == NULL && t1 != NULL) return 0;
@@ -22,7 +22,7 @@ int typeEquals(Type *t1, Type *t2)
     return 1;
 }
 
-int isExpNumerical(Exp *e)
+static int isExpNumerical(Exp *e)
 {
     Type *type = e->type;
 
@@ -31,7 +31,7 @@ int isExpNumerical(Exp *e)
     return 1;
 }
 
-void checkSymbolRedefinition(char *id)
+static void checkSymbolRedefinition(char *id)
 {
     if(findCurrentScope(table, id) != NULL)
     {
@@ -40,7 +40,7 @@ void checkSymbolRedefinition(char *id)
     }
 }
 
-void checkParamList(ParamList * list)
+static void checkParamList(ParamList * list)
 {
     ParamList * current;
     
@@ -56,7 +56,7 @@ void checkParamList(ParamList * list)
     }
 }
 
-void checkDefVarList(DefVarList *defvarlist)
+static void checkDefVarList(DefVarList *defvarlist)
 {
     DefVarList * current;
 
@@ -72,7 +72,7 @@ void checkDefVarList(DefVarList *defvarlist)
     }
 }
 
-void checkExp(Exp *exp)
+static void checkExp(Exp *exp)
 {
     if(exp == NULL) return;
 
@@ -182,7 +182,7 @@ void checkExp(Exp *exp)
     }
 }
 
-void checkExpList(ExpList *expList, int line)
+static void checkExpList(ExpList *expList, int line)
 {
     ExpList * current;
 
@@ -198,7 +198,7 @@ void checkExpList(ExpList *expList, int line)
     }
 }
 
-void checkCmdCall(CmdCall *cmd)
+static void checkCmdCall(CmdCall *cmd)
 {
     DecList *temp = find(table, cmd->id);
     Func *f;
@@ -253,7 +253,7 @@ void checkCmdCall(CmdCall *cmd)
     }
 }
 
-Type *checkVar(Var *var, Exp **exp, int line)
+static Type *checkVar(Var *var, Exp **exp, int line)
 {
     if(exp != NULL)
     {
@@ -338,7 +338,7 @@ Type *checkVar(Var *var, Exp **exp, int line)
     }
 }
 
-void checkCmdBasic(CmdBasic *cmd)
+static void checkCmdBasic(CmdBasic *cmd)
 {
     switch(cmd->type) {
         case CmdBasicReturn:
@@ -368,7 +368,7 @@ void checkCmdBasic(CmdBasic *cmd)
     }
 }
 
-void checkCmd(Cmd *cmd)
+static void checkCmd(Cmd *cmd)
 {
     switch(cmd->type){
         case CmdWhile:
@@ -411,7 +411,7 @@ void checkCmd(Cmd *cmd)
     }
 }
 
-void checkCmdList(CmdList *cmdList)
+static void checkCmdList(CmdList *cmdList)
 {
     CmdList * current;
 
@@ -426,7 +426,7 @@ void checkCmdList(CmdList *cmdList)
     }
 }
 
-void checkBlock(Block *block)
+static void checkBlock(Block *block)
 {
     enterScope(&table);
     checkDefVarList(block->vars);
@@ -434,7 +434,7 @@ void checkBlock(Block *block)
     leaveScope(&table);
 }
 
-void checkDefFunc(Func *deffunc)
+static void checkDefFunc(Func *deffunc)
 {
     checkSymbolRedefinition(deffunc->id);
     
@@ -451,7 +451,7 @@ void checkDefFunc(Func *deffunc)
     leaveScope(&table);
 }
 
-void checkDefinition(Definition *definition)
+static void checkDefinition(Definition *definition)
 {
     if(definition->type == TypeDefVar)
     {

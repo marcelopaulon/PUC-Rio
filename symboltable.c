@@ -215,13 +215,6 @@ void leaveScope (SymbolTable **p)
     free(temp);
 }
 
-int symbolTable_isEmpty (SymbolTable *p)
-{
-    if(p->previous == NULL) return 0;
-    if(p->current == NULL) return 1;
-    return 0;
-}
-
 void free_symbolTable (SymbolTable *p)
 {
     free(p);
