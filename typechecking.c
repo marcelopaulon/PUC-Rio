@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "typechecking.h"
-#include "ast.h"
 
 static SymbolTable *table = NULL;
 

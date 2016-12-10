@@ -203,8 +203,6 @@ static void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal)
 }
 
 static void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
-    genExp(cmd->e, nIdent, fp);
-
     switch(cmd->tag){
         case CmdWhile:
             genWhile(cmd, nIdent, fp);
