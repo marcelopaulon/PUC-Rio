@@ -363,7 +363,12 @@ static int genArith(Exp *exp, int nIdent, FILE *fp)
         if(exp->tag == ExpAdd) op = "fadd";
         else if(exp->tag == ExpSub) op = "fsub";
         else if(exp->tag == ExpMul) op = "fmul";
-        else  op = "fdiv";
+        else if(exp->tag == ExpDiv)   op = "fdiv";
+        else
+        {
+            printf("Invalid operation on line %d. Exiting.\n", exp->line);
+            exit(-1);
+        }
     }
     else
     {
@@ -372,7 +377,12 @@ static int genArith(Exp *exp, int nIdent, FILE *fp)
         if(exp->tag == ExpAdd) op = "add";
         else if(exp->tag == ExpSub) op = "sub";
         else if(exp->tag == ExpMul) op = "mul";
-        else  op = "sdiv";
+        else if(exp->tag == ExpDiv)   op = "sdiv";
+        else
+        {
+            printf("Invalid operation on line %d. Exiting.\n", exp->line);
+            exit(-1);
+        }
     }
 
     genIdent(nIdent, fp);
