@@ -397,19 +397,19 @@ static int genExpVar(Exp *exp, int nIdent, FILE *fp)
 
     genIdent(nIdent, fp);
 
-    if(exp->u.var->decType == VarParam)
+    if(exp->u.var->u.def.decTag == VarParam)
     {
-        ret = exp->u.var->u.def.p->varNumber;
+        ret = exp->u.var->u.def.tag.p->varNumber;
     }
     else
     {
         char *accessType;
 
-        if(exp->u.var->u.def.dec->type->name == VarFloat)
+        if(exp->u.var->u.def.tag.dec->type->name == VarFloat)
         {
             type = "float";
         }
-        else if(exp->u.var->u.def.dec->type->name == VarChar)
+        else if(exp->u.var->u.def.tag.dec->type->name == VarChar)
         {
             type = "i8";
         }
@@ -418,7 +418,7 @@ static int genExpVar(Exp *exp, int nIdent, FILE *fp)
             type = "i32";
         }
 
-        if(exp->u.var->u.def.dec->isGlobal)
+        if(exp->u.var->u.def.tag.dec->isGlobal)
         {
             accessType = "@";
         }
@@ -427,7 +427,7 @@ static int genExpVar(Exp *exp, int nIdent, FILE *fp)
             accessType = "%";
         }
 
-        fprintf(fp, "%%t%d = load %s* %st%d\n", ret, type, accessType, exp->u.var->u.def.dec->varNumber);
+        fprintf(fp, "%%t%d = load %s* %st%d\n", ret, type, accessType, exp->u.var->u.def.tag.dec->varNumber);
     }
 
     return ret;
@@ -540,12 +540,12 @@ static void genVar(Var *var, int nIdent, FILE *fp) {
 
     // TODO: Tratar varindexed
 
-    if(!var->u.def.dec->isGlobal) {
-        fprintf(fp, "%%t%d", var->u.def.dec->varNumber);
+    if(!var->u.def.tag.dec->isGlobal) {
+        fprintf(fp, "%%t%d", var->u.def.tag.dec->varNumber);
     }
     else
     {
-        fprintf(fp, "@t%d", var->u.def.dec->varNumber);
+        fprintf(fp, "@t%d", var->u.def.tag.dec->varNumber);
     }
 }
 
@@ -630,7 +630,7 @@ static void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             switch(cmd->u.varCmd.var->tag)
             {
                 case VarId:
-                    genType(cmd->u.varCmd.var->u.def.dec->type, fp);
+                    genType(cmd->u.varCmd.var->u.def.tag.dec->type, fp);
                     break;
                 case VarIndexed:
                     // TODO

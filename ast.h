@@ -104,13 +104,17 @@ struct DefVar{
 
 typedef struct Var{
     VarE tag;
-    VarDecE decType;
 
     union {
         union {
             const char *id; // Access only before type checking
-            DefVar *dec;
-            Param *p;
+            struct {
+                VarDecE decTag;
+                union {
+                    DefVar *dec;
+                    Param *p;
+                } tag;
+            };
         } def;
         struct{
             struct Exp *e1, *e2;

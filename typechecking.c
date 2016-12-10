@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "typechecking.h"
+#include "ast.h"
 
 static SymbolTable *table = NULL;
 
@@ -288,8 +289,8 @@ static Type *checkVar(Var *var, Exp **exp, int line)
         }
 
         if(temp->type == 'v') {
-            var->decType = VarDec;
-            var->u.def.dec = temp->val.v;
+            var->u.def.decTag = VarDec;
+            var->u.def.tag.dec = temp->val.v;
             if(temp->val.v->type->name != VarChar) {
                 return temp->val.v->type;
             }
@@ -301,8 +302,8 @@ static Type *checkVar(Var *var, Exp **exp, int line)
             }
         }
         else {
-            var->decType = VarParam;
-            var->u.def.p = temp->val.p;
+            var->u.def.decTag = VarParam;
+            var->u.def.tag.p = temp->val.p;
 
             if(temp->val.p->type->name != VarChar) {
                 return temp->val.p->type;
