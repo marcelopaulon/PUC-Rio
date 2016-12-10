@@ -1,14 +1,7 @@
 #pragma once
 
 #include <string>
-
-/**
-* OpenGL vec3f
-*/
-struct vec3f
-{
-	float x, y, z;
-};
+#include "Vec3f.h"
 
 struct RGB
 {
@@ -28,6 +21,7 @@ struct pixelPos
 struct Texture
 {
 	std::string path;
+	Image image;
 };
 
 struct Scene
@@ -67,4 +61,11 @@ struct Light
 {
 	vec3f pos;
 	RGB color;
+};
+
+// R(t) = o + t*d
+struct Ray
+{
+	vec3f o;
+	vec3f d;
 };

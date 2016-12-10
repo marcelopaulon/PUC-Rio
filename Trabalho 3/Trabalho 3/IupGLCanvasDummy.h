@@ -17,6 +17,10 @@
 
 #include "SceneObject.h"
 
+#include "Image.h"
+
+#define PI 3.14159265359
+
 class IupGLCanvasDummy
 {
 
@@ -200,6 +204,8 @@ private:
 	*/
 	std::vector<Triangle> trianglesList;
 
+	Image * image;
+
 	/**
 	* Carrega um arquivo .rt5.
 	*/
@@ -277,6 +283,8 @@ private:
 	static int keypressCallback(Ihandle * self, int c, int press);
 	
 	static int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state);
+
+	void rayTrace();
 
 	static int IupGLCanvasDummy::setModel(Ihandle * self, int state);
 

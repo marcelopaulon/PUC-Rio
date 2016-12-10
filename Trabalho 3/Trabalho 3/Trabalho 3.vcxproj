@@ -29,6 +29,7 @@
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="structures.h" />
+    <ClInclude Include="Vec3f.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsShader.cpp" />

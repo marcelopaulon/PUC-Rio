@@ -24,6 +24,8 @@
 #include <string>
 #include <fstream>
 
+#include "Image.h"
+
 #define FILENAME "rt5/plastic_ball.rt5"
 
 
@@ -255,6 +257,24 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 	scene.texture = Texture();
 	(*in) >> scene.texture.path;
 
+	if (scene.texture.path != "" && scene.texture.path != "null")
+	{
+		Image image;
+
+		if (image.readBMP(scene.texture.path.c_str()))
+		{
+			scene.texture.image = image;
+		}
+		else
+		{
+			std::cout << "Error loading scene texture " << scene.texture.path << std::endl;
+		}
+	}
+	else
+	{
+		scene.texture.image = nullptr;
+	}
+
 	return scene;
 }
 
@@ -281,6 +301,25 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 	
 	material.texture = Texture();
 	(*in) >> material.texture.path;
+
+	if (material.texture.path != "" && material.texture.path != "null")
+	{
+		Image image;
+
+		if (image.readBMP(material.texture.path.c_str()))
+		{
+			material.texture.image = image;
+		}
+		else
+		{
+			std::cout << "Error loading material " << material.name << " texture " << material.texture.path << std::endl;
+			material.texture.image = nullptr;
+		}
+	}
+	else
+	{
+		material.texture.image = nullptr;
+	}
 	
 	return material;
 }
@@ -368,8 +407,6 @@ void IupGLCanvasDummy::parseRT5(const char *filename)
 	std::ifstream in(filename);
 	std::string str;
 	int curLine = 1;
-	int itemp;
-	double ftemp;
 
 	scale = 1.0;
 	eyeX = 8, eyeY = 3.0, eyeZ = 2.0;
@@ -782,6 +819,43 @@ int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state)
 
 
 
+Pixel trace(Ray ray)
+{
+
+}
+
+
+
+void IupGLCanvasDummy::rayTrace()
+{
+	int width = camera.imgWidth;
+	int height = camera.imgHeight;
+
+	image = new Image(width, height);
+
+	vec3f ze = (camera.eyePos - camera.refPos).normalized();
+	vec3f xe = vec3f::cross(camera.up, ze).normalized();
+	vec3f ye = vec3f::cross(ze, xe);
+
+	double a = 2 * camera.nearPos * tan(camera.fov * (PI / 180.0) / 2.0);
+	double b = ((float)width / (float)height) * a;
+
+	for (int y = 0; y < width; y++)
+	{
+		for (int x = 0; x < height; x++)
+		{
+			Ray ray;
+			ray.o = camera.eyePos;
+			ray.d = ze * -camera.nearPos + ye * a * ((float)y / (float)height - 0.5) + xe * b * ((float)x / (float)width - 0.5);
+
+			Pixel pixel = trace(ray);
+			image->setPixel(y, x, pixel);
+		}
+	}
+}
+
+
+
 int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 {
 	if (state != 1) return IUP_DEFAULT;
@@ -791,8 +865,10 @@ int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 	std::string filename = IupGetAttribute(self, "TITLE");
 	filename = "models/" + filename;
 	canvas->parseRT5(filename.c_str());
+	canvas->rayTrace();
+	canvas->image->writeBMP(filename.append(".out.bpm").c_str());
 
-	canvas->redraw();
+	//canvas->redraw();
 	canvas->updatePanelInfo();
 
 	return IUP_DEFAULT;
