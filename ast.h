@@ -10,8 +10,8 @@ typedef struct Exp Exp;
 typedef struct Type Type;
 typedef enum CmdE CmdE;
 typedef enum ExpE ExpE;
-typedef enum CmdBasicType CmdBasicType;
-typedef enum DefinitionType DefinitionType;
+typedef enum CmdBasicE CmdBasicE;
+typedef enum DefinitionE DefinitionE;
 typedef struct ExpList ExpList;
 typedef struct CmdList CmdList;
 typedef struct List List;
@@ -27,13 +27,13 @@ typedef struct Func Func;
 typedef struct Definition Definition;
 typedef struct DefinitionList DefinitionList;
 
-enum DefinitionType {
+enum DefinitionE {
     TypeDefVar,
     TypeDefFunc
 };
 
 struct Definition {
-    DefinitionType type;
+    DefinitionE type;
     union {
         DefVarList *defvarlist;
         Func *deffunc;
@@ -50,7 +50,6 @@ struct Func{
     char *id;
     ParamList *params;
     Block *block;
-    //int varNumber;
 };
 
 struct Block{
@@ -125,11 +124,11 @@ enum CmdE{
     CmdIf,
     CmdIfElse,
     CmdArray,
-    CmdBasicE
+    CmdBasicCmd
 };
 
 struct Cmd{
-    CmdE type;
+    CmdE tag;
     Exp *e;
     union{
         Cmd *cmd;
@@ -144,7 +143,7 @@ struct Cmd{
     int line;
 };
 
-enum CmdBasicType{
+enum CmdBasicE{
     CmdBasicReturn,
     CmdBasicCall,
     CmdBasicVar,
@@ -208,7 +207,7 @@ struct CmdList{
 };
 
 struct CmdBasic{
-    CmdBasicType type;
+    CmdBasicE type;
     union {
         struct{
             Var *var;

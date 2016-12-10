@@ -370,7 +370,7 @@ static void checkCmdBasic(CmdBasic *cmd)
 
 static void checkCmd(Cmd *cmd)
 {
-    switch(cmd->type){
+    switch(cmd->tag){
         case CmdWhile:
             checkExp(cmd->e);
             if(!isExpNumerical(cmd->e))
@@ -402,7 +402,7 @@ static void checkCmd(Cmd *cmd)
             checkCmd(cmd->u.cmds.c1);
             checkCmd(cmd->u.cmds.c2);
             break;
-        case CmdBasicE:
+        case CmdBasicCmd:
             checkCmdBasic(cmd->u.cmdBasic);
             break;
         default:

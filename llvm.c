@@ -205,7 +205,7 @@ static void genDefVarList(DefVarList * list, int nIdent, FILE *fp, int isGlobal)
 static void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
     genExp(cmd->e, nIdent, fp);
 
-    switch(cmd->type){
+    switch(cmd->tag){
         case CmdWhile:
             genWhile(cmd, nIdent, fp);
             break;
@@ -240,7 +240,7 @@ static void genCmd(Cmd *cmd, int nIdent, FILE *fp) {
 
             break;
         }
-        case CmdBasicE:
+        case CmdBasicCmd:
             genCmdBasic(cmd->u.cmdBasic, nIdent, fp);
             break;
         default:

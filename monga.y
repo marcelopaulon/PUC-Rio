@@ -168,10 +168,10 @@ commands : command { $$ = mnew(CmdList); $$->cmd = $1; $$->next = NULL; }
          | command commands { $$ = mnew(CmdList); $$->cmd = $1; $$->next = $2; }
          ;
 
-command : TK_IF '(' exp ')' command %prec IF_ONLY { $$ = mnew(Cmd); $$->type = CmdIf; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
-        | TK_IF '(' exp ')' command TK_ELSE command { $$ = mnew(Cmd); $$->type = CmdIfElse; $$->e = $3; $$->u.cmds.c1 = $5; $$->u.cmds.c2 = $7; $$->line = $1; }
-        | TK_WHILE '(' exp ')' command { $$ = mnew(Cmd); $$->type = CmdWhile; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
-        | commandbasic { $$ = mnew(Cmd); $$->type = CmdBasicE; $$->u.cmdBasic = $1; $$->line = -1; }
+command : TK_IF '(' exp ')' command %prec IF_ONLY { $$ = mnew(Cmd); $$->tag = CmdIf; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
+        | TK_IF '(' exp ')' command TK_ELSE command { $$ = mnew(Cmd); $$->tag = CmdIfElse; $$->e = $3; $$->u.cmds.c1 = $5; $$->u.cmds.c2 = $7; $$->line = $1; }
+        | TK_WHILE '(' exp ')' command { $$ = mnew(Cmd); $$->tag = CmdWhile; $$->e = $3; $$->u.cmd = $5; $$->line = $1; }
+        | commandbasic { $$ = mnew(Cmd); $$->tag = CmdBasicCmd; $$->u.cmdBasic = $1; $$->line = -1; }
         ;
 
 commandbasic: var '=' exp ';' { $$ = cmdBasicVarInit($1, $3, $4); }

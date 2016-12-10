@@ -2,24 +2,24 @@
 #define FALSE 0
 #define TRUE 1
 
-void printIdent(int level);
-void printLine(char * type, int line, int newLineAtEnd);
-void printType(Type * type, int nIdent);
-void printBinExpType(ExpE type, int nIdent);
-void printExp(Exp * exp, int nIdent);
-void printVar(Var * var, int nIdent);
-void printCmdCall (CmdCall * cmd, int nIdent);
-void printCmdBasic(CmdBasic * cmd, int nIdent);
-void printExpList(ExpList * list, int nIdent);
-void printDefVarList(DefVarList * list, int nIdent);
-void printCmdList(CmdList * list, int nIdent);
-void printParamList(ParamList * paramlist, int nIdent);
-void printBlock(Block * block, int nIdent);
-void printCmd(Cmd * cmd, int nIdent);
-void printParam(Param * param, int nIdent);
-void printDefFunc(Func * deffunc, int nIdent);
-void printDefVar(DefVar * defvar, int nIdent);
-void printDefinition(Definition *definition, int nIdent);
+static void printIdent(int level);
+static void printLine(char * type, int line, int newLineAtEnd);
+static void printType(Type * type, int nIdent);
+static void printBinExpType(ExpE type, int nIdent);
+static void printExp(Exp * exp, int nIdent);
+static void printVar(Var * var, int nIdent);
+static void printCmdCall (CmdCall * cmd, int nIdent);
+static void printCmdBasic(CmdBasic * cmd, int nIdent);
+static void printExpList(ExpList * list, int nIdent);
+static void printDefVarList(DefVarList * list, int nIdent);
+static void printCmdList(CmdList * list, int nIdent);
+static void printParamList(ParamList * paramlist, int nIdent);
+static void printBlock(Block * block, int nIdent);
+static void printCmd(Cmd * cmd, int nIdent);
+static void printParam(Param * param, int nIdent);
+static void printDefFunc(Func * deffunc, int nIdent);
+static void printDefVar(DefVar * defvar, int nIdent);
+static void printDefinition(Definition *definition, int nIdent);
 
 void *checkedMalloc(int size)
 {
@@ -111,19 +111,19 @@ CmdBasic *cmdBasicBlockInit(Block *block)
     return cmd;
 }
 
-void printIdent(int level){
+static void printIdent(int level){
     int i;
     for(i=0;i<level;i++) printf("  ");
 }
 
-void printLine(char * type, int line, int newLineAtEnd){
+static void printLine(char * type, int line, int newLineAtEnd){
     printf("%s", type);
     if(line > 0) printf(" at line %d", line);
     if(newLineAtEnd) printf("\n");
     else printf(": ");
 }
 
-void printType(Type * type, int nIdent)
+static void printType(Type * type, int nIdent)
 {
     int i;
 
@@ -156,7 +156,7 @@ void printType(Type * type, int nIdent)
     printf("\n");
 }
 
-void printBinExpType(ExpE type, int nIdent)
+static void printBinExpType(ExpE type, int nIdent)
 {
     printIdent(nIdent);
     printf("Expression type: ");
@@ -178,7 +178,7 @@ void printBinExpType(ExpE type, int nIdent)
     printf("\n");
 }
 
-void printExp(Exp * exp, int nIdent)
+static void printExp(Exp * exp, int nIdent)
 {
     if(exp == NULL) return;
 
@@ -283,7 +283,7 @@ void printExp(Exp * exp, int nIdent)
     }
 }
 
-void printVar(Var * var, int nIdent)
+static void printVar(Var * var, int nIdent)
 {
     printIdent(nIdent);
     printLine("Variable", var->line, FALSE);
@@ -305,7 +305,7 @@ void printVar(Var * var, int nIdent)
     }
 }
 
-void printCmdCall (CmdCall * cmd, int nIdent)
+static void printCmdCall (CmdCall * cmd, int nIdent)
 {
     printIdent(nIdent);
     printf("Command Call: %s\n", cmd->id);
@@ -313,7 +313,7 @@ void printCmdCall (CmdCall * cmd, int nIdent)
     printExpList(cmd->parameters, nIdent+1);
 }
 
-void printCmdBasic(CmdBasic * cmd, int nIdent)
+static void printCmdBasic(CmdBasic * cmd, int nIdent)
 {
     printIdent(nIdent);
 
@@ -345,7 +345,7 @@ void printCmdBasic(CmdBasic * cmd, int nIdent)
     }
 }
 
-void printExpList(ExpList * list, int nIdent)
+static void printExpList(ExpList * list, int nIdent)
 {
     ExpList * current;
 
@@ -363,7 +363,7 @@ void printExpList(ExpList * list, int nIdent)
     }
 }
 
-void printDefVarList(DefVarList * list, int nIdent)
+static void printDefVarList(DefVarList * list, int nIdent)
 {
     DefVarList * current;
 
@@ -381,7 +381,7 @@ void printDefVarList(DefVarList * list, int nIdent)
     }
 }
 
-void printCmdList(CmdList * list, int nIdent)
+static void printCmdList(CmdList * list, int nIdent)
 {
     CmdList * current;
 
@@ -399,7 +399,7 @@ void printCmdList(CmdList * list, int nIdent)
     }
 }
 
-void printParamList(ParamList * list, int nIdent)
+static void printParamList(ParamList * list, int nIdent)
 {
     ParamList * current;
 
@@ -417,7 +417,7 @@ void printParamList(ParamList * list, int nIdent)
     }
 }
 
-void printBlock(Block * block, int nIdent)
+static void printBlock(Block * block, int nIdent)
 {
     printIdent(nIdent);
     printf("Block:\n");
@@ -426,7 +426,7 @@ void printBlock(Block * block, int nIdent)
     printCmdList(block->cmds,nIdent+1);
 }
 
-void printCmd(Cmd * cmd, int nIdent)
+static void printCmd(Cmd * cmd, int nIdent)
 {
     printIdent(nIdent);
     printLine("Command", cmd->line, TRUE);
@@ -435,7 +435,7 @@ void printCmd(Cmd * cmd, int nIdent)
 
     printIdent(nIdent+1);
     printf("Command type: ");
-    switch(cmd->type){
+    switch(cmd->tag){
         case CmdWhile:
             printf("While\n");
             printCmd(cmd->u.cmd, nIdent+1);
@@ -449,7 +449,7 @@ void printCmd(Cmd * cmd, int nIdent)
             printCmd(cmd->u.cmds.c1, nIdent+1);
             printCmd(cmd->u.cmds.c2, nIdent+1);
             break;
-        case CmdBasicE:
+        case CmdBasicCmd:
             printf("Basic Command\n");
             printCmdBasic(cmd->u.cmdBasic, nIdent+1);
             break;
@@ -459,7 +459,7 @@ void printCmd(Cmd * cmd, int nIdent)
     }
 }
 
-void printParam(Param * param, int nIdent)
+static void printParam(Param * param, int nIdent)
 {
     printIdent(nIdent);
     printf("Parameter: %s\n", param->id);
@@ -467,7 +467,7 @@ void printParam(Param * param, int nIdent)
     printType(param->type, nIdent+1);
 }
 
-void printDefFunc(Func * deffunc, int nIdent)
+static void printDefFunc(Func * deffunc, int nIdent)
 {
     printIdent(nIdent);
     printf("Func: %s\n", deffunc->id);
@@ -477,7 +477,7 @@ void printDefFunc(Func * deffunc, int nIdent)
     printBlock(deffunc->block, nIdent + 1);
 }
 
-void printDefVar(DefVar * defvar, int nIdent)
+static void printDefVar(DefVar * defvar, int nIdent)
 {
     printIdent(nIdent);
     printf("DefVar:\n");
@@ -487,7 +487,7 @@ void printDefVar(DefVar * defvar, int nIdent)
     printf("%s\n", defvar->id);
 }
 
-void printDefinition(Definition *definition, int nIdent)
+static void printDefinition(Definition *definition, int nIdent)
 {
     printIdent(nIdent);
     printf("Definition:\n");
