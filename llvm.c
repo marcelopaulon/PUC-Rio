@@ -25,6 +25,16 @@ static void genDefinition(Definition *definition, int nIdent, FILE *fp);
 static int curTempVar = 0;
 static int curTempLabel = 0;
 
+static void printTemp(int t, FILE *fp)
+{
+    fprintf(fp, "%%t%d", t);
+}
+
+static void printLabel(int t, FILE *fp)
+{
+    fprintf(fp, "%%l%d", t);
+}
+
 static int getNextTempVar()
 {
     return ++curTempVar;
@@ -97,7 +107,8 @@ static void genDefVar(DefVar * defvar, int nIdent, FILE * fp, int isGlobal)
         fprintf(fp, " %s\n", initValue);
     }
     else {
-        fprintf(fp, "%%t%d = alloca ", defvar->varNumber);
+        printTemp(defvar->varNumber, fp);
+        fprintf(fp, " = alloca ");
         genType(defvar->type, fp);
         fprintf(fp, "\n");
     }
@@ -126,8 +137,9 @@ static void genDefFunc(Func * deffunc, int nIdent, FILE * fp)
 static void genParam(Param * param, int nIdent, FILE * fp)
 {
     genType(param->type, fp);
+    fprintf(fp, " ");
     param->varNumber = getNextTempVar();
-    fprintf(fp, " %%t%d", param->varNumber);
+    printTemp(param->varNumber, fp);
 }
 
 static void genIdent(int level, FILE *fp){
@@ -266,12 +278,25 @@ static int genCondComp(Exp *e, char* opcode, int lt, int lf, int nIdent, FILE *f
     int t = getNextTempVar();
 
     genIdent(nIdent,fp);
-    fprintf(fp,"%%t%d = %ccmp %s ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), opcode);
+    printTemp(t, fp);
+    fprintf(fp," = %ccmp %s ", (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), opcode);
 
     genType(e->u.bin.e1->type, fp);
 
-    fprintf(fp, " %%t%d, %%t%d\nbr i1 %%t%d, label %%l%d, label %%l%d",
-            r1, r2, t, lt, lf);
+    fprintf(fp, " ");
+
+    printTemp(r1, fp);
+    fprintf(fp, ", ");
+    printTemp(r2, fp);
+
+    fprintf(fp, "\nbr i1 ");
+    printTemp(t, fp);
+
+    fprintf(fp, ", label ");
+    printLabel(lt, fp);
+    fprintf(fp, ", label ");
+    printLabel(lf, fp);
+
     return t;
 }
 
@@ -319,12 +344,23 @@ static int genCond(Exp *e, int lt, int lf, int nIdent, FILE *fp) {
             int t = getNextTempVar();
 
             genIdent(nIdent,fp);
-            fprintf(fp,"%%t%d = %ccmp%seq ", t, (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), (e->u.bin.e1->type->name == VarInt ? " " : " o"));
+            printTemp(t, fp);
+            fprintf(fp," = %ccmp%seq ", (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), (e->u.bin.e1->type->name == VarInt ? " " : " o"));
 
             genType(e->u.bin.e1->type, fp);
 
-            fprintf(fp, " %%t%d, %%t%d\nbr i1 %%t%d, label %%l%d, label %%l%d",
-                    r1, r2, t, lt, lf);
+            fprintf(fp, " ");
+            printTemp(r1, fp);
+            fprintf(fp, ", ");
+            printTemp(r2, fp);
+
+            fprintf(fp, "\nbr i1 ");
+            printTemp(t, fp);
+            fprintf(fp, ", label ");
+            printLabel(lt, fp);
+            fprintf(fp, ", label ");
+            printLabel(lf, fp);
+
             return t;
         }
 
@@ -384,7 +420,13 @@ static int genArith(Exp *exp, int nIdent, FILE *fp)
     }
 
     genIdent(nIdent, fp);
-    fprintf(fp, "%%t%d = %s %s %%t%d, %%t%d\n", ret, op, type, e1, e2);
+    printTemp(ret, fp);
+    fprintf(fp, " = %s %s ", op, type);
+    printTemp(e1, fp);
+    fprintf(fp, ", ");
+    printTemp(e2, fp);
+    fprintf(fp, "\n");
+
     return ret;
 }
 
@@ -425,7 +467,8 @@ static int genExpVar(Exp *exp, int nIdent, FILE *fp)
             accessType = "%";
         }
 
-        fprintf(fp, "%%t%d = load %s* %st%d\n", ret, type, accessType, exp->u.var->u.def.tag.dec->varNumber);
+        printTemp(ret, fp);
+        fprintf(fp, " = load %s* %st%d\n", type, accessType, exp->u.var->u.def.tag.dec->varNumber);
     }
 
     return ret;
@@ -460,9 +503,12 @@ static int genExp(Exp *exp, int nIdent, FILE *fp) {
             int t = genExp(exp->u.un, nIdent, fp);
             int ret = getNextTempVar();
             genIdent(nIdent,fp);
-            fprintf(fp, "%%t%d = %smul ", ret, (exp->type->name == VarInt ? "" : "f"));
+            printTemp(ret, fp);
+            fprintf(fp, " = %smul ", (exp->type->name == VarInt ? "" : "f"));
             genType(exp->u.un->type, fp);
-            fprintf(fp, " %%t%d, -1%s\n", t, (exp->type->name == VarInt ? "" : ".0"));
+            fprintf(fp, " ");
+            printTemp(t, fp);
+            fprintf(fp, ", -1%s\n", (exp->type->name == VarInt ? "" : ".0"));
             return ret;
         }
         case ExpNew:
@@ -539,7 +585,7 @@ static void genVar(Var *var, int nIdent, FILE *fp) {
     // TODO: Tratar varindexed
 
     if(!var->u.def.tag.dec->isGlobal) {
-        fprintf(fp, "%%t%d", var->u.def.tag.dec->varNumber);
+        printTemp(var->u.def.tag.dec->varNumber, fp);
     }
     else
     {
@@ -582,13 +628,15 @@ static int genCmdCall(CmdCall *cmd, int nIdent, FILE *fp) {
         }
 
         sprintf(callArgs + strlen(callArgs), "%s %%t%d", type, arg);
+
         if(current->next != NULL) sprintf(callArgs + strlen(callArgs), ",");
     }
 
     sprintf(callArgs + strlen(callArgs),")");
 
     genIdent(nIdent, fp);
-    fprintf(fp,"%%t%d = call ", ret);
+    printTemp(ret, fp);
+    fprintf(fp," = call ");
 
     genType(cmd->type, fp);
 
@@ -606,7 +654,9 @@ static void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             genIdent(nIdent, fp);
             fprintf(fp, "ret ");
             genType(cmd->u.returnExp->type, fp);
-            fprintf(fp, " %%t%d\n", temp);
+            fprintf(fp, " ");
+            printTemp(temp, fp);
+            fprintf(fp, "\n");
             break;
         }
         case CmdBasicCall: {
@@ -623,7 +673,9 @@ static void genCmdBasic(CmdBasic *cmd, int nIdent, FILE *fp) {
             genIdent(nIdent, fp);
             fprintf(fp, "store ");
             genType(cmd->u.varCmd.exp->type, fp);
-            fprintf(fp, " %%t%d, ", expNameId);
+            fprintf(fp, " ");
+            printTemp(expNameId, fp);
+            fprintf(fp, ", ");
 
             switch(cmd->u.varCmd.var->tag)
             {
