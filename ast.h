@@ -62,10 +62,10 @@ typedef enum VarE{
     VarIndexed
 } VarE;
 
-typedef enum VarDecType{
+typedef enum VarDecE{
     VarDec,
     VarParam
-} VarDecType;
+} VarDecE;
 
 typedef enum VarType{
     VarFloat,
@@ -104,7 +104,7 @@ struct DefVar{
 
 typedef struct Var{
     VarE tag;
-    VarDecType decType;
+    VarDecE decType;
 
     union {
         union {
