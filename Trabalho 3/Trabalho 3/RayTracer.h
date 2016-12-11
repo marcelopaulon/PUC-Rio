@@ -34,7 +34,7 @@ private:
 public:
 	RayTracer(Scene _scene, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList);
 
-	IntersectedObjectData getIntersection(Ray ray);
+	IntersectedObjectData getIntersection(Ray ray, double minOpacity);
 
 	Pixel shade(Ray ray, IntersectedObjectData intersection, int depth);
 

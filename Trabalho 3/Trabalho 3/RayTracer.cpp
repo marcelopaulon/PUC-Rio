@@ -15,7 +15,7 @@ RayTracer::RayTracer(Scene _scene, vec3f _eye, std::vector<Sphere> _spheresList,
 	lightsList = _lightsList;
 }
 
-IntersectedObjectData RayTracer::getIntersection(Ray ray)
+IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 {
 	IntersectedObjectData data;
 	data.type = NONE;
@@ -24,7 +24,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 
 	for (const Sphere& sphere : spheresList) {
 		double t1, t2;
-		if (sphere.intersect(ray, t1, t2))
+		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1, t2))
 		{
 			if (t1 < EPSILON || t1 <= 0) {
 				t1 = t2;
@@ -53,7 +53,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 
 	for (const Box& box : boxesList) {
 		double t1, t2;
-		if (box.intersect(ray, t1, t2))
+		if (box.material->opacity >= minOpacity && box.intersect(ray, t1, t2))
 		{
 			if (t1 < EPSILON || t1 <= 0) {
 				t1 = t2;
@@ -82,7 +82,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 
 	for (Triangle& triangle : trianglesList) {
 		double t1;
-		if (triangle.intersect(ray, t1))
+		if (triangle.material->opacity >= minOpacity && triangle.intersect(ray, t1))
 		{
 			if (t1 < EPSILON || t1 <= 0)
 			{
@@ -119,7 +119,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 	vec3f rr = intersection.intersectionNormal * (2 * vec3f::dot(v, intersection.intersectionNormal)) - v;
 	for (Light& light : lightsList) {
-		IntersectedObjectData intersectionTemp = getIntersection(Ray(intersection.intersectionPosition, light.pos - intersection.intersectionPosition));
+		IntersectedObjectData intersectionTemp = getIntersection(Ray(intersection.intersectionPosition, light.pos - intersection.intersectionPosition), 1);
 
 		if (intersectionTemp.type != NONE) {
 			vec3f l = (light.pos - intersectionTemp.intersectionPosition).normalized();
@@ -155,7 +155,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 Pixel RayTracer::trace(Ray ray, int depth)
 {
-	IntersectedObjectData intersection = getIntersection(ray);
+	IntersectedObjectData intersection = getIntersection(ray, 0);
 
 	if (intersection.type != NONE)
 	{
