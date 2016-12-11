@@ -26,22 +26,26 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 		double t1, t2;
 		if (sphere.intersect(ray, t1, t2))
 		{
-			if (t1 <= t2 && t1 < t)
+			if (t1 < EPSILON || t1 <= 0) {
+				t1 = t2;
+				if (t1 < EPSILON || t1 <= 0)
+				{
+					continue;
+				}
+			}
+
+			if (t1 > t2)
+			{
+				t1 = t2;
+			}
+
+			if (t1 < t)
 			{
 				t = t1;
 				data.type = SPHERE;
 				data.sphere = sphere;
 				data.material = sphere.material;
 				data.intersectionPosition = ray.o + ray.d * t1;
-				data.intersectionNormal = sphere.calcNormal(data.intersectionPosition);
-			}
-			else if (t2 < t1 && t2 < t)
-			{
-				t = t2;
-				data.type = SPHERE;
-				data.sphere = sphere;
-				data.material = sphere.material;
-				data.intersectionPosition = ray.o + ray.d * t2;
 				data.intersectionNormal = sphere.calcNormal(data.intersectionPosition);
 			}
 		}
@@ -51,22 +55,26 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 		double t1, t2;
 		if (box.intersect(ray, t1, t2))
 		{
-			if (t1 <= t2 && t1 < t)
+			if (t1 < EPSILON || t1 <= 0) {
+				t1 = t2;
+				if (t1 < EPSILON || t1 <= 0)
+				{
+					continue;
+				}
+			}
+
+			if (t1 > t2)
+			{
+				t1 = t2;
+			}
+
+			if (t1 < t)
 			{
 				t = t1;
 				data.type = BOX;
 				data.box = box;
 				data.material = box.material;
 				data.intersectionPosition = ray.o + ray.d * t1;
-				data.intersectionNormal = box.calcNormal(data.intersectionPosition);
-			}
-			else if (t2 < t1 && t2 < t)
-			{
-				t = t2;
-				data.type = BOX;
-				data.box = box;
-				data.material = box.material;
-				data.intersectionPosition = ray.o + ray.d * t2;
 				data.intersectionNormal = box.calcNormal(data.intersectionPosition);
 			}
 		}
@@ -76,6 +84,11 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray)
 		double t1;
 		if (triangle.intersect(ray, t1))
 		{
+			if (t1 < EPSILON || t1 <= 0)
+			{
+				continue;
+			}
+
 			if (t1 < t)
 			{
 				t = t1;
@@ -110,7 +123,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 		if (intersectionTemp.type != NONE) {
 			vec3f l = (light.pos - intersectionTemp.intersectionPosition).normalized();
-			vec3f Is = light.color * intersectionTemp.material->ks * pow(vec3f::dot(rr, l), intersectionTemp.material->n);
+			vec3f Is = light.color * intersectionTemp.material->ks * pow(vec3f::dot(rr, l), intersectionTemp.material->n_specular);
 			vec3f Id = light.color * kd * std::max<float>(vec3f::dot(intersectionTemp.intersectionNormal, l), 0);
 			Ip += Is + Id;
 		}

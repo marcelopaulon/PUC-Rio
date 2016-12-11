@@ -37,7 +37,7 @@ struct Camera
 	vec3f eyePos;
 	vec3f refPos;
 	vec3f up;
-	double fov;
+	double fovY;
 
 	double nearPos;
 	double farPos;
@@ -51,7 +51,7 @@ struct Material
 	std::string name;
 	vec3f kd;
 	vec3f ks;
-	double n; // Specular
+	double n_specular; // Specular
 	double reflectionCoefficient; // Mirror
 	double refractionCoefficient; // Refraction, if opacity < 1
 	double opacity; // 0 -> transparent; 1 -> opaque

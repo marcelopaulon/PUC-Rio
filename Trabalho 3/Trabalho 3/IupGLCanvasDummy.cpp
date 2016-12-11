@@ -285,7 +285,7 @@ Camera IupGLCanvasDummy::parseCamera(std::ifstream *in)
 	camera.eyePos = readVec3f(in);
 	camera.refPos = readVec3f(in);
 	camera.up = readVec3f(in);
-	(*in) >> camera.fov >> camera.nearPos >> camera.farPos >> camera.imgWidth >> camera.imgHeight;
+	(*in) >> camera.fovY >> camera.nearPos >> camera.farPos >> camera.imgWidth >> camera.imgHeight;
 	
 	return camera;
 }
@@ -297,7 +297,7 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 	(*in) >> material.name;
 	material.kd = readVec3f(in);
 	material.ks = readVec3f(in);
-	(*in) >> material.n >> material.reflectionCoefficient >> material.refractionCoefficient >> material.opacity;
+	(*in) >> material.n_specular >> material.reflectionCoefficient >> material.refractionCoefficient >> material.opacity;
 	
 	material.texture = Texture();
 	(*in) >> material.texture.path;
@@ -373,8 +373,8 @@ Box IupGLCanvasDummy::parseBox(std::ifstream *in)
 	(*in) >> materialName;
 	box.material = findMaterial(materialName);
 
-	box.p1 = readVec3f(in);
-	box.p2 = readVec3f(in);
+	box.bottomLeft = readVec3f(in);
+	box.topRight = readVec3f(in);
 
 	return box;
 }
@@ -758,7 +758,7 @@ void IupGLCanvasDummy::rayTrace()
 	vec3f xe = vec3f::cross(camera.up, ze).normalized();
 	vec3f ye = vec3f::cross(ze, xe);
 
-	double a = 2 * camera.nearPos * tan(camera.fov * (PI / 180.0) / 2.0);
+	double a = 2 * camera.nearPos * tan(camera.fovY * (PI / 180.0) / 2.0);
 	double b = ((float)width / (float)height) * a;
 
 	RayTracer rayTracer = RayTracer(scene, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);

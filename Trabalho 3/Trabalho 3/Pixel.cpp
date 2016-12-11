@@ -68,3 +68,18 @@ void Pixel::operator-( Pixel p )
 	_val[1] -= p[1];
 	_val[2] -= p[2];
 }
+
+Pixel Pixel::operator*(Pixel p) const
+{
+	return Pixel(_val[0] * p[0], _val[1] * p[1], _val[2] * p[2]);
+}
+
+Pixel Pixel::operator+(Pixel p) const
+{
+	return Pixel(_val[0] + p[0], _val[1] + p[1], _val[2] + p[2]);
+}
+
+Pixel Pixel::operator-(Pixel p) const
+{
+	return Pixel(_val[0] - p[0], _val[1] - p[1], _val[2] - p[2]);
+}

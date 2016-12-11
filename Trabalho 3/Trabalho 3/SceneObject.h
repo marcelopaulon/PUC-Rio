@@ -21,15 +21,15 @@ struct Sphere
 
 		double delta = (b * b) - (4 * a * c);
 
-		if (delta < 0)
+		if (delta >= 0)
 		{
-			return false;
+			t1 = (-b - sqrt(delta)) / (2.0*a);
+			t2 = (-b + sqrt(delta)) / (2.0*a);
+
+			return true;
 		}
 
-		t1 = (-b - sqrt(delta))/(2.0*a);
-		t2 = (-b + sqrt(delta))/(2.0*a);
-
-		return true;
+		return false;
 	}
 
 	vec3f calcNormal(const vec3f& p) const
@@ -41,13 +41,13 @@ struct Sphere
 struct Box
 {
 	Material *material;
-	vec3f p1; // Bottom left corner
-	vec3f p2; // Upper right corner
+	vec3f bottomLeft; // Bottom left corner
+	vec3f topRight; // Upper right corner
 
 	bool intersect(const Ray& ray, double& t1, double& t2) const
 	{
-		float minTx = (std::min<float>(p1.x, p2.x) - ray.o.x) / ray.d.x;
-		float maxTx = (std::max<float>(p1.x, p2.x) - ray.o.x) / ray.d.x;
+		float minTx = (std::min<float>(bottomLeft.x, topRight.x) - ray.o.x) / ray.d.x;
+		float maxTx = (std::max<float>(bottomLeft.x, topRight.x) - ray.o.x) / ray.d.x;
 
 		if (minTx > maxTx)
 		{
@@ -56,8 +56,8 @@ struct Box
 			minTx = temp;
 		}
 
-		float minTy = (std::min<float>(p1.y, p2.y) - ray.o.y) / ray.d.y;
-		float maxTy = (std::max<float>(p1.y, p2.y) - ray.o.y) / ray.d.y;
+		float minTy = (std::min<float>(bottomLeft.y, topRight.y) - ray.o.y) / ray.d.y;
+		float maxTy = (std::max<float>(bottomLeft.y, topRight.y) - ray.o.y) / ray.d.y;
 
 		if (minTy > maxTy)
 		{
@@ -81,8 +81,8 @@ struct Box
 			maxTx = maxTy;
 		}
 
-		float minTz = (std::min<float>(p1.z, p2.z) - ray.o.z) / ray.d.z;
-		float maxTz = (std::max<float>(p1.z, p2.z) - ray.o.z) / ray.d.z;
+		float minTz = (std::min<float>(bottomLeft.z, topRight.z) - ray.o.z) / ray.d.z;
+		float maxTz = (std::max<float>(bottomLeft.z, topRight.z) - ray.o.z) / ray.d.z;
 
 		if (minTz > maxTz)
 		{
@@ -113,27 +113,27 @@ struct Box
 	}
 
 	vec3f calcNormal(const vec3f& vec) const {
-		if (fabs(vec.x - std::min<float>(p1.x, p2.x)) < EPSILON)
+		if (fabs(vec.x - std::min<float>(bottomLeft.x, topRight.x)) < EPSILON)
 		{
 			return vec3f(-1, 0, 0);
 		}
-		else if (fabs(vec.x - std::max<float>(p1.x, p2.x)) < EPSILON)
+		else if (fabs(vec.x - std::max<float>(bottomLeft.x, topRight.x)) < EPSILON)
 		{
 			return vec3f(1, 0, 0);
 		}
-		else if (fabs(vec.y - std::min<float>(p1.y, p2.y)) < EPSILON)
+		else if (fabs(vec.y - std::min<float>(bottomLeft.y, topRight.y)) < EPSILON)
 		{
 			return vec3f(0, -1, 0);
 		}
-		else if (fabs(vec.y - std::max<float>(p1.y, p2.y)) < EPSILON)
+		else if (fabs(vec.y - std::max<float>(bottomLeft.y, topRight.y)) < EPSILON)
 		{
 			return vec3f(0, 1, 0);
 		}
-		else if (fabs(vec.z - std::min<float>(p1.z, p2.z)) < EPSILON)
+		else if (fabs(vec.z - std::min<float>(bottomLeft.z, topRight.z)) < EPSILON)
 		{
 			return vec3f(0, 0, -1);
 		}
-		else if (fabs(vec.z - std::max<float>(p1.z, p2.z)) < EPSILON)
+		else if (fabs(vec.z - std::max<float>(bottomLeft.z, topRight.z)) < EPSILON)
 		{
 			return vec3f(0, 0, 1);
 		}

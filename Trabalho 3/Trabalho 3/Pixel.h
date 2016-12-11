@@ -49,6 +49,12 @@ public:
 	
 	Pixel Pixel::operator*(double d) const;
 
+	Pixel Pixel::operator*(Pixel p) const;
+
+	Pixel Pixel::operator+(Pixel p) const;
+
+	Pixel Pixel::operator-(Pixel p) const;
+
 	void Pixel::operator+=(Pixel p);
     
     /**
