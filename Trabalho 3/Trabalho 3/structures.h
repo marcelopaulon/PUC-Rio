@@ -2,6 +2,7 @@
 
 #include <string>
 #include "Vec3f.h"
+#include "Image.h"
 
 struct RGB
 {
@@ -26,8 +27,8 @@ struct Texture
 
 struct Scene
 {
-	RGB backgroundColor; // If no texture
-	RGB ambientColor;
+	vec3f backgroundColor; // If no texture
+	vec3f ambientColor;
 	Texture texture;
 };
 
@@ -48,8 +49,8 @@ struct Camera
 struct Material
 {
 	std::string name;
-	RGB kd;
-	RGB ks;
+	vec3f kd;
+	vec3f ks;
 	double n; // Specular
 	double reflectionCoefficient; // Mirror
 	double refractionCoefficient; // Refraction, if opacity < 1
@@ -60,7 +61,7 @@ struct Material
 struct Light
 {
 	vec3f pos;
-	RGB color;
+	vec3f color;
 };
 
 // R(t) = o + t*d
@@ -68,4 +69,15 @@ struct Ray
 {
 	vec3f o;
 	vec3f d;
+
+	Ray()
+	{
+
+	}
+
+	Ray(vec3f _o, vec3f _d)
+	{
+		o = _o;
+		d = _d;
+	}
 };

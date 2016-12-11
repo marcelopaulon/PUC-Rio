@@ -27,6 +27,7 @@
     <ClInclude Include="Math4f.h" />
     <ClInclude Include="OpenGLMatrixManager.h" />
     <ClInclude Include="Pixel.h" />
+    <ClInclude Include="RayTracer.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="structures.h" />
     <ClInclude Include="Vec3f.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Math4f.cpp" />
     <ClCompile Include="OpenGLMatrixManager.cpp" />
     <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="SceneObject.cpp" />
   </ItemGroup>
   <ItemGroup>

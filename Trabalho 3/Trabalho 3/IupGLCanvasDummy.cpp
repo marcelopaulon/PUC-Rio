@@ -26,7 +26,9 @@
 
 #include "Image.h"
 
-#define FILENAME "rt5/plastic_ball.rt5"
+#include "RayTracer.h"
+
+#define FILENAME "rt5/05_color_balls.rt5"
 
 
 IupGLCanvasDummy::IupGLCanvasDummy( )
@@ -252,8 +254,8 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 {
 	Scene scene;
 
-	scene.backgroundColor = readRGB(in);
-	scene.ambientColor = readRGB(in);
+	scene.backgroundColor = readVec3f(in);
+	scene.ambientColor = readVec3f(in);
 	scene.texture = Texture();
 	(*in) >> scene.texture.path;
 
@@ -261,7 +263,9 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 	{
 		Image image;
 
-		if (image.readBMP(scene.texture.path.c_str()))
+		std::string texturePath = "textures/" + scene.texture.path;
+
+		if (image.readBMP(texturePath.c_str()))
 		{
 			scene.texture.image = image;
 		}
@@ -269,10 +273,6 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 		{
 			std::cout << "Error loading scene texture " << scene.texture.path << std::endl;
 		}
-	}
-	else
-	{
-		scene.texture.image = nullptr;
 	}
 
 	return scene;
@@ -295,8 +295,8 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 	Material material;
 
 	(*in) >> material.name;
-	material.kd = readRGB(in);
-	material.ks = readRGB(in);
+	material.kd = readVec3f(in);
+	material.ks = readVec3f(in);
 	(*in) >> material.n >> material.reflectionCoefficient >> material.refractionCoefficient >> material.opacity;
 	
 	material.texture = Texture();
@@ -305,20 +305,17 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 	if (material.texture.path != "" && material.texture.path != "null")
 	{
 		Image image;
-
-		if (image.readBMP(material.texture.path.c_str()))
+		
+		std::string texturePath = "textures/" + material.texture.path;
+		
+		if (image.readBMP(texturePath.c_str()))
 		{
 			material.texture.image = image;
 		}
 		else
 		{
 			std::cout << "Error loading material " << material.name << " texture " << material.texture.path << std::endl;
-			material.texture.image = nullptr;
 		}
-	}
-	else
-	{
-		material.texture.image = nullptr;
 	}
 	
 	return material;
@@ -348,7 +345,7 @@ Light IupGLCanvasDummy::parseLight(std::ifstream *in)
 	Light light;
 
 	light.pos = readVec3f(in);
-	light.color = readRGB(in);
+	light.color = readVec3f(in);
 
 	return light;
 }
@@ -476,73 +473,6 @@ void IupGLCanvasDummy::parseRT5(const char *filename)
 		curLine++;
 	}
 }
-//
-//void IupGLCanvasDummy::calcNormals()
-//{
-//	if (vertexNormal != nullptr) delete[] vertexNormal;
-//
-//	vertexNormal = new vec3f[nVertex];
-//
-//	// 1. Initialize every vertex normal to (0,0,0)
-//	for (int i = 0; i < nVertex; i++) vertexNormal[i].x = vertexNormal[i].y = vertexNormal[i].z = 0.0;
-//
-//	// 2. For every face compute face normal fn
-//	for (int i = 0; i < nTriangles; i++)
-//	{
-//		rt5Triangle triangle = trianglesList[i];
-//		vec3f U, V;
-//		vec3f v1 = vertexList[triangle.v1], v2 = vertexList[triangle.v2], v3 = vertexList[triangle.v3];
-//		U.x = v2.x - v1.x;
-//		U.y = v2.y - v1.y;
-//		U.z = v2.z - v1.z;
-//
-//		V.x = v3.x - v1.x;
-//		V.y = v3.y - v1.y;
-//		V.z = v3.z - v1.z;
-//
-//		float FNx, FNy, FNz;
-//
-//		FNx = U.y*V.z - U.z*V.y;
-//
-//		FNy = U.z*V.x - U.x*V.z;
-//
-//		FNz = U.x*V.y - U.y*V.x;
-//
-//		// 3. For every vertex of the face add fn to the vertex normal
-//		vertexNormal[triangle.v1].x += FNx;
-//		vertexNormal[triangle.v1].y += FNy;
-//		vertexNormal[triangle.v1].z += FNz;
-//
-//		vertexNormal[triangle.v2].x += FNx;
-//		vertexNormal[triangle.v2].y += FNy;
-//		vertexNormal[triangle.v2].z += FNz;
-//
-//		vertexNormal[triangle.v3].x += FNx;
-//		vertexNormal[triangle.v3].y += FNy;
-//		vertexNormal[triangle.v3].z += FNz;
-//	}
-//
-//	// 4. Normalize every vertex normal
-//	for (int i = 0; i < nTriangles; i++)
-//	{
-//		rt5Triangle triangle = trianglesList[i];
-//		
-//		float v1Norm = sqrt(vertexNormal[triangle.v1].x*vertexNormal[triangle.v1].x + vertexNormal[triangle.v1].y*vertexNormal[triangle.v1].y + vertexNormal[triangle.v1].z*vertexNormal[triangle.v1].z);
-//		vertexNormal[triangle.v1].x /= v1Norm;
-//		vertexNormal[triangle.v1].y /= v1Norm;
-//		vertexNormal[triangle.v1].z /= v1Norm;
-//
-//		float v2Norm = sqrt(vertexNormal[triangle.v2].x*vertexNormal[triangle.v2].x + vertexNormal[triangle.v2].y*vertexNormal[triangle.v2].y + vertexNormal[triangle.v2].z*vertexNormal[triangle.v2].z);
-//		vertexNormal[triangle.v2].x /= v2Norm;
-//		vertexNormal[triangle.v2].y /= v2Norm;
-//		vertexNormal[triangle.v2].z /= v2Norm;
-//
-//		float v3Norm = sqrt(vertexNormal[triangle.v3].x*vertexNormal[triangle.v3].x + vertexNormal[triangle.v3].y*vertexNormal[triangle.v3].y + vertexNormal[triangle.v3].z*vertexNormal[triangle.v3].z);
-//		vertexNormal[triangle.v3].x /= v3Norm;
-//		vertexNormal[triangle.v3].y /= v3Norm;
-//		vertexNormal[triangle.v3].z /= v3Norm;
-//	}
-//}
 
 
 void IupGLCanvasDummy::drawScene( )
@@ -817,15 +747,6 @@ int IupGLCanvasDummy::setVertexShading(Ihandle* self, int state)
 	return IUP_DEFAULT;
 }
 
-
-
-Pixel trace(Ray ray)
-{
-
-}
-
-
-
 void IupGLCanvasDummy::rayTrace()
 {
 	int width = camera.imgWidth;
@@ -840,16 +761,18 @@ void IupGLCanvasDummy::rayTrace()
 	double a = 2 * camera.nearPos * tan(camera.fov * (PI / 180.0) / 2.0);
 	double b = ((float)width / (float)height) * a;
 
-	for (int y = 0; y < width; y++)
+	RayTracer rayTracer = RayTracer(scene, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
+
+	for (int y = 0; y < height; y++)
 	{
-		for (int x = 0; x < height; x++)
+		for (int x = 0; x < width; x++)
 		{
 			Ray ray;
 			ray.o = camera.eyePos;
 			ray.d = ze * -camera.nearPos + ye * a * ((float)y / (float)height - 0.5) + xe * b * ((float)x / (float)width - 0.5);
 
-			Pixel pixel = trace(ray);
-			image->setPixel(y, x, pixel);
+			Pixel pixel = rayTracer.trace(ray, 1);
+			image->setPixel(x, y, pixel);
 		}
 	}
 }
@@ -862,11 +785,12 @@ int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 
 	IupGLCanvasDummy *canvas = (IupGLCanvasDummy *)IupGetAttribute(self, "THIS");
 
-	std::string filename = IupGetAttribute(self, "TITLE");
-	filename = "models/" + filename;
-	canvas->parseRT5(filename.c_str());
+	const std::string filename = IupGetAttribute(self, "TITLE");
+	std::string path = "rt5/" + filename;
+	canvas->parseRT5(path.c_str());
 	canvas->rayTrace();
-	canvas->image->writeBMP(filename.append(".out.bpm").c_str());
+	path = "output/" + filename;
+	canvas->image->writeBMP(path.append(".out.bmp").c_str());
 
 	//canvas->redraw();
 	canvas->updatePanelInfo();

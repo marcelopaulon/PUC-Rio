@@ -37,23 +37,34 @@ float Pixel::operator[]( unsigned int i ) const
 
     return _val[0];
 }
+//
+//
+//
+//float Pixel::operator*( const Pixel& p ) const
+//{
+//    float product = 0.0;
+//    for (int i = 0; i < 3; i++)
+//        product += _val[i] * p._val[i];
+//    return product;
+//}
 
-
-
-float Pixel::operator*( const Pixel& p ) const
+Pixel Pixel::operator*(double d) const
 {
-    float product = 0.0;
-    for (int i = 0; i < 3; i++)
-        product += _val[i] * p._val[i];
-    return product;
+	return Pixel(_val[0] * d, _val[1] * d, _val[2] * d);
+}
+
+void Pixel::operator+=(Pixel p)
+{
+	_val[0] += p[0];
+	_val[1] += p[1];
+	_val[2] += p[2];
 }
 
 
 
-Pixel Pixel::operator-( const Pixel& p ) const
+void Pixel::operator-( Pixel p )
 {
-    Pixel result;
-    for (int i = 0; i < 3; i++)
-        result[i] = _val[i] - p[i];
-    return result;
+	_val[0] -= p[0];
+	_val[1] -= p[1];
+	_val[2] -= p[2];
 }

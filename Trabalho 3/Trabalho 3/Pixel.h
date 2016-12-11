@@ -16,6 +16,16 @@ public:
      */
     Pixel( );
 
+	/**
+	* Construtor.
+	*/
+	Pixel(float x, float y, float z)
+	{
+		_val[0] = x;
+		_val[1] = y;
+		_val[2] = z;
+	}
+
     /**
      * Sobrecarga do operador [] para acessar as informacoes dos pixels.
      * @param i - posicao a ser acessada.
@@ -35,14 +45,18 @@ public:
      * @param p - pixel a ser multiplicado pelo pixel corrente.
      * @return - resulatado do produto escalar.
      */
-    float operator*( const Pixel& p ) const;
+    /*float operator*( const Pixel& p ) const;*/
+	
+	Pixel Pixel::operator*(double d) const;
+
+	void Pixel::operator+=(Pixel p);
     
     /**
      * Sobrecarga do operador -.
      * @param p - pixel a ser subtraido.
      * @return - resultado da operacao.
      */
-    Pixel operator-( const Pixel& p ) const;
+	void Pixel::operator-(Pixel p);
 
 
 private:

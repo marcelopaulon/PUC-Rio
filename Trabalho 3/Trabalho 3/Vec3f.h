@@ -47,22 +47,32 @@ public:
 
 	vec3f operator+(const vec3f &vec) const
 	{
-		return vec3f(x - vec.x, y - vec.y, z - vec.z);
+		return vec3f(x + vec.x, y + vec.y, z + vec.z);
 	}
 
 	vec3f operator-(const vec3f &vec) const
 	{
 		return vec3f(x - vec.x, y - vec.y, z - vec.z);
 	}
+
+	vec3f operator*(int d) const
+	{
+		return vec3f(d*x, d*y, d*z);
+	}
 	
-	vec3f operator*(double d)
+	vec3f operator*(float d)
 	{
 		return vec3f(d*x, d*y, d*z);
 	}
 
+	vec3f operator*(double d)
+	{
+		return vec3f((float)d*x, (float)d*y, (float)d*z);
+	}
+
 	vec3f operator*(const vec3f &vec2)
 	{
-		return vec3f(x * vec2.x, y + vec2.y, z + vec2.z);
+		return vec3f(x * vec2.x, y * vec2.y, z * vec2.z);
 	}
 
 	vec3f operator/(const vec3f &vec) const
