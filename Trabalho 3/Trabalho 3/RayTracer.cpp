@@ -26,19 +26,21 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 		double t1, t2;
 		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1, t2))
 		{
-			if (t1 < EPSILON || t1 <= 0) {
+			if (t1 < EPSILON) {
 				t1 = t2;
-				if (t1 < EPSILON || t1 <= 0)
+				if (t1 < EPSILON)
 				{
 					continue;
 				}
 			}
-
-			if (t1 > t2)
+			else
 			{
-				t1 = t2;
+				if (t1 > t2 && t2 >= EPSILON)
+				{
+					t1 = t2;
+				}
 			}
-
+			
 			if (t1 < t)
 			{
 				t = t1;
@@ -55,11 +57,18 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 		double t1, t2;
 		if (box.material->opacity >= minOpacity && box.intersect(ray, t1, t2))
 		{
-			if (t1 < EPSILON || t1 <= 0) {
+			if (t1 < EPSILON) {
 				t1 = t2;
 				if (t1 < EPSILON || t1 <= 0)
 				{
 					continue;
+				}
+			}
+			else
+			{
+				if (t1 > t2 && t2 >= EPSILON)
+				{
+					t1 = t2;
 				}
 			}
 
@@ -84,7 +93,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 		double t1;
 		if (triangle.material->opacity >= minOpacity && triangle.intersect(ray, t1))
 		{
-			if (t1 < EPSILON || t1 <= 0)
+			if (t1 < EPSILON)
 			{
 				continue;
 			}
@@ -106,15 +115,13 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 
 Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 {
-	vec3f kd = intersection.material->kd;
-
 	/*if (!obj.material.texture.empty()) {
 		Pixel pixel = getTexturePixel(obj.material.texture, obj.u, obj.v);
 		kd = Vec3f(pixel.v0(), pixel.v1(), pixel.v2());
 	}*/
 
 	vec3f v = (ray.o - intersection.intersectionPosition).normalized();
-	vec3f Ia = scene.ambientColor * kd;
+	vec3f Ia = scene.ambientColor * intersection.material->kd;
 	vec3f Ip = Ia;
 
 	vec3f rr = intersection.intersectionNormal * (2 * vec3f::dot(v, intersection.intersectionNormal)) - v;
@@ -124,7 +131,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 		if (intersectionTemp.type != NONE) {
 			vec3f l = (light.pos - intersectionTemp.intersectionPosition).normalized();
 			vec3f Is = light.color * intersectionTemp.material->ks * pow(vec3f::dot(rr, l), intersectionTemp.material->n_specular);
-			vec3f Id = light.color * kd * std::max<float>(vec3f::dot(intersectionTemp.intersectionNormal, l), 0);
+			vec3f Id = light.color * intersectionTemp.material->kd * std::max<float>(vec3f::dot(intersectionTemp.intersectionNormal, l), 0);
 			Ip += Is + Id;
 		}
 	}

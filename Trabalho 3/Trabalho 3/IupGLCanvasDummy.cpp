@@ -416,10 +416,12 @@ void IupGLCanvasDummy::parseRT5(const char *filename)
 		exit(-1);
 	}
 
+	materialsList.clear();
+	lightsList.clear();
 	spheresList.clear();
 	boxesList.clear();
 	trianglesList.clear();
-
+	
 	while (!in.eof())
 	{
 		str = "";
