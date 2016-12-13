@@ -261,13 +261,13 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 
 	if (scene.texture->path != "null")
 	{
-		Image image;
+		Image *image = new Image();
 
 		std::string texturePath = "textures/" + scene.texture->path;
 
-		if (image.readBMP(texturePath.c_str()))
+		if (image->readBMP(texturePath.c_str()))
 		{
-			scene.texture->image = &image; // TODO - CHECK ALLOCATION
+			scene.texture->image = image;
 		}
 		else
 		{
@@ -763,16 +763,17 @@ void IupGLCanvasDummy::rayTrace()
 	double a = 2 * camera.nearPos * tan(camera.fovY * (PI / 180.0) / 2.0);
 	double b = ((float)width / (float)height) * a;
 
-	RayTracer rayTracer = RayTracer(scene, camera, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
+	RayTracer rayTracer = RayTracer(&scene, &camera, &camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
 
 
-	for (int x = 0; x < width; x++)
+	for (int y = 0; y < height; y++)
 	{
-		scene.currentX = x;
-
-		for (int y = 0; y < height; y++)
+		std::cout << "Rendering line " << y << "/" << height << std::endl;
+		scene.currentY = y;
+		
+		for (int x = 0; x < width; x++)
 		{
-			scene.currentY = y;
+			scene.currentX = x;
 
 			Ray ray;
 			ray.o = camera.eyePos;
@@ -782,6 +783,8 @@ void IupGLCanvasDummy::rayTrace()
 			image->setPixel(x, y, pixel);
 		}
 	}
+
+	delete scene.texture;
 }
 
 
@@ -796,8 +799,11 @@ int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 	std::string path = "rt5/" + filename;
 	canvas->parseRT5(path.c_str());
 	canvas->rayTrace();
+
 	path = "output/" + filename;
+
 	canvas->image->writeBMP(path.append(".out.bmp").c_str());
+	delete canvas->image;
 
 	//canvas->redraw();
 	canvas->updatePanelInfo();

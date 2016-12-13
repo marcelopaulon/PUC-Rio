@@ -8,9 +8,9 @@
 class RayTracer
 {
 private:
-	Scene scene;
-	Camera camera;
-	vec3f eye;
+	Scene *scene;
+	Camera *camera;
+	vec3f *eye;
 
 	/**
 	* Lista de esferas carregados.
@@ -33,7 +33,7 @@ private:
 	std::vector<Light> lightsList;
 
 public:
-	RayTracer(Scene _scene, Camera _camera, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList);
+	RayTracer(Scene *_scene, Camera *_camera, vec3f *_eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList);
 
 	IntersectedObjectData getIntersection(Ray ray, double minOpacity);
 

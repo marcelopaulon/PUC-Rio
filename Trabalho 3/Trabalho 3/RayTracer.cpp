@@ -9,7 +9,7 @@
 
 #define PI 3.14159265359
 
-RayTracer::RayTracer(Scene _scene, Camera _camera, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList)
+RayTracer::RayTracer(Scene *_scene, Camera *_camera, vec3f *_eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList)
 {
 	scene = _scene;
 	camera = _camera;
@@ -133,8 +133,6 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				continue;
 			}
 			
-			// https://classes.soe.ucsc.edu/cmps160/Fall10/resources/barycentricInterpolation.pdf
-
 			if (t1 < t)
 			{
 				t = t1;
@@ -190,7 +188,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	}
 	
 	vec3f v = (ray.o - intersection.intersectionPosition).normalized();	// Vector ^v -> intersection -> eye
-	vec3f Ia = scene.ambientColor * kd;	// Ambient Color * diffuse color
+	vec3f Ia = scene->ambientColor * kd;	// Ambient Color * diffuse color
 	
 	vec3f I = Ia;
 
@@ -273,18 +271,21 @@ Pixel RayTracer::trace(Ray ray, int depth)
 	{
 		Pixel pixel;
 
-		if (scene.texture->path != "null")
+		if (scene->texture->path != "null")
 		{
-			float u = scene.currentX / camera.imgWidth;
-			float v = scene.currentY / camera.imgHeight;
+			float u = scene->currentX / camera->imgWidth;
+			float v = scene->currentY / camera->imgHeight;
 
-			pixel = getTexturePixel(&intersection.material->texture, u, v);
+			//pixel = getTexturePixel(scene->texture, u, v);
+			pixel[0] = scene->backgroundColor.x;
+			pixel[1] = scene->backgroundColor.y;
+			pixel[2] = scene->backgroundColor.z;
 		}
 		else
 		{
-			pixel[0] = scene.backgroundColor.x;
-			pixel[1] = scene.backgroundColor.y;
-			pixel[2] = scene.backgroundColor.z;
+			pixel[0] = scene->backgroundColor.x;
+			pixel[1] = scene->backgroundColor.y;
+			pixel[2] = scene->backgroundColor.z;
 		}
 
 		return pixel;
