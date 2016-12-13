@@ -3,12 +3,16 @@
 #include "structures.h"
 #include "SceneObject.h"
 
+#include <iostream>
+
 #define MAX_DEPTH 10
 
+#define PI 3.14159265359
 
-RayTracer::RayTracer(Scene _scene, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList)
+RayTracer::RayTracer(Scene _scene, Camera _camera, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList)
 {
 	scene = _scene;
+	camera = _camera;
 	eye = _eye;
 
 	spheresList = _spheresList;
@@ -52,6 +56,11 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				data.material = sphere.material;
 				data.intersectionPosition = ray.o + ray.d * t1;
 				data.intersectionNormal = sphere.calcNormal(data.intersectionPosition);
+
+				float phi = std::atan2(data.intersectionNormal.y, data.intersectionNormal.x);
+				float theta = std::atan2(std::hypot(data.intersectionNormal.x, data.intersectionNormal.y), data.intersectionNormal.z);
+				data.u = (1 + phi / PI) / 2.;
+				data.v = theta / PI;
 			}
 		}
 	}
@@ -88,6 +97,29 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				data.material = box.material;
 				data.intersectionPosition = ray.o + ray.d * t1;
 				data.intersectionNormal = box.calcNormal(data.intersectionPosition);
+
+				float minX = std::min(box.bottomLeft.x, box.topRight.x);
+				float maxX = std::max(box.bottomLeft.x, box.topRight.x);
+				float minY = std::min(box.bottomLeft.y, box.topRight.y);
+				float maxY = std::max(box.bottomLeft.y, box.topRight.y);
+				float minZ = std::min(box.bottomLeft.z, box.topRight.z);
+				float maxZ = std::max(box.bottomLeft.z, box.topRight.z);
+
+				if (data.intersectionNormal.x != 0) 
+				{
+					data.u = (data.intersectionPosition.y - minY) / (maxY - minY);
+					data.v = (data.intersectionPosition.z - minZ) / (maxZ - minZ);
+				}
+				else if (data.intersectionNormal.y != 0)
+				{
+					data.u = (data.intersectionPosition.z - minZ) / (maxZ - minZ);
+					data.v = (data.intersectionPosition.x - minX) / (maxX - minX);
+				}
+				else if (data.intersectionNormal.z != 0)
+				{
+					data.u = (data.intersectionPosition.x - minX) / (maxX - minX);
+					data.v = (data.intersectionPosition.y - minY) / (maxY - minY);
+				}
 			}
 		}
 	}
@@ -100,6 +132,8 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 			{
 				continue;
 			}
+			
+			// https://classes.soe.ucsc.edu/cmps160/Fall10/resources/barycentricInterpolation.pdf
 
 			if (t1 < t)
 			{
@@ -109,6 +143,20 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				data.material = triangle.material;
 				data.intersectionPosition = ray.o + ray.d * t1;
 				data.intersectionNormal = triangle.calcNormal();
+
+				float a1 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v3 - triangle.v2, data.intersectionPosition - triangle.v2)) / 2.0;
+				float a2 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v1 - triangle.v3, data.intersectionPosition - triangle.v3)) / 2.0;
+				float a3 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v2 - triangle.v1, data.intersectionPosition - triangle.v1)) / 2.0;
+				float a = a1 + a2 + a3;
+
+				float l1 = a1 / a;
+				float l2 = a2 / a;
+				float l3 = a3 / a;
+
+				data.u = l1 * triangle.v1TexturePos.x + l2 * triangle.v2TexturePos.x + l3 * triangle.v3TexturePos.x;
+				data.v = l1 * triangle.v1TexturePos.y + l2 * triangle.v2TexturePos.y + l3 * triangle.v3TexturePos.y;
+				//data.u = std::fmod(data.u, 1); REMOVE?
+				//data.v = std::fmod(data.v, 1); REMOVE?
 			}
 		}
 	}
@@ -134,11 +182,14 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	vec3f kd = intersection.material->kd;
 	vec3f ks = intersection.material->ks;
 	vec3f normal = intersection.intersectionNormal;
-	
-	/*if (!obj.material.texture.empty()) {
-		Pixel pixel = getTexturePixel(obj.material.texture, obj.u, obj.v);
-		kd = Vec3f(pixel.v0(), pixel.v1(), pixel.v2());
-	}*/
+	static int i = 0;
+	if (intersection.material->texture.path.compare("null") != 0 && intersection.material->texture.path.compare("") != 0)
+	{
+		Pixel texturePixel = getTexturePixel(intersection.material->texture, intersection.u, intersection.v);
+		kd = vec3f(texturePixel[0], texturePixel[1], texturePixel[2]);
+		i++;
+		std::cout << i << std::endl;
+	}
 	
 	vec3f v = (ray.o - intersection.intersectionPosition).normalized();	// Vector ^v -> intersection -> eye
 	vec3f Ia = scene.ambientColor * kd;	// Ambient Color * diffuse color
@@ -189,6 +240,29 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 }
 
+Pixel RayTracer::getTexturePixel(Texture texture, float u, float v)
+{
+	Image& image = texture.image;
+
+	float x = u * (image.getW() - 1);
+	float y = v * (image.getH() - 1);
+
+	int x0 = std::floor(x);
+	int y0 = std::floor(y);
+	int x1 = std::ceil(x);
+	int y1 = std::ceil(y);
+
+	float dx = x - x0;
+	float dy = y - y0;
+
+	Pixel pixel = image.getPixel(x0, y0) * (1 - dx) * (1 - dy) +
+		image.getPixel(x1, y0) * dx * (1 - dy) +
+		image.getPixel(x0, y1) * (1 - dx) * dy +
+		image.getPixel(x1, y1) * dx * dy;
+
+	return pixel;
+}
+
 Pixel RayTracer::trace(Ray ray, int depth)
 {
 	IntersectedObjectData intersection = getIntersection(ray, 0);
@@ -199,11 +273,21 @@ Pixel RayTracer::trace(Ray ray, int depth)
 	}
 	else
 	{
-		// Todo - check has texture
 		Pixel pixel;
-		pixel[0] = scene.backgroundColor.x;
-		pixel[1] = scene.backgroundColor.y;
-		pixel[2] = scene.backgroundColor.z;
+
+		if (scene.texture.path != "null")
+		{
+			float u = scene.currentX / camera.imgWidth;
+			float v = scene.currentY / camera.imgHeight;
+
+			pixel = getTexturePixel(intersection.material->texture, u, v);
+		}
+		else
+		{
+			pixel[0] = scene.backgroundColor.x;
+			pixel[1] = scene.backgroundColor.y;
+			pixel[2] = scene.backgroundColor.z;
+		}
 
 		return pixel;
 	}

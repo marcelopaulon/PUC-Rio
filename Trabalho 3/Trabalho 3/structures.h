@@ -30,6 +30,8 @@ struct Scene
 	vec3f backgroundColor; // If no texture
 	vec3f ambientColor;
 	Texture texture;
+
+	int currentX, currentY;
 };
 
 struct Camera

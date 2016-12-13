@@ -259,7 +259,7 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 	scene.texture = Texture();
 	(*in) >> scene.texture.path;
 
-	if (scene.texture.path != "" && scene.texture.path != "null")
+	if (scene.texture.path != "null")
 	{
 		Image image;
 
@@ -302,7 +302,7 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 	material.texture = Texture();
 	(*in) >> material.texture.path;
 
-	if (material.texture.path != "" && material.texture.path != "null")
+	if (material.texture.path != "null")
 	{
 		Image image;
 		
@@ -323,7 +323,7 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 
 Material * IupGLCanvasDummy::findMaterial(std::string materialName)
 {
-	if (materialName == "null" || materialName == "")
+	if (materialName == "null")
 	{
 		return nullptr;
 	}
@@ -763,13 +763,17 @@ void IupGLCanvasDummy::rayTrace()
 	double a = 2 * camera.nearPos * tan(camera.fovY * (PI / 180.0) / 2.0);
 	double b = ((float)width / (float)height) * a;
 
-	RayTracer rayTracer = RayTracer(scene, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
+	RayTracer rayTracer = RayTracer(scene, camera, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
 
 
 	for (int x = 0; x < width; x++)
 	{
+		scene.currentX = x;
+
 		for (int y = 0; y < height; y++)
 		{
+			scene.currentY = y;
+
 			Ray ray;
 			ray.o = camera.eyePos;
 			ray.d = ze * -camera.nearPos + ye * a * ((float)y / (float)height - 0.5) + xe * b * ((float)x / (float)width - 0.5);

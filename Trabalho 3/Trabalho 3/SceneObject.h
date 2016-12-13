@@ -201,6 +201,8 @@ struct IntersectedObjectData
 	vec3f intersectionNormal;
 
 	Material * material;
+
+	float u, v;
 };
 
 class SceneObject
