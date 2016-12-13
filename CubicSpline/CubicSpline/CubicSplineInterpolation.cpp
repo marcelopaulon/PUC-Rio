@@ -20,6 +20,14 @@ CubicSplineInterpolation::CubicSplineInterpolation(Point *points, int n, bool op
 
 Point CubicSplineInterpolation::calculatePoint(int i, double t)
 {
+	if (!_openSpline && i == _n - 1)
+	{
+		double pointX = casteljauB(_points[_n-1].getX(), _R[_n-1].getX(), _L[_n-1].getX(), _points[0].getX(), t);
+		double pointY = casteljauB(_points[_n-1].getY(), _R[_n-1].getY(), _L[_n-1].getY(), _points[0].getY(), t);
+
+		return Point(pointX, pointY);
+	}
+
 	double pointX = casteljauB(_points[i].getX(), _R[i].getX(), _L[i].getX(), _points[i + 1].getX(), t);
 	double pointY = casteljauB(_points[i].getY(), _R[i].getY(), _L[i].getY(), _points[i + 1].getY(), t);
 
@@ -334,8 +342,17 @@ void CubicSplineInterpolation::setup()
 		
 	}
 
-	Thomas(_n, a, b, c, tempPX, tempPY, tempDX, tempDY);
-
+	if (_openSpline)
+	{
+		Thomas(_n, a, b, c, tempPX, tempPY, tempDX, tempDY);
+	}
+	else
+	{
+		printf("GaussX:\n");
+		gauss(_n, _A, tempPX, tempDX);
+		printf("GaussY:\n");
+		gauss(_n, _A, tempPY, tempDY);
+	}
 /*
 	printf("GaussX:\n");
 	gauss(_n, _A, tempPX, tempDX);
@@ -360,12 +377,20 @@ void CubicSplineInterpolation::setup()
 	printMatriz(_n, _n, _A);*/
 
 	// Calcula R e L
-	_R = new Point[_n - 1];
-	_L = new Point[_n - 1];
-
+	if (_openSpline)
+	{
+		_R = new Point[_n - 1];
+		_L = new Point[_n - 1];
+	}
+	else
+	{
+		_R = new Point[_n];
+		_L = new Point[_n];
+	}
+	double Rx, Ry, Lx, Ly;
 	for (int i = 0; i < _n - 1; i++)
 	{
-		double Rx, Ry, Lx, Ly;
+		
 
 		Rx = (1 - _mi[i]) * tempDX[i] + _mi[i] * tempDX[i + 1];
 		Ry = (1 - _mi[i]) * tempDY[i] + _mi[i] * tempDY[i + 1];
@@ -378,6 +403,22 @@ void CubicSplineInterpolation::setup()
 
 		std::cout << "R[" << i << "] = " << _R[i].getX() << ", " << _R[i].getY() << std::endl;
 		std::cout << "L[" << i << "] = " << _L[i].getX() << ", " << _L[i].getY() << std::endl;
+	}
+
+	//calcula último tramo entre último ponto e primeiro ponto
+	if (!_openSpline)
+	{
+		Rx = (1 - _mi[_n - 1]) * tempDX[_n - 1] + _mi[_n - 1] * tempDX[0];
+		Ry = (1 - _mi[_n - 1]) * tempDY[_n - 1] + _mi[_n - 1] * tempDY[0];
+
+		Lx = (1 - _lambda[0]) * tempDX[_n - 1] + _lambda[0] * tempDX[0];
+		Ly = (1 - _lambda[0]) * tempDY[_n - 1] + _lambda[0] * tempDY[0];
+
+		_R[_n - 1] = Point(Rx, Ry);
+		_L[_n - 1] = Point(Lx, Ly);
+
+		std::cout << "R[" << _n - 1 << "] = " << _R[_n - 1].getX() << ", " << _R[_n - 1].getY() << std::endl;
+		std::cout << "L[" << _n - 1 << "] = " << _L[_n - 1].getX() << ", " << _L[_n - 1].getY() << std::endl;
 	}
 
 	

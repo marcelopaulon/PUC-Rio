@@ -61,7 +61,7 @@ int main(void)
 		points[j] = Point(sin(i), cos(i));
 		j++;
 	}
-	points[n - 1] = Point(points[0].getX() - 0.00000001, points[0].getY() - 0.000000001);
+	//points[n - 1] = Point(points[0].getX() - 0.00000001, points[0].getY() - 0.000000001);
 	
 
 	/*points[0] = Point(102, 102);
@@ -82,7 +82,7 @@ int main(void)
 		points[i] = Point(100*rand()/RAND_MAX, 100*rand()/RAND_MAX);
 	}*/
 
-	CubicSplineInterpolation *csi = new CubicSplineInterpolation(points, n, true, false);
+	CubicSplineInterpolation *csi = new CubicSplineInterpolation(points, n,true,false);
 
 	std::vector<Point> result;
 
@@ -99,13 +99,13 @@ int main(void)
 
 	writeCsv("circleOpen.csv", result.size(), &result[0]);
 
-	CubicSplineInterpolation *csiN = new CubicSplineInterpolation(points, n, true, false);
+	CubicSplineInterpolation *csiN = new CubicSplineInterpolation(points, n,false,false);
 
 	result.clear();
 
 	csiN->calculateSpline();
 
-	for (int i = 0; i < n - 1; i++)
+	for (int i = 0; i < n - 1 + 1; i++)
 	{
 		for (double t = 0.0; t <= 1.0; t += 0.1)
 		{
