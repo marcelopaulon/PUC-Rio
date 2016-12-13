@@ -256,22 +256,22 @@ Scene IupGLCanvasDummy::parseScene(std::ifstream *in)
 
 	scene.backgroundColor = readVec3f(in);
 	scene.ambientColor = readVec3f(in);
-	scene.texture = Texture();
-	(*in) >> scene.texture.path;
+	scene.texture = new Texture();	// TODO delete
+	(*in) >> scene.texture->path;
 
-	if (scene.texture.path != "null")
+	if (scene.texture->path != "null")
 	{
 		Image image;
 
-		std::string texturePath = "textures/" + scene.texture.path;
+		std::string texturePath = "textures/" + scene.texture->path;
 
 		if (image.readBMP(texturePath.c_str()))
 		{
-			scene.texture.image = image;
+			scene.texture->image = &image; // TODO - CHECK ALLOCATION
 		}
 		else
 		{
-			std::cout << "Error loading scene texture " << scene.texture.path << std::endl;
+			std::cout << "Error loading scene texture " << scene.texture->path << std::endl;
 		}
 	}
 
@@ -304,11 +304,11 @@ Material IupGLCanvasDummy::parseMaterial(std::ifstream *in)
 
 	if (material.texture.path != "null")
 	{
-		Image image;
+		Image *image = new Image(); // TODO delete
 		
 		std::string texturePath = "textures/" + material.texture.path;
 		
-		if (image.readBMP(texturePath.c_str()))
+		if (image->readBMP(texturePath.c_str()))
 		{
 			material.texture.image = image;
 		}

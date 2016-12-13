@@ -22,14 +22,14 @@ struct pixelPos
 struct Texture
 {
 	std::string path;
-	Image image;
+	Image *image;
 };
 
 struct Scene
 {
 	vec3f backgroundColor; // If no texture
 	vec3f ambientColor;
-	Texture texture;
+	Texture *texture;
 
 	int currentX, currentY;
 };

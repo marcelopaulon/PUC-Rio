@@ -182,13 +182,11 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	vec3f kd = intersection.material->kd;
 	vec3f ks = intersection.material->ks;
 	vec3f normal = intersection.intersectionNormal;
-	static int i = 0;
+	
 	if (intersection.material->texture.path.compare("null") != 0 && intersection.material->texture.path.compare("") != 0)
 	{
-		Pixel texturePixel = getTexturePixel(intersection.material->texture, intersection.u, intersection.v);
+		Pixel texturePixel = getTexturePixel(&intersection.material->texture, intersection.u, intersection.v);
 		kd = vec3f(texturePixel[0], texturePixel[1], texturePixel[2]);
-		i++;
-		std::cout << i << std::endl;
 	}
 	
 	vec3f v = (ray.o - intersection.intersectionPosition).normalized();	// Vector ^v -> intersection -> eye
@@ -240,12 +238,12 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 }
 
-Pixel RayTracer::getTexturePixel(Texture texture, float u, float v)
+Pixel RayTracer::getTexturePixel(Texture *texture, float u, float v)
 {
-	Image& image = texture.image;
+	Image *image = texture->image;
 
-	float x = u * (image.getW() - 1);
-	float y = v * (image.getH() - 1);
+	float x = u * (image->getW() - 1);
+	float y = v * (image->getH() - 1);
 
 	int x0 = std::floor(x);
 	int y0 = std::floor(y);
@@ -255,10 +253,10 @@ Pixel RayTracer::getTexturePixel(Texture texture, float u, float v)
 	float dx = x - x0;
 	float dy = y - y0;
 
-	Pixel pixel = image.getPixel(x0, y0) * (1 - dx) * (1 - dy) +
-		image.getPixel(x1, y0) * dx * (1 - dy) +
-		image.getPixel(x0, y1) * (1 - dx) * dy +
-		image.getPixel(x1, y1) * dx * dy;
+	Pixel pixel = image->getPixel(x0, y0) * (1 - dx) * (1 - dy) +
+		image->getPixel(x1, y0) * dx * (1 - dy) +
+		image->getPixel(x0, y1) * (1 - dx) * dy +
+		image->getPixel(x1, y1) * dx * dy;
 
 	return pixel;
 }
@@ -275,12 +273,12 @@ Pixel RayTracer::trace(Ray ray, int depth)
 	{
 		Pixel pixel;
 
-		if (scene.texture.path != "null")
+		if (scene.texture->path != "null")
 		{
 			float u = scene.currentX / camera.imgWidth;
 			float v = scene.currentY / camera.imgHeight;
 
-			pixel = getTexturePixel(intersection.material->texture, u, v);
+			pixel = getTexturePixel(&intersection.material->texture, u, v);
 		}
 		else
 		{
