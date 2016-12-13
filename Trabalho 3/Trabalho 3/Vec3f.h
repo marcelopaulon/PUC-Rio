@@ -45,6 +45,11 @@ public:
 		return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 	}
 
+	static float norm(const vec3f &vec1)
+	{
+		return sqrt(vec3f::dot(vec1, vec1));
+	}
+
 	vec3f operator+(const vec3f &vec) const
 	{
 		return vec3f(x + vec.x, y + vec.y, z + vec.z);

@@ -36,6 +36,8 @@ public:
 
 	IntersectedObjectData getIntersection(Ray ray, double minOpacity);
 
+	bool shadowing(vec3f position, vec3f L);
+
 	Pixel shade(Ray ray, IntersectedObjectData intersection, int depth);
 
 	Pixel trace(Ray ray, int depth);

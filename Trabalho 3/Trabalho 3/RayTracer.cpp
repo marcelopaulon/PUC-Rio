@@ -3,6 +3,9 @@
 #include "structures.h"
 #include "SceneObject.h"
 
+#define MAX_DEPTH 10
+
+
 RayTracer::RayTracer(Scene _scene, vec3f _eye, std::vector<Sphere> _spheresList, std::vector<Box> _boxesList, std::vector<Triangle> _trianglesList, std::vector<Light> _lightsList)
 {
 	scene = _scene;
@@ -59,7 +62,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 		{
 			if (t1 < EPSILON) {
 				t1 = t2;
-				if (t1 < EPSILON || t1 <= 0)
+				if (t1 < EPSILON)
 				{
 					continue;
 				}
@@ -113,50 +116,76 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 	return data;
 }
 
-Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
+bool RayTracer::shadowing(vec3f position, vec3f L)
 {
+	IntersectedObjectData intersection = getIntersection(Ray(position, L), 1);
+
+	if (intersection.type == NONE)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
+{	
+	Pixel color = Pixel();
+	vec3f kd = intersection.material->kd;
+	vec3f ks = intersection.material->ks;
+	vec3f normal = intersection.intersectionNormal;
+	
 	/*if (!obj.material.texture.empty()) {
 		Pixel pixel = getTexturePixel(obj.material.texture, obj.u, obj.v);
 		kd = Vec3f(pixel.v0(), pixel.v1(), pixel.v2());
 	}*/
+	
+	vec3f v = (ray.o - intersection.intersectionPosition).normalized();	// Vector ^v -> intersection -> eye
+	vec3f Ia = scene.ambientColor * kd;	// Ambient Color * diffuse color
+	
+	vec3f I = Ia;
 
-	vec3f v = (ray.o - intersection.intersectionPosition).normalized();
-	vec3f Ia = scene.ambientColor * intersection.material->kd;
-	vec3f Ip = Ia;
+	for (Light& light : lightsList) 
+	{
+		vec3f L = (light.pos - intersection.intersectionPosition).normalized(); // ^L
 
-	vec3f rr = intersection.intersectionNormal * (2 * vec3f::dot(v, intersection.intersectionNormal)) - v;
-	for (Light& light : lightsList) {
-		IntersectedObjectData intersectionTemp = getIntersection(Ray(intersection.intersectionPosition, light.pos - intersection.intersectionPosition), 1);
+		float nl = vec3f::dot(normal, L);
+		if (nl > 0 && !shadowing(intersection.intersectionPosition, L))
+		{
+			vec3f Id = light.color * kd * nl;
 
-		if (intersectionTemp.type != NONE) {
-			vec3f l = (light.pos - intersectionTemp.intersectionPosition).normalized();
-			vec3f Is = light.color * intersectionTemp.material->ks * pow(vec3f::dot(rr, l), intersectionTemp.material->n_specular);
-			vec3f Id = light.color * intersectionTemp.material->kd * std::max<float>(vec3f::dot(intersectionTemp.intersectionNormal, l), 0);
-			Ip += Is + Id;
+			vec3f rr = normal * (2 * vec3f::dot(v, normal)) - v;
+			vec3f Is = light.color * ks * pow(vec3f::dot(rr, L), intersection.material->n_specular);
+
+			I += Id + Is;
 		}
 	}
 
-	Pixel src = Pixel(Ip.x, Ip.y, Ip.z);
-	if (depth > 10)
-		return src;
+	color = Pixel(I.x, I.y, I.z);
+	if (depth >= MAX_DEPTH)
+	{
+		return color;
+	}
 
-	if (intersection.material->reflectionCoefficient > 0) {
-		vec3f r = intersection.intersectionNormal * (2 * vec3f::dot(v, intersection.intersectionNormal)) - v;
+	if (intersection.material->isReflective()) 
+	{
+		vec3f r = normal * (2 * vec3f::dot(v, normal)) - v;
 		Pixel rColor = trace(Ray(intersection.intersectionPosition, r), depth + 1);
-		src += rColor * intersection.material->reflectionCoefficient;
+		color += rColor * intersection.material->reflectionCoefficient; // k * Ir;Ig;Ib
 	}
 
-	if (intersection.material->opacity < 1) {
-		vec3f vt = (intersection.intersectionNormal * vec3f::dot(v, intersection.intersectionNormal)) - v;
-		float sinThetaI = std::sqrt(vec3f::dot(vt, vt));
-		float sinTheta = sinThetaI / intersection.material->refractionCoefficient;
-		float cosTheta = std::sqrt(1 - sinTheta * sinTheta);
-		vec3f r = vt.normalized() * sinTheta - intersection.intersectionNormal * cosTheta;
-		Pixel tColor = trace(Ray(intersection.intersectionPosition, r), depth + 1);
-		src += tColor * (1 - intersection.material->opacity);
+	if (!intersection.material->isOpaque()) 
+	{
+		vec3f vt = (normal * vec3f::dot(v, normal)) - v;
+		float sinThetaI = vec3f::norm(vt);
+		float sinThetaT = sinThetaI / intersection.material->refractionCoefficient;
+		float cosThetaT = std::sqrt(1 - sinThetaT * sinThetaT);
+		vec3f rt = vt.normalized() * sinThetaT - normal * cosThetaT;
+		Pixel rColor = trace(Ray(intersection.intersectionPosition, rt), depth + 1);
+		color += rColor * (1 - intersection.material->opacity);
 	}
 
-	return src;
+	return color;
 
 }
 
@@ -175,7 +204,7 @@ Pixel RayTracer::trace(Ray ray, int depth)
 		pixel[0] = scene.backgroundColor.x;
 		pixel[1] = scene.backgroundColor.y;
 		pixel[2] = scene.backgroundColor.z;
-	}
 
-	return Pixel();
+		return pixel;
+	}
 }

@@ -4,7 +4,7 @@
 
 #include <algorithm>    // std::min
 
-#define EPSILON 1.0e-3
+#define EPSILON 1.0e-1
 
 struct Sphere
 {

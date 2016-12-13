@@ -765,9 +765,10 @@ void IupGLCanvasDummy::rayTrace()
 
 	RayTracer rayTracer = RayTracer(scene, camera.eyePos, spheresList, boxesList, trianglesList, lightsList);
 
-	for (int y = 0; y < height; y++)
+
+	for (int x = 0; x < width; x++)
 	{
-		for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
 		{
 			Ray ray;
 			ray.o = camera.eyePos;

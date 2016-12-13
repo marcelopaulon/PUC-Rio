@@ -56,6 +56,18 @@ struct Material
 	double refractionCoefficient; // Refraction, if opacity < 1
 	double opacity; // 0 -> transparent; 1 -> opaque
 	Texture texture;
+
+	bool isReflective()
+	{
+		if (reflectionCoefficient > 0) return true;
+		return false;
+	}
+
+	bool isOpaque()
+	{
+		if (opacity == 1.0) return true;
+		return false;
+	}
 };
 
 struct Light
