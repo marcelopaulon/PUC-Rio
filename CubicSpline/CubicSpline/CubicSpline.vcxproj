@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="CubicSplineInterpolation.cpp" />
     <ClCompile Include="gauss.cpp" />
+    <ClCompile Include="interp.cpp" />
     <ClCompile Include="matriz.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="program.cpp" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClInclude Include="CubicSplineInterpolation.h" />
     <ClInclude Include="gauss.h" />
+    <ClInclude Include="interp.h" />
     <ClInclude Include="matriz.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>

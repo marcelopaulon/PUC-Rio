@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "matriz.h"
 #include "gauss.h"
+#include "interp.h"
 
 #include <cstdlib>
 #include <iostream>

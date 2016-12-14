@@ -1,12 +1,3 @@
-#ifndef _GAUSS
-#define _GAUSS
-
-
-
-
-
-
-////Marcelo
 #include "gauss.h"
 #include <cstdlib>
 
@@ -87,5 +78,3 @@ void gauss(int n, double **D, double *v, double *x)
 
 	printMatriz(n, n, A);
 }
-
-#endif // !_GAUSS

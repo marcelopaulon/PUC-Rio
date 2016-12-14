@@ -36,85 +36,66 @@ void writeCsv(std::string name, int n, Point *points)
 	}
 }
 
+std::vector<Point> readCsv(std::string name) {
+	std::ifstream in(name);
+	std::vector<Point> points;
+
+	while (!in.eof()) {
+		float a, b;
+		char separator;
+		in >> a;
+		in >> separator;
+		in >> b;
+
+		points.push_back(Point(a, b));
+	}
+
+	in.close();
+	return points;
+}
+
 int main(void)
 {
-	int n = 10;
-	Point *points = new Point[n];
+	std::cout << "Arquivo .csv: " << std::endl;
+	char path[1024];
+	std::cin >> path;
+	int isOpen, isUniform;
 
-	/*points[0] = Point(0,0);
-	points[1] = Point(1,1);
-	points[2] = Point(2,3);
-	points[3] = Point(4,3);
-	points[4] = Point(5,6);
-	points[5] = Point(6,5);
-	points[6] = Point(7,8);
-*/
-	/*
-	points[0] = Point (102, 0);
-	points[1] = Point (0, 102);
-	points[2] = Point (-102, 0);
-	points[3] = Point (0, -102);
-	points[4] = Point(-102, 0);*/
+	std::cout << std::endl << "Aberto? ";
+	std::cin >> isOpen;
+	std::cout << std::endl << "Uniforme? ";
+	std::cin >> isUniform;
+
+	if (isOpen > 0) isOpen = 1;
 	
-	int j = 0;
-	for (double i = 0.0; i < 2 * 3.1415; i += 2 * 3.1415 / n) {
-		points[j] = Point(sin(i), cos(i));
-		j++;
+	std::vector<Point> points = readCsv(path);
+
+	//print teste leitura
+	for (unsigned int i = 0; i < points.size(); i++) {
+		std::cout << points[i].getX() << "; " << points[i].getY() << std::endl;
 	}
-	//points[n - 1] = Point(points[0].getX() - 0.00000001, points[0].getY() - 0.000000001);
 	
+	int n = points.size();
 
-	/*points[0] = Point(102, 102);
-	points[1] = Point(12, 12);
-	points[2] = Point(1.2, 1.2);
-	points[3] = Point(0.12, 0.12);
-	points[4] = Point(-12, -12);*/
-
-	/*points[0] = Point(0, 0);
-	points[1] = Point(5, 5);
-	points[2] = Point(10, 0);
-	points[3] = Point(15, 5);
-*/
-	/*srand(time(NULL));
-
-	for (int i = 0; i < n; i++)
-	{
-		points[i] = Point(100*rand()/RAND_MAX, 100*rand()/RAND_MAX);
-	}*/
-
-	CubicSplineInterpolation *csi = new CubicSplineInterpolation(points, n,true,false);
+	CubicSplineInterpolation csi = CubicSplineInterpolation(&points[0], points.size(),isOpen > 0, isUniform);
 
 	std::vector<Point> result;
-
-	csi->calculateSpline();
 	
-
-	for (int i = 0; i < n - 1; i++)
-	{
-		for (double t = 0.0; t <= 1.0; t += 0.01)
-		{
-			result.push_back(csi->calculatePoint(i, t));
-		}
-	}
-
-	writeCsv("circleOpen.csv", result.size(), &result[0]);
-
-	CubicSplineInterpolation *csiN = new CubicSplineInterpolation(points, n,false,false);
-
-	result.clear();
-
-	csiN->calculateSpline();
-
-	for (int i = 0; i < n - 1 + 1; i++)
+	csi.calculateSpline();
+	
+	//se for open, há n-1 tramos.
+	for (unsigned int i = 0; i < points.size() - isOpen; i++)
 	{
 		for (double t = 0.0; t <= 1.0; t += 0.1)
 		{
-			result.push_back(csiN->calculatePoint(i, t));
+			result.push_back(csi.calculatePoint(i, t));
 		}
 	}
 
-	writeCsv("circleClosed.csv", result.size(), &result[0]);
+	std::string csvName = "out";
+	csvName = csvName.append(path);
+
+	writeCsv(csvName.c_str(), result.size(), &result[0]);
 	
-	delete(points);
 	return 0;
 }

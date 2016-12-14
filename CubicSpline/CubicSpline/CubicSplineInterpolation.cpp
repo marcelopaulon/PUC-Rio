@@ -348,19 +348,16 @@ void CubicSplineInterpolation::setup()
 	}
 	else
 	{
-		printf("GaussX:\n");
+		//fatoração LU:
+		/*printMatriz(_n, _n, _A);
+		double **P = fatoracao(_n, _A);
+		printMatriz(_n, _n, _A);
+		printMatriz(_n, _n, P);
+		tempDX = substituicao(_n, _A, P, tempPX);
+		tempDY = substituicao(_n, _A, P, tempPY);*/
 		gauss(_n, _A, tempPX, tempDX);
-		printf("GaussY:\n");
-		gauss(_n, _A, tempPY, tempDY);
+		gauss(_n, _A,tempPY, tempDY);
 	}
-/*
-	printf("GaussX:\n");
-	gauss(_n, _A, tempPX, tempDX);
-	printf("GaussY:\n");
-	gauss(_n, _A, tempPY, tempDY);
-	*/
-
-	//y
 
 	for(int i = 0; i < _n; i++)
 	{

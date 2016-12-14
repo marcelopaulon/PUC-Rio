@@ -27,14 +27,14 @@
     <ClCompile Include="matriz.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="interp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="gauss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gauss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CubicSplineInterpolation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="matriz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gauss.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
