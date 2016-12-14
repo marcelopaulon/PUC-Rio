@@ -517,8 +517,9 @@ static int genExp(Exp *exp, int nIdent) {
         case ExpGreater:
         case ExpLessEqual:
         case ExpGreaterEqual:
-            return -4;
-        case ExpOr: {//<- ele cai no -4. solucao: implementar
+        case ExpAnd:
+        case ExpNot:
+        case ExpOr: {
             int lt = getNextTempLabel();
             int lf = getNextTempLabel();
             int lAfter = getNextTempLabel();
@@ -552,11 +553,7 @@ static int genExp(Exp *exp, int nIdent) {
             llvmWrite("]\n");
 
             return ret;
-            break;
         }
-        case ExpAnd:
-        case ExpNot:
-            return -4; // These are being handled on genCond function
         case ExpVar:
             return genExpVar(exp, nIdent);
         case ExpCall:

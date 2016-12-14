@@ -1,0 +1,39 @@
+/*
+ * 10.i.monga
+ * tests AND tests
+ */
+
+int f;
+
+int e()
+{
+    f = 0;
+    return f;
+}
+
+int d()
+{
+    f = 56;
+    return f;
+}
+
+int a()
+{
+    int k;
+
+    f = -1;
+
+    k = e() && d();
+
+    return f;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}
