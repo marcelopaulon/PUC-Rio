@@ -390,6 +390,25 @@ static int genCond(Exp *e, int lt, int lf, int nIdent) {
             return ret;
         }
 
+        case ExpInt:{
+            int result = genExp(e, nIdent);
+            int ret = getNextTempVar();
+
+            //testa se result é true
+            genIdent(nIdent);
+            printTemp(ret);
+            llvmWrite(" = icmp eq i32 ");
+            printTemp(result);
+            llvmWrite(", 0\nbr i1 ");
+            printTemp(ret);
+            llvmWrite(", label ");
+            printLabel(lf);
+            llvmWrite(", label ");
+            printLabel(lt);
+
+            return ret;
+        }
+
         default: {
             printf("Invalid tag - genCond. Exiting.\n");
             exit(-1);

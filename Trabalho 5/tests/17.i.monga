@@ -1,0 +1,39 @@
+/*
+ * 10.i.monga
+ * tests that test comparisons with tests part 2
+ */
+
+int f;
+
+int e()
+{
+    f = 1;
+    return f;
+}
+
+int d()
+{
+    f = 56;
+    return f;
+}
+
+int a()
+{
+    int k;
+
+    f = -1;
+
+    k = ((5 == 3) || ((!10) && (5 <= 5)));
+
+    return k;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}
