@@ -273,13 +273,10 @@ Pixel RayTracer::trace(Ray ray, int depth)
 
 		if (scene->texture->path != "null")
 		{
-			float u = scene->currentX / camera->imgWidth;
-			float v = scene->currentY / camera->imgHeight;
+			float u = (float)scene->currentX / (float)camera->imgWidth;
+			float v = (float)scene->currentY / (float)camera->imgHeight;
 
-			//pixel = getTexturePixel(scene->texture, u, v);
-			pixel[0] = scene->backgroundColor.x;
-			pixel[1] = scene->backgroundColor.y;
-			pixel[2] = scene->backgroundColor.z;
+			pixel = getTexturePixel(scene->texture, u, v);
 		}
 		else
 		{
