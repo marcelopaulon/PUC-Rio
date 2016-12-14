@@ -509,6 +509,7 @@ static void printDefinition(Definition *definition, int nIdent)
 
 void printAST(DefinitionList *tree)
 {
+    return;
     if(tree == NULL)
     {
         return;

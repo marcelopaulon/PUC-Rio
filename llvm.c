@@ -134,7 +134,6 @@ static void genDefFunc(Func * deffunc, int nIdent)
     llvmWrite(" #0 ");
 
     llvmWrite("{\n");
-
     genBlock(deffunc->block, nIdent);
     llvmWrite("}\n");
 
@@ -370,8 +369,29 @@ static int genCond(Exp *e, int lt, int lf, int nIdent) {
             return t;
         }
 
+        case ExpCall: {
+            int result = genCmdCall(e->u.call, nIdent);
+            int ret = getNextTempVar();
+
+            //testa se result é true
+            genIdent(nIdent);
+            printTemp(ret);
+            llvmWrite(" = %ccmp%seq ", (e->u.bin.e1->type->name == VarInt ? 'i' : 'f'), (e->u.bin.e1->type->name == VarInt ? " " : " o"));
+            genType(e->u.call->type);
+            llvmWrite(" ");
+            printTemp(result);
+            llvmWrite(", 0\nbr i1 ");
+            printTemp(ret);
+            llvmWrite(", label ");
+            printLabel(lf);
+            llvmWrite(", label ");
+            printLabel(lt);
+
+            return ret;
+        }
+
         default: {
-            printf("Invalid type - genCond. Exiting.\n");
+            printf("Invalid tag - genCond. Exiting.\n");
             exit(-1);
         }
     }
@@ -497,7 +517,43 @@ static int genExp(Exp *exp, int nIdent) {
         case ExpGreater:
         case ExpLessEqual:
         case ExpGreaterEqual:
-        case ExpOr:
+            return -4;
+        case ExpOr: {//<- ele cai no -4. solucao: implementar
+            int lt = getNextTempLabel();
+            int lf = getNextTempLabel();
+            int lAfter = getNextTempLabel();
+            int ret = getNextTempVar();
+            int temp1 = getNextTempLabel();
+            int temp2 = getNextTempLabel();
+
+            genCond(exp,lt,lf,nIdent);
+
+            genLabel(lt);
+            genIdent(nIdent);
+            printTemp(temp1);
+            llvmWrite(" = add i32 0, 1\n");
+            llvmWrite("br label %%l%d\n", lAfter);
+            genLabel(lf);
+            genIdent(nIdent);
+            printTemp(temp2);
+            llvmWrite(" = add i32 0, 0\n");
+            genLabel(lAfter);
+
+            genIdent(nIdent);
+            printTemp(ret);
+            llvmWrite(" = phi i32 [");
+            printTemp(temp1);
+            llvmWrite(",");
+            printLabel(lt);
+            llvmWrite("], [");
+            printTemp(temp2);
+            llvmWrite(",");
+            printLabel(lf);
+            llvmWrite("]\n");
+
+            return ret;
+            break;
+        }
         case ExpAnd:
         case ExpNot:
             return -4; // These are being handled on genCond function
