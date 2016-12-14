@@ -77,12 +77,17 @@ int main(void)
 	
 	int n = points.size();
 
+	std::vector<Point> result;
+
+	clock_t begin = clock();
+
 	CubicSplineInterpolation csi = CubicSplineInterpolation(&points[0], points.size(),isOpen > 0, isUniform);
 
-	std::vector<Point> result;
-	
 	csi.calculateSpline();
-	
+
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		
 	//se for open, há n-1 tramos.
 	for (unsigned int i = 0; i < points.size() - isOpen; i++)
 	{
@@ -97,5 +102,7 @@ int main(void)
 
 	writeCsv(csvName.c_str(), result.size(), &result[0]);
 	
+	std::cout << "Elapsed Time: " << elapsed_secs << std::endl;
+
 	return 0;
 }

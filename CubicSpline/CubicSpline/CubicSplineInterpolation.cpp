@@ -350,22 +350,22 @@ void CubicSplineInterpolation::setup()
 	{
 		//fatoração LU:
 		double **P = fatoracao(_n, _A);
-		printMatriz(_n, _n, _A);
-		printMatriz(_n, _n, P);
+		//printMatriz(_n, _n, _A);
+		//printMatriz(_n, _n, P);
 		tempDX = substituicao(_n, _A, P, tempPX);
 		tempDY = substituicao(_n, _A, P, tempPY);
 	}
 
-	for(int i = 0; i < _n; i++)
-	{
+	//for(int i = 0; i < _n; i++)
+	//{
 		//double sum = 2.0 * (_h[i] + _h[i+1]);
 		//_gamma[i] = sum / (_upsilon[i] * _h[i] * _h[i+1] + sum);
 		
 		//std::cout << "[" << i << "] h = " << _h[i] << " delta = " << _delta[i] << " upsilon = " << _upsilon[i] << " gamma = " << _gamma[i] <<  " lambda = " << _lambda[i] << "mi = " << _mi[i] <<std::endl;
-		std::cout << tempDX[i] << " " << tempDY[i] << std::endl;
-	}
+		//std::cout << tempDX[i] << " " << tempDY[i] << std::endl;
+	//}
 
-	std::cout << "[" << _n << "] h = " << _h[_n] << std::endl;
+	//std::cout << "[" << _n << "] h = " << _h[_n] << std::endl;
 
 	/*printf("matriz:\n");
 	printMatriz(_n, _n, _A);*/
@@ -395,8 +395,8 @@ void CubicSplineInterpolation::setup()
 		_R[i] = Point(Rx, Ry);
 		_L[i] = Point(Lx, Ly);
 
-		std::cout << "R[" << i << "] = " << _R[i].getX() << ", " << _R[i].getY() << std::endl;
-		std::cout << "L[" << i << "] = " << _L[i].getX() << ", " << _L[i].getY() << std::endl;
+		//std::cout << "R[" << i << "] = " << _R[i].getX() << ", " << _R[i].getY() << std::endl;
+		//std::cout << "L[" << i << "] = " << _L[i].getX() << ", " << _L[i].getY() << std::endl;
 	}
 
 	//calcula último tramo entre último ponto e primeiro ponto
@@ -411,8 +411,8 @@ void CubicSplineInterpolation::setup()
 		_R[_n - 1] = Point(Rx, Ry);
 		_L[_n - 1] = Point(Lx, Ly);
 
-		std::cout << "R[" << _n - 1 << "] = " << _R[_n - 1].getX() << ", " << _R[_n - 1].getY() << std::endl;
-		std::cout << "L[" << _n - 1 << "] = " << _L[_n - 1].getX() << ", " << _L[_n - 1].getY() << std::endl;
+		//std::cout << "R[" << _n - 1 << "] = " << _R[_n - 1].getX() << ", " << _R[_n - 1].getY() << std::endl;
+		//std::cout << "L[" << _n - 1 << "] = " << _L[_n - 1].getX() << ", " << _L[_n - 1].getY() << std::endl;
 	}
 
 	
