@@ -86,7 +86,7 @@ int main(void)
 	//se for open, há n-1 tramos.
 	for (unsigned int i = 0; i < points.size() - isOpen; i++)
 	{
-		for (double t = 0.0; t <= 1.0; t += 0.1)
+		for (double t = 0.0; t <= 1.0; t += 0.05)
 		{
 			result.push_back(csi.calculatePoint(i, t));
 		}
