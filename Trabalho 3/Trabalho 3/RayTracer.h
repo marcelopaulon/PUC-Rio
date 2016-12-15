@@ -41,7 +41,7 @@ public:
 
 	Pixel shade(Ray ray, IntersectedObjectData intersection, int depth);
 
-	Pixel getTexturePixel(Texture *texture, float u, float v);
+	Pixel calcTexturePoint(Texture *texture, float u, float v);
 
 	Pixel trace(Ray ray, int depth);
 };

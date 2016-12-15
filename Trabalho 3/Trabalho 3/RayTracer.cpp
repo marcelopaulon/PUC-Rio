@@ -27,7 +27,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 	IntersectedObjectData data;
 	data.type = NONE;
 
-	float t = std::numeric_limits<float>::infinity();
+	double t = std::numeric_limits<double>::infinity();
 
 	for (const Sphere& sphere : spheresList) {
 		double t1, t2;
@@ -51,10 +51,10 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				data.intersectionPosition = ray.o + ray.d * t1;
 				data.intersectionNormal = sphere.calcNormal(data.intersectionPosition);
 
-				float phi = std::atan2(data.intersectionNormal.y, data.intersectionNormal.x);
-				float theta = std::atan2(std::hypot(data.intersectionNormal.x, data.intersectionNormal.y), data.intersectionNormal.z);
-				data.u = (1 + phi / PI) / 2.0;
-				data.v = theta / PI;
+				float phi = (float)(std::atan2(data.intersectionNormal.y, data.intersectionNormal.x));
+				float theta = (float)(std::atan2(std::hypot(data.intersectionNormal.x, data.intersectionNormal.y), data.intersectionNormal.z));
+				data.u = (float)((1 + phi / PI) / 2.0);
+				data.v = (float)(theta / PI);
 			}
 		}
 	}
@@ -125,17 +125,17 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 				data.intersectionPosition = ray.o + ray.d * t1;
 				data.intersectionNormal = triangle.calcNormal();
 
-				float a1 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v3 - triangle.v2, data.intersectionPosition - triangle.v2)) / 2.0;
-				float a2 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v1 - triangle.v3, data.intersectionPosition - triangle.v3)) / 2.0;
-				float a3 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v2 - triangle.v1, data.intersectionPosition - triangle.v1)) / 2.0;
-				float a = a1 + a2 + a3;
+				double a1 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v3 - triangle.v2, data.intersectionPosition - triangle.v2)) / 2.0;
+				double a2 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v1 - triangle.v3, data.intersectionPosition - triangle.v3)) / 2.0;
+				double a3 = vec3f::dot(data.intersectionNormal, vec3f::cross(triangle.v2 - triangle.v1, data.intersectionPosition - triangle.v1)) / 2.0;
+				double at = a1 + a2 + a3;
 
-				float l1 = a1 / a;
-				float l2 = a2 / a;
-				float l3 = a3 / a;
+				double l1 = a1 / at;
+				double l2 = a2 / at;
+				double l3 = a3 / at;
 
-				data.u = l1 * triangle.v1TexturePos.x + l2 * triangle.v2TexturePos.x + l3 * triangle.v3TexturePos.x;
-				data.v = l1 * triangle.v1TexturePos.y + l2 * triangle.v2TexturePos.y + l3 * triangle.v3TexturePos.y;
+				data.u = (float)(l1 * triangle.v1TexturePos.x + l2 * triangle.v2TexturePos.x + l3 * triangle.v3TexturePos.x);
+				data.v = (float)(l1 * triangle.v1TexturePos.y + l2 * triangle.v2TexturePos.y + l3 * triangle.v3TexturePos.y);
 			}
 		}
 	}
@@ -164,7 +164,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	
 	if (intersection.material->texture.path.compare("null") != 0)
 	{
-		Pixel texturePixel = getTexturePixel(&intersection.material->texture, intersection.u, intersection.v);
+		Pixel texturePixel = calcTexturePoint(&intersection.material->texture, intersection.u, intersection.v);
 		kd = vec3f(texturePixel[0], texturePixel[1], texturePixel[2]);
 	}
 	
@@ -206,7 +206,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	{
 		vec3f vt = (normal * vec3f::dot(v, normal)) - v;
 		float sinThetaI = vec3f::norm(vt);
-		float sinThetaT = sinThetaI / intersection.material->refractionCoefficient;
+		float sinThetaT = (float)(sinThetaI / intersection.material->refractionCoefficient);
 		float cosThetaT = std::sqrt(1 - sinThetaT * sinThetaT);
 		vec3f rt = vt.normalized() * sinThetaT - normal * cosThetaT;
 		Pixel rColor = trace(Ray(intersection.intersectionPosition, rt), depth + 1);
@@ -217,27 +217,14 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 
 }
 
-Pixel RayTracer::getTexturePixel(Texture *texture, float u, float v)
+Pixel RayTracer::calcTexturePoint(Texture *texture, float u, float v)
 {
-	Image *image = texture->image;
+	Image *texImage = texture->image;
 
-	float x = u * (image->getW() - 1);
-	float y = v * (image->getH() - 1);
+	int i = abs(((int)(u * (texImage->getW() - 1) + 0.5) % texImage->getW()));
+	int j = abs(((int)(v * (texImage->getH() - 1) + 0.5) % texImage->getH()));
 
-	int x0 = std::floor(x);
-	int y0 = std::floor(y);
-	int x1 = std::ceil(x);
-	int y1 = std::ceil(y);
-
-	float dx = x - x0;
-	float dy = y - y0;
-
-	Pixel pixel = image->getPixel(x0, y0) * (1 - dx) * (1 - dy) +
-		image->getPixel(x1, y0) * dx * (1 - dy) +
-		image->getPixel(x0, y1) * (1 - dx) * dy +
-		image->getPixel(x1, y1) * dx * dy;
-
-	return pixel;
+	return texImage->getPixel(i, j);
 }
 
 Pixel RayTracer::trace(Ray ray, int depth)
@@ -257,7 +244,7 @@ Pixel RayTracer::trace(Ray ray, int depth)
 			float u = (float)scene->currentX / (float)camera->imgWidth;
 			float v = (float)scene->currentY / (float)camera->imgHeight;
 
-			pixel = getTexturePixel(scene->texture, u, v);
+			pixel = calcTexturePoint(scene->texture, u, v);
 		}
 		else
 		{

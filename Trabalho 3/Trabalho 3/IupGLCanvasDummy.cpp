@@ -699,7 +699,7 @@ void IupGLCanvasDummy::rayTrace()
 		for (int x = 0; x < width; x++)
 		{
 			scene.currentX = x;
-
+			if(y == 98) std::cout << x << std::endl;
 			Ray ray;
 			ray.o = camera.eyePos;
 			ray.d = ze * -camera.nearPos + ye * a * ((float)y / (float)height - 0.5) + xe * b * ((float)x / (float)width - 0.5);
