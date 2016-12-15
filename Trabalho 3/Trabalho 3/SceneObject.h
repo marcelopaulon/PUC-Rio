@@ -12,7 +12,7 @@ struct Sphere
 	double radius;
 	vec3f pos;
 
-	bool intersect(const Ray& ray, double& t) const
+	bool intersect(const Ray& ray, double& t1, double& t2) const
 	{
 		vec3f oc = ray.o - pos;
 		double a = vec3f::dot(ray.d, ray.d);
@@ -23,14 +23,11 @@ struct Sphere
 
 		if (delta >= 0)
 		{
-			double t1 = (-b - sqrt(delta)) / (2.0*a);
-			double t2 = (-b + sqrt(delta)) / (2.0*a);
+			t1 = (-b - sqrt(delta)) / (2.0*a);
+			t2 = (-b + sqrt(delta)) / (2.0*a);
 
-			double tm = std::min(t1, t2);
-
-			if (tm > 0)
+			if (t1 > 0 || t2 > 0)
 			{
-				t = tm;
 				return true;
 			}
 		}

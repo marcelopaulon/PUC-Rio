@@ -30,13 +30,18 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 	float t = std::numeric_limits<float>::infinity();
 
 	for (const Sphere& sphere : spheresList) {
-		double t1;
-		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1))
+		double t1, t2;
+		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1, t2))
 		{
+			if (t1 > t2)
+			{
+				t1 = t2;
+			}
+
 			if (t1 < EPSILON) {
 				continue;
 			}
-						
+
 			if (t1 < t)
 			{
 				t = t1;
@@ -58,24 +63,13 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 		double t1, t2;
 		if (box.material->opacity >= minOpacity && box.intersect(ray, t1, t2))
 		{
-			if (t1 < EPSILON) {
-				t1 = t2;
-				if (t1 < EPSILON)
-				{
-					continue;
-				}
-			}
-			else
-			{
-				if (t1 > t2 && t2 >= EPSILON)
-				{
-					t1 = t2;
-				}
-			}
-
 			if (t1 > t2)
 			{
 				t1 = t2;
+			}
+
+			if (t1 < EPSILON) {
+				continue;
 			}
 
 			if (t1 < t)
@@ -151,7 +145,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 
 bool RayTracer::shadowing(vec3f position, vec3f L)
 {
-	IntersectedObjectData intersection = getIntersection(Ray(position, L), 1);
+	IntersectedObjectData intersection = getIntersection(Ray(position, L), 1); // ^rs
 
 	if (intersection.type == NONE)
 	{
