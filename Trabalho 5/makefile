@@ -25,7 +25,7 @@ clean:
 	rm -rf lex.yy.c
 	rm -rf lex.yy.h
 	rm -rf output.txt
-nelson: clean compile
+tempTest: clean compile
 	./teste out.txt < tests/$(test).monga
 	llc out.txt
 	gcc -Wall test.c out.txt.s -o testeMongaGen -std=gnu99

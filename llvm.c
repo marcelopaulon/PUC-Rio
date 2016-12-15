@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "llvm.h"
+#include "ast.h"
 
 #define llvmWrite(f_, ...) fprintf(fp,(f_),##__VA_ARGS__)
 
@@ -97,9 +98,16 @@ static void genDefVar(DefVar * defvar, int nIdent, int isGlobal)
     defvar->varNumber = getNextTempVar();
 
     if(isGlobal != 0) {
+        int i;
+
         char *initValue;
         llvmWrite("@t%d = common global ", defvar->varNumber);
         genType(defvar->type);
+
+        for(i  = 0; i < defvar->type->brackets; i++)
+        {
+            llvmWrite("*");
+        }
 
         if(defvar->type->name == VarFloat)
         {
@@ -113,9 +121,17 @@ static void genDefVar(DefVar * defvar, int nIdent, int isGlobal)
         llvmWrite(" %s\n", initValue);
     }
     else {
+        int i;
+
         printTemp(defvar->varNumber);
         llvmWrite(" = alloca ");
         genType(defvar->type);
+
+        for(i  = 0; i < defvar->type->brackets; i++)
+        {
+            llvmWrite("*");
+        }
+
         llvmWrite("\n");
     }
 }
@@ -623,15 +639,24 @@ static int genExp(Exp *exp, int nIdent) {
             llvmWrite(", -1%s\n", (exp->type->name == VarInt ? "" : ".0"));
             return ret;
         }
-        case ExpNew:
-//            printIdent(nIdent);
-//            printf("Expression type: New\n");
-//            printType(exp->u.newexp.type, nIdent);
-//            printIdent(nIdent);
-//            printf("Expression resulting ");
-//            printType(exp->type, 0);
-//            printExp(exp->u.newexp.exp, nIdent);
-            break;
+        case ExpNew: {
+            int ret = getNextTempVar();
+
+            genIdent(nIdent);
+            printTemp(ret);
+
+            if(exp->u.newexp.exp->tag != ExpInt)
+            {
+                printf("Error: \"new\" array expression must be a constant integer. Exiting.");
+                exit(-1);
+            }
+
+            llvmWrite(" = alloca [%d x ", exp->u.newexp.exp->u.l);
+            genType(exp->type);
+            llvmWrite("]\n");
+
+            return ret;
+        }
         case ExpString: {
             int temp = getNextTempVar();
             int ret = getNextTempVar();
@@ -751,6 +776,24 @@ static int genCmdCall(CmdCall *cmd, int nIdent) {
     return ret;
 }
 
+static int genArrPtr(int array, Type *type, int arraySize, int position, int nIdent)
+{
+    int ret = getNextTempVar();
+
+    genIdent(nIdent);
+    printTemp(ret);
+
+    llvmWrite(" = getelementptr inbounds [%d x ", arraySize);
+    genType(type);
+    llvmWrite("]* ");
+    printTemp(array);
+    llvmWrite(", i32 0, i32 ");
+    printTemp(position);
+    llvmWrite("\n");
+
+    return ret;
+}
+
 static void genCmdBasic(CmdBasic *cmd, int nIdent) {
     switch(cmd->type){
         case CmdBasicReturn: {
@@ -773,10 +816,38 @@ static void genCmdBasic(CmdBasic *cmd, int nIdent) {
         case CmdBasicVar: {
             int expNameId = genExp(cmd->u.varCmd.exp, nIdent);
 
-            // TODO CHeck e = -1, then get var name
+            if(cmd->u.varCmd.exp->tag == ExpNew)
+            {
+                int position0 = getNextTempVar();
+                genIdent(nIdent);
+                printTemp(position0);
+                llvmWrite(" = add i32 0, 0\n");
+                expNameId = genArrPtr(expNameId, cmd->u.varCmd.exp->type, cmd->u.varCmd.exp->u.newexp.exp->u.l, position0, nIdent);
+            }
+
+            if(cmd->u.varCmd.var->tag == VarIndexed)
+            {
+                int position = genExp(cmd->u.varCmd.var->u.indexed.e2, nIdent);
+
+                if(cmd->u.varCmd.var->u.indexed.e2->type->name != VarInt)
+                {
+                    printf("Error: array indexing expression must return an integer. Exiting");
+                    exit(-1);
+                }
+
+                //expNameId = genArrPtr(expNameId, cmd->u.varCmd.exp->type, cmd->u.varCmd.var->u.indexed., position, nIdent);
+            }
+
             genIdent(nIdent);
             llvmWrite("store ");
+
             genType(cmd->u.varCmd.exp->type);
+
+            if(cmd->u.varCmd.exp->tag == ExpNew)
+            {
+                llvmWrite("*");
+            }
+
             llvmWrite(" ");
             printTemp(expNameId);
             llvmWrite(", ");
@@ -791,7 +862,15 @@ static void genCmdBasic(CmdBasic *cmd, int nIdent) {
                     break;
             }
 
-            llvmWrite("* ");
+            if(cmd->u.varCmd.exp->tag == ExpNew)
+            {
+                llvmWrite("** ");
+            }
+            else
+            {
+                llvmWrite("* ");
+            }
+
             genVar(cmd->u.varCmd.var, nIdent);
             llvmWrite("\n");
 
