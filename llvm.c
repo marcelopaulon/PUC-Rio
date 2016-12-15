@@ -328,19 +328,19 @@ static int genCond(Exp *e, int lt, int lf, int nIdent) {
         }
 
         case ExpLess: {
-            return genCondComp(e, "slt", lt, lf, nIdent);
+            return genCondComp(e, e->type->name == VarFloat ? "olt" : "slt", lt, lf, nIdent);
         }
 
         case ExpLessEqual: {
-            return genCondComp(e, "sle", lt, lf, nIdent);
+            return genCondComp(e, e->type->name == VarFloat ? "ole" : "sle", lt, lf, nIdent);
         }
 
         case ExpGreater: {
-            return genCondComp(e, "sgt", lt, lf, nIdent);
+            return genCondComp(e, e->type->name == VarFloat ? "ogt" : "sgt", lt, lf, nIdent);
         }
 
         case ExpGreaterEqual: {
-            return genCondComp(e, "sge", lt, lf, nIdent);
+            return genCondComp(e, e->type->name == VarFloat ? "oge" : "sge", lt, lf, nIdent);
         }
 
         case ExpEqual: {
@@ -400,6 +400,25 @@ static int genCond(Exp *e, int lt, int lf, int nIdent) {
             llvmWrite(" = icmp eq i32 ");
             printTemp(result);
             llvmWrite(", 0\nbr i1 ");
+            printTemp(ret);
+            llvmWrite(", label ");
+            printLabel(lf);
+            llvmWrite(", label ");
+            printLabel(lt);
+
+            return ret;
+        }
+
+        case ExpFloat: {
+            int result = genExp(e, nIdent);
+            int ret = getNextTempVar();
+
+            //testa se result é true
+            genIdent(nIdent);
+            printTemp(ret);
+            llvmWrite(" = fcmp oeq float ");
+            printTemp(result);
+            llvmWrite(", 0.0\nbr i1 ");
             printTemp(ret);
             llvmWrite(", label ");
             printLabel(lf);
@@ -551,17 +570,17 @@ static int genExp(Exp *exp, int nIdent) {
             genLabel(lt);
             genIdent(nIdent);
             printTemp(temp1);
-            llvmWrite(" = add i32 0, 1\n");
+            llvmWrite(" = %sadd %s 0%s, 1%s\n", exp->type->name == VarFloat ? "f" : "", exp->type->name == VarFloat ? "float" : "i32", exp->type->name == VarFloat ? ".0" : "", exp->type->name == VarFloat ? ".0" : "");
             llvmWrite("br label %%l%d\n", lAfter);
             genLabel(lf);
             genIdent(nIdent);
             printTemp(temp2);
-            llvmWrite(" = add i32 0, 0\n");
+            llvmWrite(" = %sadd %s 0%s, 0%s\n", exp->type->name == VarFloat ? "f" : "", exp->type->name == VarFloat ? "float" : "i32", exp->type->name == VarFloat ? ".0" : "", exp->type->name == VarFloat ? ".0" : "");
             genLabel(lAfter);
 
             genIdent(nIdent);
             printTemp(ret);
-            llvmWrite(" = phi i32 [");
+            llvmWrite(" = phi %s [", exp->type->name == VarFloat ? "float" : "i32");
             printTemp(temp1);
             llvmWrite(",");
             printLabel(lt);
