@@ -565,22 +565,37 @@ static int genExp(Exp *exp, int nIdent) {
             int temp1 = getNextTempLabel();
             int temp2 = getNextTempLabel();
 
+            char *opTypePrefix, *opType, *suffix;
+
+            if(exp->type->name == VarFloat)
+            {
+                opTypePrefix = "f";
+                opType = "float";
+                suffix = ".0";
+            }
+            else
+            {
+                opTypePrefix = "";
+                opType = "i32";
+                suffix = "";
+            }
+
             genCond(exp,lt,lf,nIdent);
 
             genLabel(lt);
             genIdent(nIdent);
             printTemp(temp1);
-            llvmWrite(" = %sadd %s 0%s, 1%s\n", exp->type->name == VarFloat ? "f" : "", exp->type->name == VarFloat ? "float" : "i32", exp->type->name == VarFloat ? ".0" : "", exp->type->name == VarFloat ? ".0" : "");
+            llvmWrite(" = %sadd %s 0%s, 1%s\n", opTypePrefix, opType, suffix, suffix);
             llvmWrite("br label %%l%d\n", lAfter);
             genLabel(lf);
             genIdent(nIdent);
             printTemp(temp2);
-            llvmWrite(" = %sadd %s 0%s, 0%s\n", exp->type->name == VarFloat ? "f" : "", exp->type->name == VarFloat ? "float" : "i32", exp->type->name == VarFloat ? ".0" : "", exp->type->name == VarFloat ? ".0" : "");
+            llvmWrite(" = %sadd %s 0%s, 0%s\n", opTypePrefix, opType, suffix, suffix);
             genLabel(lAfter);
 
             genIdent(nIdent);
             printTemp(ret);
-            llvmWrite(" = phi %s [", exp->type->name == VarFloat ? "float" : "i32");
+            llvmWrite(" = phi %s [", opType);
             printTemp(temp1);
             llvmWrite(",");
             printLabel(lt);
