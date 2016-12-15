@@ -14,10 +14,8 @@ public:
 	vec3f pos;
 
 	bool intersect(const Ray& ray, double& t1, double& t2) const;
-
-
+	
 	vec3f calcNormal(const vec3f& p) const;
-
 };
 
 class Box
@@ -29,8 +27,7 @@ public:
 
 	bool intersect(const Ray& ray, double& t1, double& t2) const;
 	
-	vec3f calcNormal(const vec3f& vec) const;
-
+	vec3f Box::calcNormal(vec3f& p) const;
 };
 
 class Triangle

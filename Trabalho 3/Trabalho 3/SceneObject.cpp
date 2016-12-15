@@ -97,34 +97,36 @@ bool Box::intersect(const Ray& ray, double& t1, double& t2) const
 	return true;
 }
 
-vec3f Box::calcNormal(const vec3f& vec) const
+vec3f Box::calcNormal(vec3f& p) const
 {
-	if (fabs(vec.x - std::min<float>(bottomLeft.x, topRight.x)) < EPSILON)
+	if (fabs(p.x - bottomLeft.x) < EPSILON)
 	{
-		return vec3f(-1, 0, 0);
+		return vec3f(-1.0, 0.0, 0.0);
 	}
-	else if (fabs(vec.x - std::max<float>(bottomLeft.x, topRight.x)) < EPSILON)
+	else if (fabs(p.x - topRight.x) < EPSILON)
 	{
-		return vec3f(1, 0, 0);
+		return vec3f(1.0, 0.0, 0.0);
 	}
-	else if (fabs(vec.y - std::min<float>(bottomLeft.y, topRight.y)) < EPSILON)
+	else if (fabs(p.y - bottomLeft.y) < EPSILON)
 	{
-		return vec3f(0, -1, 0);
+		return vec3f(0.0, -1.0, 0.0);
 	}
-	else if (fabs(vec.y - std::max<float>(bottomLeft.y, topRight.y)) < EPSILON)
+	else if (fabs(p.y - topRight.y) < EPSILON)
 	{
-		return vec3f(0, 1, 0);
+		return vec3f(0.0, 1.0, 0.0);
 	}
-	else if (fabs(vec.z - std::min<float>(bottomLeft.z, topRight.z)) < EPSILON)
+	else if (fabs(p.z - bottomLeft.z) < EPSILON)
 	{
-		return vec3f(0, 0, -1);
+		return vec3f(0.0, 0.0, -1.0);
 	}
-	else if (fabs(vec.z - std::max<float>(bottomLeft.z, topRight.z)) < EPSILON)
+	else if (fabs(p.z - topRight.z) < EPSILON)
 	{
-		return vec3f(0, 0, 1);
+		return vec3f(0.0, 0.0, 1.0);
 	}
-
-	return vec3f(0, 0, 0);
+	else
+	{
+		return vec3f(0.0, 0.0, 0.0);
+	}
 }
 
 bool Triangle::intersect(const Ray& ray, double& t)
