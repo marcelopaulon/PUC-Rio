@@ -121,7 +121,7 @@ void IupGLCanvasDummy::createWindow( )
 	parseRT5(FILENAME);
 	materialType = 1;
 	drawSecondLight = 0;
-	
+		
     //Cria canvas.
 	iupGlCanvas = IupGLCanvas( NULL );
 	
@@ -158,6 +158,8 @@ void IupGLCanvasDummy::createWindow( )
 
     //Incialia propriedades dos canvas.
     initializeCanvas( );
+
+	rayTrace();
 }
 
 
@@ -205,16 +207,15 @@ std::string IupGLCanvasDummy::readFile( const char* name )
 
 void IupGLCanvasDummy::initializeCanvas( )
 {
-    glClearColor( 1.0, 1.0, 1.0, 1.0 );
-	glEnable(GL_DEPTH_TEST);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	
     //Aloca shader.
     _shader = new GraphicsShader( );
 
-	phongVVertexShader = readFile("shaders/vertex.vert");
-
-	phongVFragmentShader = readFile("shaders/vertex.frag");
+	vertexShaderStr = readFile("shaders/vertex.vert");
+	fragmentShaderStr = readFile("shaders/fragment.frag");
 	
+	setShading();
 }
 
 vec3f IupGLCanvasDummy::readVec3f(std::ifstream *in)
@@ -477,117 +478,46 @@ void IupGLCanvasDummy::parseRT5(const char *filename)
 }
 
 
+
+void IupGLCanvasDummy::setShading()
+{
+	_shader->setVertexProgram(vertexShaderStr.c_str(), (int)vertexShaderStr.size());
+	_shader->setFragmentProgram(fragmentShaderStr.c_str(), (int)fragmentShaderStr.size());
+
+	shaderUpdated = true;
+}
+
+
+
 void IupGLCanvasDummy::drawScene( )
 {
-    //Limpa a janela.
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    GLenum err = glGetError( );
+	//Limpa a janela.
+	glClear(GL_COLOR_BUFFER_BIT);
+	GLenum err = glGetError();
 
-    if (err != GL_NO_ERROR)
-    {
-        printf( "Error : %s\n", gluErrorString( err ) );
-    }
-	
-    _modelViewMatrix.push( );
-	
-	_modelViewMatrix.lookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0);
-	
+	if (err != GL_NO_ERROR)
+	{
+		printf("Error : %s\n", gluErrorString(err));
+	}
+
+	float coords[4 * 2] = { 0, 0, 1, 0, 1, 1, 0, 1 };
+	unsigned int triangleMesh[6] = { 0, 1, 2, 0, 2, 3 };
+
 	//Aplica uma transformacao de escala.
-	_modelViewMatrix.scale(scale, scale, scale);
-	
-	//compila o shader se este estiver sido alterado ou nao tiver sido compilado ainda
+	_modelViewMatrix.push();
+	_modelViewMatrix.scale(5, 5, 0);
+
+	//compila o shader se este nao tiver sido compilado ainda
 	if (shaderUpdated || !_shader->isAllocated())
-	{
 		_shader->compileShader();
-		shaderUpdated = false;
-	}
 
-    //Carrega o programa na placa.
-    _shader->load( );
+	//Carrega o programa na placa.
+	_shader->load();
 
-    unsigned int glShader = _shader->getShaderIndex( );
+	unsigned int glShader = _shader->getShaderIndex();
 	
-	/*std::vector<float> colorList;
-
-	for (int i = 0; i < nVertex; i++)
-	{
-		colorList.push_back(0.5f);
-		colorList.push_back(0.1f);
-		colorList.push_back(0.7f);
-		colorList.push_back(1.0f);
-	}*/
-	
-	// Transfere lightPosition e Eye para a placa (lightPosition = Eye)
-	int lightPositionParam = glGetUniformLocation(glShader, "lightPosition");
-	glUniform3f(lightPositionParam, eyeX, eyeY, eyeZ);
-
-	int eyeParam = glGetUniformLocation(glShader, "eye");
-	glUniform3f(eyeParam, eyeX, eyeY, eyeZ);
-	
-
-	// Transfere o tipo do material para a placa
-	int mtParam = glGetUniformLocation(glShader, "materialType");
-	glUniform1ui(mtParam, materialType);
-	
-	int lightParam = glGetUniformLocation(glShader, "drawSecondLight");
-	glUniform1ui(lightParam, drawSecondLight);
-
-	//Transfere a matriz modelview para a placa.
-	int mvmatrixParam = glGetUniformLocation(glShader, "mv");
-	glUniformMatrix4fv(mvmatrixParam, 1, GL_FALSE, (float*)_modelViewMatrix);
-	
-    //Obtem a modelview projection (mvp)
-    {
-		_projectionMatrix.push();
-		
-        //Multiplica a modelview pela projection.
-        _projectionMatrix.multMatrix( ( float* ) _modelViewMatrix );
-
-        //Transfere a matriz modelview projection para a placa.
-        int mvpmatrixParam = glGetUniformLocation( glShader, "mvp" );
-        glUniformMatrix4fv(mvpmatrixParam, 1, GL_FALSE, ( float* ) _projectionMatrix );
-
-        _projectionMatrix.pop( );
-    }
-
-	// Calculate normalMatrix
-	{
-		_modelViewMatrix.push();
-
-		float *normalMatrix = new float[3*3];
-		_modelViewMatrix.getMatrixInverseTransposed(normalMatrix);
-
-		// Send normalMatrix to the video card
-		int normalMatrixParam = glGetUniformLocation(glShader, "normalMatrix");
-		glUniformMatrix3fv(normalMatrixParam, 1, GL_FALSE, (float*)normalMatrix);
-		delete[] normalMatrix;
-
-		_modelViewMatrix.pop();
-	}
-
-	//Transfere os vertices para a placa.
-	int vertexParam = glGetAttribLocation(glShader, "vtx");
-	//glVertexAttribPointer(vertexParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexList[0]);
-	glEnableVertexAttribArray(vertexParam);
-
-	//Transfere as cores para a placa.
-	/*int colorParam = glGetAttribLocation(glShader, "color");
-	glVertexAttribPointer(colorParam, 4, GL_FLOAT, GL_FALSE, 0, &colorList[0]);
-	glEnableVertexAttribArray(colorParam);*/
-	
-	// Send normals to the video card
-	int vertexNormalParam = glGetAttribLocation(glShader, "vertexNormal");
-	//glVertexAttribPointer(vertexNormalParam, 3, GL_FLOAT, GL_FALSE, 0, &vertexNormal[0]);
-	glEnableVertexAttribArray(vertexNormalParam);
-    
-    //Desempilha a matriz que foi empilhada para fazer a transformacao de escala.
-    _modelViewMatrix.pop( );
-
-    //Desenha os elementos.
-    //glDrawElements( GL_TRIANGLES, 3*nTriangles, GL_UNSIGNED_INT, &trianglesList[0] );
-	
-    //Descarrega o programa da placa.
-    _shader->unload( );
+	//Descarrega o programa da placa.
+	_shader->unload();
 }
 
 
@@ -601,16 +531,11 @@ void IupGLCanvasDummy::updatePanelInfo()
 
 void IupGLCanvasDummy::resizeCanvas( int width, int height )
 {
-    //Define o viewport.
+	/* Define o viewport.*/
     glViewport( 0, 0, width, height );
-	
-    _projectionMatrix.loadIdentity( );
-    //_projectionMatrix.ortho( -10, 10, -10, 10, -1, 1 );
 
-	if (height == 0) height = 1;                        // To prevent divide by 0
-	GLfloat aspect = (GLfloat)width / (GLfloat)height; // Compute aspect ratio
-
-	_projectionMatrix.perspective(60, aspect, 1.0, 36.0);
+	_projectionMatrix.loadIdentity();
+	_projectionMatrix.ortho(-10, 10, -10, 10, -1, 1);
 }
 
 
@@ -805,7 +730,7 @@ int IupGLCanvasDummy::setModel(Ihandle* self, int state)
 	canvas->image->writeBMP(path.append(".out.bmp").c_str());
 	delete canvas->image;
 
-	//canvas->redraw();
+	canvas->redraw();
 	canvas->updatePanelInfo();
 
 	return IUP_DEFAULT;

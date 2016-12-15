@@ -30,24 +30,13 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 	float t = std::numeric_limits<float>::infinity();
 
 	for (const Sphere& sphere : spheresList) {
-		double t1, t2;
-		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1, t2))
+		double t1;
+		if (sphere.material->opacity >= minOpacity && sphere.intersect(ray, t1))
 		{
 			if (t1 < EPSILON) {
-				t1 = t2;
-				if (t1 < EPSILON)
-				{
-					continue;
-				}
+				continue;
 			}
-			else
-			{
-				if (t1 > t2 && t2 >= EPSILON)
-				{
-					t1 = t2;
-				}
-			}
-			
+						
 			if (t1 < t)
 			{
 				t = t1;
@@ -59,7 +48,7 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 
 				float phi = std::atan2(data.intersectionNormal.y, data.intersectionNormal.x);
 				float theta = std::atan2(std::hypot(data.intersectionNormal.x, data.intersectionNormal.y), data.intersectionNormal.z);
-				data.u = (1 + phi / PI) / 2.;
+				data.u = (1 + phi / PI) / 2.0;
 				data.v = theta / PI;
 			}
 		}
@@ -153,8 +142,6 @@ IntersectedObjectData RayTracer::getIntersection(Ray ray, double minOpacity)
 
 				data.u = l1 * triangle.v1TexturePos.x + l2 * triangle.v2TexturePos.x + l3 * triangle.v3TexturePos.x;
 				data.v = l1 * triangle.v1TexturePos.y + l2 * triangle.v2TexturePos.y + l3 * triangle.v3TexturePos.y;
-				//data.u = std::fmod(data.u, 1); REMOVE?
-				//data.v = std::fmod(data.v, 1); REMOVE?
 			}
 		}
 	}
@@ -181,7 +168,7 @@ Pixel RayTracer::shade(Ray ray, IntersectedObjectData intersection, int depth)
 	vec3f ks = intersection.material->ks;
 	vec3f normal = intersection.intersectionNormal;
 	
-	if (intersection.material->texture.path.compare("null") != 0 && intersection.material->texture.path.compare("") != 0)
+	if (intersection.material->texture.path.compare("null") != 0)
 	{
 		Pixel texturePixel = getTexturePixel(&intersection.material->texture, intersection.u, intersection.v);
 		kd = vec3f(texturePixel[0], texturePixel[1], texturePixel[2]);

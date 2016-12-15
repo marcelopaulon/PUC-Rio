@@ -56,7 +56,9 @@ public:
      * @param (i, j) - posicao da imagem que deve ser obtido o novo pixel.
      * @return - novo pixel.
      */
-    Pixel getPixel( int i, int j ) const;
+	Pixel getPixel(int i, int j) const;
+
+	Pixel * getPixels() const;
 
 	/**
 	* Obtem o pixel da posicao (position);

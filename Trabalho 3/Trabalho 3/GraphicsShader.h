@@ -35,7 +35,7 @@ public:
      * @param[in] fragmentProgramString string de fragment program para ser compilada.
      */
     void setFragmentProgram( const char* fragmentProgramString, int lenght );
-
+	
     /**
      * Define o programa de controle da tesselacao
      * @param tesselationControlProgramString - codigo do programa

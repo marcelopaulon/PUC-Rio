@@ -108,12 +108,12 @@ private:
 	/*
 	* Vertex shader - Phong Vertex Shading
 	*/
-	std::string phongVVertexShader;
+	std::string vertexShaderStr;
 
 	/*
 	* Fragment shader - Phong Vertex Shading
 	*/
-	std::string phongVFragmentShader;
+	std::string fragmentShaderStr;
 
 	/*
 	* Indicates if the shader was changed
@@ -210,6 +210,8 @@ private:
 	* Carrega um arquivo .rt5.
 	*/
 	void parseRT5(const char *fileName);
+
+	void setShading();
 
 	vec3f readVec3f(std::ifstream *in);
 

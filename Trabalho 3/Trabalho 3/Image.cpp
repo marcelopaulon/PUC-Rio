@@ -349,3 +349,9 @@ Image& Image::operator=( const Image& img )
 
     return *this;
 }
+
+
+Pixel * Image::getPixels() const
+{
+	return _data;
+}

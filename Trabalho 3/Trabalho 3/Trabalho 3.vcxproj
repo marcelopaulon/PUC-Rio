@@ -61,7 +61,7 @@
     <None Include="rt5\sphere_boxes_ruan.rt5" />
     <None Include="rt5\transparent_sphere_2_planes.rt5" />
     <None Include="rt5\wall.rt5" />
-    <None Include="shaders\vertex.frag" />
+    <None Include="shaders\fragment.frag" />
     <None Include="shaders\vertex.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
