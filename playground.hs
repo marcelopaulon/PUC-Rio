@@ -11,4 +11,12 @@ dec (Inc(x)) = x
 printNat Zero = "Z"
 printNat (Inc x) = "Inc " ++ printNat x
 
-main = print $ printNat $ dec (Inc(Inc(Zero)))
+sort1 [] = []
+sort1 (x:xs) = sort1 (filter ((>=) x) xs) ++ (x:(sort1 (filter ((<) x) xs)))
+
+printLista [] = "[]"
+printLista (x:xs) = show x ++ ":" ++ printLista xs
+
+main = print $ printLista $ sort1 [1,2,3]
+
+--main = print $ printNat $ dec (Inc(Inc(Zero)))
