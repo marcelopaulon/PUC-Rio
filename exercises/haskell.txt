@@ -83,8 +83,23 @@ find x zs
 
 Induction step: ys = (y:ys)
 Let's assume that `find x (ys ++ zs)` = `find x ys || find x zs`, then `find x ((y:ys) ++ zs)` = `find x (y:ys) || find x zs` must be true
-find x ((y:ys) ++ zs) -- induction hypothesis:
-find x (y:ys) || find x zs
+find x ((y:ys) ++ zs) -- ++ rule:
+find x (y:(ys ++ zs)) -- definition of find:
+if y == x then True else find x (ys ++ zs) -- induction hypothesis:
+if y == x then True else (find x ys || find x zs)
+
+-- When (y == x) is True
+True
+-- When (y == x) is False
+(find x ys || find x zs)
+
+find x (y:ys) || find x zs -- definition of find:
+(if y == x then True else find x ys) || find x zs
+-- When (y == x) is True
+True
+-- When (y == x) is False
+(find x ys) || find x zs
+(find x ys || find x zs)
 ■
 
 6. Escreva uma função para ordenar uma lista:
