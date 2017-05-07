@@ -71,7 +71,7 @@ Base case: b ≡ zero ≡ \f.\z.z
 one
 
 Induction step: b > 0
-Let's assume `b inc one` ≡ `inc b`, then `(inc b) inc one` ≡ `inc (inc b)`
+Let's assume `b inc one` ≡ `inc b`, then `(inc b) inc one` ≡ `inc (inc b)` must be true
 (inc b) inc one
    b'
 b' inc one -- Applying the induction hypothesis:

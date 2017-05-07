@@ -17,6 +17,6 @@ sort1 (x:xs) = sort1 (filter ((>=) x) xs) ++ (x:(sort1 (filter ((<) x) xs)))
 printLista [] = "[]"
 printLista (x:xs) = show x ++ ":" ++ printLista xs
 
-main = print $ printLista $ sort1 [1,2,3]
+main = print $ printLista $ sort1 [3,2,9,1,2,2,3,8]
 
 --main = print $ printNat $ dec (Inc(Inc(Zero)))
