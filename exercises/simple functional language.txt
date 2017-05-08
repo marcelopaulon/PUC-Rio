@@ -1,0 +1,4 @@
+﻿1. Implemente funções com vários argumentos na linguagem. (Dica: você deverá mudar ExpLambda, ExpApp e ValFunc para trabalharem com listas nos lugares adequados)
+
+
+2. Prove que, para qualquer expressão E, ((\x -> x) E) ≡ E
