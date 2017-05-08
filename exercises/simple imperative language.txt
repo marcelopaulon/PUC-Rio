@@ -5,6 +5,7 @@ evalCmd (CmdSeq CmdSkip C) m -- evalCmd definition:
 evalCmd C (evalCmd CmdSkip m) -- evalCmd definition:
 evalCmd C (m)
 evalCmd C m -- C
+■
 
 2. Modifique o construtor CmdSeq para ele conter uma lista de comandos, e adeque evalCmd a essa nova definição.
 CmdSeq [Cmd]
@@ -17,7 +18,10 @@ evalCmd (CmdRepeatUntil rc 1) m = evalCmd rc m
 evalCmd (CmdRepeatUntil rc until) m = evalCmd (CmdSeq [rc, (CmdRepeatUntil rc (until - 1))]) m
 
 4.Prove que, para qualquer comando C, (repeat C until 1) ≡ C
-
+-- (repeat C until 1):
+evalCmd (CmdRepeatUntil C 1) m -- evalCmd definition:
+evalCmd C m -- C
+■
 
 5. É possivel provar a equivalência abaixo, para qualquer expressão E e comando C? Discuta sua resposta.
 (if E then C else C) ≡ C
