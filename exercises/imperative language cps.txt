@@ -1,0 +1,21 @@
+﻿1. Refaça todos os exercícios sobre a linguagem imperativa simples para essa nova implementação.
+
+a. Prove que, para qualquer comando C, (skip ; C) ≡ C
+
+b. Modifique o construtor CmdSeq para ele conter uma lista de comandos, e adeque evalCmd a essa nova definição.
+
+c. Implemente o comando repeat until.
+
+d. Prove que, para qualquer comando C, (repeat C until 1) ≡ C
+
+e. É possivel provar a equivalência abaixo, para qualquer expressão E e comando C? Discuta sua resposta.
+(if E then C else C) ≡ C
+
+
+2. Implemente um comando CmdBreak na linguagem, com a semântica usual de break em linguagens como C. (Dica: modifique o tipo de evalCmd para
+      evalCmd :: Cmd -> K -> K -> Mem -> Result
+onde a segunda continuação indica para onde o break deve continuar a execução do programa.)
+
+3. Prove que sua implementação de break satisfaz a equivalência (while 1 do break) ≡ skip
+
+4. Após a implementação de break, você ainda consegue provar a equivalência (repeat C until 1) ≡ C? Explique.
