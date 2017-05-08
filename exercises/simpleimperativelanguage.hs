@@ -67,6 +67,7 @@ evalCmd :: Cmd -> Mem -> Mem                                              -- 064
 evalCmd (CmdSkip) m = m                                                   -- 066
 evalCmd (CmdSeq []) m = m                 -- 067 - 1
 evalCmd (CmdSeq (c:cs)) m = evalCmd (CmdSeq cs) (evalCmd c m)                 -- 067
+evalCmd (CmdRepeatUntil rc 0) m = m
 evalCmd (CmdRepeatUntil rc 1) m = evalCmd rc m
 evalCmd (CmdRepeatUntil rc until) m = evalCmd (CmdSeq [rc, (CmdRepeatUntil rc (until - 1))]) m
 evalCmd (CmdIf e ct ce) m =                                               -- 068

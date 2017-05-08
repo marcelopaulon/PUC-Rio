@@ -9,6 +9,9 @@ evalCmd C k m -- C
 ■
 
 b. Modifique o construtor CmdSeq para ele conter uma lista de comandos, e adeque evalCmd a essa nova definição.
+CmdComp [Cmd]
+evalCmd (CmdComp []) k m = k m
+evalCmd (CmdComp (c:cs)) k m = evalCmd c (evalCmd (CmdComp cs) k) m
 
 c. Implemente o comando repeat until.
 
