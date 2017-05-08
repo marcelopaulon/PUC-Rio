@@ -58,6 +58,7 @@ evalExp (ExpNeg e) m = -(evalExp e m)                                     -- 053
 data Cmd = CmdAsg Var Exp            -- assignment (var = exp)            -- 058
          | CmdIf Exp Cmd Cmd         -- if exp then c1 else c2            -- 059
          | CmdSeq [Cmd]                            -- 060
+         | CmdRepeatUntil Cmd Integer
          | CmdWhile Exp Cmd          -- while e do c                      -- 061
          | CmdSkip                   -- do nothing                        -- 062
                                                                           -- 063
@@ -66,6 +67,8 @@ evalCmd :: Cmd -> Mem -> Mem                                              -- 064
 evalCmd (CmdSkip) m = m                                                   -- 066
 evalCmd (CmdSeq []) m = m                 -- 067 - 1
 evalCmd (CmdSeq (c:cs)) m = evalCmd (CmdSeq cs) (evalCmd c m)                 -- 067
+evalCmd (CmdRepeatUntil rc 1) m = evalCmd rc m
+evalCmd (CmdRepeatUntil rc until) m = evalCmd (CmdSeq [rc, (CmdRepeatUntil rc (until - 1))]) m
 evalCmd (CmdIf e ct ce) m =                                               -- 068
   if isTrue(evalExp e m)                                                  -- 069
     then (evalCmd ct m) else (evalCmd ce m)                               -- 070
@@ -80,11 +83,14 @@ evalCmd (CmdWhile e c) m = w m                                            -- 073
 -- example                                                                -- 079
                                                                           -- 080
 -- y = 10; x = 1; while y do  x = x * y; y = y - 1                        -- 081
-cmd1 = CmdSeq [(CmdSeq [(CmdAsg "y" (ExpK 10)),                              -- 082
+cmd12 = CmdSeq [(CmdSeq [(CmdAsg "y" (ExpK 10)),                              -- 082
                       (CmdAsg "x" (ExpK 1))]),                              -- 083
               (CmdWhile (ExpVar "y")                                      -- 084
                         (CmdSeq [(CmdAsg "x" (ExpMul (ExpVar "x") (ExpVar "y"))),-- 085
                                 (CmdAsg "y" (ExpSub (ExpVar "y") (ExpK 1)))]))]-- 086
+                                
+cmd1 = CmdSeq [(CmdAsg "x" (ExpK 2)),
+                (CmdRepeatUntil (CmdAsg "x" (ExpMul (ExpVar "x") (ExpK 2))) 8)]
                                                                           -- 087
                                                                           -- 088
 -------------------------------------------------------------------       -- 089
