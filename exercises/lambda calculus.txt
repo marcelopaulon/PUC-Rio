@@ -67,14 +67,24 @@ b inc one
 
 Proof: we will prove by induction on `b` that `b inc one` ≡ `inc b`
 Base case: b ≡ zero ≡ \f.\z.z
+
 (\f.\z.z) inc one
+one
+
+inc zero
+\n.\f.\z.f (n f z) zero
+\f.\z.f (zero f z)
+\f.\z.f (\f.\z.z f z)
+\f.\z.f (z)
+\f.\z.f z
 one
 
 Induction step: b > 0
 Let's assume `b inc one` ≡ `inc b`, then `(inc b) inc one` ≡ `inc (inc b)` must be true
 (inc b) inc one
-   b'
-b' inc one -- Applying the induction hypothesis:
-inc b'
+(\n.\f.\z.f (n f z) b) inc one
+(\f.\z.f (b f z)) inc one
+(inc (b inc one))
+inc (b inc one) -- Applying the induction hypothesis:
 inc (inc b)
 ■
