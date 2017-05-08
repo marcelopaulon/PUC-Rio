@@ -1,0 +1,8 @@
+﻿Prove as equivalências abaixo. (Observação: provar que duas expressões A e B são equivalentes significa provar que (eval A) = (eval B).)
+1. Para uma expressão X qualquer, (RESeq REEpsilon X) ≡ X
+
+2. Para uma expressão X qualquer, (REOr REEmpty X) ≡ X
+
+3. Para uma string s qualquer, eval (REKleene REAny) s = True
+
+4. Para duas expressões X e Y quaisquer, (REOr X Y) ≡ (REOr Y X)
