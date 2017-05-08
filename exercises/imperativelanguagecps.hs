@@ -74,14 +74,15 @@ evalExp (ExpNot e) m = bool2Int(not (isTrue(evalExp e m)))                -- 070
 -- Abstract Syntax Tree for Statements (commands)                         -- 074
 data Cmd = CmdAss Var Exp            -- assignment (var = exp)            -- 075
          | CmdIf Exp Cmd Cmd         -- if exp then c1 else c2            -- 076
-         | CmdComp Cmd Cmd           -- c1; c2                            -- 077
+         | CmdComp [Cmd]           -- c1; c2                            -- 077
          | CmdWhile Exp Cmd          -- while e do c                      -- 078
          | CmdSkip                   -- do nothing                        -- 079
                                                                           -- 080
 evalCmd :: Cmd -> K -> Mem -> Result                                      -- 081
                                                                           -- 082
 evalCmd (CmdSkip) k m = k m                                               -- 083
-evalCmd (CmdComp c1 c2) k m = evalCmd c1 (evalCmd c2 k) m                 -- 084
+evalCmd (CmdComp []) k m = k m
+evalCmd (CmdComp (c:cs)) k m = evalCmd c (evalCmd (CmdComp cs) k) m                 -- 084
 evalCmd (CmdIf e ct ce) k m =                                             -- 085
   if isTrue(evalExp e m)                                                  -- 086
     then (evalCmd ct k m) else (evalCmd ce k m)                           -- 087
@@ -99,13 +100,13 @@ exp1 = ExpOr (ExpAdd (ExpK 34) (ExpK 52)) (ExpK 0)                        -- 098
                                                                           -- 099
 -- y = 10; x = 0; while y do y = x - 1; x = x + 1                         -- 100
 cmd1 = CmdComp                                                            -- 101
-         (CmdAss "y" (ExpK 10))                                           -- 102
+         [(CmdAss "y" (ExpK 10)),                                         -- 102
        (CmdComp                                                           -- 103
-         (CmdAss "x" (ExpK 0))                                            -- 104
+         [(CmdAss "x" (ExpK 0)),                                          -- 104
          (CmdWhile (ExpVar "y")                                           -- 105
-                   (CmdComp                                               -- 106
-                     (CmdAss "y" (ExpSub (ExpVar "y") (ExpK 1)))          -- 107
-                     (CmdAss "x" (ExpAdd (ExpVar "x") (ExpK 1))))))       -- 108
+                   (CmdComp [                                             -- 106
+                     (CmdAss "y" (ExpSub (ExpVar "y") (ExpK 1))),         -- 107
+                     (CmdAss "x" (ExpAdd (ExpVar "x") (ExpK 1)))]))])]    -- 108
                                                                           -- 109
                                                                           -- 110
 -------------------------------------------------------------------       -- 111

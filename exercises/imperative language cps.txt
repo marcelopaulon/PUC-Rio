@@ -1,6 +1,12 @@
 ﻿1. Refaça todos os exercícios sobre a linguagem imperativa simples para essa nova implementação.
 
 a. Prove que, para qualquer comando C, (skip ; C) ≡ C
+-- skip ; C:
+evalCmd (CmdComp (CmdSkip C)) k m -- evalCmd definition:
+evalCmd CmdSkip (evalCmd C k) m -- evalCmd definition:
+(evalCmd C k) m
+evalCmd C k m -- C
+■
 
 b. Modifique o construtor CmdSeq para ele conter uma lista de comandos, e adeque evalCmd a essa nova definição.
 
