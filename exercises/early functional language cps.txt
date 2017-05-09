@@ -4,10 +4,7 @@ a. Implemente funções com vários argumentos na linguagem. (Dica: você dever�
 
 
 b. Prove que, para qualquer expressão E, ((\x -> x) E) ≡ E
-((\x -> x) E)
-(\x -> x) E -- application:
-E
-■
+
 
 2. Implemente uma expressão return exp, que termina imediatamente a execução da função corrente retornando o valor de exp. (Dica: use uma abordagem similar à usada na implementação do comando break, com uma continuação separada para ser usada pelo return.)
 
