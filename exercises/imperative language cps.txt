@@ -33,6 +33,25 @@ Não pois E pode entrar em loop infinito.
       evalCmd :: Cmd -> K -> K -> Mem -> Result
 onde a segunda continuação indica para onde o break deve continuar a execução do programa.)
 
+See `imperativelanguagecps.hs` file
+
 3. Prove que sua implementação de break satisfaz a equivalência (while 1 do break) ≡ skip
 
+-- (while 1 do break):
+evalCmd (CmdBreak) k kBreak m -- definition of evalCmd:
+kBreak m -- renaming kBreak to k'
+k' m
+
+-- skip:
+evalCmd (CmdSkip) k kBreak m -- definition of evalCmd:
+k m -- renaming k to k':
+k' m
+
+■
+
 4. Após a implementação de break, você ainda consegue provar a equivalência (repeat C until 1) ≡ C? Explique.
+
+Sim:
+evalCmd (CmdRepeatUntil C 1) k kBreak m -- evalCmd definition:
+evalCmd C k kBreak m -- C
+■
