@@ -1,8 +1,57 @@
 ﻿Prove as equivalências abaixo. (Observação: provar que duas expressões A e B são equivalentes significa provar que (eval A) = (eval B).)
 1. Para uma expressão X qualquer, (RESeq REEpsilon X) ≡ X
 
+eval (RESeq REEpsilon X) s -- definition of eval:
+
+exists [0..length s] f
+  where f i = eval REEpsilon (take i s) && eval X (drop i s)   -- definition of eval:
+
+-- this can only be true when i = 0, so that (take i s) == []
+exists [0..length s] f
+  where f i = ((take i s) == []) && eval X (drop i s) 
+
+-- ... and this needs to be true:
+eval X (drop 0 s) -- definition of drop:
+eval X s -- X
+■
+
 2. Para uma expressão X qualquer, (REOr REEmpty X) ≡ X
+
+eval (REOr REEmpty X) -- definition of eval:
+eval REEmpty s || eval X s -- definition of eval:
+False || eval X s -- definition of or:
+eval X s -- X
+■
 
 3. Para uma string s qualquer, eval (REKleene REAny) s = True
 
+eval (REKleene REAny) s -- definition of eval:
+
+(s == []) || exists [1..length s] f
+  where f i = eval REAny (take i s) && eval (REKleene REAny) (drop i s) -- this will be true when i is equal to 1, because of eval REAny
+-- when i is equal to 1, the right side will be:
+eval (REKleene REAny) (drop 1 s) -- let's call (drop 1 s), a list shorter than s by one element
+eval (REKleene REAny) s1 -- definition of eval:
+
+(s1 == []) || exists [1..length s1] f
+  where f i = eval REAny (take i s1) && eval (REKleene REAny) (drop i s1) -- this will be true when i is equal to 1, because of eval REAny
+-- when i is equal to 1, the right side will be:
+eval (REKleene REAny) (drop 1 s1) -- let's call (drop 1 s1), a list shorter than s1 by one element
+-- This recursion will end up with an empty list when sn is a list with zero elements:
+(sn == []) || exists [1..length sn] f
+  where f i = eval REAny (take i sn) && eval (REKleene REAny) (drop i sn)
+
+True || exists [1..length sn] f
+  where f i = eval REAny (take i sn) && eval (REKleene REAny) (drop i sn) -- definition or `or`:
+True
+■
+
 4. Para duas expressões X e Y quaisquer, (REOr X Y) ≡ (REOr Y X)
+
+eval (REOr X Y)
+eval X s || eval Y s -- commutative property of or: 
+eval Y s || eval X s -- (REOr Y X)
+
+eval (REOr Y X)
+eval Y s || eval X s
+■
