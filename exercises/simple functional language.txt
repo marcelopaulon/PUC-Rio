@@ -3,6 +3,20 @@
 
 2. Prove que, para qualquer expressão E, ((\x -> x) E) ≡ E
 ((\x -> x) E)
-(\x -> x) E -- application:
-E
+evalExp (ExpApp (ExpLambda "x" (ExpVar "x")) E) env -- evalExp definition:
+
+case (evalExp (ExpLambda "x" (ExpVar "x")) env) of       -- evalExp definition:                                         
+    ValFunc f -> f (evalExp E env)                                      
+    _         -> ValError "calling a non-function value"
+    
+case (ValFunc (\x -> evalExp (ExpVar "x") (bind "x" x env))) of                                     
+    ValFunc f -> f (evalExp E env)                                      
+    _         -> ValError "calling a non-function value"
+    
+(\x -> evalExp (ExpVar "x") (bind "x" x env)) (evalExp E env)
+(evalExp (ExpVar "x") (bind "x" (evalExp E env) env)) -- evalExp definition:
+(bind "x" (evalExp E env) env) "x"
+(\v -> if "x" == v then (evalExp E env) else env v) "x"
+if "x" == "x" then (evalExp E env) else env "x"
+evalExp E env
 ■
