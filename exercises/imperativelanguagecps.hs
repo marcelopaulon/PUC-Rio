@@ -78,22 +78,24 @@ data Cmd = CmdAss Var Exp            -- assignment (var = exp)            -- 075
          | CmdRepeatUntil Cmd Integer
          | CmdWhile Exp Cmd          -- while e do c                      -- 078
          | CmdSkip                   -- do nothing                        -- 079
+         | CmdBreak
                                                                           -- 080
-evalCmd :: Cmd -> K -> Mem -> Result                                      -- 081
+evalCmd :: Cmd -> K -> K -> Mem -> Result                                      -- 081
                                                                           -- 082
-evalCmd (CmdSkip) k m = k m                                               -- 083
-evalCmd (CmdComp []) k m = k m
-evalCmd (CmdComp (c:cs)) k m = evalCmd c (evalCmd (CmdComp cs) k) m                 -- 084
-evalCmd (CmdRepeatUntil rc 0) k m = k m
-evalCmd (CmdRepeatUntil rc 1) k m = evalCmd rc k m
-evalCmd (CmdRepeatUntil rc until) k m = evalCmd (CmdComp [rc, (CmdRepeatUntil rc (until - 1))]) k m
-evalCmd (CmdIf e ct ce) k m =                                             -- 085
+evalCmd (CmdSkip) k kBreak m = k m                                          -- 083
+evalCmd (CmdComp []) k kBreak m = k m
+evalCmd (CmdComp (c:cs)) k kBreak m = evalCmd c (evalCmd (CmdComp cs) k kBreak) kBreak m                 -- 084
+evalCmd (CmdRepeatUntil rc 0) k kBreak m = k m
+evalCmd (CmdRepeatUntil rc 1) k kBreak m = evalCmd rc k kBreak m
+evalCmd (CmdRepeatUntil rc until) k kBreak m = evalCmd (CmdComp [rc, (CmdRepeatUntil rc (until - 1))]) k kBreak m
+evalCmd (CmdIf e ct ce) k kBreak m =                                             -- 085
   if isTrue(evalExp e m)                                                  -- 086
-    then (evalCmd ct k m) else (evalCmd ce k m)                           -- 087
-evalCmd (CmdAss v e) k m = k (update v (evalExp e m) m)                   -- 088
-evalCmd (CmdWhile e c) k m = k' m                                         -- 089
-  where k' = \m -> (if isTrue(evalExp e m) then evalCmd c k' m            -- 090
+    then (evalCmd ct k kBreak m) else (evalCmd ce k kBreak m)                           -- 087
+evalCmd (CmdAss v e) k kBreak m = k (update v (evalExp e m) m)                   -- 088
+evalCmd (CmdWhile e c) k kBreak m = k' m                                         -- 089
+  where k' = \m -> (if isTrue(evalExp e m) then evalCmd c k' kBreak m            -- 090
                                            else k m)                      -- 091
+evalCmd (CmdBreak) k kBreak m = kBreak m
                                                                           -- 092
                                                                           -- 093
 -------------------------------------------------------------------       -- 094
@@ -114,7 +116,7 @@ cmd12 = CmdComp                                                            -- 10
                      
 cmd1 = CmdComp [(CmdAss "x" (ExpK 2)),
                 (CmdRepeatUntil (CmdAss "x" (ExpMul (ExpVar "x") (ExpK 2))) 8)]
-                
+                                
                                                                           -- 109
                                                                           -- 110
 -------------------------------------------------------------------       -- 111
@@ -125,6 +127,9 @@ cmd1 = CmdComp [(CmdAss "x" (ExpK 2)),
 ik :: K                                                                   -- 116
 ik m = show (m "x")                                                       -- 117
                                                                           -- 118
+kbreak :: K
+kbreak m = show ("break")                                                    
+
 main :: IO ()                                                             -- 119
-main = print (evalCmd cmd1 ik emptyMem)                                   -- 120
+main = print (evalCmd cmd1 ik kbreak emptyMem)                                   -- 120
                                                                           -- 121

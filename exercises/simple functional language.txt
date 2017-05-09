@@ -5,3 +5,4 @@
 ((\x -> x) E)
 (\x -> x) E -- application:
 E
+■

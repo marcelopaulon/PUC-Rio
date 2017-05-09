@@ -27,6 +27,7 @@ evalCmd C k m -- C
 
 e. É possivel provar a equivalência abaixo, para qualquer expressão E e comando C? Discuta sua resposta.
 (if E then C else C) ≡ C
+Não pois E pode entrar em loop infinito.
 
 2. Implemente um comando CmdBreak na linguagem, com a semântica usual de break em linguagens como C. (Dica: modifique o tipo de evalCmd para
       evalCmd :: Cmd -> K -> K -> Mem -> Result
