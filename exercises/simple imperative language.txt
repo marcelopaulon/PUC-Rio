@@ -13,9 +13,9 @@ evalCmd (CmdSeq []) m = m
 evalCmd (CmdSeq (c:cs)) m = evalCmd (CmdSeq cs) (evalCmd c m)
 
 3. Implemente o comando repeat until.
-CmdRepeatUntil Cmd Integer
-evalCmd (CmdRepeatUntil rc 1) m = evalCmd rc m
-evalCmd (CmdRepeatUntil rc until) m = evalCmd (CmdSeq [rc, (CmdRepeatUntil rc (until - 1))]) m
+CmdRepeatUntil Cmd Exp
+evalCmd (CmdRepeatUntil c e) m = w m
+  where w = \m -> (if isTrue(evalExp e m) then (evalCmd c m) else w (evalCmd c m))
 
 4.Prove que, para qualquer comando C, (repeat C until 1) ≡ C
 -- (repeat C until 1):
