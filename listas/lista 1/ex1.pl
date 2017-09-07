@@ -37,6 +37,12 @@ eh_ficcao(X) :- tipo(X, romance); tipo(X, peca-teatro).
 eh_romancista(X) :- escritor(X), forall((escritoPor(T, X)), (tipo(T, romance))).
 eh_moderno(X) :- escritor(X), forall((escritoPor(T, X)), (publicado(T, ANO),ANO > 1900)).
 
+% Existe algum romance escrito por X?
+existe_romance_por(X) :- (escritor(X), escritoPor(R,X), tipo(R,romance)), !.
+
+% Existe romancistas modernos?
+existem_romancistas_modernos() :- (eh_romancista(X), eh_moderno(X)), !.
+
 % Testes
 
 %eh_ficcao([romanceB1]), !.
@@ -51,3 +57,8 @@ eh_moderno(X) :- escritor(X), forall((escritoPor(T, X)), (publicado(T, ANO),ANO 
 %not(eh_moderno([romancista1])), !.
 %not(eh_moderno([ficcao2])), !.
 %eh_moderno([outro3]), !.
+
+%not(existem_romancistas_modernos()).
+%not(existe_romance_por([outro3])).
+%existe_romance_por([ficcao2]).
+%existe_romance_por([romancista1]).
