@@ -40,7 +40,7 @@ eh_moderno(X) :- escritor(X), forall((escritoPor(T, X)), (publicado(T, ANO),ANO 
 % Existe algum romance escrito por X?
 existe_romance_por(X) :- (escritor(X), escritoPor(R,X), tipo(R,romance)), !.
 
-% Existe romancistas modernos?
+% Existem romancistas modernos?
 existem_romancistas_modernos() :- (eh_romancista(X), eh_moderno(X)), !.
 
 % Testes
