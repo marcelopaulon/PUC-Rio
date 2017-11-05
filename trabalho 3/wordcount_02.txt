@@ -1,0 +1,2 @@
+Neural networks have been used on computer vision speech recognition machine translation social network filtering playing board and video games medical diagnosis
+Fuzzy logic is employed to handle the concept of partial truth where the truth value may range between completely true and completely false
