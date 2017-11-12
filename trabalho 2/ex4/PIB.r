@@ -10,7 +10,6 @@ ggplot(df1,aes(x,y))+geom_line(aes(color="Original"))+
 
 count_ma = ts(na.omit(gdpdataOriginal$Valor), frequency=30)
 decomp = stl(count_ma, s.window="periodic")
-deseasonal_cnt <- seasadj(decomp)
 plot(decomp)
 
 fit <- auto.arima(gdpdataOriginal$Valor[1:77])
