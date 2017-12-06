@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyBullet : Bullet
 {
+    public float damage = 1f;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
     
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(collision.collider);
         Destroy(gameObject);
     }
 }

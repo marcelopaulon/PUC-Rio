@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public float moveSpeed = 1.5f;
-    public GameObject bulletPrefab;
+    [Header("Player Stats")]
+    [Tooltip("Player's movement speed")] public float moveSpeed = 1.5f;
+    public float life = 100;
+
+    [Header("Bullet Stats")]
     public Vector3 bulletSpawnPosition;
     public float gizmosSize = 0.5f;
     public float delayTime = 0.2f;
+    public GameObject bulletPrefab;
+
+
     private float _currentDelay = 0;
 
     // Use this for initialization
@@ -40,6 +46,11 @@ public class Player : MonoBehaviour {
         {
             _currentDelay -= Time.deltaTime;
         }
+    }
+
+    public void OnBulletHit(float damage)
+    {
+        life -= damage;
     }
 
     private void OnDrawGizmos()
