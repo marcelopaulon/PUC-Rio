@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
         // tiro
         if (Input.GetKeyDown(KeyCode.Space) && _currentDelay <= 0)
         {
-            GameObject.Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
+            GameObject.Instantiate(bulletPrefab, bulletSpawnPosition + transform.position, Quaternion.identity);
             bulletSpawnPosition.x *= -1;
             _currentDelay = delayTime;
         }
