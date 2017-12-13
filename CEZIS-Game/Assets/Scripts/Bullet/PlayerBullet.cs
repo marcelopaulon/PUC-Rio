@@ -20,14 +20,18 @@ public class PlayerBullet : Bullet
         }
 
         Enemy enemy = collider.GetComponent<Enemy>();
+        EnemyShield enemyShield = collider.GetComponent<EnemyShield>();
 
-        if (enemy == null)
+        if (enemy == null && enemyShield == null)
         {
             Debug.LogError("Enemy doesn't have enemy component");
             return;
         }
 
-        enemy.OnBulletHit(damage);
+        if (enemy != null)
+            enemy.OnBulletHit(damage);
+        if (enemyShield != null)
+            enemyShield.OnBulletHit(damage);
 
         Debug.Log("Acertou " + collider.name);
         Destroy(gameObject);

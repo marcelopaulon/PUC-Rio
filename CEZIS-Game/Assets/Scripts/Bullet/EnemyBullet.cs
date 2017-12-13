@@ -13,6 +13,11 @@ public class EnemyBullet : Bullet
     
     public void OnTriggerEnter(Collider collider)
     {
+        if (collider.tag != "Player")
+        {
+            return;
+        }
+
         Destroy(gameObject);
     }
 }

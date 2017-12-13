@@ -24,6 +24,10 @@ GameObject:
   - component: {fileID: 23997518059067728}
   - component: {fileID: 54641904437028598}
   - component: {fileID: 114439499760848976}
+  - component: {fileID: 114291460137751934}
+  - component: {fileID: 114412722710709426}
+  - component: {fileID: 114614711119521504}
+  - component: {fileID: 114451191945208640}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -38,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275187589459984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0502927, y: 0.019, z: 3.2}
+  m_LocalPosition: {x: 1.0502927, y: 0.019, z: 8.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,6 +104,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114291460137751934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275187589459984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6b3991ce103e74996c4e65ca622b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114412722710709426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275187589459984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbe89ecd5ceafd4b92803c143c1898e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114439499760848976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +138,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  damageWhenHit: 1
+  energy: 40
+  tendency: 0
+  speed: 0.1
+  enemyShield: {fileID: 0}
+  arrivedDestination: 0
+--- !u!114 &114451191945208640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275187589459984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114614711119521504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275187589459984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c208cc23b603c943a654c477d75dc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135758216331237258
 SphereCollider:
   m_ObjectHideFlags: 1

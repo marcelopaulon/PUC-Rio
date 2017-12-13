@@ -1,10 +1,12 @@
 ﻿public abstract class State {
 
-    public StateMachine machine;
+    protected StateMachine machine;
+    protected Enemy enemyScript;
 
     public State(StateMachine machine)
     {
         this.machine = machine;
+        enemyScript = machine.getParent().GetComponent<Enemy>();
     }
 
     public abstract void NextState();

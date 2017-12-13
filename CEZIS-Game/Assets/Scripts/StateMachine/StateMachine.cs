@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour {
 
-    private State currentState = null;
+    protected State currentState = null;
+    protected GameObject parent = null;
 
 	// Use this for initialization
 	void Awake () {
-
+        parent = gameObject;
 	}
 	
 	// Update is called once per frame
@@ -23,5 +24,10 @@ public class StateMachine : MonoBehaviour {
             currentState.Exit();
         currentState = newState;
         currentState.Enter();
+    }
+
+    public GameObject getParent()
+    {
+        return parent;
     }
 }
