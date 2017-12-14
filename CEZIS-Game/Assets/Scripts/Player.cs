@@ -16,9 +16,15 @@ public class Player : MonoBehaviour {
 
     private float _currentDelay = 0;
 
+    public GameObject SwarmPrefab;
+    public float swarmSpawnDelay;
+    private float _currentSwarmSpawnDelay;
+
     // Use this for initialization
     void Start () {
-		
+        _currentSwarmSpawnDelay = swarmSpawnDelay;
+
+        SwarmPrefab.GetComponent<Swarm>().player = gameObject;
 	}
 	
     // Update is called once per frame
@@ -42,15 +48,37 @@ public class Player : MonoBehaviour {
 
     private void Update()
     {
+        if (life <= 0)
+        {
+            Boom();
+        }
+
         if (_currentDelay > 0)
         {
             _currentDelay -= Time.deltaTime;
+        }
+
+        if(_currentSwarmSpawnDelay > 0)
+        {
+            _currentSwarmSpawnDelay -= Time.deltaTime;
+        }
+        else
+        {
+            SwarmPrefab.transform.position = transform.position;
+            GameObject.Instantiate(SwarmPrefab);
+            _currentSwarmSpawnDelay = swarmSpawnDelay;
         }
     }
 
     public void OnBulletHit(float damage)
     {
         life -= damage;
+    }
+
+    //Chamada quando o inimigo morre
+    private void Boom()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()

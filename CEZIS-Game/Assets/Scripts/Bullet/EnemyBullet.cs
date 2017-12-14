@@ -18,6 +18,11 @@ public class EnemyBullet : Bullet
             return;
         }
 
+        if (collider.GetComponent<Player>() != null)
+            collider.GetComponent<Player>().OnBulletHit(damage);
+        if (collider.GetComponent<Swarm>() != null)
+            collider.GetComponent<Swarm>().OnBulletHit(damage);
+
         Destroy(gameObject);
     }
 }

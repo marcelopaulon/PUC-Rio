@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Weapon : MonoBehaviour {
+
+    public float reloadTime;
+    private float _reloadTime = 0;
+
+    public bool isReady = true;
+
+    // Use this for initialization
+    void Start() {
+
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (_reloadTime > 0)
+            _reloadTime -= Time.deltaTime;
+        else
+            isReady = true;
+    }
+
+    protected void Reload()
+    {
+        isReady = false;
+        _reloadTime = reloadTime;
+    }
+
+    public void Fire()
+    {
+        if(isReady)
+        {
+            _fire();
+            Reload();
+        }
+    }
+
+    public abstract void _fire();
+}

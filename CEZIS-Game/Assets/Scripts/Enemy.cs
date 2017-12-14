@@ -11,14 +11,14 @@ public class Enemy : MonoBehaviour {
 
     public GameObject enemyShield;
 
-    public GameObject bulletPrefab;
-    public float instantAtackDelay = 0.4f;
-
     public GameObject player;
     private Player playerScript;
 
     private Vector3 sugestPos;
     public bool arrivedDestination = false;
+
+    public SensorController sensorController;
+    public WeaponSystem weaponSystem;
 
     // Use this for initialization
     void Start () {
@@ -37,11 +37,6 @@ public class Enemy : MonoBehaviour {
             energy += Time.deltaTime;
         else
             energy = 100f;
-
-        if (instantAtackDelay > 0)
-        {
-            instantAtackDelay -= Time.deltaTime;
-        }
     }
 
     private void FixedUpdate()

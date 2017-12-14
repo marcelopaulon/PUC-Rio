@@ -12,8 +12,7 @@ public class A_Instant : State
 
     public override void Enter()
     {
-        GameObject.Instantiate(enemyScript.bulletPrefab, enemyScript.gameObject.transform.position, Quaternion.identity);
-        enemyScript.instantAtackDelay = 0.4f;
+        enemyScript.weaponSystem.weaponList["InstantWeapon"].Fire();
     }
 
     public override void Exit()

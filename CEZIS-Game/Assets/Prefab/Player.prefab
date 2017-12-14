@@ -294,8 +294,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  bulletPrefab: {fileID: 1848229611010188, guid: 622313b875abe854c9954e92528d82b8,
-    type: 2}
+  life: 100
   bulletSpawnPosition: {x: -0.9, y: 0.07, z: 0.61}
   gizmosSize: 0.39
   delayTime: 0.5
+  bulletPrefab: {fileID: 1848229611010188, guid: 622313b875abe854c9954e92528d82b8,
+    type: 2}
+  SwarmPrefab: {fileID: 1416995236760382, guid: e294c2f59bf25094498e218094067d55,
+    type: 2}
+  swarmSpawnDelay: 5

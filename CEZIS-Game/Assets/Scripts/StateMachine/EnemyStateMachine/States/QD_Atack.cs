@@ -22,9 +22,6 @@ public class QD_Atack : State
 
     public override void NextState()
     {
-        if(enemyScript.instantAtackDelay <= 0)
-        {
-            machine.changeState(new A_Instant(machine));
-        }
+        machine.changeState(new A_Instant(machine));
     }
 }
