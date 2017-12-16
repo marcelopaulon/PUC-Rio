@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
     public GameObject enemyShield;
 
     public GameObject player;
+    public Vector3 offsetFromPlayer;
     private Player playerScript;
 
     private Vector3 sugestPos;
@@ -89,7 +90,7 @@ public class Enemy : MonoBehaviour {
 
     public void moveTo(Vector3 sugestPos)
     {
-        this.sugestPos = sugestPos;
+        this.sugestPos = sugestPos + offsetFromPlayer;
     }
 
     public void activateShield(int type)
