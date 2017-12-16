@@ -10,12 +10,15 @@ public class Enemy : MonoBehaviour {
     public float tendency = 0f;
     public float speed = 0.1f;
 
+    private float _maxlife;
+
     [Tooltip("Score player gains when enemy is killed")]public float score = 10;
 
     [Header("Dependencies")]
     public GameObject enemyShield;
     public Limits mapLimits;
     public GameObject player;
+    public HUD HUD;
 
     [Header("Others")]
     public Vector3 offsetFromPlayer;
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour {
     void Start () {
         sugestPos = transform.position;
         playerScript = player.GetComponent<Player>();
+        _maxlife = life;
     }
 	
 	// Update is called once per frame
@@ -59,6 +63,7 @@ public class Enemy : MonoBehaviour {
     public void OnBulletHit(float damage)
     {
         life -= damage;
+        HUD.SetHP(life, _maxlife);
     }
 
     //Chamada quando o inimigo morre
