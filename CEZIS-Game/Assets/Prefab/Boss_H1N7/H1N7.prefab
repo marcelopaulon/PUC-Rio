@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 54232862489305136}
   - component: {fileID: 65983469359469050}
   - component: {fileID: 114099048845635490}
+  - component: {fileID: 82841340178471642}
   m_Layer: 0
   m_Name: H1N7
   m_TagString: Enemy
@@ -957,6 +958,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82841340178471642
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1886328448474922}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95053659727844336
 Animator:
   serializedVersion: 3
@@ -995,6 +1076,10 @@ MonoBehaviour:
   mapLimits: {fileID: 0}
   player: {fileID: 0}
   HUD: {fileID: 114551487690186406}
+  AudioSource: {fileID: 82841340178471642}
+  TimesToBlink: 5
+  BlinkingTime: 0.1
+  SoundWhenHit: {fileID: 8300000, guid: ab5d59e24fd18ef4ebe9fb058584d117, type: 3}
   offsetFromPlayer: {x: 0, y: 0, z: 0}
   arrivedDestination: 0
   sensorController: {fileID: 114701810435814794}
@@ -1086,7 +1171,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
 --- !u!114 &114551487690186406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1100,6 +1185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreNumberText: {fileID: 0}
   HPBar: {fileID: 114529023366453524}
+  _startColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114600948209712472
 MonoBehaviour:
   m_ObjectHideFlags: 1

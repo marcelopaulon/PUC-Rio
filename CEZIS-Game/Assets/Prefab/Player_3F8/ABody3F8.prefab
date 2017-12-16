@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 114965744348201580}
   - component: {fileID: 54734264095921766}
   - component: {fileID: 65688071366274868}
+  - component: {fileID: 82482173848040848}
   m_Layer: 0
   m_Name: ABody3F8
   m_TagString: Player
@@ -908,6 +909,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 1, z: 0.06371664}
   m_Center: {x: 0, y: 0, z: -0.018782837}
+--- !u!82 &82482173848040848
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187112284847180}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95871143073613198
 Animator:
   serializedVersion: 3
@@ -1039,6 +1120,10 @@ MonoBehaviour:
   SwarmPrefab: {fileID: 1052216433823584, guid: dc44b4ff5a11e0c4a9933b15092b820a,
     type: 2}
   swarmSpawnDelay: 10
+  TimesToBlink: 5
+  BlinkingTime: 0.1
+  SoundWhenHit: {fileID: 8300000, guid: cf72e482a0f40ba42aa2ebac753a96b9, type: 3}
   GameOverCanvas: {fileID: 0}
   HUD: {fileID: 0}
   MapLimits: {fileID: 0}
+  AudioSource: {fileID: 82482173848040848}

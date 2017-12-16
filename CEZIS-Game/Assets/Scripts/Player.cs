@@ -24,15 +24,17 @@ public class Player : MonoBehaviour {
     public float swarmSpawnDelay;
     private float _currentSwarmSpawnDelay;
 
-    [Header("Blink")]
+    [Header("Damage")]
     public int TimesToBlink = 5;
     public float BlinkingTime = 0.1f;
+    public AudioClip SoundWhenHit;
     private Renderer[] _renderers;
 
     [Header("Dependencies")]
     public GameObject GameOverCanvas;
     public HUD HUD;
     public Limits MapLimits;
+    public AudioSource AudioSource;
 
     private void Awake()
     {
@@ -105,6 +107,7 @@ public class Player : MonoBehaviour {
         life -= damage;
         HUD.SetHP(life, _maxLife);
         StartCoroutine(Blink());
+        AudioSource.PlayOneShot(SoundWhenHit);
     }
 
     //Chamada quando o Player morre
