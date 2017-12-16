@@ -93,7 +93,7 @@ public class Player : MonoBehaviour {
         Vector3 otherSpawnPosition = bulletSpawnPosition;
         otherSpawnPosition.x *= -1;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(bulletSpawnPosition, gizmosSize);
-        Gizmos.DrawWireSphere(otherSpawnPosition, gizmosSize);
+        Gizmos.DrawWireSphere(bulletSpawnPosition + transform.position, gizmosSize);
+        Gizmos.DrawWireSphere(otherSpawnPosition + transform.position, gizmosSize);
     }
 }
