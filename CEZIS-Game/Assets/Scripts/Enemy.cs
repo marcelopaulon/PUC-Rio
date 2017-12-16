@@ -12,13 +12,18 @@ public class Enemy : MonoBehaviour {
 
     private float _maxlife;
 
-    [Tooltip("Score player gains when enemy is killed")]public float score = 10;
+    [Tooltip("Score player gains when enemy is killed")] public float score = 10;
 
     [Header("Dependencies")]
     public GameObject enemyShield;
     public Limits mapLimits;
     public GameObject player;
     public HUD HUD;
+    private Renderer[] _renderers;
+
+    [Header("Blink")]
+    public int TimesToBlink = 5;
+    public float BlinkingTime = 0.1f;
 
     [Header("Others")]
     public Vector3 offsetFromPlayer;
@@ -29,6 +34,11 @@ public class Enemy : MonoBehaviour {
 
     public SensorController sensorController;
     public WeaponSystem weaponSystem;
+
+    private void Awake()
+    {
+        _renderers = transform.GetComponentsInChildren<Renderer>();
+    }
 
     // Use this for initialization
     void Start () {
@@ -64,6 +74,7 @@ public class Enemy : MonoBehaviour {
     {
         life -= damage;
         HUD.SetHP(life, _maxlife);
+        StartCoroutine(Blink());
     }
 
     //Chamada quando o inimigo morre
@@ -117,5 +128,23 @@ public class Enemy : MonoBehaviour {
     public float randomNumber()
     {
         return Random.Range(-10, 10);
+    }
+
+    private IEnumerator Blink()
+    {
+        for (int i = 0; i < TimesToBlink; i++)
+        {
+            foreach(Renderer r in _renderers)
+            {
+                r.enabled = false;
+            }
+            yield return new WaitForSeconds(BlinkingTime);
+
+            foreach (Renderer r in _renderers)
+            {
+                r.enabled = true;
+            }
+            yield return new WaitForSeconds(BlinkingTime);
+        }
     }
 }

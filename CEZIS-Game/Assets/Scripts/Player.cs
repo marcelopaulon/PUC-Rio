@@ -24,10 +24,20 @@ public class Player : MonoBehaviour {
     public float swarmSpawnDelay;
     private float _currentSwarmSpawnDelay;
 
+    [Header("Blink")]
+    public int TimesToBlink = 5;
+    public float BlinkingTime = 0.1f;
+    private Renderer[] _renderers;
+
     [Header("Dependencies")]
     public GameObject GameOverCanvas;
     public HUD HUD;
     public Limits MapLimits;
+
+    private void Awake()
+    {
+        _renderers = transform.GetComponentsInChildren<Renderer>();
+    }
 
     // Use this for initialization
     void Start () {
@@ -94,6 +104,7 @@ public class Player : MonoBehaviour {
     {
         life -= damage;
         HUD.SetHP(life, _maxLife);
+        StartCoroutine(Blink());
     }
 
     //Chamada quando o Player morre
@@ -118,5 +129,23 @@ public class Player : MonoBehaviour {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(bulletSpawnPosition + transform.position, gizmosSize);
         Gizmos.DrawWireSphere(otherSpawnPosition + transform.position, gizmosSize);
+    }
+
+    private IEnumerator Blink()
+    {
+        for (int i = 0; i < TimesToBlink; i++)
+        {
+            foreach (Renderer r in _renderers)
+            {
+                r.enabled = false;
+            }
+            yield return new WaitForSeconds(BlinkingTime);
+
+            foreach (Renderer r in _renderers)
+            {
+                r.enabled = true;
+            }
+            yield return new WaitForSeconds(BlinkingTime);
+        }
     }
 }
