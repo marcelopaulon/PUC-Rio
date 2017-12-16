@@ -7,6 +7,9 @@ public class Player : MonoBehaviour {
     [Tooltip("Player's movement speed")] public float moveSpeed = 1.5f;
     public float life = 100;
 
+    private float _score = 0;
+    private float _maxLife;
+
     [Header("Bullet Stats")]
     public Vector3 bulletSpawnPosition;
     public float gizmosSize = 0.5f;
@@ -23,6 +26,7 @@ public class Player : MonoBehaviour {
 
     [Header("Dependencies")]
     public GameObject GameOverCanvas;
+    public HUD HUD;
     public Limits MapLimits;
 
     // Use this for initialization
@@ -30,6 +34,9 @@ public class Player : MonoBehaviour {
         _currentSwarmSpawnDelay = swarmSpawnDelay;
 
         SwarmPrefab.GetComponent<Swarm>().player = gameObject;
+
+        HUD.SetScore(_score);
+        _maxLife = life;
 	}
 	
     // Update is called once per frame
@@ -86,6 +93,7 @@ public class Player : MonoBehaviour {
     public void OnBulletHit(float damage)
     {
         life -= damage;
+        HUD.SetHP(life, _maxLife);
     }
 
     //Chamada quando o Player morre
@@ -93,7 +101,14 @@ public class Player : MonoBehaviour {
     {
         Time.timeScale = 0; //Pára o jogo
         GameOverCanvas.SetActive(true);
+        HUD.gameObject.SetActive(false);
         Destroy(gameObject);
+    }
+
+    public void IncreaseScore(float scoreGained)
+    {
+        _score += scoreGained;
+        HUD.SetScore(_score);
     }
 
     private void OnDrawGizmos()

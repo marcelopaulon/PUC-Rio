@@ -9,7 +9,6 @@ public class Limits : MonoBehaviour {
     /// Checa o ponto mais próximo dentro dos limites a partir de onde o transform se encontra.
     /// Se estiver dentro do mesmo, retorna a posição do mesmo.
     /// </summary>
-    /// <returns></returns>
     public Vector3 PointToMoveObj(Vector3 position)
     {
         //Se ponto dentro do collider, retorna ele mesmo

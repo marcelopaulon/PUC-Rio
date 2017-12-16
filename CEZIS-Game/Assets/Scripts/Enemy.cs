@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
+    [Header("Stats")]
     public float life = 100f;
     public float energy = 40f;
 
     public float tendency = 0f;
     public float speed = 0.1f;
+
+    [Tooltip("Score player gains when enemy is killed")]public float score = 10;
 
     [Header("Dependencies")]
     public GameObject enemyShield;
@@ -61,6 +64,7 @@ public class Enemy : MonoBehaviour {
     //Chamada quando o inimigo morre
     private void Boom()
     {
+        player.GetComponent<Player>().IncreaseScore(score);
         Destroy(gameObject);
     }
 
