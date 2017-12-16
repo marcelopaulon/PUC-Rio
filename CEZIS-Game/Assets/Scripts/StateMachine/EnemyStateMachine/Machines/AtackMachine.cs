@@ -6,6 +6,7 @@ public class AtackMachine : StateMachine {
 
     // Use this for initialization
     void Start () {
-        currentState = new QD_Atack(this);
+        baseState = new QD_Atack(this);
+        currentState = baseState;
     }
 }

@@ -6,6 +6,7 @@ public class MovementMachine : StateMachine {
 
 	// Use this for initialization
 	void Start () {
-        currentState = new QD_Move(this);
-	}
+        baseState = new QD_Move(this);
+        currentState = baseState;
+    }
 }

@@ -6,6 +6,7 @@ public class StateMachine : MonoBehaviour {
 
     protected State currentState = null;
     protected GameObject parent = null;
+    protected State baseState;
 
 	// Use this for initialization
 	void Awake () {
@@ -29,5 +30,10 @@ public class StateMachine : MonoBehaviour {
     public GameObject getParent()
     {
         return parent;
+    }
+
+    public State getBaseState()
+    {
+        return baseState;
     }
 }

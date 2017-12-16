@@ -22,6 +22,6 @@ public class D_Block : State
 
     public override void NextState()
     {
-        machine.changeState(new QD_Defense(machine));
+        machine.changeState(machine.getBaseState());
     }
 }

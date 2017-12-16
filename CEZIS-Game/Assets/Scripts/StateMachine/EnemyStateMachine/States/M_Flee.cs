@@ -22,6 +22,6 @@ public class M_Flee : State
 
     public override void NextState()
     {
-        machine.changeState(new QD_Move(machine));
+        machine.changeState(machine.getBaseState());
     }
 }

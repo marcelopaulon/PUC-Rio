@@ -611,7 +611,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052216433823584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.606207, y: 0, z: -25.190336}
+  m_LocalPosition: {x: -21.891891, y: 0, z: -27.2}
   m_LocalScale: {x: 19.873644, y: 23.848377, z: 23.848377}
   m_Children:
   - {fileID: 4054714249856870}
@@ -909,8 +909,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
-  m_Center: {x: 0, y: 0.01, z: -0.02}
+  m_Size: {x: 0.19220817, y: 1.2051123, z: 0.1}
+  m_Center: {x: 0.0048278887, y: 0.052480727, z: -0.020000001}
 --- !u!95 &95870530934514468
 Animator:
   serializedVersion: 3
@@ -1048,11 +1048,11 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 0.1
   swarmDistance: 3.4
-  playerDistance: 5
+  playerDistance: 7
   delayTime: 0.5
   bulletPrefab: {fileID: 1848229611010188, guid: 622313b875abe854c9954e92528d82b8,
     type: 2}
-  life: 3
+  life: 1
 --- !u!135 &135115010754318180
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1063,5 +1063,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}

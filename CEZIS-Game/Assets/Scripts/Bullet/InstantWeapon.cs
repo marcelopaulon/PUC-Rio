@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class InstantWeapon : Weapon {
 
-    [Header("Bullet Stats")]
-    public GameObject bulletPrefab;
-    public Vector3 bulletSpawnPosition;
-
     public override void _fire()
     {
         GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
