@@ -451,7 +451,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1886328448474922}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -7, z: 25}
+  m_LocalPosition: {x: 0, y: -7, z: 42.6}
   m_LocalScale: {x: 45, y: 45, z: 45}
   m_Children:
   - {fileID: 4210706799718048}
@@ -538,7 +538,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1065452319699774}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.023339838, y: 0.15597777, z: 0.39989918}
+  m_LocalPosition: {x: 0, y: 0.189, z: 0.195}
   m_LocalScale: {x: 0.02222222, y: 0.02222222, z: 0.02222222}
   m_Children:
   - {fileID: 4426351862814038}
@@ -921,6 +921,7 @@ MonoBehaviour:
   enemyShield: {fileID: 1285131862619608, guid: 6a1c4c39eaafce443a9d3d000ac9937a,
     type: 2}
   player: {fileID: 1187112284847180, guid: 33e938941de4ed54fbe0b2b4dba7a15c, type: 2}
+  offsetFromPlayer: {x: 0, y: -7, z: 0}
   arrivedDestination: 0
   sensorController: {fileID: 114701810435814794}
   weaponSystem: {fileID: 114693752975765840}
@@ -1020,6 +1021,7 @@ MonoBehaviour:
   isReady: 1
   bulletPrefab: {fileID: 1848229611010188, guid: 1a41412e0eb6556439d9fdf3703341a7,
     type: 2}
+  bulletSpawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &114932115090788720
 MonoBehaviour:
   m_ObjectHideFlags: 1
