@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
 
     [Header("Dependencies")]
     public GameObject GameOverCanvas;
+    public Limits MapLimits;
 
     // Use this for initialization
     void Start () {
@@ -35,10 +36,17 @@ public class Player : MonoBehaviour {
 	void FixedUpdate ()
     {
         //a, w, s, d
+        Vector3 posInsideLimits; //Vai ser usada pra checar se o player está na tela
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move *= Time.deltaTime * moveSpeed;
 
         transform.Translate(move);
+
+        posInsideLimits = MapLimits.PointToMoveObj(transform.position);
+        if(posInsideLimits != transform.position)
+        {
+            transform.position = posInsideLimits;
+        }
 
         // tiro
         if (Input.GetKeyDown(KeyCode.Space) && _currentDelay <= 0)
