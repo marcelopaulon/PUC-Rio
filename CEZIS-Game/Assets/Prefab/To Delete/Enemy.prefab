@@ -142,7 +142,10 @@ MonoBehaviour:
   tendency: 0
   speed: 0.1
   enemyShield: {fileID: 0}
+  player: {fileID: 0}
   arrivedDestination: 0
+  sensorController: {fileID: 0}
+  weaponSystem: {fileID: 0}
 --- !u!114 &114451191945208640
 MonoBehaviour:
   m_ObjectHideFlags: 1

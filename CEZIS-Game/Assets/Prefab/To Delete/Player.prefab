@@ -303,3 +303,4 @@ MonoBehaviour:
   SwarmPrefab: {fileID: 1416995236760382, guid: e294c2f59bf25094498e218094067d55,
     type: 2}
   swarmSpawnDelay: 5
+  GameOverCanvas: {fileID: 0}
