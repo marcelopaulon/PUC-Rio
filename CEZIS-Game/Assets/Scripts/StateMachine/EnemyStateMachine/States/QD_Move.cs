@@ -24,7 +24,7 @@ public class QD_Move : State
     {
         if(enemyScript.arrivedDestination)
         {
-            machine.changeState(new M_Wander(machine));
+            machine.changeState(new M_BackAway(machine));
         }
 
     }

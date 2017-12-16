@@ -9,9 +9,12 @@ public class Enemy : MonoBehaviour {
     public float tendency = 0f;
     public float speed = 0.1f;
 
+    [Header("Dependencies")]
     public GameObject enemyShield;
-
+    public Limits mapLimits;
     public GameObject player;
+
+    [Header("Others")]
     public Vector3 offsetFromPlayer;
     private Player playerScript;
 
@@ -90,7 +93,7 @@ public class Enemy : MonoBehaviour {
 
     public void moveTo(Vector3 sugestPos)
     {
-        this.sugestPos = sugestPos + offsetFromPlayer;
+        this.sugestPos = mapLimits.PointToMoveObj(sugestPos + offsetFromPlayer);
     }
 
     public void activateShield(int type)

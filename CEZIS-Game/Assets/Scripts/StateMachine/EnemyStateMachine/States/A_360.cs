@@ -22,6 +22,6 @@ public class A_360 : State
 
     public override void NextState()
     {
-        machine.changeState(new QD_Atack(machine));
+        machine.changeState(machine.getBaseState());
     }
 }

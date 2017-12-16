@@ -11,8 +11,8 @@ public class M_Approach : State
     }
 
     public override void Enter()
-    {
-        
+    { 
+        enemyScript.moveTo(new Vector3(enemyScript.player.transform.position.x, enemyScript.transform.position.y, enemyScript.player.transform.position.z));
     }
 
     public override void Exit()
@@ -22,6 +22,6 @@ public class M_Approach : State
 
     public override void NextState()
     {
-        machine.changeState(new QD_Move(machine));
+        machine.changeState(machine.getBaseState());
     }
 }

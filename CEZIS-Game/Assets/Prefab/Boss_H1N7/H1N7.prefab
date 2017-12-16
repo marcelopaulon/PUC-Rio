@@ -370,7 +370,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918469652322146}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 7.6}
+  m_LocalPosition: {x: 0, y: -6.5, z: 7.6}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4943756691184436}
@@ -472,8 +472,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1909127991808802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2896, y: 0, z: -4.77}
-  m_LocalScale: {x: 3.570161, y: 26.861444, z: 2.4298778}
+  m_LocalPosition: {x: 0.44066, y: -3.7, z: -4.77}
+  m_LocalScale: {x: 4.9107914, y: 26.861444, z: 2.4298778}
   m_Children: []
   m_Father: {fileID: 4943756691184436}
   m_RootOrder: 1
@@ -915,13 +915,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  energy: 40
+  energy: 45
   tendency: 0
   speed: 0.2
   enemyShield: {fileID: 1285131862619608, guid: 6a1c4c39eaafce443a9d3d000ac9937a,
     type: 2}
-  player: {fileID: 1187112284847180, guid: 33e938941de4ed54fbe0b2b4dba7a15c, type: 2}
-  offsetFromPlayer: {x: 0, y: -7, z: 0}
+  player: {fileID: 0}
   arrivedDestination: 0
   sensorController: {fileID: 114701810435814794}
   weaponSystem: {fileID: 114693752975765840}
@@ -1044,5 +1043,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5.6
+  m_Radius: 7.23
   m_Center: {x: 0, y: 0, z: 0}

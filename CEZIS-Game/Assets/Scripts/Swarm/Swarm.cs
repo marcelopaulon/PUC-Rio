@@ -13,7 +13,7 @@ public class Swarm : MonoBehaviour {
     public float delayTime = 0.2f;
     public GameObject bulletPrefab;
 
-    public float life = 3;
+    public float life = 1;
 
     private float _currentDelay = 0;    
 

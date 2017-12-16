@@ -7,7 +7,11 @@ public abstract class Weapon : MonoBehaviour {
     public float reloadTime;
     private float _reloadTime = 0;
 
-    public bool isReady = true;
+    [HideInInspector]public bool isReady = true;
+
+    [Header("Bullet Stats")]
+    public GameObject bulletPrefab;
+    public Vector3 bulletSpawnPosition;
 
     // Use this for initialization
     void Start() {
