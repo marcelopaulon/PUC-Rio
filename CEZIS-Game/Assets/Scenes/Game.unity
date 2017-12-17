@@ -113,17 +113,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &178446458
+--- !u!1 &270396367
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 565962463}
   m_PrefabInternal: {fileID: 577998561}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 178446459}
-  - component: {fileID: 178446462}
-  - component: {fileID: 178446461}
-  - component: {fileID: 178446460}
+  - component: {fileID: 270396368}
+  - component: {fileID: 270396371}
+  - component: {fileID: 270396370}
+  - component: {fileID: 270396369}
   m_Layer: 0
   m_Name: Plane(Clone)
   m_TagString: Untagged
@@ -131,12 +131,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &178446459
+--- !u!4 &270396368
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 565962467}
   m_PrefabInternal: {fileID: 577998561}
-  m_GameObject: {fileID: 178446458}
+  m_GameObject: {fileID: 270396367}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.043233}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -144,12 +144,12 @@ Transform:
   m_Father: {fileID: 441135917}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &178446460
+--- !u!23 &270396369
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 565962464}
   m_PrefabInternal: {fileID: 577998561}
-  m_GameObject: {fileID: 178446458}
+  m_GameObject: {fileID: 270396367}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -178,12 +178,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &178446461
+--- !u!64 &270396370
 MeshCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 565962465}
   m_PrefabInternal: {fileID: 577998561}
-  m_GameObject: {fileID: 178446458}
+  m_GameObject: {fileID: 270396367}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -192,12 +192,12 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &178446462
+--- !u!33 &270396371
 MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 565962466}
   m_PrefabInternal: {fileID: 577998561}
-  m_GameObject: {fileID: 178446458}
+  m_GameObject: {fileID: 270396367}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &356463195
 Prefab:
@@ -258,11 +258,6 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1857580180}
-    - target: {fileID: 114099048845635490, guid: 45a81b78bda59f84eace76231726a245,
-        type: 2}
-      propertyPath: HUD
-      value: 
-      objectReference: {fileID: 381866994}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45a81b78bda59f84eace76231726a245, type: 2}
   m_IsPrefabParent: 0
@@ -1042,8 +1037,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2024184380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 673.5, y: 319, z: 0}
-  m_LocalScale: {x: 1.68375, y: 1.68375, z: 1.68375}
+  m_LocalPosition: {x: 357.5, y: 201, z: 0}
+  m_LocalScale: {x: 0.89375, y: 0.89375, z: 0.89375}
   m_Children:
   - {fileID: 1746499749}
   - {fileID: 381866991}
