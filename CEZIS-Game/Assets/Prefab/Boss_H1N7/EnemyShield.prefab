@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2b4e47e20017cc3459cf141273ac17dc, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,6 +100,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ac3ac3ce6fa8dc24f86d662ff57cc883, type: 2}
   - {fileID: 2100000, guid: 2b4e47e20017cc3459cf141273ac17dc, type: 2}
   - {fileID: 2100000, guid: 5406a740931049b43a4de429a875e7f6, type: 2}
+  enemyReflectBullet: {fileID: 1848229611010188, guid: 1a41412e0eb6556439d9fdf3703341a7,
+    type: 2}
 --- !u!135 &135706590497287466
 SphereCollider:
   m_ObjectHideFlags: 1
