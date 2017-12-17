@@ -27,20 +27,23 @@ public class Swarm : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        
+
         /*if (sensor.danger != null)
         {
             //if(Vector3.Distance(transform.position, sensor.collision.transform.position) > swarmDistance)
             transform.position = Vector3.MoveTowards(transform.position, sensor.danger.transform.position, -speed);
         }*/
-        if(sensor.collision != null)
+        if (sensor.collision != null)
         {
             //if(Vector3.Distance(transform.position, sensor.collision.transform.position) > swarmDistance)
-                transform.position = Vector3.MoveTowards(transform.position, sensor.collision.transform.position, -speed);
+            transform.position = Vector3.MoveTowards(transform.position, sensor.collision.transform.position, -speed);
         }
-        else if(Vector3.Distance(transform.position, player.transform.position) > playerDistance)
+        else if (player)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * 2);
+            if (Vector3.Distance(transform.position, player.transform.position) > playerDistance)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * 2);
+            }
         }
 	}
 

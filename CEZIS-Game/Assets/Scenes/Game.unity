@@ -613,27 +613,6 @@ Prefab:
       propertyPath: MapLimits
       value: 
       objectReference: {fileID: 953546848}
-    - target: {fileID: 114965744348201580, guid: 33e938941de4ed54fbe0b2b4dba7a15c,
-        type: 2}
-      propertyPath: dodgeDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114965744348201580, guid: 33e938941de4ed54fbe0b2b4dba7a15c,
-        type: 2}
-      propertyPath: dodgeDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114965744348201580, guid: 33e938941de4ed54fbe0b2b4dba7a15c,
-        type: 2}
-      propertyPath: dodgeCooldown
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114965744348201580, guid: 33e938941de4ed54fbe0b2b4dba7a15c,
-        type: 2}
-      propertyPath: dodgeEffect
-      value: 
-      objectReference: {fileID: 1150840276232482, guid: 34da291d55ad6ba48aecad5209769b4d,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33e938941de4ed54fbe0b2b4dba7a15c, type: 2}
   m_IsPrefabParent: 0

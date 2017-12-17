@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     public GameObject dodgeEffect;
     private GameObject dodgeEffectObj = null;
     private DodgeEffects dodgeEffectScript = null;
+    private DodgeReady dodgeReadyScript = null;
     public float dodgeDistance = 10f;
     public float dodgeCooldown = 10f;
     private float dodgeTimerCooldown = -1.0f;
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour {
             dodgeEffectObj = GameObject.Instantiate<GameObject>(dodgeEffect, transform.position, Quaternion.identity);
             dodgeEffectScript = dodgeEffectObj.GetComponentInChildren<DodgeEffects>();
             dodgeEffectScript.targetObj = gameObject;
+
+            dodgeReadyScript = GetComponentInChildren<DodgeReady>();
         }
     }
 
@@ -107,7 +110,12 @@ public class Player : MonoBehaviour {
         }
 
         if (this.dodgeTimerCooldown >= 0)
+        {
             this.dodgeTimerCooldown -= Time.deltaTime;
+            this.dodgeReadyScript.VFX_Disable();
+        }
+        else
+            this.dodgeReadyScript.VFX_Enable();
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && this.dodgeTimerCooldown <= 0)
         {
