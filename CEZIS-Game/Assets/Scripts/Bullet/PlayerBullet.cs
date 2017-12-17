@@ -29,7 +29,7 @@ public class PlayerBullet : Bullet
         }
 
         if (enemy != null)
-            enemy.OnBulletHit(damage);
+            enemy.OnBulletHit(damage, false);
         if (enemyShield != null)
              enemyShield.OnBulletHit(damage, transform.position);
             

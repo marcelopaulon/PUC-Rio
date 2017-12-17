@@ -50,14 +50,14 @@ public class EnemyShield : MonoBehaviour {
         switch (type)
         {
             case 0:
-                enemy.life -= damage / 10;
+                enemy.OnBulletHit(damage / 10, true);
                 break;
             case 1:
                 Instantiate(enemyReflectBullet, impactPoint, Quaternion.identity);
-                enemy.life -= damage / 2;
+                enemy.OnBulletHit(damage / 2, true);
                 break;
             case 2:
-                enemy.life += damage / 5;
+                enemy.OnBulletHit(damage / 5, true);
                 break;
         }
     }

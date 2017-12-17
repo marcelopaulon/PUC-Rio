@@ -72,13 +72,17 @@ public class Enemy : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, sugestPos, speed);
     }
 
-    public void OnBulletHit(float damage)
+    public void OnBulletHit(float damage, bool shield = false)
     {
         life -= damage;
         HUD.SetHP(life, _maxlife);
-        StartCoroutine(Blink());
-        AudioSource.PlayOneShot(SoundWhenHit);
-        addDefenseTendency(0.1f);
+
+        if (shield == false)
+        {
+            StartCoroutine(Blink());
+            AudioSource.PlayOneShot(SoundWhenHit);
+            addDefenseTendency(0.1f);
+        }
     }
 
     //Chamada quando o inimigo morre
