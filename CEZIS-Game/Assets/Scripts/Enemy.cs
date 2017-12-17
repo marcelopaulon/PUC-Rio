@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour {
     public float tendency = 0f;
     public float speed = 0.1f;
 
+    public float delayBetweenAreaAttacks = 3f;
+    private float timerBetweenAreaAttacks = 0f;
+
     private float _maxlife;
 
     [Tooltip("Score player gains when enemy is killed")] public float score = 10;
@@ -38,6 +41,8 @@ public class Enemy : MonoBehaviour {
     public WeaponSystem weaponSystem;
 
     public GameObject shieldInstance = null;
+
+
 
     private void Awake()
     {
@@ -72,6 +77,10 @@ public class Enemy : MonoBehaviour {
             arrivedDestination = false;
 
         transform.position = Vector3.MoveTowards(transform.position, sugestPos, speed);
+
+        // Area Attack Timer ( Timer entre ataques em area, para evitar combos muito fortes )
+        if (this.timerBetweenAreaAttacks >= 0)
+            this.timerBetweenAreaAttacks -= Time.deltaTime;
     }
 
     public void OnBulletHit(float damage, bool shield = false)
@@ -184,6 +193,17 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    public bool IsAreaAttackDelayFinished( )
+    {
+        if (this.timerBetweenAreaAttacks <= 0)
+            return true;
+        else
+            return false;
+    }
 
+    public void StartAreaAttackTimer()
+    {
+        this.timerBetweenAreaAttacks = this.delayBetweenAreaAttacks;
+    }
 
 }

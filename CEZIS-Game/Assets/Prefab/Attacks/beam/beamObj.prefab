@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905143c5169f0da4f9abbb3445b4aabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 20
   beamContactEffect: {fileID: 1652859560228806, guid: 79c303108fefd564ca3e6c572964ee30,
     type: 2}
   beamDieEffect: {fileID: 1068427777927404, guid: 6ec532407b4fb8b428050840cf8a6644,

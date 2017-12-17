@@ -164,4 +164,4 @@ MonoBehaviour:
   destroyEffect: {fileID: 1068427777927404, guid: 6ec532407b4fb8b428050840cf8a6644,
     type: 2}
   birthEffect: {fileID: 0}
-  damage: 5
+  damage: 2

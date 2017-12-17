@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acc937f3f7186144a0180c2519d7d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 30
   direction: {x: 0, y: 0, z: 1}
   timeToLive: 10
   destroyEffect: {fileID: 1068427777927404, guid: 6ec532407b4fb8b428050840cf8a6644,

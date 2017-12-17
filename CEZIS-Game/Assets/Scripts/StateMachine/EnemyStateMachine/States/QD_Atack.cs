@@ -27,7 +27,8 @@ public class QD_Atack : State
         //+Jogador na linha do canhão
         //+Cooldown finalizado
         //+ Vida > 75 %
-        if(enemyScript.sensorController.sensors["SensorRay"].playerOnSensor && enemyScript.weaponSystem.weaponList["BeamWeapon"].isReady)
+        if(enemyScript.sensorController.sensors["SensorRay"].playerOnSensor 
+            && enemyScript.weaponSystem.weaponList["BeamWeapon"].isReady)
         {
             machine.changeState(new A_Charged(machine));
             return;
@@ -35,7 +36,9 @@ public class QD_Atack : State
 
         //+Jogador no campo do ataque
         //+Cooldown finalizado
-        if(enemyScript.sensorController.sensors["Sensor90"].playerOnSensor && enemyScript.weaponSystem.weaponList["BurstWeapon"].isReady)
+        if(enemyScript.sensorController.sensors["Sensor90"].playerOnSensor 
+            && enemyScript.weaponSystem.weaponList["BurstWeapon"].isReady
+            && enemyScript.IsAreaAttackDelayFinished())
         {
             machine.changeState(new A_90(machine));
             return;
@@ -44,7 +47,9 @@ public class QD_Atack : State
         //+Jogador no campo do ataque
         //+Cooldown finalizado
         //+ Jogador fora do campo de visão
-        if (enemyScript.sensorController.sensors["Sensor360"].playerOnSensor && enemyScript.weaponSystem.weaponList["AreaWeapon"].isReady)
+        if (enemyScript.sensorController.sensors["Sensor360"].playerOnSensor 
+            && enemyScript.weaponSystem.weaponList["AreaWeapon"].isReady
+            && enemyScript.IsAreaAttackDelayFinished())
         {
             machine.changeState(new A_360(machine));
             return;
