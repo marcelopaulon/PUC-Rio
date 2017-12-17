@@ -97,7 +97,7 @@ public class Player : MonoBehaviour {
         }
         else
         {
-            SwarmPrefab.transform.position = transform.position;
+            SwarmPrefab.transform.position = transform.position - new Vector3(0, 0, 5);
             GameObject.Instantiate(SwarmPrefab);
             _currentSwarmSpawnDelay = swarmSpawnDelay;
         }

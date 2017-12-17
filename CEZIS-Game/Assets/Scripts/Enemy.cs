@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour {
         }
 
         if(energy < 100f)
-            energy += Time.deltaTime;
+            energy += Time.deltaTime * 2;
         else
             energy = 100f;
     }
@@ -78,6 +78,7 @@ public class Enemy : MonoBehaviour {
         HUD.SetHP(life, _maxlife);
         StartCoroutine(Blink());
         AudioSource.PlayOneShot(SoundWhenHit);
+        addDefenseTendency(0.1f);
     }
 
     //Chamada quando o inimigo morre
@@ -97,7 +98,7 @@ public class Enemy : MonoBehaviour {
 
     public void addDefenseTendency(float ammount)
     {
-        if (tendency - ammount > -1f)
+        if (tendency - ammount < -1f)
             tendency = -1f;
         else
             tendency -= ammount;

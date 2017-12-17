@@ -70,6 +70,7 @@ public class Swarm : MonoBehaviour {
     //Chamada quando o inimigo morre
     private void Boom()
     {
+        //GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().addAtackTendency(0.1f);
         Destroy(gameObject);
     }
 }

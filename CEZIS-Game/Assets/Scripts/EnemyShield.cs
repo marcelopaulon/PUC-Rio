@@ -7,6 +7,8 @@ public class EnemyShield : MonoBehaviour {
     public int type;
     public List<Material> typeMaterial;
 
+    public GameObject enemyReflectBullet;
+
     private float duration;
     private Enemy enemy;
 
@@ -42,14 +44,16 @@ public class EnemyShield : MonoBehaviour {
         duration -= Time.deltaTime;
 	}
 
-    public void OnBulletHit(float damage)
+    public void OnBulletHit(float damage, Vector3 impactPoint)
     {
+        enemy.addAtackTendency(0.1f);
         switch (type)
         {
             case 0:
                 enemy.life -= damage / 10;
                 break;
             case 1:
+                Instantiate(enemyReflectBullet, impactPoint, Quaternion.identity);
                 enemy.life -= damage / 2;
                 break;
             case 2:

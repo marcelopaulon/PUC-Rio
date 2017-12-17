@@ -31,7 +31,8 @@ public class PlayerBullet : Bullet
         if (enemy != null)
             enemy.OnBulletHit(damage);
         if (enemyShield != null)
-            enemyShield.OnBulletHit(damage);
+             enemyShield.OnBulletHit(damage, transform.position);
+            
 
         Debug.Log("Acertou " + collider.name);
 

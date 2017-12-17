@@ -56,8 +56,6 @@ public class BeamWeapon : Weapon
         }
     }
 
-
-
     public override void _fire()
     {
         beamObj = GameObject.Instantiate<GameObject>(beamBullet, transform.position, Quaternion.Euler(0,180,0) );

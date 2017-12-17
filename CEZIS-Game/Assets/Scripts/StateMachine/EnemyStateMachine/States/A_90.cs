@@ -12,7 +12,7 @@ public class A_90 : State
 
     public override void Enter()
     {
-        
+        enemyScript.weaponSystem.weaponList["BurstWeapon"].Fire();
     }
 
     public override void Exit()

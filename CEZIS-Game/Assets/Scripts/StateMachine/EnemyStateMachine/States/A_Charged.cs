@@ -12,7 +12,7 @@ public class A_Charged : State
 
     public override void Enter()
     {
-        
+        enemyScript.weaponSystem.weaponList["BeamWeapon"].Fire();
     }
 
     public override void Exit()
