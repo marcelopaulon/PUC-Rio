@@ -27,7 +27,8 @@ public class SensorController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if(player)
+            distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
     }
 
     public float getPlayerLife()

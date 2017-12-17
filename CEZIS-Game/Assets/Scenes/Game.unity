@@ -735,12 +735,12 @@ Prefab:
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -290
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -214.8951
+      value: 116.78856
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
@@ -775,12 +775,12 @@ Prefab:
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
@@ -795,22 +795,22 @@ Prefab:
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224027171007116324, guid: 2bdfce930eee82e4ba877eca8f0020a6,
         type: 2}
