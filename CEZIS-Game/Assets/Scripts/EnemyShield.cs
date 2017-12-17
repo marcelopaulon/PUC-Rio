@@ -21,13 +21,13 @@ public class EnemyShield : MonoBehaviour {
         switch(type)
         {
             case 0:
-                duration = 20;
-                break;
-            case 1:
                 duration = 10;
                 break;
+            case 1:
+                duration = 7;
+                break;
             case 2:
-                duration = 5;
+                duration = 4;
                 break;
         }
     }
@@ -40,13 +40,18 @@ public class EnemyShield : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (duration <= 0)
+        {
             Destroy(gameObject);
+            enemy.shieldInstance = null;
+        }
+            
         duration -= Time.deltaTime;
 	}
 
     public void OnBulletHit(float damage, Vector3 impactPoint)
     {
-        enemy.addAtackTendency(0.1f);
+        enemy.addAtackTendency(0.05f);
+        enemy.energy += 1;
         switch (type)
         {
             case 0:

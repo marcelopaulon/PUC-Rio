@@ -238,7 +238,7 @@ MonoBehaviour:
     type: 2}
   birthEffect: {fileID: 1154584229676732, guid: 16f5fc5ad6c33ac4e9954df75b165e83,
     type: 2}
-  damage: 5
+  damage: 1
 --- !u!136 &136708112454797288
 CapsuleCollider:
   m_ObjectHideFlags: 1

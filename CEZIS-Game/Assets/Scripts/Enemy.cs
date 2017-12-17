@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour {
     public SensorController sensorController;
     public WeaponSystem weaponSystem;
 
+    public GameObject shieldInstance = null;
+
     private void Awake()
     {
         _renderers = transform.GetComponentsInChildren<Renderer>();
@@ -129,16 +131,39 @@ public class Enemy : MonoBehaviour {
 
     public void activateShield(int type)
     {
-        if(useEnergy(50))
+        if (shieldInstance == null)
         {
-            enemyShield.GetComponent<EnemyShield>().type = type;
-            Instantiate(enemyShield, transform);
+            switch (type)
+            {
+                case 0:
+                    if (useEnergy(30))
+                    {
+                        enemyShield.GetComponent<EnemyShield>().type = type;
+                        shieldInstance = Instantiate(enemyShield, transform);
+                    }
+                    break;
+                case 1:
+                    if (useEnergy(40))
+                    {
+                        enemyShield.GetComponent<EnemyShield>().type = type;
+                        shieldInstance = Instantiate(enemyShield, transform);
+                    }
+                    break;
+                case 2:
+                    if (useEnergy(50))
+                    {
+                        enemyShield.GetComponent<EnemyShield>().type = type;
+                        shieldInstance = Instantiate(enemyShield, transform);
+                    }
+                    break;
+            }
         }
+        
     }
 
-    public float randomNumber()
+    public float randomNumber(float min, float max)
     {
-        return Random.Range(-10, 10);
+        return Random.Range(min, max);
     }
 
     private IEnumerator Blink()

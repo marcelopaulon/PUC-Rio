@@ -12,7 +12,7 @@ public class M_Wander : State
 
     public override void Enter()
     {
-        enemyScript.moveTo(new Vector3(enemyScript.randomNumber(), 0, enemyScript.randomNumber()));
+        enemyScript.moveTo(new Vector3(enemyScript.randomNumber(-10, 10), 0, enemyScript.randomNumber(-10, 10)));
     }
 
     public override void Exit()

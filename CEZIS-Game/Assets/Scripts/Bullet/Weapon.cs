@@ -7,15 +7,15 @@ public abstract class Weapon : MonoBehaviour {
     public float reloadTime;
     private float _reloadTime = 0;
 
-    [HideInInspector]public bool isReady = true;
+    [HideInInspector]public bool isReady = false;
 
     [Header("Bullet Stats")]
     public GameObject bulletPrefab;
     public Vector3 bulletSpawnPosition;
 
     // Use this for initialization
-    void Start() {
-
+    void Awake() {
+        _reloadTime = reloadTime;
     }
 
     // Update is called once per frame
