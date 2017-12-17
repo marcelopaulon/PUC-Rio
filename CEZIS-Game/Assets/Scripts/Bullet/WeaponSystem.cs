@@ -6,6 +6,8 @@ public class WeaponSystem : MonoBehaviour {
 
     public Dictionary<string, Weapon> weaponList;
 
+    public bool isBeaming = false;
+
 	// Use this for initialization
 	void Awake () {
         weaponList = new Dictionary<string, Weapon>();

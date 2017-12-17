@@ -10,6 +10,15 @@ public class Player : MonoBehaviour {
     private float _score = 0;
     private float _maxLife;
 
+    [Header("Dodge Stats")]
+    public GameObject dodgeEffect;
+    private GameObject dodgeEffectObj = null;
+    private DodgeEffects dodgeEffectScript = null;
+    public float dodgeDistance = 10f;
+    public float dodgeCooldown = 10f;
+    private float dodgeTimerCooldown = -1.0f;
+    private float dodgeTimerDuration = -1.0f;
+
     [Header("Bullet Stats")]
     public Vector3 bulletSpawnPosition;
     public float gizmosSize = 0.5f;
@@ -39,6 +48,14 @@ public class Player : MonoBehaviour {
     private void Awake()
     {
         _renderers = transform.GetComponentsInChildren<Renderer>();
+
+        // Inicia Efeitos de Dodge
+        if(dodgeEffect)
+        {
+            dodgeEffectObj = GameObject.Instantiate<GameObject>(dodgeEffect, transform.position, Quaternion.identity);
+            dodgeEffectScript = dodgeEffectObj.GetComponentInChildren<DodgeEffects>();
+            dodgeEffectScript.targetObj = gameObject;
+        }
     }
 
     // Use this for initialization
@@ -50,20 +67,24 @@ public class Player : MonoBehaviour {
         HUD.SetScore(_score);
         _maxLife = life;
 	}
-	
+
     // Update is called once per frame
-	void FixedUpdate ()
+    void FixedUpdate()
     {
         //a, w, s, d
         Vector3 posInsideLimits; //Vai ser usada pra checar se o player está na tela
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        move *= Time.deltaTime * moveSpeed;
+        float horizontalSpeed = Input.GetAxis("Horizontal");
+        float verticalSpeed = Input.GetAxis("Vertical");
+        if (this.dodgeTimerDuration >= 0)
+            horizontalSpeed *= 10;
 
+        Vector3 move = new Vector3(horizontalSpeed, 0, verticalSpeed);
+        move *= Time.deltaTime * moveSpeed;
         transform.Translate(move);
 
 
         posInsideLimits = MapLimits.PointToMoveObj(transform.position);
-        if(posInsideLimits != transform.position)
+        if (posInsideLimits != transform.position)
         {
             transform.position = posInsideLimits;
         }
@@ -76,8 +97,27 @@ public class Player : MonoBehaviour {
             _currentDelay = delayTime;
         }
 
-        // defesa
-	}
+        // esquiva
+        if (this.dodgeTimerDuration >= 0)
+            this.dodgeTimerDuration -= Time.deltaTime;
+        else
+        {
+            if (dodgeEffectScript)
+                dodgeEffectScript.VFX_DisableTrails();
+        }
+
+        if (this.dodgeTimerCooldown >= 0)
+            this.dodgeTimerCooldown -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && this.dodgeTimerCooldown <= 0)
+        {
+            this.dodgeTimerDuration = this.dodgeDistance;
+            this.dodgeTimerCooldown = this.dodgeCooldown;
+
+            if (dodgeEffectScript)
+                dodgeEffectScript.VFX_EnableTrails();
+        }
+    }
 
     private void Update()
     {

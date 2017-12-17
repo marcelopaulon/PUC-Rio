@@ -9,6 +9,12 @@ public class InstantWeapon : Weapon {
 
     public override void _fire()
     {
+        // Evita atirar se o ataque BEAM estiver ativo
+        if ( this.GetComponentInParent<WeaponSystem>().isBeaming == true )
+        {
+            return;
+        }
+
         GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
         float rand = UnityEngine.Random.Range(-1.0f, 1.0f);
