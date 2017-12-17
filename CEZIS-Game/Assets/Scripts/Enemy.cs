@@ -116,7 +116,10 @@ public class Enemy : MonoBehaviour {
 
     public void moveTo(Vector3 sugestPos)
     {
-        this.sugestPos = mapLimits.PointToMoveObj(sugestPos + offsetFromPlayer);
+        Vector3 newPos = mapLimits.PointToMoveObj(sugestPos);
+        this.sugestPos.x = newPos.x;
+        this.sugestPos.z = newPos.z;
+          
     }
 
     public void activateShield(int type)
@@ -150,4 +153,7 @@ public class Enemy : MonoBehaviour {
             yield return new WaitForSeconds(BlinkingTime);
         }
     }
+
+
+
 }

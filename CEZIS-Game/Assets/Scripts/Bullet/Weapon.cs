@@ -32,6 +32,12 @@ public abstract class Weapon : MonoBehaviour {
         _reloadTime = reloadTime;
     }
 
+    protected void ResetReloadCooldown()
+    {
+        _reloadTime = 0;
+        isReady = true;
+    }
+
     public void Fire()
     {
         if(isReady)

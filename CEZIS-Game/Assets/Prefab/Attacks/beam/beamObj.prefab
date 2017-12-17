@@ -146,9 +146,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4083837854796494}
   - component: {fileID: 95276470323557416}
+  - component: {fileID: 65893349878645764}
+  - component: {fileID: 114670582784742716}
   m_Layer: 0
   m_Name: beamObj
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1889920515192742}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.5, z: 27.3}
+  m_LocalPosition: {x: -0.43325806, y: -0.5682163, z: 30.451824}
   m_LocalScale: {x: 82.92109, y: 82.92113, z: 82.92113}
   m_Children:
   - {fileID: 4324220257118144}
@@ -430,6 +432,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1465192300082880}
   m_Mesh: {fileID: 4300002, guid: 5c8697ea8aa33264ea6a17753e4c7bdb, type: 3}
+--- !u!65 &65893349878645764
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889920515192742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0833444, y: 1, z: 2.0990179}
+  m_Center: {x: 0, y: 0, z: 0.9372483}
 --- !u!95 &95276470323557416
 Animator:
   serializedVersion: 3
@@ -447,3 +461,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114670582784742716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889920515192742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 905143c5169f0da4f9abbb3445b4aabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  beamContactEffect: {fileID: 1652859560228806, guid: 79c303108fefd564ca3e6c572964ee30,
+    type: 2}
+  beamDieEffect: {fileID: 1068427777927404, guid: 6ec532407b4fb8b428050840cf8a6644,
+    type: 2}

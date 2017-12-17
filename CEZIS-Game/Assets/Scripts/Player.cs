@@ -61,6 +61,7 @@ public class Player : MonoBehaviour {
 
         transform.Translate(move);
 
+
         posInsideLimits = MapLimits.PointToMoveObj(transform.position);
         if(posInsideLimits != transform.position)
         {

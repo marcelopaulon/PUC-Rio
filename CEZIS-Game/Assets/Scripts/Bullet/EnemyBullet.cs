@@ -23,6 +23,6 @@ public class EnemyBullet : Bullet
         if (collider.GetComponent<Swarm>() != null)
             collider.GetComponent<Swarm>().OnBulletHit(damage);
 
-        Destroy(gameObject);
+        base.setToDestroy();
     }
 }

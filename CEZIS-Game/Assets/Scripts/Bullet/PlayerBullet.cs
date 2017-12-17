@@ -34,6 +34,7 @@ public class PlayerBullet : Bullet
             enemyShield.OnBulletHit(damage);
 
         Debug.Log("Acertou " + collider.name);
-        Destroy(gameObject);
+
+        base.setToDestroy();
     }
 }

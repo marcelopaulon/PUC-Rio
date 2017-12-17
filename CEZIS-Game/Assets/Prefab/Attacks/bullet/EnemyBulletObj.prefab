@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1848229611010188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.63, y: 1.52, z: 15.71}
+  m_LocalPosition: {x: 0, y: -1.87, z: 36.535633}
   m_LocalScale: {x: 1, y: 1.5, z: 0.25}
   m_Children:
   - {fileID: 4510844896026514}
@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194013168834752}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 1.27, y: 0, z: 0}
+  m_LocalPosition: {x: 0.65, y: 0, z: 0}
   m_LocalScale: {x: 1.1045933, y: 1.75746, z: 0.90225}
   m_Children: []
   m_Father: {fileID: 4208520960422828}
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720572333648688}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: -0.06, y: 0, z: 0}
+  m_LocalPosition: {x: -0.68, y: 0, z: 0}
   m_LocalScale: {x: 1.1045961, y: 1.7574608, z: 0.90225023}
   m_Children: []
   m_Father: {fileID: 4208520960422828}
@@ -291,7 +291,7 @@ TrailRenderer:
     textureMode: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Autodestruct: 1
 --- !u!96 &96652908364103110
 TrailRenderer:
   serializedVersion: 2
@@ -384,7 +384,7 @@ TrailRenderer:
     textureMode: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Autodestruct: 1
 --- !u!114 &114127498131540854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,5 +397,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -15
+  direction: {x: 0, y: 0, z: 1}
   timeToLive: 10
+  destroyEffect: {fileID: 1068427777927404, guid: 6ec532407b4fb8b428050840cf8a6644,
+    type: 2}
+  birthEffect: {fileID: 1932723692094790, guid: 766b7831587d24f42bb413453b5f2cd9,
+    type: 2}
   damage: 10
