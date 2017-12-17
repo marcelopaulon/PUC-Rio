@@ -611,7 +611,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052216433823584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.599483, y: 0, z: -44.2}
+  m_LocalPosition: {x: -3.6479056, y: 0, z: -40.72388}
   m_LocalScale: {x: 19.873644, y: 23.848377, z: 23.848377}
   m_Children:
   - {fileID: 4054714249856870}
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   delayTime: 1
   bulletPrefab: {fileID: 1848229611010188, guid: 622313b875abe854c9954e92528d82b8,
     type: 2}
-  life: 2
+  life: 6
 --- !u!135 &135115010754318180
 SphereCollider:
   m_ObjectHideFlags: 1

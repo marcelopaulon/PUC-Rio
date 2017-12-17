@@ -403,4 +403,4 @@ MonoBehaviour:
     type: 2}
   birthEffect: {fileID: 1932723692094790, guid: 766b7831587d24f42bb413453b5f2cd9,
     type: 2}
-  damage: 10
+  damage: 2

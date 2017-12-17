@@ -27,16 +27,7 @@ public class QD_Atack : State
         //+Jogador na linha do canhão
         //+Cooldown finalizado
         //+ Vida > 75 %
-        if(enemyScript.sensorController.sensors["SensorRay"].playerOnSensor && enemyScript.weaponSystem.weaponList["BeamWeapon"].isReady && enemyScript.life > 75)
-        {
-            machine.changeState(new A_Charged(machine));
-            return;
-        }
-
-        //+Jogador na linha do canhão
-        //+Cooldown finalizado
-        //+ Alta agressividade
-        if (enemyScript.sensorController.sensors["SensorRay"].playerOnSensor && enemyScript.weaponSystem.weaponList["BeamWeapon"].isReady && enemyScript.tendency > 0)
+        if(enemyScript.sensorController.sensors["SensorRay"].playerOnSensor && enemyScript.weaponSystem.weaponList["BeamWeapon"].isReady)
         {
             machine.changeState(new A_Charged(machine));
             return;

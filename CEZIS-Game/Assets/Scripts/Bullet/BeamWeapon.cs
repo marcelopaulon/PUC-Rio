@@ -18,12 +18,6 @@ public class BeamWeapon : Weapon
         beamTimer = beamTime;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     protected void ResetReloadCooldown()
     {
         base.ResetReloadCooldown();

@@ -1157,9 +1157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  energy: 45
+  energy: 0
   tendency: 0
-  speed: 0.2
+  speed: 0.6
   score: 10
   enemyShield: {fileID: 1285131862619608, guid: 6a1c4c39eaafce443a9d3d000ac9937a,
     type: 2}
@@ -1371,7 +1371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a574a865885bc5f4797c2abc14f97ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0
+  reloadTime: 5
   isReady: 1
   bulletPrefab: {fileID: 1861614528257932, guid: 72188ec648b2f614cb5374bc4ae24485,
     type: 2}
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844e1be6ae4babd4eb1841ee9f6b05d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.4
+  reloadTime: 0.6
   isReady: 1
   bulletPrefab: {fileID: 1848229611010188, guid: 1a41412e0eb6556439d9fdf3703341a7,
     type: 2}
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d8af517c08a0043ae7d63d4e5419e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0
+  reloadTime: 6
   isReady: 1
   bulletPrefab: {fileID: 1242274842280890, guid: 136de068641d9504e94c24ad55ca1604,
     type: 2}
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cfb3a19a250364eb020279655edd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0
+  reloadTime: 8
   isReady: 1
   bulletPrefab: {fileID: 0}
   bulletSpawnPosition: {x: 0, y: 0, z: 0}
