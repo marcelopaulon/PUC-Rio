@@ -5,7 +5,9 @@ using UnityEngine;
 public class Swarm : MonoBehaviour {
 
     public GameObject player;
+    public GameObject birthEffect;
     public float speed = 0.2f;
+
 
     public float swarmDistance = 3;
     public float playerDistance = 6;
@@ -22,7 +24,10 @@ public class Swarm : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         sensor = GetComponentInChildren<SwarmSensor>();
-	}
+
+        if(birthEffect)
+            GameObject.Instantiate(birthEffect, transform.position, Quaternion.identity);
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()

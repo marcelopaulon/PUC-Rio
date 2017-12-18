@@ -198,7 +198,7 @@ Prefab:
         type: 2}
       propertyPath: mapLimits
       value: 
-      objectReference: {fileID: 953546848}
+      objectReference: {fileID: 1943709938}
     - target: {fileID: 114099048845635490, guid: 45a81b78bda59f84eace76231726a245,
         type: 2}
       propertyPath: player
@@ -897,6 +897,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1187112284847180, guid: 33e938941de4ed54fbe0b2b4dba7a15c,
     type: 2}
   m_PrefabInternal: {fileID: 1066860412}
+--- !u!114 &1943709938 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114270790690224512, guid: 670dfdd10290aa4409a3e63214404a1c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1555509243}
+  m_Script: {fileID: 11500000, guid: 6144b291f85dbe244b1395d30af8b1f9, type: 3}
 --- !u!1 &2024184380
 GameObject:
   m_ObjectHideFlags: 0

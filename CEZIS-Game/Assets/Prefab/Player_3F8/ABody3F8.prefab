@@ -1166,7 +1166,7 @@ MonoBehaviour:
     type: 2}
   SwarmPrefab: {fileID: 1052216433823584, guid: dc44b4ff5a11e0c4a9933b15092b820a,
     type: 2}
-  swarmSpawnDelay: 5
+  swarmSpawnDelay: 3
   TimesToBlink: 0
   BlinkingTime: 0.05
   SoundWhenHit: {fileID: 8300000, guid: cf72e482a0f40ba42aa2ebac753a96b9, type: 3}

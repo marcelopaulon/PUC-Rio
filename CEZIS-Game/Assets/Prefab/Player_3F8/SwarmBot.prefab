@@ -611,7 +611,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052216433823584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.370903, y: 0, z: -44.2}
+  m_LocalPosition: {x: 4.8009253, y: 0, z: -36.44033}
   m_LocalScale: {x: 19.873644, y: 23.848377, z: 23.848377}
   m_Children:
   - {fileID: 4054714249856870}
@@ -1046,6 +1046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  birthEffect: {fileID: 1008252672668040, guid: 9b3eaf4b9a2e15744a76b61447460ef8,
+    type: 2}
   speed: 0.2
   swarmDistance: 3.4
   playerDistance: 8
