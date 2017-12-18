@@ -12,6 +12,9 @@ public class EnemyShield : MonoBehaviour {
     private float duration;
     private Enemy enemy;
 
+    private float centerDirection = Mathf.PI * 1.5f;
+    private float weaponImprecision = Mathf.PI / 40;
+
     private void Awake()
     {
         GetComponent<MeshRenderer>().material = typeMaterial[type];
@@ -58,7 +61,14 @@ public class EnemyShield : MonoBehaviour {
                 enemy.OnBulletHit(damage / 10, true);
                 break;
             case 1:
-                Instantiate(enemyReflectBullet, impactPoint, Quaternion.identity);
+                GameObject bullet = Instantiate<GameObject>(enemyReflectBullet, impactPoint, Quaternion.identity);
+                float rand = UnityEngine.Random.Range(-1.0f, 1.0f);
+                float piDir = centerDirection + (weaponImprecision * rand);
+                Vector3 dir = Vector3.zero;
+                dir.z = Mathf.Sin(piDir);
+                dir.x = Mathf.Cos(piDir);
+                bullet.GetComponent<Bullet>().direction = dir;
+
                 enemy.OnBulletHit(damage / 2, true);
                 break;
             case 2:
