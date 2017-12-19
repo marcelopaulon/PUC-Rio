@@ -7,6 +7,10 @@ public class BeamBullet : MonoBehaviour {
     public GameObject beamContactEffect;
     public GameObject beamDieEffect;
 
+    private int soundTimer = 0;
+    private int soundHits = 3;
+    private bool playSound = false;
+
     // Use this for initialization
     void Start () {
 		
@@ -14,7 +18,6 @@ public class BeamBullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public void OnTriggerStay(Collider collider)
@@ -29,7 +32,19 @@ public class BeamBullet : MonoBehaviour {
         if (collider.GetComponent<Player>() != null)
         {
             hitDamage *= Time.deltaTime;
-            collider.GetComponent<Player>().OnBulletHit(hitDamage);
+
+            soundTimer += 1;
+            if(soundTimer > soundHits)
+            {
+                soundTimer = 0;
+                playSound = true;
+            }
+            else
+            {
+                playSound = false;
+            }
+
+            collider.GetComponent<Player>().OnBulletHit(hitDamage, playSound , true);
 
             //Efeito Visual
             if( this.beamContactEffect )
