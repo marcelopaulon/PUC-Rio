@@ -9,7 +9,6 @@ public class BeamBullet : MonoBehaviour {
 
     private int soundTimer = 0;
     private int soundHits = 3;
-    private bool playSound = false;
 
     // Use this for initialization
     void Start () {
@@ -44,7 +43,7 @@ public class BeamBullet : MonoBehaviour {
                 playSound = false;
             }
 
-            collider.GetComponent<Player>().OnBulletHit(hitDamage, playSound , true);
+            collider.GetComponent<Player>().OnBulletHit(hitDamage);
 
             //Efeito Visual
             if( this.beamContactEffect )

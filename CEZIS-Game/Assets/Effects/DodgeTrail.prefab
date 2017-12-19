@@ -206,6 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObj: {fileID: 0}
+  dodgeShadow: {fileID: 1083112286506604, guid: 308c6916968d5cc48aafa6ce7293467d,
+    type: 2}
 --- !u!198 &198984542512694838
 ParticleSystem:
   m_ObjectHideFlags: 1

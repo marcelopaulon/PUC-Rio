@@ -23,12 +23,10 @@ public class Enemy : MonoBehaviour {
     public GameObject player;
     public HUD HUD;
     private Renderer[] _renderers;
-    public AudioSource AudioSource;
 
     [Header("Damage")]
     public int TimesToBlink = 5;
     public float BlinkingTime = 0.1f;
-    public AudioClip SoundWhenHit;
 
     [Header("Others")]
     public Vector3 offsetFromPlayer;
@@ -91,7 +89,6 @@ public class Enemy : MonoBehaviour {
         if (shield == false)
         {
             StartCoroutine(Blink());
-            AudioSource.PlayOneShot(SoundWhenHit);
             addDefenseTendency(0.1f);
         }
     }

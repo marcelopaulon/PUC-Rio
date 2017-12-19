@@ -15,7 +15,6 @@ public class BeamWeapon : Weapon
 
     private float defaultPlayerSpeed = 0f;
     private float actualSpeed = 0f;
-    private float tempSpeed = 0f;
 
     // Use this for initialization
     void Start()

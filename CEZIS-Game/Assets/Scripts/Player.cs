@@ -37,15 +37,12 @@ public class Player : MonoBehaviour {
     [Header("Damage")]
     public int TimesToBlink = 5;
     public float BlinkingTime = 0.1f;
-    public AudioClip SoundWhenHit;
-    public AudioClip BeamWhenHit;
     private Renderer[] _renderers;
 
     [Header("Dependencies")]
     public GameObject GameOverCanvas;
     public HUD HUD;
     public Limits MapLimits;
-    public AudioSource AudioSource;
 
     private void Awake()
     {
@@ -152,20 +149,11 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void OnBulletHit(float damage , bool playSound = true , bool scorching = false )
+    public void OnBulletHit(float damage )
     {
         life -= damage;
         HUD.SetHP(life, _maxLife);
         StartCoroutine(Blink());
-
-        if(playSound)
-        {
-            if (scorching)
-                AudioSource.PlayOneShot(BeamWhenHit);
-            else
-                AudioSource.PlayOneShot(SoundWhenHit);
-        }
-
     }
 
     //Chamada quando o Player morre
