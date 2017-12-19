@@ -22,31 +22,31 @@ public class QD_Defense : State
 
     public override void NextState()
     {
-        if (enemyScript.energy > 50)
+        if (enemyScript.getEnergy() > 50)
         {
             machine.changeState(new D_Absorb(machine));
             return;
         }
 
-        if (enemyScript.energy > 40 && enemyScript.life > 50)
+        if (enemyScript.getEnergy() > 40 && enemyScript.life > 50)
         {
             machine.changeState(new D_Reflect(machine));
             return;
         }
 
-        if (enemyScript.energy > 40 && enemyScript.life <= 50)
+        if (enemyScript.getEnergy() > 40 && enemyScript.life <= 50)
         {
             machine.changeState(new D_Absorb(machine));
             return;
         }
 
-        if (enemyScript.energy > 30 && enemyScript.life >= 50 && (enemyScript.weaponSystem.weaponList["AreaWeapon"].isReady || enemyScript.weaponSystem.weaponList["BurstWeapon"].isReady))
+        if (enemyScript.getEnergy() > 30 && enemyScript.life >= 50 && (enemyScript.weaponSystem.weaponList["AreaWeapon"].isReady || enemyScript.weaponSystem.weaponList["BurstWeapon"].isReady))
         {
             machine.changeState(new D_Block(machine));
             return;
         }
 
-        if(enemyScript.energy > 30 && enemyScript.life <= 50)
+        if(enemyScript.getEnergy() > 30 && enemyScript.life <= 50)
         {
             machine.changeState(new D_Block(machine));
             return;

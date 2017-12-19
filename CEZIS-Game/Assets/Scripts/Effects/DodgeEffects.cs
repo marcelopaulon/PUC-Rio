@@ -5,7 +5,6 @@ using UnityEngine;
 public class DodgeEffects : MonoBehaviour {
     public GameObject targetObj;
     public GameObject dodgeShadow;
-    private GameObject dodgeShadowObj = null;
 
     private bool trailEnabled = false;
     private ParticleSystem particleSys = null;
@@ -48,25 +47,19 @@ public class DodgeEffects : MonoBehaviour {
         if (!targetObj) return;
         trailEnabled = true;
 
-        if (dodgeShadow)
-            if(!dodgeShadowObj)
-                dodgeShadowObj = GameObject.Instantiate<GameObject>(dodgeShadow, targetObj.transform.position , targetObj.transform.rotation );
+        
 
         if (particleSys)
         {
             emissionMod.enabled = true;
         }
 
-        //TrailRenderer tr = GetComponentInChildren<TrailRenderer>();
+        GameObject.Instantiate<GameObject>(dodgeShadow, targetObj.transform.position, targetObj.transform.rotation);
     }
 
     public void VFX_DisableTrails()
     {
         trailEnabled = false;
-
-        if (dodgeShadowObj)
-            //Destroy(dodgeShadowObj);
-            dodgeShadowObj = null;
 
         if (particleSys)
         {

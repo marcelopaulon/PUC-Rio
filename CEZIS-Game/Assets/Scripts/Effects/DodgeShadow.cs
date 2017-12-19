@@ -5,7 +5,14 @@ using UnityEngine;
 public class DodgeShadow : MonoBehaviour {
     public float timeToFade = 0.3f;
     private float timerToFade;
-    private Renderer rend;
+
+    public Material mat1;
+    public Material mat2;
+
+    private float r;
+    private float g;
+    private float b;
+
 
 	// Use this for initialization
 	void Start () {
@@ -15,15 +22,27 @@ public class DodgeShadow : MonoBehaviour {
     private void Awake()
     {
         timerToFade = timeToFade;
-        rend = GetComponent<Renderer>();
+
+        this.r = mat1.color.r;
+        this.g = mat1.color.g;
+        this.b = mat1.color.b;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         timerToFade -= Time.deltaTime;
 
-        float alp = timerToFade / timeToFade;
-        rend.material.color.a = alp;
+        float factor = timerToFade / timeToFade;
+
+        mat1.color = new Color(r,g,b, 0.8f * factor );
+        mat2.color = new Color(r, g, b, 0.8f * factor );
+
+        if (timerToFade < 0)
+        {
+            Destroy(gameObject);
+        }
+            
     }
 }

@@ -67,7 +67,8 @@ public class Player : MonoBehaviour {
 
         HUD.SetScore(_score);
         _maxLife = life;
-	}
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()

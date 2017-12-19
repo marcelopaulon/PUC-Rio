@@ -54,7 +54,7 @@ public class EnemyShield : MonoBehaviour {
     public void OnBulletHit(float damage, Vector3 impactPoint)
     {
         enemy.addAtackTendency(0.05f);
-        enemy.energy += 1;
+        enemy.gainEnergy(0.1f);
         switch (type)
         {
             case 0:

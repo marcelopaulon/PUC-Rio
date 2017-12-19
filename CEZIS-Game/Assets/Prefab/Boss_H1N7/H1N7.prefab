@@ -1022,8 +1022,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.4606786, y: 0.99999976, z: 4.282835}
-  m_Center: {x: 0.051273588, y: 0, z: -0.8980184}
+  m_Size: {x: 7.4606786, y: 0.99999976, z: 7.4106374}
+  m_Center: {x: 0.051273394, y: 0, z: -2.46192}
 --- !u!65 &65623465248331342
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1115,7 +1115,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1157,23 +1157,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 100
-  energy: 0
+  maxEnergy: 100
   tendency: 0
-  speed: 0.6
+  speed: 0.4
+  delayBetweenAreaAttacks: 3
   score: 10
   enemyShield: {fileID: 1285131862619608, guid: 6a1c4c39eaafce443a9d3d000ac9937a,
     type: 2}
   mapLimits: {fileID: 0}
   player: {fileID: 0}
   HUD: {fileID: 114551487690186406}
-  AudioSource: {fileID: 82841340178471642}
   TimesToBlink: 0
   BlinkingTime: 0.1
-  SoundWhenHit: {fileID: 8300000, guid: ab5d59e24fd18ef4ebe9fb058584d117, type: 3}
   offsetFromPlayer: {x: 0, y: -8.5, z: 0}
   arrivedDestination: 0
   sensorController: {fileID: 114701810435814794}
   weaponSystem: {fileID: 114693752975765840}
+  shieldInstance: {fileID: 0}
+  energyIndicatorMaterial: {fileID: 2100000, guid: 00805a5aa7de6724f850167b61ef6f93,
+    type: 2}
+  red: 1
+  green: 0
+  blue: 0
+  alpha: 1
 --- !u!114 &114340378162456354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1347,6 +1353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4e4eed95d00e3438691f86bde322c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeaming: 0
 --- !u!114 &114701810435814794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1455,6 +1462,11 @@ MonoBehaviour:
   bulletSpawnPosition: {x: 0, y: 0, z: 0}
   beamBullet: {fileID: 1889920515192742, guid: 285df079772d7aa4994f406ec2c8c560, type: 2}
   beamTime: 3
+  speedReductionFactor: 0.9
+  readyIndicatorMaterial: {fileID: 2100000, guid: 559face4fd2fb264da633f103ee1e8fc,
+    type: 2}
+  green: 1
+  blue: 1
 --- !u!114 &114932115090788720
 MonoBehaviour:
   m_ObjectHideFlags: 1

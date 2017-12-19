@@ -36,11 +36,6 @@ public class BeamBullet : MonoBehaviour {
             if(soundTimer > soundHits)
             {
                 soundTimer = 0;
-                playSound = true;
-            }
-            else
-            {
-                playSound = false;
             }
 
             collider.GetComponent<Player>().OnBulletHit(hitDamage);

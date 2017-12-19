@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012881562906356}
   - component: {fileID: 95404096527020680}
-  - component: {fileID: 114240265424509302}
+  - component: {fileID: 114153639413713044}
   m_Layer: 0
   m_Name: DodgeShadow
   m_TagString: Player
@@ -866,7 +866,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114240265424509302
+--- !u!114 &114153639413713044
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -877,4 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4e0c81be47e3946b40260afb675c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToFade: 0.3
+  timeToFade: 1
+  mat1: {fileID: 2100000, guid: 3cea1132cea2ee24ba62792b35c169b1, type: 2}
+  mat2: {fileID: 2100000, guid: a6f3ca6a9759f074c8c27363174d997a, type: 2}

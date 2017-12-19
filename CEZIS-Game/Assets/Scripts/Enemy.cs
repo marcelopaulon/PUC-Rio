@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     [Header("Stats")]
     public float life = 100f;
-    public float energy = 40f;
+    public float maxEnergy = 100f;
+    private float _energy = 0f;
 
     public float tendency = 0f;
     public float speed = 0.1f;
@@ -40,11 +41,19 @@ public class Enemy : MonoBehaviour {
 
     public GameObject shieldInstance = null;
 
+    [Header("Energy Indicator Colors")]
+    public Material energyIndicatorMaterial;
+    public float red = 1.0f;
+    public float green = 0f;
+    public float blue = 0f;
+    public float alpha = 1.0f;
+
 
 
     private void Awake()
     {
         _renderers = transform.GetComponentsInChildren<Renderer>();
+        _energy = 0;
     }
 
     // Use this for initialization
@@ -61,10 +70,24 @@ public class Enemy : MonoBehaviour {
             Boom();
         }
 
-        if(energy < 100f)
-            energy += Time.deltaTime * 2;
+        gainEnergy(Time.deltaTime * 2.0f);
+
+
+        // Atualiza o indicador
+        float factor = this.getEnergyFactor();
+        float redFactor = factor * 3.0f;
+        if (redFactor > 1.0f)
+            redFactor = 1.0f;
+        float blueFactor = factor - 0.5f;
+        if (blueFactor < 0)
+            blueFactor = 0;
         else
-            energy = 100f;
+            blueFactor *= 2;
+
+        if (energyIndicatorMaterial)
+        {
+            energyIndicatorMaterial.color = new Color(redFactor * this.red, factor * this.green, blueFactor * this.blue, 1.0f);
+        }
     }
 
     private void FixedUpdate()
@@ -116,15 +139,38 @@ public class Enemy : MonoBehaviour {
             tendency -= ammount;
     }
 
-    public bool useEnergy(int ammount)
+    public bool useEnergy(float ammount)
     {
-        if(energy - ammount >= 0)
+        if (_energy - ammount >= 0)
         {
-            energy -= ammount;
+            _energy -= ammount;
             return true;
         }
 
         return false;
+    }
+
+    public void gainEnergy( float ammount )
+    {
+        _energy += ammount;
+        if (_energy > maxEnergy)
+            _energy = maxEnergy;
+    }
+
+    public float getEnergy()
+    {
+        return this._energy;
+    }
+
+    public float getEnergyFactor()
+    {
+        float factor = _energy / maxEnergy;
+        if (factor < 0)
+            factor = 0;
+        else if (factor > 1.0f)
+            factor = 1.0f;
+
+        return factor;
     }
 
     public void moveTo(Vector3 sugestPos)

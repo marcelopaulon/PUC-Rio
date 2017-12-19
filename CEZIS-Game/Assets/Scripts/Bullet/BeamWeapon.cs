@@ -9,12 +9,17 @@ public class BeamWeapon : Weapon
     public float beamTime = 50f;
     public float speedReductionFactor = 0.9f;
 
-
     private GameObject beamObj = null;
     private float beamTimer = 0;
 
     private float defaultPlayerSpeed = 0f;
     private float actualSpeed = 0f;
+
+    [Header("Indicator Colors")]
+    public Material readyIndicatorMaterial;
+    private float red = 1.0f;
+    public float green = 0f;
+    public float blue = 0f;
 
     // Use this for initialization
     void Start()
@@ -23,6 +28,7 @@ public class BeamWeapon : Weapon
 
         this.defaultPlayerSpeed = this.GetComponentInParent<Enemy>().speed;
     }
+
 
     protected void ResetReloadCooldown()
     {
@@ -48,6 +54,19 @@ public class BeamWeapon : Weapon
                 this.GetComponentInParent<WeaponSystem>().isBeaming = false;
             }
         }
+
+        // Atualiza o indicador
+        float factor = 1.0f - (_reloadTime / reloadTime);
+        if (factor < 0)
+            factor = 0;
+        else if(factor > 1.0f)
+            factor = 1.0f;
+
+        if(readyIndicatorMaterial)
+        {
+            readyIndicatorMaterial.color = new Color(factor * this.red, 0f , 0f , 1.0f);
+        }
+            
 
         //DEBUG
         // Teste Em Area

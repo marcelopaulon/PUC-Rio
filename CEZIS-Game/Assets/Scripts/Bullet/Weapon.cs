@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour {
 
     public float reloadTime;
-    private float _reloadTime = 0;
+    protected float _reloadTime = 0;
 
     [HideInInspector]public bool isReady = false;
 
@@ -15,7 +15,7 @@ public abstract class Weapon : MonoBehaviour {
 
     // Use this for initialization
     void Awake() {
-        _reloadTime = reloadTime;
+        _reloadTime = 0;
     }
 
     // Update is called once per frame
