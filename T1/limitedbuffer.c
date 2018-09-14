@@ -151,7 +151,6 @@ int lbuf_consume(LBUF * lbuf, int threadId) {
 
   sem_wait(&lbuf->e);
 
-
   lbuf->pendingReads[readIndex][threadId]--;
 
   // SIGNAL
