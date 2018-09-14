@@ -101,12 +101,13 @@ int main(int argc, char **argv) {
 
 
     printf("Deposit start\n");
-    lbuf_deposit(lbuf, 1);
-    printf("Deposit 1\n");
-    lbuf_deposit(lbuf, 2);
-    printf("Deposit 2\n");
-    lbuf_deposit(lbuf, 3);
-    printf("Deposit 3\n");
+    int counter = 0;
+
+    for(int i = 1; i <= lbuf->n; i++) {
+        printf("[D1] Will deposit %d\n", i);
+        lbuf_deposit(lbuf, i);
+        printf("[D1] Deposited %d\n", i);
+    }
 
     for(int i = 0; i < nConsumers; i++) {
         consumerInfo cInfo;
