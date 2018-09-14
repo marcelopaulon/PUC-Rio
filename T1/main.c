@@ -41,8 +41,8 @@ void ldebug(LBUF *lbuf) {
 }
 
 int main(int argc, char **argv) {
-    if(argc < 3) {
-        printf("USAGE: lbuf nProducers nConsumers [ mode] \n"); 
+    if(argc < 4) {
+        printf("USAGE: lbuf nPositions nProducers nConsumers [ mode] \n");
         printf("  mode: SLEEP_ALL - each consumer and producer will sleep for 1 second between requests \n");
         printf("        SLEEP_PRODUCERS - each producer will sleep for 1 second between requests \n");
         printf("        SLEEP_CONSUMERS - each consumer will sleep for 1 second between requests \n");
@@ -51,23 +51,26 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
+    int nPositions = -1;
     int nProducers = -1;
     int nConsumers = -1;
 
     int ret = 0;
-    ret = sscanf(argv[1], "%d", &nProducers);
+    ret = sscanf(argv[1], "%d", &nPositions);
     if (ret != 1) return -1;
-    ret = sscanf(argv[2], "%d", &nConsumers);
-    if (ret != 1) return -1;     
-    
-    if(nProducers < 1 || nConsumers < 1) {
-        printf("Error: nProducers and nConsumers should be greater than 0");
+    ret = sscanf(argv[2], "%d", &nProducers);
+    if (ret != 1) return -1;
+    ret = sscanf(argv[3], "%d", &nConsumers);
+    if (ret != 1) return -1;
+
+    if(nPositions < 1 || nProducers < 1 || nConsumers < 1) {
+        printf("Error: nPositions, nProducers and nConsumers should be greater than 0");
         exit(-1);
     }
 
     int mode = NO_SLEEP;
 
-    if(argc == 4) {
+    if(argc == 5) {
         char *modeStr = (char *) malloc(1024 * sizeof(char));
         ret = sscanf(argv[3], "%s", modeStr);
         if (ret != 1) return -1;
@@ -88,13 +91,13 @@ int main(int argc, char **argv) {
 
         free(modeStr);
     }
-    else if(argc != 3) {
+    else if(argc != 4) {
         printf("Unknown combination of parameters\n");
         exit(-1);
     }
 
     // call a function in another file
-    LBUF *lbuf = lbuf_create(3, nProducers, nConsumers);
+    LBUF *lbuf = lbuf_create(nPositions, nProducers, nConsumers);
 
 
     printf("Deposit start\n");
