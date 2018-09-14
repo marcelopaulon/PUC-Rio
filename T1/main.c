@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 
     if(argc == 5) {
         char *modeStr = (char *) malloc(1024 * sizeof(char));
-        ret = sscanf(argv[3], "%s", modeStr);
+        ret = sscanf(argv[4], "%s", modeStr);
         if (ret != 1) return -1;
 
         if(strcmp(modeStr, "NO_SLEEP") == 0)
