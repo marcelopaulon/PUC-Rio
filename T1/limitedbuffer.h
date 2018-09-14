@@ -9,22 +9,25 @@ Limited buffer
 #include <semaphore.h> 
 
 struct t_LBUF {
-    int n;
-    int p;
-    int c;
+    int n; // Size of the buffer
+    int p; // Number of producers
+    int c; // Number of consumers
 
-    int *buffer;
-    int **pendingReads;
-    int *nextConsume;
+    int *buffer; // Buffer of size n
+    int **pendingReads; // Matrix that indicates for each position which consumers have pending reads (n x c)
+    int *nextConsume; // Next position the consumer will read from (c)
 
-    int nextWriteIndex;
+    int nextWriteIndex; // Next index the writer should deposit the data
 
-    int waitForDeposit;
-    int waitForRead;
+    int waitForDeposit; // Number of threads on hold to write
+    int *waitForRead; // Number of threads on hold to read, for each position (n)
+
+    int nW; // Number of active writers
+    int *nR; // Number of active readers for each position (n)
 
     sem_t e;
     sem_t sW;
-    sem_t sR;
+    sem_t *sR;
 };
 
 typedef struct t_LBUF LBUF;

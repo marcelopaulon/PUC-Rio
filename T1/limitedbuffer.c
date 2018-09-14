@@ -28,53 +28,51 @@ LBUF * lbuf_create(int nPosition, int pProducers, int cConsumers) {
 
   lbuf->nextWriteIndex = 0;
   lbuf->waitForDeposit = 0;
-  lbuf->waitForRead = 0;
+
+  lbuf->nW = 0;
 
   sem_init(&lbuf->e, 0, 1);
   sem_init(&lbuf->sW, 0, 0);
-  sem_init(&lbuf->sR, 0, 0);
+
+  lbuf->sR = (sem_t *) malloc(sizeof(sem_t) * lbuf->n);
+  lbuf->waitForRead = (int *) malloc(sizeof(int) * lbuf->n);
+  lbuf->nR = (int *) malloc(sizeof(int) * lbuf->n);
+
+  for(int i = 0; i < lbuf->n; i++) {
+    sem_init(&lbuf->sR[i], 0, 0);
+    lbuf->waitForRead[i] = 0;
+    lbuf->nR[i] = 0;
+  }
 
   return lbuf;
 }
 
 void SIGNAL(LBUF * lbuf) {
-
-  int anyFreeSlot = 0;
-  for(int i = 0; i < lbuf->n; i++) {
-    int freeSlot = 1;
-    for(int j = 0; j < lbuf->c; j++) {
-      if(lbuf->pendingReads[i][j] == 1) {
-        freeSlot = 0;
-        break;
-      }
-    }
-    if(freeSlot == 1) {
-      anyFreeSlot = 1;
+  int freeSlot = 1;
+  for(int j = 0; j < lbuf->c; j++) {
+    if(lbuf->pendingReads[lbuf->nextWriteIndex][j] != 0) {
+      freeSlot = 0;
       break;
     }
   }
 
-  int anyPendingReads = 0;
   for(int i = 0; i < lbuf->n; i++) {
     for(int j = 0; j < lbuf->c; j++) {
-      if(lbuf->pendingReads[i][j] > 0) {
-        anyPendingReads = 1;
-        break;
+      if(lbuf->nW == 0 && lbuf->waitForRead[i] > 0) {
+        lbuf->waitForRead[i]--;
+        sem_post(&lbuf->sR[i]);
+        return;
       }
     }
   }
 
-  if (anyPendingReads == 1 && lbuf->waitForRead > 0) {
-    lbuf->waitForRead--;
-    sem_post(&lbuf->sR);
-  }
-  else if (anyFreeSlot == 1 && lbuf->waitForDeposit > 0) {
+  if(freeSlot == 1 && lbuf->nW == 0 && lbuf->nR[lbuf->nextWriteIndex] == 0 && lbuf->waitForDeposit > 0) {
     lbuf->waitForDeposit--;
     sem_post(&lbuf->sW);
+    return;
   }
-  else {
-    sem_post(&lbuf->e);
-  }
+
+  sem_post(&lbuf->e);
 }
 
 void lbuf_deposit(LBUF * lbuf, int data) {
@@ -82,7 +80,7 @@ void lbuf_deposit(LBUF * lbuf, int data) {
   sem_wait(&lbuf->e);
   int shouldWait = 0;
   for(int i = 0; i < lbuf->c; i++) {
-    if(lbuf->pendingReads[lbuf->nextWriteIndex][i] == 1) {
+    if(lbuf->pendingReads[lbuf->nextWriteIndex][i] != 0) {
       shouldWait = 1;
       break;
     }
@@ -94,27 +92,27 @@ void lbuf_deposit(LBUF * lbuf, int data) {
     sem_wait(&lbuf->sW);
   }
 
+  lbuf->nW++;
+
   // SIGNAL
   SIGNAL(lbuf);
 
+  int writeIndex = lbuf->nextWriteIndex;
 
   // Write to the buffer
-  lbuf->buffer[lbuf->nextWriteIndex] = data;
+  lbuf->buffer[writeIndex] = data;
 
   sem_wait(&lbuf->e);
 
+  lbuf->nW--;
+
   for(int j = 0; j < lbuf->c; j++) {
-    lbuf->pendingReads[lbuf->nextWriteIndex][j] = 1;
+    lbuf->pendingReads[writeIndex][j] = 1;
   }
 
   lbuf->nextWriteIndex++;
   if(lbuf->nextWriteIndex == lbuf->n) {
     lbuf->nextWriteIndex = 0;
-  }
-
-  if(lbuf->waitForRead > 0) {
-    lbuf->waitForRead--;
-    sem_post(&lbuf->sR);
   }
 
   // SIGNAL
@@ -137,12 +135,14 @@ int lbuf_consume(LBUF * lbuf, int threadId) {
 
   int readIndex = getAndAdvanceNextReadIndex(lbuf, threadId);
 
-  while(lbuf->pendingReads[readIndex][threadId] == 0) {
+  if(lbuf->pendingReads[readIndex][threadId] == 0) {
     // There are not any pending reads on this index
-    lbuf->waitForRead++;
+    lbuf->waitForRead[readIndex]++;
     sem_post(&lbuf->e);
-    sem_wait(&lbuf->sR); // wait before reading
+    sem_wait(&lbuf->sR[readIndex]); // wait before reading
   }
+
+  lbuf->nR[readIndex]++;
 
   // SIGNAL
   SIGNAL(lbuf);
@@ -150,6 +150,8 @@ int lbuf_consume(LBUF * lbuf, int threadId) {
   int data = lbuf->buffer[readIndex];
 
   sem_wait(&lbuf->e);
+
+  lbuf->nR[readIndex]--;
 
   lbuf->pendingReads[readIndex][threadId]--;
 
@@ -164,6 +166,8 @@ void lbuf_free(LBUF * lbuf) {
   free(lbuf->pendingReads);
   free(lbuf->nextConsume);
   sem_destroy(&lbuf->sW);
-  sem_destroy(&lbuf->sR);
+  for(int i = 0; i < lbuf->n; i++) {
+    sem_destroy(&lbuf->sR[i]);
+  }
   free(lbuf);
 }

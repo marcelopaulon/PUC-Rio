@@ -10,7 +10,7 @@
 #define SLEEP_PRODUCERS 0x10
 #define SLEEP_CONSUMERS 0x100
 
-#define N_DEPOSITS_PER_THREAD 10
+#define N_DEPOSITS_PER_THREAD 2
 #define DEBUG 0
 
 typedef struct consumerInfo_t {
@@ -64,7 +64,10 @@ void *deposit(void *args)
 }
 
 void ldebug(LBUF *lbuf) {
-    printf("\nn=%d p=%d c=%d\nwaitForDeposit=%d waitForRead=%d\n", lbuf->n, lbuf->p, lbuf->c, lbuf->waitForDeposit, lbuf->waitForRead);
+    printf("\nn=%d p=%d c=%d\nwaitForDeposit=%d \n", lbuf->n, lbuf->p, lbuf->c, lbuf->waitForDeposit);
+    for(int i = 0; i < lbuf->n; i++) {
+        printf("waitForRead idx %d = %d; ", i, lbuf->waitForRead[i]);
+    }
 }
 
 int main(int argc, char **argv) {
@@ -130,7 +133,7 @@ int main(int argc, char **argv) {
     printf("Deposit 0 start\n");
     int counter = 0;
 
-    for(counter = 1; counter <= lbuf->n; counter++) {
+    for(counter = 0; counter < lbuf->n; counter++) {
         printf("[D0] Will deposit %d\n", counter);
         lbuf_deposit(lbuf, counter);
         printf("[D0] Deposited %d\n", counter);
@@ -144,7 +147,7 @@ int main(int argc, char **argv) {
         cInfo[i].lbuf = lbuf;
         cInfo[i].threadId = i;
         cInfo[i].mode = mode;
-        cInfo[i].nDeposits = N_DEPOSITS_PER_THREAD;
+        cInfo[i].nDeposits = N_DEPOSITS_PER_THREAD * nProducers;
 
         int threadIdx = threadCount++;
         if(threadIdx >= 1024) {
@@ -180,7 +183,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    for(; counter <= N_DEPOSITS_PER_THREAD; counter++) {
+    for(; counter < N_DEPOSITS_PER_THREAD; counter++) {
         printf("[D0] Will deposit %d\n", counter);
         lbuf_deposit(lbuf, counter);
         printf("[D0] Deposited %d\n", counter);
