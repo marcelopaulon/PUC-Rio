@@ -6,9 +6,10 @@ T1 -
 I) Algoritmo - buffer limitado com múltiplos produtores e consumidores (implementação utilizou passagem de bastão como implementação para o await - ver arquivo limitedbuffer.c)
 
 void lbuf_deposit(int data) {
-  < await pendingReads[nextWriteIndex][k] == 0 > // pendingReads é uma matriz com contadores de leituras (consumos) pendentes para cada posição do buffer. Aqui verifica-se se a posição está livre, isto é, não há nenhuma leitura pendente na próxima posição de escrita do buffer.
+  < await pendingReads[nextWriteIndex][k] == 0; nW++ > // pendingReads é uma matriz com contadores de leituras (consumos) pendentes para cada posição do buffer. Aqui verifica-se se a posição está livre, isto é, não há nenhuma leitura pendente na próxima posição de escrita do buffer.
   buffer[nextWriteIndex] = data; // escreve no buffer
   SIGNAL;
+  P(e);
   for(int j = 0; j < c; j++) {
     pendingReads[writeIndex][j] = 1; // Define leituras pendentes para cada consumidor
   }
@@ -28,7 +29,7 @@ int lbuf_consume(int threadId) {
   SIGNAL;
 
   int data = buffer[readIndex]; // Lê do buffer
-
+  P(e);
   pendingReads[readIndex][threadId]--; // Remove leitura pendente para essa thread (isto potencialmente sinalizará para algum depositante pendente escrever na posição readIndex do buffer, caso o total de pendingReads[readIndex] seja zero
 
   SIGNAL;
