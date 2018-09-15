@@ -79,6 +79,7 @@ void lbuf_deposit(LBUF * lbuf, int data) {
   // await lbuf->pendingReads[lbuf->nextWriteIndex] == 0:
   sem_wait(&lbuf->e);
   int shouldWait = 0;
+
   for(int i = 0; i < lbuf->c; i++) {
     if(lbuf->pendingReads[lbuf->nextWriteIndex][i] != 0) {
       shouldWait = 1;

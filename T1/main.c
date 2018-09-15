@@ -10,7 +10,7 @@
 #define SLEEP_PRODUCERS 0x10
 #define SLEEP_CONSUMERS 0x100
 
-#define N_DEPOSITS_PER_THREAD 2
+#define N_DEPOSITS_PER_THREAD 8
 #define DEBUG 0
 
 typedef struct consumerInfo_t {
@@ -75,8 +75,8 @@ int main(int argc, char **argv) {
         printf("USAGE: lbuf nPositions nProducers nConsumers [ mode = NO_SLEEP] \n");
         printf("  mode: SLEEP_ALL - each consumer and producer will sleep for 1 second between requests \n");
         printf("        SLEEP_PRODUCERS - each producer will sleep for 1 second between requests \n");
-        printf("        SLEEP_CONSUMERS - each consumer will sleep for 1 second between requests \n");
-        printf("        NO_SLEEP - (default) each consumer and producer will execute without any sleep calls\n");
+        printf("        SLEEP_CONSUMERS - (default) each consumer will sleep for 1 second between requests \n");
+        printf("        NO_SLEEP - each consumer and producer will execute without any sleep calls\n");
         printf("\n Description: simulates de limited buffer (limitedbuffer.h) for a specified number of producers/consumers\n\n");
         exit(0);
     }
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    int mode = NO_SLEEP;
+    int mode = SLEEP_CONSUMERS;
 
     if(argc == 5) {
         char *modeStr = (char *) malloc(1024 * sizeof(char));
