@@ -9,6 +9,8 @@
 #define NO_MORE_TASKS 1
 #define WORKER_AVAILABLE 2
 
+#define DEBUG 1
+
 int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
@@ -90,6 +92,11 @@ int main(int argc, char *argv[]){
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
 
+    if(n_cores < 2) {
+        printf("A minimum of 2 cores is required for this task to work (1 master and at least one worker)");
+        exit(-1);
+    }
+
 	l = atoi(argv[1]);
 	r = atoi(argv[2]);
 	n_task = atoi(argv[3]);
@@ -109,7 +116,7 @@ int main(int argc, char *argv[]){
         exit(-1);
     }
 
-    printf("Aquad - %d cores ; l = %.2f ; r = %.2f \n", n_cores, l, r);
+    printf("Aquad2 - %d nodes ; l = %.2f ; r = %.2f - executing on node %d \n", n_cores, l, r, p_id);
 
     if(p_id == 0) {
         MPI_Status mstatus;
@@ -121,7 +128,7 @@ int main(int argc, char *argv[]){
 
             total_area += *local_area;
 
-            printf("WILL POP %.0f for core %d \n", k, mstatus.MPI_SOURCE);
+            printf("WILL POP %.0f for node %d \n", k, mstatus.MPI_SOURCE);
             stack_node *node = stack_pop(stack);
 
             if(node == NULL) {
@@ -142,7 +149,9 @@ int main(int argc, char *argv[]){
             total_area += *local_area;
         }
 
-        printf("Will notify cores. \n");
+        if(DEBUG) {
+            printf("Will notify cores. \n");
+        }
 
         // Notify all of the cores that there are no tasks left.
         for(int i = 1; i < n_cores; i++) {
@@ -168,13 +177,18 @@ int main(int argc, char *argv[]){
             trap_area = compute_trap_area(a, b);
 
             *local_area = curve_subarea(a, b, trap_area);
-            printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *local_area);
+
+            if(DEBUG) {
+                printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *local_area);
+            }
 
             MPI_Send(local_area, 1, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
             MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
         }
 
-        printf("Worker %d terminou\n", p_id);
+        if(DEBUG) {
+            printf("Worker %d finished\n", p_id);
+        }
     }
 
     MPI_Finalize();
