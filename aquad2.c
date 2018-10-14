@@ -5,7 +5,7 @@
 
 #define  TOL 1e-16
 
-int n_cores;
+int n_cores, n_task;
 double total_area=0;
 double function(double x);
 double compute_trap_area(double l, double r);

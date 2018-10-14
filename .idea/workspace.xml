@@ -13,10 +13,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aquad1.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad1.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aquad2.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/AQUAD.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/AQUAD.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad2" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,32 +39,40 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="c" value="2" />
+          <entry key="make" value="1" />
+          <entry key="md" value="1" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CMakeLists.txt" value="1" />
           <entry key="ObjectiveC" value="2" />
+          <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="257" />
+          <entry key="c" value="334" />
+          <entry key="make" value="1" />
+          <entry key="md" value="238" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="257" />
+          <entry key="ObjectiveC" value="334" />
+          <entry key="PLAIN_TEXT" value="239" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="270">
+              <caret line="93" selection-end-line="184" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -73,11 +83,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad1.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+            <state relative-caret-position="225">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -90,7 +109,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/aquad1.dir/build.make" />
         <option value="$PROJECT_DIR$/aquad2.c" />
+        <option value="$PROJECT_DIR$/aquad1.c" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -149,12 +171,12 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="aquad1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 4 ./aquad1 0 1" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad1" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
+    <configuration name="aquad1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 7 ./aquad1 0 1" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad1" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 8 ./aquad2 0 1" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
+    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 8 ./aquad2 0 1 8" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -175,15 +197,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539527661736</updated>
-      <workItem from="1539527663142" duration="1287000" />
+      <workItem from="1539527663142" duration="4504000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1287000" />
+    <option name="totallyTimeSpent" value="4504000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1030" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
@@ -214,23 +237,44 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/aquad1.c">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        <state>
+          <caret selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/aquad1.dir/build.make">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aquad2.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="93" selection-end-line="184" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aquad2.c">
+    <entry file="file://$PROJECT_DIR$/aquad1.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
+        <state relative-caret-position="225">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>

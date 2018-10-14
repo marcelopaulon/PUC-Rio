@@ -5,6 +5,8 @@
 
 #define  TOL 1e-16
 
+#define DEBUG 1
+
 int n_cores;
 double total_area=0;
 double function(double x);
@@ -13,20 +15,28 @@ void curve_subarea(double a, double b, double area, double *sub_total);
 
 int main(int argc, char *argv[]){
 	int p_id;
-	double l, r, w, a, b, trap_area, local_area;
+	double l, r, w;
+
+    l =  atoi(argv[1]);
+    r =  atoi(argv[2]);
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
 	MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
 
-	l =  atoi(argv[1]);
-	r =  atoi(argv[2]);
 	w = (r - l)/n_cores;
+
+	double a, b, trap_area, local_area;
 
 	a = l + p_id*w;
 	b = l + (p_id + 1)*w;
 	trap_area = compute_trap_area(a, b);
-	printf("a = %f, b = %f \n", a, b);
+
+	if(DEBUG) {
+        printf("Started. l = %.2f r = %.2f n_cores = %d w = %.2f \n", l, r, n_cores, w);
+        printf("a = %f, b = %f \n", a, b);
+    }
+
 	printf("trap area %f\n ", trap_area);
 
 	curve_subarea(a, b, trap_area, &local_area);
