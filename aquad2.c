@@ -87,11 +87,12 @@ int main(int argc, char *argv[]){
 
 	l =  atoi(argv[1]);
 	r =  atoi(argv[2]);
-	w = (r - l)/(n_cores - 1);
+	n_task = atoi(argv[3]);
+	w = (r - l)/(n_task);
 
 	stack_data *stack = stack_create();
 
-	for(int i = 0; i < n_cores - 1; i++) {
+	for(int i = 0; i < n_task; i++) {
         double a = l + i * w;
         double b = l + (i + 1) * w;
         stack_push(stack, a, b);
