@@ -62,7 +62,10 @@ int main(int argc, char *argv[]){
 }
 
 double function(double x){
-	return exp(x);
+	double num = atan(sqrt(2 + x*x));
+	double den = (1 + x*x)*sqrt(2+x*x);
+
+	return num/den;
 }
 
 double compute_trap_area(double l, double r){
