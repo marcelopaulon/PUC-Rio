@@ -7,7 +7,6 @@
 
 int n_cores;
 double total_area=0;
-double sub_total=0;
 double function(double x);
 double compute_trap_area(double l, double r);
 void curve_subarea(double a, double b, double area, double *sub_total);
