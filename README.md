@@ -3,7 +3,8 @@ Compiling using mpicc:
 mpicc -o aquad1 aquad1.c -lm
 
 Compiling using CMake:
-xxxxxxxx TODO
+ccmake .
+make
 
 Distributing files across cluster:
 *Make sure the t2 directory exists on the user home*
