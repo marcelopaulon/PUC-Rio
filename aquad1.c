@@ -58,9 +58,9 @@ int main(int argc, char *argv[]){
 
 	if(p_id == 0) {
 	    end_t = clock();
-        printf("The area under the curve is %lf \n", total_area);
+        printf("The area under the curve is %.16f \n", total_area);
         total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-        printf("Total time taken by CPU: %f\n", total_t);
+        printf("Total time taken by CPU: %.16f\n", total_t);
 	}
 
 	MPI_Finalize();

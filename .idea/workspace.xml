@@ -208,7 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.aquad2">
+  <component name="RunManager" selected="Application.aquad1">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -219,7 +219,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 2 ./aquad2 0 1 90" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
+    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 4 ./aquad2 0 1 90" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
