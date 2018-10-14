@@ -81,9 +81,12 @@ int main(int argc, char *argv[]){
 	int p_id;
 	double l, r, w, trap_area;
 
-	n_cores = atoi(argv[1]);
-	l =  atoi(argv[2]);
-	r =  atoi(argv[3]);
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
+    MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
+
+	l =  atoi(argv[1]);
+	r =  atoi(argv[2]);
 	w = (r - l)/(n_cores - 1);
 
 	stack_data *stack = stack_create();
@@ -94,23 +97,32 @@ int main(int argc, char *argv[]){
         stack_push(stack, a, b);
     }
 
-    MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
-    MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
+    double *local_area = (double *) malloc(sizeof(double));
+	if(local_area == NULL) {
+        printf("Unable to create local_area");
+        exit(-1);
+	}
 
     printf("Aquad - %d cores ; l = %.2f ; r = %.2f \n", n_cores, l, r);
 
 	if(p_id == 0) {
-	    for(int i = 0; i < n_cores - 1; i++) {
-            MPI_Send(stack_pop(stack), 2, MPI_DOUBLE, i+1, 0, MPI_COMM_WORLD);
+	    for(int i = 1; i < n_cores; i++) {
+	        printf("WILL POP %d\n", i);
+	        stack_node *node = stack_pop(stack);
+
+	        if(node == NULL) {
+	            printf("Error - node is null");
+	            exit(-1);
+	        }
+
+            MPI_Send(node, 2, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
 	    }
 		printf("passou dos send \n");
 
         for (int i = 1; i < n_cores; i++) {
-            double local_area;
-        	MPI_Recv(&local_area, 1, MPI_DOUBLE, i, 1,
+        	MPI_Recv(local_area, 1, MPI_DOUBLE, i, 1,
         		MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            total_area += local_area;
+            total_area += *local_area;
         }
 	}	
 	else {
@@ -126,16 +138,17 @@ int main(int argc, char *argv[]){
         printf("a = %f, b = %f \n", a, b);
         printf("trap area %f\n ", trap_area);
 
-        double local_area;
-        curve_subarea(a, b, trap_area, &local_area);
-        printf("local area %f \n", local_area);
-        MPI_Send(&local_area, 1, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
+        curve_subarea(a, b, trap_area, local_area);
+        printf("local area %f \n", *local_area);
+        MPI_Send(local_area, 1, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
 	}
 
 	if(p_id == 0)
 		printf("The area under the curve is %lf \n", total_area);	
 
 	MPI_Finalize();
+
+	free(local_area);
 
 	return 0;
 }

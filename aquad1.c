@@ -15,14 +15,13 @@ int main(int argc, char *argv[]){
 	int p_id;
 	double l, r, w, a, b, trap_area, local_area;
 
-	n_cores = atoi(argv[1]);
-	l =  atoi(argv[2]);
-	r =  atoi(argv[3]);
-	w = (r - l)/n_cores;
-
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
 	MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
+
+	l =  atoi(argv[1]);
+	r =  atoi(argv[2]);
+	w = (r - l)/n_cores;
 
 	a = l + p_id*w;
 	b = l + (p_id + 1)*w;
