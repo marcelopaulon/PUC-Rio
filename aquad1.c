@@ -2,10 +2,11 @@
 #include <math.h>
 #include "mpi.h"
 #include <stdlib.h>
+#include <time.h>
 
 #define  TOL 1e-16
 
-#define DEBUG 1
+#define DEBUG 0
 
 int n_cores;
 double function(double x);
@@ -19,6 +20,10 @@ int main(int argc, char *argv[]){
     l =  atoi(argv[1]);
     r =  atoi(argv[2]);
 
+    clock_t start_t, end_t, total_t;
+
+    start_t = clock();
+
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
 	MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
@@ -31,20 +36,17 @@ int main(int argc, char *argv[]){
 	b = l + (p_id + 1)*w;
 	trap_area = compute_trap_area(a, b);
 
+    local_area = curve_subarea(a, b, trap_area);
+    double total_area = local_area;
 	if(DEBUG) {
         printf("Started. l = %.2f r = %.2f n_cores = %d w = %.2f \n", l, r, n_cores, w);
         printf("a = %f, b = %f \n", a, b);
+        printf("trap area %f\n ", trap_area);
+        printf("local area %f \n", local_area);
     }
 
-	printf("trap area %f\n ", trap_area);
-
-    local_area = curve_subarea(a, b, trap_area);
-    double total_area = local_area;
-
-	printf("local area %f \n", local_area);
 	if(p_id != 0){
 		MPI_Send(&local_area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-		printf("passou do send \n");
 	}	
 	else {
 		for (int i = 1; i < n_cores; i++) {
@@ -53,8 +55,13 @@ int main(int argc, char *argv[]){
 			total_area += local_area;
 		}
 	}
-	if(p_id == 0)
-		printf("The area under the curve is %lf \n", total_area);	
+
+	if(p_id == 0) {
+	    end_t = clock();
+        printf("The area under the curve is %lf \n", total_area);
+        total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+        printf("Total time taken by CPU: %f\n", total_t);
+	}
 
 	MPI_Finalize();
 

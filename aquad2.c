@@ -2,6 +2,7 @@
 #include <math.h>
 #include "mpi.h"
 #include <stdlib.h>
+#include <time.h>
 
 #define  TOL 1e-16
 
@@ -9,7 +10,7 @@
 #define NO_MORE_TASKS 1
 #define WORKER_AVAILABLE 2
 
-#define DEBUG 1
+#define DEBUG 0
 
 int n_cores, n_task;
 double function(double x);
@@ -88,6 +89,10 @@ int main(int argc, char *argv[]){
 
     double total_area = 0;
 
+    clock_t start_t, end_t, total_t;
+
+    start_t = clock();
+
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
@@ -116,7 +121,9 @@ int main(int argc, char *argv[]){
         exit(-1);
     }
 
-    printf("Aquad2 - %d nodes ; l = %.2f ; r = %.2f - executing on node %d \n", n_cores, l, r, p_id);
+    if(DEBUG) {
+        printf("Aquad2 - %d nodes ; l = %.2f ; r = %.2f - executing on node %d \n", n_cores, l, r, p_id);
+    }
 
     if(p_id == 0) {
         MPI_Status mstatus;
@@ -128,7 +135,10 @@ int main(int argc, char *argv[]){
 
             total_area += *local_area;
 
-            printf("WILL POP %.0f for node %d \n", k, mstatus.MPI_SOURCE);
+            if(DEBUG >= 2) {
+                printf("WILL POP %.0f for node %d \n", k, mstatus.MPI_SOURCE);
+            }
+
             stack_node *node = stack_pop(stack);
 
             if(node == NULL) {
@@ -158,11 +168,12 @@ int main(int argc, char *argv[]){
             MPI_Send(&k, 1, MPI_DOUBLE, i, NO_MORE_TASKS, MPI_COMM_WORLD);
         }
 
+        end_t = clock();
         printf("The area under the curve is %lf \n", total_area);
-
+        total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+        printf("Total time taken by CPU: %f\n", total_t);
     }
     else {
-        printf("Hello %d\n", p_id);
         MPI_Status status;
         double temp[2] = {0, 0};
 
