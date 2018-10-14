@@ -13,7 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/aquad1.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad1.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aquad2.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad2.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,14 +48,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="488" />
+          <entry key="c" value="501" />
           <entry key="make" value="1" />
           <entry key="md" value="262" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="488" />
+          <entry key="ObjectiveC" value="501" />
           <entry key="PLAIN_TEXT" value="263" />
         </counts>
       </usages-collector>
@@ -63,11 +63,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="93" selection-end-line="184" />
+            <state relative-caret-position="160">
+              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -75,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad1.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="166">
+              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="86" selection-end-column="1" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -102,6 +102,7 @@
     <findStrings>
       <find>curve_subarea</find>
       <find>will compute</find>
+      <find>curve_sub</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -111,9 +112,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/aquad1.dir/build.make" />
-        <option value="$PROJECT_DIR$/aquad2.c" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/aquad1.c" />
+        <option value="$PROJECT_DIR$/aquad2.c" />
       </list>
     </option>
   </component>
@@ -198,12 +199,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539527661736</updated>
-      <workItem from="1539527663142" duration="7680000" />
+      <workItem from="1539527663142" duration="7829000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7680000" />
+    <option name="totallyTimeSpent" value="7829000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -261,16 +262,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aquad2.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="93" selection-end-line="184" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -280,8 +271,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad1.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
+        <state relative-caret-position="166">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="86" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aquad2.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

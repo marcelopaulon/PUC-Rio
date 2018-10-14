@@ -9,7 +9,7 @@ int n_cores, n_task;
 double total_area=0;
 double function(double x);
 double compute_trap_area(double l, double r);
-void curve_subarea(double a, double b, double area, double *sub_total);
+double curve_subarea(double a, double b, double area);
 
 typedef struct _node {
 	double a;
@@ -139,7 +139,7 @@ int main(int argc, char *argv[]){
         printf("a = %f, b = %f \n", a, b);
         printf("trap area %f\n ", trap_area);
 
-        curve_subarea(a, b, trap_area, local_area);
+        *local_area = curve_subarea(a, b, trap_area);
         printf("local area %f \n", *local_area);
         MPI_Send(local_area, 1, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
 	}
@@ -163,22 +163,20 @@ double compute_trap_area(double l, double r){
 	return (function(l) + function(r))*(r - l)*0.5;
 }
 
+double curve_subarea(double a, double b, double area){
+    double m, l_area, r_area, error;
 
-void curve_subarea(double a, double b, double area, double* sub_total){
-	double m, l_area, r_area, error; 
+    m = (a + b)*0.5;
+    l_area = compute_trap_area(a, m);
+    r_area = compute_trap_area(m, b);
+    error = area - (l_area + r_area);
 
-	m = (a + b)*0.5;
-	l_area = compute_trap_area(a, m);
-	r_area = compute_trap_area(m, b);
-	error = area - (l_area + r_area);
-
-	if(fabs(error) < TOL){
-                (*sub_total) += l_area + r_area;
-	}
-	else{ 
-                curve_subarea(a, m, l_area, sub_total);
-                curve_subarea(m, b, r_area, sub_total);
-	}
+    if(fabs(error) <= TOL){
+        return l_area + r_area;
+    }
+    else {
+        return curve_subarea(a, m, l_area) + curve_subarea(m, b, r_area);
+    }
 }
 
 
