@@ -4,7 +4,10 @@
 #include <stdlib.h>
 
 #define  TOL 1e-16
+
+#define EXECUTE_TASK 0
 #define NO_MORE_TASKS 1
+#define WORKER_AVAILABLE 2
 
 int n_cores, n_task;
 double function(double x);
@@ -81,6 +84,8 @@ int main(int argc, char *argv[]){
     int p_id;
     double l, r, w, trap_area;
 
+    double total_area = 0;
+
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
@@ -109,40 +114,39 @@ int main(int argc, char *argv[]){
     if(p_id == 0) {
         MPI_Status mstatus;
 
-        int k = 0;
+        double k = 0;
         while(!stack_is_empty(stack)) {
-            for(int i = 1; i < n_cores && !stack_is_empty(stack); i++) {
-                printf("WILL POP %d\n", k);
-                stack_node *node = stack_pop(stack);
-
-                if(node == NULL) {
-                    printf("Error - node is null");
-                    exit(-1);
-                }
-
-                MPI_Send(node, 2, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
-
-                if(k == n_task) {
-                    MPI_Send(&k, 1, MPI_DOUBLE, mstatus.MPI_SOURCE, NO_MORE_TASKS, MPI_COMM_WORLD);
-                    break;
-                }
-
-                k++;
-            }
-
-            if(k == n_task) {
-                break;
-            }
-        }
-
-        double total_area = 0;
-
-        for(int i = 0; i < n_task; i++) {
-            MPI_Recv(local_area, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 0,
+            MPI_Recv(local_area, 1, MPI_DOUBLE, MPI_ANY_SOURCE, WORKER_AVAILABLE,
                      MPI_COMM_WORLD, &mstatus);
 
             total_area += *local_area;
 
+            printf("WILL POP %.0f for core %d \n", k, mstatus.MPI_SOURCE);
+            stack_node *node = stack_pop(stack);
+
+            if(node == NULL) {
+                printf("Error - node is null");
+                exit(-1);
+            }
+
+            MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
+
+            k++;
+        }
+
+        // Wait for remaining cores to finish
+        for(int i = 1; i < n_cores; i++) {
+            MPI_Recv(local_area, 1, MPI_DOUBLE, MPI_ANY_SOURCE, WORKER_AVAILABLE,
+                     MPI_COMM_WORLD, &mstatus);
+
+            total_area += *local_area;
+        }
+
+        printf("Will notify cores. \n");
+
+        // Notify all of the cores that there are no tasks left.
+        for(int i = 1; i < n_cores; i++) {
+            MPI_Send(&k, 1, MPI_DOUBLE, i, NO_MORE_TASKS, MPI_COMM_WORLD);
         }
 
         printf("The area under the curve is %lf \n", total_area);
@@ -151,9 +155,11 @@ int main(int argc, char *argv[]){
     else {
         printf("Hello %d\n", p_id);
         MPI_Status status;
-        double temp[2];
+        double temp[2] = {0, 0};
 
-        MPI_Recv(temp, 2, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
+        MPI_Send(temp, 1, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD); // Worker initialized. Send message to master saying it's available (send 0 as previous computation)
+
+        MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status); // Wait for the task values
 
         while(status.MPI_TAG != NO_MORE_TASKS){
             double a = temp[0];
@@ -164,10 +170,10 @@ int main(int argc, char *argv[]){
             *local_area = curve_subarea(a, b, trap_area);
             printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *local_area);
 
-            MPI_Send(local_area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-
-            MPI_Recv(temp, 2, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
+            MPI_Send(local_area, 1, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
+            MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
         }
+
         printf("Worker %d terminou\n", p_id);
     }
 
