@@ -178,7 +178,7 @@ int main(int argc, char *argv[]){
 
 	l = atoi(argv[1]);
 	r = atoi(argv[2]);
-	n_task = atoi(argv[3]);
+	n_task = n_cores; // We will initially start with n_cores tasks
 	w = (r - l)/(n_task);
 
     stack_data *stack = stack_create();
@@ -243,6 +243,7 @@ int main(int argc, char *argv[]){
     MPI_Finalize();
 
     free(params);
+    stack_destroy(stack);
 
     return 0;
 }

@@ -194,6 +194,7 @@ int main(int argc, char *argv[]){
     MPI_Finalize();
 
     free(local_area);
+    stack_destroy(stack);
 
     return 0;
 }
