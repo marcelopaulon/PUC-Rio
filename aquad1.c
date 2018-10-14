@@ -8,7 +8,6 @@
 #define DEBUG 1
 
 int n_cores;
-double total_area=0;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
@@ -40,18 +39,19 @@ int main(int argc, char *argv[]){
 	printf("trap area %f\n ", trap_area);
 
     local_area = curve_subarea(a, b, trap_area);
+    double total_area = local_area;
+
 	printf("local area %f \n", local_area);
 	if(p_id != 0){
 		MPI_Send(&local_area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
 		printf("passou do send \n");
 	}	
 	else {
-	
 		for (int i = 1; i < n_cores; i++) {
 			MPI_Recv(&local_area, 1, MPI_DOUBLE, i, 0,
 				MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			total_area += local_area;
-		}	
+		}
 	}
 	if(p_id == 0)
 		printf("The area under the curve is %lf \n", total_area);	
@@ -78,10 +78,10 @@ double curve_subarea(double a, double b, double area){
 	r_area = compute_trap_area(m, b);
 	error = area - (l_area + r_area);
 
-	if(fabs(error) < TOL){
+	if(fabs(error) <= TOL){
 	    return l_area + r_area;
 	}
-	else{ 
+	else {
 	    return curve_subarea(a, m, l_area) + curve_subarea(m, b, r_area);
 	}
 }
