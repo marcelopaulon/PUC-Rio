@@ -12,3 +12,6 @@ target_link_libraries(aquad1 ${MPI_LIBRARIES} m)
 
 add_executable(aquad2 aquad2.c)
 target_link_libraries(aquad2 ${MPI_LIBRARIES} m)
+
+add_executable(aquad3 aquad3.c)
+target_link_libraries(aquad3 ${MPI_LIBRARIES} m)
