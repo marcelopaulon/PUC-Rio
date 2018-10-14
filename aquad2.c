@@ -7,7 +7,6 @@
 #define NO_MORE_TASKS 1
 
 int n_cores, n_task;
-double total_area=0;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
@@ -86,10 +85,10 @@ int main(int argc, char *argv[]){
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
 
-    l =  atoi(argv[1]);
-    r =  atoi(argv[2]);
-    n_task = atoi(argv[3]);
-    w = (r - l)/(n_task);
+	l = atoi(argv[1]);
+	r = atoi(argv[2]);
+	n_task = atoi(argv[3]);
+	w = (r - l)/(n_task);
 
     stack_data *stack = stack_create();
 
@@ -161,11 +160,9 @@ int main(int argc, char *argv[]){
             double b = temp[1];
 
             trap_area = compute_trap_area(a, b);
-            printf("a = %f, b = %f \n", a, b);
-            printf("trap area %f\n ", trap_area);
 
             *local_area = curve_subarea(a, b, trap_area);
-            printf("local area %f \n", *local_area);
+            printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *local_area);
 
             MPI_Send(local_area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
 

@@ -13,7 +13,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/aquad1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aquad2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aquad2.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad2" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,15 +54,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="501" />
+          <entry key="c" value="709" />
           <entry key="make" value="1" />
-          <entry key="md" value="262" />
+          <entry key="md" value="278" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="501" />
-          <entry key="PLAIN_TEXT" value="263" />
+          <entry key="ObjectiveC" value="709" />
+          <entry key="PLAIN_TEXT" value="279" />
         </counts>
       </usages-collector>
     </session>
@@ -66,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+            <state relative-caret-position="270">
+              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -78,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad1.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="86" selection-end-column="1" />
+            <state relative-caret-position="375">
+              <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -91,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
@@ -101,8 +107,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>curve_subarea</find>
-      <find>will compute</find>
       <find>curve_sub</find>
+      <find>will compute</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -112,8 +118,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/aquad1.dir/build.make" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/aquad1.c" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/aquad2.c" />
       </list>
     </option>
@@ -167,7 +173,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.aquad1">
+  <component name="RunManager" selected="Application.aquad2">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -178,7 +184,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 8 ./aquad2 0 1 8" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
+    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 4 ./aquad2 0 1 8" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -199,12 +205,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539527661736</updated>
-      <workItem from="1539527663142" duration="7829000" />
+      <workItem from="1539527663142" duration="11083000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7829000" />
+    <option name="totallyTimeSpent" value="11085000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -265,14 +271,14 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad1.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="86" selection-end-column="1" />
+        <state relative-caret-position="375">
+          <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -281,8 +287,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+        <state relative-caret-position="270">
+          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
