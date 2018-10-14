@@ -13,13 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/aquad1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aquad2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aquad2.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/aquad2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/aquad2" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,14 +48,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="709" />
+          <entry key="c" value="988" />
           <entry key="make" value="1" />
           <entry key="md" value="278" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="709" />
+          <entry key="ObjectiveC" value="988" />
           <entry key="PLAIN_TEXT" value="279" />
         </counts>
       </usages-collector>
@@ -72,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            <state relative-caret-position="61">
+              <caret line="113" column="72" lean-forward="true" selection-start-line="113" selection-start-column="72" selection-end-line="113" selection-end-column="72" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -109,6 +103,9 @@
       <find>curve_subarea</find>
       <find>curve_sub</find>
       <find>will compute</find>
+      <find>n_cores</find>
+      <find>node-&gt;</find>
+      <find>stack_pop</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -184,7 +181,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 4 ./aquad2 0 1 8" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
+    <configuration name="aquad2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--oversubscribe -np 4 ./aquad2 0 1 80" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="AQUAD" TARGET_NAME="aquad2" CONFIG_NAME="Debug" RUN_PATH="/sbin/mpirun">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -210,7 +207,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11085000" />
+    <option name="totallyTimeSpent" value="13596000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -223,7 +220,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1030" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
@@ -287,8 +283,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="61">
+          <caret line="113" column="72" lean-forward="true" selection-start-line="113" selection-start-column="72" selection-end-line="113" selection-end-column="72" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

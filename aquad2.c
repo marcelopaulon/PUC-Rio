@@ -78,7 +78,7 @@ void stack_destroy(stack_data *stack) {
 }
 
 int main(int argc, char *argv[]){
-    int p_id, i;
+    int p_id;
     double l, r, w, trap_area;
 
     MPI_Init(&argc, &argv);
@@ -108,44 +108,44 @@ int main(int argc, char *argv[]){
 
     if(p_id == 0) {
         MPI_Status mstatus;
-        for(i = 1; i < n_cores; i++) {
-            printf("WILL POP %d\n", i);
-            stack_node *node = stack_pop(stack);
 
-            if(node == NULL) {
-                printf("Error - node is null");
-                exit(-1);
+        int k = 0;
+        while(!stack_is_empty(stack)) {
+            for(int i = 1; i < n_cores && !stack_is_empty(stack); i++) {
+                printf("WILL POP %d\n", k);
+                stack_node *node = stack_pop(stack);
+
+                if(node == NULL) {
+                    printf("Error - node is null");
+                    exit(-1);
+                }
+
+                MPI_Send(node, 2, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
+
+                if(k == n_task) {
+                    MPI_Send(&k, 1, MPI_DOUBLE, mstatus.MPI_SOURCE, NO_MORE_TASKS, MPI_COMM_WORLD);
+                    break;
+                }
+
+                k++;
             }
 
-            MPI_Send(node, 2, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
+            if(k == n_task) {
+                break;
+            }
         }
-        printf("passou dos send \n");
 
-        while(i < n_task){
+        double total_area = 0;
+
+        for(int i = 0; i < n_task; i++) {
             MPI_Recv(local_area, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 0,
                      MPI_COMM_WORLD, &mstatus);
 
             total_area += *local_area;
 
-            printf("WILL POP %d\n", i);
-            stack_node *node = stack_pop(stack);
-
-            if(node == NULL) {
-                printf("Error - node is null");
-                exit(-1);
-            }
-            MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, 0, MPI_COMM_WORLD);
-            i++;
         }
 
-        for(i = 0; i < n_cores; i++){
-            MPI_Recv(local_area, 1, MPI_DOUBLE, MPI_ANY_SOURCE, 0,
-                     MPI_COMM_WORLD, &mstatus);
-
-            total_area += *local_area;
-
-            MPI_Send(&total_area, 1, MPI_DOUBLE, mstatus.MPI_SOURCE, NO_MORE_TASKS, MPI_COMM_WORLD);
-        }
+        printf("The area under the curve is %lf \n", total_area);
 
     }
     else {
@@ -170,10 +170,6 @@ int main(int argc, char *argv[]){
         }
         printf("Worker %d terminou\n", p_id);
     }
-
-
-    if(p_id == 0)
-        printf("The area under the curve is %lf \n", total_area);
 
     MPI_Finalize();
 
