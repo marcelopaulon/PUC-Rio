@@ -16,18 +16,20 @@ double curve_subarea(double a, double b, double area);
 int main(int argc, char *argv[]){
 	int p_id;
 	double l, r, w;
+	double start_t, end_t, total_t;
 
     l =  atoi(argv[1]);
     r =  atoi(argv[2]);
 
-    clock_t start_t, end_t, total_t;
-
-    start_t = clock();
+//    clock_t start_t, end_t, total_t;
+	
+   // start_t = clock();
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
 	MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
 
+	start_t = MPI_Wtime();
 	w = (r - l)/n_cores;
 
 	double a, b, trap_area, local_area;
@@ -57,10 +59,11 @@ int main(int argc, char *argv[]){
 	}
 
 	if(p_id == 0) {
-	    end_t = clock();
+	    end_t = MPI_Wtime();
         printf("The area under the curve is %.16f \n", total_area);
-        total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-        printf("Total time taken by CPU: %.16f\n", total_t);
+        //total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+		total_t = (double)(end_t - start_t);
+		printf("Total time taken by CPU: %.16f\n", total_t);
 	}
 
 	MPI_Finalize();
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]){
 }
 
 double function(double x){
-	double num = atan(sqrt(2 + x*x));
+	double num = cos(sqrt(pow(sqrt(1+x*x*x),3)))*atan(sqrt(2 + x*x));
 	double den = (1 + x*x)*sqrt(2+x*x);
 
 	return num/den;
