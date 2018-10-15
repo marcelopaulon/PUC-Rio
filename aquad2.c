@@ -86,16 +86,19 @@ void stack_destroy(stack_data *stack) {
 int main(int argc, char *argv[]){
     int p_id;
     double l, r, w, trap_area;
+    double start_t, end_t, total_t;
 
     double total_area = 0;
 
-    clock_t start_t, end_t, total_t;
+ //   clock_t start_t, end_t, total_t;
 
-    start_t = clock();
+ //   start_t = clock();
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
+
+    start_t = MPI_Wtime();
 
     if(n_cores < 2) {
         printf("A minimum of 2 cores is required for this task to work (1 master and at least one worker)");
@@ -168,10 +171,12 @@ int main(int argc, char *argv[]){
             MPI_Send(&k, 1, MPI_DOUBLE, i, NO_MORE_TASKS, MPI_COMM_WORLD);
         }
 
-        end_t = clock();
+        //end_t = clock();
+	end_t = MPI_Wtime();
         printf("The area under the curve is %.16f \n", total_area);
-        total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-        printf("Total time taken by CPU: %.16f\n", total_t);
+        //total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+	total_t = (double)(end_t - start_t);      
+      	printf("Total time taken by CPU: %.16f\n", total_t);
     }
     else {
         MPI_Status status;
@@ -211,8 +216,8 @@ int main(int argc, char *argv[]){
 }
 
 double function(double x){
-	double num = atan(sqrt(2 + x*x));
-	double den = (1 + x*x)*sqrt(2+x*x);
+	double num = 10*sinh(2+10)*log(10+x*x)*cos(sqrt(pow(sqrt(1+x*x*x),3)))*atan(sqrt(2 + x*x));
+	double den = pow((1 + x*x)*sqrt(2+x*x), 2)*sin(sqrt(2))*sqrt(log(2+x));
 
 	return num/den;
 }
