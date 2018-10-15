@@ -17,6 +17,8 @@ double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
 
+double start_t, end_t, total_t;
+
 typedef struct _node {
     double a;
     double b;
@@ -158,7 +160,10 @@ void master(int k, stack_data *stack, double *params, double total_area) {
         MPI_Send(&k, 2, MPI_DOUBLE, i, NO_MORE_TASKS, MPI_COMM_WORLD);
     }
 
+    end_t = MPI_Wtime();
     printf("The area under the curve is %.16f \n", total_area);
+    total_t = (double)(end_t - start_t);
+    printf("Total time taken by CPU: %.16f\n", total_t);
 }
 
 int main(int argc, char *argv[]){
@@ -180,6 +185,8 @@ int main(int argc, char *argv[]){
 	r = atoi(argv[2]);
 	n_task = n_cores; // We will initially start with n_cores tasks
 	w = (r - l)/(n_task);
+
+    start_t = MPI_Wtime();
 
     stack_data *stack = stack_create();
 
@@ -249,7 +256,10 @@ int main(int argc, char *argv[]){
 }
 
 double function(double x){
-    return exp(x);
+    double num = 10*sinh(2+10)*log(10+x*x)*cos(sqrt(pow(sqrt(1+x*x*x),3)))*atan(sqrt(2 + x*x));
+    double den = pow((1 + x*x)*sqrt(2+x*x), 2)*sin(sqrt(2))*sqrt(log(2+x));
+
+    return num/den;
 }
 
 double compute_trap_area(double l, double r) {
