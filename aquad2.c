@@ -88,12 +88,15 @@ void stack_destroy(stack_data *stack) {
 int main(int argc, char *argv[]){
     int p_id;
     double l, r, w, trap_area;
+    double start_t, end_t, total_t;
 
     double total_area = 0;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
+
+    start_t = MPI_Wtime();
 
     if(n_cores < 2) {
         printf("A minimum of 2 cores is required for this task to work (1 master and at least one worker)");
