@@ -72,8 +72,8 @@ int main(int argc, char *argv[]){
 }
 
 double function(double x){
-	double num = cos(sqrt(pow(sqrt(1+x*x*x),3)))*atan(sqrt(2 + x*x));
-	double den = (1 + x*x)*sqrt(2+x*x);
+	double num = 10*sinh(2+10)*log(10+x*x)*cos(sqrt(pow(sqrt(1+x*x*x),3)))*atan(sqrt(2 + x*x));
+	double den = pow((1 + x*x)*sqrt(2+x*x), 2)*sin(sqrt(2))*sqrt(log(2+x));
 
 	return num/den;
 }
