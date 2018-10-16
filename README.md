@@ -13,5 +13,7 @@ mrcp all aquad1 t2/aquad1
 mrcp all aquad2 t2/aquad2
 
 Running the tasks on the cluster:
-mpirun -np 2 ./aquad1 1 20
-mpirun -np 2 ./aquad2 1 20 32
+mpirun -hostfile host_file -np 2 ./aquad1 1 20
+mpirun -hostfile host_file -np 2 ./aquad2 1 20 32
+
+host_file must contain "localhost" and all the other cluster nodes (separator = \n)

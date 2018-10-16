@@ -14,7 +14,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/aquad2.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmark.sh" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark.sh" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -55,8 +56,8 @@
         <counts>
           <entry key="c" value="3078" />
           <entry key="make" value="1" />
-          <entry key="md" value="278" />
-          <entry key="sh" value="24" />
+          <entry key="md" value="400" />
+          <entry key="sh" value="57" />
           <entry key="txt" value="17" />
         </counts>
       </usages-collector>
@@ -64,7 +65,7 @@
         <counts>
           <entry key="CMakeLists.txt" value="17" />
           <entry key="ObjectiveC" value="3078" />
-          <entry key="PLAIN_TEXT" value="303" />
+          <entry key="PLAIN_TEXT" value="458" />
         </counts>
       </usages-collector>
     </session>
@@ -74,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="179" lean-forward="true" selection-end-line="265" />
+            <state relative-caret-position="285">
+              <caret line="172" lean-forward="true" selection-end-line="244" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -83,7 +84,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad3.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="310">
@@ -95,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/benchmark.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" lean-forward="true" selection-end-line="25" selection-end-column="26" />
+            <state relative-caret-position="444">
+              <caret line="65" lean-forward="true" selection-end-line="66" />
             </state>
           </provider>
         </entry>
@@ -120,7 +121,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <caret line="16" column="26" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -156,9 +157,9 @@
       <find>END_T =</find>
       <find>trap area</find>
       <find>area under the</find>
-      <find>the area</find>
       <find>mpi_time</find>
       <find>start_t</find>
+      <find>the area</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,12 +169,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/aquad1.dir/build.make" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/benchmark.sh" />
         <option value="$PROJECT_DIR$/aquad1.c" />
         <option value="$PROJECT_DIR$/aquad2.c" />
         <option value="$PROJECT_DIR$/aquad3.c" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/benchmark.sh" />
       </list>
     </option>
   </component>
@@ -274,7 +275,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28127000" />
+    <option name="totallyTimeSpent" value="29807000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -325,13 +326,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/mpi.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -349,13 +343,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/benchmark.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-end-line="25" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aquad1.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -368,8 +355,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="179" lean-forward="true" selection-end-line="265" />
+        <state relative-caret-position="285">
+          <caret line="172" lean-forward="true" selection-end-line="244" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -383,6 +370,20 @@
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/benchmark.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="65" lean-forward="true" selection-end-line="66" />
         </state>
       </provider>
     </entry>
