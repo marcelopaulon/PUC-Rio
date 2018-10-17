@@ -12,7 +12,7 @@
 
 #define DEBUG 3
 
-int n_cores, n_task;
+int n_cores, n_task, n_idle;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
@@ -88,7 +88,7 @@ void stack_destroy(stack_data *stack) {
 void master(int k, stack_data *stack, double *params, double total_area) {
     MPI_Status mstatus;
 
-    while(!stack_is_empty(stack)) {
+    while(1) {
         MPI_Recv(params, 2, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG,
                  MPI_COMM_WORLD, &mstatus);
 
@@ -129,27 +129,14 @@ void master(int k, stack_data *stack, double *params, double total_area) {
             printf("Unknown tag. Exiting.\n");
             exit(-1);
         }
+
+	printf("idle value %d \n", n_idle);
+	if(n_idle == (n_cores - 1) && stack_is_empty(stack))
+		break;
+
+	
     }
 
-    // Wait for remaining cores to finish
-    for(int i = 1; i < n_cores; i++) {
-        MPI_Recv(params, 2, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG,
-                 MPI_COMM_WORLD, &mstatus);
-
-        if(mstatus.MPI_TAG == WORKER_AVAILABLE) {
-            total_area += *params;
-        }
-        else if(mstatus.MPI_TAG == ADD_TASK) {
-            stack_push(stack, params[0], params[1]);
-            master(k, stack, params, total_area);
-            return;
-        }
-        else {
-            printf("Unknown tag. Exiting.\n");
-            exit(-1);
-        }
-
-    }
 
     if(DEBUG) {
         printf("Will notify cores. \n");
@@ -171,6 +158,8 @@ int main(int argc, char *argv[]){
     double l, r, w, trap_area;
 
     double total_area = 0;
+
+	n_idle = 0;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
@@ -215,11 +204,12 @@ int main(int argc, char *argv[]){
 
         MPI_Send(temp, 2, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD); // Worker initialized. Send message to master saying it's available (send 0 as previous computation)
 
+
         MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status); // Wait for the task values
 
         while(status.MPI_TAG != NO_MORE_TASKS){
             if(status.MPI_TAG != EXECUTE_TASK) {
-                printf("Unexpected tag %d, expected EXECUTE_TASK. Exiting. \n");
+                printf("Unexpected tag %d, expected EXECUTE_TASK. Exiting. \n", status.MPI_TAG);
                 exit(-1);
             }
 
@@ -237,9 +227,11 @@ int main(int argc, char *argv[]){
             if(DEBUG) {
                 printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *params);
             }
-
+	
+			n_idle++;	
             MPI_Send(params, 2, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
             MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+			n_idle--;
         }
 
         if(DEBUG) {
