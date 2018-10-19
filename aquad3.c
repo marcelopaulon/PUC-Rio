@@ -2,7 +2,7 @@
 #include <math.h>
 #include "mpi.h"
 #include <stdlib.h>
-
+#include <semaphore.h> 
 #define  TOL 1e-16
 
 #define EXECUTE_TASK 0
@@ -16,8 +16,8 @@ int n_cores, n_task, n_idle;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
-
 double start_t, end_t, total_t;
+sem_t mutex; 
 
 typedef struct _node {
     double a;
@@ -105,10 +105,10 @@ void master(int k, stack_data *stack, double *params, double total_area) {
                 printf("POPPED %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
             }
 
-            if (node == NULL) {
-                printf("Error - node is null");
-                exit(-1);
-            }
+            if (node != NULL) {
+      //          printf("Error - node is null");
+       //         exit(-1);
+            
 
             if(DEBUG >= 2) {
                 printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
@@ -120,6 +120,7 @@ void master(int k, stack_data *stack, double *params, double total_area) {
                 printf("SENT %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
             }
 
+	    }
             k++;
         }
         else if(mstatus.MPI_TAG == ADD_TASK) {
@@ -131,8 +132,14 @@ void master(int k, stack_data *stack, double *params, double total_area) {
         }
 
 	printf("idle value %d \n", n_idle);
-	if(n_idle == (n_cores - 1) && stack_is_empty(stack))
+	sem_wait(&mutex);
+	if(n_idle == (n_cores - 1) && stack_is_empty(stack)){
+		sem_post(&mutex);
 		break;
+
+	}
+	sem_post(&mutex);
+
 
 	
     }
@@ -161,6 +168,7 @@ int main(int argc, char *argv[]){
 
 	n_idle = 0;
 
+	sem_init(&mutex, 0, 1);
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
@@ -228,10 +236,27 @@ int main(int argc, char *argv[]){
                 printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *params);
             }
 	
-			n_idle++;	
+	    sem_wait(&mutex);
+			n_idle++;
+	    sem_post(&mutex); 	
+
+		 if(DEBUG) {
+                printf("n_idle %d \n", n_idle);
+            }
+
             MPI_Send(params, 2, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
-            MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-			n_idle--;
+            
+	    if(DEBUG) {
+                printf("vai aguardar no receive \n");
+            }
+
+	    MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+	   if(DEBUG) {
+                printf("sai do receive  \n");
+            }
+	    sem_wait(&mutex);
+	    n_idle--;
+	    sem_post(&mutex); 
         }
 
         if(DEBUG) {
