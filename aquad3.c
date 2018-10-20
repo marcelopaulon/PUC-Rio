@@ -10,14 +10,13 @@
 #define WORKER_AVAILABLE 2
 #define ADD_TASK 3
 
-#define DEBUG 3
+#define DEBUG 0
 
 int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
 double start_t, end_t, total_t;
-sem_t mutex; 
 
 typedef struct _node {
     double a;
@@ -135,7 +134,10 @@ void master(int k, stack_data *stack, double *params, double total_area) {
             exit(-1);
         }
 
-		printf("idle value %d \n", idle);
+        if(DEBUG > 1) {
+            printf("idle value %d \n", idle);
+        }
+
 		if(idle == (n_cores - 1) && stack_is_empty(stack))
 			break;
     }
@@ -162,8 +164,6 @@ int main(int argc, char *argv[]){
 
     double total_area = 0;
 
-
-	sem_init(&mutex, 0, 1);
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &p_id);
     MPI_Comm_size(MPI_COMM_WORLD, &n_cores);
@@ -194,14 +194,19 @@ int main(int argc, char *argv[]){
         exit(-1);
     }
 
-    printf("Aquad2 - %d nodes ; l = %.2f ; r = %.2f - executing on node %d \n", n_cores, l, r, p_id);
+    if(DEBUG > 0) {
+        printf("Aquad3 - %d nodes ; l = %.2f ; r = %.2f - executing on node %d \n", n_cores, l, r, p_id);
+    }
 
     if(p_id == 0) {
         int k = 0;
         master(k, stack, params, total_area);
     }
     else {
-        printf("Hello %d\n", p_id);
+        if(DEBUG > 1) {
+            printf("Hello %d\n", p_id);
+        }
+
         MPI_Status status;
         double temp[2] = {0, 0};
 
