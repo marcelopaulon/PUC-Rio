@@ -12,7 +12,7 @@
 
 #define DEBUG 3
 
-int n_cores, n_task, n_idle;
+int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
@@ -87,6 +87,7 @@ void stack_destroy(stack_data *stack) {
 
 void master(int k, stack_data *stack, double *params, double total_area) {
     MPI_Status mstatus;
+	int idle = 0;
 
     while(1) {
         MPI_Recv(params, 2, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG,
@@ -94,33 +95,36 @@ void master(int k, stack_data *stack, double *params, double total_area) {
 
         if(mstatus.MPI_TAG == WORKER_AVAILABLE) {
             total_area += *params;
-
+		
+			idle ++;
             if(DEBUG >= 2) {
                 printf("WILL POP %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
             }
 
-            stack_node *node = stack_pop(stack);
+			if(!stack_is_empty(stack)){
 
-            if(DEBUG >= 2) {
-                printf("POPPED %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            }
+				stack_node *node = stack_pop(stack);
 
-            if (node != NULL) {
-      //          printf("Error - node is null");
-       //         exit(-1);
-            
+            	if(DEBUG >= 2) {
+                	printf("POPPED %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+            	}
 
-            if(DEBUG >= 2) {
-                printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            }
+            	if (node == NULL) {
+					printf("Error - node is null");
+					exit(-1);
+            	}
 
-            MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
+            	if(DEBUG >= 2) {
+                	printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+            	}
+				idle --;
+            	MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
 
-            if(DEBUG >= 2) {
-                printf("SENT %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            }
+            	if(DEBUG >= 2) {
+                	printf("SENT %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+            	}
 
-	    }
+	    	}
             k++;
         }
         else if(mstatus.MPI_TAG == ADD_TASK) {
@@ -131,17 +135,9 @@ void master(int k, stack_data *stack, double *params, double total_area) {
             exit(-1);
         }
 
-	printf("idle value %d \n", n_idle);
-	sem_wait(&mutex);
-	if(n_idle == (n_cores - 1) && stack_is_empty(stack)){
-		sem_post(&mutex);
-		break;
-
-	}
-	sem_post(&mutex);
-
-
-	
+		printf("idle value %d \n", idle);
+		if(idle == (n_cores - 1) && stack_is_empty(stack))
+			break;
     }
 
 
@@ -166,7 +162,6 @@ int main(int argc, char *argv[]){
 
     double total_area = 0;
 
-	n_idle = 0;
 
 	sem_init(&mutex, 0, 1);
     MPI_Init(&argc, &argv);
@@ -236,27 +231,19 @@ int main(int argc, char *argv[]){
                 printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *params);
             }
 	
-	    sem_wait(&mutex);
-			n_idle++;
-	    sem_post(&mutex); 	
 
-		 if(DEBUG) {
-                printf("n_idle %d \n", n_idle);
-            }
 
             MPI_Send(params, 2, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
             
-	    if(DEBUG) {
+	    	if(DEBUG) {
                 printf("vai aguardar no receive \n");
             }
 
-	    MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-	   if(DEBUG) {
+	    	MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+	   
+			if(DEBUG) {
                 printf("sai do receive  \n");
             }
-	    sem_wait(&mutex);
-	    n_idle--;
-	    sem_post(&mutex); 
         }
 
         if(DEBUG) {
