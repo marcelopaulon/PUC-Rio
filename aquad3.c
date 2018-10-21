@@ -85,10 +85,12 @@ void stack_destroy(stack_data *stack) {
     free(stack);
 }
 
-void master(int k, stack_data *stack, double *params, double total_area, double initial_l, double initial_r) {
+void master(stack_data *stack, double *params, double total_area, double initial_l, double initial_r) {
     MPI_Status mstatus;
     int idle = 0;
 
+    int k = 0;
+    
     double progress = 0;
     double expected = initial_r - initial_l; // delta interval
 
@@ -117,7 +119,7 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
             total_area += params[0];
             progress += params[1];
 
-            idle ++;
+            idle++;
             if(DEBUG >= 2) {
                 printf("WILL POP %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
             }
@@ -154,7 +156,10 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
                 }
 
             }
-            k++;
+
+            if(DEBUG > 0) {
+                k++;
+            }
         }
         else if(mstatus.MPI_TAG == ADD_TASK) {
             if(idle){
@@ -188,7 +193,7 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
             printf("idle value %d \n", idle);
         }
 
-        if(idle == (n_cores - 1) && stack_is_empty(stack))
+        if(idle == (n_cores - 1) && stack_is_empty(stack) && progress/expected >= 1.0)
             break;
     }
 
@@ -250,8 +255,7 @@ int main(int argc, char *argv[]){
     }
 
     if(p_id == 0) {
-        int k = 0;
-        master(k, stack, params, total_area, l, r);
+        master(stack, params, total_area, l, r);
     }
     else {
         if(DEBUG > 1) {
