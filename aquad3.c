@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "mpi.h"
-#include <stdlib.h>
-#include <semaphore.h> 
+#include <stdlib.h> 
 #define  TOL 1e-16
 
 #define EXECUTE_TASK 0
@@ -127,7 +126,12 @@ void master(int k, stack_data *stack, double *params, double total_area) {
             k++;
         }
         else if(mstatus.MPI_TAG == ADD_TASK) {
+	
             stack_push(stack, params[0], params[1]);
+			if(idle){
+				idle --;
+				MPI_Send(stack_pop(stack), 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
+			}
         }
         else {
             printf("Unknown tag. Exiting.\n");
