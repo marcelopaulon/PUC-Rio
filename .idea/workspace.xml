@@ -51,7 +51,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="3916" />
+          <entry key="c" value="4451" />
           <entry key="make" value="1" />
           <entry key="md" value="400" />
           <entry key="sh" value="64" />
@@ -61,7 +61,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="45" />
-          <entry key="ObjectiveC" value="3916" />
+          <entry key="ObjectiveC" value="4451" />
           <entry key="PLAIN_TEXT" value="465" />
         </counts>
       </usages-collector>
@@ -72,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aquad3.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="289" column="19" selection-start-line="289" selection-start-column="19" selection-end-line="289" selection-end-column="19" />
+            <state relative-caret-position="-35">
+              <caret line="170" column="34" selection-start-line="170" selection-start-column="34" selection-end-line="170" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -93,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/benchmark.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="429">
+              <caret line="78" selection-start-line="78" selection-end-line="78" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -103,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/aquad1.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="196">
-              <caret line="71" selection-start-line="71" selection-end-line="74" selection-end-column="19" />
+              <caret line="71" selection-end-line="99" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -115,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/aquad2.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="262">
-              <caret line="219" column="19" selection-start-line="219" selection-start-column="19" selection-end-line="219" selection-end-column="19" />
+              <caret line="219" column="19" selection-end-line="244" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -136,8 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mpi_rec</find>
-      <find>ADD_TASK</find>
       <find>RECEIVED WORKER AVAILABLE</find>
       <find>worker_avail</find>
       <find>argv[3]</find>
@@ -163,9 +161,11 @@
       <find>SHOW_PROGRESS</find>
       <find>PROGRESS</find>
       <find>master(</find>
-      <find>master(</find>
       <find>add_task</find>
       <find>mpi_time</find>
+      <find>mpi_</find>
+      <find>n_core</find>
+      <find>status.</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -282,7 +282,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38061000" />
+    <option name="totallyTimeSpent" value="39239000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -297,12 +297,12 @@
     <frame x="0" y="0" width="1920" height="1030" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -350,23 +350,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/benchmark.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="65" lean-forward="true" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aquad3-version2.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="211" column="57" selection-end-line="318" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/aquad3-version2.c" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -376,15 +360,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/benchmark.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="429">
+          <caret line="78" selection-start-line="78" selection-end-line="78" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad1.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
-          <caret line="71" selection-start-line="71" selection-end-line="74" selection-end-column="19" />
+          <caret line="71" selection-end-line="99" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -394,7 +378,7 @@
     <entry file="file://$PROJECT_DIR$/aquad2.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="262">
-          <caret line="219" column="19" selection-start-line="219" selection-start-column="19" selection-end-line="219" selection-end-column="19" />
+          <caret line="219" column="19" selection-end-line="244" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -403,8 +387,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad3.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="289" column="19" selection-start-line="289" selection-start-column="19" selection-end-line="289" selection-end-column="19" />
+        <state relative-caret-position="-35">
+          <caret line="170" column="34" selection-start-line="170" selection-start-column="34" selection-end-line="170" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

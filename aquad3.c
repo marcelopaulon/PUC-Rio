@@ -92,6 +92,17 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
     double progress = 0;
     double expected = initial_r - initial_l; // delta interval
 
+    int *availableWorkers = (int *) malloc(sizeof(int) * (n_cores - 1));
+
+    if(availableWorkers == NULL) {
+        printf("Unable to create available workers list. Exiting.\n");
+        exit(-1);
+    }
+
+    for(int i = 0; i < n_cores - 1; i++) {
+        availableWorkers[i] = 1;
+    }
+
     if(SHOW_PROGRESS > 0) {
         printf("\n");
     }
@@ -116,6 +127,8 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
                 itCount = 0;
             }
 
+            availableWorkers[mstatus.MPI_SOURCE - 1] = 1;
+
             if(!stack_is_empty(stack)){
 
                 stack_node *node = stack_pop(stack);
@@ -132,7 +145,8 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
                 if(DEBUG >= 2) {
                     printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
                 }
-                idle --;
+                idle--;
+                availableWorkers[mstatus.MPI_SOURCE - 1] = 0;
                 MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
 
                 if(DEBUG >= 2) {
@@ -145,7 +159,21 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
         else if(mstatus.MPI_TAG == ADD_TASK) {
             if(idle){
                 idle--;
-                MPI_Send(params, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
+
+                int nextAvailableWorker = -1;
+                for(int i = 0; i < n_cores - 1; i++) {
+                    if(availableWorkers[i] == 1) {
+                        nextAvailableWorker = i + 1;
+                        break;
+                    }
+                }
+
+                if(nextAvailableWorker == -1) {
+                    printf("Error - idle indicated there was an available worker, but it was not found on available workers list. Exiting.\n");
+                    exit(-1);
+                }
+
+                MPI_Send(params, 2, MPI_DOUBLE, nextAvailableWorker, EXECUTE_TASK, MPI_COMM_WORLD);
             }
             else {
                 stack_push(stack, params[0], params[1]);
@@ -177,6 +205,8 @@ void master(int k, stack_data *stack, double *params, double total_area, double 
     printf("The area under the curve is %.16f \n", total_area);
     total_t = (double)(end_t - start_t);
     printf("Total time taken by CPU: %.16f\n", total_t);
+
+    free(availableWorkers);
 }
 
 int main(int argc, char *argv[]){
