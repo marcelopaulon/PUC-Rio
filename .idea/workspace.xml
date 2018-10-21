@@ -14,8 +14,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f07027-00d4-4fff-bcf0-c92e743c2f47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aquad3.c" beforeDir="false" afterPath="$PROJECT_DIR$/aquad3.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runs.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -42,14 +41,14 @@
           <entry key="make" value="1" />
           <entry key="md" value="1" />
           <entry key="sh" value="2" />
-          <entry key="txt" value="4" />
+          <entry key="txt" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CMakeLists.txt" value="4" />
           <entry key="ObjectiveC" value="8" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -58,28 +57,37 @@
           <entry key="make" value="1" />
           <entry key="md" value="400" />
           <entry key="sh" value="64" />
-          <entry key="txt" value="45" />
+          <entry key="txt" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="45" />
           <entry key="ObjectiveC" value="4537" />
-          <entry key="PLAIN_TEXT" value="465" />
+          <entry key="PLAIN_TEXT" value="466" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aquad3.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+            <state relative-caret-position="342">
+              <caret line="326" column="46" lean-forward="true" selection-end-line="352" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/runs.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="196" lean-forward="true" selection-start-line="196" selection-end-line="196" />
             </state>
           </provider>
         </entry>
@@ -185,6 +193,7 @@
         <option value="$PROJECT_DIR$/benchmark.sh" />
         <option value="$PROJECT_DIR$/aquad2.c" />
         <option value="$PROJECT_DIR$/aquad3.c" />
+        <option value="$PROJECT_DIR$/runs.txt" />
       </list>
     </option>
   </component>
@@ -285,7 +294,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40272000" />
+    <option name="totallyTimeSpent" value="40879000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -300,12 +309,12 @@
     <frame x="0" y="0" width="1920" height="1030" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17944622" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -390,11 +399,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aquad3.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+        <state relative-caret-position="342">
+          <caret line="326" column="46" lean-forward="true" selection-end-line="352" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runs.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="196" lean-forward="true" selection-start-line="196" selection-end-line="196" />
         </state>
       </provider>
     </entry>
