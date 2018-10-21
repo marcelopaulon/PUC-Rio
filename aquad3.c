@@ -17,6 +17,7 @@ int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
 void curve_subarea(double a, double b, double area, double *result);
+
 double start_t, end_t, total_t;
 
 typedef struct _node {

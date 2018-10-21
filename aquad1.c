@@ -13,8 +13,6 @@ double function(double x);
 double compute_trap_area(double l, double r);
 double curve_subarea(double a, double b, double area);
 
-double start_t, end_t, total_t;
-
 int main(int argc, char *argv[]){
 	int p_id;
 	double l, r, w;
