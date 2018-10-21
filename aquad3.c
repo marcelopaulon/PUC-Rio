@@ -11,11 +11,12 @@
 #define ADD_TASK 3
 
 #define DEBUG 0
+#define SHOW_PROGRESS 0
 
 int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
-double curve_subarea(double a, double b, double area);
+void curve_subarea(double a, double b, double area, double *result);
 double start_t, end_t, total_t;
 
 typedef struct _node {
@@ -84,46 +85,61 @@ void stack_destroy(stack_data *stack) {
     free(stack);
 }
 
-void master(int k, stack_data *stack, double *params, double total_area) {
+void master(int k, stack_data *stack, double *params, double total_area, double initial_l, double initial_r) {
     MPI_Status mstatus;
-	int idle = 0;
+    int idle = 0;
+
+    double progress = 0;
+    double expected = initial_r - initial_l; // delta interval
+
+    if(SHOW_PROGRESS > 0) {
+        printf("\n");
+    }
+
+    int itCount = 0;
 
     while(1) {
         MPI_Recv(params, 2, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG,
                  MPI_COMM_WORLD, &mstatus);
 
         if(mstatus.MPI_TAG == WORKER_AVAILABLE) {
-            total_area += *params;
-		
-			idle ++;
+            total_area += params[0];
+            progress += params[1];
+
+            idle ++;
             if(DEBUG >= 2) {
                 printf("WILL POP %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
             }
 
-			if(!stack_is_empty(stack)){
+            if(SHOW_PROGRESS > 0 && ++itCount > 1000000) {
+                printf("\nProgress %.2f%% (%.2f/%.2f)\n", progress/expected * 100, progress, expected);
+                itCount = 0;
+            }
 
-				stack_node *node = stack_pop(stack);
+            if(!stack_is_empty(stack)){
 
-            	if(DEBUG >= 2) {
-                	printf("POPPED %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            	}
+                stack_node *node = stack_pop(stack);
 
-            	if (node == NULL) {
-					printf("Error - node is null");
-					exit(-1);
-            	}
+                if(DEBUG >= 2) {
+                    printf("POPPED %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+                }
 
-            	if(DEBUG >= 2) {
-                	printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            	}
-				idle --;
-            	MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
+                if (node == NULL) {
+                    printf("Error - node is null");
+                    exit(-1);
+                }
 
-            	if(DEBUG >= 2) {
-                	printf("SENT %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
-            	}
+                if(DEBUG >= 2) {
+                    printf("WILL SEND %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+                }
+                idle --;
+                MPI_Send(node, 2, MPI_DOUBLE, mstatus.MPI_SOURCE, EXECUTE_TASK, MPI_COMM_WORLD);
 
-	    	}
+                if(DEBUG >= 2) {
+                    printf("SENT %d for node %d ; Total area is currently %.18f \n", k, mstatus.MPI_SOURCE, total_area);
+                }
+
+            }
             k++;
         }
         else if(mstatus.MPI_TAG == ADD_TASK) {
@@ -144,10 +160,9 @@ void master(int k, stack_data *stack, double *params, double total_area) {
             printf("idle value %d \n", idle);
         }
 
-		if(idle == (n_cores - 1) && stack_is_empty(stack))
-			break;
+        if(idle == (n_cores - 1) && stack_is_empty(stack))
+            break;
     }
-
 
     if(DEBUG) {
         printf("Will notify cores. \n");
@@ -179,10 +194,10 @@ int main(int argc, char *argv[]){
         exit(-1);
     }
 
-	l = atoi(argv[1]);
-	r = atoi(argv[2]);
-	n_task = n_cores; // We will initially start with n_cores tasks
-	w = (r - l)/(n_task);
+    l = atoi(argv[1]);
+    r = atoi(argv[2]);
+    n_task = n_cores; // We will initially start with n_cores tasks
+    w = (r - l)/(n_task);
 
     start_t = MPI_Wtime();
 
@@ -206,7 +221,7 @@ int main(int argc, char *argv[]){
 
     if(p_id == 0) {
         int k = 0;
-        master(k, stack, params, total_area);
+        master(k, stack, params, total_area, l, r);
     }
     else {
         if(DEBUG > 1) {
@@ -236,23 +251,21 @@ int main(int argc, char *argv[]){
 
             trap_area = compute_trap_area(a, b);
 
-            *params = curve_subarea(a, b, trap_area);
+            curve_subarea(a, b, trap_area, params);
 
             if(DEBUG) {
                 printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *params);
             }
-	
-
 
             MPI_Send(params, 2, MPI_DOUBLE, 0, WORKER_AVAILABLE, MPI_COMM_WORLD);
-            
-	    	if(DEBUG) {
+
+            if(DEBUG) {
                 printf("vai aguardar no receive \n");
             }
 
-	    	MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-	   
-			if(DEBUG) {
+            MPI_Recv(temp, 2, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+
+            if(DEBUG) {
                 printf("sai do receive  \n");
             }
         }
@@ -286,7 +299,7 @@ void sendBackToMaster(double a, double b) {
     MPI_Send(temp, 2, MPI_DOUBLE, 0, ADD_TASK, MPI_COMM_WORLD);
 }
 
-double curve_subarea(double a, double b, double area){
+void curve_subarea(double a, double b, double area, double *result){
     double m, l_area, r_area, error;
 
     m = (a + b)*0.5;
@@ -295,12 +308,11 @@ double curve_subarea(double a, double b, double area){
     error = area - (l_area + r_area);
 
     if(fabs(error) <= TOL){
-        return l_area + r_area;
+        result[0] = l_area + r_area;
+        result[1] = b - a;
     }
     else {
         sendBackToMaster(m, b);
-        return curve_subarea(a, m, l_area);
+        curve_subarea(a, m, l_area, result);
     }
 }
-
-
