@@ -27,6 +27,34 @@
 					<DistClean command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="aquad3-version2">
+				<Option output="/home/marcelo/Desktop/PCP-T2/aquad3-version2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/marcelo/Desktop/PCP-T2"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 aquad3-version2"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="aquad3-version2/fast">
+				<Option output="/home/marcelo/Desktop/PCP-T2/aquad3-version2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/marcelo/Desktop/PCP-T2"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 aquad3-version2/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/marcelo/Desktop/PCP-T2/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="aquad3">
 				<Option output="/home/marcelo/Desktop/PCP-T2/aquad3" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/marcelo/Desktop/PCP-T2"/>
@@ -127,6 +155,9 @@
 		</Unit>
 		<Unit filename="/home/marcelo/Desktop/PCP-T2/aquad2.c">
 			<Option target="aquad2"/>
+		</Unit>
+		<Unit filename="/home/marcelo/Desktop/PCP-T2/aquad3-version2.c">
+			<Option target="aquad3-version2"/>
 		</Unit>
 		<Unit filename="/home/marcelo/Desktop/PCP-T2/aquad3.c">
 			<Option target="aquad3"/>

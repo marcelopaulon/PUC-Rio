@@ -27,6 +27,11 @@ mpirun -hostfile host_file -np 4 ./aquad3 0 1
 mpirun -hostfile host_file -np 8 ./aquad3 0 1
 mpirun -hostfile host_file -np 10 ./aquad3 0 1
 
+mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1
+
 echo Run 2
 
 mpirun -hostfile host_file -np 1 ./aquad1 0 1
@@ -53,6 +58,11 @@ mpirun -hostfile host_file -np 4 ./aquad3 0 1
 mpirun -hostfile host_file -np 8 ./aquad3 0 1
 mpirun -hostfile host_file -np 10 ./aquad3 0 1
 
+mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1
+
 echo Run 3
 
 mpirun -hostfile host_file -np 1 ./aquad1 0 1
@@ -78,3 +88,8 @@ mpirun -hostfile host_file -np 2 ./aquad3 0 1
 mpirun -hostfile host_file -np 4 ./aquad3 0 1
 mpirun -hostfile host_file -np 8 ./aquad3 0 1
 mpirun -hostfile host_file -np 10 ./aquad3 0 1
+
+mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1

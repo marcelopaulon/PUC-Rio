@@ -16,7 +16,7 @@
 int n_cores, n_task;
 double function(double x);
 double compute_trap_area(double l, double r);
-void curve_subarea(double a, double b, double area, double *result);
+void curve_subarea(double a, double b, double area, double *result, int maySendBackToMaster);
 
 double start_t, end_t, total_t;
 
@@ -288,7 +288,7 @@ int main(int argc, char *argv[]){
 
             trap_area = compute_trap_area(a, b);
 
-            curve_subarea(a, b, trap_area, params);
+            curve_subarea(a, b, trap_area, params, 1);
 
             if(DEBUG) {
                 printf("a = %f, b = %f \n trap area %f\n local area %f \n", a, b, trap_area, *params);
@@ -336,7 +336,7 @@ void sendBackToMaster(double a, double b) {
     MPI_Isend(temp, 2, MPI_DOUBLE, 0, ADD_TASK, MPI_COMM_WORLD, &rq);
 }
 
-void curve_subarea(double a, double b, double area, double *result){
+void curve_subarea(double a, double b, double area, double *result, int maySendBackToMaster){
     double m, l_area, r_area, error;
 
     m = (a + b)*0.5;
@@ -349,7 +349,16 @@ void curve_subarea(double a, double b, double area, double *result){
         result[1] = b - a;
     }
     else {
-        sendBackToMaster(m, b);
-        curve_subarea(a, m, l_area, result);
+        if(maySendBackToMaster) {
+            sendBackToMaster(m, b);
+            curve_subarea(a, m, l_area, result, 0);
+        }
+        else {
+            curve_subarea(a, m, l_area, result, 0);
+            double temp[2] = {0, 0};
+            curve_subarea(m, b, r_area, temp, 0);
+            result[0] += temp[0];
+            result[1] += temp[1];
+        }
     }
 }
