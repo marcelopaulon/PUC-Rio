@@ -64,6 +64,18 @@ Total time taken by CPU: 272.2712566209957004
 + mpirun -hostfile host_file -np 10 ./aquad3 0 1
 The area under the curve is 272471.0027756105409935
 Total time taken by CPU: 417.3569549219682813
++ mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040799432
+Total time taken by CPU: 36.9309998370008543
++ mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040799432
+Total time taken by CPU: 12.5896731729153544
++ mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756041381508
+Total time taken by CPU: 6.3255617769900709
++ mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756041381508
+Total time taken by CPU: 4.5433980349916965
 + echo Run 2
 Run 2
 + mpirun -hostfile host_file -np 1 ./aquad1 0 1
@@ -129,6 +141,18 @@ Total time taken by CPU: 241.8295080559328198
 + mpirun -hostfile host_file -np 10 ./aquad3 0 1
 The area under the curve is 272471.0027756341150962
 Total time taken by CPU: 419.9616644919151440
++ mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040799432
+Total time taken by CPU: 38.2699055140838027
++ mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040799432
+Total time taken by CPU: 12.1763235140824690
++ mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756041381508
+Total time taken by CPU: 6.8951008209260181
++ mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040217355
+Total time taken by CPU: 4.7123495819978416
 + echo Run 3
 Run 3
 + mpirun -hostfile host_file -np 1 ./aquad1 0 1
@@ -194,3 +218,15 @@ Total time taken by CPU: 293.5649370600003749
 + mpirun -hostfile host_file -np 10 ./aquad3 0 1
 The area under the curve is 272471.0027756346971728
 Total time taken by CPU: 419.0466175159672275
++ mpirun -hostfile host_file -np 2 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040799432
+Total time taken by CPU: 39.1837108890758827
++ mpirun -hostfile host_file -np 4 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040217355
+Total time taken by CPU: 13.3362118889344856
++ mpirun -hostfile host_file -np 8 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756041381508
+Total time taken by CPU: 6.1776799440849572
++ mpirun -hostfile host_file -np 10 ./aquad3-version2 0 1
+The area under the curve is 272471.0027756040217355
+Total time taken by CPU: 4.7445554799633101
