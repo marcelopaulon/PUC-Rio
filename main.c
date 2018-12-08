@@ -116,7 +116,7 @@ MPI_Comm comm;
 int cluster_count;
 int cluster_rank;
 tour_t loc_best_tour;
-
+cost_t global_best_tour_cost;
 MPI_Datatype tour_arr_mpi_t;  // For storing the list of cities
 char* mpi_buffer;
 
@@ -172,6 +172,8 @@ my_barrier_t My_barrier_init(int thr_count);
 void My_barrier_destroy(my_barrier_t bar);
 void My_barrier(my_barrier_t bar);
 
+void Look_for_best_tours(void);
+void Bcast_tour_cost(cost_t tour_cost);
 void Cleanup_msg_queue(void);
 
 /*------------------------------------------------------------------*/
@@ -230,6 +232,7 @@ int main(int argc, char* argv[]) {
 
     loc_best_tour = Alloc_tour(NULL);
     Init_tour(loc_best_tour, INFINITY);
+    global_best_tour_cost = INFINITY;
 
     MPI_Type_contiguous(n+1, MPI_INT, &tour_arr_mpi_t);
     MPI_Type_commit(&tour_arr_mpi_t);
@@ -565,12 +568,49 @@ int Best_tour(tour_t tour) {
     cost_t cost_so_far = Tour_cost(tour);
     city_t last_city = Last_city(tour);
 
+    Look_for_best_tours();
+
     if (cost_so_far + Cost(last_city, home_town) < Tour_cost(loc_best_tour))
         return TRUE;
     else
         return FALSE;
 }  /* Best_tour */
 
+
+/*------------------------------------------------------------------
+ * Function:   Look_for_best_tours
+ * Purpose:    Examine the message queue for tour costs received from
+ *             other processes.  If a tour cost that's less than the
+ *             current best cost on this process, best_tour_cost will
+ *             be updated.
+ * Global In/out:
+ *    best_tour_cost
+ * Note:
+ *    Tour costs are probed for and received as long as there are
+ *    messages with TOUR_TAG.
+ */
+void Look_for_best_tours(void) {
+    int done = FALSE, msg_avail, tour_cost;
+    MPI_Status status;
+
+    while(!done) {
+        MPI_Iprobe(MPI_ANY_SOURCE, TOUR_TAG, comm, &msg_avail,
+                   &status);
+        if (msg_avail) {
+            MPI_Recv(&tour_cost, 1, MPI_INT, status.MPI_SOURCE, TOUR_TAG,
+                     comm, MPI_STATUS_IGNORE);
+#        ifdef STATS
+            best_costs_received++;
+#        endif
+#        ifdef VERBOSE_STATS
+            printf("Proc %d > received cost %d\n", my_rank, tour_cost);
+#        endif
+            if (tour_cost < global_best_tour_cost) global_best_tour_cost = tour_cost;
+        } else {
+            done = TRUE;
+        }
+    }  /* while */
+}  /* Look_for_best_tours */
 
 /*------------------------------------------------------------------
  * Function:    Update_best_tour
@@ -606,10 +646,32 @@ void Update_best_tour(tour_t tour) {
     if (Best_tour(tour)) {
         Copy_tour(tour, loc_best_tour);
         Add_city(loc_best_tour, home_town);
+
+        global_best_tour_cost = Tour_cost(loc_best_tour);
+
+        Bcast_tour_cost(global_best_tour_cost);
     }
     pthread_mutex_unlock(&best_tour_mutex);
 }  /* Update_best_tour */
 
+/*------------------------------------------------------------------
+ * Function:   Bcast_tour_cost
+ * Purpose:    Asynchronous broadcast of tour cost
+ *
+ * Note:
+ *    MPI_Bcast is a point of synchronization for the processes.
+ *    So it can't be used.
+ */
+void Bcast_tour_cost(int tour_cost) {
+    int dest;
+
+    for (dest = 0; dest < cluster_count; dest++)
+        if (dest != cluster_rank)
+            MPI_Bsend(&tour_cost, 1, MPI_INT, dest, TOUR_TAG, comm);
+#  ifdef STATS
+    best_costs_bcast++;
+#  endif
+}  /* Bcast_tour_cost */
 
 /*------------------------------------------------------------------
  * Function:   Copy_tour
