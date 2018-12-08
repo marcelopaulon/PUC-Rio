@@ -8,9 +8,9 @@
  *           wait until the program terminates or another thread
  *           gives it additional work.
  *
- * Compile:  gcc -g -Wall -o pth_tsp_dyn pth_tsp_dyn.c -lpthread
- *           Needs timer.h
- * Usage:    pth_tsp_dyn <thread count> <matrix_file> <min split size>
+ * Compile:  mpicc -g -Wall -o main main.c -lpthread
+ *
+ * Usage:    mpiexec -n <proc count> main <node_count> <threads_per_node_count> <digraph file_path> <min split size>
  *
  * Input:    From a user-specified file, the number of cities
  *           followed by the costs of travelling between the
@@ -41,13 +41,12 @@
 #include <pthread.h>
 #include <mpi.h>
 
-#include "timer.h"
-
 const int INFINITY = 1000000;
 const int NO_CITY = -1;
 const int FALSE = 0;
 const int TRUE = 1;
 const int MAX_STRING = 1000;
+const int TOUR_TAG = 1;
 
 typedef int city_t;
 typedef int cost_t;
@@ -105,7 +104,6 @@ int thread_count;
 cost_t* digraph;
 #define Cost(city1, city2) (digraph[city1*n + city2])
 city_t home_town = 0;
-tour_t best_tour;
 pthread_mutex_t best_tour_mutex;
 my_queue_t queue;
 int queue_size;
@@ -117,6 +115,7 @@ term_t term;
 MPI_Comm comm;
 int cluster_count;
 int cluster_rank;
+tour_t loc_best_tour;
 
 MPI_Datatype tour_arr_mpi_t;  // For storing the list of cities
 char* mpi_buffer;
@@ -173,42 +172,73 @@ my_barrier_t My_barrier_init(int thr_count);
 void My_barrier_destroy(my_barrier_t bar);
 void My_barrier(my_barrier_t bar);
 
+void Cleanup_msg_queue(void);
+
 /*------------------------------------------------------------------*/
 int main(int argc, char* argv[]) {
     FILE* digraph_file;
     double start, finish;
     long thread;
     pthread_t* thread_handles;
+    char* ret_buf;
+    int one_msg_sz;
 
     MPI_Init(&argc, &argv);
     comm = MPI_COMM_WORLD;
     MPI_Comm_size(comm, &cluster_count);
     MPI_Comm_rank(comm, &cluster_rank);
 
-    if (argc != 4) Usage(argv[0]);
-    thread_count = strtol(argv[1], NULL, 10);
+    if (argc != 5) {
+        Usage(argv[0]);
+        return -1;
+    }
+
+    char *node_count_arg = argv[1];
+    char *threads_per_node_count_arg = argv[2];
+    char *digraph_file_path_arg = argv[3];
+    char *min_split_size_arg = argv[4];
+
+    if(cluster_count != (int) strtol(node_count_arg, NULL, 10)) {
+        printf("Node count argument does not match MPI comm size");
+        return -1;
+    }
+
+    thread_count = (int) strtol(threads_per_node_count_arg, NULL, 10);
     if (thread_count <= 0) {
         fprintf(stderr, "Thread count must be positive\n");
         Usage(argv[0]);
+        return -1;
     }
 
-    if (cluster_rank == 0) {
-        digraph_file = fopen(argv[1], "r");
+    digraph_file = fopen(digraph_file_path_arg, "r");
 
-        if (digraph_file == NULL) {
-            fprintf(stderr, "Can't open %s\n", argv[2]);
-            Usage(argv[0]);
-        }
-
-        Read_digraph(digraph_file);
-        fclose(digraph_file);
+    if (digraph_file == NULL) {
+        fprintf(stderr, "Can't open %s\n", digraph_file_path_arg);
+        Usage(argv[0]);
+        return -1;
     }
 
-    min_split_sz = strtol(argv[3], NULL, 10);
+    Read_digraph(digraph_file);
+    fclose(digraph_file);
+
+    min_split_sz = (int) strtol(min_split_size_arg, NULL, 10);
     if (min_split_sz <= 0) {
         fprintf(stderr, "Min split size should be positive\n");
         Usage(argv[0]);
+        return -1;
     }
+
+    loc_best_tour = Alloc_tour(NULL);
+    Init_tour(loc_best_tour, INFINITY);
+
+    MPI_Type_contiguous(n+1, MPI_INT, &tour_arr_mpi_t);
+    MPI_Type_commit(&tour_arr_mpi_t);
+
+    MPI_Pack_size(1, MPI_INT, comm, &one_msg_sz);
+    mpi_buffer =
+            malloc(100*cluster_count*(one_msg_sz + MPI_BSEND_OVERHEAD)*sizeof(char));
+    MPI_Buffer_attach(mpi_buffer,
+                      100*cluster_count*(one_msg_sz + MPI_BSEND_OVERHEAD));
 
 #  ifdef DEBUG
     Print_digraph();
@@ -219,12 +249,10 @@ int main(int argc, char* argv[]) {
     pthread_mutex_init(&best_tour_mutex, NULL);
     Init_term();
 
-    best_tour = Alloc_tour(NULL);
-    Init_tour(best_tour, INFINITY);
 #  ifdef DEBUG
-    Print_tour(-1, best_tour, "Best tour");
-   printf("City count = %d\n",  City_count(best_tour));
-   printf("Cost = %d\n\n", Tour_cost(best_tour));
+    Print_tour(cluster_rank, loc_best_tour, "Best tour");
+   printf("City count = %d\n",  City_count(loc_best_tour));
+   printf("Cost = %d\n\n", Tour_cost(loc_best_tour));
 #  endif
 
     start = MPI_Wtime();
@@ -241,18 +269,23 @@ int main(int argc, char* argv[]) {
     MPI_Buffer_detach(&ret_buf, &one_msg_sz);
 
     if (cluster_rank == 0) {
-        Print_tour(loc_best_tour, "Best tour");
-        printf("Cost = %d\n", loc_best_tour->cost);
-        printf("Elapsed time = %e seconds\n", finish-start);
+        if(loc_best_tour == NULL) {
+            printf("Tour not found");
+        }
+        else {
+            Print_tour(cluster_rank, loc_best_tour, "Best tour");
+            printf("Cost = %d\n", loc_best_tour->cost);
+            printf("Elapsed time = %e seconds\n", finish - start);
+        }
     }
 
 #  ifdef STATS
     printf("Stack splits = %d\n", stack_splits);
 #  endif
 
-    MPI_Type_free(&tour_arr_mpi_t);
-    free(best_tour->cities);
-    free(best_tour);
+    //MPI_Type_free(&tour_arr_mpi_t);
+    free(loc_best_tour->cities);
+    free(loc_best_tour);
     free(thread_handles);
     free(digraph);
     My_barrier_destroy(bar_str);
@@ -290,7 +323,7 @@ void Init_tour(tour_t tour, cost_t cost) {
  * In arg:    prog_name
  */
 void Usage(char* prog_name) {
-    fprintf(stderr, "usage: %s <thread_count> <digraph file> <min split size>\n",
+    fprintf(stderr, "usage: %s <node_count> <threads_per_node_count> <digraph file_path> <min split size>\n",
             prog_name);
     exit(0);
 }  /* Usage */
@@ -415,6 +448,7 @@ void* Par_tree_search(void* rank) {
  */
 void Partition_tree(long my_rank, my_stack_t stack) {
     int my_first_tour, my_last_tour, i;
+    int thread_global_rank = (int) (my_rank + (thread_count * cluster_rank));
 
     if (my_rank == 0) queue_size = Get_upper_bd_queue_sz();
     My_barrier(bar_str);
@@ -425,7 +459,7 @@ void Partition_tree(long my_rank, my_stack_t stack) {
 
     if (my_rank == 0) Build_initial_queue();
     My_barrier(bar_str);
-    Set_init_tours(my_rank, &my_first_tour, &my_last_tour);
+    Set_init_tours(thread_global_rank, &my_first_tour, &my_last_tour);
 #  ifdef DEBUG
     printf("Th %ld > init_tour_count = %d, first = %d, last = %d\n",
          my_rank, init_tour_count, my_first_tour, my_last_tour);
@@ -457,13 +491,10 @@ void Partition_tree(long my_rank, my_stack_t stack) {
  *
  * Note:  A block partition is used.
  */
-void Set_init_tours(long thread_local_rank, int* my_first_tour_p,
+void Set_init_tours(long thread_global_rank, int* my_first_tour_p,
                     int* my_last_tour_p) {
     int quotient, remainder, my_count;
 
-    int thread_global_rank = thread_local_rank + (thread_count * cluster_rank);
-
- // how cluster rank will fit here?
     quotient = init_tour_count/(thread_count * cluster_count);
     remainder = init_tour_count % (thread_count * cluster_count);
     if (thread_global_rank < remainder) {
@@ -534,7 +565,7 @@ int Best_tour(tour_t tour) {
     cost_t cost_so_far = Tour_cost(tour);
     city_t last_city = Last_city(tour);
 
-    if (cost_so_far + Cost(last_city, home_town) < Tour_cost(best_tour))
+    if (cost_so_far + Cost(last_city, home_town) < Tour_cost(loc_best_tour))
         return TRUE;
     else
         return FALSE;
@@ -573,8 +604,8 @@ int Best_tour(tour_t tour) {
 void Update_best_tour(tour_t tour) {
     pthread_mutex_lock(&best_tour_mutex);
     if (Best_tour(tour)) {
-        Copy_tour(tour, best_tour);
-        Add_city(best_tour, home_town);
+        Copy_tour(tour, loc_best_tour);
+        Add_city(loc_best_tour, home_town);
     }
     pthread_mutex_unlock(&best_tour_mutex);
 }  /* Update_best_tour */
@@ -651,7 +682,7 @@ int Feasible(tour_t tour, city_t city) {
     city_t last_city = Last_city(tour);
 
     if (!Visited(tour, city) &&
-        Tour_cost(tour) + Cost(last_city,city) < Tour_cost(best_tour))
+        Tour_cost(tour) + Cost(last_city,city) < Tour_cost(loc_best_tour))
         return TRUE;
     else
         return FALSE;
@@ -1004,7 +1035,7 @@ int Get_upper_bd_queue_sz(void) {
     int fact = n-1;
     int size = n-1;
 
-    while (size < thread_count) {
+    while (size < thread_count * cluster_count) {
         fact++;
         size *= fact;
     }
@@ -1235,3 +1266,31 @@ my_stack_t Split_stack(my_stack_t stack, long my_rank) {
 
     return new_stack;
 }  /* Split_stack */
+
+/*---------------------------------------------------------------------
+ * Function:  Cleanup_msg_queue
+ * Purpose:   See what messages are outstanding after termination and
+ *            receive them.
+ */
+void Cleanup_msg_queue(void) {
+    int msg_recd;
+    MPI_Status status;
+    char string1[MAX_STRING];
+    int counts[2] = {0,0};
+    char work_buf[100000];
+
+    MPI_Iprobe(MPI_ANY_SOURCE, MPI_ANY_TAG, comm, &msg_recd, &status);
+    while (msg_recd) {
+        /* Just receive the message . . . */
+        MPI_Recv(work_buf, 100000, MPI_BYTE, status.MPI_SOURCE,
+                 status.MPI_TAG, comm, MPI_STATUS_IGNORE);
+        if (status.MPI_TAG == TOUR_TAG)
+            counts[1]++;
+        else  // Unknown
+            counts[0]++;
+        MPI_Iprobe(MPI_ANY_SOURCE, MPI_ANY_TAG, comm, &msg_recd, &status);
+    }
+    sprintf(string1, "Messages not received:  unknown = %d, tour = %d",
+            counts[0], counts[1]);
+// printf("Proc %d > %s\n", my_rank, string1);
+}  /* Cleanup_msg_queue */
