@@ -172,6 +172,7 @@ my_barrier_t My_barrier_init(int thr_count);
 void My_barrier_destroy(my_barrier_t bar);
 void My_barrier(my_barrier_t bar);
 
+void Get_global_best_tour(void);
 void Look_for_best_tours(void);
 void Bcast_tour_cost(cost_t tour_cost);
 void Cleanup_msg_queue(void);
@@ -185,7 +186,8 @@ int main(int argc, char* argv[]) {
     char* ret_buf;
     int one_msg_sz;
 
-    MPI_Init(&argc, &argv);
+    int provided;
+    MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided);
     comm = MPI_COMM_WORLD;
     MPI_Comm_size(comm, &cluster_count);
     MPI_Comm_rank(comm, &cluster_rank);
@@ -269,6 +271,8 @@ int main(int argc, char* argv[]) {
     finish = MPI_Wtime();
     Cleanup_msg_queue();
     MPI_Barrier(comm);
+    Get_global_best_tour();
+
     MPI_Buffer_detach(&ret_buf, &one_msg_sz);
 
     if (cluster_rank == 0) {
@@ -286,7 +290,7 @@ int main(int argc, char* argv[]) {
     printf("Stack splits = %d\n", stack_splits);
 #  endif
 
-    //MPI_Type_free(&tour_arr_mpi_t);
+    MPI_Type_free(&tour_arr_mpi_t);
     free(loc_best_tour->cities);
     free(loc_best_tour);
     free(thread_handles);
@@ -429,12 +433,44 @@ void* Par_tree_search(void* rank) {
         }
         Free_tour(curr_tour, avail);
     }
+    //Free_stack(stack);
     Free_stack(avail);
-    if (my_rank == 0) Free_queue(queue);
+    if (my_rank == 0) {
+        Free_queue(queue);
+    }
 
     return NULL;
 }  /* Par_tree_search */
 
+
+/*------------------------------------------------------------------
+ * Function:  Get_global_best_tour
+ * Purpose:   Get global best tour to process 0
+ */
+void Get_global_best_tour(void) {
+    struct {
+        int cost;
+        int rank;
+    } loc_data, global_data;
+    loc_data.cost = Tour_cost(loc_best_tour);
+    loc_data.rank = cluster_rank;
+
+    /* Both 0 and the owner of the best tour need global_data */
+    MPI_Allreduce(&loc_data, &global_data, 1, MPI_2INT, MPI_MINLOC, comm);
+#  ifdef DEBUG
+    printf("Proc %d > Returned from reduce, rank = %d, cost = %d\n", my_rank,
+         global_data.rank, global_data.cost);
+#  endif
+    if (global_data.rank == 0) return;
+    if (cluster_rank == 0) {
+        MPI_Recv(loc_best_tour->cities, n+1, MPI_INT, global_data.rank,
+                 0, comm, MPI_STATUS_IGNORE);
+        loc_best_tour->cost = global_data.cost;
+        loc_best_tour->count = n+1;
+    } else if (cluster_rank == global_data.rank) {
+        MPI_Send(loc_best_tour->cities, n+1, MPI_INT, 0, 0, comm);
+    }
+}  /* Get_global_best_tour */
 
 /*------------------------------------------------------------------
  * Function:  Partition_tree
