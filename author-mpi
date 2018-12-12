@@ -1,0 +1,48 @@
+mpi_tsp_stat:
+[inf2591-03@server t3]$ ./benchmarkoriginal.sh 
++ mpiexec -n 1 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x25fb310: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.719633e+02 seconds
++ mpiexec -n 2 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x10065f0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.088624e+02 seconds
++ mpiexec -n 4 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x1a42b40: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.050575e+02 seconds
+
++ mpiexec -n 1 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x1e33310: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.669757e+02 seconds
++ mpiexec -n 2 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x217f5f0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.067728e+02 seconds
++ mpiexec -n 4 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x11b9b40: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.054199e+02 seconds
++ mpiexec -n 1 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x1624310: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.683589e+02 seconds
++ mpiexec -n 2 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0x6175f0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.156918e+02 seconds
++ mpiexec -n 4 ./mpi_tsp_stat mat_16e
+Proc 0 > Best tour 0xdffb40: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.081150e+02 seconds
