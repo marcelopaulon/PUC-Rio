@@ -55,6 +55,7 @@ public class SinalgoUncaughtExceptionHandler implements UncaughtExceptionHandler
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
+        e.printStackTrace();
         if (e instanceof IllegalComponentStateException
                 && Objects.equals(e.getMessage(), "component must be showing on the screen to determine its location")) {
             return;
