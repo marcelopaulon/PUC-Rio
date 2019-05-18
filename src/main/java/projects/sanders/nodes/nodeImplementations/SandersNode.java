@@ -7,16 +7,19 @@ import projects.sanders.nodes.messages.RelinquishMessage;
 import projects.sanders.nodes.messages.ReqTsMessage;
 import projects.sanders.nodes.messages.YesMessage;
 import projects.sanders.nodes.timers.EnterCSLoopTimer;
+import projects.sanders.nodes.timers.SendMessageTimer;
 import sinalgo.exception.WrongConfigurationException;
+import sinalgo.gui.transformation.PositionTransformation;
 import sinalgo.nodes.Node;
-import sinalgo.nodes.edges.Edge;
 import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
+import sinalgo.tools.Tools;
 
-import java.util.HashMap;
+import java.awt.*;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SandersNode extends Node {
 
@@ -35,7 +38,8 @@ public class SandersNode extends Node {
     private Node cand; // Given vote candidate
     private long candTS; // Given vote candidate timestamp
     private boolean inquired = false;
-    private PriorityQueue<ProcessingRequest> deferredQ; // Pending processing requests
+    private PriorityQueue<ProcessingRequest> deferredQ = new PriorityQueue<>(); // Pending processing requests
+    private boolean timed = false;
 
     /*
     Si // o distrito associado a Pi
@@ -100,7 +104,7 @@ public class SandersNode extends Node {
         long reqTS = message.getTs();
 
         if (!hasVoted) {
-            sendUpdatingClock(new YesMessage(), sender);
+            sendMessage(new YesMessage(), sender);
             cand = sender;
             candTS = reqTS;
             hasVoted = true;
@@ -108,7 +112,7 @@ public class SandersNode extends Node {
         else {
             deferredQ.add(new ProcessingRequest(sender, reqTS));
             if (reqTS < candTS && !inquired) {
-                sendUpdatingClock(new InqTsMessage(candTS), cand);
+                sendMessage(new InqTsMessage(candTS), cand);
                 inquired = true;
             }
         }
@@ -127,7 +131,7 @@ public class SandersNode extends Node {
         ProcessingRequest processingRequest = deferredQ.poll();
 
         if (processingRequest != null) {
-            sendUpdatingClock(new YesMessage(), processingRequest.getSender());
+            sendMessage(new YesMessage(), processingRequest.getSender());
             cand = processingRequest.getSender();
             candTS = processingRequest.getTs();
             inquired = false;
@@ -146,7 +150,7 @@ public class SandersNode extends Node {
     private void handleReleaseMessage(ReleaseMessage message, Node sender) {
         if (!deferredQ.isEmpty()) {
             ProcessingRequest processingRequest = deferredQ.poll();
-            sendUpdatingClock(new YesMessage(), processingRequest.getSender());
+            sendMessage(new YesMessage(), processingRequest.getSender());
             cand = processingRequest.getSender();
             candTS = processingRequest.getTs();
         }
@@ -183,7 +187,7 @@ public class SandersNode extends Node {
     private void enterCS() {
         myTS = curTS;
         for (Integer r : coterieNodes) {
-            sendUpdatingClock(new ReqTsMessage(myTS), findNode(r));
+            sendMessage(new ReqTsMessage(myTS), findNode(r));
         }
 
         enterCS_loop();
@@ -207,31 +211,38 @@ public class SandersNode extends Node {
      */
     private void exitCS() {
         inCS = false;
+        yesVotes = 0;
         for (Integer r : coterieNodes) {
-            sendUpdatingClock(new ReleaseMessage(), findNode(r));
+            sendMessage(new ReleaseMessage(), findNode(r));
         }
     }
 
-    private void sendUpdatingClock(Message message, Node node) {
-
+    private void sendMessage(Message message, Node node) {
+        if (timed) {
+            SendMessageTimer timer = new SendMessageTimer(message, this, node);
+            timer.startRelative(1, this);
+        }
+        else {
+            send(message, node);
+        }
     }
 
-    private Map<Integer, Node> nodeMap = new HashMap<>();
+    private static Map<Integer, Node> nodeMap = new ConcurrentHashMap<>();
 
     private Node findNode(Integer r) {
 
         if (nodeMap.containsKey(r)) {
             return nodeMap.get(r);
-        } else {
+        } /*else {
             for (Edge edge : this.getOutgoingConnections()) {
                 if (edge.getEndNode().getID() == r) {
                     nodeMap.put(r, edge.getEndNode());
                     return edge.getEndNode();
                 }
             }
-        }
+        }*/
 
-        throw new RuntimeException("Unable to find node " + r + " in node " + getID() + "'s outgoing connections");
+        throw new RuntimeException("Unable to find node " + r + " in node map");
     }
 
     @Override
@@ -241,7 +252,7 @@ public class SandersNode extends Node {
 
     @Override
     public void init() {
-
+        nodeMap.put((int) this.getID(), this);
     }
 
     @Override
@@ -259,4 +270,63 @@ public class SandersNode extends Node {
 
     }
 
+
+
+    @Override
+    public void draw(Graphics g, PositionTransformation pt, boolean highlight) {
+        // set the color of this node
+
+        if (this.inCS) {
+            this.setColor(Color.GREEN);
+        }
+        else if (this.hasVoted) {
+            this.setColor(Color.ORANGE);
+        }
+        else if (this.inquired) {
+            this.setColor(Color.RED);
+        }
+        else {
+            this.setColor(Color.GRAY);
+        }
+
+        String text = "" + myTS;
+        // draw the node as a circle with the text inside
+        super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.YELLOW);
+        // super.drawNodeAsSquareWithText(g, pt, highlight, text, 10, Color.YELLOW);
+    }
+
+    /**
+     * Request CS access.
+     */
+    @NodePopupMethod(menuText = "Request CS")
+    public void requestCS() {
+        timed = true;
+
+        try {
+            enterCS();
+            Tools.appendToOutput("Node " + this.getID() + " requests access to CS\n");
+        } finally {
+            timed = false;
+        }
+    }
+
+    /**
+     * Leave CS.
+     */
+    @NodePopupMethod(menuText = "Leave CS")
+    public void leaveCS() {
+        timed = true;
+
+        try {
+            if (inCS) {
+                exitCS();
+                Tools.appendToOutput("Node " + this.getID() + " leaves CS\n");
+            }
+            else {
+                Tools.appendToOutput("[ERROR] Node " + this.getID() + " IS NOT IN CS\n");
+            }
+        } finally {
+            timed = false;
+        }
+    }
 }

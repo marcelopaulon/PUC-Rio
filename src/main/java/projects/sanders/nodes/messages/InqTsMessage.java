@@ -11,7 +11,7 @@ public class InqTsMessage extends Message {
 
     @Override
     public Message clone() {
-        return null;
+        return new InqTsMessage(inqTS);
     }
 
     public long getInqTS() {

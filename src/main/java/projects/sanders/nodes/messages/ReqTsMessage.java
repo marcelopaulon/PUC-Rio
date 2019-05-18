@@ -11,7 +11,7 @@ public class ReqTsMessage extends Message {
 
     @Override
     public Message clone() {
-        return null;
+        return new ReqTsMessage(ts);
     }
 
     public long getTs() {
