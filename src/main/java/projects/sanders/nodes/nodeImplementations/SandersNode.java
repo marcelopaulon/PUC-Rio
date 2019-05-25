@@ -41,6 +41,8 @@ public class SandersNode extends Node {
     private PriorityQueue<ProcessingRequest> deferredQ = new PriorityQueue<>(); // Pending processing requests
     private boolean timed = false;
 
+    private boolean requestedCS = false;
+
     /*
     Si // o distrito associado a Pi
     InCS // TRUE se Pi está na sessão crítica
@@ -185,6 +187,12 @@ public class SandersNode extends Node {
     }
      */
     private void enterCS() {
+        if (requestedCS || inCS) {
+            return;
+        }
+
+        requestedCS = true;
+
         myTS = curTS;
         for (Integer r : coterieNodes) {
             sendMessage(new ReqTsMessage(myTS), findNode(r));
@@ -201,6 +209,7 @@ public class SandersNode extends Node {
         }
 
         inCS = true;
+        requestedCS = false;
     }
 
     /*
@@ -218,9 +227,15 @@ public class SandersNode extends Node {
     }
 
     private void sendMessage(Message message, Node node) {
-        if (timed) {
+        if (timed || Math.random() < 0.5) {
             SendMessageTimer timer = new SendMessageTimer(message, this, node);
-            timer.startRelative(1, this);
+            int delay = 1;
+
+            if (!timed) {
+                delay = 2;
+            }
+
+            timer.startRelative(delay, this);
         }
         else {
             send(message, node);
@@ -247,7 +262,12 @@ public class SandersNode extends Node {
 
     @Override
     public void preStep() {
-
+        if (inCS && Math.random() < 0.5) {
+            leaveCS();
+        }
+        else if (!requestedCS && !inCS && Math.random() < 0.8) {
+            requestCS();
+        }
     }
 
     @Override
