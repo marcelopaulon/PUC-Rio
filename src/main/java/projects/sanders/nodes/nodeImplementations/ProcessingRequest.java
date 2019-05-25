@@ -13,7 +13,15 @@ public class ProcessingRequest implements Comparable<ProcessingRequest> {
 
     @Override
     public int compareTo(ProcessingRequest o) {
-        return o.ts < this.ts ? 1 : 0;
+        if (ts < o.ts) {
+            return -1;
+        }
+
+        if (ts > o.ts) {
+            return 1;
+        }
+
+        return Long.compare(sender.getID(), o.sender.getID());
     }
 
     public Node getSender() {
