@@ -37,8 +37,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package projects.sanders;
 
 import sinalgo.runtime.AbstractCustomGlobal;
+import sinalgo.tools.logging.Logging;
 
 import javax.swing.*;
+import java.util.logging.Logger;
 
 /**
  * This class holds customized global state and methods for the framework. The
@@ -61,9 +63,34 @@ import javax.swing.*;
  */
 public class CustomGlobal extends AbstractCustomGlobal {
 
+    Logging metrics = Logging.getLogger("sanders87-metrics.csv");
+    Logging log = Logging.getLogger("sanders87-log.txt");
+
     @Override
     public boolean hasTerminated() {
         return false;
+    }
+
+    @Override
+    public void preRun() {
+        log.logln("Starting sanders87 simulation");
+        log.logln("Starting sanders87 simulation");
+    }
+
+    @Override
+    public void preRound() {
+
+    }
+
+    @Override
+    public void postRound() {
+
+        log.logln("Post round");
+    }
+
+    @Override
+    public void checkProjectRequirements() {
+
     }
 
     /**

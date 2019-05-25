@@ -179,10 +179,10 @@
                 value="RandomTime"/>
 
         <!--Default connectivity model used when none is specified -->
-        <defaultConnectivityModel value="UDG"/>
+        <defaultConnectivityModel value="sanders:CompleteGraph"/>
 
         <!--Default distribution model used when none is specified -->
-        <defaultDistributionModel value="Random"/>
+        <defaultDistributionModel value="Grid2D"/>
 
         <!--Default interference model used when none is specified -->
         <defaultInterferenceModel value="NoInterference"/>
@@ -194,7 +194,7 @@
         <defaultReliabilityModel value="ReliableDelivery"/>
 
         <!--Default node implementation used when none is specified -->
-        <defaultNodeImplementation value="sample1:S1Node"/>
+        <defaultNodeImplementation value="sanders:SandersNode"/>
 
         <!--Show the models implemented by all projects in the drop down options.
             When set to false, only the models by the selected project and the default
