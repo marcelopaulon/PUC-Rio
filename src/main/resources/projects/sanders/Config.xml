@@ -176,7 +176,7 @@
         <!--*********************************************************************** -->
         <!--The message transmission model used when none is specified -->
         <defaultMessageTransmissionModel
-                value="RandomTime"/>
+                value="sanders:RandomRound"/>
 
         <!--Default connectivity model used when none is specified -->
         <defaultConnectivityModel value="sanders:CompleteGraph"/>

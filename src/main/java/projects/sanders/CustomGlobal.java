@@ -36,10 +36,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package projects.sanders;
 
+import projects.sanders.nodes.nodeImplementations.SandersNode;
+import sinalgo.nodes.Node;
 import sinalgo.runtime.AbstractCustomGlobal;
 import sinalgo.tools.logging.Logging;
 
 import javax.swing.*;
+import java.util.Collection;
 import java.util.logging.Logger;
 
 /**
@@ -63,8 +66,13 @@ import java.util.logging.Logger;
  */
 public class CustomGlobal extends AbstractCustomGlobal {
 
-    Logging metrics = Logging.getLogger("sanders87-metrics.csv");
-    Logging log = Logging.getLogger("sanders87-log.txt");
+    private Logging metrics = Logging.getLogger("sanders87-metrics.csv");
+    private Logging log = Logging.getLogger("sanders87-log.txt");
+    private Collection<SandersNode> registeredNodes;
+
+    long allRelinquishMessages = 0;
+
+    long currentRound = 0;
 
     @Override
     public boolean hasTerminated() {
@@ -74,18 +82,31 @@ public class CustomGlobal extends AbstractCustomGlobal {
     @Override
     public void preRun() {
         log.logln("Starting sanders87 simulation");
-        log.logln("Starting sanders87 simulation");
+        metrics.logln("Round,RelinquishCountRound,RelinquishCountSim");
     }
 
     @Override
     public void preRound() {
-
+        currentRound++;
     }
 
     @Override
     public void postRound() {
-
         log.logln("Post round");
+
+        long roundRelinquishMessages = 0;
+
+        if (registeredNodes == null) {
+            registeredNodes = SandersNode.getRegisteredNodes();
+        }
+
+        for (SandersNode node : registeredNodes) {
+            roundRelinquishMessages += node.getCountRelinquishThisRound();
+        }
+
+        allRelinquishMessages += roundRelinquishMessages;
+
+        metrics.logln(currentRound + "," + roundRelinquishMessages + "," + allRelinquishMessages);
     }
 
     @Override

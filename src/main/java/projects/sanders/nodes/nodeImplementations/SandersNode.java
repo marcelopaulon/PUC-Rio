@@ -16,6 +16,7 @@ import sinalgo.nodes.messages.Message;
 import sinalgo.tools.Tools;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -42,6 +43,8 @@ public class SandersNode extends Node {
     private boolean timed = false;
 
     private boolean requestedCS = false;
+
+    private long countRelinquishThisRound = 0;
 
     /*
     Si // o distrito associado a Pi
@@ -113,7 +116,8 @@ public class SandersNode extends Node {
         }
         else {
             deferredQ.add(new ProcessingRequest(sender, reqTS));
-            if (reqTS < candTS && !inquired) {
+
+            if ((reqTS < candTS || (reqTS == candTS && sender.getID() < cand.getID())) && !inquired) {
                 sendMessage(new InqTsMessage(candTS), cand);
                 inquired = true;
             }
@@ -129,6 +133,8 @@ public class SandersNode extends Node {
     }
     */
     private void handleRelinquishMessage(RelinquishMessage message, Node sender) {
+        countRelinquishThisRound++;
+
         deferredQ.add(new ProcessingRequest(cand, candTS));
         ProcessingRequest processingRequest = deferredQ.poll();
 
@@ -136,8 +142,12 @@ public class SandersNode extends Node {
             sendMessage(new YesMessage(), processingRequest.getSender());
             cand = processingRequest.getSender();
             candTS = processingRequest.getTs();
-            inquired = false;
         }
+        else {
+            hasVoted = false;
+        }
+
+        inquired = false;
     }
 
     /*
@@ -171,12 +181,11 @@ public class SandersNode extends Node {
    }
     */
     private void handleInqTsMessage(InqTsMessage message, Node sender) {
-        if (myTS == message.getInqTS()) {
+        if (!inCS && myTS == message.getInqTS()) {
             send (new RelinquishMessage(), sender);
             yesVotes = yesVotes - 1;
         }
     }
-
 
     /*
     Enter_CS {
@@ -204,7 +213,7 @@ public class SandersNode extends Node {
     public void enterCS_loop() {
         if (yesVotes < coterieNodes.size()) {
             EnterCSLoopTimer t = new EnterCSLoopTimer(this);
-            t.startRelative(1, this);
+            t.startRelative(1e-9, this);
             return;
         }
 
@@ -227,22 +236,16 @@ public class SandersNode extends Node {
     }
 
     private void sendMessage(Message message, Node node) {
-        if (timed || Math.random() < 0.5) {
+        if (timed) {
             SendMessageTimer timer = new SendMessageTimer(message, this, node);
-            int delay = 1;
-
-            if (!timed) {
-                delay = 2;
-            }
-
-            timer.startRelative(delay, this);
+            timer.startRelative(1e-9, this);
         }
         else {
             send(message, node);
         }
     }
 
-    private static Map<Integer, Node> nodeMap = new ConcurrentHashMap<>();
+    private static Map<Integer, SandersNode> nodeMap = new ConcurrentHashMap<>();
 
     private Node findNode(Integer r) {
 
@@ -260,8 +263,14 @@ public class SandersNode extends Node {
         throw new RuntimeException("Unable to find node " + r + " in node map");
     }
 
+    public static Collection<SandersNode> getRegisteredNodes() {
+        return nodeMap.values();
+    }
+
     @Override
     public void preStep() {
+        countRelinquishThisRound = 0;
+
         if (inCS && Math.random() < 0.5) {
             leaveCS();
         }
@@ -348,5 +357,9 @@ public class SandersNode extends Node {
         } finally {
             timed = false;
         }
+    }
+
+    public long getCountRelinquishThisRound() {
+        return countRelinquishThisRound;
     }
 }
