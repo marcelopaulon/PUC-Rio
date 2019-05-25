@@ -25,10 +25,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SandersNode extends Node {
 
     private static final Gson GSON = new Gson();
-
-    static {
-        new DistrictRepository();
-    }
+    public static double pcs = 0.2;
+    public static double pls = 0.5;
 
     private Set<Integer> coterieNodes = DistrictRepository.getCoterieNodes((int) this.getID()); // Node district
     private boolean inCS = false; // In Critical Section
@@ -271,10 +269,10 @@ public class SandersNode extends Node {
     public void preStep() {
         countRelinquishThisRound = 0;
 
-        if (inCS && Math.random() < 0.5) {
+        if (inCS && Math.random() < pls) {
             leaveCS();
         }
-        else if (!requestedCS && !inCS && Math.random() < 0.8) {
+        else if (!requestedCS && !inCS && Math.random() < pcs) {
             requestCS();
         }
     }

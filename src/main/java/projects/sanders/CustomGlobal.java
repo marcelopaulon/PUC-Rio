@@ -36,12 +36,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package projects.sanders;
 
+import projects.sanders.nodes.nodeImplementations.DistrictRepository;
 import projects.sanders.nodes.nodeImplementations.SandersNode;
 import sinalgo.nodes.Node;
 import sinalgo.runtime.AbstractCustomGlobal;
 import sinalgo.tools.logging.Logging;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
@@ -126,13 +128,22 @@ public class CustomGlobal extends AbstractCustomGlobal {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * An example to add a button to the user interface. In this sample, the button
-     * is labeled with a text 'GO'. Alternatively, you can specify an icon that is
-     * shown on the button. See AbstractCustomGlobal.CustomButton for more details.
-     */
-    @CustomButton(buttonText = "GO", toolTipText = "A sample button")
-    public void sampleButton() {
-        JOptionPane.showMessageDialog(null, "You Pressed the 'GO' button.");
+    @CustomButton(buttonText = "Pcs", toolTipText = "Probability of requesting CS")
+    public void pcs() {
+        SandersNode.pcs = Double.parseDouble(JOptionPane.showInputDialog("Probability of requesting CS:"));
+    }
+
+    @CustomButton(buttonText = "Pls", toolTipText = "Probability of leaving CS")
+    public void pls() {
+        SandersNode.pls = Double.parseDouble(JOptionPane.showInputDialog("Probability of leaving CS:"));
+    }
+
+    @CustomButton(buttonText = "IN", toolTipText = "Input file")
+    public void in() {
+        try {
+            DistrictRepository.initialize(JOptionPane.showInputDialog("Input file (e.g.: k9.txt):"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

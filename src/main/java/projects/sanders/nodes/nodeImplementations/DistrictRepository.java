@@ -18,7 +18,7 @@ public class DistrictRepository {
     static {
         try {
             //genCoteries(25);
-            initialize();
+            initialize("k15.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,8 +68,8 @@ public class DistrictRepository {
         }
     }
 
-    private static void initialize() throws IOException {
-        try (InputStream inputStream = DistrictRepository.class.getResourceAsStream("/projects/sanders/k15.txt")) {
+    public static void initialize(String file) throws IOException {
+        try (InputStream inputStream = DistrictRepository.class.getResourceAsStream("/projects/sanders/" + file)) {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
