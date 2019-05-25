@@ -1,7 +1,6 @@
 package projects.sanders.nodes.nodeImplementations;
 
 import com.google.gson.Gson;
-import javafx.beans.property.ReadOnlyListWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,11 +74,8 @@ public class DistrictRepository {
 
             String line;
 
-            int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] nodes = line.split("\\s+");
-
-                i++;
 
                 for (String districtsCsv : nodes) {
                     if (districtsCsv.isEmpty()) continue;
