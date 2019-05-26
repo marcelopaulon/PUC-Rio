@@ -130,20 +130,61 @@ public class CustomGlobal extends AbstractCustomGlobal {
 
     @CustomButton(buttonText = "Pcs", toolTipText = "Probability of requesting CS")
     public void pcs() {
-        SandersNode.pcs = Double.parseDouble(JOptionPane.showInputDialog("Probability of requesting CS:"));
+        String s = JOptionPane.showInputDialog("Probability of requesting CS:");
+        if (s != null && s.length() > 0) {
+            SandersNode.pcs = Double.parseDouble(s);
+        }
+
+        currentRound = 0;
+        allRelinquishMessages = 0;
     }
 
     @CustomButton(buttonText = "Pls", toolTipText = "Probability of leaving CS")
     public void pls() {
-        SandersNode.pls = Double.parseDouble(JOptionPane.showInputDialog("Probability of leaving CS:"));
+        String s = JOptionPane.showInputDialog("Probability of leaving CS:");
+        if (s != null && s.length() > 0) {
+            SandersNode.pls = Double.parseDouble(s);
+        }
+
+        currentRound = 0;
+        allRelinquishMessages = 0;
     }
 
     @CustomButton(buttonText = "IN", toolTipText = "Input file")
     public void in() {
         try {
-            DistrictRepository.initialize(JOptionPane.showInputDialog("Input file (e.g.: k9.txt):"));
+            String s = JOptionPane.showInputDialog("Input file (e.g.: k9.txt):");
+            if (s != null && s.length() > 0) {
+                DistrictRepository.initialize(s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        currentRound = 0;
+        allRelinquishMessages = 0;
+    }
+
+    @CustomButton(buttonText = "AUTO", toolTipText = "Automatic CS in/out toggle")
+    public void auto() {
+        SandersNode.auto = !SandersNode.auto;
+        if (SandersNode.auto) {
+            JOptionPane.showMessageDialog(null, "Auto mode enabled", "Auto mode", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Auto mode disabled", "Auto mode", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    @CustomButton(buttonText = "RESET", toolTipText = "Reset node states")
+    public void reset() {
+        currentRound = 0;
+        allRelinquishMessages = 0;
+
+        registeredNodes = SandersNode.getRegisteredNodes();
+
+        for (SandersNode node : registeredNodes) {
+            node.reset();
         }
     }
 }

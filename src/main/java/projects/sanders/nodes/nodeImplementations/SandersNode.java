@@ -27,22 +27,39 @@ public class SandersNode extends Node {
     private static final Gson GSON = new Gson();
     public static double pcs = 0.2;
     public static double pls = 0.5;
+    public static boolean auto = true;
 
     private Set<Integer> coterieNodes = DistrictRepository.getCoterieNodes((int) this.getID()); // Node district
+
+    /* State section start */
     private boolean inCS = false; // In Critical Section
     private long curTS = 0;
     private long myTS = 0;
     private int yesVotes = 0;
     private boolean hasVoted = false;
     private Node cand; // Given vote candidate
-    private long candTS; // Given vote candidate timestamp
+    private long candTS = 0; // Given vote candidate timestamp
     private boolean inquired = false;
     private PriorityQueue<ProcessingRequest> deferredQ = new PriorityQueue<>(); // Pending processing requests
     private boolean timed = false;
-
     private boolean requestedCS = false;
-
     private long countRelinquishThisRound = 0;
+    /* State section end */
+
+    public void reset() {
+        inCS = false;
+        curTS = 0;
+        myTS = 0;
+        yesVotes = 0;
+        hasVoted = false;
+        cand = null;
+        candTS = 0;
+        inquired = false;
+        deferredQ = new PriorityQueue<>();
+        timed = false;
+        requestedCS = false;
+        countRelinquishThisRound = 0;
+    }
 
     /*
     Si // o distrito associado a Pi
@@ -269,11 +286,12 @@ public class SandersNode extends Node {
     public void preStep() {
         countRelinquishThisRound = 0;
 
-        if (inCS && Math.random() < pls) {
-            leaveCS();
-        }
-        else if (!requestedCS && !inCS && Math.random() < pcs) {
-            requestCS();
+        if (auto) {
+            if (inCS && Math.random() < pls) {
+                leaveCS();
+            } else if (!requestedCS && !inCS && Math.random() < pcs) {
+                requestCS();
+            }
         }
     }
 
