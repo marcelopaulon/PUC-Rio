@@ -2,10 +2,12 @@ package projects.badacheAndHurfinAndMacedo99.nodes.messages;
 
 import sinalgo.nodes.messages.Message;
 
-public class DecideMessage extends Message {
-    private String decidedValue;
+import java.util.Set;
 
-    public DecideMessage(String decidedValue) {
+public class DecideMessage extends Message {
+    private Set<String> decidedValue;
+
+    public DecideMessage(Set<String> decidedValues) {
         this.decidedValue = decidedValue;
     }
 
@@ -14,7 +16,7 @@ public class DecideMessage extends Message {
         return new DecideMessage(decidedValue);
     }
 
-    public String getDecidedValue() {
+    public Set<String> getDecidedValue() {
         return decidedValue;
     }
 }

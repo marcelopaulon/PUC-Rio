@@ -16,4 +16,12 @@ public class ProposeMessage extends Message {
     public Message clone() {
         return new ProposeMessage(MHNode, value);
     }
+
+    public projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.MHNode getMHNode() {
+        return MHNode;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }
