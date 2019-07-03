@@ -123,10 +123,6 @@ public class MSSNode extends Node {
                 /*
                 BEGIN LOG UPDATE
                  */
-                if (!log.containsKey(roundR)) {
-                    log.put(roundR, new HashSet<>());
-                }
-
                 Set<LogEntry> logEntries = log.get(roundR);
                 logEntries.add(new LogEntry(this, roundR, v, ts));
                 Set<LogEntry> removedEntries = new HashSet<>();
@@ -161,24 +157,12 @@ public class MSSNode extends Node {
             // (8) Upon receipt of PA(MSSj, rj)
             else if (message instanceof PositiveAckMessage) {
                 PositiveAckMessage positiveAckMessage = (PositiveAckMessage) message;
-
-                if (!nbPositiveAck.containsKey(positiveAckMessage.getRound())) {
-                    nbPositiveAck.put(positiveAckMessage.getRound(), 1);
-                }
-                else {
-                    nbPositiveAck.put(positiveAckMessage.getRound(), nbPositiveAck.get(positiveAckMessage.getRound()) + 1);
-                }
+                nbPositiveAck.put(positiveAckMessage.getRound(), nbPositiveAck.get(positiveAckMessage.getRound()) + 1);
             }
             // (9) Upon receipt of NA(MSSj, rj)
             else if (message instanceof NegativeAckMessage) {
                 NegativeAckMessage negativeAckMessage = (NegativeAckMessage) message;
-
-                if (!nbNegativeAck.containsKey(negativeAckMessage.getRound())) {
-                    nbNegativeAck.put(negativeAckMessage.getRound(), 1);
-                }
-                else {
-                    nbNegativeAck.put(negativeAckMessage.getRound(), nbNegativeAck.get(negativeAckMessage.getRound()) + 1);
-                }
+                nbNegativeAck.put(negativeAckMessage.getRound(), nbNegativeAck.get(negativeAckMessage.getRound()) + 1);
             }
             // (12) Upon receipt of NEW_EST(MSSc, ri, Vc, Pc, End_collectc)
             else if (message instanceof NewEstimateMessage) {
@@ -219,6 +203,7 @@ public class MSSNode extends Node {
     // (10) Upon Phase = 1
     private void phase1Callback() {
         roundR = roundR + 1;
+        setupRound();
         coordinatorMSS = findCoordinator(roundR);
 
         if (coordinatorMSS == null) {
@@ -247,6 +232,12 @@ public class MSSNode extends Node {
                 phase3CallbackWhenSuspectedCoordinator();
             }
         }
+    }
+
+    private void setupRound() {
+        nbPositiveAck.put(roundR, 0);
+        nbNegativeAck.put(roundR, 0);
+        log.put(roundR, new HashSet<>());
     }
 
     private void phase2CallbackWhenReceivedMajority() {
