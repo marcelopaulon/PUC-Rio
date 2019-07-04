@@ -49,8 +49,7 @@ public class MHNode extends Node implements Resettable {
                 // (2) Upon receipt of INIT_3 from MSSi
                 log("Will send proposal message");
                 send(new ProposeMessage(this, initialValue), connectedMSS);
-            }
-            else if (message instanceof DecideMessage) {
+            } else if (message instanceof DecideMessage) {
                 // (3) Upon receipt of DECIDE(Decided_Value) from MSSi the decision value is delivered to the application
                 DecideMessage decideMessage = (DecideMessage) message;
                 Set<String> decidedValue = decideMessage.getDecidedValue();

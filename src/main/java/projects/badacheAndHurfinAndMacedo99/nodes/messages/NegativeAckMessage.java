@@ -11,6 +11,7 @@ public class NegativeAckMessage extends Message {
         this.mssNode = mssNode;
         this.round = round;
     }
+
     @Override
     public Message clone() {
         return new NegativeAckMessage(mssNode, round);

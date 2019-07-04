@@ -233,18 +233,15 @@ public class MSSNode extends Node implements Resettable {
         if (roundPhase == 1) {
             phaseEnteredCallback = true;
             phase1Callback();
-        }
-        else if (roundPhase == 2 && log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
+        } else if (roundPhase == 2 && log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
             // (11) Upon Phase = 2 /\ (|Log| > Maj)
             phaseEnteredCallback = true;
             phase2CallbackWhenReceivedMajority();
-        }
-        else if (roundPhase == 3 && suspectedMSSs.contains(coordinatorMSS)) {
+        } else if (roundPhase == 3 && suspectedMSSs.contains(coordinatorMSS)) {
             // (13) Upon Phase = 3 /\ (MSSc is Suspected)
             phaseEnteredCallback = true;
             phase3CallbackWhenSuspectedCoordinator();
-        }
-        else if (roundPhase == 4 && nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
+        } else if (roundPhase == 4 && nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
             // (14) Upon Phase = 4 /\ (Nb_Pi + Nb_Ni) > Maj
             phaseEnteredCallback = true;
             phase4Callback();
@@ -271,8 +268,7 @@ public class MSSNode extends Node implements Resettable {
 
         if (this == coordinatorMSS) { // i == c
             setRoundPhase(2);
-        }
-        else {
+        } else {
             setRoundPhase(3);
         }
     }
@@ -295,7 +291,7 @@ public class MSSNode extends Node implements Resettable {
         long tmax = 0;
         LogEntry maxTsLogEntry = null;
 
-        for (LogEntry logEntry: log.get(roundR)) {
+        for (LogEntry logEntry : log.get(roundR)) {
             if (logEntry.getTs() > tmax) {
                 tmax = logEntry.getTs();
                 maxTsLogEntry = logEntry;
@@ -339,8 +335,7 @@ public class MSSNode extends Node implements Resettable {
 
             decidedState = true;
             setRoundPhase(0);
-        }
-        else {
+        } else {
             log("LEAVE PHASE 4");
             setRoundPhase(1);
         }
@@ -449,11 +444,9 @@ public class MSSNode extends Node implements Resettable {
 
         if (this.decidedState) {
             this.setColor(Color.GREEN);
-        }
-        else if (this.endCollect) {
+        } else if (this.endCollect) {
             this.setColor(Color.RED);
-        }
-        else {
+        } else {
             this.setColor(Color.GRAY);
         }
 
@@ -461,8 +454,7 @@ public class MSSNode extends Node implements Resettable {
         // draw the node as a circle with the text inside
         if (findCoordinator(roundR) == this) {
             super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.GREEN);
-        }
-        else {
+        } else {
             super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.YELLOW);
         }
         // super.drawNodeAsSquareWithText(g, pt, highlight, text, 10, Color.YELLOW);
