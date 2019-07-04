@@ -58,7 +58,7 @@ public class MSSNode extends Node implements Resettable {
     public MSSNode() {
         super();
         allMSSNodes.add(this);
-        setupRound();
+        setupRound(roundR);
     }
 
     @Override
@@ -133,6 +133,9 @@ public class MSSNode extends Node implements Resettable {
                 /*
                 BEGIN LOG UPDATE
                  */
+                if (!log.containsKey(estimateMessage.getRoundR())) {
+                    setupRound(estimateMessage.getRoundR());
+                }
                 Set<LogEntry> logEntries = log.get(estimateMessage.getRoundR());
                 logEntries.add(new LogEntry(estimateMessage.getMssNode(), estimateMessage.getRoundR(), estimateMessage.getNewV(), estimateMessage.getTs()));
                 Set<LogEntry> removedEntries = new HashSet<>();
@@ -251,7 +254,7 @@ public class MSSNode extends Node implements Resettable {
     // (10) Upon Phase = 1
     private void phase1Callback() {
         roundR = roundR + 1;
-        setupRound();
+        setupRound(roundR);
         coordinatorMSS = findCoordinator(roundR);
 
         if (coordinatorMSS == null) {
@@ -274,10 +277,18 @@ public class MSSNode extends Node implements Resettable {
         }
     }
 
-    private void setupRound() {
-        nbPositiveAck.put(roundR, 0);
-        nbNegativeAck.put(roundR, 0);
-        log.put(roundR, new HashSet<>());
+    private void setupRound(long roundR) {
+        if (!nbPositiveAck.containsKey(roundR)) {
+            nbPositiveAck.put(roundR, 0);
+        }
+
+        if (!nbNegativeAck.containsKey(roundR)) {
+            nbNegativeAck.put(roundR, 0);
+        }
+
+        if (!log.containsKey(roundR)) {
+            log.put(roundR, new HashSet<>());
+        }
     }
 
     private void phase2CallbackWhenReceivedMajority() {
