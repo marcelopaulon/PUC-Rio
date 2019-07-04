@@ -197,8 +197,7 @@ public class MSSNode extends Node implements Resettable {
                     }
 
                     if (this == newEstimateMessage.getMssNode()) {
-                        log("RECEIVED SELF NEW ESTIMATE MESSAGE");
-                        JOptionPane.showMessageDialog(null, "IT'S ME, PHASE 4");
+                        log("RECEIVED SELF NEW ESTIMATE MESSAGE WILL ENTER PHASE 4");
                         setRoundPhase(4);
                     } else {
                         setRoundPhase(1);
@@ -296,6 +295,9 @@ public class MSSNode extends Node implements Resettable {
         }
 
         log("RECEIVED MAJORITY. WILL BROADCAST NEW ESTIMATE MESSAGE TO ALL");
+
+        // Using send direct to send message to self
+        sendDirect(new NewEstimateMessage(this, roundR, v, p, endCollect), this);
 
         broadcast(new NewEstimateMessage(this, roundR, v, p, endCollect)); // was: endCollect
         setRoundPhase(3);
