@@ -14,6 +14,8 @@ import sinalgo.gui.transformation.PositionTransformation;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
+import sinalgo.runtime.Global;
+import sinalgo.tools.Tools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class MSSNode extends Node {
 
@@ -55,6 +58,7 @@ public class MSSNode extends Node {
     public MSSNode() {
         super();
         allMSSNodes.add(this);
+        setupRound();
     }
 
     @Override
@@ -74,10 +78,10 @@ public class MSSNode extends Node {
                     });
 
                     roundPhase = 1;
-                    phase1Callback();
 
                     // localMH /\ globalMH != {} && !endCollect ?
-                    if (localMHs.size() != 0 && !endCollect) {
+                    if (/*localMHs.size() != 0 && */!endCollect) {
+                        Tools.appendToOutput("MSSNode " + getID() + " will broadcast Init3 message");
                         broadcast(new Init3Message());
                     }
                 }
@@ -188,16 +192,32 @@ public class MSSNode extends Node {
 
                     if (this == coordinatorMSS) {
                         roundPhase = 4;
-
-                        // (14) Upon Phase = 4 /\ (Nb_Pi + Nb_Ni) > Maj
-                        if (nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
-                            phase4Callback();
-                        }
                     } else {
                         roundPhase = 1;
-                        phase1Callback();
                     }
                 }
+            }
+        }
+
+        if (roundPhase == 1) {
+            phase1Callback();
+        }
+        else if (roundPhase == 2) {
+            if (log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
+                // (11) Upon Phase = 2 /\ (|Log| > Maj)
+                phase2CallbackWhenReceivedMajority();
+            }
+        }
+        else if (roundPhase == 3) {
+            if (suspectedMSSs.contains(coordinatorMSS)) {
+                // (13) Upon Phase = 3 /\ (MSSc is Suspected)
+                phase3CallbackWhenSuspectedCoordinator();
+            }
+        }
+        else if (roundPhase == 4) {
+            if (nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
+                // (14) Upon Phase = 4 /\ (Nb_Pi + Nb_Ni) > Maj
+                phase4Callback();
             }
         }
     }
@@ -220,19 +240,9 @@ public class MSSNode extends Node {
 
         if (this == coordinatorMSS) { // i == c
             roundPhase = 2;
-
-            // (11) Upon Phase = 2 /\ (|Log| > Maj)
-            if (log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
-                phase2CallbackWhenReceivedMajority();
-            }
         }
         else {
             roundPhase = 3;
-
-            // (13) Upon Phase = 3 /\ (MSSc is Suspected)
-            if (suspectedMSSs.contains(coordinatorMSS)) {
-                phase3CallbackWhenSuspectedCoordinator();
-            }
         }
     }
 
@@ -261,16 +271,11 @@ public class MSSNode extends Node {
 
         broadcast(new NewEstimateMessage(this, roundR, v, p, endCollect));
         roundPhase = 3;
-        // (13) Upon Phase = 3 /\ (MSSc is Suspected)
-        if (suspectedMSSs.contains(coordinatorMSS)) {
-            phase3CallbackWhenSuspectedCoordinator();
-        }
     }
 
     private void phase3CallbackWhenSuspectedCoordinator() {
         send(new NegativeAckMessage(this, roundR), coordinatorMSS);
         roundPhase = 1;
-        phase1Callback();
     }
 
     private void phase4Callback() {
@@ -288,7 +293,6 @@ public class MSSNode extends Node {
         }
         else {
             roundPhase = 1;
-            phase1Callback();
         }
     }
 
@@ -304,7 +308,7 @@ public class MSSNode extends Node {
                 return mssNode;
             }
         }
-
+        Global.getLog().logln("Unable to find in list of " + allMSSNodes.size() + " coordinator with id " + coordinatorId);
         return null;
     }
 

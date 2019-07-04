@@ -5,12 +5,15 @@ import projects.badacheAndHurfinAndMacedo99.nodes.messages.Init1Message;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.Init3Message;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.ProposeMessage;
 import projects.badacheAndHurfinAndMacedo99.nodes.timers.SendMessageTimer;
+import sinalgo.Run;
 import sinalgo.exception.WrongConfigurationException;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.edges.Edge;
 import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 import sinalgo.runtime.Global;
+import sinalgo.runtime.SinalgoRuntime;
+import sinalgo.tools.Tools;
 
 import javax.swing.*;
 import java.util.HashSet;
@@ -47,11 +50,12 @@ public class MHNode extends Node {
 
             if (message instanceof Init3Message && inbox.getSender() == connectedMSS) {
                 // (2) Upon receipt of INIT_3 from MSSi
+                Tools.appendToOutput("Will send proposal message");
                 send(new ProposeMessage(this, initialValue), connectedMSS);
             }
             else if (message instanceof DecideMessage) {
                 // (3) Upon receipt of DECIDE(Decided_Value) from MSSi the decision value is delivered to the application
-                Global.getLog().logln("Decided received - " + ((DecideMessage) message).getDecidedValue());
+                Tools.appendToOutput("Decided received - " + ((DecideMessage) message).getDecidedValue());
             }
         }
     }
