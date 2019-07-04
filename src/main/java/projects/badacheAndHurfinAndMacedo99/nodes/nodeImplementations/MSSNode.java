@@ -170,12 +170,22 @@ public class MSSNode extends Node implements Resettable {
             // (8) Upon receipt of PA(MSSj, rj)
             else if (message instanceof PositiveAckMessage) {
                 PositiveAckMessage positiveAckMessage = (PositiveAckMessage) message;
+
+                if (!nbPositiveAck.containsKey(positiveAckMessage.getRound())) {
+                    setupRound(positiveAckMessage.getRound());
+                }
+
                 nbPositiveAck.put(positiveAckMessage.getRound(), nbPositiveAck.get(positiveAckMessage.getRound()) + 1);
                 log("\nRECEIVED POSITIVE ACK IN PHASE=" + roundPhase + "\n");
             }
             // (9) Upon receipt of NA(MSSj, rj)
             else if (message instanceof NegativeAckMessage) {
                 NegativeAckMessage negativeAckMessage = (NegativeAckMessage) message;
+
+                if (!nbNegativeAck.containsKey(negativeAckMessage.getRound())) {
+                    setupRound(negativeAckMessage.getRound());
+                }
+
                 nbNegativeAck.put(negativeAckMessage.getRound(), nbNegativeAck.get(negativeAckMessage.getRound()) + 1);
             }
             // (12) Upon receipt of NEW_EST(MSSc, ri, Vc, Pc, End_collectc)
