@@ -17,7 +17,7 @@ public class ProposeMessage extends Message {
         return new ProposeMessage(MHNode, value);
     }
 
-    public projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.MHNode getMHNode() {
+    public MHNode getMHNode() {
         return MHNode;
     }
 

@@ -4,6 +4,7 @@ import projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.MHNode;
 import projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.MSSNode;
 import sinalgo.nodes.messages.Message;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class EstimateMessage extends Message {
@@ -13,11 +14,16 @@ public class EstimateMessage extends Message {
     private Set<MHNode> p;
     private long ts;
 
-    public EstimateMessage(MSSNode mssNode, long roundR, Set<String> newV, Set<MHNode> p, long ts) {
+    public EstimateMessage(MSSNode mssNode, long roundR, Set<String> v, Set<MHNode> p, long ts) {
         this.mssNode = mssNode;
         this.roundR = roundR;
-        this.newV = newV;
-        this.p = p;
+
+        this.newV = new HashSet<>(v.size());
+        this.newV.addAll(v);
+
+        this.p = new HashSet<>(p.size());
+        this.p.addAll(p);
+
         this.ts = ts;
     }
 

@@ -42,8 +42,8 @@ public class MSSNode extends Node implements Resettable {
 
     private final Set<MHNode> p = new HashSet<>();
 
-    private Set<String> newV = new HashSet<>(); // New_V
-    private Set<String> v = new HashSet<>(); // V
+    private final Set<String> newV = new HashSet<>(); // New_V
+    private final Set<String> v = new HashSet<>(); // V
 
     private final Map<Long, Set<LogEntry>> log = new HashMap<>(); // Log[r]
 
@@ -99,8 +99,8 @@ public class MSSNode extends Node implements Resettable {
                     }
 
                     if (roundPhase > 1) {
-                        log("Will send estimate message to coordinator " + coordinatorMSS);
-                        send(new EstimateMessage(this, roundR, newV, p, ts), coordinatorMSS);
+                        log("Will send estimate message with " + newV.size() + " entries to coordinator " + coordinatorMSS);
+                        sendDirect(new EstimateMessage(this, roundR, newV, p, ts), coordinatorMSS);
                     }
                 }
             }
@@ -109,7 +109,8 @@ public class MSSNode extends Node implements Resettable {
                 if (!decidedState) {
                     DecideMessage decideMessage = (DecideMessage) message;
                     decidedState = true;
-                    v = decideMessage.getDecidedValue();
+                    v.clear();
+                    v.addAll(decideMessage.getDecidedValue());
 
                     // send DECIDE(vj) to all mssS EXCEPT MSSi
                     for (MSSNode mssNode : allMSSNodes) {
@@ -180,7 +181,8 @@ public class MSSNode extends Node implements Resettable {
                     NewEstimateMessage newEstimateMessage = (NewEstimateMessage) message;
 
                     if (newEstimateMessage.isEndCollect()) {
-                        v = newEstimateMessage.getV();
+                        v.clear();
+                        v.addAll(newEstimateMessage.getV());
                         ts = newEstimateMessage.getRoundR();
                         endCollect = true;
                         log("WILL SEND POSITIVE ACK to " + newEstimateMessage.getMssNode() + " (coordinator=" + coordinatorMSS.getID() + ")");
@@ -257,11 +259,12 @@ public class MSSNode extends Node implements Resettable {
         }
 
         if (ts == 0) {
-            v = newV;
+            v.clear();
+            v.addAll(newV);
         }
 
-        log("Will send estimate message to coordinator " + coordinatorMSS.getID());
-        send(new EstimateMessage(this, roundR, v, p, ts), coordinatorMSS);
+        log("Will send estimate message with " + v.size() + " entries (b) to coordinator " + coordinatorMSS.getID());
+        sendDirect(new EstimateMessage(this, roundR, v, p, ts), coordinatorMSS);
 
         if (this == coordinatorMSS) { // i == c
             setRoundPhase(2);
@@ -288,10 +291,11 @@ public class MSSNode extends Node implements Resettable {
             }
         }
 
+        v.clear();
         if (tmax > 0) {
-            v = maxTsLogEntry.getV();
+            v.addAll(maxTsLogEntry.getV());
         } else {
-            v = newV;
+            v.addAll(newV);
         }
 
         log("RECEIVED MAJORITY. WILL BROADCAST NEW ESTIMATE MESSAGE TO ALL");
@@ -305,7 +309,7 @@ public class MSSNode extends Node implements Resettable {
 
     private void phase3CallbackWhenSuspectedCoordinator() {
         log("Will send negative ack to coordinator " + coordinatorMSS.getID());
-        send(new NegativeAckMessage(this, roundR), coordinatorMSS);
+        sendDirect(new NegativeAckMessage(this, roundR), coordinatorMSS);
         setRoundPhase(1);
     }
 
@@ -382,8 +386,8 @@ public class MSSNode extends Node implements Resettable {
 
         p.clear();
 
-        newV = new HashSet<>(); // New_V
-        v = new HashSet<>(); // V
+        newV.clear(); // New_V
+        v.clear(); // V
 
         log.clear(); // Log[r]
 
@@ -405,7 +409,8 @@ public class MSSNode extends Node implements Resettable {
         public LogEntry(MSSNode mssNode, long roundR, Set<String> v, long ts) {
             this.mssNode = mssNode;
             this.roundR = roundR;
-            this.v = v;
+            this.v = new HashSet<>();
+            this.v.addAll(v);
             this.ts = ts;
         }
 

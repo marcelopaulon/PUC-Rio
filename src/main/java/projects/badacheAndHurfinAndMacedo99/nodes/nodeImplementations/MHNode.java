@@ -58,7 +58,7 @@ public class MHNode extends Node implements Resettable {
                 if (decidedValue != null && !decidedValue.isEmpty()) {
                     decidedText = decidedValue.size() + " entries. sample = " + decidedValue.iterator().next();
                 }
-                
+
                 log("Decided received - " + decidedText);
             }
         }
