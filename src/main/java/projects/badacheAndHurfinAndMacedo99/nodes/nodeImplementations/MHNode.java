@@ -83,6 +83,8 @@ public class MHNode extends Node implements Resettable {
 
         if (foundMSS != null && foundMSS != connectedMSS) {
             // HANDOVER START
+            log("HANDOFF - Will send proposal message");
+            send(new ProposeMessage(this, initialValue), foundMSS);
         }
 
         connectedMSS = foundMSS;
