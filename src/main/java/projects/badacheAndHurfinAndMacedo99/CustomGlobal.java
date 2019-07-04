@@ -36,10 +36,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package projects.badacheAndHurfinAndMacedo99;
 
+import projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.MSSNode;
 import projects.badacheAndHurfinAndMacedo99.nodes.nodeImplementations.Resettable;
 import sinalgo.nodes.Node;
 import sinalgo.runtime.AbstractCustomGlobal;
 import sinalgo.runtime.SinalgoRuntime;
+import sinalgo.tools.Tools;
+
+import javax.swing.*;
 
 /**
  * This class holds customized global state and methods for the framework. The
@@ -95,6 +99,17 @@ public class CustomGlobal extends AbstractCustomGlobal {
             if (node instanceof Resettable) {
                 ((Resettable) node).reset();
             }
+        }
+    }
+
+    @CustomButton(buttonText = "ALPHA", toolTipText = "Change alpha value (will reset the simulation)")
+    public void changeAlpha() {
+        String s = JOptionPane.showInputDialog("New alpha value (default=3):");
+        try {
+            MSSNode.alpha = Integer.parseInt(s);
+            reset();
+        } catch (NumberFormatException e) {
+            Tools.appendToOutput("[ERROR] Unable to set alpha value - invalid alpha");
         }
     }
 }

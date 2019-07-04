@@ -53,7 +53,7 @@ public class MSSNode extends Node implements Resettable {
     private boolean endCollect = false;
 
     private MSSNode coordinatorMSS;
-    private static final int alpha = 3;
+    public static int alpha = 3;
 
     public MSSNode() {
         super();
