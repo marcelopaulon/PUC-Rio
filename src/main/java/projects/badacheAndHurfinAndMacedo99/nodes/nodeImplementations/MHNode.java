@@ -4,6 +4,7 @@ import projects.badacheAndHurfinAndMacedo99.nodes.messages.DecideMessage;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.Init1Message;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.Init3Message;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.ProposeMessage;
+import projects.badacheAndHurfinAndMacedo99.nodes.timers.SendMessageTimer;
 import sinalgo.exception.WrongConfigurationException;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.edges.Edge;
@@ -35,7 +36,8 @@ public class MHNode extends Node {
         }
 
         // (1) Upon the application requires to start a consensus send INIT_1 to MSSi
-        send(new Init1Message(), connectedMSS);
+        SendMessageTimer timer = new SendMessageTimer(new Init1Message(), this, connectedMSS);
+        timer.startRelative(1e-9, this);
     }
 
     @Override
@@ -86,11 +88,13 @@ public class MHNode extends Node {
             }
         }
 
-        if (!mssNodeSet.contains(connectedMSS) && !mssNodeSet.isEmpty()) {
-            return mssNodeSet.iterator().next();
+        if (!mssNodeSet.isEmpty()) {
+            if (connectedMSS == null || !mssNodeSet.contains(connectedMSS)) {
+                return mssNodeSet.iterator().next();
+            }
         }
 
-        return null;
+        return connectedMSS;
     }
 
     @Override

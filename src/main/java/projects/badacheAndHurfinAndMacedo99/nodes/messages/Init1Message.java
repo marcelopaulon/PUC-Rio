@@ -5,6 +5,6 @@ import sinalgo.nodes.messages.Message;
 public class Init1Message extends Message {
     @Override
     public Message clone() {
-        return null;
+        return new Init1Message();
     }
 }

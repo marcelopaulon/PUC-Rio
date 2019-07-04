@@ -10,11 +10,13 @@ import projects.badacheAndHurfinAndMacedo99.nodes.messages.NewEstimateMessage;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.PositiveAckMessage;
 import projects.badacheAndHurfinAndMacedo99.nodes.messages.ProposeMessage;
 import sinalgo.exception.WrongConfigurationException;
+import sinalgo.gui.transformation.PositionTransformation;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -353,5 +355,26 @@ public class MSSNode extends Node {
         public long getTs() {
             return ts;
         }
+    }
+
+
+    @Override
+    public void draw(Graphics g, PositionTransformation pt, boolean highlight) {
+        // set the color of this node
+
+        if (this.decidedState) {
+            this.setColor(Color.GREEN);
+        }
+        else if (this.endCollect) {
+            this.setColor(Color.RED);
+        }
+        else {
+            this.setColor(Color.GRAY);
+        }
+
+        String text = "" + roundPhase;
+        // draw the node as a circle with the text inside
+        super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.YELLOW);
+        // super.drawNodeAsSquareWithText(g, pt, highlight, text, 10, Color.YELLOW);
     }
 }
