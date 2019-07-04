@@ -23,9 +23,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
-public class MSSNode extends Node {
+public class MSSNode extends Node implements Resettable {
 
     private static final Set<MSSNode> allMSSNodes = new HashSet<>();
 
@@ -35,6 +34,7 @@ public class MSSNode extends Node {
     private long roundR = 0; // r
 
     private int roundPhase = 0; // Phase
+    private boolean phaseEnteredCallback = false;
 
     private boolean decidedState = false; // State
 
@@ -53,7 +53,7 @@ public class MSSNode extends Node {
     private boolean endCollect = false;
 
     private MSSNode coordinatorMSS;
-    private static final int alpha = 5;
+    private static final int alpha = 3;
 
     public MSSNode() {
         super();
@@ -73,15 +73,16 @@ public class MSSNode extends Node {
                     final MSSNode me = this;
                     allMSSNodes.forEach(node -> {
                         if (node != me) {
+                            log("SEND INIT 2");
                             send(new Init2Message(), node);
                         }
                     });
 
-                    roundPhase = 1;
+                    setRoundPhase(1);
 
                     // localMH /\ globalMH != {} && !endCollect ?
                     if (/*localMHs.size() != 0 && */!endCollect) {
-                        Tools.appendToOutput("MSSNode " + getID() + " will broadcast Init3 message");
+                        log("Will broadcast Init3 message");
                         broadcast(new Init3Message());
                     }
                 }
@@ -98,6 +99,7 @@ public class MSSNode extends Node {
                     }
 
                     if (roundPhase > 1) {
+                        log("Will send estimate message to coordinator " + coordinatorMSS);
                         send(new EstimateMessage(this, roundR, newV, p, ts), coordinatorMSS);
                     }
                 }
@@ -118,8 +120,9 @@ public class MSSNode extends Node {
                         send(new DecideMessage(v), mssNode);
                     }
 
+                    log("DecideMessage received and not in decided state. Will broadcast it");
                     broadcast(new DecideMessage(v));
-                    roundPhase = 0;
+                    setRoundPhase(0);
                 }
             }
             // (7) Upon receipt of ESTIMATE (MSSj, r, Vj, tsj)
@@ -129,19 +132,19 @@ public class MSSNode extends Node {
                 /*
                 BEGIN LOG UPDATE
                  */
-                Set<LogEntry> logEntries = log.get(roundR);
-                logEntries.add(new LogEntry(this, roundR, v, ts));
+                Set<LogEntry> logEntries = log.get(estimateMessage.getRoundR());
+                logEntries.add(new LogEntry(estimateMessage.getMssNode(), estimateMessage.getRoundR(), estimateMessage.getNewV(), estimateMessage.getTs()));
                 Set<LogEntry> removedEntries = new HashSet<>();
 
-                long maxVsize = v.size();
+                long maxVsize = estimateMessage.getNewV().size();
                 for (LogEntry logEntry : logEntries) {
-                    if (logEntry.getMssNode() == this && logEntry.getTs() == ts && logEntry.getV().size() > maxVsize) { // TODO: Maybe use a multi set instead?
+                    if (logEntry.getMssNode() == estimateMessage.getMssNode() && logEntry.getTs() == estimateMessage.getTs() && logEntry.getV().size() > maxVsize) { // TODO: Maybe use a multi set instead?
                         maxVsize = logEntry.getV().size();
                     }
                 }
 
                 for (LogEntry logEntry : logEntries) {
-                    if (logEntry.getMssNode() == this && logEntry.getTs() == ts && logEntry.getV().size() < maxVsize) {
+                    if (logEntry.getMssNode() == estimateMessage.getMssNode() && logEntry.getTs() == estimateMessage.getTs() && logEntry.getV().size() < maxVsize) {
                         removedEntries.add(logEntry);
                     }
                 }
@@ -164,6 +167,7 @@ public class MSSNode extends Node {
             else if (message instanceof PositiveAckMessage) {
                 PositiveAckMessage positiveAckMessage = (PositiveAckMessage) message;
                 nbPositiveAck.put(positiveAckMessage.getRound(), nbPositiveAck.get(positiveAckMessage.getRound()) + 1);
+                log("\nRECEIVED POSITIVE ACK IN PHASE=" + roundPhase + "\n");
             }
             // (9) Upon receipt of NA(MSSj, rj)
             else if (message instanceof NegativeAckMessage) {
@@ -179,9 +183,11 @@ public class MSSNode extends Node {
                         v = newEstimateMessage.getV();
                         ts = newEstimateMessage.getRoundR();
                         endCollect = true;
-                        send(new PositiveAckMessage(this, roundR), coordinatorMSS);
+                        log("WILL SEND POSITIVE ACK to " + newEstimateMessage.getMssNode() + " (coordinator=" + coordinatorMSS.getID() + ")");
+                        send(new PositiveAckMessage(this, newEstimateMessage.getRoundR()), newEstimateMessage.getMssNode());
                     } else {
-                        send(new NegativeAckMessage(this, roundR), coordinatorMSS);
+                        log("WILL SEND NEGATIVE ACK to " + newEstimateMessage.getMssNode() + " (coordinator=" + coordinatorMSS.getID() + ")");
+                        send(new NegativeAckMessage(this, newEstimateMessage.getRoundR()), newEstimateMessage.getMssNode());
                         p.addAll(newEstimateMessage.getP());
                         newV.addAll(newEstimateMessage.getV());
 
@@ -190,35 +196,54 @@ public class MSSNode extends Node {
                         }
                     }
 
-                    if (this == coordinatorMSS) {
-                        roundPhase = 4;
+                    if (this == newEstimateMessage.getMssNode()) {
+                        log("RECEIVED SELF NEW ESTIMATE MESSAGE");
+                        JOptionPane.showMessageDialog(null, "IT'S ME, PHASE 4");
+                        setRoundPhase(4);
                     } else {
-                        roundPhase = 1;
+                        setRoundPhase(1);
                     }
                 }
             }
         }
 
+        onPhaseChanged();
+    }
+
+    private void setRoundPhase(int phase) {
+        roundPhase = phase;
+        phaseEnteredCallback = false;
+        onPhaseChanged();
+    }
+
+    private void log(String message) {
+        Tools.appendToOutput("\n [MSSNode " + getID() + " r=" + roundR + "]: " + message + ".");
+    }
+
+    private void onPhaseChanged() {
+        if (phaseEnteredCallback) {
+            // Call back was already called for this phase
+            return;
+        }
+
         if (roundPhase == 1) {
+            phaseEnteredCallback = true;
             phase1Callback();
         }
-        else if (roundPhase == 2) {
-            if (log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
-                // (11) Upon Phase = 2 /\ (|Log| > Maj)
-                phase2CallbackWhenReceivedMajority();
-            }
+        else if (roundPhase == 2 && log.get(roundR).size() > (allMSSNodes.size() / 2.0)) {
+            // (11) Upon Phase = 2 /\ (|Log| > Maj)
+            phaseEnteredCallback = true;
+            phase2CallbackWhenReceivedMajority();
         }
-        else if (roundPhase == 3) {
-            if (suspectedMSSs.contains(coordinatorMSS)) {
-                // (13) Upon Phase = 3 /\ (MSSc is Suspected)
-                phase3CallbackWhenSuspectedCoordinator();
-            }
+        else if (roundPhase == 3 && suspectedMSSs.contains(coordinatorMSS)) {
+            // (13) Upon Phase = 3 /\ (MSSc is Suspected)
+            phaseEnteredCallback = true;
+            phase3CallbackWhenSuspectedCoordinator();
         }
-        else if (roundPhase == 4) {
-            if (nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
-                // (14) Upon Phase = 4 /\ (Nb_Pi + Nb_Ni) > Maj
-                phase4Callback();
-            }
+        else if (roundPhase == 4 && nbPositiveAck.get(roundR) + nbNegativeAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
+            // (14) Upon Phase = 4 /\ (Nb_Pi + Nb_Ni) > Maj
+            phaseEnteredCallback = true;
+            phase4Callback();
         }
     }
 
@@ -236,13 +261,14 @@ public class MSSNode extends Node {
             v = newV;
         }
 
-        send(new EstimateMessage(coordinatorMSS, roundR, v, p, ts), coordinatorMSS);
+        log("Will send estimate message to coordinator " + coordinatorMSS.getID());
+        send(new EstimateMessage(this, roundR, v, p, ts), coordinatorMSS);
 
         if (this == coordinatorMSS) { // i == c
-            roundPhase = 2;
+            setRoundPhase(2);
         }
         else {
-            roundPhase = 3;
+            setRoundPhase(3);
         }
     }
 
@@ -269,17 +295,22 @@ public class MSSNode extends Node {
             v = newV;
         }
 
-        broadcast(new NewEstimateMessage(this, roundR, v, p, endCollect));
-        roundPhase = 3;
+        log("RECEIVED MAJORITY. WILL BROADCAST NEW ESTIMATE MESSAGE TO ALL");
+
+        broadcast(new NewEstimateMessage(this, roundR, v, p, endCollect)); // was: endCollect
+        setRoundPhase(3);
     }
 
     private void phase3CallbackWhenSuspectedCoordinator() {
+        log("Will send negative ack to coordinator " + coordinatorMSS.getID());
         send(new NegativeAckMessage(this, roundR), coordinatorMSS);
-        roundPhase = 1;
+        setRoundPhase(1);
     }
 
     private void phase4Callback() {
+        log("ENTER PHASE 4");
         if (nbPositiveAck.get(roundR) > (allMSSNodes.size() / 2.0)) {
+            log("PHASE 4 - WILL SEND DECIDE MESSAGE");
             // Send DECIDE(V) to all MSSs except MSSi
             for (MSSNode mssNode : allMSSNodes) {
                 if (this == mssNode) {
@@ -287,12 +318,14 @@ public class MSSNode extends Node {
                 }
 
                 send(new DecideMessage(v), mssNode);
-                decidedState = true;
-                roundPhase = 0;
             }
+
+            decidedState = true;
+            setRoundPhase(0);
         }
         else {
-            roundPhase = 1;
+            log("LEAVE PHASE 4");
+            setRoundPhase(1);
         }
     }
 
@@ -329,6 +362,36 @@ public class MSSNode extends Node {
     @Override
     public void checkRequirements() throws WrongConfigurationException {
 
+    }
+
+    @Override
+    public void reset() {
+        localMHs.clear();
+        suspectedMSSs.clear();
+
+        roundR = 0; // r
+
+        roundPhase = 0; // Phase
+        phaseEnteredCallback = false;
+
+        decidedState = false; // State
+
+        ts = 0;
+
+        p.clear();
+
+        newV = new HashSet<>(); // New_V
+        v = new HashSet<>(); // V
+
+        log.clear(); // Log[r]
+
+        nbPositiveAck = new HashMap<>(); // Nb_P[r]
+        nbNegativeAck = new HashMap<>(); // Nb_N[r]
+
+        endCollect = false;
+
+        coordinatorMSS = null;
+        init();
     }
 
     private class LogEntry {
@@ -378,7 +441,12 @@ public class MSSNode extends Node {
 
         String text = "" + roundPhase;
         // draw the node as a circle with the text inside
-        super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.YELLOW);
+        if (findCoordinator(roundR) == this) {
+            super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.GREEN);
+        }
+        else {
+            super.drawNodeAsDiskWithText(g, pt, highlight, text, 10, Color.YELLOW);
+        }
         // super.drawNodeAsSquareWithText(g, pt, highlight, text, 10, Color.YELLOW);
     }
 }

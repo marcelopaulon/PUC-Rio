@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.UUID;
 
 // Mobile host hk
-public class MHNode extends Node {
+public class MHNode extends Node implements Resettable {
     // Initial_Value
     private final String initialValue = UUID.randomUUID().toString();
 
@@ -114,5 +114,11 @@ public class MHNode extends Node {
     @Override
     public void checkRequirements() throws WrongConfigurationException {
 
+    }
+
+    @Override
+    public void reset() {
+        connectedMSS = null;
+        init();
     }
 }
