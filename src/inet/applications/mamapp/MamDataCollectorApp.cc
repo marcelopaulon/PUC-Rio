@@ -46,8 +46,11 @@ void MamDataCollectorApp::initialize(int stage)
         WATCH(numReceived);
 
         localPort = par("localPort");
+        destPort = par("destPort");
         startTime = par("startTime");
         stopTime = par("stopTime");
+        dontFragment = par("dontFragment");
+
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
         selfMsg = new cMessage("UDPSinkTimer");
@@ -116,9 +119,9 @@ void MamDataCollectorApp::finish()
 
 void MamDataCollectorApp::setSocketOptions()
 {
-    bool receiveBroadcast = par("receiveBroadcast");
-    if (receiveBroadcast)
-        socket.setBroadcast(true);
+    //bool receiveBroadcast = par("receiveBroadcast");
+    //if (receiveBroadcast)
+    socket.setBroadcast(true);
 
     MulticastGroupList mgl = getModuleFromPar<IInterfaceTable>(par("interfaceTableModule"), this)->collectMulticastGroups();
     socket.joinLocalMulticastGroups(mgl);
@@ -169,7 +172,10 @@ void MamDataCollectorApp::sendDiscoveryPacket()
     std::ostringstream str;
     str << "MAMCDISCOVERY";
     Packet *packet = new Packet(str.str().c_str());
-    packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
     const auto& payload = makeShared<ApplicationPacket>();
     payload->setChunkLength(B(1));
     payload->setSequenceNumber(1);
@@ -178,8 +184,11 @@ void MamDataCollectorApp::sendDiscoveryPacket()
     L3Address broadcastAddr;
     broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
 
+    //char addr[1024] = "host1";
+    //L3AddressResolver().tryResolve(addr, broadcastAddr);
+
     emit(packetSentSignal, packet);
-    socket.sendTo(packet, broadcastAddr, 5000);
+    socket.sendTo(packet, broadcastAddr, destPort);
     numSentDiscovery++;
 }
 

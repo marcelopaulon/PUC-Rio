@@ -30,6 +30,7 @@ simple MamDataCollectorApp like IApp
         double startTime @unit(s) = default(0s); // application start time
         double stopTime @unit(s) = default(-1s);  // time of finishing receiving
         int localPort; // local port
+        int destPort;
         bool receiveBroadcast = default(false); // if true, makes the socket receive broadcast packets
         string multicastGroup = default(""); // if non-empty, makes the socket receive multicast packets sent to that group
         string multicastSources = default(""); // if non-empty, than the socket receives multicast packets from those sources only
@@ -39,6 +40,8 @@ simple MamDataCollectorApp like IApp
         double stopOperationExtraTime @unit(s) = default(-1s);    // extra time after lifecycle stop operation finished
         double stopOperationTimeout @unit(s) = default(2s);    // timeout value for lifecycle stop operation
         volatile double sendDiscoveryInterval @unit(s) = default(1s); // should usually be a small value, e.g. 1
+        bool dontFragment = default(false); // if true, asks IP to not fragment the message during routing
+        
         @signal[packetSent](type=inet::Packet); // Discovery packet
         @signal[packetReceived](type=inet::Packet);
         @statistic[packetReceived](title="packets received"; source=packetReceived; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);

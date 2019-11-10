@@ -56,6 +56,6 @@ network MAM1
             @display("p=1003.632,635.922");
         }
         collector1: <default("WirelessHost")> like INetworkNode {
-            @display("p=393.12003,619.92004");
+            @display("p=394.592,460.67203");
         }
 }

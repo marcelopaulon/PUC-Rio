@@ -35,10 +35,12 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
     enum SelfMsgKinds { START = 1, STOP = 2, DISCOVERY = 3 };
 
     UdpSocket socket;
-    int localPort = -1;
+    int localPort = -1, destPort = -1;
     L3Address multicastGroup;
     simtime_t startTime;
     simtime_t stopTime;
+    bool dontFragment = false;
+
     cMessage *selfMsg = nullptr;
     int numSentDiscovery = 0;
     int numReceived = 0;

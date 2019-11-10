@@ -16,6 +16,8 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
+#include <string.h>
+
 #include "inet/applications/base/ApplicationPacket_m.h"
 #include "inet/applications/mamapp/MamNodeApp.h"
 #include "inet/common/ModuleAccess.h"
@@ -155,7 +157,7 @@ void MamNodeApp::processStart()
 
 void MamNodeApp::processSend()
 {
-    sendPacket();
+    //sendPacket();
     simtime_t d = simTime() + par("sendInterval");
     if (stopTime < SIMTIME_ZERO || d < stopTime) {
         selfMsg->setKind(SEND);
@@ -193,8 +195,14 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
                 throw cRuntimeError("Invalid kind %d in self message", (int)selfMsg->getKind());
         }
     }
-    else
-        socket.processMessage(msg);
+    else {
+        if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
+            EV_ERROR << "RECEIVED DISCOVERY MESSAGE " << endl;
+        }
+        else {
+            socket.processMessage(msg);
+        }
+    }
 }
 
 void MamNodeApp::socketDataArrived(UdpSocket *socket, Packet *packet)
