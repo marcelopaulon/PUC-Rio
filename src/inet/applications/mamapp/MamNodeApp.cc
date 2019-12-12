@@ -27,6 +27,7 @@
 #include "inet/common/packet/Packet.h"
 #include "inet/networklayer/common/FragmentationTag_m.h"
 #include "inet/networklayer/common/L3AddressResolver.h"
+#include "inet/networklayer/common/L3AddressTag_m.h"
 #include "inet/transportlayer/contract/udp/UdpControlInfo_m.h"
 
 namespace inet {
@@ -196,13 +197,129 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
         }
     }
     else {
-        if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
+        if (strcmp(msg->getName(), "FOUND_MOBILE_SINK") == 0) {
+            EV_ERROR << "RECEIVED FOUND MOBILE SINK MESSAGE " << endl;
+
+            auto packet = check_and_cast<Packet *>(msg);
+
+            auto l3Addresses = packet->getTag<L3AddressInd>();
+            L3Address srcAddr = l3Addresses->getSrcAddress();
+
+            processFoundMobileSink(srcAddr);
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), "DISCONNECTED_MOBILE_SINK") == 0) {
+            EV_ERROR << "RECEIVED DISCONNECTED_MOBILE_SINK MESSAGE " << endl;
+            auto packet = check_and_cast<Packet *>(msg);
+
+            auto l3Addresses = packet->getTag<L3AddressInd>();
+            L3Address srcAddr = l3Addresses->getSrcAddress();
+
+            // If the src is the mobile sink currently connected to
+            if (srcAddr == mobileSink) {
+                L3Address empty;
+                mobileSink = empty;
+            }
+
+            broadcastSimpleMessage("DISCONNECTED_MOBILE_SINK");
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
             EV_ERROR << "RECEIVED DISCOVERY MESSAGE " << endl;
+            auto packet = check_and_cast<Packet *>(msg);
+
+            auto l3Addresses = packet->getTag<L3AddressInd>();
+            L3Address srcAddr = l3Addresses->getSrcAddress();
+
+            processDiscovery(srcAddr);
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), "DATA_SEND") == 0) {
+            EV_ERROR << "RECEIVED DATA_SEND MESSAGE " << endl;
+            auto packet = check_and_cast<Packet *>(msg);
+
+            auto l3Addresses = packet->getTag<L3AddressInd>();
+            L3Address srcAddr = l3Addresses->getSrcAddress();
+
+            processDataSend(packet, srcAddr);
+            delete msg;
         }
         else {
             socket.processMessage(msg);
         }
     }
+}
+
+void MamNodeApp::processDiscovery(L3Address &src) {
+    EV_ERROR << "PROCESSING processDiscovery MESSAGE " << endl;
+
+    mobileSink = L3Address(src);
+    sendMyDataToSink();
+    broadcastSimpleMessage("FOUND_MOBILE_SINK");
+}
+
+void MamNodeApp::sendMyDataToSink() {
+
+}
+
+void MamNodeApp::processFoundMobileSink(L3Address &src) {
+    EV_ERROR << "PROCESSING processFoundMobileSink MESSAGE " << endl;
+
+    mobileSink = L3Address(src);
+
+    // TODO check that there is data to be sent (maybe do that inside sendMyDataToSink?)
+    sendMyDataToSink();
+
+    // TODO check last time sent found mobile sink broadcast
+    broadcastSimpleMessage("FOUND_MOBILE_SINK");
+}
+
+void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
+    L3Address empty;
+    if (mobileSink == empty) {
+        sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src);
+        return;
+    }
+
+    EV_ERROR << "PROCESSING processDataSend MESSAGE " << endl;
+    sendData(packet, mobileSink); // DATA_SEND
+    sendDataSentAck(packet, src); // DATA_SENT
+}
+
+void MamNodeApp::sendData(Packet *packet, L3Address &dest) {
+
+}
+
+
+void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
+
+}
+
+void MamNodeApp::broadcastSimpleMessage(const char *msg)
+{
+    L3Address broadcastAddr;
+    broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
+
+    sendSimpleMessage(msg, broadcastAddr);
+}
+
+void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest)
+{
+    std::ostringstream str;
+    str << msg;
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    const auto& payload = makeShared<ApplicationPacket>();
+    payload->setChunkLength(B(1));
+    payload->setSequenceNumber(1);
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+
+    emit(packetSentSignal, packet);
+    socket.sendTo(packet, dest, destPort);
 }
 
 void MamNodeApp::socketDataArrived(UdpSocket *socket, Packet *packet)

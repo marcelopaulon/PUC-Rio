@@ -53,6 +53,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     int numSent = 0;
     int numReceived = 0;
 
+    L3Address mobileSink;
+
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
     virtual void initialize(int stage) override;
@@ -69,6 +71,17 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processStart();
     virtual void processSend();
     virtual void processStop();
+    virtual void processDiscovery(L3Address &src);
+    virtual void processFoundMobileSink(L3Address &src);
+    virtual void processDataSend(Packet *packet, L3Address &dest);
+
+    virtual void sendData(Packet *packet, L3Address &dest);
+    virtual void sendDataSentAck(Packet *packet, L3Address &dest);
+
+    virtual void sendMyDataToSink();
+
+    virtual void broadcastSimpleMessage(const char *msg);
+    virtual void sendSimpleMessage(const char *msg, L3Address &dest);
 
     virtual void handleStartOperation(LifecycleOperation *operation) override;
     virtual void handleStopOperation(LifecycleOperation *operation) override;
