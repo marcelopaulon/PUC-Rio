@@ -216,8 +216,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
     }
     else {
         if (strcmp(msg->getName(), "FOUND_MOBILE_SINK") == 0) {
-            EV_ERROR << "RECEIVED FOUND MOBILE SINK MESSAGE " << endl;
-
             auto packet = check_and_cast<Packet *>(msg);
 
             auto l3Addresses = packet->getTag<L3AddressInd>();
@@ -227,7 +225,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             delete msg;
         }
         else if (strcmp(msg->getName(), "DISCONNECTED_MOBILE_SINK") == 0) {
-            EV_ERROR << "RECEIVED DISCONNECTED_MOBILE_SINK MESSAGE " << endl;
             auto packet = check_and_cast<Packet *>(msg);
 
             auto l3Addresses = packet->getTag<L3AddressInd>();
@@ -243,7 +240,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             delete msg;
         }
         else if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
-            EV_ERROR << "RECEIVED DISCOVERY MESSAGE " << endl;
             auto packet = check_and_cast<Packet *>(msg);
 
             auto l3Addresses = packet->getTag<L3AddressInd>();
@@ -253,7 +249,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             delete msg;
         }
         else if (strcmp(msg->getName(), "DATA_SEND") == 0) {
-            EV_ERROR << "RECEIVED DATA_SEND MESSAGE " << endl;
             auto packet = check_and_cast<Packet *>(msg);
 
             auto l3Addresses = packet->getTag<L3AddressInd>();
@@ -269,8 +264,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 }
 
 void MamNodeApp::processDiscovery(L3Address &src) {
-    EV_ERROR << "PROCESSING processDiscovery MESSAGE " << endl;
-
     mobileSink = L3Address(src);
     broadcastSimpleMessage("FOUND_MOBILE_SINK");
 }
@@ -286,9 +279,9 @@ void MamNodeApp::sendMyDataToSink() {
 }
 
 void MamNodeApp::processFoundMobileSink(L3Address &src) {
-    EV_ERROR << "PROCESSING processFoundMobileSink MESSAGE " << endl;
-
     mobileSink = L3Address(src);
+
+    sendMyDataToSink();
 
     // TODO check last time sent found mobile sink broadcast
     broadcastSimpleMessage("FOUND_MOBILE_SINK");
@@ -301,7 +294,6 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
         return;
     }
 
-    EV_ERROR << "PROCESSING processDataSend MESSAGE " << endl;
     sendData(packet, mobileSink); // DATA_SEND
     sendDataSentAck(packet, src); // DATA_SENT
 }

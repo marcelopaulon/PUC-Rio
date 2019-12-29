@@ -47,13 +47,13 @@ network MAM1
             @display("p=293.328,387.07202");
         }
         host2: <default("SensorNode")> like INetworkNode {
-            @display("p=310.46402,57.456");
+            @display("p=219.00801,258.656");
         }
         host3: <default("SensorNode")> like INetworkNode {
-            @display("p=785.89,410.97");
+            @display("p=366.272,485.216");
         }
         host4: <default("SensorNode")> like INetworkNode {
-            @display("p=1003.632,635.922");
+            @display("p=483.328,606.04803");
         }
         collector1: <default("WirelessHost")> like INetworkNode {
             @display("p=394.592,460.67203");
