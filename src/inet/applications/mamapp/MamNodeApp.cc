@@ -55,6 +55,11 @@ void MamNodeApp::initialize(int stage)
         WATCH(numDataResent);
         WATCH(numDataAckReceived);
 
+        L3Address empty;
+        mobileSink = empty;
+
+        scheduledSendData = false;
+
         localPort = par("localPort");
         destPort = par("destPort");
         startTime = par("startTime");
