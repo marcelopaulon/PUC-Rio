@@ -34,7 +34,7 @@ namespace inet {
 class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 {
   protected:
-    enum SelfMsgKinds { START = 1, SEND, STOP };
+    enum SelfMsgKinds { START = 1, SEND, STOP, SEND_DATA };
 
     // parameters
     std::vector<L3Address> destAddresses;
@@ -49,6 +49,11 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     UdpSocket socket;
     cMessage *selfMsg = nullptr;
 
+    simtime_t lastFoundSinkSent;
+    simtime_t lastSensorDataSent;
+
+    bool scheduledSendData = false;
+
     // statistics
     int numSent = 0;
     int numReceived = 0;
@@ -56,6 +61,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     int numDataSent = 0;
     int numDataResent = 0;
     int numDataAckReceived = 0;
+
 
     L3Address mobileSink;
 
@@ -78,6 +84,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     virtual void processStart();
     virtual void processSend();
+    virtual void processSendData();
     virtual void processStop();
     virtual void processDiscovery(L3Address &src);
     virtual void processFoundMobileSink(L3Address &src);

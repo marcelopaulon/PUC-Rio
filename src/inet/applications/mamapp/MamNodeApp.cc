@@ -188,6 +188,21 @@ void MamNodeApp::processSend()
     }
 }
 
+void MamNodeApp::processSendData()
+{
+    scheduledSendData = false;
+
+    L3Address empty;
+    if (mobileSink != empty) {
+        std::ostringstream str;
+        str << "DATA_SEND";
+        sendSimpleMessage(str.str().c_str(), mobileSink);
+        lastSensorDataSent = simTime();
+    } else {
+        EV_ERROR << "MOBILE SINK NOT FOUND WHEN TRYING TO SEND DATA";
+    }
+}
+
 void MamNodeApp::processStop()
 {
     socket.close();
@@ -204,6 +219,10 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 
             case SEND:
                 processSend();
+                break;
+
+            case SEND_DATA:
+                processSendData();
                 break;
 
             case STOP:
@@ -255,7 +274,7 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             L3Address srcAddr = l3Addresses->getSrcAddress();
 
             processDataSend(packet, srcAddr);
-            delete msg;
+            // Do not delete msg as it'll be forwarded somewhere. Only the sink should delete it?
         }
         else {
             socket.processMessage(msg);
@@ -269,12 +288,21 @@ void MamNodeApp::processDiscovery(L3Address &src) {
 }
 
 void MamNodeApp::sendMyDataToSink() {
+    if (scheduledSendData) {
+        // Data send is already scheduled. Skipping.
+        return;
+    }
+
     L3Address empty;
     if (mobileSink != empty) {
-        std::ostringstream str;
-        str << "DATA-" << "TODO-MAKE-RANDOM";
 
-        sendSimpleMessage(str.str().c_str(), mobileSink);
+        simtime_t start = std::max(lastSensorDataSent + simtime_t(100, SIMTIME_MS), simTime());
+
+        scheduledSendData = true;
+
+        cancelEvent(selfMsg);
+        selfMsg->setKind(SEND_DATA);
+        scheduleAt(start, selfMsg);
     }
 }
 
@@ -283,8 +311,11 @@ void MamNodeApp::processFoundMobileSink(L3Address &src) {
 
     sendMyDataToSink();
 
-    // TODO check last time sent found mobile sink broadcast
-    broadcastSimpleMessage("FOUND_MOBILE_SINK");
+    // Check last time sent found mobile sink broadcast and only send it if > 100ms
+    if (simTime().inUnit(SIMTIME_MS) - lastFoundSinkSent.inUnit(SIMTIME_MS) > 100) {
+        lastFoundSinkSent = simTime();
+        broadcastSimpleMessage("FOUND_MOBILE_SINK");
+    }
 }
 
 void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
@@ -295,7 +326,7 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     }
 
     sendData(packet, mobileSink); // DATA_SEND
-    sendDataSentAck(packet, src); // DATA_SENT
+    //sendDataSentAck(packet, src); // DATA_SENT
 }
 
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
