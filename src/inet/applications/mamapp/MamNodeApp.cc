@@ -254,21 +254,23 @@ void MamNodeApp::processDiscovery(L3Address &src) {
     EV_ERROR << "PROCESSING processDiscovery MESSAGE " << endl;
 
     mobileSink = L3Address(src);
-    sendMyDataToSink();
     broadcastSimpleMessage("FOUND_MOBILE_SINK");
 }
 
 void MamNodeApp::sendMyDataToSink() {
+    L3Address empty;
+    if (mobileSink != empty) {
+        std::ostringstream str;
+        str << "DATA-" << "TODO-MAKE-RANDOM";
 
+        sendSimpleMessage(str.str().c_str(), mobileSink);
+    }
 }
 
 void MamNodeApp::processFoundMobileSink(L3Address &src) {
     EV_ERROR << "PROCESSING processFoundMobileSink MESSAGE " << endl;
 
     mobileSink = L3Address(src);
-
-    // TODO check that there is data to be sent (maybe do that inside sendMyDataToSink?)
-    sendMyDataToSink();
 
     // TODO check last time sent found mobile sink broadcast
     broadcastSimpleMessage("FOUND_MOBILE_SINK");
@@ -286,13 +288,11 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     sendDataSentAck(packet, src); // DATA_SENT
 }
 
-void MamNodeApp::sendData(Packet *packet, L3Address &dest) {
-
-}
-
-
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
+    std::ostringstream str;
+    str << "ACK-" << packet->getId();
 
+    sendSimpleMessage(str.str().c_str(), dest);
 }
 
 void MamNodeApp::broadcastSimpleMessage(const char *msg)
@@ -322,6 +322,13 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest)
     socket.sendTo(packet, dest, destPort);
 }
 
+
+void MamNodeApp::sendData(Packet *packet, L3Address &dest) {
+    emit(packetSentSignal, packet);
+    emit(dataSentSignal, packet);
+    socket.sendTo(packet, dest, destPort);
+}
+
 void MamNodeApp::socketDataArrived(UdpSocket *socket, Packet *packet)
 {
     // process incoming packet
@@ -338,6 +345,11 @@ void MamNodeApp::socketClosed(UdpSocket *socket)
 {
     if (operationalState == State::STOPPING_OPERATION)
         startActiveOperationExtraTimeOrFinish(par("stopOperationExtraTime"));
+
+    EV_ERROR << "Socket Closed" << endl;
+
+    L3Address empty;
+    mobileSink = empty;
 }
 
 void MamNodeApp::refreshDisplay() const

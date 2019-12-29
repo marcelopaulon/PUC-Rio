@@ -55,6 +55,10 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     L3Address mobileSink;
 
+    simsignal_t dataSentSignal = cComponent::registerSignal("dataSent");
+    simsignal_t dataResentSignal = cComponent::registerSignal("dataResent");
+    simsignal_t dataAckSignal = cComponent::registerSignal("dataAck");
+
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
     virtual void initialize(int stage) override;
