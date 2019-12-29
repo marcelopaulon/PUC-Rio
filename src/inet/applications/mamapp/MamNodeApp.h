@@ -26,6 +26,8 @@
 #include "inet/applications/base/ApplicationBase.h"
 #include "inet/transportlayer/contract/udp/UdpSocket.h"
 
+#include "LruCache.h"
+
 namespace inet {
 
 /**
@@ -53,6 +55,9 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     simtime_t lastSensorDataSent;
 
     bool scheduledSendData = false;
+
+    // Cache up to 100 packet id's recently sent
+    cache::lru_cache<long, simtime_t> dataSendCache;
 
     // statistics
     int numSent = 0;
@@ -107,7 +112,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void socketClosed(UdpSocket *socket) override;
 
   public:
-    MamNodeApp() {}
+    MamNodeApp() : dataSendCache(100) {}
     ~MamNodeApp();
 };
 

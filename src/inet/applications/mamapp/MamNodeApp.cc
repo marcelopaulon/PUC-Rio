@@ -325,8 +325,27 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
         return;
     }
 
-    sendData(packet, mobileSink); // DATA_SEND
-    //sendDataSentAck(packet, src); // DATA_SENT
+    // We'll try to break loops for cases where awaiting for heartbeats
+    // from the mobile sink have not timed out yet by using a simple cache with TTL for the packet destination + id
+    // If it's on cache, drop the packet. Still need to figure out the implications of doing this..... TODO
+
+    long key = packet->getId();
+    bool inCache = dataSendCache.exists(key);
+
+    if (inCache) {
+        simtime_t expiry = dataSendCache.get(key);
+        if (simTime() > expiry) {
+            sendData(packet, mobileSink); // DATA_SEND
+            //sendDataSentAck(packet, src); // DATA_SENT
+            // TODO invalidate cache (or switch to an LRU cache with time expiration)
+        }
+    }
+    else {
+        dataSendCache.put(key, simTime() + simtime_t(100, SIMTIME_MS));
+        sendData(packet, mobileSink); // DATA_SEND
+        //sendDataSentAck(packet, src); // DATA_SENT
+    }
+
 }
 
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
