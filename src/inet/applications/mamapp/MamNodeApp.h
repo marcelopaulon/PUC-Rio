@@ -53,6 +53,10 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     int numSent = 0;
     int numReceived = 0;
 
+    int numDataSent = 0;
+    int numDataResent = 0;
+    int numDataAckReceived = 0;
+
     L3Address mobileSink;
 
     simsignal_t dataSentSignal = cComponent::registerSignal("dataSent");

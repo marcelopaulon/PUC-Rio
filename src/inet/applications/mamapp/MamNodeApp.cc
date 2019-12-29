@@ -46,8 +46,14 @@ void MamNodeApp::initialize(int stage)
     if (stage == INITSTAGE_LOCAL) {
         numSent = 0;
         numReceived = 0;
+        numDataSent = 0;
+        numDataResent = 0;
+        numDataAckReceived = 0;
         WATCH(numSent);
         WATCH(numReceived);
+        WATCH(numDataSent);
+        WATCH(numDataResent);
+        WATCH(numDataAckReceived);
 
         localPort = par("localPort");
         destPort = par("destPort");
@@ -65,6 +71,18 @@ void MamNodeApp::finish()
 {
     recordScalar("packets sent", numSent);
     recordScalar("packets received", numReceived);
+    recordScalar("data packets sent", numDataSent);
+    recordScalar("data packets resent", numDataResent);
+    recordScalar("ack packets received", numDataAckReceived);
+
+    EV_INFO << getFullPath() << ": sent " << numDataSent << " data packets\n";
+
+    EV_INFO << getFullPath() << ": resent " << numDataResent << " data packets\n";
+
+    EV_INFO << getFullPath() << ": received " << numDataAckReceived << " data ack packets\n";
+
+    EV_INFO << getFullPath() << ": failed to send " << (numDataSent + numDataResent) - numDataAckReceived << " data packets\n";
+
     ApplicationBase::finish();
 }
 
@@ -326,6 +344,7 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest)
 void MamNodeApp::sendData(Packet *packet, L3Address &dest) {
     emit(packetSentSignal, packet);
     emit(dataSentSignal, packet);
+    numDataSent++;
     socket.sendTo(packet, dest, destPort);
 }
 
