@@ -47,6 +47,10 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     bool dontFragment = false;
     const char *packetName = nullptr;
 
+    bool relayNode = false;
+
+    bool mamRelay = true;
+
     // state
     UdpSocket socket;
     cMessage *selfMsg = nullptr;

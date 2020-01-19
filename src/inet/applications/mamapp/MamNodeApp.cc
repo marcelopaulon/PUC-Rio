@@ -66,6 +66,20 @@ void MamNodeApp::initialize(int stage)
         stopTime = par("stopTime");
         packetName = par("packetName");
         dontFragment = par("dontFragment");
+
+        relayNode = par("relayNode");
+
+        const char *relayMode = par("relayMode");
+        if (strcmp(relayMode, "BMesh") == 0) {
+            mamRelay = false;
+        }
+        else if (strcmp(relayMode, "MAM") == 0) {
+            mamRelay = true;
+        }
+        else {
+            throw cRuntimeError ("Invalid relay mode: \"%s\"", relayMode);
+        }
+
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
         selfMsg = new cMessage("sendTimer");
@@ -201,7 +215,14 @@ void MamNodeApp::processSendData()
     if (mobileSink != empty) {
         std::ostringstream str;
         str << "DATA_SEND";
-        sendSimpleMessage(str.str().c_str(), mobileSink);
+
+        if (mamRelay) {
+            sendSimpleMessage(str.str().c_str(), mobileSink);
+        }
+        else {
+            broadcastSimpleMessage(str.str().c_str());
+        }
+
         lastSensorDataSent = simTime();
     } else {
         EV_ERROR << "MOBILE SINK NOT FOUND WHEN TRYING TO SEND DATA";
@@ -260,7 +281,10 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
                 mobileSink = empty;
             }
 
-            broadcastSimpleMessage("DISCONNECTED_MOBILE_SINK");
+            if (relayNode) {
+                broadcastSimpleMessage("DISCONNECTED_MOBILE_SINK");
+            }
+
             delete msg;
         }
         else if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
@@ -289,7 +313,10 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 
 void MamNodeApp::processDiscovery(L3Address &src) {
     mobileSink = L3Address(src);
-    broadcastSimpleMessage("FOUND_MOBILE_SINK");
+
+    if (relayNode) {
+        broadcastSimpleMessage("FOUND_MOBILE_SINK");
+    }
 }
 
 void MamNodeApp::sendMyDataToSink() {
@@ -299,7 +326,9 @@ void MamNodeApp::sendMyDataToSink() {
     }
 
     L3Address empty;
-    if (mobileSink != empty) {
+    // We should schedule the message to be sent if there is a known route to it (mobileSink != empty)
+    // or if we are not using mam custom relay (but using Blueooth Mesh's default relay behavior)
+    if (mobileSink != empty || !mamRelay) {
 
         simtime_t start = std::max(lastSensorDataSent + simtime_t(100, SIMTIME_MS), simTime());
 
@@ -312,14 +341,25 @@ void MamNodeApp::sendMyDataToSink() {
 }
 
 void MamNodeApp::processFoundMobileSink(L3Address &src) {
-    mobileSink = L3Address(src);
+    // Mam Relay behavior to set the route to sink
+    if (mamRelay) {
+        mobileSink = L3Address(src);
+    }
 
     sendMyDataToSink();
 
-    // Check last time sent found mobile sink broadcast and only send it if > 100ms
-    if (simTime().inUnit(SIMTIME_MS) - lastFoundSinkSent.inUnit(SIMTIME_MS) > 100) {
-        lastFoundSinkSent = simTime();
-        broadcastSimpleMessage("FOUND_MOBILE_SINK");
+    if (relayNode) {
+        if (mamRelay) {
+            // Check last time sent found mobile sink broadcast and only send it if > 100ms
+            if (simTime().inUnit(SIMTIME_MS) - lastFoundSinkSent.inUnit(SIMTIME_MS) > 100) {
+                lastFoundSinkSent = simTime();
+                broadcastSimpleMessage("FOUND_MOBILE_SINK");
+            }
+        }
+        else {
+            // Bluetooth Mesh relay should relay the message without a timeout
+            broadcastSimpleMessage("FOUND_MOBILE_SINK");
+        }
     }
 }
 

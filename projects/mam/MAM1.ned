@@ -52,7 +52,25 @@ network MAM1
         host3: <default("SensorNode")> like INetworkNode {
             @display("p=366.272,485.216");
         }
-        host4: <default("SensorNode")> like INetworkNode {
+        host_rly_4: <default("SensorNode")> like INetworkNode {
+            @display("p=483.328,606.04803");
+        }
+        host_rly_5: <default("SensorNode")> like INetworkNode {
+            @display("p=293.328,387.07202");
+        }
+        host_rly_6: <default("SensorNode")> like INetworkNode {
+            @display("p=219.00801,258.656");
+        }
+        host_rly_7: <default("SensorNode")> like INetworkNode {
+            @display("p=366.272,485.216");
+        }
+        host_rly_8: <default("SensorNode")> like INetworkNode {
+            @display("p=483.328,606.04803");
+        }
+        host_rly_9: <default("SensorNode")> like INetworkNode {
+            @display("p=483.328,606.04803");
+        }
+        host_rly_10: <default("SensorNode")> like INetworkNode {
             @display("p=483.328,606.04803");
         }
         collector1: <default("WirelessHost")> like INetworkNode {

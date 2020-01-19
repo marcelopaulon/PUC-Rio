@@ -52,6 +52,7 @@ simple MamNodeApp like IApp
         volatile double sendInterval @unit(s); // should usually be a random value, e.g. exponential(1)
         int timeToLive = default(-1); // if not -1, set the TTL (IPv4) or Hop Limit (IPv6) field of sent packets to this value
         bool dontFragment = default(false); // if true, asks IP to not fragment the message during routing
+        bool relayNode = default(false); // if true, the node will have the relay feature on
         int typeOfService = default(-1); // if not -1, set the ToS (IPv4) or Traffic Class (IPv6) field of sent packets to this value
         string multicastInterface = default("");  // if not empty, set the multicast output interface option on the socket (interface name expected)
         bool joinLocalMulticastGroups = default(false); // if true, makes the socket receive packets from all multicast groups set on local interfaces
@@ -72,6 +73,8 @@ simple MamNodeApp like IApp
         @statistic[packetSent](title="packets sent"; source=packetSent; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);
         @statistic[rcvdPkLifetime](title="received packet lifetime"; source="dataAge(packetReceived)"; unit=s; record=stats,vector; interpolationmode=none);
         @statistic[rcvdPkSeqNo](title="received packet sequence number"; source="appPkSeqNo(packetReceived)"; record=vector; interpolationmode=none);
+    
+        string relayMode = default("MAM");    
     gates:
         input socketIn @labels(UdpControlInfo/up);
         output socketOut @labels(UdpControlInfo/down);
