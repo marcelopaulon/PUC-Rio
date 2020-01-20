@@ -357,7 +357,7 @@ void MamNodeApp::processFoundMobileSink(L3Address &src) {
             }
         }
         else {
-            // Bluetooth Mesh relay should relay the message without a timeout
+            // Bluetooth Mesh relay should relay the message without a timeout but decrease its ttl
             broadcastSimpleMessage("FOUND_MOBILE_SINK");
         }
     }
@@ -378,7 +378,8 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     bool inCache = dataSendCache.exists(key);
 
     if (inCache) {
-        simtime_t expiry = dataSendCache.get(key);
+        double ms = simTime().dbl() * 1000;
+        simtime_t expiry = dataSendCache.get(key, static_cast<long>(ms));
         if (simTime() > expiry) {
             sendData(packet, mobileSink); // DATA_SEND
             //sendDataSentAck(packet, src); // DATA_SENT
