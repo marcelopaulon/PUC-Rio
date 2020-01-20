@@ -150,9 +150,8 @@ void MamNodeApp::sendPacket()
     Packet *packet = new Packet(str.str().c_str());
     if(dontFragment)
         packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
-    const auto& payload = makeShared<ApplicationPacket>();
-    payload->setChunkLength(B(par("messageLength")));
-    payload->setSequenceNumber(numSent);
+    const auto& payload = makeShared<BMeshPacket>();
+    //payload->setChunkLength(B(par("messageLength")));
     payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
     packet->insertAtBack(payload);
     L3Address destAddr = chooseDestAddr();
@@ -217,7 +216,7 @@ void MamNodeApp::processSendData()
         str << "DATA_SEND";
 
         if (mamRelay) {
-            sendSimpleMessage(str.str().c_str(), mobileSink);
+            sendSimpleMessage(str.str().c_str(), mobileSink, 127);
         }
         else {
             broadcastSimpleMessage(str.str().c_str());
@@ -266,7 +265,9 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             auto l3Addresses = packet->getTag<L3AddressInd>();
             L3Address srcAddr = l3Addresses->getSrcAddress();
 
-            processFoundMobileSink(srcAddr);
+            auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
+
+            processFoundMobileSink(srcAddr, bmeshData->getHops());
             delete msg;
         }
         else if (strcmp(msg->getName(), "DISCONNECTED_MOBILE_SINK") == 0) {
@@ -340,7 +341,7 @@ void MamNodeApp::sendMyDataToSink() {
     }
 }
 
-void MamNodeApp::processFoundMobileSink(L3Address &src) {
+void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
     // Mam Relay behavior to set the route to sink
     if (mamRelay) {
         mobileSink = L3Address(src);
@@ -357,8 +358,10 @@ void MamNodeApp::processFoundMobileSink(L3Address &src) {
             }
         }
         else {
-            // Bluetooth Mesh relay should relay the message without a timeout but decrease its ttl
-            broadcastSimpleMessage("FOUND_MOBILE_SINK");
+            if (hops > 0) {
+                // Bluetooth Mesh relay should relay the message without a timeout but decrease its ttl
+                broadcastSimpleMessage("FOUND_MOBILE_SINK", hops--);
+            }
         }
     }
 }
@@ -366,7 +369,7 @@ void MamNodeApp::processFoundMobileSink(L3Address &src) {
 void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     L3Address empty;
     if (mobileSink == empty) {
-        sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src);
+        sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src, 127);
         return;
     }
 
@@ -398,19 +401,32 @@ void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
     std::ostringstream str;
     str << "ACK-" << packet->getId();
 
-    sendSimpleMessage(str.str().c_str(), dest);
+    sendSimpleMessage(str.str().c_str(), dest, 127);
 }
 
 void MamNodeApp::broadcastSimpleMessage(const char *msg)
 {
+    broadcastSimpleMessage(msg, 127);
+}
+
+void MamNodeApp::broadcastSimpleMessage(const char *msg, int hops)
+{
+    if (hops <= 0) {
+        throw cRuntimeError ("Invalid number of hops: %d", hops);
+    }
+
     L3Address broadcastAddr;
     broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
 
-    sendSimpleMessage(msg, broadcastAddr);
+    sendSimpleMessage(msg, broadcastAddr, hops);
 }
 
-void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest)
+void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
 {
+    if (hops <= 0) {
+        throw cRuntimeError ("Invalid number of hops: %d", hops);
+    }
+
     std::ostringstream str;
     str << msg;
     Packet *packet = new Packet(str.str().c_str());
@@ -418,9 +434,9 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest)
     if (dontFragment)
         packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
 
-    const auto& payload = makeShared<ApplicationPacket>();
+    const auto& payload = makeShared<BMeshPacket>();
     payload->setChunkLength(B(1));
-    payload->setSequenceNumber(1);
+    payload->setHops(hops);
     payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
     packet->insertAtBack(payload);
 

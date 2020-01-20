@@ -23,6 +23,7 @@
 
 #include "inet/common/INETDefs.h"
 
+#include "inet/applications/mamapp/BMeshPacket_m.h"
 #include "inet/applications/base/ApplicationBase.h"
 #include "inet/transportlayer/contract/udp/UdpSocket.h"
 
@@ -96,7 +97,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processSendData();
     virtual void processStop();
     virtual void processDiscovery(L3Address &src);
-    virtual void processFoundMobileSink(L3Address &src);
+    virtual void processFoundMobileSink(L3Address &src, int hops);
     virtual void processDataSend(Packet *packet, L3Address &dest);
 
     virtual void sendData(Packet *packet, L3Address &dest);
@@ -105,7 +106,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void sendMyDataToSink();
 
     virtual void broadcastSimpleMessage(const char *msg);
-    virtual void sendSimpleMessage(const char *msg, L3Address &dest);
+    virtual void broadcastSimpleMessage(const char *msg, int hops);
+    virtual void sendSimpleMessage(const char *msg, L3Address &dest, int hops);
 
     virtual void handleStartOperation(LifecycleOperation *operation) override;
     virtual void handleStopOperation(LifecycleOperation *operation) override;

@@ -23,6 +23,6 @@ class BMeshPacket extends FieldsChunk
     chunkLength = B(11);
     MacAddress src;     // source address
     MacAddress dest;    // destination address
-    int hops = 0;		// number of times the message was relayed
+    int hops = 127;		// number of times the message was relayed
 }
 

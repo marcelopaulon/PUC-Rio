@@ -15,7 +15,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "inet/applications/base/ApplicationPacket_m.h"
+#include "inet/applications/mamapp/BMeshPacket_m.h"
 #include "inet/applications/mamapp/MamDataCollectorApp.h"
 #include "inet/common/ModuleAccess.h"
 #include "inet/common/packet/Packet.h"
@@ -176,9 +176,8 @@ void MamDataCollectorApp::sendDiscoveryPacket()
     if (dontFragment)
         packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
 
-    const auto& payload = makeShared<ApplicationPacket>();
+    const auto& payload = makeShared<BMeshPacket>();
     payload->setChunkLength(B(1));
-    payload->setSequenceNumber(1);
     payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
     packet->insertAtBack(payload);
     L3Address broadcastAddr;
