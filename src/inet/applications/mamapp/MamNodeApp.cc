@@ -18,7 +18,6 @@
 
 #include <string.h>
 
-#include "inet/applications/base/ApplicationPacket_m.h"
 #include "inet/applications/mamapp/MamNodeApp.h"
 #include "inet/common/ModuleAccess.h"
 #include "inet/common/TagBase_m.h"
@@ -313,6 +312,7 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 }
 
 void MamNodeApp::processDiscovery(L3Address &src) {
+    // Discovery messages are from the sink, so it is the optimal route for this node
     mobileSink = L3Address(src);
 
     if (relayNode) {
@@ -344,7 +344,13 @@ void MamNodeApp::sendMyDataToSink() {
 void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
     // Mam Relay behavior to set the route to sink
     if (mamRelay) {
-        mobileSink = L3Address(src);
+        L3Address empty;
+
+        // If sink not set or the incoming route sink is closer
+        if (mobileSink == empty || hops > sinkHops) {
+            mobileSink = L3Address(src);
+            sinkHops = hops;
+        }
     }
 
     sendMyDataToSink();
@@ -411,7 +417,7 @@ void MamNodeApp::broadcastSimpleMessage(const char *msg)
 
 void MamNodeApp::broadcastSimpleMessage(const char *msg, int hops)
 {
-    if (hops <= 0) {
+    if (hops < 0) {
         throw cRuntimeError ("Invalid number of hops: %d", hops);
     }
 
@@ -423,7 +429,7 @@ void MamNodeApp::broadcastSimpleMessage(const char *msg, int hops)
 
 void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
 {
-    if (hops <= 0) {
+    if (hops < 0) {
         throw cRuntimeError ("Invalid number of hops: %d", hops);
     }
 
