@@ -62,7 +62,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     bool scheduledSendData = false;
 
     // Cache up to 100 packet id's recently sent
-    cache::lru_cache<long, simtime_t> dataSendCache;
+    cache::lru_cache<std::string, simtime_t> dataSendCache;
 
     // statistics
     int numSent = 0;
@@ -75,6 +75,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     int sinkHops;
     L3Address mobileSink;
+    simtime_t sinkBestRouteExpiry;
 
     simsignal_t dataSentSignal = cComponent::registerSignal("dataSent");
     simsignal_t dataResentSignal = cComponent::registerSignal("dataResent");

@@ -65,8 +65,17 @@ public:
         }
     }
 
-    bool exists(const key_t& key) const {
-        return _cache_items_map.find(key) != _cache_items_map.end();
+    bool exists(const key_t& key, long time) const {
+        auto it = _cache_items_map.find(key);
+
+        bool exists = it != _cache_items_map.end();
+        long expiry = 0;
+
+        if (exists) {
+            expiry = it->second->expiry;
+        }
+
+        return exists && time < expiry;
     }
 
     size_t size() const {

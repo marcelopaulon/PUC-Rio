@@ -28,6 +28,7 @@
 #include "inet/networklayer/common/L3AddressResolver.h"
 #include "inet/networklayer/common/L3AddressTag_m.h"
 #include "inet/transportlayer/contract/udp/UdpControlInfo_m.h"
+#include "inet/applications/mamapp/Md5.h"
 
 namespace inet {
 
@@ -346,10 +347,11 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
     if (mamRelay) {
         L3Address empty;
 
-        // If sink not set or the incoming route sink is closer
-        if (mobileSink == empty || hops > sinkHops) {
+        // If sink not set (or expired) or the incoming route sink is closer
+        if (mobileSink == empty || simTime() > sinkBestRouteExpiry || hops > sinkHops) {
             mobileSink = L3Address(src);
             sinkHops = hops;
+            sinkBestRouteExpiry = simTime() + simtime_t(200, SIMTIME_MS);
         }
     }
 
@@ -366,15 +368,29 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
         else {
             if (hops > 0) {
                 // Bluetooth Mesh relay should relay the message without a timeout but decrease its ttl
-                broadcastSimpleMessage("FOUND_MOBILE_SINK", hops--);
+                // use cache
+                std::string key = md5("FOUND_MOBILE_SINK_" + src.str());
+                double msd = simTime().dbl() * 1000;
+                long ms = static_cast<long>(msd);
+                bool inCache = dataSendCache.exists(key, ms);
+
+                if (!inCache) {
+                    dataSendCache.put(key, 1, ms + 1000); // Expire in 1 second
+                    broadcastSimpleMessage("FOUND_MOBILE_SINK", hops--);
+                }
             }
         }
     }
 }
 
 void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
+    // Only relay nodes are interested in Data Send messages
+    if (!relayNode) {
+        return;
+    }
+
     L3Address empty;
-    if (mobileSink == empty) {
+    if (mamRelay && mobileSink == empty) {
         sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src, 127);
         return;
     }
@@ -383,24 +399,18 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     // from the mobile sink have not timed out yet by using a simple cache with TTL for the packet destination + id
     // If it's on cache, drop the packet. Still need to figure out the implications of doing this..... TODO
 
-    long key = packet->getId();
-    bool inCache = dataSendCache.exists(key);
+    auto msg = check_and_cast<cMessage *>(packet);
+    std::string key = md5(msg->getName());
+    double msd = simTime().dbl() * 1000;
+    long ms = static_cast<long>(msd);
+    bool inCache = dataSendCache.exists(key, ms);
 
-    if (inCache) {
-        double ms = simTime().dbl() * 1000;
-        simtime_t expiry = dataSendCache.get(key, static_cast<long>(ms));
-        if (simTime() > expiry) {
-            sendData(packet, mobileSink); // DATA_SEND
-            //sendDataSentAck(packet, src); // DATA_SENT
-            // TODO invalidate cache (or switch to an LRU cache with time expiration)
-        }
-    }
-    else {
-        dataSendCache.put(key, simTime() + simtime_t(100, SIMTIME_MS));
+    if (!inCache) {
+        dataSendCache.put(key, 1, ms + 1000); // Expire in 1 second
+
         sendData(packet, mobileSink); // DATA_SEND
         //sendDataSentAck(packet, src); // DATA_SENT
     }
-
 }
 
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
