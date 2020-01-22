@@ -267,23 +267,23 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
         }
     }
     else {
+        auto packet = check_and_cast<Packet *>(msg);
+
+        auto l3Addresses = packet->getTag<L3AddressInd>();
+        L3Address srcAddr = l3Addresses->getSrcAddress();
+
+        if (srcAddr.str() == "127.0.0.1") {
+            delete msg;
+            return;
+        }
+
         if (strcmp(msg->getName(), "FOUND_MOBILE_SINK") == 0) {
-            auto packet = check_and_cast<Packet *>(msg);
-
-            auto l3Addresses = packet->getTag<L3AddressInd>();
-            L3Address srcAddr = l3Addresses->getSrcAddress();
-
             auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
 
             processFoundMobileSink(srcAddr, bmeshData->getHops());
             delete msg;
         }
         else if (strcmp(msg->getName(), "DISCONNECTED_MOBILE_SINK") == 0) {
-            auto packet = check_and_cast<Packet *>(msg);
-
-            auto l3Addresses = packet->getTag<L3AddressInd>();
-            L3Address srcAddr = l3Addresses->getSrcAddress();
-
             // If the src is the mobile sink currently connected to
             if (srcAddr == mobileSink) {
                 L3Address empty;
@@ -297,20 +297,10 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             delete msg;
         }
         else if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
-            auto packet = check_and_cast<Packet *>(msg);
-
-            auto l3Addresses = packet->getTag<L3AddressInd>();
-            L3Address srcAddr = l3Addresses->getSrcAddress();
-
             processDiscovery(srcAddr);
             delete msg;
         }
         else if (strcmp(msg->getName(), "DATA_SEND") == 0) {
-            auto packet = check_and_cast<Packet *>(msg);
-
-            auto l3Addresses = packet->getTag<L3AddressInd>();
-            L3Address srcAddr = l3Addresses->getSrcAddress();
-
             processDataSend(packet, srcAddr);
             // Do not delete msg as it'll be forwarded somewhere. Only the sink should delete it?
         }
@@ -323,6 +313,8 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 void MamNodeApp::processDiscovery(L3Address &src) {
     // Discovery messages are from the sink, so it is the optimal route for this node
     mobileSink = L3Address(src);
+    sinkHops = 128;
+    sinkBestRouteExpiry = simTime() + simtime_t(200, SIMTIME_MS);
 
     if (relayNode) {
         broadcastSimpleMessage("FOUND_MOBILE_SINK");
