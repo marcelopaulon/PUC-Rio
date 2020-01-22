@@ -56,6 +56,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     UdpSocket socket;
     cMessage *selfMsg = nullptr;
 
+    std::string nodeUuid;
+
     simtime_t lastFoundSinkSent;
     simtime_t lastSensorDataSent;
 
@@ -72,6 +74,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     int numDataResent = 0;
     int numDataAckReceived = 0;
 
+    int dataSendSequence = 0;
 
     int sinkHops;
     L3Address mobileSink;
@@ -90,7 +93,6 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     // chooses random destination address
     virtual L3Address chooseDestAddr();
-    virtual void sendPacket();
     virtual void processPacket(Packet *msg);
     virtual void setSocketOptions();
 
@@ -119,6 +121,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void socketErrorArrived(UdpSocket *socket, Indication *indication) override;
     virtual void socketClosed(UdpSocket *socket) override;
 
+    virtual unsigned int random_char();
+    virtual std::string generate_hex(const unsigned int len);
   public:
     MamNodeApp() : dataSendCache(100) {}
     ~MamNodeApp();

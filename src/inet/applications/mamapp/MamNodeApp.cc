@@ -17,6 +17,9 @@
 //
 
 #include <string.h>
+#include <sstream>
+#include <random>
+#include <string>
 
 #include "inet/applications/mamapp/MamNodeApp.h"
 #include "inet/common/ModuleAccess.h"
@@ -79,6 +82,8 @@ void MamNodeApp::initialize(int stage)
         else {
             throw cRuntimeError ("Invalid relay mode: \"%s\"", relayMode);
         }
+
+        nodeUuid = generate_hex(32);
 
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
@@ -143,23 +148,6 @@ L3Address MamNodeApp::chooseDestAddr()
     return destAddresses[k];
 }
 
-void MamNodeApp::sendPacket()
-{
-    std::ostringstream str;
-    str << packetName << "-" << numSent;
-    Packet *packet = new Packet(str.str().c_str());
-    if(dontFragment)
-        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
-    const auto& payload = makeShared<BMeshPacket>();
-    //payload->setChunkLength(B(par("messageLength")));
-    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
-    packet->insertAtBack(payload);
-    L3Address destAddr = chooseDestAddr();
-    emit(packetSentSignal, packet);
-    socket.sendTo(packet, destAddr, destPort);
-    numSent++;
-}
-
 void MamNodeApp::processStart()
 {
     socket.setOutputGate(gate("socketOut"));
@@ -194,7 +182,6 @@ void MamNodeApp::processStart()
 
 void MamNodeApp::processSend()
 {
-    //sendPacket();
     simtime_t d = simTime() + par("sendInterval");
     if (stopTime < SIMTIME_ZERO || d < stopTime) {
         selfMsg->setKind(SEND);
@@ -211,16 +198,37 @@ void MamNodeApp::processSendData()
     scheduledSendData = false;
 
     L3Address empty;
-    if (mobileSink != empty) {
+    if (!mamRelay || mobileSink != empty) {
         std::ostringstream str;
         str << "DATA_SEND";
 
+        L3Address addr;
+
         if (mamRelay) {
-            sendSimpleMessage(str.str().c_str(), mobileSink, 127);
+            // Mobile sink address - MAM Bluetooth Mesh customized relay feature
+            addr = mobileSink;
         }
         else {
-            broadcastSimpleMessage(str.str().c_str());
+            // Broadcast address - Bluetooth Mesh regular relay feature
+            addr.set(Ipv4Address(0xFFFFFFFF));
         }
+
+        Packet *packet = new Packet(str.str().c_str());
+
+        if (dontFragment)
+            packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+        const auto& payload = makeShared<BMeshPacket>();
+        payload->setChunkLength(B(11)); // 11 bytes (3 bytes opcode + 8 bytes of data)
+        payload->setHops(127);
+        payload->setPacketUuid(generate_hex(32).c_str());
+        payload->setSrcUuid(nodeUuid.c_str());
+        payload->setSequence(++dataSendSequence);
+        payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+        packet->insertAtBack(payload);
+
+        emit(packetSentSignal, packet);
+        socket.sendTo(packet, addr, destPort);
 
         lastSensorDataSent = simTime();
     } else {
@@ -399,8 +407,8 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     // from the mobile sink have not timed out yet by using a simple cache with TTL for the packet destination + id
     // If it's on cache, drop the packet. Still need to figure out the implications of doing this..... TODO
 
-    auto msg = check_and_cast<cMessage *>(packet);
-    std::string key = md5(msg->getName());
+    auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
+    auto key = bmeshData->getPacketUuid();
     double msd = simTime().dbl() * 1000;
     long ms = static_cast<long>(msd);
     bool inCache = dataSendCache.exists(key, ms);
@@ -530,5 +538,25 @@ void MamNodeApp::handleCrashOperation(LifecycleOperation *operation)
     socket.destroy();         //TODO  in real operating systems, program crash detected by OS and OS closes sockets of crashed programs.
 }
 
-} // namespace inet
+unsigned int MamNodeApp::random_char()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 255);
+    return dis(gen);
+}
 
+std::string MamNodeApp::generate_hex(const unsigned int len)
+{
+    std::stringstream ss;
+    for (unsigned int i = 0; i < len; i++) {
+        const auto rc = random_char();
+        std::stringstream hexstream;
+        hexstream << std::hex << rc;
+        auto hex = hexstream.str();
+        ss << (hex.length() < 2 ? '0' + hex : hex);
+    }
+    return ss.str();
+}
+
+} // namespace inet

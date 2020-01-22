@@ -43,7 +43,12 @@ void MamDataCollectorApp::initialize(int stage)
         WATCH(numSentDiscovery);
 
         numReceived = 0;
+        numUnique = 0;
+        numSenders = 0;
+
         WATCH(numReceived);
+        WATCH(numUnique);
+        WATCH(numSenders);
 
         localPort = par("localPort");
         destPort = par("destPort");
@@ -106,15 +111,16 @@ void MamDataCollectorApp::refreshDisplay() const
 {
     ApplicationBase::refreshDisplay();
 
-    char buf[50];
-    sprintf(buf, "rcvd: %d pks", numReceived);
+    char buf[100];
+    sprintf(buf, "rcvd: %d pks (%d unique from %d senders)", numReceived, numUnique, numSenders);
     getDisplayString().setTagArg("t", 0, buf);
 }
 
 void MamDataCollectorApp::finish()
 {
     ApplicationBase::finish();
-    EV_INFO << getFullPath() << ": received " << numReceived << " packets\n";
+    EV_INFO << getFullPath() << ": received " << numReceived << " packets (" << numUnique <<
+            " unique from " << numSenders << " senders)\n";
 }
 
 void MamDataCollectorApp::setSocketOptions()
@@ -204,7 +210,20 @@ void MamDataCollectorApp::processPacket(Packet *pk)
     emit(packetReceivedSignal, pk);
     delete pk;
 
-    numReceived++;
+    auto bmeshData = dynamicPtrCast<const BMeshPacket>(pk->peekAtBack());
+
+    int sequence = bmeshData->getSequence();
+    std::string packetId = bmeshData->getPacketUuid();
+
+    if (sequence > 0) {
+        uniqueDataSendPacketHashes.insert(bmeshData->getPacketUuid());
+        uniqueDataSenders.insert(bmeshData->getSrcUuid());
+
+        numUnique = uniqueDataSendPacketHashes.size();
+        numSenders = uniqueDataSenders.size();
+
+        numReceived++;
+    }
 }
 
 void MamDataCollectorApp::handleStartOperation(LifecycleOperation *operation)

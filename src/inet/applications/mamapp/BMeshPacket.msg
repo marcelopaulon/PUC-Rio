@@ -21,8 +21,11 @@ class BMeshPacket extends FieldsChunk
     
     // 11 Bytes Chunk?
     chunkLength = B(11);
-    MacAddress src;     // source address
-    MacAddress dest;    // destination address
     int hops = 127;		// number of times the message was relayed
+
+	// Internal (simulation use)    
+    string srcUuid;     // source uuid (where the data was originally generated, the sensor node)
+    string packetUuid;  // random uuid per data packet
+    int sequence = -1;  // "id" of the generated data (src + sequence should be unique in the simulation)
 }
 

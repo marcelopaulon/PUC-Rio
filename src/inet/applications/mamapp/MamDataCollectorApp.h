@@ -44,6 +44,11 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
     cMessage *selfMsg = nullptr;
     int numSentDiscovery = 0;
     int numReceived = 0;
+    int numUnique = 0;
+    int numSenders = 0;
+
+    std::set<std::string> uniqueDataSendPacketHashes;
+    std::set<std::string> uniqueDataSenders;
 
   public:
     MamDataCollectorApp() {}
