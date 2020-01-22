@@ -416,7 +416,15 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     if (!inCache) {
         dataSendCache.put(key, 1, ms + 1000); // Expire in 1 second
 
-        sendData(packet, mobileSink); // DATA_SEND
+        if (mamRelay) {
+            sendData(packet, mobileSink); // DATA_SEND
+        }
+        else {
+            L3Address broadcastAddr;
+            broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
+            sendData(packet, broadcastAddr); // DATA_SEND
+        }
+
         //sendDataSentAck(packet, src); // DATA_SENT
     }
 }
