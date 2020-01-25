@@ -84,6 +84,7 @@ void MamNodeApp::initialize(int stage)
         }
 
         nodeUuid = generate_hex(32);
+        WATCH(nodeUuid);
 
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
@@ -386,12 +387,14 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
 void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     // Only relay nodes are interested in Data Send messages
     if (!relayNode) {
+        delete packet;
         return;
     }
 
     L3Address empty;
     if (mamRelay && mobileSink == empty) {
         sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src, 127);
+        delete packet;
         return;
     }
 
@@ -418,6 +421,9 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
         }
 
         //sendDataSentAck(packet, src); // DATA_SENT
+    }
+    else {
+        delete packet;
     }
 }
 

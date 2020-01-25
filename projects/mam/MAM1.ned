@@ -44,7 +44,7 @@ network MAM1
             @display("p=935.424,29.232");
         }
         host1: <default("SensorNode")> like INetworkNode {
-            @display("p=293.328,387.07202");
+            @display("p=49.088,572.064");
         }
         host2: <default("SensorNode")> like INetworkNode {
             @display("p=366.272,207.68001");
@@ -59,7 +59,7 @@ network MAM1
             @display("p=621.15204,258.656");
         }
         host_rly_6: <default("SensorNode")> like INetworkNode {
-            @display("p=196.352,660.80005");
+            @display("p=320.96002,354.944");
         }
         host_rly_7: <default("SensorNode")> like INetworkNode {
             @display("p=768.416,460.67203");

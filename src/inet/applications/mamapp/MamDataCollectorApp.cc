@@ -121,6 +121,14 @@ void MamDataCollectorApp::finish()
     ApplicationBase::finish();
     EV_INFO << getFullPath() << ": received " << numReceived << " packets (" << numUnique <<
             " unique from " << numSenders << " senders)\n";
+
+    char buf[10000] = "";
+
+    for (auto it = uniqueDataSenders.begin(); it != uniqueDataSenders.end(); it++) {
+        sprintf(buf + strlen(buf), " %s", (*it).c_str());
+    }
+
+    EV_INFO << buf << "\n";
 }
 
 void MamDataCollectorApp::setSocketOptions()
@@ -208,9 +216,8 @@ void MamDataCollectorApp::processPacket(Packet *pk)
 {
     EV_INFO << "Received packet: " << UdpSocket::getReceivedPacketInfo(pk) << endl;
     emit(packetReceivedSignal, pk);
-    delete pk;
 
-    auto bmeshData = dynamicPtrCast<const BMeshPacket>(pk->peekAtBack());
+    auto bmeshData = dynamicPtrCast<const BMeshPacket>(pk->popAtBack());
 
     int sequence = bmeshData->getSequence();
     std::string packetId = bmeshData->getPacketUuid();
@@ -224,6 +231,8 @@ void MamDataCollectorApp::processPacket(Packet *pk)
 
         numReceived++;
     }
+
+    delete pk;
 }
 
 void MamDataCollectorApp::handleStartOperation(LifecycleOperation *operation)
