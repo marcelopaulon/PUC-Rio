@@ -205,6 +205,31 @@ void MamDataCollectorApp::sendDiscoveryPacket()
     numSentDiscovery++;
 }
 
+void MamDataCollectorApp::sendDataAckPacket()
+{
+    std::ostringstream str;
+    str << "DATA-ACK";
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    const auto& payload = makeShared<BMeshPacket>();
+    payload->setChunkLength(B(1));
+    //payload->setSrcUuid(srcUuid)
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+    L3Address broadcastAddr;
+    broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
+
+    //char addr[1024] = "host1";
+    //L3AddressResolver().tryResolve(addr, broadcastAddr);
+
+    emit(packetSentSignal, packet);
+    socket.sendTo(packet, broadcastAddr, destPort);
+    numSentDataAck++;
+}
+
 void MamDataCollectorApp::processStop()
 {
     if (!multicastGroup.isUnspecified())
@@ -230,6 +255,8 @@ void MamDataCollectorApp::processPacket(Packet *pk)
         numSenders = uniqueDataSenders.size();
 
         numReceived++;
+
+        //sendAck(bmeshData->getPacketUuid());
     }
 
     delete pk;

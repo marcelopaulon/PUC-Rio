@@ -37,43 +37,43 @@ network MAM1
         configurator: Ipv4NetworkConfigurator {
             @display("p=787.24805,25.2");
         }
-        radioMedium: <default("UnitDiskRadioMedium")> like IRadioMedium {
+        radioMedium: <default("Ieee802154NarrowbandScalarRadioMedium")> like IRadioMedium {
             @display("p=859.82404,28.224");
         }
         physicalEnvironment: PhysicalEnvironment {
             @display("p=935.424,29.232");
         }
         host1: <default("SensorNode")> like INetworkNode {
-            @display("p=49.088,572.064");
+            @display("p=1144.128,740.096");
         }
         host2: <default("SensorNode")> like INetworkNode {
-            @display("p=366.272,207.68001");
+            @display("p=105.728004,547.52");
         }
         host3: <default("SensorNode")> like INetworkNode {
-            @display("p=366.272,485.216");
+            @display("p=449.34402,487.104");
         }
         host_rly_4: <default("SensorNode")> like INetworkNode {
-            @display("p=468.22403,645.69604");
+            @display("p=1021.408,611.71204");
         }
         host_rly_5: <default("SensorNode")> like INetworkNode {
-            @display("p=621.15204,258.656");
+            @display("p=704.224,260.544");
         }
         host_rly_6: <default("SensorNode")> like INetworkNode {
-            @display("p=320.96002,354.944");
+            @display("p=404.032,356.832");
         }
         host_rly_7: <default("SensorNode")> like INetworkNode {
-            @display("p=768.416,460.67203");
+            @display("p=762.752,368.16");
         }
         host_rly_8: <default("SensorNode")> like INetworkNode {
-            @display("p=158.59201,439.90402");
+            @display("p=241.664,441.79202");
         }
         host_rly_9: <default("SensorNode")> like INetworkNode {
-            @display("p=483.328,366.272");
+            @display("p=566.4,368.16");
         }
         host_rly_10: <default("SensorNode")> like INetworkNode {
-            @display("p=621.15204,547.52");
+            @display("p=894.91205,479.552");
         }
         collector1: <default("WirelessHost")> like INetworkNode {
-            @display("p=394.592,460.67203");
+            @display("p=968.544,388.928");
         }
 }

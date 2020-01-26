@@ -84,6 +84,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     simsignal_t dataResentSignal = cComponent::registerSignal("dataResent");
     simsignal_t dataAckSignal = cComponent::registerSignal("dataAck");
 
+    std::set<std::string> uniqueDataSenders;
+
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
     virtual void initialize(int stage) override;

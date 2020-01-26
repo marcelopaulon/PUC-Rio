@@ -83,7 +83,7 @@ void MamNodeApp::initialize(int stage)
             throw cRuntimeError ("Invalid relay mode: \"%s\"", relayMode);
         }
 
-        nodeUuid = generate_hex(32);
+        nodeUuid = getFullPath() + generate_hex(32);
         WATCH(nodeUuid);
 
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
@@ -94,6 +94,8 @@ void MamNodeApp::initialize(int stage)
 
 void MamNodeApp::finish()
 {
+    ApplicationBase::finish();
+
     recordScalar("packets sent", numSent);
     recordScalar("packets received", numReceived);
     recordScalar("data packets sent", numDataSent);
@@ -108,7 +110,16 @@ void MamNodeApp::finish()
 
     EV_INFO << getFullPath() << ": failed to send " << (numDataSent + numDataResent) - numDataAckReceived << " data packets\n";
 
-    ApplicationBase::finish();
+
+    EV_INFO << getFullPath() << ": received from " << uniqueDataSenders.size() << " senders)\n";
+
+    char buf[10000] = "";
+
+    for (auto it = uniqueDataSenders.begin(); it != uniqueDataSenders.end(); it++) {
+        sprintf(buf + strlen(buf), " %s", (*it).c_str());
+    }
+
+    EV_INFO << buf << "\n";
 }
 
 void MamNodeApp::setSocketOptions()
@@ -400,7 +411,7 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
 
     // We'll try to break loops for cases where awaiting for heartbeats
     // from the mobile sink have not timed out yet by using a simple cache with TTL for the packet destination + id
-    // If it's on cache, drop the packet. Still need to figure out the implications of doing this..... TODO
+    // If it's cached, drop the packet. Still need to figure out the implications of doing this..... TODO
 
     auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
     auto key = bmeshData->getPacketUuid();
@@ -411,6 +422,8 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     if (!inCache) {
         dataSendCache.put(key, 1, ms + 1000); // Expire in 1 second
 
+        uniqueDataSenders.insert(bmeshData->getSrcUuid());
+
         if (mamRelay) {
             sendData(packet, mobileSink); // DATA_SEND
         }
@@ -419,8 +432,6 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
             broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
             sendData(packet, broadcastAddr); // DATA_SEND
         }
-
-        //sendDataSentAck(packet, src); // DATA_SENT
     }
     else {
         delete packet;

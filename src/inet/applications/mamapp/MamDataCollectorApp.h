@@ -43,6 +43,7 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
 
     cMessage *selfMsg = nullptr;
     int numSentDiscovery = 0;
+    int numSentDataAck = 0;
     int numReceived = 0;
     int numUnique = 0;
     int numSenders = 0;
@@ -78,6 +79,7 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
     virtual void sendDiscoveryPacket();
+    virtual void sendDataAckPacket();
 };
 
 } // namespace inet
