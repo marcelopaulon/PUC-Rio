@@ -211,9 +211,6 @@ void MamNodeApp::processSendData()
 
     L3Address empty;
     if (!mamRelay || mobileSink != empty) {
-        std::ostringstream str;
-        str << "DATA_SEND";
-
         L3Address addr;
 
         if (mamRelay) {
@@ -225,11 +222,6 @@ void MamNodeApp::processSendData()
             addr.set(Ipv4Address(0xFFFFFFFF));
         }
 
-        Packet *packet = new Packet(str.str().c_str());
-
-        if (dontFragment)
-            packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
-
         const auto& payload = makeShared<BMeshPacket>();
         payload->setChunkLength(B(11)); // 11 bytes (3 bytes opcode + 8 bytes of data)
         payload->setHops(127);
@@ -237,6 +229,14 @@ void MamNodeApp::processSendData()
         payload->setSrcUuid(nodeUuid.c_str());
         payload->setSequence(++dataSendSequence);
         payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+
+        std::ostringstream str;
+        str << "DATA_SEND";
+        Packet *packet = new Packet(str.str().c_str());
+
+        if (dontFragment)
+            packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
         packet->insertAtBack(payload);
 
         emit(packetSentSignal, packet);
@@ -413,7 +413,9 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
     // from the mobile sink have not timed out yet by using a simple cache with TTL for the packet destination + id
     // If it's cached, drop the packet. Still need to figure out the implications of doing this..... TODO
 
-    auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
+    auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->popAtBack());
+    delete packet;
+
     auto key = bmeshData->getPacketUuid();
     double msd = simTime().dbl() * 1000;
     long ms = static_cast<long>(msd);
@@ -425,16 +427,13 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
         uniqueDataSenders.insert(bmeshData->getSrcUuid());
 
         if (mamRelay) {
-            sendData(packet, mobileSink); // DATA_SEND
+            sendData(bmeshData, mobileSink); // DATA_SEND
         }
         else {
             L3Address broadcastAddr;
             broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
-            sendData(packet, broadcastAddr); // DATA_SEND
+            sendData(bmeshData, broadcastAddr); // DATA_SEND
         }
-    }
-    else {
-        delete packet;
     }
 }
 
@@ -486,10 +485,21 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
 }
 
 
-void MamNodeApp::sendData(Packet *packet, L3Address &dest) {
+void MamNodeApp::sendData(Ptr<const BMeshPacket> bmeshData, L3Address &dest) {
+
+    std::ostringstream str;
+    str << "DATA_SEND";
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    packet->insertAtBack(bmeshData);
+
     emit(packetSentSignal, packet);
     emit(dataSentSignal, packet);
     numDataSent++;
+
     socket.sendTo(packet, dest, destPort);
 }
 

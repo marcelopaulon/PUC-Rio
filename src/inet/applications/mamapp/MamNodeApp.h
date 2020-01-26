@@ -106,7 +106,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processFoundMobileSink(L3Address &src, int hops);
     virtual void processDataSend(Packet *packet, L3Address &dest);
 
-    virtual void sendData(Packet *packet, L3Address &dest);
+    virtual void sendData(Ptr<const BMeshPacket> data, L3Address &dest);
     virtual void sendDataSentAck(Packet *packet, L3Address &dest);
 
     virtual void sendMyDataToSink();

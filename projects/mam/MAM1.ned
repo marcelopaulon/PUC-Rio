@@ -44,34 +44,34 @@ network MAM1
             @display("p=935.424,29.232");
         }
         host1: <default("SensorNode")> like INetworkNode {
-            @display("p=1144.128,740.096");
+            @display("p=1042.176,621.15204");
         }
         host2: <default("SensorNode")> like INetworkNode {
-            @display("p=105.728004,547.52");
+            @display("p=269.984,536.192");
         }
         host3: <default("SensorNode")> like INetworkNode {
-            @display("p=449.34402,487.104");
+            @display("p=560.736,515.424");
         }
         host_rly_4: <default("SensorNode")> like INetworkNode {
-            @display("p=1021.408,611.71204");
+            @display("p=957.216,547.52");
         }
         host_rly_5: <default("SensorNode")> like INetworkNode {
-            @display("p=704.224,260.544");
+            @display("p=711.776,296.41602");
         }
         host_rly_6: <default("SensorNode")> like INetworkNode {
-            @display("p=404.032,356.832");
+            @display("p=487.104,413.47202");
         }
         host_rly_7: <default("SensorNode")> like INetworkNode {
-            @display("p=762.752,368.16");
+            @display("p=785.408,388.928");
         }
         host_rly_8: <default("SensorNode")> like INetworkNode {
-            @display("p=241.664,441.79202");
+            @display("p=373.824,443.68002");
         }
         host_rly_9: <default("SensorNode")> like INetworkNode {
-            @display("p=566.4,368.16");
+            @display("p=624.92804,370.048");
         }
         host_rly_10: <default("SensorNode")> like INetworkNode {
-            @display("p=894.91205,479.552");
+            @display("p=864.70404,462.56003");
         }
         collector1: <default("WirelessHost")> like INetworkNode {
             @display("p=968.544,388.928");
