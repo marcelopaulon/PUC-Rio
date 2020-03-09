@@ -21,7 +21,7 @@ import inet.physicallayer.contract.packetlevel.IRadioMedium;
 import inet.visualizer.contract.IIntegratedVisualizer;
 import inet.environment.common.PhysicalEnvironment;
 
-network MAM1
+network MAM10
 {
     parameters:
         @display("bgb=1374.2261,940.184;bgg=100,1,grey95");

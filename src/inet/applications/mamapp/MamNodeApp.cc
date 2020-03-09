@@ -326,7 +326,7 @@ void MamNodeApp::processDiscovery(L3Address &src) {
     // Discovery messages are from the sink, so it is the optimal route for this node
     mobileSink = L3Address(src);
     sinkHops = 128;
-    sinkBestRouteExpiry = simTime() + simtime_t(200, SIMTIME_MS);
+    sinkBestRouteExpiry = simTime() + simtime_t(20000, SIMTIME_MS);
 
     if (relayNode) {
         broadcastSimpleMessage("FOUND_MOBILE_SINK");
