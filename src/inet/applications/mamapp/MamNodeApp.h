@@ -52,6 +52,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     bool mamRelay = true;
 
+    int delta;
+
     // state
     UdpSocket socket;
     cMessage *selfMsg = nullptr;

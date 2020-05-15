@@ -83,6 +83,8 @@ void MamNodeApp::initialize(int stage)
             throw cRuntimeError ("Invalid relay mode: \"%s\"", relayMode);
         }
 
+        delta = par("delta");
+
         nodeUuid = getFullPath() + generate_hex(32);
         WATCH(nodeUuid);
 
@@ -363,7 +365,7 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
         if (mobileSink == empty || simTime() > sinkBestRouteExpiry || hops > sinkHops) {
             mobileSink = L3Address(src);
             sinkHops = hops;
-            sinkBestRouteExpiry = simTime() + simtime_t(200, SIMTIME_MS);
+            sinkBestRouteExpiry = simTime() + simtime_t(delta, SIMTIME_MS);
         }
     }
 
