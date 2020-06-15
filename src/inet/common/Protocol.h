@@ -82,6 +82,7 @@ class INET_API Protocol
     static const Protocol ieee80211Mgmt;
     static const Protocol ieee80211Phy;
     static const Protocol ieee802154;
+    static const Protocol blemesh;
     static const Protocol ieee8022;
     static const Protocol igmp;
     static const Protocol igp;

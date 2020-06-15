@@ -20,6 +20,7 @@
 #define __INET_MAMNODEAPP_H
 
 #include <vector>
+#include <unordered_set>
 
 #include "inet/common/INETDefs.h"
 
@@ -48,9 +49,13 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     bool dontFragment = false;
     const char *packetName = nullptr;
 
+    // Bluetooth mesh configuration
     bool relayNode = false;
+    bool friendNode = false;
+    bool lowPowerNode = false;
 
-    bool mamRelay = true;
+    // MAM configuration
+    bool mamRelay = true; // Use MAM's custom relay logic (false = Use Bluetooth Mesh's default relay logic)
 
     int delta;
 
@@ -65,8 +70,13 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     bool scheduledSendData = false;
 
-    // Cache up to 100 packet id's recently sent
+    // Cache up to 100 packet ids recently sent
     cache::lru_cache<std::string, simtime_t> dataSendCache;
+
+    // Friendship state
+
+    //std::unordered_set <string> lowPowerNodes; // string representation of registered lpn addresses
+    L3Address friendNodeAddress;
 
     // statistics
     int numSent = 0;
@@ -108,6 +118,12 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processFoundMobileSink(L3Address &src, int hops);
     virtual void processDataSend(Packet *packet, L3Address &dest);
 
+    virtual void processFriendRequest(L3Address &src);
+    virtual void processFriendOffer(L3Address &src);
+    virtual void processFriendPoll(L3Address &src);
+    virtual void processFriendUpdate(L3Address &src, int moreData);
+    virtual void processFriendClear(L3Address &src);
+
     virtual void sendData(Ptr<const BMeshPacket> data, L3Address &dest);
     virtual void sendDataSentAck(Packet *packet, L3Address &dest);
 
@@ -130,6 +146,18 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
   public:
     MamNodeApp() : dataSendCache(100) {}
     ~MamNodeApp();
+
+private:
+    static const constexpr char *MAMCDISCOVERY = "MAMCDISCOVERY";
+    static const constexpr char *DATA_SEND = "DATA_SEND";
+    static const constexpr char *DISCONNECTED_MOBILE_SINK = "DISCONNECTED_MOBILE_SINK";
+    static const constexpr char *FOUND_MOBILE_SINK = "FOUND_MOBILE_SINK";
+
+    static const constexpr char *FRIEND_REQUEST = "FRIEND_REQUEST";
+    static const constexpr char *FRIEND_OFFER = "FRIEND_OFFER";
+    static const constexpr char *FRIEND_POLL = "FRIEND_POLL";
+    static const constexpr char *FRIEND_UPDATE = "FRIEND_UPDATE";
+    static const constexpr char *FRIEND_CLEAR = "FRIEND_CLEAR";
 };
 
 } // namespace inet

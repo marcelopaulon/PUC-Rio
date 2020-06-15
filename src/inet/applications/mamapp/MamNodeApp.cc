@@ -233,7 +233,7 @@ void MamNodeApp::processSendData()
         payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
 
         std::ostringstream str;
-        str << "DATA_SEND";
+        str << DATA_SEND;
         Packet *packet = new Packet(str.str().c_str());
 
         if (dontFragment)
@@ -291,13 +291,13 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             return;
         }
 
-        if (strcmp(msg->getName(), "FOUND_MOBILE_SINK") == 0) {
+        if (strcmp(msg->getName(), FOUND_MOBILE_SINK) == 0) {
             auto bmeshData = dynamicPtrCast<const BMeshPacket>(packet->peekAtBack());
 
             processFoundMobileSink(srcAddr, bmeshData->getHops());
             delete msg;
         }
-        else if (strcmp(msg->getName(), "DISCONNECTED_MOBILE_SINK") == 0) {
+        else if (strcmp(msg->getName(), DISCONNECTED_MOBILE_SINK) == 0) {
             // If the src is the mobile sink currently connected to
             if (srcAddr == mobileSink) {
                 L3Address empty;
@@ -305,16 +305,16 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
             }
 
             if (relayNode) {
-                broadcastSimpleMessage("DISCONNECTED_MOBILE_SINK");
+                broadcastSimpleMessage (DISCONNECTED_MOBILE_SINK);
             }
 
             delete msg;
         }
-        else if (strcmp(msg->getName(), "MAMCDISCOVERY") == 0) {
+        else if (strcmp(msg->getName(), MAMCDISCOVERY) == 0) {
             processDiscovery(srcAddr);
             delete msg;
         }
-        else if (strcmp(msg->getName(), "DATA_SEND") == 0) {
+        else if (strcmp(msg->getName(), DATA_SEND) == 0) {
             processDataSend(packet, srcAddr);
             // Do not delete msg as it'll be forwarded somewhere. Only the sink should delete it?
         }
@@ -331,7 +331,7 @@ void MamNodeApp::processDiscovery(L3Address &src) {
     sinkBestRouteExpiry = simTime() + simtime_t(20000, SIMTIME_MS);
 
     if (relayNode) {
-        broadcastSimpleMessage("FOUND_MOBILE_SINK");
+        broadcastSimpleMessage (FOUND_MOBILE_SINK);
     }
 }
 
@@ -376,7 +376,7 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
             // Check last time sent found mobile sink broadcast and only send it if > 100ms
             if (simTime().inUnit(SIMTIME_MS) - lastFoundSinkSent.inUnit(SIMTIME_MS) > 100) {
                 lastFoundSinkSent = simTime();
-                broadcastSimpleMessage("FOUND_MOBILE_SINK");
+                broadcastSimpleMessage (FOUND_MOBILE_SINK);
             }
         }
         else {
@@ -390,7 +390,7 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
 
                 if (!inCache) {
                     dataSendCache.put(key, 1, ms + 1000); // Expire in 1 second
-                    broadcastSimpleMessage("FOUND_MOBILE_SINK", hops--);
+                    broadcastSimpleMessage(FOUND_MOBILE_SINK, hops--);
                 }
             }
         }
@@ -406,7 +406,7 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
 
     L3Address empty;
     if (mamRelay && mobileSink == empty) {
-        sendSimpleMessage("DISCONNECTED_MOBILE_SINK", src, 127);
+        sendSimpleMessage(DISCONNECTED_MOBILE_SINK, src, 127);
         delete packet;
         return;
     }
@@ -437,6 +437,25 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
             sendData(bmeshData, broadcastAddr); // DATA_SEND
         }
     }
+}
+
+void MamNodeApp::processFriendRequest(L3Address &src) {
+
+}
+void MamNodeApp::processFriendOffer(L3Address &src) {
+
+}
+
+void MamNodeApp::processFriendPoll(L3Address &src) {
+
+}
+
+void MamNodeApp::processFriendUpdate(L3Address &src, int moreData) {
+
+}
+
+void MamNodeApp::processFriendClear(L3Address &src) {
+
 }
 
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
@@ -490,7 +509,7 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
 void MamNodeApp::sendData(Ptr<const BMeshPacket> bmeshData, L3Address &dest) {
 
     std::ostringstream str;
-    str << "DATA_SEND";
+    str << DATA_SEND;
     Packet *packet = new Packet(str.str().c_str());
 
     if (dontFragment)

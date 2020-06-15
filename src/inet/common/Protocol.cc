@@ -96,6 +96,7 @@ const Protocol Protocol::ieee80211Mac("ieee80211mac", "IEEE 802.11 MAC", Protoco
 const Protocol Protocol::ieee80211Mgmt("ieee80211mgmt", "IEEE 802.11 MGMT", Protocol::LinkLayer);
 const Protocol Protocol::ieee80211Phy("ieee80211phy", "IEEE 802.11 PHY", Protocol::PhysicalLayer);
 const Protocol Protocol::ieee802154("ieee802154", "IEEE 802.15.4");
+const Protocol Protocol::blemesh("blemesh", "Bluetooth Mesh");
 const Protocol Protocol::ieee8022("ieee8022", "IEEE 802.2", Protocol::LinkLayer);
 const Protocol Protocol::igmp("igmp", "IGMP", Protocol::NetworkLayer);
 const Protocol Protocol::igp("igp", "IGP");

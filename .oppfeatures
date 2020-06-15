@@ -742,6 +742,21 @@
         linkerFlags = ""
         />
     <feature
+        id="BleMesh"
+        name="Bluetooth Mesh"
+        description = "Bluetooth Mesh NICs"
+        initiallyEnabled = "true"
+        requires = "mobility radio apskradio ackingwireless"
+        labels = "nic wireless"
+        nedPackages = "
+                       inet.linklayer.blemesh
+                       inet.physicallayer.ieee802154
+                      "
+        extraSourceFolders = ""
+        compileFlags = "-DWITH_BLEMESH"
+        linkerFlags = ""
+        />
+    <feature
         id="apskradio"
         name="APSK radio"
         description = "Provides a hypothetical generic radio for APSK modulations"
