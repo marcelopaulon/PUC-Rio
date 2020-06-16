@@ -21,14 +21,14 @@ import inet.physicallayer.contract.packetlevel.IRadioMedium;
 import inet.visualizer.contract.IIntegratedVisualizer;
 import inet.environment.common.PhysicalEnvironment;
 
-network MAM10
+network MAM2
 {
     parameters:
         @display("bgb=1374.2261,940.184;bgg=100,1,grey95");
         @figure[title](type=label; pos=0,-1; anchor=sw; color=darkblue);
 
         @figure[rcvdPkText](type=indicatorText; pos=380,20; anchor=w; font=,18; textFormat="packets received: %g"; initialValue=0);
-        @statistic[packetReceived](source=host_lpn_2.app[0].packetReceived; record=figure(count); targetFigure=rcvdPkText);
+        @statistic[packetReceived](source=host_lpn_1.app[0].packetReceived; record=figure(count); targetFigure=rcvdPkText);
 
     submodules:
         visualizer: <default("IntegratedCanvasVisualizer")> like IIntegratedVisualizer if hasVisualizer() {
@@ -46,34 +46,10 @@ network MAM10
         host_lpn_1: <default("SensorNode")> like INetworkNode {
             @display("p=1042.176,621.15204");
         }
-        host_lpn_2: <default("SensorNode")> like INetworkNode {
-            @display("p=269.984,536.192");
-        }
-        host_lpn_3: <default("SensorNode")> like INetworkNode {
-            @display("p=560.736,515.424");
-        }
         host_rly_4: <default("SensorNode")> like INetworkNode {
             @display("p=957.216,547.52");
         }
-        host_rly_5: <default("SensorNode")> like INetworkNode {
-            @display("p=711.776,296.41602");
-        }
-        host_rly_6: <default("SensorNode")> like INetworkNode {
-            @display("p=487.104,413.47202");
-        }
-        host_rly_7: <default("SensorNode")> like INetworkNode {
-            @display("p=785.408,388.928");
-        }
-        host_rly_8: <default("SensorNode")> like INetworkNode {
-            @display("p=373.824,443.68002");
-        }
-        host_rly_9: <default("SensorNode")> like INetworkNode {
-            @display("p=624.92804,370.048");
-        }
-        host_rly_10: <default("SensorNode")> like INetworkNode {
-            @display("p=864.70404,462.56003");
-        }
         collector1: <default("WirelessHost")> like INetworkNode {
-            @display("p=968.544,388.928");
+            @display("p=1.888,117.05601");
         }
 }

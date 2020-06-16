@@ -199,6 +199,19 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
         STATUS_FRAME_TRANSMITTED
     };
 
+    /** @brief Bluetooth Mesh Low Power Node type indication */
+    bool lowPowerNode;
+
+    /** @brief Bluetooth Mesh Low Power Node mode (true = radio off; false if not a LPN, friendship not established, or during the friend poll window) */
+    bool lowPowerMode;
+
+    /** @brief Bluetooth Mesh Low Power Node connected friend node address */
+    L3Address friendNodeAddress;
+
+    long receiveDelayMs = 10; // Nordic min = 10ms max = 255ms https://www.st.com/resource/en/application_note/dm00597215-stswbnrgmesh-friend-and-low-power-features-stmicroelectronics.pdf
+    long receiveWindowMs = 200; // Nordic min = 10ms max = 255ms
+    long pollTimeoutMs = 2000; // Nordic min = 10ms max = 3455999000ms
+
     /** @brief The different back-off methods.*/
     enum backoff_methods {
         /** @brief Constant back-off time.*/

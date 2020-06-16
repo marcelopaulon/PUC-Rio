@@ -73,6 +73,11 @@ void BleMeshMac::initialize(int stage)
         ackLength = par("ackLength");
         ackMessage = nullptr;
 
+        lowPowerNode = par("lowPowerNode");
+        lowPowerMode = false;
+        L3Address emptyFnAddress;
+        friendNodeAddress = emptyFnAddress;
+
         //init parameters for backoff method
         std::string backoffMethodStr = par("backoffMethod").stdstringValue();
         if (backoffMethodStr == "exponential") {

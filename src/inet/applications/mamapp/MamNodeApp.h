@@ -76,7 +76,6 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     // Friendship state
 
     //std::unordered_set <string> lowPowerNodes; // string representation of registered lpn addresses
-    L3Address friendNodeAddress;
 
     // statistics
     int numSent = 0;

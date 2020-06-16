@@ -92,6 +92,8 @@ simple BleMeshMac extends MacProtocolBase like IMacProtocol
 
         string radioModule = default("^.radio");   // The path to the Radio module  //FIXME remove default value
 
+		bool lowPowerNode = default(false);
+
         @class(BleMeshMac);
         @signal[linkBroken](type=inet::Packet);
         @statistic[linkBroken](title="link break"; source=linkBroken; record=count; interpolationmode=none);
