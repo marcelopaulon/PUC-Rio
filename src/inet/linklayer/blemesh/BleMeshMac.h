@@ -156,11 +156,14 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
         TIMER_CCA,
         TIMER_SIFS,
         TIMER_RX_ACK,
+        TIMER_START_FRIEND_POLL,
+        TIMER_ENABLE_RADIO,
+        TIMER_DISABLE_RADIO,
     };
 
     /** @name Pointer for timer messages.*/
     /*@{*/
-    cMessage *backoffTimer, *ccaTimer, *sifsTimer, *rxAckTimer;
+    cMessage *startFriendPollTimer, *enableRadioTimer, *disableRadioTimer, *backoffTimer, *ccaTimer, *sifsTimer, *rxAckTimer;
     /*@}*/
 
     /** @brief MAC state machine events.
@@ -175,7 +178,12 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
         EV_DUPLICATE_RECEIVED,
         EV_TIMER_SIFS,    // 17
         EV_BROADCAST_RECEIVED,    // 23, 24
-        EV_TIMER_CCA
+        EV_TIMER_CCA,
+
+        // bluetooth mesh specific
+        EV_TIMER_START_FRIEND_POLL,
+        EV_TIMER_ENABLE_RADIO,
+        EV_TIMER_DISABLE_RAIO
     };
 
     /** @brief Types for frames sent by the CSMA.*/
@@ -211,6 +219,7 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
     long receiveDelayMs = 10; // Nordic min = 10ms max = 255ms https://www.st.com/resource/en/application_note/dm00597215-stswbnrgmesh-friend-and-low-power-features-stmicroelectronics.pdf
     long receiveWindowMs = 200; // Nordic min = 10ms max = 255ms
     long pollTimeoutMs = 2000; // Nordic min = 10ms max = 3455999000ms
+    long pollIntervalMs = 1700; // Nordic min = 10ms max = 3455999000ms
 
     /** @brief The different back-off methods.*/
     enum backoff_methods {

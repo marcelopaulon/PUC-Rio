@@ -102,6 +102,9 @@ void BleMeshMac::initialize(int stage)
         NB = 0;
 
         // initialize the timers
+        startFriendPollTimer = new cMessage("timer-startFriendPoll");
+        enableRadioTimer = new cMessage("timer-enableRadio");
+        disableRadioTimer = new cMessage("timer-disableRadio");
         backoffTimer = new cMessage("timer-backoff");
         ccaTimer = new cMessage("timer-cca");
         sifsTimer = new cMessage("timer-sifs");
@@ -158,6 +161,10 @@ void BleMeshMac::finish()
 
 BleMeshMac::~BleMeshMac()
 {
+    cancelAndDelete(startFriendPollTimer);
+    cancelAndDelete(enableRadioTimer);
+    cancelAndDelete(disableRadioTimer);
+
     cancelAndDelete(backoffTimer);
     cancelAndDelete(ccaTimer);
     cancelAndDelete(sifsTimer);
@@ -658,6 +665,42 @@ void BleMeshMac::updateStatusNotIdle(cMessage *msg)
 void BleMeshMac::executeMac(t_mac_event event, cMessage *msg)
 {
     EV_DETAIL << "In executeMac" << endl;
+
+    if (event == EV_TIMER_START_FRIEND_POLL) {
+        assert(lowPowerNode);
+        assert(lowPowerMode);
+
+        // T0D0: Send friend poll request
+
+        // Schedule to enable the radio
+        startTimer(TIMER_ENABLE_RADIO);
+    }
+    else if (event == EV_TIMER_ENABLE_RADIO) {
+        assert(lowPowerNode);
+        assert(lowPowerMode);
+
+        // Turn the radio on
+        radio->setRadioMode(IRadio::RADIO_MODE_RECEIVER);
+
+        // Schedule when to disable the radio
+        startTimer(TIMER_DISABLE_RADIO);
+    }
+    else if (event == EV_TIMER_DISABLE_RAIO) {
+        assert(lowPowerNode);
+        assert(!lowPowerMode);
+
+        // Turn the radio off
+        radio->setRadioMode(IRadio::RADIO_MODE_OFF);
+
+        // Schedule the next friend poll
+        startTimer(TIMER_START_FRIEND_POLL);
+    }
+
+    if (lowPowerNode && lowPowerMode) {
+        // Radio is off. Ignore all timers and mac events.
+        return;
+    }
+
     if (macState != IDLE_1 && event == EV_SEND_REQUEST) {
         updateStatusNotIdle(msg);
     }
@@ -761,6 +804,28 @@ void BleMeshMac::startTimer(t_mac_timer timer)
         EV_DETAIL << "(startTimer) rxAckTimer value=" << macAckWaitDuration << endl;
         scheduleAt(simTime() + macAckWaitDuration, rxAckTimer);
     }
+    else if (timer == TIMER_START_FRIEND_POLL) {
+        assert(lowPowerNode);
+        L3Address empty;
+        assert(friendNodeAddress != empty);
+        assert(pollIntervalMs + receiveDelayMs + receiveWindowMs < pollIntervalMs);
+        EV_DETAIL << "(startTimer) startFriendPollTimer pollIntervalMs=" << pollIntervalMs << endl;
+        scheduleAt(simTime() + pollIntervalMs, startFriendPollTimer);
+    }
+    else if (timer == TIMER_ENABLE_RADIO) {
+        assert(lowPowerNode);
+        L3Address empty;
+        assert(friendNodeAddress != empty);
+        EV_DETAIL << "(startTimer) enableRadioTimer receiveDelayMs=" << receiveDelayMs << endl;
+        scheduleAt(simTime() + receiveDelayMs, enableRadioTimer);
+    }
+    else if (timer == TIMER_DISABLE_RADIO) {
+        assert(lowPowerNode);
+        L3Address empty;
+        assert(friendNodeAddress != empty);
+        EV_DETAIL << "(startTimer) disableRadioTimer receiveWindowMs=" << receiveWindowMs << endl;
+        scheduleAt(simTime() + receiveWindowMs, disableRadioTimer);
+    }
     else {
         EV << "Unknown timer requested to start:" << timer << endl;
     }
@@ -814,7 +879,14 @@ simtime_t BleMeshMac::scheduleBackoff()
 void BleMeshMac::handleSelfMessage(cMessage *msg)
 {
     EV_DETAIL << "timer routine." << endl;
-    if (msg == backoffTimer)
+
+    if (msg == startFriendPollTimer)
+        executeMac(EV_TIMER_START_FRIEND_POLL, msg);
+    else if (msg == enableRadioTimer)
+        executeMac(EV_TIMER_ENABLE_RADIO, msg);
+    else if (msg == disableRadioTimer)
+        executeMac(EV_TIMER_DISABLE_RAIO, msg);
+    else if (msg == backoffTimer)
         executeMac(EV_TIMER_BACKOFF, msg);
     else if (msg == ccaTimer)
         executeMac(EV_TIMER_CCA, msg);
