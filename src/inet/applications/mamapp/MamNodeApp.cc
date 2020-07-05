@@ -185,8 +185,7 @@ void MamNodeApp::processStart()
     }
 
     if (!destAddresses.empty()) {
-        selfMsg->setKind(SEND);
-        processSend();
+        selfMsg->setKind(SEND_DATA);
     }
     else {
         if (stopTime >= SIMTIME_ZERO) {
@@ -198,19 +197,6 @@ void MamNodeApp::processStart()
     if (lowPowerNode) {
         sendFriendRequest();
         sendFriendEstablishedInternalMessage();
-    }
-}
-
-void MamNodeApp::processSend()
-{
-    simtime_t d = simTime() + par("sendInterval");
-    if (stopTime < SIMTIME_ZERO || d < stopTime) {
-        selfMsg->setKind(SEND);
-        scheduleAt(d, selfMsg);
-    }
-    else {
-        selfMsg->setKind(STOP);
-        scheduleAt(stopTime, selfMsg);
     }
 }
 
@@ -269,10 +255,6 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
         switch (selfMsg->getKind()) {
             case START:
                 processStart();
-                break;
-
-            case SEND:
-                processSend();
                 break;
 
             case SEND_DATA:

@@ -38,7 +38,7 @@ namespace inet {
 class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 {
   protected:
-    enum SelfMsgKinds { START = 1, SEND, STOP, SEND_DATA };
+    enum SelfMsgKinds { START = 1, STOP, SEND_DATA };
 
     // parameters
     std::vector<L3Address> destAddresses;
@@ -114,7 +114,6 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void setSocketOptions();
 
     virtual void processStart();
-    virtual void processSend();
     virtual void processSendData();
     virtual void processStop();
     virtual void processDiscovery(L3Address &src);
