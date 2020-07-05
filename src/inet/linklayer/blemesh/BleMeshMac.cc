@@ -109,7 +109,6 @@ void BleMeshMac::initialize(int stage)
         NB = 0;
 
         // initialize the timers
-        startFriendPollTimer = new cMessage("timer-startFriendPoll");
         enableRadioTimer = new cMessage("timer-enableRadio");
         disableRadioTimer = new cMessage("timer-disableRadio");
         backoffTimer = new cMessage("timer-backoff");
@@ -168,7 +167,6 @@ void BleMeshMac::finish()
 
 BleMeshMac::~BleMeshMac()
 {
-    cancelAndDelete(startFriendPollTimer);
     cancelAndDelete(enableRadioTimer);
     cancelAndDelete(disableRadioTimer);
 
@@ -206,6 +204,17 @@ void BleMeshMac::configureInterfaceEntry()
  */
 void BleMeshMac::handleUpperPacket(Packet *packet)
 {
+    // TODO catch a Friend Established message , then turn off the radio and set lowPowerMode=true
+
+    if (strcmp(packet->getName(), "FRIEND_ESTABLISHED_INTERNAL") == 0) {
+        // Turn the radio off
+        lowPowerMode = true;
+        radio->setRadioMode(IRadio::RADIO_MODE_OFF);
+
+        delete packet;
+        return;
+    }
+
     //MacPkt*macPkt = encapsMsg(msg);
     auto macPkt = makeShared<BleMeshMacHeader>();
     assert(headerLength % 8 == 0);
@@ -666,44 +675,6 @@ void BleMeshMac::updateStatusNotIdle(cMessage *msg)
     }
 }
 
-
-void BleMeshMac::sendPollRequest()
-{
-    assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
-    std::ostringstream str;
-    str << "FRIEND_POLL";
-    Packet *packet = new Packet(str.str().c_str());
-
-    packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
-
-    auto addressReq = packet->addTagIfAbsent<MacAddressReq>();
-    addressReq->setDestAddress(friendNodeAddress);
-
-    packet->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::ipv4);
-
-
-    const auto& payload = makeShared<BMeshPacket>();
-    payload->setChunkLength(B(1));
-    payload->setHops(1);
-    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
-    packet->insertAtBack(payload);
-
-    auto ipv4Header = makeShared<Ipv4Header>(); // creates mutable chunk
-    //ipv4Header->setSourceAddress(sourceAddress);
-    packet->insertAtFront(ipv4Header);
-
-    // Wont work - try UDPHeader..
-    packet->insertAtFront(ipv4Header); // HACK - Fake more data on the front iterator when dissecting ipv4 protocol
-
-    //const auto& payload = makeShared<BMeshPacket>();
-    //payload->setChunkLength(B(1));
-    //payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
-    //packet->insertAtBack(payload);
-
-    EV_DETAIL << "Sending a Poll Request through handleUpperPacket " << packet->getName() << endl;
-    handleUpperPacket(packet);
-}
-
 /**
  * Updates state machine.
  */
@@ -711,39 +682,44 @@ void BleMeshMac::executeMac(t_mac_event event, cMessage *msg)
 {
     EV_DETAIL << "In executeMac" << endl;
 
-    if (event == EV_TIMER_START_FRIEND_POLL) {
-        assert(lowPowerNode);
-        assert(lowPowerMode);
-
-        sendPollRequest();
-
-        // Schedule to enable the radio
-        startTimer(TIMER_ENABLE_RADIO);
-    }
-    else if (event == EV_TIMER_ENABLE_RADIO) {
+    if (event == EV_TIMER_ENABLE_RADIO) {
         assert(lowPowerNode);
         assert(lowPowerMode);
 
         // Turn the radio on
         radio->setRadioMode(IRadio::RADIO_MODE_RECEIVER);
+        lowPowerMode = false;
 
         // Schedule when to disable the radio
         startTimer(TIMER_DISABLE_RADIO);
+        return;
     }
-    else if (event == EV_TIMER_DISABLE_RAIO) {
+    else if (event == EV_TIMER_DISABLE_RADIO) {
         assert(lowPowerNode);
         assert(!lowPowerMode);
 
         // Turn the radio off
+        lowPowerMode = true;
         radio->setRadioMode(IRadio::RADIO_MODE_OFF);
-
-        // Schedule the next friend poll
-        startTimer(TIMER_START_FRIEND_POLL);
+        return;
     }
 
     if (lowPowerNode && lowPowerMode) {
-        // Radio is off. Ignore all timers and mac events.
-        return;
+        if (event == EV_SEND_REQUEST) {
+            // Turn the radio on.
+            cancelEvent(enableRadioTimer);
+            cancelEvent(disableRadioTimer);
+            radio->setRadioMode(IRadio::RADIO_MODE_RECEIVER);
+            lowPowerMode = false;
+
+            // Schedule when to disable the radio (using the same timer as the receive window. Maybe we can add a configurable transmit window?)
+            startTimer(TIMER_DISABLE_RADIO);
+        }
+        else {
+            // Radio is off. Ignore all timers and mac events.
+            EV << "LOW POWER MODE - Ignoring mac change. macState=" << macState << endl;
+            return;
+        }
     }
 
     if (macState != IDLE_1 && event == EV_SEND_REQUEST) {
@@ -849,13 +825,6 @@ void BleMeshMac::startTimer(t_mac_timer timer)
         EV_DETAIL << "(startTimer) rxAckTimer value=" << macAckWaitDuration << endl;
         scheduleAt(simTime() + macAckWaitDuration, rxAckTimer);
     }
-    else if (timer == TIMER_START_FRIEND_POLL) {
-        assert(lowPowerNode);
-        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
-        assert(pollIntervalMs + receiveDelayMs + receiveWindowMs < pollIntervalMs);
-        EV_DETAIL << "(startTimer) startFriendPollTimer pollIntervalMs=" << pollIntervalMs << endl;
-        scheduleAt(simTime() + pollIntervalMs, startFriendPollTimer);
-    }
     else if (timer == TIMER_ENABLE_RADIO) {
         assert(lowPowerNode);
         assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
@@ -922,12 +891,10 @@ void BleMeshMac::handleSelfMessage(cMessage *msg)
 {
     EV_DETAIL << "timer routine." << endl;
 
-    if (msg == startFriendPollTimer)
-        executeMac(EV_TIMER_START_FRIEND_POLL, msg);
-    else if (msg == enableRadioTimer)
+    if (msg == enableRadioTimer)
         executeMac(EV_TIMER_ENABLE_RADIO, msg);
     else if (msg == disableRadioTimer)
-        executeMac(EV_TIMER_DISABLE_RAIO, msg);
+        executeMac(EV_TIMER_DISABLE_RADIO, msg);
     else if (msg == backoffTimer)
         executeMac(EV_TIMER_BACKOFF, msg);
     else if (msg == ccaTimer)

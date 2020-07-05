@@ -73,6 +73,10 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     // Cache up to 100 packet ids recently sent
     cache::lru_cache<std::string, simtime_t> dataSendCache;
 
+
+    long pollTimeoutMs = 2000; // Nordic min = 10ms max = 3455999000ms
+    long pollIntervalMs = 1700; // Nordic min = 10ms max = 3455999000ms
+
     // Friendship state
 
     //std::unordered_set <string> lowPowerNodes; // string representation of registered lpn addresses
@@ -124,6 +128,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processFriendClear(L3Address &src);
 
     virtual void sendFriendRequest();
+    virtual void sendFriendEstablishedInternalMessage();
 
     virtual void sendData(Ptr<const BMeshPacket> data, L3Address &dest);
     virtual void sendDataSentAck(Packet *packet, L3Address &dest);

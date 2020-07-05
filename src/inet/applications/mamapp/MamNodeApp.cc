@@ -197,6 +197,7 @@ void MamNodeApp::processStart()
 
     if (lowPowerNode) {
         sendFriendRequest();
+        sendFriendEstablishedInternalMessage();
     }
 }
 
@@ -532,6 +533,29 @@ void MamNodeApp::sendFriendRequest()
     emit(packetSentSignal, packet);
     socket.sendTo(packet, broadcastAddr, destPort);
 }
+
+void MamNodeApp::sendFriendEstablishedInternalMessage() {
+    assert(lowPowerNode);
+
+    std::ostringstream str;
+    str << "FRIEND_ESTABLISHED_INTERNAL";
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    const auto& payload = makeShared<BMeshPacket>();
+    payload->setChunkLength(B(1));
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+    L3Address broadcastAddr;
+    broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
+
+    emit(packetSentSignal, packet);
+    socket.sendTo(packet, broadcastAddr, destPort);
+}
+
+// TODO Add sendFriendPoll()
 
 void MamNodeApp::sendData(Ptr<const BMeshPacket> bmeshData, L3Address &dest) {
 
