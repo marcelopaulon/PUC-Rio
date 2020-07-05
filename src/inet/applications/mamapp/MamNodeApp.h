@@ -63,6 +63,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     UdpSocket socket;
     cMessage *selfMsg = nullptr;
 
+    cMessage *pollTimer = nullptr;
+
     std::string nodeUuid;
 
     simtime_t lastFoundSinkSent;
@@ -79,6 +81,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     // Friendship state
 
+    L3Address connectedFriendNode;
     //std::unordered_set <string> lowPowerNodes; // string representation of registered lpn addresses
 
     // statistics
@@ -128,6 +131,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     virtual void sendFriendRequest();
     virtual void sendFriendEstablishedInternalMessage();
+    virtual void sendFriendPoll();
 
     virtual void sendData(Ptr<const BMeshPacket> data, L3Address &dest);
     virtual void sendDataSentAck(Packet *packet, L3Address &dest);

@@ -40,6 +40,7 @@ Define_Module(MamNodeApp);
 MamNodeApp::~MamNodeApp()
 {
     cancelAndDelete(selfMsg);
+    cancelAndDelete(pollTimer);
 }
 
 void MamNodeApp::initialize(int stage)
@@ -93,6 +94,7 @@ void MamNodeApp::initialize(int stage)
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
         selfMsg = new cMessage("sendTimer");
+        pollTimer = new cMessage("pollTimer");
     }
 }
 
@@ -197,6 +199,7 @@ void MamNodeApp::processStart()
     if (lowPowerNode) {
         sendFriendRequest();
         sendFriendEstablishedInternalMessage();
+        scheduleAt(simTime() + pollIntervalMs, pollTimer);
     }
 }
 
@@ -250,7 +253,11 @@ void MamNodeApp::processStop()
 
 void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 {
-    if (msg->isSelfMessage()) {
+    if (msg == pollTimer) {
+        sendFriendPoll();
+        scheduleAt(simTime() + pollIntervalMs, pollTimer);
+    }
+    else if (msg->isSelfMessage()) {
         ASSERT(msg == selfMsg);
         switch (selfMsg->getKind()) {
             case START:
@@ -429,22 +436,41 @@ void MamNodeApp::processDataSend(Packet *packet, L3Address &src) {
 }
 
 void MamNodeApp::processFriendRequest(L3Address &src) {
-
+    if (friendNode) {
+        sendSimpleMessage(FRIEND_OFFER, src, 127);
+    }
 }
 void MamNodeApp::processFriendOffer(L3Address &src) {
+    if (!lowPowerNode) {
+        throw cRuntimeError("Error: Non-LPN received a friend offer");
+    }
 
+    L3Address empty;
+    if (connectedFriendNode == empty) {
+        connectedFriendNode = src;
+        sendFriendPoll();
+    }
 }
 
 void MamNodeApp::processFriendPoll(L3Address &src) {
+    assert(friendNode);
 
+    //if (src not in myConnectedLPNs) myConnectedLPNs.put(src);
+    //if(pendingMessages.get(src).length > 0) sendFriendUpdate(pendingMessages.get(src).pop());
 }
 
 void MamNodeApp::processFriendUpdate(L3Address &src, int moreData) {
+    assert(lowPowerNode);
 
+    // TODO deserialize message, call handleLowerMessage equivalent (switch between message type
+    sendMyDataToSink();
+
+    sendFriendPoll();
 }
 
 void MamNodeApp::processFriendClear(L3Address &src) {
-
+    //myConnectedLPNs.clear(src);
+    //pendingMessages.clear(src);
 }
 
 void MamNodeApp::sendDataSentAck(Packet *packet, L3Address &dest) {
@@ -497,9 +523,10 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
 void MamNodeApp::sendFriendRequest()
 {
     assert(lowPowerNode);
+    assert(!friendNode);
 
     std::ostringstream str;
-    str << "FRIEND_REQUEST";
+    str << FRIEND_REQUEST;
     Packet *packet = new Packet(str.str().c_str());
 
     if (dontFragment)
@@ -518,6 +545,7 @@ void MamNodeApp::sendFriendRequest()
 
 void MamNodeApp::sendFriendEstablishedInternalMessage() {
     assert(lowPowerNode);
+    assert(!friendNode);
 
     std::ostringstream str;
     str << "FRIEND_ESTABLISHED_INTERNAL";
@@ -537,7 +565,27 @@ void MamNodeApp::sendFriendEstablishedInternalMessage() {
     socket.sendTo(packet, broadcastAddr, destPort);
 }
 
-// TODO Add sendFriendPoll()
+void MamNodeApp::sendFriendPoll() {
+    assert(lowPowerNode);
+    assert(!friendNode);
+    L3Address empty;
+    assert(connectedFriendNode != empty);
+
+    std::ostringstream str;
+    str << FRIEND_POLL;
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    const auto& payload = makeShared<BMeshPacket>();
+    payload->setChunkLength(B(1));
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+
+    emit(packetSentSignal, packet);
+    socket.sendTo(packet, connectedFriendNode, destPort);
+}
 
 void MamNodeApp::sendData(Ptr<const BMeshPacket> bmeshData, L3Address &dest) {
 
