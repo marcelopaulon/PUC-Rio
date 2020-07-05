@@ -85,6 +85,8 @@ void MamNodeApp::initialize(int stage)
 
         delta = par("delta");
 
+        lowPowerNode = par("lowPowerNode");
+
         nodeUuid = getFullPath() + generate_hex(32);
         WATCH(nodeUuid);
 
@@ -191,6 +193,10 @@ void MamNodeApp::processStart()
             selfMsg->setKind(STOP);
             scheduleAt(stopTime, selfMsg);
         }
+    }
+
+    if (lowPowerNode) {
+        sendFriendRequest();
     }
 }
 
@@ -505,6 +511,27 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
     socket.sendTo(packet, dest, destPort);
 }
 
+void MamNodeApp::sendFriendRequest()
+{
+    assert(lowPowerNode);
+
+    std::ostringstream str;
+    str << "FRIEND_REQUEST";
+    Packet *packet = new Packet(str.str().c_str());
+
+    if (dontFragment)
+        packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    const auto& payload = makeShared<BMeshPacket>();
+    payload->setChunkLength(B(1));
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+    L3Address broadcastAddr;
+    broadcastAddr.set(Ipv4Address(0xFFFFFFFF));
+
+    emit(packetSentSignal, packet);
+    socket.sendTo(packet, broadcastAddr, destPort);
+}
 
 void MamNodeApp::sendData(Ptr<const BMeshPacket> bmeshData, L3Address &dest) {
 

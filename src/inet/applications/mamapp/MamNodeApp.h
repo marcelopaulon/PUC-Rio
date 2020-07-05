@@ -123,6 +123,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void processFriendUpdate(L3Address &src, int moreData);
     virtual void processFriendClear(L3Address &src);
 
+    virtual void sendFriendRequest();
+
     virtual void sendData(Ptr<const BMeshPacket> data, L3Address &dest);
     virtual void sendDataSentAck(Packet *packet, L3Address &dest);
 

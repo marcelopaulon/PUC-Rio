@@ -30,6 +30,12 @@
 #include "inet/common/INETMath.h"
 #include "inet/common/INETUtils.h"
 #include "inet/common/ModuleAccess.h"
+
+#include "inet/common/TagBase_m.h"
+#include "inet/common/TimeTag_m.h"
+#include "inet/networklayer/common/FragmentationTag_m.h"
+#include "inet/networklayer/ipv4/Ipv4Header_m.h"
+
 #include "inet/common/ProtocolGroup.h"
 #include "inet/common/ProtocolTag_m.h"
 #include "inet/linklayer/common/InterfaceTag_m.h"
@@ -37,6 +43,8 @@
 #include "inet/linklayer/blemesh/BleMeshMac.h"
 #include "inet/linklayer/blemesh/BleMeshMacHeader_m.h"
 #include "inet/networklayer/common/InterfaceEntry.h"
+
+#include "inet/applications/mamapp/BMeshPacket_m.h"
 
 namespace inet {
 
@@ -75,8 +83,7 @@ void BleMeshMac::initialize(int stage)
 
         lowPowerNode = par("lowPowerNode");
         lowPowerMode = false;
-        L3Address emptyFnAddress;
-        friendNodeAddress = emptyFnAddress;
+        friendNodeAddress = MacAddress::UNSPECIFIED_ADDRESS;
 
         //init parameters for backoff method
         std::string backoffMethodStr = par("backoffMethod").stdstringValue();
@@ -659,6 +666,44 @@ void BleMeshMac::updateStatusNotIdle(cMessage *msg)
     }
 }
 
+
+void BleMeshMac::sendPollRequest()
+{
+    assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
+    std::ostringstream str;
+    str << "FRIEND_POLL";
+    Packet *packet = new Packet(str.str().c_str());
+
+    packet->addTagIfAbsent<FragmentationReq>()->setDontFragment(true);
+
+    auto addressReq = packet->addTagIfAbsent<MacAddressReq>();
+    addressReq->setDestAddress(friendNodeAddress);
+
+    packet->addTagIfAbsent<PacketProtocolTag>()->setProtocol(&Protocol::ipv4);
+
+
+    const auto& payload = makeShared<BMeshPacket>();
+    payload->setChunkLength(B(1));
+    payload->setHops(1);
+    payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    packet->insertAtBack(payload);
+
+    auto ipv4Header = makeShared<Ipv4Header>(); // creates mutable chunk
+    //ipv4Header->setSourceAddress(sourceAddress);
+    packet->insertAtFront(ipv4Header);
+
+    // Wont work - try UDPHeader..
+    packet->insertAtFront(ipv4Header); // HACK - Fake more data on the front iterator when dissecting ipv4 protocol
+
+    //const auto& payload = makeShared<BMeshPacket>();
+    //payload->setChunkLength(B(1));
+    //payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    //packet->insertAtBack(payload);
+
+    EV_DETAIL << "Sending a Poll Request through handleUpperPacket " << packet->getName() << endl;
+    handleUpperPacket(packet);
+}
+
 /**
  * Updates state machine.
  */
@@ -670,7 +715,7 @@ void BleMeshMac::executeMac(t_mac_event event, cMessage *msg)
         assert(lowPowerNode);
         assert(lowPowerMode);
 
-        // T0D0: Send friend poll request
+        sendPollRequest();
 
         // Schedule to enable the radio
         startTimer(TIMER_ENABLE_RADIO);
@@ -806,23 +851,20 @@ void BleMeshMac::startTimer(t_mac_timer timer)
     }
     else if (timer == TIMER_START_FRIEND_POLL) {
         assert(lowPowerNode);
-        L3Address empty;
-        assert(friendNodeAddress != empty);
+        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
         assert(pollIntervalMs + receiveDelayMs + receiveWindowMs < pollIntervalMs);
         EV_DETAIL << "(startTimer) startFriendPollTimer pollIntervalMs=" << pollIntervalMs << endl;
         scheduleAt(simTime() + pollIntervalMs, startFriendPollTimer);
     }
     else if (timer == TIMER_ENABLE_RADIO) {
         assert(lowPowerNode);
-        L3Address empty;
-        assert(friendNodeAddress != empty);
+        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
         EV_DETAIL << "(startTimer) enableRadioTimer receiveDelayMs=" << receiveDelayMs << endl;
         scheduleAt(simTime() + receiveDelayMs, enableRadioTimer);
     }
     else if (timer == TIMER_DISABLE_RADIO) {
         assert(lowPowerNode);
-        L3Address empty;
-        assert(friendNodeAddress != empty);
+        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
         EV_DETAIL << "(startTimer) disableRadioTimer receiveWindowMs=" << receiveWindowMs << endl;
         scheduleAt(simTime() + receiveWindowMs, disableRadioTimer);
     }

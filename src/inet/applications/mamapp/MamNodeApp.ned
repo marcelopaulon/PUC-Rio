@@ -75,6 +75,8 @@ simple MamNodeApp like IApp
         @statistic[rcvdPkSeqNo](title="received packet sequence number"; source="appPkSeqNo(packetReceived)"; record=vector; interpolationmode=none);
     
         string relayMode = default("MAM");
+        bool lowPowerNode = default(false);
+        bool friendNode = default(false);
         int delta;
     gates:
         input socketIn @labels(UdpControlInfo/up);

@@ -214,7 +214,7 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
     bool lowPowerMode;
 
     /** @brief Bluetooth Mesh Low Power Node connected friend node address */
-    L3Address friendNodeAddress;
+    MacAddress friendNodeAddress;
 
     long receiveDelayMs = 10; // Nordic min = 10ms max = 255ms https://www.st.com/resource/en/application_note/dm00597215-stswbnrgmesh-friend-and-low-power-features-stmicroelectronics.pdf
     long receiveWindowMs = 200; // Nordic min = 10ms max = 255ms
@@ -333,6 +333,9 @@ class INET_API BleMeshMac : public MacProtocolBase, public IMacProtocol
     void updateStatusNotIdle(cMessage *msg);
     void manageQueue();
     void updateMacState(t_mac_states newMacState);
+
+    void sendFriendRequest();
+    void sendPollRequest();
 
     void attachSignal(Packet *mac, simtime_t_cref startTime);
     void manageMissingAck(t_mac_event event, cMessage *msg);
