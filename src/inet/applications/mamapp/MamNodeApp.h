@@ -21,6 +21,9 @@
 
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
+#include <queue>
+
 
 #include "inet/common/INETDefs.h"
 
@@ -29,6 +32,8 @@
 #include "inet/transportlayer/contract/udp/UdpSocket.h"
 
 #include "LruCache.h"
+
+using namespace std;
 
 namespace inet {
 
@@ -82,7 +87,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     // Friendship state
 
     L3Address connectedFriendNode;
-    //std::unordered_set <string> lowPowerNodes; // string representation of registered lpn addresses
+    unordered_map<string, queue<Packet>> lowPowerNodes; // string representation of registered lpn addresses
 
     // statistics
     int numSent = 0;

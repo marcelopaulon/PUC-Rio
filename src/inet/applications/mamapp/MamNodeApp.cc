@@ -304,6 +304,13 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
                 broadcastSimpleMessage (DISCONNECTED_MOBILE_SINK);
             }
 
+            if (lowPowerNodes.size() > 0) {
+                for (auto itr = lowPowerNodes.begin(); itr != lowPowerNodes.end(); itr++) {
+                    Packet dummy; // TODO Identify disconnection
+                    itr->second.push(dummy);
+                }
+            }
+
             delete msg;
         }
         else if (strcmp(msg->getName(), MAMCDISCOVERY) == 0) {
@@ -328,6 +335,13 @@ void MamNodeApp::processDiscovery(L3Address &src) {
 
     if (relayNode) {
         broadcastSimpleMessage (FOUND_MOBILE_SINK);
+    }
+
+    if (lowPowerNodes.size() > 0) {
+        for (auto itr = lowPowerNodes.begin(); itr != lowPowerNodes.end(); itr++) {
+            Packet dummy;
+            itr->second.push(dummy);
+        }
     }
 }
 
@@ -366,6 +380,14 @@ void MamNodeApp::processFoundMobileSink(L3Address &src, int hops) {
     }
 
     sendMyDataToSink();
+
+    if (lowPowerNodes.size() > 0) {
+        assert(friendNode);
+        for (auto itr = lowPowerNodes.begin(); itr != lowPowerNodes.end(); itr++) {
+            Packet dummy;
+            itr->second.push(dummy);
+        }
+    }
 
     if (relayNode) {
         if (mamRelay) {
@@ -455,6 +477,21 @@ void MamNodeApp::processFriendOffer(L3Address &src) {
 void MamNodeApp::processFriendPoll(L3Address &src) {
     assert(friendNode);
 
+    string key = src.str();
+    if (lowPowerNodes.find(key) == lowPowerNodes.end()) {
+        queue<Packet> emptyQueue;
+        lowPowerNodes[key] = emptyQueue;
+    }
+    else {
+        auto q = lowPowerNodes[key];
+        if (!q.empty()){
+            Packet sendPacket = q.front();
+
+            sendSimpleMessage("FRIEND_UPDATE", src, 1); // Todo add serialized packet data
+
+            q.pop();
+        }
+    }
     //if (src not in myConnectedLPNs) myConnectedLPNs.put(src);
     //if(pendingMessages.get(src).length > 0) sendFriendUpdate(pendingMessages.get(src).pop());
 }
