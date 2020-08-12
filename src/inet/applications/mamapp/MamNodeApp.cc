@@ -383,7 +383,7 @@ void MamNodeApp::sendMyDataToSink() {
     // or if we are not using mam custom relay (but using Blueooth Mesh's default relay behavior)
     if (mobileSink != empty || !mamRelay) {
 
-        simtime_t start = std::max(lastSensorDataSent + simtime_t(100, SIMTIME_MS), simTime());
+        simtime_t start = std::max(lastSensorDataSent + simtime_t(100, SIMTIME_MS), simTime() + simtime_t(1, SIMTIME_MS));
 
         scheduledSendData = true;
 
@@ -532,14 +532,19 @@ void MamNodeApp::processFriendUpdate(L3Address &src, int moreData) {
 
     if (!friendshipEstablished) {
         friendshipEstablished = true;
-        sendFriendEstablishedInternalMessage();
+        //sendFriendEstablishedInternalMessage();
         simtime_t timeout = (simTime() + SimTime(pollIntervalMs, SIMTIME_MS)).trunc(SIMTIME_MS);
         scheduleAt(timeout, pollTimer);
+        sendFriendPoll(); // Send a poll now to complete friendship establishment
     }
-    // TODO deserialize message, call handleLowerMessage equivalent (switch between message type
-    sendMyDataToSink();
+    else {
+        // TODO deserialize message, call handleLowerMessage equivalent (switch between message type
+        // Assuming that every friend update is a process found mobile sink
+        processFoundMobileSink(src, 20);
 
-    sendFriendPoll();
+        // TODO check if has more messages, if so call sendFriendPoll();
+    }
+
 }
 
 void MamNodeApp::processFriendClear(L3Address &src) {
