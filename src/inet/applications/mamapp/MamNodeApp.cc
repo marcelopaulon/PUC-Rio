@@ -532,7 +532,7 @@ void MamNodeApp::processFriendUpdate(L3Address &src, int moreData) {
 
     if (!friendshipEstablished) {
         friendshipEstablished = true;
-        //sendFriendEstablishedInternalMessage();
+        sendFriendEstablishedInternalMessage();
         simtime_t timeout = (simTime() + SimTime(pollIntervalMs, SIMTIME_MS)).trunc(SIMTIME_MS);
         scheduleAt(timeout, pollTimer);
         sendFriendPoll(); // Send a poll now to complete friendship establishment
