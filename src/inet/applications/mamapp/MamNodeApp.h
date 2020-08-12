@@ -85,8 +85,8 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     long pollIntervalMs = 1700; // Nordic min = 10ms max = 3455999000ms
 
     // Friendship state
-
     L3Address connectedFriendNode;
+    bool friendshipEstablished = false;
     unordered_map<string, queue<Packet>> lowPowerNodes; // string representation of registered lpn addresses
 
     // statistics

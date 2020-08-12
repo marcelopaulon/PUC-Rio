@@ -46,7 +46,7 @@ network MAM2
         host_lpn_1: <default("SensorNode")> like INetworkNode {
             @display("p=1042.176,621.15204");
         }
-        host_rly_4: <default("SensorNode")> like INetworkNode {
+        host_fn_rly_4: <default("SensorNode")> like INetworkNode {
             @display("p=957.216,547.52");
         }
         collector1: <default("WirelessHost")> like INetworkNode {

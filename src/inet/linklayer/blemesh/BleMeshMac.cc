@@ -701,6 +701,8 @@ void BleMeshMac::executeMac(t_mac_event event, cMessage *msg)
         // Turn the radio off
         lowPowerMode = true;
         radio->setRadioMode(IRadio::RADIO_MODE_OFF);
+        clearQueue();
+        macState = IDLE_1;
         return;
     }
 
@@ -827,15 +829,15 @@ void BleMeshMac::startTimer(t_mac_timer timer)
     }
     else if (timer == TIMER_ENABLE_RADIO) {
         assert(lowPowerNode);
-        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
+        //assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
         EV_DETAIL << "(startTimer) enableRadioTimer receiveDelayMs=" << receiveDelayMs << endl;
-        scheduleAt(simTime() + receiveDelayMs, enableRadioTimer);
+        scheduleAt(simTime() + simtime_t(receiveDelayMs, SIMTIME_MS), enableRadioTimer);
     }
     else if (timer == TIMER_DISABLE_RADIO) {
         assert(lowPowerNode);
-        assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
+        //assert(friendNodeAddress != MacAddress::UNSPECIFIED_ADDRESS);
         EV_DETAIL << "(startTimer) disableRadioTimer receiveWindowMs=" << receiveWindowMs << endl;
-        scheduleAt(simTime() + receiveWindowMs, disableRadioTimer);
+        scheduleAt(simTime() + simtime_t(receiveWindowMs, SIMTIME_MS), disableRadioTimer);
     }
     else {
         EV << "Unknown timer requested to start:" << timer << endl;

@@ -87,6 +87,16 @@ void MamNodeApp::initialize(int stage)
         delta = par("delta");
 
         lowPowerNode = par("lowPowerNode");
+        friendNode = par("friendNode");
+
+        connectedFriendNode = empty;
+        friendshipEstablished = false;
+
+        lowPowerNodes.clear();
+
+        dataSendSequence = 0;
+
+        uniqueDataSenders.clear();
 
         nodeUuid = getFullPath() + generate_hex(32);
         WATCH(nodeUuid);
@@ -197,9 +207,9 @@ void MamNodeApp::processStart()
     }
 
     if (lowPowerNode) {
+        L3Address empty;
+        assert(connectedFriendNode == empty);
         sendFriendRequest();
-        sendFriendEstablishedInternalMessage();
-        scheduleAt(simTime() + pollIntervalMs, pollTimer);
     }
 }
 
@@ -255,7 +265,8 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
 {
     if (msg == pollTimer) {
         sendFriendPoll();
-        scheduleAt(simTime() + pollIntervalMs, pollTimer);
+        simtime_t timeout = (simTime() + SimTime(pollIntervalMs, SIMTIME_MS)).trunc(SIMTIME_MS);
+        scheduleAt(timeout, pollTimer);
     }
     else if (msg->isSelfMessage()) {
         ASSERT(msg == selfMsg);
@@ -320,6 +331,22 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
         else if (strcmp(msg->getName(), DATA_SEND) == 0) {
             processDataSend(packet, srcAddr);
             // Do not delete msg as it'll be forwarded somewhere. Only the sink should delete it?
+        }
+        else if (strcmp(msg->getName(), FRIEND_REQUEST) == 0) {
+            processFriendRequest(srcAddr);
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), FRIEND_OFFER) == 0) {
+            processFriendOffer(srcAddr);
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), FRIEND_POLL) == 0) {
+            processFriendPoll(srcAddr);
+            delete msg;
+        }
+        else if (strcmp(msg->getName(), FRIEND_UPDATE) == 0) {
+            processFriendUpdate(srcAddr, 0);
+            delete msg;
         }
         else {
             socket.processMessage(msg);
@@ -481,6 +508,9 @@ void MamNodeApp::processFriendPoll(L3Address &src) {
     if (lowPowerNodes.find(key) == lowPowerNodes.end()) {
         queue<Packet> emptyQueue;
         lowPowerNodes[key] = emptyQueue;
+
+        // Send friend update (Conclude friendship establishment on FN side)
+        sendSimpleMessage("FRIEND_UPDATE", src, 1);
     }
     else {
         auto q = lowPowerNodes[key];
@@ -498,7 +528,14 @@ void MamNodeApp::processFriendPoll(L3Address &src) {
 
 void MamNodeApp::processFriendUpdate(L3Address &src, int moreData) {
     assert(lowPowerNode);
+    assert(connectedFriendNode == src);
 
+    if (!friendshipEstablished) {
+        friendshipEstablished = true;
+        sendFriendEstablishedInternalMessage();
+        simtime_t timeout = (simTime() + SimTime(pollIntervalMs, SIMTIME_MS)).trunc(SIMTIME_MS);
+        scheduleAt(timeout, pollTimer);
+    }
     // TODO deserialize message, call handleLowerMessage equivalent (switch between message type
     sendMyDataToSink();
 
