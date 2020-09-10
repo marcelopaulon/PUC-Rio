@@ -25,6 +25,7 @@ precompiled_*.h.*
 /examples/*/results/
 /examples/*/*/results/
 /examples/*/*/*/results/
+!*.ipynb
 /examples/*/cache/
 /examples/*/*/cache/
 /tutorials/*/cache/
