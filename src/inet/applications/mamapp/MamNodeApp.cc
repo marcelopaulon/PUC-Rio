@@ -17,9 +17,9 @@
 //
 
 #include <string.h>
-#include <sstream>
-#include <random>
 #include <string>
+#include <random>
+#include <sstream>
 
 #include "inet/applications/mamapp/MamNodeApp.h"
 #include "inet/common/ModuleAccess.h"
@@ -117,6 +117,21 @@ void MamNodeApp::finish()
     recordScalar("data packets sent", numDataSent);
     recordScalar("data packets resent", numDataResent);
     recordScalar("ack packets received", numDataAckReceived);
+    recordScalar("my data sent", uniqueSentPacketUUIDs.size());
+
+    string uniqueSentPacketUUIDsStr;
+
+    uniqueSentPacketUUIDsStr += "generated packet uuids";
+
+    for (auto const& e : uniqueSentPacketUUIDs)
+    {
+        uniqueSentPacketUUIDsStr += e;
+        uniqueSentPacketUUIDsStr += ',';
+    }
+
+    uniqueSentPacketUUIDsStr.pop_back();
+
+    recordScalar(uniqueSentPacketUUIDsStr.c_str(), 1.0d);
 
     EV_INFO << getFullPath() << ": sent " << numDataSent << " data packets\n";
 
@@ -197,9 +212,14 @@ void MamNodeApp::processStart()
     }
 
     if (!destAddresses.empty()) {
-        selfMsg->setKind(SEND_DATA);
+        selfMsg->setKind(SEND_MY_DATA);
+        // All nodes sending data every second:
+        //simtime_t sendTime = (simTime() + SimTime(1000, SIMTIME_MS)).trunc(SIMTIME_MS); // Schedule send to next second
+        //scheduleAt(sendTime, selfMsg);
     }
     else {
+        EV_ERROR << "ERROR ERROR ERROR:  Should not be here" << endl;
+
         if (stopTime >= SIMTIME_ZERO) {
             selfMsg->setKind(STOP);
             scheduleAt(stopTime, selfMsg);
@@ -213,7 +233,7 @@ void MamNodeApp::processStart()
     }
 }
 
-void MamNodeApp::processSendData()
+void MamNodeApp::processSendMyData()
 {
     scheduledSendData = false;
 
@@ -233,7 +253,12 @@ void MamNodeApp::processSendData()
         const auto& payload = makeShared<BMeshPacket>();
         payload->setChunkLength(B(11)); // 11 bytes (3 bytes opcode + 8 bytes of data)
         payload->setHops(127);
-        payload->setPacketUuid(generate_hex(32).c_str());
+
+        std::string uuidStr = generate_uuid_v4();
+
+        uniqueSentPacketUUIDs.insert(uuidStr);
+
+        payload->setPacketUuid(uuidStr.c_str());
         payload->setSrcUuid(nodeUuid.c_str());
         payload->setSequence(++dataSendSequence);
         payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
@@ -254,6 +279,10 @@ void MamNodeApp::processSendData()
     } else {
         EV_ERROR << "MOBILE SINK NOT FOUND WHEN TRYING TO SEND DATA";
     }
+
+    // All nodes sending data every second:
+    //simtime_t sendTime = (simTime() + SimTime(1000, SIMTIME_MS)).trunc(SIMTIME_MS); // Schedule send to next second
+    //scheduleAt(sendTime, selfMsg);
 }
 
 void MamNodeApp::processStop()
@@ -275,8 +304,8 @@ void MamNodeApp::handleMessageWhenUp(cMessage *msg)
                 processStart();
                 break;
 
-            case SEND_DATA:
-                processSendData();
+            case SEND_MY_DATA:
+                processSendMyData();
                 break;
 
             case STOP:
@@ -388,7 +417,7 @@ void MamNodeApp::sendMyDataToSink() {
         scheduledSendData = true;
 
         cancelEvent(selfMsg);
-        selfMsg->setKind(SEND_DATA);
+        selfMsg->setKind(SEND_MY_DATA);
         scheduleAt(start, selfMsg);
     }
 }
@@ -752,6 +781,46 @@ unsigned int MamNodeApp::random_char()
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 255);
     return dis(gen);
+}
+
+int MamNodeApp::disGen(bool second) {
+    static std::random_device              rd;
+    static std::mt19937                    gen(rd());
+    static std::uniform_int_distribution<> dis(0, 15);
+    static std::uniform_int_distribution<> dis2(8, 11);
+
+    if (!second)
+        return dis(gen);
+
+    return dis2(gen);
+}
+
+std::string MamNodeApp::generate_uuid_v4() {
+    std::stringstream ss;
+    int i;
+    ss << std::hex;
+
+    for (i = 0; i < 8; i++) {
+        ss << disGen(false);
+    }
+    ss << "-";
+    for (i = 0; i < 4; i++) {
+        ss << disGen(false);
+    }
+    ss << "-4";
+    for (i = 0; i < 3; i++) {
+        ss << disGen(false);
+    }
+    ss << "-";
+    ss << disGen(true);
+    for (i = 0; i < 3; i++) {
+        ss << disGen(false);
+    }
+    ss << "-";
+    for (i = 0; i < 12; i++) {
+        ss << disGen(false);
+    };
+    return ss.str();
 }
 
 std::string MamNodeApp::generate_hex(const unsigned int len)

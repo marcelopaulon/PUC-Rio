@@ -23,7 +23,8 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <queue>
-
+#include <random>
+#include <sstream>
 
 #include "inet/common/INETDefs.h"
 
@@ -43,7 +44,7 @@ namespace inet {
 class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 {
   protected:
-    enum SelfMsgKinds { START = 1, STOP, SEND_DATA };
+    enum SelfMsgKinds { START = 1, STOP, SEND_MY_DATA };
 
     // parameters
     std::vector<L3Address> destAddresses;
@@ -109,6 +110,10 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
 
     std::set<std::string> uniqueDataSenders;
 
+    std::set<std::string> uniqueSentPacketUUIDs;
+
+    int disGen(bool second);
+
   protected:
     virtual int numInitStages() const override { return NUM_INIT_STAGES; }
     virtual void initialize(int stage) override;
@@ -122,7 +127,7 @@ class INET_API MamNodeApp : public ApplicationBase, public UdpSocket::ICallback
     virtual void setSocketOptions();
 
     virtual void processStart();
-    virtual void processSendData();
+    virtual void processSendMyData();
     virtual void processStop();
     virtual void processDiscovery(L3Address &src);
     virtual void processFoundMobileSink(L3Address &src, int hops);
@@ -172,6 +177,9 @@ private:
     static const constexpr char *FRIEND_POLL = "FRIEND_POLL";
     static const constexpr char *FRIEND_UPDATE = "FRIEND_UPDATE";
     static const constexpr char *FRIEND_CLEAR = "FRIEND_CLEAR";
+
+
+    virtual std::string generate_uuid_v4();
 };
 
 } // namespace inet

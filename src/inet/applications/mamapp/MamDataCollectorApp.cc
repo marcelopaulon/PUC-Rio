@@ -15,6 +15,9 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
+#include <string>
+#include <string.h>
+
 #include "inet/applications/mamapp/BMeshPacket_m.h"
 #include "inet/applications/mamapp/MamDataCollectorApp.h"
 #include "inet/common/ModuleAccess.h"
@@ -119,6 +122,36 @@ void MamDataCollectorApp::refreshDisplay() const
 void MamDataCollectorApp::finish()
 {
     ApplicationBase::finish();
+
+    recordScalar("unique data packets received", uniqueDataSendPacketHashes.size());
+
+
+    //uuidLength = 36;
+    //separatorLength=1 (,)
+    //maxKeyLength = 32768;
+    //maxUUIDs per part - let's leave it at 750
+
+    std::string uniqueReceivedPacketUUIDsStr = "received packet uuids-part1=";
+
+    int i = 0;
+    int page = 1;
+    for (auto const& e : uniqueDataSendPacketHashes)
+    {
+        if (i == 750) {
+            uniqueReceivedPacketUUIDsStr.pop_back();
+            recordScalar(uniqueReceivedPacketUUIDsStr.c_str(), 1.0);
+            i = 0;
+            uniqueReceivedPacketUUIDsStr = "received packet uuids-part" + std::to_string(++page) + "=";
+        }
+
+        uniqueReceivedPacketUUIDsStr += e;
+        uniqueReceivedPacketUUIDsStr += ',';
+        i++;
+    }
+
+    uniqueReceivedPacketUUIDsStr.pop_back();
+    recordScalar(uniqueReceivedPacketUUIDsStr.c_str(), 1.0);
+
     EV_INFO << getFullPath() << ": received " << numReceived << " packets (" << numUnique <<
             " unique from " << numSenders << " senders)\n";
 
