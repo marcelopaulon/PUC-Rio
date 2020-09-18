@@ -622,6 +622,7 @@ void MamNodeApp::sendSimpleMessage(const char *msg, L3Address &dest, int hops)
     payload->setChunkLength(B(1));
     payload->setHops(hops);
     payload->addTag<CreationTimeTag>()->setCreationTime(simTime());
+    payload->setCreationTime(simTime());
     packet->insertAtBack(payload);
 
     emit(packetSentSignal, packet);

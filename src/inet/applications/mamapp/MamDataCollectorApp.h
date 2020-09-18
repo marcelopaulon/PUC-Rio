@@ -48,6 +48,10 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
     int numUnique = 0;
     int numSenders = 0;
 
+    long uniqueDataBytesReceived = 0;
+    long excessDataBytesReceived = 0;
+    long excessDataPacketsReceived = 0;
+
     std::set<std::string> uniqueDataSendPacketHashes;
     std::set<std::string> uniqueDataSenders;
 

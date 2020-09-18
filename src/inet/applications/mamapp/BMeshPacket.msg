@@ -27,5 +27,6 @@ class BMeshPacket extends FieldsChunk
     string srcUuid;     // source uuid (where the data was originally generated, the sensor node)
     string packetUuid;  // random uuid per data packet
     int sequence = -1;  // "id" of the generated data (src + sequence should be unique in the simulation)
+    simtime_t creationTime;
 }
 

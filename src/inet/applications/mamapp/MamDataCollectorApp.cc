@@ -49,6 +49,10 @@ void MamDataCollectorApp::initialize(int stage)
         numUnique = 0;
         numSenders = 0;
 
+        uniqueDataBytesReceived = 0;
+        excessDataBytesReceived = 0;
+        excessDataPacketsReceived = 0;
+
         WATCH(numReceived);
         WATCH(numUnique);
         WATCH(numSenders);
@@ -126,7 +130,10 @@ void MamDataCollectorApp::finish()
     ApplicationBase::finish();
 
     recordScalar("unique data packets received", uniqueDataSendPacketHashes.size());
+    recordScalar("unique data packets bytes received", uniqueDataBytesReceived);
 
+    recordScalar("repeated data packets received", excessDataPacketsReceived);
+    recordScalar("repeated data packets bytes received", excessDataBytesReceived);
 
     //uuidLength = 36;
     //separatorLength=1 (,)
@@ -276,7 +283,8 @@ void MamDataCollectorApp::processStop()
 
 void MamDataCollectorApp::processPacket(Packet *pk)
 {
-    EV_INFO << "Received packet: " << UdpSocket::getReceivedPacketInfo(pk) << endl;
+    auto sizeBytes = pk->getByteLength();
+    EV_INFO << "Received packet: " << UdpSocket::getReceivedPacketInfo(pk) << " size = " << sizeBytes << " bytes" << endl;
     emit(packetReceivedSignal, pk);
 
     auto bmeshData = dynamicPtrCast<const BMeshPacket>(pk->popAtBack());
@@ -285,13 +293,24 @@ void MamDataCollectorApp::processPacket(Packet *pk)
     std::string packetId = bmeshData->getPacketUuid();
 
     if (sequence > 0) {
-        auto createdAtTag = bmeshData->getTag<CreationTimeTag>();
-        auto creationTime = createdAtTag->getCreationTime();
+        //auto createdAtTag = bmeshData->getTag<CreationTimeTag>();
+        auto creationTime = bmeshData->getCreationTime();
+
+        ASSERT(sizeBytes == 11);
+        //ASSERT(createdAtTag->getCreationTime() == creationTime); THIS IS NOT HOLDING. So we won't use the tag data for now.
+
         auto delay = simTime() - creationTime; // compute delay
 
         emit(dataDelaySignal, delay);
 
-        uniqueDataSendPacketHashes.insert(bmeshData->getPacketUuid());
+        if (uniqueDataSendPacketHashes.find(bmeshData->getPacketUuid()) == uniqueDataSendPacketHashes.end()) {
+            uniqueDataSendPacketHashes.insert(bmeshData->getPacketUuid());
+            uniqueDataBytesReceived += sizeBytes;
+        } else {
+            excessDataPacketsReceived++;
+            excessDataBytesReceived += sizeBytes;
+        }
+
         uniqueDataSenders.insert(bmeshData->getSrcUuid());
 
         numUnique = uniqueDataSendPacketHashes.size();
