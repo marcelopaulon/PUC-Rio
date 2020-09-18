@@ -44,9 +44,13 @@ simple MamDataCollectorApp like IApp
         
         @signal[packetSent](type=inet::Packet); // Discovery packet
         @signal[packetReceived](type=inet::Packet);
+        @signal[dataDelay](type=simtime_t);
         @statistic[packetReceived](title="packets received"; source=packetReceived; record=count,"sum(packetBytes)","vector(packetBytes)"; interpolationmode=none);
         @statistic[throughput](title="throughput"; unit=bps; source="throughput(packetReceived)"; record=vector);
-        @statistic[endToEndDelay](title="end-to-end delay"; source="dataAge(packetReceived)"; unit=s; record=histogram,vector; interpolationmode=none);
+        @statistic[endToEndDelay](title="end-to-end delay"; source="dataAge(packetReceived)"; unit=ms; record=histogram,vector; interpolationmode=none);
+
+        @statistic[realDataEndToEndDelay](title="real data end-to-end delay"; source="dataDelay"; unit=ms; record=histogram,vector; interpolationmode=none);
+        
         @statistic[rcvdPkSeqNo](title="received packet sequence number"; source="appPkSeqNo(packetReceived)"; record=vector; interpolationmode=none);
 
     gates:

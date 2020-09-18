@@ -51,6 +51,8 @@ class INET_API MamDataCollectorApp : public ApplicationBase, public UdpSocket::I
     std::set<std::string> uniqueDataSendPacketHashes;
     std::set<std::string> uniqueDataSenders;
 
+    simsignal_t dataDelaySignal = registerSignal("dataDelay");
+
   public:
     MamDataCollectorApp() {}
     virtual ~MamDataCollectorApp();

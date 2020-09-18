@@ -62,6 +62,8 @@ void MamDataCollectorApp::initialize(int stage)
         if (stopTime >= SIMTIME_ZERO && stopTime < startTime)
             throw cRuntimeError("Invalid startTime/stopTime parameters");
         selfMsg = new cMessage("UDPSinkTimer");
+
+        dataDelaySignal = registerSignal("dataDelay");
     }
 }
 
@@ -151,6 +153,8 @@ void MamDataCollectorApp::finish()
 
     uniqueReceivedPacketUUIDsStr.pop_back();
     recordScalar(uniqueReceivedPacketUUIDsStr.c_str(), 1.0);
+
+
 
     EV_INFO << getFullPath() << ": received " << numReceived << " packets (" << numUnique <<
             " unique from " << numSenders << " senders)\n";
@@ -281,6 +285,12 @@ void MamDataCollectorApp::processPacket(Packet *pk)
     std::string packetId = bmeshData->getPacketUuid();
 
     if (sequence > 0) {
+        auto createdAtTag = bmeshData->getTag<CreationTimeTag>();
+        auto creationTime = createdAtTag->getCreationTime();
+        auto delay = simTime() - creationTime; // compute delay
+
+        emit(dataDelaySignal, delay);
+
         uniqueDataSendPacketHashes.insert(bmeshData->getPacketUuid());
         uniqueDataSenders.insert(bmeshData->getSrcUuid());
 
