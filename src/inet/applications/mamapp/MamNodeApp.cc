@@ -131,7 +131,7 @@ void MamNodeApp::finish()
 
     uniqueSentPacketUUIDsStr.pop_back();
 
-    recordScalar(uniqueSentPacketUUIDsStr.c_str(), 1.0d);
+    recordScalar(uniqueSentPacketUUIDsStr.c_str(), 1.0);
 
     EV_INFO << getFullPath() << ": sent " << numDataSent << " data packets\n";
 
