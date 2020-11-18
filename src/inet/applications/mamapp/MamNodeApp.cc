@@ -119,18 +119,28 @@ void MamNodeApp::finish()
     recordScalar("ack packets received", numDataAckReceived);
     recordScalar("my data sent", uniqueSentPacketUUIDs.size());
 
-    string uniqueSentPacketUUIDsStr;
 
-    uniqueSentPacketUUIDsStr += "generated packet uuids";
+    /////
 
+    std::string uniqueSentPacketUUIDsStr = "generated packet uuids-part1=";
+
+    int i = 0;
+    int page = 1;
     for (auto const& e : uniqueSentPacketUUIDs)
     {
+        if (i == 750) {
+            uniqueSentPacketUUIDsStr.pop_back();
+            recordScalar(uniqueSentPacketUUIDsStr.c_str(), 1.0);
+            i = 0;
+            uniqueSentPacketUUIDsStr = "generated packet uuids-part" + std::to_string(++page) + "=";
+        }
+
         uniqueSentPacketUUIDsStr += e;
         uniqueSentPacketUUIDsStr += ',';
+        i++;
     }
 
     uniqueSentPacketUUIDsStr.pop_back();
-
     recordScalar(uniqueSentPacketUUIDsStr.c_str(), 1.0);
 
     EV_INFO << getFullPath() << ": sent " << numDataSent << " data packets\n";
