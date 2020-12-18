@@ -10,7 +10,7 @@ import inet.environment.common.PhysicalEnvironment;
 network MAM_n100_a800m2_lpnFn8_8
 {
     parameters:
-        @display("bgb=800,800;bgg=100,1,grey95;bgu=m");
+        @display("bgb=1600,1600;bgg=100,1,grey95;bgu=m");
         @figure[title](type=label; pos=0,-1; anchor=sw; color=darkblue);
 
         @figure[rcvdPkText](type=indicatorText; pos=50,50; anchor=w; font=,18; textFormat="packets received: %g"; initialValue=0);
@@ -38,399 +38,399 @@ network MAM_n100_a800m2_lpnFn8_8
     }
 
     host_fn_rly_2: <default("SensorNode")> like INetworkNode {
-        @display("p=106.76,773.32");
+        @display("p=150.64,777.88");
     }
 
     host_fn_rly_3: <default("SensorNode")> like INetworkNode {
-        @display("p=29.22,745.92");
+        @display("p=158.33,795.85");
     }
 
     host_fn_rly_4: <default("SensorNode")> like INetworkNode {
-        @display("p=114.76,706.05");
+        @display("p=223.68,767.90");
     }
 
     host_fn_rly_5: <default("SensorNode")> like INetworkNode {
-        @display("p=67.64,740.56");
+        @display("p=210.87,740.18");
     }
 
     host_fn_rly_6: <default("SensorNode")> like INetworkNode {
-        @display("p=136.18,720.79");
+        @display("p=220.58,730.47");
     }
 
     host_fn_rly_7: <default("SensorNode")> like INetworkNode {
-        @display("p=98.21,687.53");
+        @display("p=277.72,726.07");
     }
 
     host_fn_rly_8: <default("SensorNode")> like INetworkNode {
-        @display("p=73.39,639.27");
+        @display("p=296.42,735.88");
     }
 
     host_fn_rly_9: <default("SensorNode")> like INetworkNode {
-        @display("p=8.93,626.87");
+        @display("p=316.74,779.24");
     }
 
     host_fn_rly_10: <default("SensorNode")> like INetworkNode {
-        @display("p=71.03,697.36");
+        @display("p=402.62,747.19");
     }
 
     host_fn_rly_11: <default("SensorNode")> like INetworkNode {
-        @display("p=92.16,635.07");
+        @display("p=408.04,776.20");
     }
 
     host_fn_rly_12: <default("SensorNode")> like INetworkNode {
-        @display("p=102.62,607.06");
+        @display("p=417.95,772.37");
     }
 
     host_fn_rly_13: <default("SensorNode")> like INetworkNode {
-        @display("p=131.49,523.75");
+        @display("p=382.91,773.45");
     }
 
     host_lpn_14: <default("SensorNode")> like INetworkNode {
-        @display("p=131.63,653.28");
+        @display("p=66.45,655.89");
     }
 
     host_lpn_15: <default("SensorNode")> like INetworkNode {
-        @display("p=114.58,724.32");
+        @display("p=235.31,756.61");
     }
 
     host_lpn_16: <default("SensorNode")> like INetworkNode {
-        @display("p=21.00,760.18");
+        @display("p=190.02,780.87");
     }
 
     host_lpn_17: <default("SensorNode")> like INetworkNode {
-        @display("p=139.15,626.19");
+        @display("p=202.35,791.30");
     }
 
     host_lpn_18: <default("SensorNode")> like INetworkNode {
-        @display("p=123.80,752.43");
+        @display("p=147.11,697.07");
     }
 
     host_lpn_19: <default("SensorNode")> like INetworkNode {
-        @display("p=168.86,713.69");
+        @display("p=216.09,696.06");
     }
 
     host_lpn_20: <default("SensorNode")> like INetworkNode {
-        @display("p=103.70,640.75");
+        @display("p=337.51,723.21");
     }
 
     host_lpn_21: <default("SensorNode")> like INetworkNode {
-        @display("p=158.27,673.97");
+        @display("p=202.91,770.64");
     }
 
     host_lpn_22: <default("SensorNode")> like INetworkNode {
-        @display("p=40.08,592.02");
+        @display("p=300.16,766.59");
     }
 
     host_lpn_23: <default("SensorNode")> like INetworkNode {
-        @display("p=39.96,652.50");
+        @display("p=483.42,701.54");
     }
 
     host_lpn_24: <default("SensorNode")> like INetworkNode {
-        @display("p=154.89,704.38");
+        @display("p=391.08,732.59");
     }
 
     host_lpn_25: <default("SensorNode")> like INetworkNode {
-        @display("p=66.34,589.31");
+        @display("p=489.33,773.89");
     }
 
     host_lpn_26: <default("SensorNode")> like INetworkNode {
-        @display("p=69.90,575.31");
+        @display("p=399.29,759.45");
     }
 
     host_lpn_27: <default("SensorNode")> like INetworkNode {
-        @display("p=84.99,663.68");
+        @display("p=99.06,793.22");
     }
 
     host_lpn_28: <default("SensorNode")> like INetworkNode {
-        @display("p=99.16,788.08");
+        @display("p=141.05,790.60");
     }
 
     host_lpn_29: <default("SensorNode")> like INetworkNode {
-        @display("p=27.33,783.94");
+        @display("p=83.57,777.64");
     }
 
     host_lpn_30: <default("SensorNode")> like INetworkNode {
-        @display("p=103.56,664.71");
+        @display("p=292.66,749.77");
     }
 
     host_lpn_31: <default("SensorNode")> like INetworkNode {
-        @display("p=47.71,680.10");
+        @display("p=284.01,734.90");
     }
 
     host_lpn_32: <default("SensorNode")> like INetworkNode {
-        @display("p=140.11,772.32");
+        @display("p=179.79,709.08");
     }
 
     host_lpn_33: <default("SensorNode")> like INetworkNode {
-        @display("p=131.53,666.63");
+        @display("p=266.17,731.47");
     }
 
     host_lpn_34: <default("SensorNode")> like INetworkNode {
-        @display("p=54.82,611.06");
+        @display("p=335.81,745.43");
     }
 
     host_lpn_35: <default("SensorNode")> like INetworkNode {
-        @display("p=50.60,695.58");
+        @display("p=274.32,751.08");
     }
 
     host_lpn_36: <default("SensorNode")> like INetworkNode {
-        @display("p=81.17,681.89");
+        @display("p=451.13,680.52");
     }
 
     host_lpn_37: <default("SensorNode")> like INetworkNode {
-        @display("p=29.07,675.40");
+        @display("p=456.74,743.20");
     }
 
     host_lpn_38: <default("SensorNode")> like INetworkNode {
-        @display("p=40.36,544.39");
+        @display("p=356.97,744.74");
     }
 
     host_lpn_39: <default("SensorNode")> like INetworkNode {
-        @display("p=184.00,523.08");
+        @display("p=309.42,721.84");
     }
 
     host_lpn_40: <default("SensorNode")> like INetworkNode {
-        @display("p=104.56,797.77");
+        @display("p=72.85,785.51");
     }
 
     host_lpn_41: <default("SensorNode")> like INetworkNode {
-        @display("p=165.39,736.82");
+        @display("p=220.18,778.16");
     }
 
     host_lpn_42: <default("SensorNode")> like INetworkNode {
-        @display("p=73.27,792.75");
+        @display("p=125.91,784.24");
     }
 
     host_lpn_43: <default("SensorNode")> like INetworkNode {
-        @display("p=134.28,690.91");
+        @display("p=229.02,789.66");
     }
 
     host_lpn_44: <default("SensorNode")> like INetworkNode {
-        @display("p=151.11,689.48");
+        @display("p=243.12,721.84");
     }
 
     host_lpn_45: <default("SensorNode")> like INetworkNode {
-        @display("p=150.38,645.02");
+        @display("p=276.05,713.80");
     }
 
     host_lpn_46: <default("SensorNode")> like INetworkNode {
-        @display("p=37.31,721.85");
+        @display("p=357.79,702.83");
     }
 
     host_lpn_47: <default("SensorNode")> like INetworkNode {
-        @display("p=16.10,675.20");
+        @display("p=350.57,711.08");
     }
 
     host_lpn_48: <default("SensorNode")> like INetworkNode {
-        @display("p=70.03,658.78");
+        @display("p=338.76,773.87");
     }
 
     host_lpn_49: <default("SensorNode")> like INetworkNode {
-        @display("p=18.99,734.49");
+        @display("p=398.01,676.16");
     }
 
     host_lpn_50: <default("SensorNode")> like INetworkNode {
-        @display("p=80.75,652.83");
+        @display("p=416.47,738.74");
     }
 
     host_lpn_51: <default("SensorNode")> like INetworkNode {
-        @display("p=165.73,539.65");
+        @display("p=424.58,678.41");
     }
 
     host_lpn_52: <default("SensorNode")> like INetworkNode {
-        @display("p=120.58,536.86");
+        @display("p=335.70,696.18");
     }
 
     host_lpn_53: <default("SensorNode")> like INetworkNode {
-        @display("p=85.50,691.40");
+        @display("p=143.78,640.62");
     }
 
     host_lpn_54: <default("SensorNode")> like INetworkNode {
-        @display("p=118.01,741.56");
+        @display("p=173.51,750.56");
     }
 
     host_lpn_55: <default("SensorNode")> like INetworkNode {
-        @display("p=88.00,770.45");
+        @display("p=151.47,752.04");
     }
 
     host_lpn_56: <default("SensorNode")> like INetworkNode {
-        @display("p=180.41,700.10");
+        @display("p=279.72,785.67");
     }
 
     host_lpn_57: <default("SensorNode")> like INetworkNode {
-        @display("p=129.10,789.89");
+        @display("p=117.53,748.31");
     }
 
     host_lpn_58: <default("SensorNode")> like INetworkNode {
-        @display("p=83.56,788.68");
+        @display("p=130.94,745.75");
     }
 
     host_lpn_59: <default("SensorNode")> like INetworkNode {
-        @display("p=134.02,701.39");
+        @display("p=271.83,763.23");
     }
 
     host_lpn_60: <default("SensorNode")> like INetworkNode {
-        @display("p=117.86,619.28");
+        @display("p=290.32,711.95");
     }
 
     host_lpn_61: <default("SensorNode")> like INetworkNode {
-        @display("p=3.24,671.20");
+        @display("p=290.49,724.40");
     }
 
     host_lpn_62: <default("SensorNode")> like INetworkNode {
-        @display("p=75.10,773.95");
+        @display("p=486.21,753.44");
     }
 
     host_lpn_63: <default("SensorNode")> like INetworkNode {
-        @display("p=47.36,567.37");
+        @display("p=418.94,784.13");
     }
 
     host_lpn_64: <default("SensorNode")> like INetworkNode {
-        @display("p=54.27,626.71");
+        @display("p=327.62,771.22");
     }
 
     host_lpn_65: <default("SensorNode")> like INetworkNode {
-        @display("p=143.02,513.28");
+        @display("p=402.45,795.44");
     }
 
     host_lpn_66: <default("SensorNode")> like INetworkNode {
-        @display("p=38.62,668.19");
+        @display("p=127.68,734.74");
     }
 
     host_lpn_67: <default("SensorNode")> like INetworkNode {
-        @display("p=74.08,729.53");
+        @display("p=166.09,778.94");
     }
 
     host_lpn_68: <default("SensorNode")> like INetworkNode {
-        @display("p=48.28,770.47");
+        @display("p=199.01,740.63");
     }
 
     host_lpn_69: <default("SensorNode")> like INetworkNode {
-        @display("p=93.52,654.96");
+        @display("p=178.45,690.86");
     }
 
     host_lpn_70: <default("SensorNode")> like INetworkNode {
-        @display("p=94.03,721.29");
+        @display("p=244.30,765.59");
     }
 
     host_lpn_71: <default("SensorNode")> like INetworkNode {
-        @display("p=116.14,777.61");
+        @display("p=137.19,731.26");
     }
 
     host_lpn_72: <default("SensorNode")> like INetworkNode {
-        @display("p=55.69,638.87");
+        @display("p=334.87,656.83");
     }
 
     host_lpn_73: <default("SensorNode")> like INetworkNode {
-        @display("p=128.21,608.14");
+        @display("p=321.13,712.12");
     }
 
     host_lpn_74: <default("SensorNode")> like INetworkNode {
-        @display("p=20.32,621.89");
+        @display("p=375.10,724.90");
     }
 
     host_lpn_75: <default("SensorNode")> like INetworkNode {
-        @display("p=88.74,645.56");
+        @display("p=481.20,733.09");
     }
 
     host_lpn_76: <default("SensorNode")> like INetworkNode {
-        @display("p=78.67,560.62");
+        @display("p=411.88,762.75");
     }
 
     host_lpn_77: <default("SensorNode")> like INetworkNode {
-        @display("p=76.33,596.56");
+        @display("p=435.24,754.80");
     }
 
     host_lpn_78: <default("SensorNode")> like INetworkNode {
-        @display("p=86.73,473.49");
+        @display("p=357.76,767.29");
     }
 
     host_lpn_79: <default("SensorNode")> like INetworkNode {
-        @display("p=61.68,750.63");
+        @display("p=162.07,672.34");
     }
 
     host_lpn_80: <default("SensorNode")> like INetworkNode {
-        @display("p=43.62,744.12");
+        @display("p=142.73,711.85");
     }
 
     host_lpn_81: <default("SensorNode")> like INetworkNode {
-        @display("p=88.86,712.58");
+        @display("p=169.44,793.57");
     }
 
     host_lpn_82: <default("SensorNode")> like INetworkNode {
-        @display("p=164.35,749.33");
+        @display("p=305.97,788.36");
     }
 
     host_lpn_83: <default("SensorNode")> like INetworkNode {
-        @display("p=112.64,683.14");
+        @display("p=217.95,755.87");
     }
 
     host_lpn_84: <default("SensorNode")> like INetworkNode {
-        @display("p=175.90,762.93");
+        @display("p=191.36,648.39");
     }
 
     host_lpn_85: <default("SensorNode")> like INetworkNode {
-        @display("p=139.43,678.20");
+        @display("p=269.18,698.33");
     }
 
     host_lpn_86: <default("SensorNode")> like INetworkNode {
-        @display("p=55.73,599.78");
+        @display("p=246.60,744.71");
     }
 
     host_lpn_87: <default("SensorNode")> like INetworkNode {
-        @display("p=28.97,652.33");
+        @display("p=341.77,787.34");
     }
 
     host_lpn_88: <default("SensorNode")> like INetworkNode {
-        @display("p=58.37,686.46");
+        @display("p=441.02,705.32");
     }
 
     host_lpn_89: <default("SensorNode")> like INetworkNode {
-        @display("p=23.86,575.60");
+        @display("p=453.18,729.75");
     }
 
     host_lpn_90: <default("SensorNode")> like INetworkNode {
-        @display("p=93.82,619.53");
+        @display("p=436.31,781.68");
     }
 
     host_lpn_91: <default("SensorNode")> like INetworkNode {
-        @display("p=209.91,561.45");
+        @display("p=327.59,729.39");
     }
 
     host_lpn_92: <default("SensorNode")> like INetworkNode {
-        @display("p=148.41,735.23");
+        @display("p=79.81,641.75");
     }
 
     host_lpn_93: <default("SensorNode")> like INetworkNode {
-        @display("p=119.10,793.03");
+        @display("p=77.62,716.38");
     }
 
     host_lpn_94: <default("SensorNode")> like INetworkNode {
-        @display("p=31.85,707.68");
+        @display("p=167.67,712.86");
     }
 
     host_lpn_95: <default("SensorNode")> like INetworkNode {
-        @display("p=76.82,709.18");
+        @display("p=251.91,788.42");
     }
 
     host_lpn_96: <default("SensorNode")> like INetworkNode {
-        @display("p=74.65,760.59");
+        @display("p=283.02,770.13");
     }
 
     host_lpn_97: <default("SensorNode")> like INetworkNode {
-        @display("p=142.46,750.90");
+        @display("p=235.26,656.92");
     }
 
     host_lpn_98: <default("SensorNode")> like INetworkNode {
-        @display("p=100.48,677.19");
+        @display("p=199.67,756.37");
     }
 
     host_lpn_99: <default("SensorNode")> like INetworkNode {
-        @display("p=17.82,650.51");
+        @display("p=242.20,797.96");
     }
 
     host_lpn_100: <default("SensorNode")> like INetworkNode {
-        @display("p=37.69,604.38");
+        @display("p=321.96,789.59");
     }
 
 }
