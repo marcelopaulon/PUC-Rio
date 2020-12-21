@@ -30,7 +30,7 @@ network ##{NETWORK_NAME}##
             @display("p=3,0");
         }
         collector1: <default("WirelessHost")> like INetworkNode {
-            @display("p=100,100");
+            @display("p=100.0,-300.0");
         }
         ##{NODES}##
 }
