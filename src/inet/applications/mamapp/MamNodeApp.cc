@@ -151,16 +151,7 @@ void MamNodeApp::finish()
 
     EV_INFO << getFullPath() << ": failed to send " << (numDataSent + numDataResent) - numDataAckReceived << " data packets\n";
 
-
     EV_INFO << getFullPath() << ": received from " << uniqueDataSenders.size() << " senders)\n";
-
-    char buf[10000] = "";
-
-    for (auto it = uniqueDataSenders.begin(); it != uniqueDataSenders.end(); it++) {
-        sprintf(buf + strlen(buf), " %s", (*it).c_str());
-    }
-
-    EV_INFO << buf << "\n";
 }
 
 void MamNodeApp::setSocketOptions()
