@@ -65,6 +65,16 @@ def processFile(filename, conn, cur):
             if (row[6] != None and row[6] != ''):
                 value = float(row[6])
 
+            if '-part' in name and '=' in name:
+                divStr = name.split('=')
+                
+                if (len(divStr) != 2):
+                    print(name)
+
+                assert len(divStr) == 2
+                name = divStr[0]
+                value = divStr[1]
+
             full_row = ','.join(row)
             
             if name == None or name == '':

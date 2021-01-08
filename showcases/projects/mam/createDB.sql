@@ -18,3 +18,7 @@ create table if not exists scalars (
     primary key(node_amount, area_sq_m, lpn_fn_ratio, relay_type, delta_ms, speed_ms, series, rep, module, name)
 );
 
+create index if not exists scalars_name on scalars (name);
+
+create index if not exists scalars_delta_relay_name on scalars (delta_ms, relay_type, name);
+
