@@ -120,7 +120,7 @@ void MamDataCollectorApp::refreshDisplay() const
 {
     ApplicationBase::refreshDisplay();
 
-    char buf[100];
+    char buf[128];
     sprintf(buf, "rcvd: %d pks (%d unique from %d senders)", numReceived, numUnique, numSenders);
     getDisplayString().setTagArg("t", 0, buf);
 }
@@ -165,14 +165,6 @@ void MamDataCollectorApp::finish()
 
     EV_INFO << getFullPath() << ": received " << numReceived << " packets (" << numUnique <<
             " unique from " << numSenders << " senders)\n";
-
-    char buf[10000] = "";
-
-    for (auto it = uniqueDataSenders.begin(); it != uniqueDataSenders.end(); it++) {
-        sprintf(buf + strlen(buf), " %s", (*it).c_str());
-    }
-
-    EV_INFO << buf << "\n";
 }
 
 void MamDataCollectorApp::setSocketOptions()
