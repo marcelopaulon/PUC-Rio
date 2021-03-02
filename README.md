@@ -1,3 +1,14 @@
+Monitored Arboretum Mesh - MAM
+=================================
+
+This is a fork from INET 4.1.
+
+MAM project folder: showcases/projects/mam - contains maps and configuration files, as well as the Jupyter notebooks used for result analysis+plots
+
+MAM application code: src/inet/applications/mamapp
+
+Simplified BTMesh code: src/inet/linklayer/blemesh (it is very similar to the 802.15.4 code but implements BTMesh friendship)
+
 | CI Status | master |
 |-----------|:------:|
 | Build and fingerprint tests | [![Travis CI][travis-master]][1] |
