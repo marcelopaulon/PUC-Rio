@@ -1,0 +1,233 @@
+PCP-2018.2 - PUC-Rio
+Marcelo Paulon (1821409)
+
+T1 -
+
+I) Algoritmo - buffer limitado com múltiplos produtores e consumidores (implementação utilizou passagem de bastão como implementação para o await - ver arquivo limitedbuffer.c)
+
+void lbuf_deposit(int data) {
+  < await pendingReads[nextWriteIndex][k] == 0; nW++ > // pendingReads é uma matriz com contadores de leituras (consumos) pendentes para cada posição do buffer. Aqui verifica-se se a posição está livre, isto é, não há nenhuma leitura pendente na próxima posição de escrita do buffer.
+  buffer[nextWriteIndex] = data; // escreve no buffer
+  SIGNAL;
+  P(e);
+  for(int j = 0; j < c; j++) {
+    pendingReads[writeIndex][j] = 1; // Define leituras pendentes para cada consumidor
+  }
+
+  // Definição do próximo índice de escrita
+  nextWriteIndex++;
+  if(nextWriteIndex == lbuf->n) {
+    nextWriteIndex = 0;
+  }
+
+  SIGNAL;
+}
+
+
+int lbuf_consume(int threadId) {
+  < await pendingReads[readIndex][threadId] > 0 > // Read index é um índice mantido para cada thread de consumidor manter controle sobre qual próxima posição do buffer ele deve consumir
+  SIGNAL;
+
+  int data = buffer[readIndex]; // Lê do buffer
+  P(e);
+  pendingReads[readIndex][threadId]--; // Remove leitura pendente para essa thread (isto potencialmente sinalizará para algum depositante pendente escrever na posição readIndex do buffer, caso o total de pendingReads[readIndex] seja zero
+
+  SIGNAL;
+
+  return data; // Retorna o dado consumido
+}
+
+
+II) Informações
+
+O buffer limitado foi implementado como um TAD, com as seguintes funções:
+
+LBUF * lbuf_create(int nPosition, int pProducers, int cConsumers); => cria o buffer, de n posições, para p produtores (depositantes) e c consumidores (leitores)
+
+void lbuf_deposit(LBUF * lbuf, int data); => deposita dados no buffer
+
+int lbuf_consume(LBUF * lbuf, int threadId); => consome dados do buffer (recebe um id de thread, de 0 a c - 1.
+
+void lbuf_free(LBUF * lbuf); => destrói o buffer
+
+Os testes do buffer podem ser realizados através do programa "lbuf", que recebe como parâmetros de linha de comando o tamanho n do buffer, quantidade de depositantes, quantidade de consumidores e opcionalmente o modo de teste.
+Cada depositante irá escrever um valor fixo (definido no arquivo main.c - atualmente 8) de números no buffer (os números vão de 0 ao valor definido - 1). Cada leitor irá ler do buffer o número total de depósitos.
+
+Os testes foram realizados variando os parâmetros do programa, inicialmente testando-se um buffer de tamanho 1, com 1 produtor e 1 consumidor, depois testando adicionar mais um produtor, mais um consumidor, mais uma posição, individualmente.
+Durante a execução, o programa escreve no console cada passo de depósito / consumo com identificação de valor e do id de cada thread. Em cada caso de teste avaliado, foi verificado que todos os consuumidores receberam todas as mensagens depositadas, ao analisar os dados do log. Para isto, foi utilizado sleep entre cada etapa de consumo.
+
+Outros testes foram efetuados, variando o tipo de sleep, e estes podem ser executados ao passar um parâmetro adicional na linha de comando que indica o modo do teste. Uma descrição de cada um desses parâmetros pode ser encontrada ao executar o programa sem passar nenhum parâmetro:
+
+---------
+$ ./lbuf
+USAGE: lbuf nPositions nProducers nConsumers [ mode = NO_SLEEP]
+  mode: SLEEP_ALL - each consumer and producer will sleep for 1 second between requests
+        SLEEP_PRODUCERS - each producer will sleep for 1 second between requests
+        SLEEP_CONSUMERS - (default) each consumer will sleep for 1 second between requests
+        NO_SLEEP - each consumer and producer will execute without any sleep calls
+
+ Description: simulates de limited buffer (limitedbuffer.h) for a specified number of producers/consumers
+---------
+
+
+III) Problemas encontrados:
+
+Ao utilizar o modo "NO_SLEEP" com múltiplos produtores e múltiplos consumidores o programa não executa corretamente, o que pode indicar um problema na implementação do buffer ou do teste.
+
+
+IV) Exemplos de execução:
+
+$ ./lbuf 1 1 1
+Deposit 0 start
+[D0] Will deposit 0
+[D0] Deposited 0
+[D0] Will deposit 1
+Consumer 0 start
+[C0] Consumed 0
+[D0] Deposited 1
+[D0] Will deposit 2
+[C0] Consumed 1
+[D0] Deposited 2
+[D0] Will deposit 3
+[C0] Consumed 2
+[D0] Deposited 3
+[D0] Will deposit 4
+[C0] Consumed 3
+[D0] Deposited 4
+[D0] Will deposit 5
+[C0] Consumed 4
+[D0] Deposited 5
+[D0] Will deposit 6
+[C0] Consumed 5
+[D0] Deposited 6
+[D0] Will deposit 7
+[C0] Consumed 6
+[D0] Deposited 7
+[D0] Ended (in main thread)
+[C0] Consumed 7
+Ended C0
+Main thread will end
+
+$ ./lbuf 4 1 1
+Deposit 0 start
+[D0] Will deposit 0
+[D0] Deposited 0
+[D0] Will deposit 1
+[D0] Deposited 1
+[D0] Will deposit 2
+[D0] Deposited 2
+[D0] Will deposit 3
+[D0] Deposited 3
+[D0] Will deposit 4
+Consumer 0 start
+[C0] Consumed 0
+[D0] Deposited 4
+[D0] Will deposit 5
+[C0] Consumed 1
+[D0] Deposited 5
+[D0] Will deposit 6
+[C0] Consumed 2
+[D0] Deposited 6
+[D0] Will deposit 7
+[C0] Consumed 3
+[D0] Deposited 7
+[D0] Ended (in main thread)
+[C0] Consumed 4
+[C0] Consumed 5
+[C0] Consumed 6
+[C0] Consumed 7
+Ended C0
+Main thread will end
+
+$ ./lbuf 4 2 3
+Deposit 0 start
+[D0] Will deposit 0
+[D0] Deposited 0
+[D0] Will deposit 1
+[D0] Deposited 1
+[D0] Will deposit 2
+[D0] Deposited 2
+[D0] Will deposit 3
+[D0] Deposited 3
+Consumer 0 start
+[C0] Consumed 0
+Consumer 1 start
+[C1] Consumed 0
+Consumer 2 start
+Producer 1 start
+[D1] Will deposit 0
+[D1] Deposited 0
+[D1] Will deposit 1
+[C2] Consumed 0
+[D0] Will deposit 4
+[C0] Consumed 1
+[C1] Consumed 1
+[C2] Consumed 1
+[D1] Deposited 1
+[D1] Will deposit 2
+[C0] Consumed 2
+[C1] Consumed 2
+[D0] Deposited 4
+[D0] Will deposit 5
+[C2] Consumed 2
+[C0] Consumed 3
+[C1] Consumed 3
+[C2] Consumed 3
+[D1] Deposited 2
+[D1] Will deposit 3
+[C0] Consumed 0
+[C1] Consumed 0
+[C2] Consumed 0
+[D0] Deposited 5
+[D0] Will deposit 6
+[C0] Consumed 1
+[C1] Consumed 1
+[C2] Consumed 1
+[D1] Deposited 3
+[D1] Will deposit 4
+[C1] Consumed 4
+[C0] Consumed 4
+[D0] Deposited 6
+[C2] Consumed 4
+[D0] Will deposit 7
+[C1] Consumed 2
+[C0] Consumed 2
+[C2] Consumed 2
+[D1] Deposited 4
+[D1] Will deposit 5
+[C0] Consumed 5
+[C1] Consumed 5
+[C2] Consumed 5
+[D0] Deposited 7
+[D0] Ended (in main thread)
+[C0] Consumed 3
+[C2] Consumed 3
+[C1] Consumed 3
+[D1] Deposited 5
+[D1] Will deposit 6
+[C0] Consumed 6
+[C1] Consumed 6
+[C2] Consumed 6
+[D1] Deposited 6
+[D1] Will deposit 7
+[C0] Consumed 4
+[C1] Consumed 4
+[C2] Consumed 4
+[D1] Deposited 7
+[C0] Consumed 7
+[C2] Consumed 7
+[C1] Consumed 7
+[C2] Consumed 5
+[C0] Consumed 5
+[C1] Consumed 5
+[C2] Consumed 6
+[C0] Consumed 6
+[C1] Consumed 6
+[C2] Consumed 7
+[C0] Consumed 7
+[C1] Consumed 7
+Ended C0
+Ended C1
+Ended C2
+Ended P1
+Main thread will end
