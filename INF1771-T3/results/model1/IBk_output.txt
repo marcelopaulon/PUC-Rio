@@ -1,0 +1,99 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 1 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     C__Users_Marcelo_workspace_INF1771-T3_dataset_movie_review_dataset_all-weka.filters.unsupervised.attribute.StringToWordVector-R1-W1000-prune-rate-1.0-T-I-N0-stemmerweka.core.stemmers.SnowballStemmer-stopwords-handlerweka.core.stopwords.WordsFromFile -stopwords C:\Users\Marcelo\workspace\INF1771-T3\dataset\stopwords_eng.txt-M1-tokenizerweka.core.tokenizers.WordTokenizer -delimiters " \r\n\t.,;:\'\"()?!"-weka.filters.unsupervised.attribute.Remove-R2-28-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.CfsSubsetEval -P 1 -E 1-Sweka.attributeSelection.BestFirst -D 1 -N 5-weka.filters.unsupervised.attribute.Remove-R2
+Instances:    50000
+Attributes:   58
+              Avoid
+              amateurish
+              amazing
+              annoying
+              awful
+              bad
+              beautiful
+              boring
+              bother
+              bunch
+              couldn
+              crap
+              dreadful
+              dull
+              enjoyed
+              excellent
+              fails
+              great
+              horrible
+              insult
+              lame
+              laughable
+              love
+              loved
+              mess
+              minutes
+              money
+              painful
+              pathetic
+              pointless
+              poor
+              poorly
+              predictable
+              reason
+              recently
+              redeeming
+              ridiculous
+              rubbish
+              script
+              stupid
+              supposed
+              terrible
+              today
+              unfunny
+              waste
+              wasted
+              wonderful
+              worse
+              worst
+              beautifully
+              emotions
+              fantastic
+              favourite
+              funniest
+              outstanding
+              underrated
+              unusual
+              @@class@@
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 1 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0.03 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       38462               76.924  %
+Incorrectly Classified Instances     11538               23.076  %
+Kappa statistic                          0.5385
+Mean absolute error                      0.3014
+Root mean squared error                  0.4122
+Relative absolute error                 60.2731 %
+Root relative squared error             82.439  %
+Total Number of Instances            50000     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,728    0,190    0,793      0,728    0,759      0,540    0,830     0,827     neg
+                 0,810    0,272    0,749      0,810    0,778      0,540    0,830     0,793     pos
+Weighted Avg.    0,769    0,231    0,771      0,769    0,769      0,540    0,830     0,810     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 18209  6791 |     a = neg
+  4747 20253 |     b = pos
+
