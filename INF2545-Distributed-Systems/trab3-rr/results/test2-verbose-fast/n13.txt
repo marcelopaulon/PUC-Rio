@@ -1,0 +1,225 @@
+1623917399 r3 c1: Node 13 - row 3 column 1
+1623917399 r3 c1: Connected to MQTT broker.
+1623917404 r3 c1: Added node-r2-c2 as neighbor
+1623917404 r3 c1: Added node-r2-c0 as neighbor
+1623917404 r3 c1: Added node-r2-c1 as neighbor
+1623917404 r3 c1: Added node-r3-c0 as neighbor
+1623917404 r3 c1: Added node-r3-c2 as neighbor
+1623917406 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":8,"key":"l","id":"0-2"},"event":"controle"}
+1623917406 r3 c1: STATE: []
+1623917406 r3 c1: Skipping recently seen message 0-2
+1623917407 r3 c1: Skipping recently seen message 0-2
+1623917407 r3 c1: Skipping recently seen message 0-2
+1623917407 r3 c1: Skipping recently seen message 0-2
+1623917415 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":10,"key":"h","id":"14-5"},"event":"controle"}
+1623917415 r3 c1: Highlight triggered
+1623917420 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":3,"queryData":{"ttl":3,"q":"1","visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c3","node-r2-c2"]},"to":"node-r2-c1","id":"10-7"},"event":"query"}
+1623917420 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":2,"queryData":{"ttl":2,"q":"1","visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c3","node-r2-c2","node-r2-c1"]},"to":"node-r1-c2","id":"9-7"},"event":"query"}
+1623917424 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"1","visited":["node-r3-c3","node-r2-c2"]},"to":"node-r2-c1","id":"10-9"},"event":"query"}
+1623917424 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"1","visited":["node-r3-c3","node-r2-c2","node-r2-c1"]},"to":"node-r3-c1","id":"9-9"},"event":"query"}
+1623917424 r3 c1: query: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"1","visited":["node-r3-c3","node-r2-c2","node-r2-c1"]},"to":"node-r3-c1","id":"9-9"},"event":"query"}
+1623917424 r3 c1: Sending query (ttl=5) to node-r3-c0
+1623917424 r3 c1: Received from topic node-r3-c0: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"1","visited":["node-r3-c3","node-r2-c2","node-r2-c1","node-r3-c1","node-r3-c0"]},"to":"node-r2-c0","id":"12-8"},"event":"query"}
+1623917424 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":3,"queryData":{"ttl":3,"q":"1","visited":["node-r3-c3","node-r2-c2","node-r2-c1","node-r3-c1","node-r3-c0","node-r2-c0"]},"to":"node-r1-c1","id":"8-8"},"event":"query"}
+1623917424 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c3","node-r2-c2"]},"to":"node-r3-c1","id":"10-10"},"event":"query"}
+1623917424 r3 c1: query: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c3","node-r2-c2"]},"to":"node-r3-c1","id":"10-10"},"event":"query"}
+1623917424 r3 c1: Sending query (ttl=6) to node-r3-c2
+1623917424 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r3-c1","node-r3-c2"]},"to":"node-r2-c1","id":"14-9"},"event":"query"}
+1623917424 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r3-c1","node-r3-c2","node-r2-c1"]},"to":"node-r1-c0","id":"9-10"},"event":"query"}
+1623917426 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r3-c3","id":"10-11"},"event":"query"}
+1623917426 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"1","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r3-c2"]},"to":"node-r3-c1","id":"14-10"},"event":"query"}
+1623917426 r3 c1: query: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"1","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r3-c2"]},"to":"node-r3-c1","id":"14-10"},"event":"query"}
+1623917426 r3 c1: Sending query (ttl=4) to node-r3-c0
+1623917426 r3 c1: Received from topic node-r3-c0: {"data":{"ttl":3,"queryData":{"ttl":3,"q":"1","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r3-c2","node-r3-c1","node-r3-c0"]},"to":"node-r2-c1","id":"12-9"},"event":"query"}
+1623917426 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":2,"queryData":{"ttl":2,"q":"1","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r3-c2","node-r3-c1","node-r3-c0","node-r2-c1"]},"to":"node-r1-c0","id":"9-11"},"event":"query"}
+1623917426 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":0,"queryData":{"ttl":0,"q":"1","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r3-c2","node-r3-c1","node-r3-c0","node-r2-c1","node-r1-c0","node-r2-c0"]},"to":"node-r1-c1","id":"8-9"},"event":"query"}
+1623917427 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r1-c2","id":"10-12"},"event":"query"}
+1623917427 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2"]},"to":"node-r2-c1","id":"14-11"},"event":"query"}
+1623917427 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2","node-r2-c1"]},"to":"node-r3-c1","id":"9-12"},"event":"query"}
+1623917427 r3 c1: query: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2","node-r2-c1"]},"to":"node-r3-c1","id":"9-12"},"event":"query"}
+1623917427 r3 c1: Sending query (ttl=3) to node-r2-c0
+1623917427 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":2,"queryData":{"ttl":2,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"]},"to":"node-r3-c0","id":"8-10"},"event":"query"}
+1623917427 r3 c1: Received from topic node-r3-c0: {"data":{"ttl":1,"queryData":{"ttl":1,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0","node-r3-c0"]},"to":"node-r2-c0","id":"12-10"},"event":"query"}
+1623917427 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":0,"queryData":{"ttl":0,"q":"2","visited":["node-r2-c2","node-r1-c2","node-r2-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0","node-r3-c0"]},"to":"node-r1-c0","id":"8-11"},"event":"query"}
+1623917431 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r1-c1","node-r2-c1"]},"to":"node-r2-c0","id":"9-14"},"event":"query"}
+1623917431 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r1-c1","node-r2-c1","node-r2-c0"]},"to":"node-r3-c1","id":"8-13"},"event":"query"}
+1623917431 r3 c1: query: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r1-c1","node-r2-c1","node-r2-c0"]},"to":"node-r3-c1","id":"8-13"},"event":"query"}
+1623917431 r3 c1: Sending query (ttl=5) to node-r2-c2
+1623917431 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r1-c1","node-r2-c1","node-r2-c0","node-r3-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-14"},"event":"query"}
+1623917433 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r1-c1","id":"10-16"},"event":"query"}
+1623917434 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"1","visited":["node-r3-c3","node-r2-c2"]},"to":"node-r1-c2","id":"10-17"},"event":"query"}
+1623917434 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r0-c0","id":"10-18","to":"node-r3-c3","event":"1","visited":["node-r0-c1","node-r1-c2","node-r2-c2"],"ttl":7,"idx":1,"track":["node-r3-c3","node-r2-c2","node-r1-c2","node-r0-c1","node-r0-c0"]},"event":"query-response"}
+1623917436 r3 c1: Sending query 1
+1623917436 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"1","visited":["node-r3-c1","node-r2-c2"]},"to":"node-r1-c2","id":"10-20"},"event":"query"}
+1623917436 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r0-c0","id":"10-21","to":"node-r3-c1","event":"1","visited":["node-r0-c1","node-r1-c2","node-r2-c2"],"ttl":7,"idx":1,"track":["node-r3-c1","node-r2-c2","node-r1-c2","node-r0-c1","node-r0-c0"]},"event":"query-response"}
+1623917436 r3 c1: response-query: {"data":{"finalNode":"node-r0-c0","id":"10-21","to":"node-r3-c1","event":"1","ttl":7,"visited":["node-r0-c1","node-r1-c2","node-r2-c2"],"idx":1,"track":["node-r3-c1","node-r2-c2","node-r1-c2","node-r0-c1","node-r0-c0"]},"event":"query-response"}
+1623917436 r3 c1: Query response received for event 1 from node-r0-c0
+1623917440 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-23","ttl":10,"to":"node-r1-c2","agentData":{"visited":["node-r0-c0","node-r1-c1","node-r2-c2"],"events":{"1":{"direction":"node-r0-c0","distance":3}},"numHops":3}},"event":"agent"}
+1623917440 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r2-c2"],"events":{"1":{"distance":3,"direction":"node-r0-c0"}},"numHops":3},"ttl":10,"to":"node-r1-c2","id":"10-23"},"event":"agent"}
+1623917440 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917440 r3 c1: {"visited":["node-r0-c0","node-r1-c1","node-r2-c2"],"events":{"1":{"distance":3,"direction":"node-r0-c0"}},"numHops":3}
+1623917441 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-18","ttl":10,"to":"node-r2-c2","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"}},"numHops":4}},"event":"agent"}
+1623917441 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4}},"numHops":4},"ttl":10,"to":"node-r2-c2","id":"9-18"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4}},"numHops":4}
+1623917441 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-24","ttl":10,"to":"node-r2-c3","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4}},"numHops":5}},"event":"agent"}
+1623917441 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r2-c3","id":"10-24"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":5}
+1623917441 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-25","ttl":10,"to":"node-r3-c1","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4}},"numHops":7}},"event":"agent"}
+1623917441 r3 c1: agent: {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":7},"ttl":10,"to":"node-r3-c1","id":"10-25"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c2 overheard=false: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r1-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":7}
+1623917441 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-19","ttl":10,"to":"node-r2-c2","agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"}},"numHops":4}},"event":"agent"}
+1623917441 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4}},"numHops":4},"ttl":10,"to":"node-r2-c2","id":"9-19"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4}},"numHops":4}
+1623917441 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-26","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4}},"numHops":5}},"event":"agent"}
+1623917441 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r3-c3","id":"10-26"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r1-c1","node-r1-c0","node-r2-c1","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"}},"numHops":5}
+1623917441 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-20","ttl":10,"to":"node-r1-c2","agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r0-c0","distance":3}},"numHops":3}},"event":"agent"}
+1623917441 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":3,"direction":"node-r0-c0"}},"numHops":3},"ttl":10,"to":"node-r1-c2","id":"9-20"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":3,"direction":"node-r0-c0"}},"numHops":3}
+1623917441 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-16","ttl":10,"to":"node-r3-c1","agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c2","node-r2-c3","node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5}},"numHops":7}},"event":"agent"}
+1623917441 r3 c1: agent: {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c2","node-r2-c3","node-r3-c3","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"}},"numHops":7},"ttl":10,"to":"node-r3-c1","id":"14-16"},"event":"agent"}
+1623917441 r3 c1: Processing agent from node-r3-c2 overheard=false: 
+1623917441 r3 c1: {"visited":["node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c2","node-r2-c3","node-r3-c3","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"}},"numHops":7}
+1623917444 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r1-c1","id":"9-22"},"event":"query"}
+1623917456 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r1-c2","id":"9-25"},"event":"query"}
+1623917456 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c1","id":"9-27"},"event":"query"}
+1623917456 r3 c1: query: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c1","id":"9-27"},"event":"query"}
+1623917456 r3 c1: Sending query (ttl=7) to node-r3-c2
+1623917456 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r2-c1","node-r3-c1","node-r3-c2"]},"to":"node-r3-c3","id":"14-21"},"event":"query"}
+1623917456 r3 c1: Received from topic node-r3-c2: {"data":{"finalNode":"node-r3-c3","id":"14-22","to":"node-r2-c1","event":"2","visited":["node-r3-c2"],"ttl":9,"idx":1,"track":["node-r2-c1","node-r3-c1","node-r3-c2","node-r3-c3"]},"event":"query-response"}
+1623917456 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c1","id":"9-28"},"event":"query"}
+1623917456 r3 c1: query: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c1","id":"9-28"},"event":"query"}
+1623917456 r3 c1: Sending query (ttl=7) to node-r2-c2
+1623917456 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r2-c1","node-r3-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-31"},"event":"query"}
+1623917457 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-32","to":"node-r2-c1","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":1,"track":["node-r2-c1","node-r3-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917458 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r2-c2","id":"14-23"},"event":"query"}
+1623917458 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c2","node-r2-c2"]},"to":"node-r3-c3","id":"10-33"},"event":"query"}
+1623917458 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-34","to":"node-r3-c2","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":1,"track":["node-r3-c2","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917458 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r2-c2","id":"14-24"},"event":"query"}
+1623917458 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c2","node-r2-c2"]},"to":"node-r3-c3","id":"10-35"},"event":"query"}
+1623917458 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-36","to":"node-r3-c2","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":1,"track":["node-r3-c2","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917460 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-30","ttl":10,"to":"node-r3-c2","agentData":{"visited":["node-r3-c3","node-r2-c3","node-r1-c3","node-r0-c3","node-r0-c2","node-r1-c2","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r1-c2","distance":5}},"numHops":7}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r2-c3","node-r1-c3","node-r0-c3","node-r0-c2","node-r1-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":5,"direction":"node-r1-c2"}},"numHops":7},"ttl":10,"to":"node-r3-c2","id":"9-30"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r2-c3","node-r1-c3","node-r0-c3","node-r0-c2","node-r1-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":5,"direction":"node-r1-c2"}},"numHops":7}
+1623917460 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-38","ttl":10,"to":"node-r3-c2","agentData":{"visited":["node-r3-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":2,"direction":"node-r3-c3"}},"numHops":2}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2},"ttl":10,"to":"node-r3-c2","id":"10-38"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2}
+1623917460 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-26","ttl":10,"to":"node-r2-c1","agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":3}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":3,"direction":"node-r3-c2"}},"numHops":3},"ttl":10,"to":"node-r2-c1","id":"14-26"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":3,"direction":"node-r3-c2"}},"numHops":3}
+1623917460 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-31","ttl":10,"to":"node-r3-c1","agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":4,"direction":"node-r2-c1"}},"numHops":4}},"event":"agent"}
+1623917460 r3 c1: agent: {"data":{"agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r2-c1","distance":4}},"numHops":4},"ttl":10,"to":"node-r3-c1","id":"9-31"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c1 overheard=false: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r2-c1","distance":4}},"numHops":4}
+1623917460 r3 c1: Received from topic node-r2-c0: {"data":{"id":"8-22","ttl":10,"to":"node-r1-c0","agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"distance":4,"direction":"node-r2-c0"},"2":{"distance":5,"direction":"node-r3-c1"}},"numHops":6}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4},"2":{"direction":"node-r3-c1","distance":5}},"numHops":6},"ttl":10,"to":"node-r1-c0","id":"8-22"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c0 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4},"2":{"direction":"node-r3-c1","distance":5}},"numHops":6}
+1623917460 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-27","ttl":10,"to":"node-r2-c1","agentData":{"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":2,"direction":"node-r3-c3"}},"numHops":2}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2},"ttl":10,"to":"node-r2-c1","id":"14-27"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2}
+1623917460 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-32","ttl":10,"to":"node-r3-c1","agentData":{"visited":["node-r3-c3","node-r3-c2","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r3-c3","distance":3}},"numHops":3}},"event":"agent"}
+1623917460 r3 c1: agent: {"data":{"agentData":{"visited":["node-r3-c3","node-r3-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r3-c3"}},"numHops":3},"ttl":10,"to":"node-r3-c1","id":"9-32"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c1 overheard=false: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r3-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r3-c3"}},"numHops":3}
+1623917460 r3 c1: Received from topic node-r2-c0: {"data":{"id":"8-23","ttl":10,"to":"node-r1-c0","agentData":{"visited":["node-r3-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4},"2":{"direction":"node-r2-c0","distance":5}},"numHops":5}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"distance":4,"direction":"node-r2-c0"},"2":{"distance":5,"direction":"node-r2-c0"}},"numHops":5},"ttl":10,"to":"node-r1-c0","id":"8-23"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r2-c0 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r3-c2","node-r2-c1","node-r3-c1","node-r2-c0"],"events":{"1":{"distance":4,"direction":"node-r2-c0"},"2":{"distance":5,"direction":"node-r2-c0"}},"numHops":5}
+1623917460 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-28","ttl":10,"to":"node-r2-c3","agentData":{"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":2,"direction":"node-r3-c3"}},"numHops":2}},"event":"agent"}
+1623917460 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2},"ttl":10,"to":"node-r2-c3","id":"14-28"},"event":"agent"}
+1623917460 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917460 r3 c1: {"visited":["node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":2}
+1623917462 r3 c1: Sending query 2
+1623917462 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c1","node-r2-c1"]},"to":"node-r2-c2","id":"9-33"},"event":"query"}
+1623917462 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r3-c1","node-r2-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-39"},"event":"query"}
+1623917462 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-40","to":"node-r3-c1","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":1,"track":["node-r3-c1","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917462 r3 c1: response-query: {"data":{"finalNode":"node-r3-c3","id":"10-40","to":"node-r3-c1","event":"2","ttl":9,"visited":["node-r2-c2"],"idx":1,"track":["node-r3-c1","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917462 r3 c1: Query response received for event 2 from node-r3-c3
+1623917462 r3 c1: Sending query 2
+1623917462 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r3-c1","node-r3-c2"]},"to":"node-r3-c3","id":"14-29"},"event":"query"}
+1623917462 r3 c1: Received from topic node-r3-c2: {"data":{"finalNode":"node-r3-c3","id":"14-30","to":"node-r3-c1","event":"2","visited":["node-r3-c2"],"ttl":9,"idx":1,"track":["node-r3-c1","node-r3-c2","node-r3-c3"]},"event":"query-response"}
+1623917462 r3 c1: response-query: {"data":{"finalNode":"node-r3-c3","id":"14-30","to":"node-r3-c1","event":"2","ttl":9,"visited":["node-r3-c2"],"idx":1,"track":["node-r3-c1","node-r3-c2","node-r3-c3"]},"event":"query-response"}
+1623917462 r3 c1: Query response received for event 2 from node-r3-c3
+1623917464 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r0-c0","node-r1-c0","node-r2-c1"]},"to":"node-r2-c2","id":"9-35"},"event":"query"}
+1623917464 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"2","visited":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-42"},"event":"query"}
+1623917464 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-43","to":"node-r2-c1","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":3,"track":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917464 r3 c1: Received from topic node-r2-c1: {"data":{"finalNode":"node-r3-c3","id":"9-36","to":"node-r1-c0","event":"2","ttl":8,"visited":["node-r2-c2","node-r2-c1"],"idx":2,"track":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917465 r3 c1: Received from topic node-r2-c1: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r0-c0","node-r1-c0","node-r2-c1"]},"to":"node-r2-c2","id":"9-37"},"event":"query"}
+1623917465 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"2","visited":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-44"},"event":"query"}
+1623917465 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-45","to":"node-r2-c1","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":3,"track":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917465 r3 c1: Received from topic node-r2-c1: {"data":{"finalNode":"node-r3-c3","id":"9-38","to":"node-r1-c0","event":"2","ttl":8,"visited":["node-r2-c2","node-r2-c1"],"idx":2,"track":["node-r0-c0","node-r1-c0","node-r2-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917473 r3 c1: Received from topic node-r2-c0: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r1-c1","id":"8-27"},"event":"query"}
+1623917473 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r2-c0","node-r1-c1","node-r2-c2"]},"to":"node-r3-c3","id":"10-48"},"event":"query"}
+1623917473 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r3-c3","id":"10-49","to":"node-r1-c1","event":"2","visited":["node-r2-c2"],"ttl":9,"idx":2,"track":["node-r2-c0","node-r1-c1","node-r2-c2","node-r3-c3"]},"event":"query-response"}
+1623917477 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-51","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c1","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":5}},"event":"agent"}
+1623917477 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c1","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r3-c3","id":"10-51"},"event":"agent"}
+1623917477 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917477 r3 c1: {"visited":["node-r0-c1","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5}
+1623917479 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-52","ttl":10,"to":"node-r3-c2","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":5}},"event":"agent"}
+1623917479 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r3-c2","id":"10-52"},"event":"agent"}
+1623917479 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917479 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5}
+1623917480 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-35","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":3,"direction":"node-r3-c2"}},"numHops":6}},"event":"agent"}
+1623917480 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":6},"ttl":10,"to":"node-r3-c3","id":"14-35"},"event":"agent"}
+1623917480 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917480 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r0-c2","node-r1-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":6}
+1623917480 r3 c1: Received from topic node-r2-c0: {"data":{"id":"8-30","ttl":10,"to":"node-r1-c1","agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c0"],"events":{"1":{"direction":"node-r0-c0","distance":3},"2":{"direction":"node-r0-c0","distance":3}},"numHops":3}},"event":"agent"}
+1623917480 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c0","node-r2-c0"],"events":{"1":{"distance":3,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r0-c0"}},"numHops":3},"ttl":10,"to":"node-r1-c1","id":"8-30"},"event":"agent"}
+1623917480 r3 c1: Processing agent from node-r2-c0 overheard=true: 
+1623917480 r3 c1: {"visited":["node-r0-c0","node-r1-c0","node-r2-c0"],"events":{"1":{"distance":3,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r0-c0"}},"numHops":3}
+1623917481 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-54","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":4}},"event":"agent"}
+1623917481 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":4},"ttl":10,"to":"node-r3-c3","id":"10-54"},"event":"agent"}
+1623917481 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917481 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":4}
+1623917481 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-37","ttl":10,"to":"node-r2-c3","agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2","node-r3-c3","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":2,"direction":"node-r3-c3"}},"numHops":6}},"event":"agent"}
+1623917481 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2","node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":6},"ttl":10,"to":"node-r2-c3","id":"14-37"},"event":"agent"}
+1623917481 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917481 r3 c1: {"visited":["node-r0-c0","node-r0-c1","node-r1-c2","node-r2-c2","node-r3-c3","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c3","distance":2}},"numHops":6}
+1623917483 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-55","ttl":10,"to":"node-r2-c1","agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":6}},"event":"agent"}
+1623917483 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":6},"ttl":10,"to":"node-r2-c1","id":"10-55"},"event":"agent"}
+1623917483 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917483 r3 c1: {"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":6}
+1623917483 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-43","ttl":10,"to":"node-r1-c0","agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r2-c1","distance":4}},"numHops":7}},"event":"agent"}
+1623917483 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":4,"direction":"node-r2-c1"}},"numHops":7},"ttl":10,"to":"node-r1-c0","id":"9-43"},"event":"agent"}
+1623917483 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917483 r3 c1: {"visited":["node-r0-c0","node-r1-c1","node-r1-c2","node-r1-c3","node-r2-c3","node-r2-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":4,"direction":"node-r2-c1"}},"numHops":7}
+1623917485 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-57","ttl":10,"to":"node-r3-c2","agentData":{"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":5}},"event":"agent"}
+1623917485 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r3-c2","id":"10-57"},"event":"agent"}
+1623917485 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917485 r3 c1: {"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5}
+1623917485 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-39","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":3,"direction":"node-r3-c2"}},"numHops":6}},"event":"agent"}
+1623917485 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":6},"ttl":10,"to":"node-r3-c3","id":"14-39"},"event":"agent"}
+1623917485 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917485 r3 c1: {"visited":["node-r0-c2","node-r0-c1","node-r1-c2","node-r2-c3","node-r2-c2","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":6}
+1623917486 r3 c1: Received from topic node-r2-c1: {"data":{"id":"9-45","ttl":10,"to":"node-r3-c2","agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1"],"events":{"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r0-c2","distance":3}},"numHops":3}},"event":"agent"}
+1623917486 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r0-c2"}},"numHops":3},"ttl":10,"to":"node-r3-c2","id":"9-45"},"event":"agent"}
+1623917486 r3 c1: Processing agent from node-r2-c1 overheard=true: 
+1623917486 r3 c1: {"visited":["node-r0-c2","node-r1-c1","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r0-c2"}},"numHops":3}
+1623917486 r3 c1: Received from topic node-r3-c2: {"data":{"id":"14-40","ttl":10,"to":"node-r2-c2","agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2"],"events":{"1":{"distance":5,"direction":"node-r3-c2"},"2":{"distance":3,"direction":"node-r3-c2"}},"numHops":4}},"event":"agent"}
+1623917486 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":4},"ttl":10,"to":"node-r2-c2","id":"14-40"},"event":"agent"}
+1623917486 r3 c1: Processing agent from node-r3-c2 overheard=true: 
+1623917486 r3 c1: {"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2"],"events":{"1":{"direction":"node-r3-c2","distance":5},"2":{"direction":"node-r3-c2","distance":3}},"numHops":4}
+1623917486 r3 c1: Received from topic node-r2-c2: {"data":{"id":"10-58","ttl":10,"to":"node-r3-c3","agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":3}},"numHops":5}},"event":"agent"}
+1623917486 r3 c1: Overheard an agent - {"data":{"agentData":{"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5},"ttl":10,"to":"node-r3-c3","id":"10-58"},"event":"agent"}
+1623917486 r3 c1: Processing agent from node-r2-c2 overheard=true: 
+1623917486 r3 c1: {"visited":["node-r0-c2","node-r1-c1","node-r2-c1","node-r3-c2","node-r2-c2"],"events":{"1":{"distance":4,"direction":"node-r2-c2"},"2":{"distance":3,"direction":"node-r2-c2"}},"numHops":5}
+1623917492 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"1","visited":["node-r1-c2","node-r2-c2"]},"to":"node-r1-c1","id":"10-61"},"event":"query"}
+1623917493 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r2-c3","node-r3-c2"]},"to":"node-r3-c3","id":"14-43"},"event":"query"}
+1623917493 r3 c1: Received from topic node-r3-c2: {"data":{"finalNode":"node-r3-c3","id":"14-44","to":"node-r2-c3","event":"2","visited":["node-r3-c2"],"ttl":9,"idx":1,"track":["node-r2-c3","node-r3-c2","node-r3-c3"]},"event":"query-response"}
+1623917494 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"1","visited":["node-r2-c3","node-r3-c3","node-r2-c2"]},"to":"node-r1-c1","id":"10-62"},"event":"query"}
+1623917494 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r0-c0","id":"10-63","to":"node-r2-c3","event":"1","ttl":8,"visited":["node-r1-c1","node-r2-c2"],"idx":1,"track":["node-r2-c3","node-r3-c3","node-r2-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917496 r3 c1: Received from topic node-r2-c2: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"1","visited":["node-r3-c3","node-r2-c3","node-r2-c2"]},"to":"node-r1-c1","id":"10-65"},"event":"query"}
+1623917496 r3 c1: Received from topic node-r2-c2: {"data":{"finalNode":"node-r0-c0","id":"10-66","to":"node-r3-c3","event":"1","ttl":8,"visited":["node-r1-c1","node-r2-c2"],"idx":1,"track":["node-r3-c3","node-r2-c3","node-r2-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917497 r3 c1: Received from topic node-r3-c2: {"data":{"ttl":9,"key":"q","id":"15-72"},"event":"controle"}
+1623917497 r3 c1: Shutting down (Q pressed)

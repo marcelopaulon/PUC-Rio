@@ -1,0 +1,2 @@
+lua tests.lua -v
+

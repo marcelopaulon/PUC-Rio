@@ -1,0 +1,64 @@
+1623917031 r0 c1: Node 1 - row 0 column 1
+1623917031 r0 c1: Connected to MQTT broker.
+1623917047 r0 c1: query: {"data":{"ttl":2,"queryData":{"ttl":2,"q":"1","visited":["node-r0-c0","node-r1-c0","node-r1-c1","node-r2-c2","node-r3-c2","node-r2-c3","node-r1-c2"]},"to":"node-r0-c1","id":"6-4"},"event":"query"}
+1623917047 r0 c1: Sending query (ttl=1) to node-r0-c2
+1623917064 r0 c1: STATE: []
+1623917075 r0 c1: Processing agent from node-r0-c0 overheard=true: 
+1623917075 r0 c1: {"visited":["node-r0-c0"],"events":{"1":{"distance":1,"direction":"node-r0-c0"}},"numHops":1}
+1623917076 r0 c1: agent: {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1"],"events":{"1":{"direction":"node-r0-c0","distance":2}},"numHops":2},"ttl":10,"to":"node-r0-c1","id":"5-16"},"event":"agent"}
+1623917076 r0 c1: Processing agent from node-r1-c1 overheard=false: 
+1623917076 r0 c1: {"visited":["node-r0-c0","node-r1-c1"],"events":{"1":{"direction":"node-r0-c0","distance":2}},"numHops":2}
+1623917078 r0 c1: Processing agent from node-r1-c0 overheard=true: 
+1623917078 r0 c1: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0"],"events":{"1":{"direction":"node-r1-c0","distance":3}},"numHops":4}
+1623917091 r0 c1: STATE: {"1":{"direction":"node-r0-c0","distance":2}}
+1623917217 r0 c1: Sending event 2
+1623917217 r0 c1: Processing agent from self overheard=false: 
+1623917217 r0 c1: {"visited":[],"events":[],"numHops":0}
+1623917219 r0 c1: Processing agent from node-r0-c0 overheard=true: 
+1623917219 r0 c1: {"visited":["node-r0-c1","node-r0-c0"],"events":{"1":{"direction":"node-r0-c0","distance":1},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917220 r0 c1: Processing agent from node-r1-c0 overheard=true: 
+1623917220 r0 c1: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0"],"events":{"1":{"distance":2,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":3}
+1623917222 r0 c1: Processing agent from node-r1-c1 overheard=true: 
+1623917222 r0 c1: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1"],"events":{"1":{"distance":3,"direction":"node-r1-c1"},"2":{"distance":3,"direction":"node-r1-c1"}},"numHops":5}
+1623917228 r0 c1: STATE: {"1":{"direction":"node-r0-c0","distance":2},"2":{"distance":0}}
+1623917266 r0 c1: query: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r1-c1"]},"to":"node-r0-c1","id":"5-74"},"event":"query"}
+1623917266 r0 c1: VALID QUERY for EVENT 2!!!!!
+1623917280 r0 c1: query: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r1-c3","node-r0-c3","node-r1-c2"]},"to":"node-r0-c1","id":"6-72"},"event":"query"}
+1623917280 r0 c1: VALID QUERY for EVENT 2!!!!!
+1623917289 r0 c1: query: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r2-c2","node-r3-c3","node-r3-c2","node-r2-c1","node-r1-c0"]},"to":"node-r0-c1","id":"4-73"},"event":"query"}
+1623917289 r0 c1: VALID QUERY for EVENT 2!!!!!
+1623917307 r0 c1: Sending event 2
+1623917307 r0 c1: Processing agent from self overheard=false: 
+1623917307 r0 c1: {"visited":[],"events":[],"numHops":0}
+1623917309 r0 c1: Processing agent from node-r0-c2 overheard=true: 
+1623917309 r0 c1: {"visited":["node-r0-c1","node-r0-c2"],"events":{"1":{"direction":"node-r0-c2","distance":4},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917309 r0 c1: Sending event 2
+1623917309 r0 c1: Processing agent from self overheard=false: 
+1623917309 r0 c1: {"visited":[],"events":[],"numHops":0}
+1623917311 r0 c1: Processing agent from node-r1-c2 overheard=true: 
+1623917311 r0 c1: {"visited":["node-r0-c1","node-r1-c2"],"events":{"1":{"direction":"node-r1-c2","distance":4},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917311 r0 c1: Processing agent from node-r1-c2 overheard=true: 
+1623917311 r0 c1: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2"],"events":{"1":{"direction":"node-r1-c2","distance":4},"2":{"direction":"node-r1-c2","distance":3}},"numHops":4}
+1623917311 r0 c1: Sending event 2
+1623917311 r0 c1: Processing agent from self overheard=false: 
+1623917311 r0 c1: {"visited":[],"events":[],"numHops":0}
+1623917312 r0 c1: Processing agent from node-r0-c2 overheard=true: 
+1623917312 r0 c1: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2"],"events":{"1":{"distance":4,"direction":"node-r0-c2"},"2":{"distance":3,"direction":"node-r0-c2"}},"numHops":3}
+1623917313 r0 c1: Processing agent from node-r1-c1 overheard=true: 
+1623917313 r0 c1: {"visited":["node-r0-c1","node-r1-c1"],"events":{"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917313 r0 c1: Processing agent from node-r1-c1 overheard=true: 
+1623917313 r0 c1: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1"],"events":{"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r1-c1","distance":3}},"numHops":4}
+1623917314 r0 c1: Processing agent from node-r1-c0 overheard=true: 
+1623917314 r0 c1: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0"],"events":{"1":{"distance":3,"direction":"node-r1-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":5}
+1623917315 r0 c1: Processing agent from node-r0-c0 overheard=true: 
+1623917315 r0 c1: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0","node-r0-c0"],"events":{"1":{"direction":"node-r0-c0","distance":1},"2":{"direction":"node-r0-c0","distance":3}},"numHops":6}
+1623917315 r0 c1: Processing agent from node-r1-c0 overheard=true: 
+1623917315 r0 c1: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0"],"events":{"1":{"direction":"node-r1-c0","distance":3},"2":{"direction":"node-r1-c0","distance":3}},"numHops":4}
+1623917316 r0 c1: Processing agent from node-r1-c0 overheard=true: 
+1623917316 r0 c1: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0","node-r0-c0"],"events":{"1":{"distance":2,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":7}
+1623917324 r0 c1: STATE: {"1":{"direction":"node-r0-c0","distance":2},"2":{"distance":0}}
+1623917329 r0 c1: query: {"data":{"ttl":5,"queryData":{"ttl":5,"q":"2","visited":["node-r2-c2","node-r3-c3","node-r2-c3","node-r1-c2"]},"to":"node-r0-c1","id":"6-89"},"event":"query"}
+1623917329 r0 c1: VALID QUERY for EVENT 2!!!!!
+1623917343 r0 c1: query: {"data":{"ttl":6,"queryData":{"ttl":6,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r1-c2"]},"to":"node-r0-c1","id":"6-94"},"event":"query"}
+1623917343 r0 c1: VALID QUERY for EVENT 2!!!!!
+1623917356 r0 c1: Shutting down (Q pressed)

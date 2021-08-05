@@ -1,0 +1,26 @@
+1623917031 r2 c3: Node 11 - row 2 column 3
+1623917031 r2 c3: Connected to MQTT broker.
+1623917045 r2 c3: query: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"1","visited":["node-r0-c0","node-r1-c0","node-r1-c1","node-r2-c2","node-r3-c2"]},"to":"node-r2-c3","id":"14-4"},"event":"query"}
+1623917045 r2 c3: Sending query (ttl=3) to node-r1-c2
+1623917066 r2 c3: STATE: []
+1623917089 r2 c3: STATE: []
+1623917103 r2 c3: query: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r2-c3","id":"15-23"},"event":"query"}
+1623917103 r2 c3: Sending query (ttl=7) to node-r1-c3
+1623917204 r2 c3: query: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r2-c3","id":"15-51"},"event":"query"}
+1623917204 r2 c3: Sending query (ttl=7) to node-r1-c2
+1623917210 r2 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"6-50","to":"node-r2-c3","event":"1","visited":["node-r1-c1","node-r1-c2"],"ttl":8,"idx":2,"track":["node-r3-c3","node-r2-c3","node-r1-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917228 r2 c3: STATE: []
+1623917252 r2 c3: query: {"data":{"ttl":10,"queryData":{"q":"1"},"to":"node-r2-c3","id":"15-65"},"event":"query"}
+1623917252 r2 c3: Sending query (ttl=7) to node-r1-c3
+1623917260 r2 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"6-66","to":"node-r2-c3","event":"1","visited":["node-r1-c1","node-r1-c2"],"ttl":8,"idx":2,"track":["node-r3-c3","node-r2-c3","node-r1-c3","node-r0-c3","node-r1-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917311 r2 c3: Processing agent from node-r1-c2 overheard=true: 
+1623917311 r2 c3: {"visited":["node-r0-c1","node-r1-c2"],"events":{"1":{"direction":"node-r1-c2","distance":4},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917311 r2 c3: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2"],"events":{"1":{"direction":"node-r1-c2","distance":4},"2":{"direction":"node-r1-c2","distance":3}},"numHops":4},"ttl":10,"to":"node-r2-c3","id":"6-82"},"event":"agent"}
+1623917311 r2 c3: Processing agent from node-r1-c2 overheard=false: 
+1623917311 r2 c3: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2"],"events":{"1":{"direction":"node-r1-c2","distance":4},"2":{"direction":"node-r1-c2","distance":3}},"numHops":4}
+1623917313 r2 c3: Processing agent from node-r2-c2 overheard=true: 
+1623917313 r2 c3: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":4}},"numHops":6}
+1623917323 r2 c3: STATE: {"1":{"direction":"node-r1-c2","distance":5},"2":{"direction":"node-r1-c2","distance":3}}
+1623917327 r2 c3: query: {"data":{"ttl":7,"queryData":{"ttl":7,"q":"2","visited":["node-r2-c2","node-r3-c3"]},"to":"node-r2-c3","id":"15-87"},"event":"query"}
+1623917327 r2 c3: Sending query (ttl=6) to node-r1-c2
+1623917354 r2 c3: Shutting down (Q pressed)

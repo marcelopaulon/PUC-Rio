@@ -1,0 +1,297 @@
+
+
+
+
+
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+1620885300 12001(candidate): Initializing node (port 12001)...
+1620885300 12001(candidate): Node initialized.
+1620885300 12001(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620885300 12001(candidate): Server is running on port: 12001
+1620885300 12001(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885300 12002(candidate): Initializing node (port 12002)...
+1620885300 12002(candidate): Node initialized.
+1620885300 12002(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620885300 12002(candidate): Server is running on port: 12002
+1620885300 12002(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885300 12003(candidate): Initializing node (port 12003)...
+1620885300 12003(candidate): Node initialized.
+1620885300 12003(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620885300 12003(candidate): Server is running on port: 12003
+1620885300 12003(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885300 12004(candidate): Initializing node (port 12004)...
+1620885300 12004(candidate): Node initialized.
+1620885300 12004(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620885300 12004(candidate): Server is running on port: 12004
+1620885300 12004(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885300 12005(candidate): Initializing node (port 12005)...
+1620885300 12005(candidate): Node initialized.
+1620885300 12005(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620885300 12005(candidate): Server is running on port: 12005
+1620885300 12005(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885318 12001(candidate): CANDIDATE
+1620885318 12001(candidate): Election started
+1620885318 12001(candidate): [CANDIDATE] Election timer
+1620885318 12001(candidate): [CANDIDATE] Starting a new election in 5 seconds...
+1620885318 12002(candidate): CANDIDATE
+1620885318 12002(candidate): Election started
+1620885318 12002(candidate): [CANDIDATE] Election timer
+1620885318 12002(candidate): [CANDIDATE] Starting a new election in 5 seconds...
+1620885318 12003(candidate): CANDIDATE
+1620885318 12003(candidate): Election started
+1620885318 12003(candidate): [CANDIDATE] Election timer
+1620885318 12003(candidate): [CANDIDATE] Starting a new election in 5 seconds...
+1620885318 12004(candidate): CANDIDATE
+1620885318 12004(candidate): Election started
+1620885318 12004(candidate): [CANDIDATE] Election timer
+1620885318 12004(candidate): [CANDIDATE] Starting a new election in 5 seconds...
+1620885318 12005(candidate): CANDIDATE
+1620885318 12005(candidate): Election started
+1620885318 12005(candidate): [CANDIDATE] Election timer
+1620885318 12005(candidate): [CANDIDATE] Starting a new election in 5 seconds...
+1620885320 12001(candidate): Node stopped
+1620885320 12001(candidate): Stopping node...
+1620885324 12002(candidate): CANDIDATE
+1620885324 12002(candidate): Election started
+1620885324 12002(candidate): [CANDIDATE] Election timer
+1620885324 12002(candidate): [CANDIDATE] Starting a new election in 7 seconds...
+1620885324 12003(candidate): CANDIDATE
+1620885324 12003(candidate): Election started
+1620885324 12003(candidate): [CANDIDATE] Election timer
+1620885324 12003(candidate): [CANDIDATE] Starting a new election in 7 seconds...
+1620885324 12004(candidate): CANDIDATE
+1620885324 12004(candidate): Election started
+1620885324 12004(candidate): [CANDIDATE] Election timer
+1620885324 12004(candidate): [CANDIDATE] Starting a new election in 7 seconds...
+1620885324 12005(candidate): CANDIDATE
+1620885324 12005(candidate): Election started
+1620885324 12005(candidate): [CANDIDATE] Election timer
+1620885324 12005(candidate): [CANDIDATE] Starting a new election in 7 seconds...
+1620885325 12001(candidate): [STOPPED NODE] Skipped 4 enqueued tasks
+1620885332 12002(candidate): CANDIDATE
+1620885332 12002(candidate): Election started
+1620885332 12002(candidate): [CANDIDATE] Election timer
+1620885332 12002(candidate): [CANDIDATE] Starting a new election in 12 seconds...
+1620885332 12003(candidate): CANDIDATE
+1620885332 12003(candidate): Election started
+1620885332 12003(candidate): [CANDIDATE] Election timer
+1620885332 12003(candidate): [CANDIDATE] Starting a new election in 12 seconds...
+1620885332 12004(candidate): CANDIDATE
+1620885332 12004(candidate): Election started
+1620885332 12004(candidate): [CANDIDATE] Election timer
+1620885332 12004(candidate): [CANDIDATE] Starting a new election in 12 seconds...
+1620885332 12005(candidate): CANDIDATE
+1620885332 12005(candidate): Election started
+1620885332 12005(candidate): [CANDIDATE] Election timer
+1620885332 12005(candidate): [CANDIDATE] Starting a new election in 12 seconds...
+1620885333 12001(candidate): [STOPPED NODE] Skipped 4 enqueued tasks
+1620885340 12001(candidate): CANDIDATE
+1620885340 12001(candidate): Election started
+1620885340 12001(candidate): Node resumed
+1620885340 12001(candidate): Resuming node...
+1620885340 12001(candidate): [CANDIDATE] Election timer
+1620885340 12001(candidate): [CANDIDATE] Starting a new election in 7 seconds...
+1620885340 12001(follower): I'm now a FOLLOWER
+1620885340 12002(candidate): Node stopped
+1620885340 12002(candidate): Stopping node...
+1620885345 12001(follower): I'm now a FOLLOWER
+1620885345 12001(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885345 12002(candidate): [STOPPED NODE] Skipped 2 enqueued tasks
+1620885345 12003(candidate): CANDIDATE
+1620885345 12003(candidate): Election started
+1620885345 12003(candidate): [CANDIDATE] Election timer
+1620885345 12003(candidate): [CANDIDATE] Starting a new election in 6 seconds...
+1620885345 12004(candidate): CANDIDATE
+1620885345 12004(candidate): Election started
+1620885345 12004(candidate): [CANDIDATE] Election timer
+1620885345 12004(candidate): [CANDIDATE] Starting a new election in 6 seconds...
+1620885345 12005(candidate): CANDIDATE
+1620885345 12005(candidate): Election started
+1620885345 12005(candidate): [CANDIDATE] Election timer
+1620885345 12005(candidate): [CANDIDATE] Starting a new election in 6 seconds...
+1620885345 12005(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885346 12002(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885352 12001(candidate): CANDIDATE
+1620885352 12001(candidate): Election started
+1620885352 12001(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885352 12001(follower): [FOLLOWER] Election timer
+1620885352 12003(candidate): CANDIDATE
+1620885352 12003(candidate): Election started
+1620885352 12003(candidate): [CANDIDATE] Election timer
+1620885352 12003(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885352 12004(candidate): CANDIDATE
+1620885352 12004(candidate): Election started
+1620885352 12004(candidate): [CANDIDATE] Election timer
+1620885352 12004(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885352 12005(candidate): CANDIDATE
+1620885352 12005(candidate): Election started
+1620885352 12005(candidate): [CANDIDATE] Election timer
+1620885352 12005(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885353 12002(candidate): [STOPPED NODE] Skipped 4 enqueued tasks
+1620885360 12002(candidate): CANDIDATE
+1620885360 12002(candidate): Election started
+1620885360 12002(candidate): Node resumed
+1620885360 12002(candidate): Resuming node...
+1620885360 12002(candidate): [CANDIDATE] Election timer
+1620885360 12002(candidate): [CANDIDATE] Starting a new election in 6 seconds...
+1620885360 12002(follower): I'm now a FOLLOWER
+1620885360 12003(candidate): Node stopped
+1620885360 12003(candidate): Stopping node...
+1620885363 12001(candidate): CANDIDATE
+1620885363 12001(candidate): Election started
+1620885363 12001(candidate): [CANDIDATE] Election timer
+1620885363 12001(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885363 12001(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885363 12002(follower): I'm now a FOLLOWER
+1620885363 12002(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885363 12003(candidate): [STOPPED NODE] Skipped 2 enqueued tasks
+1620885363 12004(candidate): CANDIDATE
+1620885363 12004(candidate): Election started
+1620885363 12004(candidate): [CANDIDATE] Election timer
+1620885363 12004(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885363 12005(candidate): CANDIDATE
+1620885363 12005(candidate): Election started
+1620885363 12005(candidate): [CANDIDATE] Election timer
+1620885363 12005(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885364 12003(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885380 12001(candidate): CANDIDATE
+1620885380 12001(candidate): Election started
+1620885380 12001(candidate): [CANDIDATE] Election timer
+1620885380 12001(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885380 12002(candidate): CANDIDATE
+1620885380 12002(candidate): Election started
+1620885380 12002(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885380 12002(follower): [FOLLOWER] Election timer
+1620885380 12003(candidate): CANDIDATE
+1620885380 12003(candidate): Election started
+1620885380 12003(candidate): Node resumed
+1620885380 12003(candidate): Resuming node...
+1620885380 12003(candidate): [CANDIDATE] Election timer
+1620885380 12003(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885380 12004(candidate): CANDIDATE
+1620885380 12004(candidate): Election started
+1620885380 12004(candidate): Node stopped
+1620885380 12004(candidate): Stopping node...
+1620885380 12004(candidate): [CANDIDATE] Election timer
+1620885380 12004(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885380 12005(candidate): CANDIDATE
+1620885380 12005(candidate): Election started
+1620885380 12005(candidate): [CANDIDATE] Election timer
+1620885380 12005(candidate): [CANDIDATE] Starting a new election in 16 seconds...
+1620885381 12003(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620885381 12003(follower): I'm now a FOLLOWER
+1620885381 12004(candidate): [STOPPED NODE] Skipped 3 enqueued tasks
+1620885382 12004(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885397 12001(candidate): CANDIDATE
+1620885397 12001(candidate): Election started
+1620885397 12001(candidate): [CANDIDATE] Election timer
+1620885397 12001(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620885397 12002(candidate): CANDIDATE
+1620885397 12002(candidate): Election started
+1620885397 12002(candidate): [CANDIDATE] Election timer
+1620885397 12002(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620885397 12005(candidate): CANDIDATE
+1620885397 12005(candidate): Election started
+1620885397 12005(candidate): [CANDIDATE] Election timer
+1620885397 12005(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620885398 12003(candidate): CANDIDATE
+1620885398 12003(candidate): Election started
+1620885398 12003(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620885398 12003(follower): [FOLLOWER] Election timer
+1620885398 12004(candidate): [STOPPED NODE] Skipped 3 enqueued tasks
+1620885399 12004(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885400 12004(candidate): CANDIDATE
+1620885400 12004(candidate): Election started
+1620885400 12004(candidate): Node resumed
+1620885400 12004(candidate): Resuming node...
+1620885400 12004(candidate): [CANDIDATE] Election timer
+1620885400 12004(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620885400 12005(candidate): Node stopped
+1620885400 12005(candidate): Stopping node...
+1620885409 12001(candidate): CANDIDATE
+1620885409 12001(candidate): Election started
+1620885409 12001(candidate): [CANDIDATE] Election timer
+1620885409 12001(candidate): [CANDIDATE] Starting a new election in 8 seconds...
+1620885409 12002(candidate): CANDIDATE
+1620885409 12002(candidate): Election started
+1620885409 12002(candidate): [CANDIDATE] Election timer
+1620885409 12002(candidate): [CANDIDATE] Starting a new election in 8 seconds...
+1620885409 12005(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885410 12001(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885410 12003(candidate): CANDIDATE
+1620885410 12003(candidate): Election started
+1620885410 12003(candidate): [CANDIDATE] Election timer
+1620885410 12003(candidate): [CANDIDATE] Starting a new election in 8 seconds...
+1620885410 12004(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620885410 12004(follower): I'm now a FOLLOWER
+1620885410 12005(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885411 12005(candidate): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885418 12001(candidate): CANDIDATE
+1620885418 12001(candidate): Election started
+1620885418 12001(candidate): [CANDIDATE] Election timer
+1620885418 12001(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885418 12002(candidate): CANDIDATE
+1620885418 12002(candidate): Election started
+1620885418 12002(candidate): [CANDIDATE] Election timer
+1620885418 12002(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885419 12003(candidate): CANDIDATE
+1620885419 12003(candidate): Election started
+1620885419 12003(candidate): [CANDIDATE] Election timer
+1620885419 12003(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885419 12004(candidate): CANDIDATE
+1620885419 12004(candidate): Election started
+1620885419 12004(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885419 12004(follower): [FOLLOWER] Election timer
+1620885419 12005(candidate): [STOPPED NODE] Skipped 2 enqueued tasks
+1620885420 12005(candidate): CANDIDATE
+1620885420 12005(candidate): Election started
+1620885420 12005(candidate): Node resumed
+1620885420 12005(candidate): Resuming node...
+1620885420 12005(candidate): [CANDIDATE] Election timer
+1620885420 12005(candidate): [CANDIDATE] Starting a new election in 8 seconds...
+1620885420 12005(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620885420 12005(follower): I'm now a FOLLOWER
+1620885421 12004(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885429 12001(candidate): CANDIDATE
+1620885429 12001(candidate): Election started
+1620885429 12001(candidate): [CANDIDATE] Election timer
+1620885429 12001(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885429 12001(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885429 12001(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620885429 12002(candidate): CANDIDATE
+1620885429 12002(candidate): Election started
+1620885429 12002(candidate): [CANDIDATE] Election timer
+1620885429 12002(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885429 12003(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620885429 12003(follower): I'm now a FOLLOWER
+1620885429 12004(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620885429 12004(follower): I'm now a FOLLOWER
+1620885429 12005(follower): I'm now a FOLLOWER
+1620885429 12005(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885430 12001(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620885430 12001(leader): I'm now a LEADER (term=11)
+1620885432 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 11
+1620885433 12002(follower): Appended entries from leader 12001 on term 11
+1620885433 12002(follower): I'm now a FOLLOWER
+1620885433 12003(follower): Appended entries from leader 12001 on term 11
+1620885433 12004(follower): Appended entries from leader 12001 on term 11
+1620885433 12005(follower): Appended entries from leader 12001 on term 11
+1620885434 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 11
+1620885435 12002(follower): Appended entries from leader 12001 on term 11
+1620885435 12003(follower): Appended entries from leader 12001 on term 11
+1620885435 12004(follower): Appended entries from leader 12001 on term 11
+1620885435 12005(follower): Appended entries from leader 12001 on term 11
+1620885436 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 11
+1620885437 12002(follower): Appended entries from leader 12001 on term 11
+1620885437 12003(follower): Appended entries from leader 12001 on term 11
+1620885437 12004(follower): Appended entries from leader 12001 on term 11
+1620885437 12005(follower): Appended entries from leader 12001 on term 11
+1620885438 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 11
+1620885439 12002(follower): Appended entries from leader 12001 on term 11
+1620885439 12003(follower): Appended entries from leader 12001 on term 11
+1620885439 12004(follower): Appended entries from leader 12001 on term 11
+1620885439 12005(follower): Appended entries from leader 12001 on term 11

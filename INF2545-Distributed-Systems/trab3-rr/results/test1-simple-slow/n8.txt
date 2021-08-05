@@ -1,0 +1,47 @@
+1623917031 r2 c0: Node 8 - row 2 column 0
+1623917031 r2 c0: Connected to MQTT broker.
+1623917065 r2 c0: STATE: []
+1623917076 r2 c0: Processing agent from node-r1-c1 overheard=true: 
+1623917076 r2 c0: {"visited":["node-r0-c0","node-r1-c1"],"events":{"1":{"direction":"node-r0-c0","distance":2}},"numHops":2}
+1623917078 r2 c0: Processing agent from node-r1-c0 overheard=true: 
+1623917078 r2 c0: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0"],"events":{"1":{"direction":"node-r1-c0","distance":3}},"numHops":4}
+1623917079 r2 c0: agent: {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"}},"numHops":5},"ttl":10,"to":"node-r2-c0","id":"9-14"},"event":"agent"}
+1623917079 r2 c0: Processing agent from node-r2-c1 overheard=false: 
+1623917079 r2 c0: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"}},"numHops":5}
+1623917081 r2 c0: Processing agent from node-r3-c0 overheard=true: 
+1623917081 r2 c0: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c0","node-r3-c0"],"events":{"1":{"distance":5,"direction":"node-r2-c0"}},"numHops":7}
+1623917091 r2 c0: STATE: {"1":{"direction":"node-r1-c1","distance":3}}
+1623917197 r2 c0: query: {"data":{"ttl":3,"queryData":{"ttl":3,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1","node-r3-c1","node-r3-c0"]},"to":"node-r2-c0","id":"12-46"},"event":"query"}
+1623917197 r2 c0: Sending query (ttl=2) to node-r1-c0
+1623917220 r2 c0: Processing agent from node-r1-c0 overheard=true: 
+1623917220 r2 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0"],"events":{"1":{"distance":2,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":3}
+1623917221 r2 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917221 r2 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r0-c0","distance":3},"2":{"direction":"node-r1-c0","distance":4}},"numHops":4}
+1623917222 r2 c0: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1"],"events":{"1":{"distance":3,"direction":"node-r1-c1"},"2":{"distance":3,"direction":"node-r1-c1"}},"numHops":5},"ttl":10,"to":"node-r2-c0","id":"5-59"},"event":"agent"}
+1623917222 r2 c0: Processing agent from node-r1-c1 overheard=false: 
+1623917222 r2 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1"],"events":{"1":{"distance":3,"direction":"node-r1-c1"},"2":{"distance":3,"direction":"node-r1-c1"}},"numHops":5}
+1623917224 r2 c0: Processing agent from node-r3-c1 overheard=true: 
+1623917224 r2 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1","node-r2-c0","node-r3-c1"],"events":{"1":{"distance":5,"direction":"node-r3-c1"},"2":{"distance":5,"direction":"node-r1-c1"}},"numHops":7}
+1623917228 r2 c0: STATE: {"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r1-c0","distance":4}}
+1623917313 r2 c0: Processing agent from node-r1-c1 overheard=true: 
+1623917313 r2 c0: {"visited":["node-r0-c1","node-r1-c1"],"events":{"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r0-c1","distance":2}},"numHops":2}
+1623917313 r2 c0: Processing agent from node-r1-c1 overheard=true: 
+1623917313 r2 c0: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1"],"events":{"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r1-c1","distance":3}},"numHops":4}
+1623917314 r2 c0: Processing agent from node-r1-c0 overheard=true: 
+1623917314 r2 c0: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0"],"events":{"1":{"distance":3,"direction":"node-r1-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":5}
+1623917314 r2 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917314 r2 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r0-c1"}},"numHops":3}
+1623917314 r2 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917314 r2 c0: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c3","node-r2-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":4,"direction":"node-r2-c1"}},"numHops":7}
+1623917315 r2 c0: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0"],"events":{"1":{"direction":"node-r1-c0","distance":3},"2":{"direction":"node-r1-c0","distance":3}},"numHops":4},"ttl":10,"to":"node-r2-c0","id":"4-82"},"event":"agent"}
+1623917315 r2 c0: Processing agent from node-r1-c0 overheard=false: 
+1623917315 r2 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0"],"events":{"1":{"direction":"node-r1-c0","distance":3},"2":{"direction":"node-r1-c0","distance":3}},"numHops":4}
+1623917316 r2 c0: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0","node-r0-c0"],"events":{"1":{"distance":2,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":7},"ttl":10,"to":"node-r2-c0","id":"4-84"},"event":"agent"}
+1623917316 r2 c0: Processing agent from node-r1-c0 overheard=false: 
+1623917316 r2 c0: {"visited":["node-r0-c1","node-r1-c2","node-r0-c2","node-r1-c1","node-r1-c0","node-r0-c0"],"events":{"1":{"distance":2,"direction":"node-r0-c0"},"2":{"distance":3,"direction":"node-r1-c0"}},"numHops":7}
+1623917317 r2 c0: Processing agent from node-r3-c0 overheard=true: 
+1623917317 r2 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0","node-r2-c0","node-r3-c0"],"events":{"1":{"direction":"node-r3-c0","distance":5},"2":{"direction":"node-r3-c0","distance":5}},"numHops":6}
+1623917318 r2 c0: Processing agent from node-r3-c1 overheard=true: 
+1623917318 r2 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0","node-r2-c0","node-r3-c0","node-r3-c1"],"events":{"1":{"distance":5,"direction":"node-r3-c1"},"2":{"distance":5,"direction":"node-r3-c1"}},"numHops":7}
+1623917324 r2 c0: STATE: {"1":{"direction":"node-r1-c1","distance":3},"2":{"direction":"node-r1-c1","distance":3}}
+1623917355 r2 c0: Shutting down (Q pressed)

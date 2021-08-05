@@ -1,0 +1,191 @@
+Marcelo Paulon / 2112515
+
+Biblioteca Lua RPC
+
+A biblioteca possui um arquivo chamado "luarpc.lua", 
+que expõe as funções registerServant, waitIncoming, e 
+createProxy. Além disso, para fazer a leitura e valid-
+-ação dos arquivos IDL, a biblioteca também possui um
+arquivo chamado "luarpcIdl.lua", que expõe as funções
+struct e interface.
+
+Ao importar os dois arquivos da biblioteca:
+
+
+local luarpcIdl = require "luarpcIdl"
+local lrpc = require "luarpc"
+
+struct = luarpcIdl.struct -- expose struct() fn
+interface = luarpcIdl.interface -- expose interface() fn
+
+
+podemos importar arquivos idl conforme descritos no 
+enunciado do trabalho, com a função dofile():
+
+
+dofile("example.idl")
+
+
+As chamadas a struct() e interface() realizadas nos ar-
+-quivos registram os structs e interfaces por nome. Com
+isto, não é possível registrar funções ou interfaces com
+o mesmo nome. 
+
+Para que as estruturas sejam validadas corretamente, após
+a leitura do arquivo IDL, a definição precisa estar orde-
+-nada (definir os structs antes de utilizá-los em outros 
+structs ou na interface). Uma limitação da biblioteca é 
+não suportar structs recursivos.
+
+Para obter a referência que deve ser passada à biblioteca,
+usa-se o nome da interface (no exemplo abaixo, "minhaInt"):
+
+
+idl = luarpcIdl.find("minhaInt")
+
+
+O uso da biblioteca (luarpc) é o mesmo conforme descrito no
+enunciado. Mensagens de erro são retornadas como o primeiro
+parâmetro de retorno de cada função, como string.
+Argumentos omitidos (nil) são considerados um erro pela bi-
+-blioteca, que rejeita a requisição no client stub e no 
+servidor ao receber uma requisição com um argumento faltan-
+-do.
+
+A biblioteca valida o IDL carregado, assim como o própria 
+chamada aos stubs e a entrada de requisições no servidor.
+Portanto, a validação ocorre tanto no cliente como no ser-
+-vidor. O número de argumentos, assim como os tipos passa-
+-dos são validados em tempo de execução. Uma limitação da 
+validação está no lado do servidor, que não valida a assi-
+-natura da função que é registrada como implementação.
+
+A biblioteca usa TCP não-bloqueante para comunicação, e é 
+single-thread. As mensagens são enviadas via JSON, e cada
+payload JSON deve ser escrito em uma única linha, usando 
+newline (\n) para pular para a próxima linha.
+Os argumentos de requisição e resposta são passados como
+arrays JSON.
+
+Exemplo de mensagens enviadas na rede, em JSON formatado 
+(com comentários neste relatório, iniciados por '--'):
+
+{
+  "type": "REQUEST",     -- opcional (usado para debug)                   
+  "method": "foo",       -- obrigatório                                                 
+  "params": [{campoA: {  -- opcional (métodos sem argumentos)  
+      campoB: 3.0
+    }
+   }]
+}
+
+{
+  "type": "RESPONSE",    -- opcional (usado para debug)                 
+  "method": "foo",       -- opcional (usado para debug)                    
+  "result": [4.0]        -- opcional (métodos void)  
+}
+
+{
+  "type": "ERROR",       -- opcional (usado para debug)                  
+  "method": "foo",       -- opcional (usado para debug)                                                               
+  "error": "Msg de Erro" -- obrigatório
+}
+
+Ao aceitar uma conexão, o cliente pode escrever os dados em
+até 5 segundos (após isto o servidor fecha a conexão), mas 
+outras requisições podem ser processadas enquanto isso.
+
+Um exemplo funcional do uso da biblioteca está disponível no
+arquivo server.lua (servidor) e client.lua (cliente). Ao
+inicializar o servidor, as seguintes mensagens são exibidas:
+
+
+> lua server.lua
+Registered type minhaStructInterna
+Registered type minhaStruct
+Registered interface minhaInt
+Registered interface 'minhaInt' servant on ip 0.0.0.0 and port 51026
+Registered interface 'minhaInt' servant on ip 0.0.0.0 and port 51027
+
+
+As portas são escolhidas pelo sistema operacional, e podem mudar a 
+cada inicialização do servidor. Neste exemplo, cada porta correspon-
+-de a uma implementação diferente definida no servidor.
+
+Ao inicializar o cliente, este pedirá o número da porta para conexão;
+esta deve ser digitada no console, e ao enviá-la, duas requisições 
+serão feitas, uma à função foo do arquivo example.idl e outra à 
+função boo do mesmo arquivo.
+
+
+> lua client.lua
+Registered type minhaStructInterna
+Registered type minhaStruct
+Registered interface minhaInt
+Port:
+51026
+foo() returned 214.2,450
+boo() returned {"peso":17.1,"idade":18,"teste":{"strInterna":"dddddd",
+"doubleInterno":18.9},"nome":"Joao Jr"}
+
+
+Os seguintes testes manuais foram realizados:
+
+1 - IDL com tipo inválido na raíz, nos argumentos ou no tipo
+de retorno. Resultado: mensagem de erro na inicialização:
+[FATAL] - Struct XXX: unrecognized type 'YYY' on field 'ZZZ'
+[FATAL] - Interface XXX - method PPP: unrecognized return 
+type 'YYY
+
+2 - IDL com direção inválida nos parâmetros. Resultado: men-
+-sagem de erro na inicialização:
+[FATAL] - Interface XXX - method YYY: unrecognized direction
+ for positional argument K - 'ZZZ'
+
+3 - IDL sem nome. Resultado: mensagem de erro na inicializa-
+-ção.
+[FATAL] - Null interface name
+
+4 - Tipo inválido ou diferente do esperado no retorno ou no 
+argumento (no cliente, ao receber uma chamada ao stub ou ao 
+receber uma resposta do servidor; e no servidor, ao receber 
+uma requisição ou ao receber o resultado da implementação).
+Resultado: mensagem de erro. 
+Exemplo: foo() => {"error":"Server error: argument error 
+(pos=3): struct minhaStruct: expected type string - actual=
+double","type":"ERROR"}
+  => Para testar erros no servidor, diferentes versões de IDL
+  foram usadas no cliente/servidor, de forma que a requisição 
+  inválida fosse montada pelo cliente, validada como correta,
+  e enviada ao servidor que então verifica que ela é inválida
+  segundo o seu arquivo IDL.
+
+5 - Structs dentro de structs. Testados como argumento e como
+retorno em resulttype e em argumento out. Resultado:
+estrutura passada ao servidor corretamente e retornada corre-
+-tamente ao cliente.
+
+6 - Processamento em portas diferentes enquanto uma conexão 
+estava aberta por outro client. Resultado: o processamento 
+não foi bloqueado.
+
+7 - Implementações diferentes para a mesma interface, como ser-
+-vants diferentes. Resultado: Cada implementação foi chamada 
+corretamente de acordo com o servant requisitado.
+
+8 - Métodos inexistentes. Resultado: no client, a seguinte men-
+-sagem é retornada: "Method {nome do método} is undefined". 
+Isto foi realizado através da definição de uma metatabela Lua no 
+proxy stub, que checa a existência do método e caso não exista
+retorna uma função que retorna a mensagem de erro neste formato.
+No servidor, este responde com uma mensagem de erro informando ao
+cliente que o método não existe, no formato: "Server error: method
+'{nome do método}' not found.".
+
+
+Também foram definidos testes automatizados do cliente, usando a
+biblioteca LuaUnit. Apenas a validação client-side do cliente foi
+testada. Para executar os testes automatizados, basta rodar o 
+script "runTests.sh" que irá executar os testes definidos no ar-
+-quivo tests.lua.
+

@@ -1,0 +1,56 @@
+struct = {
+    name = "messageStruct",
+    fields = {
+      {name = "unused", type = "int"}
+    }
+}
+
+interface = {
+   name = "minhaInt",
+   methods = {
+     AppendEntries = {
+       resulttype = "string",
+       args = {
+         {direction = "in", type="string"}
+       }
+     },
+     ReplyAppendEntries = {
+       resulttype = "string",
+       args = {
+         {direction = "in", type="string"}
+       }
+     },
+     RequestVote = {
+       resulttype = "string",
+       args = {
+         {direction = "in", type="string"}
+       }
+     },
+     ReplyRequestVote = {
+       resulttype = "string",
+       args = {
+         {direction = "in", type="string"}
+       }
+     },
+     InitializeNode = {
+       resulttype = "void",
+       args = {
+       }
+     },
+     ResumeNode ={
+      resulttype = "void",
+      args = {
+      }
+     },
+     StopNode ={
+      resulttype = "void",
+      args = {
+      }
+     },
+     Debug ={
+      resulttype = "void",
+      args = {
+      }
+     },
+    }
+}

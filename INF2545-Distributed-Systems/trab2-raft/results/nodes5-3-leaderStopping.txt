@@ -1,0 +1,376 @@
+
+
+
+
+
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+LuaSocket version: LuaSocket 3.0-rc1
+1620884961 12001(candidate): Initializing node (port 12001)...
+1620884961 12001(candidate): Node initialized.
+1620884961 12001(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620884961 12001(candidate): Server is running on port: 12001
+1620884961 12001(candidate): [CANDIDATE] Starting a new election in 8 seconds...
+1620884961 12002(candidate): Initializing node (port 12002)...
+1620884961 12002(candidate): Node initialized.
+1620884961 12002(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620884961 12002(candidate): Server is running on port: 12002
+1620884961 12002(candidate): [CANDIDATE] Starting a new election in 13 seconds...
+1620884961 12003(candidate): Initializing node (port 12003)...
+1620884961 12003(candidate): Node initialized.
+1620884961 12003(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620884961 12003(candidate): Server is running on port: 12003
+1620884961 12003(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620884961 12004(candidate): Initializing node (port 12004)...
+1620884961 12004(candidate): Node initialized.
+1620884961 12004(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620884961 12004(candidate): Server is running on port: 12004
+1620884961 12004(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620884961 12005(candidate): Initializing node (port 12005)...
+1620884961 12005(candidate): Node initialized.
+1620884961 12005(candidate): Server initialized (majority minimum=3)- ports: 12001,12002,12003,12004,12005
+1620884961 12005(candidate): Server is running on port: 12005
+1620884961 12005(candidate): [CANDIDATE] Starting a new election in 15 seconds...
+1620884970 12001(candidate): CANDIDATE
+1620884970 12001(candidate): Election started
+1620884970 12001(candidate): [CANDIDATE] Election timer
+1620884970 12001(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620884971 12002(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620884971 12002(follower): I'm now a FOLLOWER
+1620884971 12003(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620884971 12003(follower): I'm now a FOLLOWER
+1620884971 12004(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620884971 12004(follower): I'm now a FOLLOWER
+1620884971 12005(candidate): [candidate] Received a request vote that has a greater term. Converting to follower...
+1620884971 12005(follower): I'm now a FOLLOWER
+1620884972 12001(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620884972 12001(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620884972 12001(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620884972 12001(leader): I'm now a LEADER (term=1)
+1620884974 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 1
+1620884975 12002(follower): Appended entries from leader 12001 on term 1
+1620884975 12003(follower): Appended entries from leader 12001 on term 1
+1620884975 12004(follower): Appended entries from leader 12001 on term 1
+1620884975 12005(follower): Appended entries from leader 12001 on term 1
+1620884976 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 1
+1620884977 12002(follower): Appended entries from leader 12001 on term 1
+1620884977 12003(follower): Appended entries from leader 12001 on term 1
+1620884977 12004(follower): Appended entries from leader 12001 on term 1
+1620884977 12005(follower): Appended entries from leader 12001 on term 1
+1620884978 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 1
+1620884979 12002(follower): Appended entries from leader 12001 on term 1
+1620884979 12003(follower): Appended entries from leader 12001 on term 1
+1620884979 12004(follower): Appended entries from leader 12001 on term 1
+1620884979 12005(follower): Appended entries from leader 12001 on term 1
+1620884980 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 1
+1620884981 12001(leader): Node stopped
+1620884981 12001(leader): Stopping node...
+1620884981 12002(follower): Appended entries from leader 12001 on term 1
+1620884981 12003(follower): Appended entries from leader 12001 on term 1
+1620884981 12004(follower): Appended entries from leader 12001 on term 1
+1620884981 12005(follower): Appended entries from leader 12001 on term 1
+1620884982 12001(leader): [STOPPED NODE] Skipped 4 enqueued tasks
+1620884991 12002(candidate): CANDIDATE
+1620884991 12002(candidate): Election started
+1620884991 12002(candidate): [CANDIDATE] Starting a new election in 11 seconds...
+1620884991 12002(follower): [FOLLOWER] Election timer
+1620884992 12001(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620884992 12003(follower): I'm now a FOLLOWER
+1620884992 12003(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620884992 12004(follower): I'm now a FOLLOWER
+1620884992 12004(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620884992 12005(follower): I'm now a FOLLOWER
+1620884992 12005(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620884993 12002(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620884993 12002(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620884993 12002(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620884993 12002(leader): I'm now a LEADER (term=2)
+1620884996 12002(leader): [LEADER - 12002] Sending heartbeats.. term = 2
+1620884997 12001(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620884997 12003(follower): Appended entries from leader 12002 on term 2
+1620884997 12004(follower): Appended entries from leader 12002 on term 2
+1620884997 12005(follower): Appended entries from leader 12002 on term 2
+1620884998 12002(leader): [LEADER - 12002] Sending heartbeats.. term = 2
+1620884999 12001(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620884999 12003(follower): Appended entries from leader 12002 on term 2
+1620884999 12004(follower): Appended entries from leader 12002 on term 2
+1620884999 12005(follower): Appended entries from leader 12002 on term 2
+1620885000 12002(leader): [LEADER - 12002] Sending heartbeats.. term = 2
+1620885001 12001(follower): Appended entries from leader 12002 on term 2
+1620885001 12001(follower): I'm now a FOLLOWER
+1620885001 12001(leader): Node resumed
+1620885001 12001(leader): Resuming node...
+1620885001 12001(leader): [LEADER - 12001] Sending heartbeats.. term = 1
+1620885001 12001(leader): [leader] Received an append entries that has a greater term. Converting to follower...
+1620885001 12002(leader): Node stopped
+1620885001 12002(leader): Stopping node...
+1620885001 12003(follower): Appended entries from leader 12002 on term 2
+1620885001 12004(follower): Appended entries from leader 12002 on term 2
+1620885001 12005(follower): Appended entries from leader 12002 on term 2
+1620885002 12002(leader): [STOPPED NODE] Skipped 4 enqueued tasks
+1620885008 12002(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885008 12005(candidate): CANDIDATE
+1620885008 12005(candidate): Election started
+1620885008 12005(candidate): [CANDIDATE] Starting a new election in 17 seconds...
+1620885008 12005(follower): [FOLLOWER] Election timer
+1620885009 12001(follower): I'm now a FOLLOWER
+1620885009 12001(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885009 12003(follower): I'm now a FOLLOWER
+1620885009 12003(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885009 12004(follower): I'm now a FOLLOWER
+1620885009 12004(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885010 12005(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885010 12005(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620885010 12005(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620885010 12005(leader): I'm now a LEADER (term=3)
+1620885013 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885014 12001(follower): Appended entries from leader 12005 on term 3
+1620885014 12002(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885014 12003(follower): Appended entries from leader 12005 on term 3
+1620885014 12004(follower): Appended entries from leader 12005 on term 3
+1620885015 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885016 12001(follower): Appended entries from leader 12005 on term 3
+1620885016 12002(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885016 12003(follower): Appended entries from leader 12005 on term 3
+1620885016 12004(follower): Appended entries from leader 12005 on term 3
+1620885018 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885019 12001(follower): Appended entries from leader 12005 on term 3
+1620885019 12002(leader): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885019 12003(follower): Appended entries from leader 12005 on term 3
+1620885019 12004(follower): Appended entries from leader 12005 on term 3
+1620885020 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885021 12001(follower): Appended entries from leader 12005 on term 3
+1620885021 12002(follower): Appended entries from leader 12005 on term 3
+1620885021 12002(follower): I'm now a FOLLOWER
+1620885021 12002(leader): Node resumed
+1620885021 12002(leader): Resuming node...
+1620885021 12002(leader): [LEADER - 12002] Sending heartbeats.. term = 2
+1620885021 12002(leader): [leader] Received an append entries that has a greater term. Converting to follower...
+1620885021 12003(follower): Appended entries from leader 12005 on term 3
+1620885021 12003(follower): Node stopped
+1620885021 12003(follower): Stopping node...
+1620885021 12004(follower): Appended entries from leader 12005 on term 3
+1620885022 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885023 12001(follower): Appended entries from leader 12005 on term 3
+1620885023 12002(follower): Appended entries from leader 12005 on term 3
+1620885023 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885023 12004(follower): Appended entries from leader 12005 on term 3
+1620885024 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885025 12001(follower): Appended entries from leader 12005 on term 3
+1620885025 12002(follower): Appended entries from leader 12005 on term 3
+1620885025 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885025 12004(follower): Appended entries from leader 12005 on term 3
+1620885027 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885028 12001(follower): Appended entries from leader 12005 on term 3
+1620885028 12002(follower): Appended entries from leader 12005 on term 3
+1620885028 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885028 12004(follower): Appended entries from leader 12005 on term 3
+1620885029 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885029 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885030 12001(follower): Appended entries from leader 12005 on term 3
+1620885030 12002(follower): Appended entries from leader 12005 on term 3
+1620885030 12004(follower): Appended entries from leader 12005 on term 3
+1620885031 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885032 12001(follower): Appended entries from leader 12005 on term 3
+1620885032 12002(follower): Appended entries from leader 12005 on term 3
+1620885032 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885032 12004(follower): Appended entries from leader 12005 on term 3
+1620885033 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885034 12001(follower): Appended entries from leader 12005 on term 3
+1620885034 12002(follower): Appended entries from leader 12005 on term 3
+1620885034 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885034 12004(follower): Appended entries from leader 12005 on term 3
+1620885035 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885036 12001(follower): Appended entries from leader 12005 on term 3
+1620885036 12002(follower): Appended entries from leader 12005 on term 3
+1620885036 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885036 12004(follower): Appended entries from leader 12005 on term 3
+1620885038 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885039 12001(follower): Appended entries from leader 12005 on term 3
+1620885039 12002(follower): Appended entries from leader 12005 on term 3
+1620885039 12003(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885039 12004(follower): Appended entries from leader 12005 on term 3
+1620885040 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885041 12001(follower): Appended entries from leader 12005 on term 3
+1620885041 12001(follower): I'm now a FOLLOWER
+1620885041 12001(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885041 12002(follower): Appended entries from leader 12005 on term 3
+1620885041 12002(follower): I'm now a FOLLOWER
+1620885041 12002(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885041 12003(candidate): CANDIDATE
+1620885041 12003(candidate): Election started
+1620885041 12003(candidate): [CANDIDATE] Starting a new election in 12 seconds...
+1620885041 12003(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885041 12003(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620885041 12003(follower): Node resumed
+1620885041 12003(follower): Resuming node...
+1620885041 12003(follower): [FOLLOWER] Election timer
+1620885041 12004(follower): Appended entries from leader 12005 on term 3
+1620885041 12004(follower): I'm now a FOLLOWER
+1620885041 12004(follower): Node stopped
+1620885041 12004(follower): Stopping node...
+1620885041 12004(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885042 12003(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620885042 12003(leader): I'm now a LEADER (term=4)
+1620885042 12005(follower): I'm now a FOLLOWER
+1620885042 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 3
+1620885042 12005(leader): [leader] Received a request vote that has a greater term. Converting to follower...
+1620885043 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885044 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885045 12001(follower): Appended entries from leader 12003 on term 4
+1620885045 12002(follower): Appended entries from leader 12003 on term 4
+1620885045 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885045 12005(follower): Appended entries from leader 12003 on term 4
+1620885046 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885047 12001(follower): Appended entries from leader 12003 on term 4
+1620885047 12002(follower): Appended entries from leader 12003 on term 4
+1620885047 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885047 12005(follower): Appended entries from leader 12003 on term 4
+1620885048 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885049 12001(follower): Appended entries from leader 12003 on term 4
+1620885049 12002(follower): Appended entries from leader 12003 on term 4
+1620885049 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885049 12005(follower): Appended entries from leader 12003 on term 4
+1620885050 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885051 12001(follower): Appended entries from leader 12003 on term 4
+1620885051 12002(follower): Appended entries from leader 12003 on term 4
+1620885051 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885051 12005(follower): Appended entries from leader 12003 on term 4
+1620885053 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885054 12001(follower): Appended entries from leader 12003 on term 4
+1620885054 12002(follower): Appended entries from leader 12003 on term 4
+1620885054 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885054 12005(follower): Appended entries from leader 12003 on term 4
+1620885055 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885056 12001(follower): Appended entries from leader 12003 on term 4
+1620885056 12002(follower): Appended entries from leader 12003 on term 4
+1620885056 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885056 12005(follower): Appended entries from leader 12003 on term 4
+1620885057 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885058 12001(follower): Appended entries from leader 12003 on term 4
+1620885058 12002(follower): Appended entries from leader 12003 on term 4
+1620885058 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885058 12005(follower): Appended entries from leader 12003 on term 4
+1620885059 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885060 12001(follower): Appended entries from leader 12003 on term 4
+1620885060 12002(follower): Appended entries from leader 12003 on term 4
+1620885060 12004(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885060 12005(follower): Appended entries from leader 12003 on term 4
+1620885061 12001(follower): I'm now a FOLLOWER
+1620885061 12001(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885061 12002(follower): I'm now a FOLLOWER
+1620885061 12002(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885061 12003(follower): I'm now a FOLLOWER
+1620885061 12003(leader): [LEADER - 12003] Sending heartbeats.. term = 4
+1620885061 12003(leader): [leader] Received a request vote that has a greater term. Converting to follower...
+1620885061 12004(candidate): CANDIDATE
+1620885061 12004(candidate): Election started
+1620885061 12004(candidate): [CANDIDATE] Starting a new election in 6 seconds...
+1620885061 12004(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885061 12004(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620885061 12004(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620885061 12004(follower): Node resumed
+1620885061 12004(follower): Resuming node...
+1620885061 12004(follower): [FOLLOWER] Election timer
+1620885061 12004(leader): I'm now a LEADER (term=5)
+1620885061 12005(follower): I'm now a FOLLOWER
+1620885061 12005(follower): Node stopped
+1620885061 12005(follower): Stopping node...
+1620885061 12005(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885062 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885063 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885064 12001(follower): Appended entries from leader 12004 on term 5
+1620885064 12002(follower): Appended entries from leader 12004 on term 5
+1620885064 12003(follower): Appended entries from leader 12004 on term 5
+1620885064 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885066 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885067 12001(follower): Appended entries from leader 12004 on term 5
+1620885067 12002(follower): Appended entries from leader 12004 on term 5
+1620885067 12003(follower): Appended entries from leader 12004 on term 5
+1620885067 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885068 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885069 12001(follower): Appended entries from leader 12004 on term 5
+1620885069 12002(follower): Appended entries from leader 12004 on term 5
+1620885069 12003(follower): Appended entries from leader 12004 on term 5
+1620885069 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885071 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885072 12001(follower): Appended entries from leader 12004 on term 5
+1620885072 12002(follower): Appended entries from leader 12004 on term 5
+1620885072 12003(follower): Appended entries from leader 12004 on term 5
+1620885072 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885074 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885075 12001(follower): Appended entries from leader 12004 on term 5
+1620885075 12002(follower): Appended entries from leader 12004 on term 5
+1620885075 12003(follower): Appended entries from leader 12004 on term 5
+1620885075 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885077 12001(follower): Appended entries from leader 12004 on term 5
+1620885077 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885078 12002(follower): Appended entries from leader 12004 on term 5
+1620885078 12003(follower): Appended entries from leader 12004 on term 5
+1620885078 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885079 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885080 12001(follower): Appended entries from leader 12004 on term 5
+1620885080 12002(follower): Appended entries from leader 12004 on term 5
+1620885080 12003(follower): Appended entries from leader 12004 on term 5
+1620885080 12005(follower): [STOPPED NODE] Skipped 1 enqueued tasks
+1620885081 12001(follower): I'm now a FOLLOWER
+1620885081 12001(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885081 12002(follower): I'm now a FOLLOWER
+1620885081 12002(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885081 12003(follower): I'm now a FOLLOWER
+1620885081 12003(follower): [follower] Received a request vote that has a greater term. Converting to follower...
+1620885081 12004(follower): I'm now a FOLLOWER
+1620885081 12004(leader): [LEADER - 12004] Sending heartbeats.. term = 5
+1620885081 12004(leader): [leader] Received a request vote that has a greater term. Converting to follower...
+1620885081 12005(candidate): CANDIDATE
+1620885081 12005(candidate): Election started
+1620885081 12005(candidate): [CANDIDATE] Starting a new election in 10 seconds...
+1620885081 12005(candidate): [POLLS - CANDIDATE] We now have 1 votes
+1620885081 12005(candidate): [POLLS - CANDIDATE] We now have 2 votes
+1620885081 12005(follower): Node resumed
+1620885081 12005(follower): Resuming node...
+1620885081 12005(follower): [FOLLOWER] Election timer
+1620885082 12005(candidate): [POLLS - CANDIDATE] We now have 3 votes
+1620885082 12005(leader): I'm now a LEADER (term=6)
+1620885084 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885085 12001(follower): Appended entries from leader 12005 on term 6
+1620885085 12002(follower): Appended entries from leader 12005 on term 6
+1620885085 12003(follower): Appended entries from leader 12005 on term 6
+1620885085 12004(follower): Appended entries from leader 12005 on term 6
+1620885086 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885087 12001(follower): Appended entries from leader 12005 on term 6
+1620885087 12002(follower): Appended entries from leader 12005 on term 6
+1620885087 12003(follower): Appended entries from leader 12005 on term 6
+1620885087 12004(follower): Appended entries from leader 12005 on term 6
+1620885088 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885089 12001(follower): Appended entries from leader 12005 on term 6
+1620885089 12002(follower): Appended entries from leader 12005 on term 6
+1620885089 12003(follower): Appended entries from leader 12005 on term 6
+1620885089 12004(follower): Appended entries from leader 12005 on term 6
+1620885090 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885091 12001(follower): Appended entries from leader 12005 on term 6
+1620885091 12002(follower): Appended entries from leader 12005 on term 6
+1620885091 12003(follower): Appended entries from leader 12005 on term 6
+1620885091 12004(follower): Appended entries from leader 12005 on term 6
+1620885092 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885093 12001(follower): Appended entries from leader 12005 on term 6
+1620885093 12002(follower): Appended entries from leader 12005 on term 6
+1620885093 12003(follower): Appended entries from leader 12005 on term 6
+1620885093 12004(follower): Appended entries from leader 12005 on term 6
+1620885094 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885095 12001(follower): Appended entries from leader 12005 on term 6
+1620885095 12002(follower): Appended entries from leader 12005 on term 6
+1620885095 12003(follower): Appended entries from leader 12005 on term 6
+1620885095 12004(follower): Appended entries from leader 12005 on term 6
+1620885097 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885098 12001(follower): Appended entries from leader 12005 on term 6
+1620885098 12002(follower): Appended entries from leader 12005 on term 6
+1620885098 12003(follower): Appended entries from leader 12005 on term 6
+1620885098 12004(follower): Appended entries from leader 12005 on term 6
+1620885099 12005(leader): [LEADER - 12005] Sending heartbeats.. term = 6
+1620885100 12001(follower): Appended entries from leader 12005 on term 6
+1620885100 12002(follower): Appended entries from leader 12005 on term 6
+1620885100 12003(follower): Appended entries from leader 12005 on term 6
+1620885100 12004(follower): Appended entries from leader 12005 on term 6

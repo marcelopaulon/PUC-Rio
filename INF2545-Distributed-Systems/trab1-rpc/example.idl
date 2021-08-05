@@ -1,0 +1,41 @@
+struct ({ name = "minhaStructInterna",
+          fields = {
+              {name = "strInterna", type = "string"},
+              {name = "doubleInterno", type = "double"}
+            }
+        }
+    )
+
+struct ({ name = "minhaStruct",
+          fields = {
+              {name = "nome", type = "string"},
+              {name = "peso", type = "double"},
+              {name = "idade", type = "int"},
+              {name = "teste", type = "minhaStructInterna"}
+            }
+        }
+    )
+
+interface ({ name = "minhaInt",
+             methods = {
+                 foo = {
+                    resulttype = "double",
+                    args = {
+                        {direction = "in",type = "double"},
+                        {direction = "in",type = "string"},
+                        {direction = "in",type = "minhaStruct"},
+                        {direction = "out",type = "int"}
+                    }
+                 },
+                 boo = {
+                    resulttype = "void",
+                    args = {
+                        {direction = "in",type = "double"},
+                        {direction = "out",type = "minhaStruct"},
+                        {direction = "out",type = "string"},
+                        {direction = "out",type = "double"}
+                    }
+                 }
+                }
+            }
+        )

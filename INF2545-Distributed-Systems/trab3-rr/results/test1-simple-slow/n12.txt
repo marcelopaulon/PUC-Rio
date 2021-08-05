@@ -1,0 +1,30 @@
+1623917031 r3 c0: Node 12 - row 3 column 0
+1623917031 r3 c0: Connected to MQTT broker.
+1623917066 r3 c0: STATE: []
+1623917079 r3 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917079 r3 c0: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"}},"numHops":5}
+1623917080 r3 c0: agent: {"data":{"agentData":{"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4}},"numHops":6},"ttl":10,"to":"node-r3-c0","id":"8-15"},"event":"agent"}
+1623917080 r3 c0: Processing agent from node-r2-c0 overheard=false: 
+1623917080 r3 c0: {"visited":["node-r0-c0","node-r1-c1","node-r0-c1","node-r1-c0","node-r2-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4}},"numHops":6}
+1623917091 r3 c0: STATE: {"1":{"direction":"node-r2-c1","distance":5}}
+1623917196 r3 c0: query: {"data":{"ttl":4,"queryData":{"ttl":4,"q":"2","visited":["node-r3-c3","node-r2-c2","node-r3-c2","node-r2-c1","node-r3-c1"]},"to":"node-r3-c0","id":"13-45"},"event":"query"}
+1623917196 r3 c0: Sending query (ttl=3) to node-r2-c0
+1623917221 r3 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917221 r3 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1"],"events":{"1":{"direction":"node-r0-c0","distance":3},"2":{"direction":"node-r1-c0","distance":4}},"numHops":4}
+1623917223 r3 c0: Processing agent from node-r2-c0 overheard=true: 
+1623917223 r3 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1","node-r2-c0"],"events":{"1":{"direction":"node-r2-c0","distance":4},"2":{"direction":"node-r1-c1","distance":4}},"numHops":6}
+1623917224 r3 c0: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1","node-r2-c0","node-r3-c1"],"events":{"1":{"distance":5,"direction":"node-r3-c1"},"2":{"distance":5,"direction":"node-r1-c1"}},"numHops":7},"ttl":10,"to":"node-r3-c0","id":"13-53"},"event":"agent"}
+1623917224 r3 c0: Processing agent from node-r3-c1 overheard=false: 
+1623917224 r3 c0: {"visited":["node-r0-c1","node-r0-c0","node-r1-c0","node-r2-c1","node-r1-c1","node-r2-c0","node-r3-c1"],"events":{"1":{"distance":5,"direction":"node-r3-c1"},"2":{"distance":5,"direction":"node-r1-c1"}},"numHops":7}
+1623917229 r3 c0: STATE: {"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r2-c1","distance":5}}
+1623917314 r3 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917314 r3 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":3,"direction":"node-r0-c1"}},"numHops":3}
+1623917314 r3 c0: Processing agent from node-r2-c1 overheard=true: 
+1623917314 r3 c0: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c3","node-r2-c2","node-r2-c1"],"events":{"1":{"distance":4,"direction":"node-r2-c1"},"2":{"distance":4,"direction":"node-r2-c1"}},"numHops":7}
+1623917316 r3 c0: agent: {"data":{"agentData":{"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0","node-r2-c0"],"events":{"1":{"distance":4,"direction":"node-r2-c0"},"2":{"distance":4,"direction":"node-r2-c0"}},"numHops":5},"ttl":10,"to":"node-r3-c0","id":"8-79"},"event":"agent"}
+1623917316 r3 c0: Processing agent from node-r2-c0 overheard=false: 
+1623917316 r3 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0","node-r2-c0"],"events":{"1":{"distance":4,"direction":"node-r2-c0"},"2":{"distance":4,"direction":"node-r2-c0"}},"numHops":5}
+1623917318 r3 c0: Processing agent from node-r3-c1 overheard=true: 
+1623917318 r3 c0: {"visited":["node-r0-c1","node-r1-c1","node-r2-c1","node-r1-c0","node-r2-c0","node-r3-c0","node-r3-c1"],"events":{"1":{"distance":5,"direction":"node-r3-c1"},"2":{"distance":5,"direction":"node-r3-c1"}},"numHops":7}
+1623917324 r3 c0: STATE: {"1":{"direction":"node-r2-c1","distance":4},"2":{"direction":"node-r2-c1","distance":4}}
+1623917355 r3 c0: Shutting down (Q pressed)

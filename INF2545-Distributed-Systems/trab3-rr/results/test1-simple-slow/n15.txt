@@ -1,0 +1,34 @@
+1623917031 r3 c3: Node 15 - row 3 column 3
+1623917031 r3 c3: Connected to MQTT broker.
+1623917066 r3 c3: STATE: []
+1623917090 r3 c3: STATE: []
+1623917102 r3 c3: Sending query 1
+1623917110 r3 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"10-25","to":"node-r3-c3","event":"1","visited":["node-r1-c1","node-r2-c2"],"ttl":8,"idx":1,"track":["node-r3-c3","node-r2-c3","node-r1-c3","node-r2-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917110 r3 c3: Query response received for event 1 from node-r0-c0
+1623917191 r3 c3: Sending query 2
+1623917203 r3 c3: Sending query 1
+1623917211 r3 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"11-51","to":"node-r3-c3","event":"1","ttl":7,"visited":["node-r1-c1","node-r1-c2","node-r2-c3"],"idx":1,"track":["node-r3-c3","node-r2-c3","node-r1-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917211 r3 c3: Query response received for event 1 from node-r0-c0
+1623917229 r3 c3: STATE: []
+1623917251 r3 c3: Sending query 1
+1623917261 r3 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"11-67","to":"node-r3-c3","event":"1","ttl":7,"visited":["node-r1-c1","node-r1-c2","node-r2-c3"],"idx":1,"track":["node-r3-c3","node-r2-c3","node-r1-c3","node-r0-c3","node-r1-c2","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917261 r3 c3: Query response received for event 1 from node-r0-c0
+1623917263 r3 c3: Sending query 2
+1623917269 r3 c3: response-query: {"data":{"finalNode":"node-r0-c1","id":"10-69","to":"node-r3-c3","event":"2","visited":["node-r1-c1","node-r2-c2"],"ttl":8,"idx":1,"track":["node-r3-c3","node-r2-c2","node-r1-c1","node-r0-c1"]},"event":"query-response"}
+1623917269 r3 c3: Query response received for event 2 from node-r0-c1
+1623917285 r3 c3: query: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c3","id":"10-74"},"event":"query"}
+1623917285 r3 c3: Sending query (ttl=7) to node-r3-c2
+1623917312 r3 c3: Processing agent from node-r2-c3 overheard=true: 
+1623917312 r3 c3: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c3"],"events":{"1":{"distance":5,"direction":"node-r1-c2"},"2":{"distance":4,"direction":"node-r2-c3"}},"numHops":5}
+1623917313 r3 c3: Processing agent from node-r2-c2 overheard=true: 
+1623917313 r3 c3: {"visited":["node-r0-c1","node-r0-c2","node-r0-c3","node-r1-c2","node-r2-c3","node-r2-c2"],"events":{"1":{"direction":"node-r2-c2","distance":4},"2":{"direction":"node-r2-c2","distance":4}},"numHops":6}
+1623917323 r3 c3: STATE: {"1":{"direction":"node-r2-c2","distance":5},"2":{"direction":"node-r2-c3","distance":5}}
+1623917326 r3 c3: query: {"data":{"ttl":10,"queryData":{"q":"2"},"to":"node-r3-c3","id":"10-88"},"event":"query"}
+1623917326 r3 c3: Sending query (ttl=7) to node-r2-c3
+1623917340 r3 c3: Sending query 2
+1623917341 r3 c3: Sending query 1
+1623917346 r3 c3: response-query: {"data":{"finalNode":"node-r0-c1","id":"10-96","to":"node-r3-c3","event":"2","visited":["node-r1-c2","node-r2-c2"],"ttl":8,"idx":1,"track":["node-r3-c3","node-r2-c2","node-r1-c2","node-r0-c1"]},"event":"query-response"}
+1623917346 r3 c3: Query response received for event 2 from node-r0-c1
+1623917349 r3 c3: response-query: {"data":{"finalNode":"node-r0-c0","id":"14-89","to":"node-r3-c3","event":"1","ttl":7,"visited":["node-r1-c1","node-r2-c1","node-r3-c2"],"idx":1,"track":["node-r3-c3","node-r3-c2","node-r2-c1","node-r1-c1","node-r0-c0"]},"event":"query-response"}
+1623917349 r3 c3: Query response received for event 1 from node-r0-c0
+1623917354 r3 c3: Shutting down (Q pressed)
