@@ -1,0 +1,74 @@
+// Script:    ScriptTesteManual.script
+// Autores:   Fernanda de Miranda Carvalho
+//	      Marcelo Paulon Juca Vasconcelos
+//	      Renan da Fonte Simas dos Santos
+// Data:      27/10/2015
+// Proposito: Teste da aplicação Gamão e suas funcionalidades
+//
+
+//Menu
+-  Execute TRAB3-1.exe e observe o Menu inicial do jogo aparecer, com 4 opções de escolha.
+- Entre 0 e observe o jogo ser fechado
+- Execute TRAB3-1.exe novamente
+- Entre 3 e observe informações sobre jogo e desenvolvedores serem exibidas
+- Pressione qualquer tecla para retornar ao Menu inicial
+
+//Teste para início de nova partida
+- Entre 1 para iniciar uma nova partida
+- Entre com o nome do Jogador que irá movimentar as peças brancas
+- Use a tecla enter para confirmar
+- Entre com o nome do Jogador que irá movimentar as peças pretas
+- Use a tecla enter para confirmar
+- Observe a partida sendo iniciada com a distribuição de peças pelo tabuleiro e indicativos de valor da aposta, pontuação dos jogadores, nome de quem iniciará as jogadas, valor dos dados e sentido da movimentação.
+
+//Teste de movimentação de peças
+- Levando em consideração os valores tirados nos dados, entre com números que indiquem casas de origem e destino válidas usando a tecla enter para confirmar cada escolha de casa. 
+- Observe a movimentação
+- Entre com valores inválidos para casas de origem e destino e observe a mensagem de erro que informa que o movimento desejado é inválido.
+
+//Teste de captura de peça
+- Considerando os valores dos dados, movimente uma peça de modo que ela termine a jogada sozinha em alguma casa
+- Movimente a peça adversária para capturá-la enquanto estiver sozinha na tal casa
+- Observe a peça que estava sozinha na casa ser capturada e ir para a barra (BAR)
+
+//Teste de resgate de uma peça (retirada de peça da barra para uma casa válida)
+- Levando em consideração os valores tirados movimente a peça da barra para uma casa pertencente ao quadrante inicial dela (se estiver movimentando uma peça preta tente devolvê-la para casas entre 1 e 6, se estiver movimentando uma peça branca, tente devolvê-la para uma casa entre 19 e 24. Em caso de dúvida observe a tabela de correspondência entre casas no Manual do Usuário na seção Captura e resgate de peças)
+- Observe que se os 2 valores tirados nos dados corresponderem a casas não válidas (por existência de 2 ou mais peças oponentes ou por não estarem no quadrante inicial) o jogador é informado e passa a vez
+
+
+//Teste de salvamento da partida
+- Entre com o comando salvar 
+- Observe mensagem que confirma que partida foi salva e nome da mesma
+- Entre com qualquer tecla para retornar ao jogo
+
+//Teste de saída de uma partida
+- Entre com o comando sair
+- Entre S para confirmar
+
+//Teste Carregar Jogo para retomar partida salva
+- Entre 2 para carregar partidas salvas
+- Observe partidas salvas
+- Entre com o número correspondente à partida que deseja retomar
+- Use a tecla enter para confirmar
+
+//Teste de dobra da aposta
+- Entre com o comando dobrar (para propor uma dobra de aposta da partida)
+- Observe a mensagem para o jogador que está recebendo a proposta
+- Entre S para aceitar
+- Observe indicador de pontuação da partida com valor dobrado
+- Entre com o comando dobrar para o mesmo jogador que propôs a primeira dobra
+- Observe mensagem que informa que não está na sua vez de propor dobra
+- Pressione qualquer tecla para prosseguir
+- Prossiga com movimentações e entre com o comando dobrar na vez do jogador que recebeu e aceitou a dobra
+- Observe a mensagem para o jogador que está recebendo a proposta
+- Entre com N para recusar
+- Observe mensagem informando que perdeu a partida por recusar a dobra
+- Observe mensagem que propõe início de uma nova partida
+- Entre S para iniciar
+- Observe atualização no placar com pontuação dos jogadores
+
+//Teste de retirada de peças do tabuleiro
+- Ao receber a mensagem que diz que você já pode retirar suas peças do tabuleiro, faça movimentos de retirada quando possível utilizando tecla 0 como casa de destino
+- Ao retirar todas as peças do tabuleiro observe mensagem que informa que a partida terminou e nome do vencedor
+- Observe mensagem que propõe início de uma nova partida
+- Entre N e volte para Menu inicial ou entre S e observe nova partida iniciar

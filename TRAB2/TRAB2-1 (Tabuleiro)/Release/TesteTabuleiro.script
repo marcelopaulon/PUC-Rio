@@ -1,0 +1,108 @@
+// Script:    TesteTabuleiro.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      05/09/2015
+// Proposito: Testar o modulo tabuleiro 
+//
+
+== Inicializar valores
+=declararparm   tab0  int 0
+=declararparm   tab1  int 1
+=declararparm   tab2  int 2
+=declararparm   tab3  int 3
+=declararparm   tab4  int 4
+
+=declararparm   OK             	        int  0
+=declararparm   TabuleiroNaoExiste      int  1
+=declararparm   CasaNaoExiste           int  2
+=declararparm   PecaNaoExiste           int  3
+=declararparm   FaltouMemoria	        int  4
+
+=declararparm	CorBranca	 int 0
+=declararparm	CorPreta         int 1
+
+== Testar Comando Recuperar
+=destruirtabuleiro tab0 OK
+=recuperar
+
+== Criar tabuleiro 
+=criartabuleiro    tab0 OK
+
+== Criar tabuleiro 
+=criartabuleiro    tab1 OK
+
+== Destruir tabuleiro
+=destruirtabuleiro  tab0 OK
+
+== Destruir tabuleiro nao existe
+=destruirtabuleiro  tab0 TabuleiroNaoExiste
+
+== Inserir peca tabuleiro nao existe
+=inserirpeca tab0 CorPreta 24 TabuleiroNaoExiste
+
+== Inserir peca casa nao existe
+=inserirpeca tab1 CorPreta 0 CasaNaoExiste
+
+== Inserir peca
+=inserirpeca tab1 CorPreta 1 OK
+=inserirpeca tab1 CorPreta 1 OK
+
+== Contar pecas tabuleiro nao existe
+=contarpecas tab0 CorPreta 1 0 TabuleiroNaoExiste
+
+== Contar pecas casa nao existe
+=contarpecas tab1 CorPreta 25 0 CasaNaoExiste
+
+== Contar pecas peca nao existe
+=contarpecas tab1 CorPreta 24 0 PecaNaoExiste
+
+== Contar pecas peca existe
+=contarpecas tab1 CorPreta 1 2 OK
+
+== Remover peca peca nao existe
+=removerpeca tab1 CorBranca 24 PecaNaoExiste
+
+== Remover peca casa nao existe
+=removerpeca tab1 CorBranca 34 CasaNaoExiste
+
+== Mover peca casa nao existe
+=moverpeca tab1 CorBranca 29 21 CasaNaoExiste
+
+== Mover peca peca nao existe
+=moverpeca tab1 CorBranca 18 19 PecaNaoExiste
+
+== Inserir peca
+=inserirpeca tab1 CorBranca 24 OK
+
+== Inserir peca
+=inserirpeca tab1 CorBranca 10 OK
+
+== Mover peca casa nao existe
+=moverpeca tab1 CorBranca 10 29 CasaNaoExiste
+
+== Remover peca
+=removerpeca tab1 CorBranca 24 OK
+
+== Mover peca peca nao existe
+=moverpeca tab1 CorPreta 10 19 PecaNaoExiste
+
+== Mover peca peca existe
+=moverpeca tab1 CorBranca 10 19 OK
+
+== Contar pecas peca existe
+=contarpecas tab1 CorBranca 19 1 OK
+
+== Remover peca
+=removerpeca tab1 CorBranca 19 OK
+
+== Destruir tabuleiro
+=destruirtabuleiro  tab1 OK
+
+== Remover peca tabuleiro nao existe
+=removerpeca tab1 CorBranca 24 TabuleiroNaoExiste
+
+== Mover peca tabuleiro nao existe
+=moverpeca tab1 CorBranca 24 21 TabuleiroNaoExiste
+
+// fim

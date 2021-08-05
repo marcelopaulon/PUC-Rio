@@ -1,0 +1,40 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB3-3
+
+      Arquivo de teste:    TestePecasCapturadas
+
+
+!!!    0  Linha:     1  // Script:    TestePecasCapturadas.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      29/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo peças capturadas 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   21  == Testar Comando Recuperar
+>>>    1  Linha:    22  Erro ao destruir lista de pecas capturadas. Deveria ser: 0  É: 1
+<<<    0  Linha:    23  Falha esperada foi recuperada. 
+   25  == Criar as Listas de Pecas Capturadas
+   29  == Inserir Pecas
+   36  == Contagem de pecas
+   43  == Remover pecas
+   51  == Contagem de pecas apos remocao
+   55  == Destruir Lista de Pecas capturadas
+   59  == Destruir Lista de Pecas capturadas inexistente
+!!!    0  Linha:    63  // fim 
+
+!!! Número de linhas lidas:          63
+!!! Número de casos de teste:         9
+!!! Número comandos corretos:        32
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

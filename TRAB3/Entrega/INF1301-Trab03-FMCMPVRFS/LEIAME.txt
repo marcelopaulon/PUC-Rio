@@ -1,0 +1,37 @@
+LEIA-ME Trabalho 3
+
+Desenvolvido por:
+	- FMC - Fernanda de Miranda Carvalho (1411287)
+	- MPV - Marcelo Paulon Jucá Vasconcelos (1411029)
+	- RFS - Renan da Fonte Simas dos Santos (1412122)
+
+Apresentação:
+	Este texto descreve resumidamente o conteúdo e funcionamento do arquivo INF1301-Trab03-FMCMPVRFS.zip.
+	Os programas contidos neste arquivo .zip executam o jogo de gamão e realizam testes para os módulos PECASFINALIZADAS.C, e PECASCAPTURADAS.C.
+
+Conteúdo:
+	O conteúdo extraído do zip está dividido nas seguintes pastas:
+	- TRAB3-1: contém testes relativos ao módulo JOGO.C, o executável para o mesmo, e uma pasta "sfx" contendo os arquivos dos efeitos sonoros do jogo;
+	- TRAB3-2: contém testes relativos ao módulo PECASFINALIZADAS.C e o executável para o teste do mesmo;
+	- TRAB3-3: contém testes relativos ao módulo PECASCAPTURADAS.C e o executável para o teste do mesmo;
+	- Relatórios: contém os relatórios feitos pelos alunos que desenvolveram este trabalho.
+
+	Na pasta extraída também deve estar contido o arquivo LEIAME.txt (o presente documento), o arquivo Manual, contendo o manual de uso do jogo de gamão, e o arquivo Documentação, contendo a especificação de requisitos, a arquitetura do programa, o modelo estrutural (contendo um exemplo da estrutura) e as respectivas assertivas estruturais.
+
+Instruções:
+	Primeiro, é necessário extrair o conteúdo do arquivo INF1301-Trab03-FMCMPVRFS.zip
+
+	Para executar e testar o jogo:
+	1) Abra a pasta TRAB3-1 contida dentro da pasta onde o arquivo foi extraído. Nesta pasta há uma pasta "sfx", necessária para que sejam reproduzidos os efeitos sonoros no jogo, e o executável do jogo, TRAB-1.exe.
+	2) Execute o arquivo TRAB3-1.exe
+	3) Execute os testes indicados no arquivo ScriptTesteManual.txt
+	
+	Para executar os testes relativos ao módulo peças finalizadas:
+	1) Abra a pasta TRAB3-2 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB3-2.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB3-2_Saida.txt.
+
+	Para executar os testes relativos ao módulo peças capturadas:
+	1) Abra a pasta TRAB3-3 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB3-3.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB3-3_Saida.txt.

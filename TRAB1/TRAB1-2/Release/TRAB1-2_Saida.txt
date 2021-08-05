@@ -1,0 +1,57 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB1-2
+
+      Arquivo de teste:    TesteMatriz
+
+
+!!!    0  Linha:     1  // Script:    TesteMatriz.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      25/08/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo matriz 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   34  == Testar Comando Recuperar
+>>>    1  Linha:    35  Erro ao destruir matriz. Deveria ser: 0  É: 2
+<<<    0  Linha:    36  Falha esperada foi recuperada. 
+   38  == Criar a Matriz
+   41  == Destruir Matriz
+   44  == Destruir Matriz inexistente
+   47  == Verificar InserirValor em Matriz inexistente
+   50  == Verificar InserirValor em Matriz vazia
+   56  == Verificar InserirValor em Matriz existente
+   60  == Verificar obtencao de valor inserido
+   63  == Adicionar linha em Matriz existente
+   66  == Adicionar linha em Matriz inexistente
+   69  == Adicionar coluna em Matriz existente
+   72  == Adicionar coluna em Matriz inexistente
+   75  == Remover linha em Matriz existente
+   78  == Remover linha em Matriz inexistente
+   81  == Verificar obtencao de valor em uma matriz inexistente
+   84  == Remover coluna em Matriz existente
+   87  == Remover coluna em Matriz inexistente
+   90  == Verificar InserirValor em Matriz vazia
+   93  == Verificar obtencao de valor em uma matriz vazia
+   96  == Remover linha em Matriz vazia
+   99  == Remover coluna em Matriz vazia
+  102  == Testa ir para em Matriz vazia
+  105  == Teste de movimentacao pelas coordenadas
+  153  == Testa ir para em matriz inexistente
+  156  == Teste de erro de estrutura
+!!!    0  Linha:   161  // fim 
+
+!!! Número de linhas lidas:         161
+!!! Número de casos de teste:        26
+!!! Número comandos corretos:        91
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

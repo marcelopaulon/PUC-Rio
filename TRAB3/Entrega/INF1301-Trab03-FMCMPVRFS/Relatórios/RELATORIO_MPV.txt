@@ -1,0 +1,19 @@
+﻿Data	Hora	Tipo	Descrição
+13/09/2015	6 horas e 20 minutos	Codificar o módulo	Iniciando módulo JOGO (T3)
+16/09/2015	6 horas	Codificar o módulo	Módulo JOGO (T3) - Interface gráfica
+17/09/2015	5 horas	Codificar o módulo	Módulo JOGO (T3) - Interface gráfica
+17/09/2015	2 horas	Codificar o módulo	Módulo Peças Capturadas
+19/09/2015	1 hora	Codificar o módulo	Módulo Peças Finalizadas
+18/09/2015	1 hora	Redigir script de teste	Script - módulo Peças Finalizadas
+18/09/2015	1 hora	Redigir script de teste	Script - módulo Peças Capturadas
+19/09/2015	4 horas e 5 minutos	Diagnosticar e corrigir problemas encontrados	Correção bugs módulo JOGO
+02/10/2015	3 horas	Codificar o módulo	Módulo JOGO (T3) - Regras
+04/10/2015	1 hora	Diagnosticar e corrigir problemas encontrados	Correção bugs módulo JOGO
+06/10/2015	9 horas e 30 minutos	Codificar o módulo	Módulo JOGO - Captura e Finalização de peças, verificação de disponibilidade de jogadas
+07/10/2015	3 horas e 40 minutos	Diagnosticar e corrigir problemas encontrados	Correção - entrada (teclado)
+08/10/2015	4 horas	Diagnosticar e corrigir problemas encontrados	Correção - entrada (teclado); Salvamento de jogo
+17/10/2015	3 horas	Codificar o módulo	Tela de Carregamento de Jogo - listagem de Saves
+20/10/2015	4 horas e 30 minutos	Codificar o módulo	Salvamento e Carregamento de Jogo
+22/10/2015	4 horas	Diagnosticar e corrigir problemas encontrados	Correção de bugs
+23/10/2015	2 horas	Diagnosticar e corrigir problemas encontrados	Correção de bugs
+28/10/2015	2 horas	Realizar testes / Diagnosticar e corrigir problemas encontrados	Testes do jogo e preparação para entrega

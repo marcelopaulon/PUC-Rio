@@ -1,0 +1,51 @@
+// Script:    TestePecasFinalizadas.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      29/09/2015
+// Proposito: Testar o modulo peças finalizadas
+//
+
+== Inicializar valores
+=declararparm   listapecasfinalizadas0  int 0
+=declararparm   listapecasfinalizadas1  int 1
+=declararparm   listapecasfinalizadas2  int 2
+
+=declararparm   OK             	  	  			  int  0
+=declararparm   ListaPecasFinalizadasNaoExiste	  int  1
+=declararparm   PecaNaoExiste	  	  			  int  2
+
+=declararparm	pecabranca    int 0
+=declararparm	pecapreta  	  int 1
+
+== Testar Comando Recuperar
+=destruirlistapecasfinalizadas listapecasfinalizadas0 OK
+=recuperar
+
+== Criar as Listas de Pecas Finalizadas
+=criarlistapecasfinalizadas		listapecasfinalizadas0 OK
+=criarlistapecasfinalizadas		listapecasfinalizadas1 OK
+
+== Inserir Pecas
+=inserirpeca listapecasfinalizadas1 pecapreta OK
+=inserirpeca listapecasfinalizadas1 pecabranca OK
+=inserirpeca listapecasfinalizadas1 pecapreta OK
+=inserirpeca listapecasfinalizadas1 pecabranca OK
+=inserirpeca listapecasfinalizadas1 pecabranca OK
+
+== Contagem de peças
+=contarpecas listapecasfinalizadas0 pecabranca 0 OK
+=contarpecas listapecasfinalizadas0 pecapreta 0 OK
+=contarpecas listapecasfinalizadas2 pecabranca 0 ListaPecasFinalizadasNaoExiste
+=contarpecas listapecasfinalizadas1 pecabranca 3 OK
+=contarpecas listapecasfinalizadas1 pecapreta 2 OK
+
+== Destruir Lista de Pecas finalizadas
+=destruirlistapecasfinalizadas  listapecasfinalizadas0 OK
+=destruirlistapecasfinalizadas  listapecasfinalizadas1 OK
+
+== Destruir Lista de Pecas finalizadas inexistente
+=destruirlistapecasfinalizadas  listapecasfinalizadas0 ListaPecasFinalizadasNaoExiste
+=destruirlistapecasfinalizadas  listapecasfinalizadas2 ListaPecasFinalizadasNaoExiste
+
+// fim

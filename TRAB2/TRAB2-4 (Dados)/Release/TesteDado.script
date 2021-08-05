@@ -1,0 +1,57 @@
+// Script:    TesteDado.script
+// Autores:   Fernanda de Miranda Carvalho
+//	          Marcelo Paulon Juca Vasconcelos
+//	          Renan da Fonte Simas dos Santos
+// Data:      12/09/2015
+// Proposito: Testar o modulo dado
+//
+
+== Inicializar valores
+=declararparm   dado0  int 0
+=declararparm   dado1  int 1
+=declararparm   dado2  int 2
+
+=declararparm   OK             	  int  0
+=declararparm   DadoNaoExiste	  int  1
+=declararparm   DadoNaoLancado	  int  2
+=declararparm   FaltouMemoria	  int  3
+
+== Testar Comando Recuperar
+=destruirdados dado0 OK
+=recuperar
+
+== Criar o par de dados
+=criardados 	dado0 OK
+
+== Verificar dado nao lancado
+=obtervalores dado0 DadoNaoLancado
+
+== Destruir o par de dados
+=destruirdados dado0 OK
+
+== Verificar jogar dados em dado inexistente
+=jogardados dado0 DadoNaoExiste
+
+== Verificar obtencao de valor em dado inexistente
+=obtervalores dado0 DadoNaoExiste
+
+== Destruir Dado inexistente
+=destruirdados dado0 DadoNaoExiste
+
+== Criar os pares de dados
+=criardados 	dado1 OK
+=criardados 	dado2 OK
+
+== Jogar dados
+=jogardados dado1 OK
+=jogardados dado2 OK
+
+== Verificar obtencao de valor
+=obtervalores dado1 OK
+=obtervalores dado2 OK
+
+== Destruir os pares de dados
+=destruirdados dado1 OK
+=destruirdados dado2 OK
+
+// fim

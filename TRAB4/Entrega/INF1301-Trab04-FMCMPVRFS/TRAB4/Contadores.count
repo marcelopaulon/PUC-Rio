@@ -1,0 +1,23 @@
+//////////////////////////////////////////////////////////////////////
+// Contadores acumulados, gerado: 2015/11/30-19:06:58
+//////////////////////////////////////////////////////////////////////
+
+LIS_Verificar_Cabeca_NumeroDeElementosInconsistente\=1
+LIS_Verificar_Cabeca_NumeroDeElementosInvalido\=1
+LIS_Verificar_Cabeca_TipoInconsistente\=1
+LIS_Verificar_Cabeca_pCorrenteInconsistente\=1
+LIS_Verificar_Cabeca_pPrimeiroIncorreto\=1
+LIS_Verificar_Cabeca_pPrimeiroNull\=1
+LIS_Verificar_Cabeca_pUltimoIncorreto\=1
+LIS_Verificar_Cabeca_pUltimoNull\=1
+LIS_Verificar_Elemento_ErroNoEncadeamento\=5
+LIS_Verificar_Elemento_TipoInconsistente\=1
+LIS_Verificar_Elemento_pValorErro\=1
+LIS_Verificar_Elemento_pValorNull\=1
+LIS_Verificar_ListaInexistente\=1
+LIS_Verificar_ListaValida\=2
+LIS_Verificar_Lista_VazamentoDeMemoria\=1
+
+//////////////////////////////////////////////////////////////////////
+// Fim arquivo de contadores acumulados
+//////////////////////////////////////////////////////////////////////

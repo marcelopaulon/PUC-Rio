@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7ECD8BDE-378D-4AE4-8460-4B8258FAA1AE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TRAB31</RootNamespace>
+    <ProjectName>TRAB3-1</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Modular\Repositorio\TRAB3\TRAB3-3 %28Pecas Capturadas%29\TRAB3-3;C:\Modular\Repositorio\TRAB3\TRAB3-2 %28Pecas Finalizadas%29\TRAB3-2;C:\Modular\Repositorio\TRAB2\TRAB2-4 %28Dados%29\TRAB2-4;C:\Modular\Repositorio\TRAB2\TRAB2-3 %28Dado Pontos%29\TRAB2-3;C:\Modular\Repositorio\TRAB2\TRAB2-1 %28Tabuleiro%29\TRAB2-1;C:\Modular\Repositorio\TRAB2\TRAB2-2 %28Peca%29\TRAB2-2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Modular\Repositorio\TRAB3\TRAB3-3 %28Pecas Capturadas%29\TRAB3-3;C:\Modular\Repositorio\TRAB3\TRAB3-2 %28Pecas Finalizadas%29\TRAB3-2;C:\Modular\Repositorio\TRAB2\TRAB2-4 %28Dados%29\TRAB2-4;C:\Modular\Repositorio\TRAB2\TRAB2-3 %28Dado Pontos%29\TRAB2-3;C:\Modular\Repositorio\TRAB2\TRAB2-1 %28Tabuleiro%29\TRAB2-1;C:\Modular\Repositorio\TRAB2\TRAB2-2 %28Peca%29\TRAB2-2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\TRAB2\TRAB2-1 (Tabuleiro)\TRAB2-1\LISTA.H" />
+    <ClInclude Include="..\..\..\TRAB2\TRAB2-1 (Tabuleiro)\TRAB2-1\TABULEIRO.H" />
+    <ClInclude Include="..\..\..\TRAB2\TRAB2-2 (Peca)\TRAB2-2\PECA.H" />
+    <ClInclude Include="..\..\..\TRAB2\TRAB2-3 (Dado Pontos)\TRAB2-3\DADOPONTOS.H" />
+    <ClInclude Include="..\..\..\TRAB2\TRAB2-4 (Dados)\TRAB2-4\DADO.H" />
+    <ClInclude Include="..\..\TRAB3-2 (Pecas Finalizadas)\TRAB3-2\PECASFINALIZADAS.H" />
+    <ClInclude Include="..\..\TRAB3-3 (Pecas Capturadas)\TRAB3-3\PECASCAPTURADAS.H" />
+    <ClInclude Include="JOGO.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\TRAB2\TRAB2-1 (Tabuleiro)\TRAB2-1\LISTA.C" />
+    <ClCompile Include="..\..\..\TRAB2\TRAB2-1 (Tabuleiro)\TRAB2-1\TABULEIRO.C" />
+    <ClCompile Include="..\..\..\TRAB2\TRAB2-2 (Peca)\TRAB2-2\PECA.C" />
+    <ClCompile Include="..\..\..\TRAB2\TRAB2-3 (Dado Pontos)\TRAB2-3\DADOPONTOS.C" />
+    <ClCompile Include="..\..\..\TRAB2\TRAB2-4 (Dados)\TRAB2-4\DADO.C" />
+    <ClCompile Include="..\..\TRAB3-2 (Pecas Finalizadas)\TRAB3-2\PECASFINALIZADAS.C" />
+    <ClCompile Include="..\..\TRAB3-3 (Pecas Capturadas)\TRAB3-3\PECASCAPTURADAS.C" />
+    <ClCompile Include="JOGO.C" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icone.ico" />
+    <None Include="sfx\credits.mp3" />
+    <None Include="sfx\dicefx.mp3" />
+    <None Include="sfx\main.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

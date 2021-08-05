@@ -1,0 +1,9 @@
+Data	Horas Trabalhadas	Tipo Tarefa	Descrição
+03/09/2015	1 hora	Codificar módulo	Criando funções no módulo Tabuleiro
+05/09/2015	1 hora e 40 minutos	Codificar módulo	Módulos tabuleiro.c e tabuleiro.h. Iniciando TestTab.c
+09/092015	1 hora	Arquitetura	Diagrama
+11/09/2015	4 horas e 10 minutos	Redigir script de teste	Criação de testes para os demais módulos e correções de bugs do módulo tabuleiro
+19/09/2015	3 horas e meia	Documentação 	Especificação de requisitos, modelo estrutural, exemplo de modelo
+25/09/2015	2 horas	Documentação 	Assertivas de entrada e saída dos módulos Tabuleiro, Peca, Dado e DadoPontos
+26/09/2015	1 hora	Documentação 	Correções nos modelos
+27/09/2015	1 hora e 30 minutos	Documentação 	Finalizando assertivas de entrada e saída e assertivas estruturais.

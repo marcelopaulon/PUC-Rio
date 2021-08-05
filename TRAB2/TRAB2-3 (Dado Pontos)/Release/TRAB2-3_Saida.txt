@@ -1,0 +1,48 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-3
+
+      Arquivo de teste:    TesteDadoPontos
+
+
+!!!    0  Linha:     1  // Script:    TesteDadoPontos.script 
+!!!    0  Linha:     2  // Autores:   Fernanda de Miranda Carvalho 
+!!!    0  Linha:     3  //	          Marcelo Paulon Juca Vasconcelos 
+!!!    0  Linha:     4  //	          Renan da Fonte Simas dos Santos 
+!!!    0  Linha:     5  // Data:      13/09/2015 
+!!!    0  Linha:     6  // Proposito: Testar o modulo dado de pontos 
+!!!    0  Linha:     7  // 
+    9  == Inicializar valores
+   25  == Testar Comando Recuperar
+>>>    1  Linha:    26  Erro ao destruir Dado de Pontos. Deveria ser: 0  É: 1
+<<<    0  Linha:    27  Falha esperada foi recuperada. 
+   29  == Criar dado de pontos
+   32  == Criar dado de pontos
+   35  == Destruir dado de pontos
+   38  == Destruir dado de pontos nao existe
+   41  == Atualizar jogador de dobra dado de pontos nao existe
+   44  == Obter jogador que possui o dado de pontos
+   47  == Atualizar jogador de dobra
+   50  == Dobrar pontuacao partida
+   53  == Dobrar pontuacao partida dado pontos nao existe
+   56  == Dobrar pontuacao partida jogador nao possui dado pontos
+   59  == Obter jogador que possui o dado de pontos
+   62  == Obter jogador que possui o dado de pontos
+   65  == Obter pontuacao partida
+   68  == Obter pontuacao partida dado pontos nao existe
+   71  == Destruir dado de pontos
+!!!    0  Linha:    74  // fim 
+
+!!! Número de linhas lidas:          74
+!!! Número de casos de teste:        17
+!!! Número comandos corretos:        27
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

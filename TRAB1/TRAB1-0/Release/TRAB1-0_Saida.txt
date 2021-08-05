@@ -1,0 +1,2 @@
+
+C:\Modular\Repositorio\TRAB1\TRAB1-0\Release>TRAB1-0 /sTesteArvore  1>TRAB1-0_Saida.txt 

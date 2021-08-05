@@ -1,0 +1,4 @@
+Data            	Horas Trabalhadas    Tipo Tarefa                	Descrição da Tarefa Realizada
+18/11/2015	1 hora e 10 minutos	Estudar			Estudo dos módulos CONTA e CESPDIN
+27/11/2015	1 hora		Codificar módulo		Implementação da instrumentação no módulo lista
+27/11/2015	4 horas		Revisar especificações  	Atualização de modelo e assertivas do módulo Lista

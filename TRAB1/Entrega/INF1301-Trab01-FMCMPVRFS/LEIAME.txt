@@ -1,0 +1,38 @@
+LEIA-ME Trabalho 1
+
+Desenvolvido por:
+	- FMC - Fernanda de Miranda Carvalho (1411287)
+	- MPV - Marcelo Paulon Jucá Vasconcelos (1411029)
+	- RFS - Renan da Fonte Simas dos Santos (1412122)
+
+Apresentação:
+	Este texto descreve resumidamente o conteúdo e funcionamento do arquivo INF1301-Trab01-FMCMPVRFS.zip.
+	Os programas contidos neste arquivo .zip realizam testes para os módulos ARVORE.C, LISTA.C e MATRIZ.C.
+
+Conteúdo:
+	O conteúdo extraído do zip está dividido nas seguintes pastas:
+	- TRAB1-0: contém testes relativos ao módulo ARVORE.C e o executável para o teste do mesmo;
+	- TRAB1-1: contém testes relativos ao módulo LISTA.C e o executável para o teste do mesmo;
+	- TRAB1-2: contém testes relativos ao módulo MATRIZ.C e o executável para o teste do mesmo;
+	- Relatórios: contém os relatórios feitos pelos alunos que desenvolveram este trabalho.
+
+	Na pasta extraída também deve estar contido o arquivo LEIAME.txt (o presente documento).
+
+Instruções:
+	Primeiro, é necessário extrair o conteúdo do arquivo INF1301-Trab01-FMCMPVRFS.zip
+
+	Para executar os testes relativos ao módulo árvore:
+	1) Abra a pasta TRAB1-0 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB1-0.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB1-0_Saida.txt.
+	
+	Para executar os testes relativos ao módulo lista:
+	1) Abra a pasta TRAB1-1 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB1-1.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB1-1_Saida.txt.
+
+	Para executar os testes relativos ao módulo matriz:
+	1) Abra a pasta TRAB1-2 contida dentro da pasta onde o arquivo foi extraído
+	2) Execute o arquivo TRAB1-2.bat
+	3) Para visualizar o resultado da execução, abra o arquivo TRAB1-2_Saida.txt.
+

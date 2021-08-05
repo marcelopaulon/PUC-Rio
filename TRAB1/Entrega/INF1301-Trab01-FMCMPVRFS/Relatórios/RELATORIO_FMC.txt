@@ -1,0 +1,22 @@
+Data            Horas Trabalhadas       Tipo Tarefa                                                                                     Descrição da Tarefa Realizada
+15/08/2015	1 hora e 40 minutos	Estudar												Configuração de ambiente e estudo do funcionamento
+ do Arcabouço.
+15/08/2015	4 horas e 6 minutos	Estudar												Instalação Arcabouço(gerando Arcabouco.lib)
+15/08/2015	4 horas e 6 minutos	Especificar Funções										Definindo funções do módulo MATRIZ.
+19/08/2015	1 hora 			Revisar Especificações										Redefinindo funções do módulo MATRIZ e divisão de tarefas.
+21/08/2015	1 hora e 30 minutos	Estudar												Estudo do funcionamento do teste com Arcabouço: quais artefatos necessários, geração do executável, Multithread para tratar DLL, geração do teste.bat.
+22/08/2015	30 minutos		Estudar												Estudando geração de script a partir do script do módulo ARVORE.
+22/08/2015	2 horas			Estudar												Estudando geração de script a partir do script do módulo LISTA.
+22/08/2015	1 hora e 10 minutos	Revisar Código do Módulo									Revisando LISTA.C / LISTA.H
+23/08/2015	1 hora e 20 minutos	Revisar Código do Módulo									Revisando TESTLIS.C 
+25/08/2015	2 horas e 12 minutos	Redigir script de teste										Redigindo script TesteLista, gerando mais casos de teste e revisando os casos existentes
+25/08/2015	30 minutos		Redigir script de teste										Redigindo script TesteLista, gerando mais casos de teste e revisando os casos existentes
+25/08/2015	1 hora			Redigir script de teste / Revisar script de teste						Revisando TesteLista.script e realizando teste
+25/08/2015	1 hora			Revisar script de teste / Realizar testes							Revisando script TesteLista e realizando testes para os casos encontrados
+25/08/2015	1 hora e 20 minutos	Realizar teste											Realizando teste no módulo LISTA
+26/08/2015	2 horas e 10 minutos	Revisar Código do Módulo									Revisando MATRIZ.C e MATRIZ.H
+26/08/2015	2 horas e 30 minutos	Codificar Módulo										TESTMAT.C
+26/08/2015	30 minutos		Revisar Código do Módulo									TESTMAT.C
+26/08/2015	3 horas e 7 minutos	Redigir script de teste / Realizar testes / Diagnosticar e corrigir os problemas encontrados	Redigindo casos de teste no TesteMatriz.script , realizando teste a teste e corrigindo eventuais problemas encontrados
+27/08/2015	3 horas e 5 minutos	Codificar Módulo / Redigir script de teste / Realizar testes					TESTMAT.C / Redigindo mais casos de teste no TesteMatriz.script e realizando os testes 
+27/08/2015	2 horas e 40 minutos	Redigir script de teste / Realizar testes / Diagnosticar e corrigir os problemas encontrados	Redigindo últimos casos de teste no TesteMatriz.script, realizando últimos testes e corrigindo problemas encontrados

@@ -1,0 +1,12 @@
+﻿Data		Horas Trabalhadas	Tipo Tarefa					Descrição
+18/11/2015	1 hora e 10 minutos	Estudar						Estudo dos módulos CONTA e CESPDIN
+26/11/2015	1 horas		Estudar						Estudo dos módulos CONTA e CESPDIN
+26/11/2015	2 horas		Codificar módulo					Implementação da instrumentação no módulo lista
+27/11/2015	7 horas		Codificar módulo					Implementação da instrumentação no módulo lista
+27/11/2015	2 horas		Redigir script de teste				Criação dos scripts de teste para o módulo lista, usando deturpação
+27/11/2015	3 horas		Diagnosticar e corrigir os problemas encontrados		Correção de bugs
+27/11/2015	1 hora		Revisar projetos					Preparação da estrutura de pastas para entrega
+30/11/2015	2 horas		Codificar módulo					Implementação da instrumentação no módulo lista
+30/11/2015	2 horas		Redigir script de teste				Criação dos scripts de teste para o módulo lista, usando deturpação
+30/11/2015	1 horas		Diagnosticar e corrigir os problemas encontrados		Correção de bugs
+30/11/2015	1 hora		Revisar projetos					Finalização da estrutura de pastas para entrega
