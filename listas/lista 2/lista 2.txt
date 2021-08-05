@@ -1,0 +1,68 @@
+INF2609 - Game AI - 2017.2
+Marcelo Paulon - 1411029
+
+Lista 2
+
+1)
+in(a) → (amigo(b,h) ∧ ~gosta(c,h))
+in(b) → (~cidade(b) ∧ ~conhece(b,h))
+in(c) → (estava(a,h) ∧ estava(b,h))
+estava(x,h) → cidade(x)
+amigo(x,y) → conhece(x,y)
+gosta(x,y) → conhece(x,y)
+(in(a) ∨ in(b)) ∧ (in(a) ∨ in(c)) ∧ (in(b) ∨ in(c))
+
+--
+1.  ~in(a) amigo(b,h)
+2.  ~in(a) ~gosta(c,h)
+3.  ~in(b) ~cidade(b)
+4.  ~in(b) ~conhece(b,h)
+5.  ~in(c) estava(a,h)
+6.  ~in(c) estava(b,h)
+7.  ~estava(x,h) cidade(x)
+8.  ~amigo(x,y) conhece(x,y)
+9.  ~gosta(x,y) conhece(x,y)
+10. in(a) in(b)
+11. in(a) in(c)
+12. in(b) in(c)
+
+--
+B é culpado, ou seja, não é inocente?
+~in(b)?
+      14. in(b)
+
+14,3  15. ~cidade(b)
+14,4  16. ~conhece(b,h)
+15,7  17. ~estava(b,h)
+17,6  18. ~in(c)
+18,11 19. in(a)
+19,1  20. amigo(b,h)
+20,8  21. conhece(b,h)
+
+Contradição (21 e 16). Logo, Bernardo é culpado.
+
+
+2)
+
+∀X ∀Y barbeiro(X) → (barbeia(X,Y) ∨ (X = Y))
+∀X ∀Y ~(barbeia(Y,Y) ^ barbeia(X,Y) ^ barbeiro(X))
+
+---
+1. ~barbeiro(X) (barbeia(X,Y) X=Y)
+2. ~(barbeia(Y,Y) ∧ barbeia(X,Y) ∧ barbeiro(X))
+
+~∃X barbeiro(X)?
+	  3.  ∃X barbeiro(X)
+	
+3,1   4.  ∃X ~barbeiro(X) (barbeia(X,Y) X=Y)
+Skl.  5.  ~barbeiro(a1(Y)) (barbeia(a1(Y),Y) a1(Y)=Y)
+2	  6.  ~(barbeia(Y,Y) ∧ barbeia(a1(Y),Y) ∧ barbeiro(a1(Y)))
+6,5   7.  ~(barbeia(Y,Y) ∧ barbeia(a1(Y),Y) ∧ barbeiro(a1(Y))) ∧ ~barbeiro(a1(Y)) (barbeia(a1(Y),Y) a1(Y)=Y)
+7     8.  ~barbeia(Y,Y) ~barbeia(a1(Y),Y) ~barbeiro(a1(Y)) ∧ ~barbeiro(a1(Y)) (barbeia(a1(Y),Y) a1(Y)=Y)
+8     9.  ~barbeia(Y,Y) ~barbeiro(a1(Y)) ∧ ~barbeiro(a1(Y)) a1(Y)=Y
+9     10. ~barbeiro(a1(Y)) (~barbeia(Y,Y) ∧ a1(Y)=Y)
+10,1  11. ~barbeiro(a1(Y)) (~barbeia(Y,Y) ∧ a1(Y)=Y) ∧ ~barbeiro(a1(Y)) (barbeia(a1(Y),Y) a1(Y)=Y)
+11	  12. ~barbeiro(a1(Y)) (~barbeia(Y,Y) ∧ barbeia(a1(Y),Y) ∧ a1(Y)=Y)
+Quando a1(Y) = Y e ~barbeiro(a1(Y)), temos:
+~barbeia(a1(Y),a1(Y)) ∧ barbeia(a1(Y),a1(Y))
+Inconsistência. Logo, ~∃X barbeiro(X), ou seja, não existem barbeiros.
