@@ -1,0 +1,37 @@
+Considerando as definições no código, prove as igualdades abaixo:
+
+1.op1 (op0 x) f = f x (para quaisquer f e x).
+
+op1 (op0 x) f -- definition of op1:
+\k -> (op0 x) (\a -> f a k) -- definition of op0:
+\k -> (\k'->k' x) (\a -> f a k)
+\k -> (\a -> f a k) x
+\k -> f x k -- eta reduction:
+f x
+■
+
+2.op1 c op0 = c (para qualquer computação c).
+op1 c op0 -- definition of op1:
+\k -> c (\a -> op0 a k) -- definition of op0:
+\k -> c (\a -> (\k' -> k' a) k) 
+\k -> c (\a -> k a) -- eta reduction:
+\k -> c k -- eta reduction:
+c
+■
+
+3. op1 (op1 c g) f = op1 c (\v -> op1 (g v) f) (para quaisquer f, g e c). 
+op1 (op1 c g) f -- definition of op1:
+\k -> (op1 c g) (\a -> f a k) -- definition of op1:
+\k -> (\k' -> c (\a -> g a k') ) (\a -> f a k)
+                                      e1
+\k -> (\k' -> c (\a -> g a k') ) e1
+\k -> (c (\a -> g a e1) )
+\k -> c (\a -> g a (\a' -> f a' k))
+
+op1 c (\v -> op1 (g v) f) -- definition of op1:
+\k -> c (\a -> (\v -> op1 (g v) f) a k) 
+\k -> c (\a -> (op1 (g a) f) k) -- definition of op1:
+\k -> c (\a -> (\k' -> (g a) (\a' -> f a' k')) k)
+\k -> c (\a -> (g a) (\a' -> f a' k))
+\k -> c (\a -> g a (\a' -> f a' k))
+■

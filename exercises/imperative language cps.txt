@@ -1,0 +1,57 @@
+﻿1. Refaça todos os exercícios sobre a linguagem imperativa simples para essa nova implementação.
+
+a. Prove que, para qualquer comando C, (skip ; C) ≡ C
+-- skip ; C:
+evalCmd (CmdComp (CmdSkip C)) k m -- evalCmd definition:
+evalCmd CmdSkip (evalCmd C k) m -- evalCmd definition:
+(evalCmd C k) m
+evalCmd C k m -- C
+■
+
+b. Modifique o construtor CmdSeq para ele conter uma lista de comandos, e adeque evalCmd a essa nova definição.
+CmdComp [Cmd]
+evalCmd (CmdComp []) k m = k m
+evalCmd (CmdComp (c:cs)) k m = evalCmd c (evalCmd (CmdComp cs) k) m
+
+c. Implemente o comando repeat until.
+CmdRepeatUntil Cmd Integer
+evalCmd (CmdRepeatUntil rc 0) k m = k m
+evalCmd (CmdRepeatUntil rc 1) k m = evalCmd rc k m
+evalCmd (CmdRepeatUntil rc until) k m = evalCmd (CmdComp [rc, (CmdRepeatUntil rc (until - 1))]) k m
+
+d. Prove que, para qualquer comando C, (repeat C until 1) ≡ C
+-- (repeat C until 1):
+evalCmd (CmdRepeatUntil C 1) k m -- evalCmd definition:
+evalCmd C k m -- C
+■
+
+e. É possivel provar a equivalência abaixo, para qualquer expressão E e comando C? Discuta sua resposta.
+(if E then C else C) ≡ C
+Não pois E pode entrar em loop infinito.
+
+2. Implemente um comando CmdBreak na linguagem, com a semântica usual de break em linguagens como C. (Dica: modifique o tipo de evalCmd para
+      evalCmd :: Cmd -> K -> K -> Mem -> Result
+onde a segunda continuação indica para onde o break deve continuar a execução do programa.)
+
+See `imperativelanguagecps.hs` file
+
+3. Prove que sua implementação de break satisfaz a equivalência (while 1 do break) ≡ skip
+
+-- (while 1 do break):
+evalCmd (CmdBreak) k kBreak m -- definition of evalCmd:
+kBreak m -- renaming kBreak to k'
+k' m
+
+-- skip:
+evalCmd (CmdSkip) k kBreak m -- definition of evalCmd:
+k m -- renaming k to k':
+k' m
+
+■
+
+4. Após a implementação de break, você ainda consegue provar a equivalência (repeat C until 1) ≡ C? Explique.
+
+Sim:
+evalCmd (CmdRepeatUntil C 1) k kBreak m -- evalCmd definition:
+evalCmd C k kBreak m -- C
+■

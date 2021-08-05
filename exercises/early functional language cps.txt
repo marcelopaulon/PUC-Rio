@@ -1,0 +1,17 @@
+﻿1. Refaça todos os exercícios sobre a linguagem funcional simples para essa nova implementação.
+
+a. Implemente funções com vários argumentos na linguagem. (Dica: você deverá mudar ExpLambda, ExpApp e ValFunc para trabalharem com listas nos lugares adequados)
+
+
+b. Prove que, para qualquer expressão E, ((\x -> x) E) ≡ E
+
+
+2. Implemente uma expressão return exp, que termina imediatamente a execução da função corrente retornando o valor de exp. (Dica: use uma abordagem similar à usada na implementação do comando break, com uma continuação separada para ser usada pelo return.)
+
+
+3. Com sua implementação de return, é possivel provar a equivalência abaixo para qualquer expressão E? Discuta sua resposta.
+((\x -> return x) E) ≡ E
+
+
+4. Reimplemente a expressão return usando a seguinte abordagem: ao invés de return ser uma expressão especial na gramática da linguagem, return será uma função "comum". Cada função, ao ser chamada, coloca no seu ambiente uma nova variável return, cujo valor é um ValFunc que, ao ser executado, faz o retorno desejado. Como você compara essa implementação com a anterior?
+

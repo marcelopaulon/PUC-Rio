@@ -1,0 +1,108 @@
+﻿1. Escreva a função (||) ("ou" lógico).
+(||) :: Bool -> Bool -> Bool
+|| True _ = True
+|| False x = x
+
+2. Prove que sua função é associativa:
+a || (b || c) = (a || b) || c
+
+Caso 1: a = True
+a || (b || c)
+True || (b || c)
+True || _
+True
+
+(a || b) || c
+(True || b) || c
+(True || _) || c
+True || c
+True
+
+Caso 2: a = False
+a || (b || c)
+False || (b || c)
+(b || c)
+b || c
+
+(False || b) || c
+b || c
+
+3. Sua função é comutativa?
+a || b = b || a
+
+Sim.
+|| True _ = True
+|| False x = x
+a = True
+True || b
+True || _
+True
+
+b || True
+-- b = True
+True
+-- b = False
+False || True
+True
+
+a = False
+False || b
+b
+-- b = True
+True
+-- b = False
+False || False
+False
+
+b || False
+-- b = True
+True
+-- b = False
+False || False
+False
+
+4. Escreva uma função que verifique se um valor pertence a uma dada lista:
+find :: (Eq a) => a -> [a] -> Bool
+find _ [] = False
+find a (x:xs) = if x == a then True else find a xs
+
+5. Prove que sua função satisfaz a equação abaixo:
+find x (ys ++ zs) = find x ys || find x zs
+
+Proof: we will prove by induction on `ys` that `find x (ys ++ zs)` = `find x ys || find x zs`
+Base case: ys = []
+find x (ys ++ zs)
+find x ([] ++ zs) -- ++ rule
+find x (zs)
+find x zs
+
+find x ys || find x zs
+find x [] || find x zs -- definition of find:
+False || find x zs -- definition of or:
+find x zs
+
+Induction step: ys = (y:ys)
+Let's assume that `find x (ys ++ zs)` = `find x ys || find x zs`, then `find x ((y:ys) ++ zs)` = `find x (y:ys) || find x zs` must be true
+find x ((y:ys) ++ zs) -- ++ rule:
+find x (y:(ys ++ zs)) -- definition of find:
+if y == x then True else find x (ys ++ zs) -- induction hypothesis:
+if y == x then True else (find x ys || find x zs)
+
+-- When (y == x) is True
+True
+-- When (y == x) is False
+(find x ys || find x zs)
+
+find x (y:ys) || find x zs -- definition of find:
+(if y == x then True else find x ys) || find x zs
+-- When (y == x) is True
+True
+-- When (y == x) is False
+(find x ys) || find x zs
+(find x ys || find x zs)
+■
+
+6. Escreva uma função para ordenar uma lista:
+sort :: (Ord a) => [a] -> [a]
+sort [] = []
+sort (x:xs) = sort (filter ((>=) x) xs) ++ (x:(sort (filter ((<) x) xs)))

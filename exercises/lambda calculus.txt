@@ -1,0 +1,90 @@
+﻿1. Reduza as expressões a seguir:
+a. (\t. \f.\o. o f t) (\x y. x) (\x y. y) (\p q. p p q)
+(\t. \f.\o. o f t) (\x y. x) (\x y. y) (\p q. p p q)
+                      e1        e2          e3
+
+(\t. \f.\o. o f t) e1 e2 e3
+((\t. \f.\o. o f t) e1) e2 e3
+(\f.\o. o f e1) e2 e3
+(\o. o e2 e1) e3
+e3 e2 e1
+(\p q. p p q) e2 e1
+e2 e2 e1
+(\x y. y) e2 e1
+e1
+(\x y. x)
+
+b. (\x. x x) (\x. x x)
+                e1
+(\x. x x) e1
+e1 e1
+(\x. x x) (\x. x x)
+
+c. (\x. y) ((\x. x x) (\x. x x))
+                    e1
+(\x. y) e1
+y
+
+d. (\i.\t.i t) (\n.\f.\z.f (n f z)) (\f.\z.f (f z))
+                       e1                 e2
+(\i.\t.i t) e1 e2
+e1 e2
+(\n.\f.\z.f (n f z)) e2
+\f.\z.f (e2 f z)
+\f.\z.(f (e2 f z))
+\f.\z.(f ((\f.\z.f (f z)) f z))
+\f.\z.(f (f (f z)))
+
+2. Prove as igualdades a seguir. (Para funções como add e inc, use as definições dadas no programa do curso.)
+a. (\n.\f.\z.f (n f z)) (\f.\z.z) ≡ \f.\z.f z
+(\n.\f.\z.f (n f z)) (\f.\z.z)
+                        e1
+(\n.\f.\z.f (n f z)) e1
+\f.\z.f (e1 f z)
+\f.\z.f ((\f.\z.z) f z)
+\f.\z.f (z)
+\f.\z.f z
+
+b. add one b ≡ inc b
+inc ≡ \n.\f.\z.f (n f z)
+add ≡ \m.\n.m inc n ≡ \m.\n.m (\n.\f.\z.f (n f z)) n 
+one ≡ \f.\z.f z
+
+add one b
+(\m.\n.m inc n) one b
+one inc b
+(\f.\z.f z) inc b
+inc b
+
+c. add b one ≡ inc b (you'll need to use induction)
+inc ≡ \n.\f.\z.f (n f z)
+add ≡ \m.\n.m inc n ≡ \m.\n.m (\n.\f.\z.f (n f z)) n 
+one ≡ \f.\z.f z,
+
+add b one
+(\m.\n.m inc n) b one
+b inc one
+
+Proof: we will prove by induction on `b` that `b inc one` ≡ `inc b`
+Base case: b ≡ zero ≡ \f.\z.z
+
+(\f.\z.z) inc one
+one
+
+inc zero
+\n.\f.\z.f (n f z) zero
+\f.\z.f (zero f z)
+\f.\z.f (\f.\z.z f z)
+\f.\z.f (z)
+\f.\z.f z
+one
+
+Induction step: b > 0
+Let's assume `b inc one` ≡ `inc b`, then `(inc b) inc one` ≡ `inc (inc b)` must be true
+(inc b) inc one
+(\n.\f.\z.f (n f z) b) inc one
+(\f.\z.f (b f z)) inc one
+(inc (b inc one))
+inc (b inc one) -- Applying the induction hypothesis:
+inc (inc b)
+■

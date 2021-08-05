@@ -1,0 +1,105 @@
+﻿regras:
+i) return x >>= f = f x
+ii) x >>= return = x
+iii) (x >>= f) >>= g = x >>= (\v -> (f v) >>= g)
+
+definições:
+fmap f x = x >>= (return.f)
+join x = (x >>= id)
+x >>= f = join (fmap f x)
+unit = return
+
+Queremos provar que:
+a) fmap id = id
+fmap id x = id x == definição de fmap
+x >>= (return.id) == definição de composição e definição de identidade
+x >>= return == regra ii)
+x == definição de identidade
+id x
+⬛
+
+b) fmap (f.g) = fmap f.fmap g
+fmap (f.g) x = fmap f.fmap g x
+fmap f.fmap g x == definição de "."
+fmap f (fmap g x) == definição de fmap
+fmap f (x >>= (return.g)) == definição de fmap
+(x >>= (return.g)) >>= (return.f) == regra iii)
+x >>= (\v -> ((return.g) v) >>= (return.f)) == definição de "."
+x >>= (\v -> (return (g v)) >>= (return.f)) == regra i)
+x >>= (\v -> (return.f) (g v)) == definição de "."
+x >>= (\v -> return (f (g v))) == definição de "." inv.
+x >>= (\v -> return (f.g) v) == redução eta
+x >>= return (f.g) == definição de fmap
+fmap (f.g) x
+⬛
+
+c) join.fmap unit = id
+join.fmap unit x = id x
+join.fmap unit x == definição de "."
+join (fmap unit x) == definição de join
+(fmap unit x) >>= id == definição de fmap
+(x >>= (return.unit)) >>= id == regra iii)
+x >>= (\v -> ((return.unit) v) >>= id) == definição de "."
+x >>= (\v -> (return (unit v)) >>= id) == definição de unit
+x >>= (\v -> (return (return v)) >>= id) == regra i)
+x >>= (\v -> id (return v)) == definição id
+x >>= (\v -> return v) == redução eta
+x >>= return
+x == definição id
+id
+⬛
+
+d) join.unit = id
+join.unit x == definição de unit
+join.return x == definição de "."
+join (return x) == definição de join
+return x >>= id == regra i)
+id x
+⬛
+
+e) unit.f = fmap f.unit
+unit.f x == definição de unit
+return.f x == definição de "."
+return (f x)
+-------
+fmap f.unit x == definição de unit
+fmap f.return x == definição de "."
+fmap f (return x) == definição de fmap
+(return x) >>= (return.f) == regra i)
+(return.f) x == definição de "."
+return (f x)
+⬛
+
+f) join.fmap join = join.join
+join.fmap join x = join.join x
+join.fmap join x == definição de "."
+join (fmap join x)  == definição de >>=
+x >>= join
+-------
+join.join x == definição de .
+join (join x) == regra i)
+return (join x) >>= join == definição de id
+return (x >>= id) >>= join == associatividade de >>=
+return x >>= id >>= join == regra i)
+id x >>= join == definição de id
+x >>= join
+⬛
+
+g) join.fmap (fmap f) = fmap f.join
+join.fmap (fmap f) x = fmap f.join x
+join.fmap (fmap f) x == definição de "."
+join (fmap (fmap f) x) == definição de fmap
+join (x >>= return.(fmap f)) == definição de join
+(x >>= return.(fmap f)) >>= id == regra iii) == regra iii)
+x >>= (\v -> (return.(fmap f) v) >>= id) == definição de "."
+x >>= (\v -> return ((fmap f) v) >>= id) == removendo parênteses
+x >>= (\v -> return (fmap f v) >>= id) == regra i)
+x >>= (\v -> id (fmap f v)) == definição de id
+x >>= (\v -> fmap f v) == definição de fmap
+x >>= (\v -> v >>= (return.f)) == definição de id
+x >>= (id >>= (return.f)) == associatividade de >>=
+(x >>= id) >>= (return.f) == definição de fmap
+fmap f (x >>= id) == definição de join
+fmap f (join x) == definição de "."
+fmap f.join x
+⬛
