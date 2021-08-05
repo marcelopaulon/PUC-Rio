@@ -1,0 +1,8 @@
+/*
+ * 41.notmonga
+ * Function declaration without parenthesis
+ */
+void a
+{
+    a = a - a;
+}

@@ -1,0 +1,11 @@
+/*
+ * 21.monga
+ * infinite
+ */
+void a()
+{
+    while(1)
+    {
+
+    }
+}

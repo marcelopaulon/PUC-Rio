@@ -1,0 +1,16 @@
+/*
+ * 29.notmonga
+ * Else with argument
+ */
+void a()
+{
+    if(a <= b)
+    {
+        return;
+    }
+
+    else(b <= 10)
+    {
+        return;
+    }
+}

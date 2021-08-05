@@ -1,0 +1,2 @@
+- To build the project execute the 'make' command
+- To run the tests execute './runTests.sh'

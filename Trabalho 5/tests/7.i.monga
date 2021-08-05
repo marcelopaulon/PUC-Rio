@@ -1,0 +1,36 @@
+/*
+ * 7.i.monga
+ * Test if and else
+ */
+
+int a()
+{
+    int value;
+
+    value = 1;
+
+    if(!(1 < 2))
+    {
+        value = 2;
+    }
+    else{
+        if(value == 7){
+            value = 0;
+        }
+        else{
+            value = 7;
+        }
+    }
+
+    return value;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

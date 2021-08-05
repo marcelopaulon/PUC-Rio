@@ -1,0 +1,15 @@
+/*
+ * 16.monga
+ * Testing two functions on same file
+ */
+float a()
+{
+    float b;
+    return b;
+}
+
+int aaa()
+{
+    int bbb;
+    return bbb;
+}

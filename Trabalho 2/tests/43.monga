@@ -1,0 +1,8 @@
+/*
+ * 43.monga
+ * Identifier / Identifier
+ */
+void a(int b)
+{
+    b = b / b;
+}

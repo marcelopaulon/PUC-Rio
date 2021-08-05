@@ -1,0 +1,15 @@
+/*
+ * 8.notmonga
+ * Sum fail
+ */
+
+int main()
+{
+    int a;
+    float[] b;
+    
+    if(a + b == 3)
+    {
+        
+    }
+}

@@ -1,0 +1,9 @@
+/*
+ * 32.monga
+ * Identifier + int number
+ */
+void a()
+{
+    char a;
+    a = a + 1;
+}

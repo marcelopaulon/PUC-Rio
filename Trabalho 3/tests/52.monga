@@ -1,0 +1,10 @@
+/*
+ * 52.monga
+ * (Mult Add Sub Div)
+ */
+void a()
+{
+    int a,b,c,d,e,f,g,h;
+    a = 2;
+    a = (a/a+1-a*2+7*a*b*c*d/e/f/5/f/h*a+2-1);
+}

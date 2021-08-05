@@ -1,0 +1,8 @@
+/*
+ * 56.notmonga
+ * Variable declaration after command
+ */
+void main(){
+	vagner = 56;
+	int vagner;
+}

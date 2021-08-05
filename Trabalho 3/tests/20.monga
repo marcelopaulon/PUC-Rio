@@ -1,0 +1,23 @@
+/*
+ * 20.monga
+ * Variable declaration, assignment, nested blocks and if/else
+ */
+void a()
+{
+    int a;
+    a = 2;
+    {
+        {
+		 if(a == 1)
+		 {
+		 }
+		 else
+		 {
+		     {
+		        {
+		        }
+		     }
+		  } 
+        }
+    }
+}

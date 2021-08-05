@@ -1,0 +1,9 @@
+/*
+ * 40.monga
+ * Identifier + Identifier
+ */
+void a()
+{
+    int b, c, d;
+    b = c + d;
+}

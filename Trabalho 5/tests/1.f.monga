@@ -1,0 +1,26 @@
+/*
+ * 1.monga
+ * Arithmetic operations between integers and floats
+ */
+float b()
+{
+    float a;
+    int b;
+    float c;
+
+    a = 2.00;
+    b = 1;
+    c = a + 1.0 + 1 + b/2.0;
+
+    return c;
+}
+
+int a()
+{
+   return 0;
+}
+
+char c()
+{
+    return "V";
+}

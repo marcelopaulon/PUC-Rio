@@ -1,0 +1,71 @@
+/* Retirado de: https://github.com/jpfabris/inf1715/blob/8aed4f49d5a9651d8180fdb3d5e05e4d4db40929/trab1/Teste.txt */
+int soma(int a,int b){ /*Funcao que soma dois inteiros*/
+  return a+b;
+}
+
+int main(void){
+  io = 0xff;
+  int p1=10;
+  int p2=p1*p1;
+  int a=p2-p1;
+  int b=p1*p2;
+  p1=b/p2;
+  p1 = soma(p1,p2);
+  return p1;
+}
+
+float ret_float(void){
+  /*****Retornando****/
+  float a = 0.5;
+  float b = 0xFD + 0xA1;
+  float _c_ = a + b;
+  float _2d = c/2;
+  return _2d/2d; /*Não considera 2d um id*/
+}
+
+void main(){
+  char a=new char[20];
+  a="Teste Lexico";
+  a="Teste com string";
+  int b=10;
+  int c=25;
+  if (c > b){
+     b=b*3;
+  }
+  else {
+    b = c;
+  }
+  while (c >= 0){
+    if(c && b && b == 1){
+     	  c=c-1;
+    }
+  }
+}
+
+/***/
+/*Testando*/
+/**/a/****/
+/***/a/****/
+/**/*/a/****/
+/**/a/**** **/
+/***/** ** **/a/****/
+/****/a/*******/***/*b*/
+
+void main(){
+  char a=new char[20];
+  a="Testando primeira \\ string";
+  a="Testando em \n duas linhas";
+  a="\n Segunda linha";
+  a="\n\"Entre aspas\". Tres aspas: \"\"\""
+  a="Primeira \n Segunda \n Terceira";
+  a="Testando\ttab1\ttab2";
+  a="Testando\t\t\t 3 tabs";
+  a="/***/";
+  a="/****/";
+}
+
+void compare(int a, int b) {
+  if(a >= b || b <= a) {
+    a = a + 1;
+  }
+}

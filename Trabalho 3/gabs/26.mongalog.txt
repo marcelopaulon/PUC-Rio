@@ -1,0 +1,50 @@
+PASSDefinition:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+        DefVar:
+          Type: int
+          b
+      Command List:
+        Command at line 8
+          Expression at line 8
+            Expression type: Comparison (Greater Than)
+            Expression resulting Type: int
+            Expression
+              Expression type: Variable
+              Expression resulting Type: int
+              Variable: ID
+              a
+            Expression
+              Expression type: Variable
+              Expression resulting Type: int
+              Variable: ID
+              b
+          Command type: If and Else
+          Command
+            Command type: Basic Command
+            Basic Command
+              Command type: Block
+              Block:
+                Def Var List:
+                Command List:
+                  Command
+                    Command type: Basic Command
+                    Basic Command at line 10
+                      Command type: Return
+          Command
+            Command type: Basic Command
+            Basic Command
+              Command type: Block
+              Block:
+                Def Var List:
+                Command List:
+                  Command
+                    Command type: Basic Command
+                    Basic Command at line 14
+                      Command type: Return

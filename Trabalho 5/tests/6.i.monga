@@ -1,0 +1,28 @@
+/*
+ * 6.i.monga
+ * Test not expression
+ */
+
+int a()
+{
+    int value;
+
+    value = 56;
+
+    if(!(1 > 2))
+    {
+        value = 1411029;
+    }
+
+    return value;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

@@ -1,0 +1,9 @@
+/*
+ * 47.monga
+ * Identifier / float
+ */
+void a()
+{
+    float a;
+    a = a / 2.0;
+}

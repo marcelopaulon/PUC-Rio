@@ -1,0 +1,114 @@
+PASSDefinition:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: float
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 9
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 9
+              Expression type: Subtraction
+              Expression resulting Type: float
+              Expression
+                Expression type: Variable
+                Expression resulting Type: float
+                Variable: ID
+                a
+              Expression
+                Expression type: Float
+                Expression resulting Type: float
+                3.141500
+Definition:
+  Func: b
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: float
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 15
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 15
+              Expression type: Subtraction
+              Expression resulting Type: float
+              Expression
+                Expression type: Float
+                Expression resulting Type: float
+                3.141500
+              Expression
+                Expression type: Variable
+                Expression resulting Type: float
+                Variable: ID
+                a
+Definition:
+  Func: c
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type at line 20: float[]
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 21
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 21
+              Expression type: New
+              Type: float[]
+              Expression resulting Type: float[]
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                1
+        Command
+          Command type: Basic Command
+          Basic Command at line 22
+            Command type: Variable Assignment
+            Variable at line 22: Indexed
+              Expression
+                Expression type: Variable
+                Expression resulting Type at line 20: float[]
+                Variable: ID
+                a
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                0
+            Expression at line 22
+              Expression type: Subtraction
+              Expression resulting Type: float
+              Expression
+                Expression type: Variable
+                Expression resulting Type: float
+                Variable at line 22: Indexed
+                  Expression
+                    Expression type: Variable
+                    Expression resulting Type at line 20: float[]
+                    Variable: ID
+                    a
+                  Expression
+                    Expression type: Int
+                    Expression resulting Type: int
+                    0
+              Expression
+                Expression type: Float
+                Expression resulting Type: float
+                3.141500

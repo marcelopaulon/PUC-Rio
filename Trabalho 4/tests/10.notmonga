@@ -1,0 +1,13 @@
+/*
+ * 10.notmonga
+ * Testing function assignment to variable
+ */
+
+int foo (){
+}
+
+int main(){
+    int a;
+    a = foo;
+    return a;
+}

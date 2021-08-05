@@ -1,0 +1,10 @@
+/*
+ * 25.notmonga
+ * while-if-else
+ */
+void a()
+{
+    while(1) {
+    	if(1==2) else;
+    }
+}

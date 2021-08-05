@@ -1,0 +1,16 @@
+/*
+ * 14.monga
+ * Call function with same type
+ */
+
+int foo()
+{
+    return 1;
+}
+
+int main()
+{
+    int a;
+    a = foo();
+    return 0;
+}

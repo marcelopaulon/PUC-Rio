@@ -1,0 +1,9 @@
+/*
+ * 33.monga
+ * Identifier + float number
+ */
+void a()
+{
+    float a;
+    a = a + 1.0;
+}

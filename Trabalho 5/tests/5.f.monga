@@ -1,0 +1,33 @@
+/*
+ * 4.f.monga
+ * Testing global variables and scopes
+ */
+
+float fGlobal;
+int iGlobal;
+
+int changeGlobal()
+{
+    fGlobal = 0.6;
+    iGlobal = 5;
+    return 0;
+}
+
+float b()
+{
+    float fGlobal;
+    fGlobal = 2;
+    iGlobal = 2;
+    changeGlobal();
+    return fGlobal + iGlobal;
+}
+
+int a()
+{
+   return 0;
+}
+
+char c()
+{
+    return "V";
+}

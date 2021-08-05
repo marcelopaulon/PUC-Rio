@@ -1,0 +1,19 @@
+/*
+ * 60.monga
+ * Arrays
+ */
+void a()
+{
+    int[] a;
+    int[][] b;
+    int[][][][] c;
+    float[][][][][][] d;
+    float[][] e;
+    int bb;
+
+    b[0] = new int[200];
+    e[0] = new float[a[0]];
+    bb = a[1];
+    bb = c[1][2][3][4];
+    bb = b[1][1];
+}

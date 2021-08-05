@@ -1,0 +1,18 @@
+/*
+ * 1.i.monga
+ * Testing int return
+ */
+int a()
+{
+    return 6 + 10*5;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

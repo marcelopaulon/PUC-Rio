@@ -1,0 +1,10 @@
+/*
+ * 17.monga
+ * One block inside a function
+ */
+void a()
+{
+    {
+
+    }
+}

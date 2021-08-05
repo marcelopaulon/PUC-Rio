@@ -1,0 +1,9 @@
+/*
+ * 41.monga
+ * Identifier - Identifier
+ */
+void a()
+{
+    int a;
+    a = a - a;
+}

@@ -1,0 +1,8 @@
+/*
+ * 12.monga
+ * Testing a function returning a negative int constant
+ */
+int a()
+{
+    return -1;
+}

@@ -1,0 +1,13 @@
+/*
+ * 57.notmonga
+ * one more (
+ */
+void a()
+{
+    int a;
+    a = 2;
+    while((a == (5 || a <= 6 && a == 5 && a == 6 || a == 5 || a == 6 && a == "V"))
+    {
+        return;
+    }
+}

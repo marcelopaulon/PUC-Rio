@@ -1,0 +1,8 @@
+/*
+ * 30.notmonga
+ * While as function name
+ */
+void while()
+{
+    return;
+}

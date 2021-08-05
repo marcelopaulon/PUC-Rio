@@ -1,0 +1,29 @@
+/*
+ * 2.f.monga
+ * Ifs and more ifs
+ */
+float b()
+{
+    float i;
+    i = 0.0;
+    if(i == 0)
+    {
+        i = -1.0;
+    }
+    if(i == 0)
+    {
+        i = 1.0;
+    }
+
+    return i;
+}
+
+int a()
+{
+   return 0;
+}
+
+char c()
+{
+    return "V";
+}

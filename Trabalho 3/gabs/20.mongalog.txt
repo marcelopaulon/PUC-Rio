@@ -1,0 +1,76 @@
+PASSDefinition:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 8
+              Expression type: Int
+              Expression resulting Type: int
+              2
+        Command
+          Command type: Basic Command
+          Basic Command
+            Command type: Block
+            Block:
+              Def Var List:
+              Command List:
+                Command
+                  Command type: Basic Command
+                  Basic Command
+                    Command type: Block
+                    Block:
+                      Def Var List:
+                      Command List:
+                        Command at line 11
+                          Expression at line 11
+                            Expression type: Equality
+                            Expression resulting Type: int
+                            Expression
+                              Expression type: Variable
+                              Expression resulting Type: int
+                              Variable: ID
+                              a
+                            Expression
+                              Expression type: Int
+                              Expression resulting Type: int
+                              1
+                          Command type: If and Else
+                          Command
+                            Command type: Basic Command
+                            Basic Command
+                              Command type: Block
+                              Block:
+                                Def Var List:
+                                Command List:
+                          Command
+                            Command type: Basic Command
+                            Basic Command
+                              Command type: Block
+                              Block:
+                                Def Var List:
+                                Command List:
+                                  Command
+                                    Command type: Basic Command
+                                    Basic Command
+                                      Command type: Block
+                                      Block:
+                                        Def Var List:
+                                        Command List:
+                                          Command
+                                            Command type: Basic Command
+                                            Basic Command
+                                              Command type: Block
+                                              Block:
+                                                Def Var List:
+                                                Command List:

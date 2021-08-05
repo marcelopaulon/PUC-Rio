@@ -1,0 +1,18 @@
+PASSDefinition:
+  Func: a
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 7
+            Command type: Return
+            Expression
+              Expression type: Negative
+              Expression resulting Type: int
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                1

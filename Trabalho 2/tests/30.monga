@@ -1,0 +1,11 @@
+/*
+ * 30.monga
+ * While comparison >=
+ */
+void a()
+{
+    while(a > b)
+    {
+        return;
+    }
+}

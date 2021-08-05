@@ -1,0 +1,39 @@
+/*
+ * 10.i.monga
+ * tests that are greater than tests
+ */
+
+int f;
+
+int e()
+{
+    f = 1;
+    return f;
+}
+
+int d()
+{
+    f = 56;
+    return f;
+}
+
+int a()
+{
+    int k;
+
+    f = -1;
+
+    k = d() > e();
+
+    return k;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

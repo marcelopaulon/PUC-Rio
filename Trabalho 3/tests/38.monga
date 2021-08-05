@@ -1,0 +1,10 @@
+/*
+ * 38.monga
+ * int number - Identifier + recursive call
+ */
+void main()
+{
+    int a;
+    a = 100 - a;
+    main();
+}

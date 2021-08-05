@@ -1,0 +1,8 @@
+/*
+ * 38.notmonga
+ * Wrong multiplication
+ */
+void a()
+{
+    a = 100(a);
+}

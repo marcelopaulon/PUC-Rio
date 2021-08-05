@@ -1,0 +1,12 @@
+/*
+ * 27.monga
+ * If comparison >=
+ */
+void a()
+{
+    int a,b;
+    if(a >= b)
+    {
+        return;
+    }
+}

@@ -1,0 +1,28 @@
+PASSDefinition:
+  Func: a
+    Type: int
+    Parameters List:
+      Parameter: b
+        Type: char
+      Parameter: c
+        Type at line 5: int[]
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 7
+            Command type: Function call
+            Command Call: a
+              Type: int
+              Expression List:
+                Expression at line 7
+                  Expression type: Variable
+                  Expression resulting Type: int
+                  Variable: ID
+                  b
+                Expression at line 7
+                  Expression type: Variable
+                  Expression resulting Type at line 5: int[]
+                  Variable: ID
+                  c

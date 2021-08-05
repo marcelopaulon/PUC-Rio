@@ -1,0 +1,254 @@
+PASSDefinition:
+  Func: b
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Return
+            Expression
+              Expression type: Int
+              Expression resulting Type: int
+              2
+Definition:
+  Func: c
+    Type: int
+    Parameters List:
+      Parameter: a
+        Type: int
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 13
+            Command type: Return
+            Expression at line 13
+              Expression type: Multiplication
+              Expression resulting Type: int
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                2
+              Expression
+                Expression type: Variable
+                Expression resulting Type: int
+                Variable: ID
+                a
+Definition:
+  Func: deee
+    Type: int
+    Parameters List:
+      Parameter: a
+        Type: int
+      Parameter: b
+        Type: int
+      Parameter: c
+        Type: int
+      Parameter: d
+        Type: int
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 18
+            Command type: Return
+            Expression at line 18
+              Expression type: Multiplication
+              Expression resulting Type: int
+              Expression at line 18
+                Expression type: Multiplication
+                Expression resulting Type: int
+                Expression at line 18
+                  Expression type: Multiplication
+                  Expression resulting Type: int
+                  Expression
+                    Expression type: Variable
+                    Expression resulting Type: int
+                    Variable: ID
+                    a
+                  Expression
+                    Expression type: Variable
+                    Expression resulting Type: int
+                    Variable: ID
+                    b
+                Expression
+                  Expression type: Variable
+                  Expression resulting Type: int
+                  Variable: ID
+                  c
+              Expression
+                Expression type: Variable
+                Expression resulting Type: int
+                Variable: ID
+                d
+Definition:
+  Func: a
+    Type: void
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          x
+        DefVar:
+          Type: int
+          y
+        DefVar:
+          Type: int
+          z
+        DefVar:
+          Type: int
+          w
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 24
+            Command type: Variable Assignment
+            Variable: ID
+            x
+            Expression at line 24
+              Expression type: Int
+              Expression resulting Type: int
+              2
+        Command at line 25
+          Expression at line 25
+            Expression type: Logical Disjunction
+            Expression resulting Type: int
+            Expression at line 25
+              Expression type: Logical Disjunction
+              Expression resulting Type: int
+              Expression at line 25
+                Expression type: Logical Disjunction
+                Expression resulting Type: int
+                Expression at line 25
+                  Expression type: Logical Disjunction
+                  Expression resulting Type: int
+                  Expression at line 25
+                    Expression type: Logical Disjunction
+                    Expression resulting Type: int
+                    Expression at line 25
+                      Expression type: Logical Disjunction
+                      Expression resulting Type: int
+                      Expression at line 25
+                        Expression type: Logical Disjunction
+                        Expression resulting Type: int
+                        Expression at line 25
+                          Expression type: Equality
+                          Expression resulting Type: int
+                          Expression
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            x
+                          Expression
+                            Expression type: Int
+                            Expression resulting Type: int
+                            2
+                        Expression
+                          Expression type: Function Call
+                          Expression resulting Type: int
+                          Command Call: b
+                            Type: int
+                            Expression List:
+                      Expression
+                        Expression type: Function Call
+                        Expression resulting Type: int
+                        Command Call: c
+                          Type: int
+                          Expression List:
+                            Expression at line 25
+                              Expression type: Variable
+                              Expression resulting Type: int
+                              Variable: ID
+                              x
+                    Expression
+                      Expression type: Function Call
+                      Expression resulting Type: int
+                      Command Call: deee
+                        Type: int
+                        Expression List:
+                          Expression at line 25
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            x
+                          Expression at line 25
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            y
+                          Expression at line 25
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            z
+                          Expression at line 25
+                            Expression type: Variable
+                            Expression resulting Type: int
+                            Variable: ID
+                            w
+                  Expression at line 25
+                    Expression type: Comparison (Less or Equal Than)
+                    Expression resulting Type: int
+                    Expression
+                      Expression type: Variable
+                      Expression resulting Type: int
+                      Variable: ID
+                      x
+                    Expression
+                      Expression type: Int
+                      Expression resulting Type: int
+                      3
+                Expression at line 25
+                  Expression type: Equality
+                  Expression resulting Type: int
+                  Expression
+                    Expression type: Variable
+                    Expression resulting Type: int
+                    Variable: ID
+                    x
+                  Expression
+                    Expression type: Int
+                    Expression resulting Type: int
+                    2
+              Expression at line 25
+                Expression type: Equality
+                Expression resulting Type: int
+                Expression
+                  Expression type: Variable
+                  Expression resulting Type: int
+                  Variable: ID
+                  x
+                Expression
+                  Expression type: Int
+                  Expression resulting Type: int
+                  2
+            Expression at line 25
+              Expression type: Equality
+              Expression resulting Type: int
+              Expression
+                Expression type: Variable
+                Expression resulting Type: int
+                Variable: ID
+                x
+              Expression
+                Expression type: Int
+                Expression resulting Type: int
+                2
+          Command type: While
+          Command
+            Command type: Basic Command
+            Basic Command
+              Command type: Block
+              Block:
+                Def Var List:
+                Command List:
+                  Command
+                    Command type: Basic Command
+                    Basic Command at line 27
+                      Command type: Return

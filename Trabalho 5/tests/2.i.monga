@@ -1,0 +1,29 @@
+/*
+ * 2.i.monga
+ * Ifs and more ifs
+ */
+int a()
+{
+    int i;
+    i = 0;
+    if(i == 0)
+    {
+        i = 1;
+    }
+    if(i == 0)
+    {
+        i = -1;
+    }
+
+    return i;
+}
+
+float b()
+{
+   return 0.0;
+}
+
+char c()
+{
+    return "V";
+}

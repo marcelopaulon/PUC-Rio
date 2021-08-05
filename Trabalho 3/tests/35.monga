@@ -1,0 +1,23 @@
+/*
+ * 35.monga
+ * Identifier - float number (multiple functions test)
+ */
+
+void a()
+{
+    float a;
+    a = a - 3.1415;
+}
+
+void b()
+{
+    float a;
+    a = 3.1415 - a;
+}
+
+void c()
+{
+    float[] a;
+    a = new float[1];
+    a[0] = a[0] - 3.1415;
+}

@@ -1,0 +1,23 @@
+float vagner()
+{
+    return 5.6;
+}
+
+float a()
+{
+    float b;
+    float c;
+    b = 1.0;
+    c =  10.0;
+    if(b<c)
+    {
+        return vagner();
+    }
+
+    return b;
+}
+
+char c()
+{
+    return "V";
+}

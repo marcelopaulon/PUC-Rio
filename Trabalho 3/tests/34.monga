@@ -1,0 +1,9 @@
+/*
+ * 34.monga
+ * Identifier - int number
+ */
+void a()
+{
+    int a;
+    a = a - 100;
+}

@@ -1,0 +1,45 @@
+PASSDefinition:
+  Func: foo
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 8
+            Command type: Return
+            Expression
+              Expression type: Int
+              Expression resulting Type: int
+              1
+Definition:
+  Func: main
+    Type: int
+    Parameters List:
+    Block:
+      Def Var List:
+        DefVar:
+          Type: int
+          a
+      Command List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 14
+            Command type: Variable Assignment
+            Variable: ID
+            a
+            Expression at line 14
+              Expression type: Function Call
+              Expression resulting Type: int
+              Command Call: foo
+                Type: int
+                Expression List:
+        Command
+          Command type: Basic Command
+          Basic Command at line 15
+            Command type: Return
+            Expression
+              Expression type: Int
+              Expression resulting Type: int
+              0

@@ -1,0 +1,11 @@
+/*
+ * 31.notmonga
+ * operator-operator exp
+ */
+void a()
+{
+    if(a >== b)
+    {
+        return;
+    }
+}
