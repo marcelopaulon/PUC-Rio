@@ -1,0 +1,272 @@
+[inf2591-03@server t3]$ ./benchmark.sh 
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 100
+Th 0 > Best tour 0x1367470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.907643e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 100
+Th 0 > Best tour 0xb5f470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.552768e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 100
+Th 0 > Best tour 0x2501420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.123689e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 100
+Th 0 > Best tour 0x1034420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.229091e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 100
+Th 0 > Best tour 0x22eeac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.721208e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 100
+Th 0 > Best tour 0x16b2ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.770083e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 100
+Th 0 > Best tour 0x231d470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.910191e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 100
+Th 0 > Best tour 0x1ccc470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.556296e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 100
+Th 0 > Best tour 0x171e420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.124603e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 100
+Th 0 > Best tour 0x131a420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.233823e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 100
+Th 0 > Best tour 0x1d48ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.729646e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 100
+Th 0 > Best tour 0x7c1ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.779700e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 100
+Th 0 > Best tour 0x2606470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.906337e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 100
+Th 0 > Best tour 0x11ef470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.565208e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 100
+Th 0 > Best tour 0x707420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.125057e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 100
+Th 0 > Best tour 0xe13420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.239729e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 100
+Th 0 > Best tour 0x864ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.752202e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 100
+Th 0 > Best tour 0x2327ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.777623e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 10
+Th 0 > Best tour 0x15d7470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.910741e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 10
+Th 0 > Best tour 0x1ffc470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.280573e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 10
+Th 0 > Best tour 0x10f3420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.125329e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 10
+Th 0 > Best tour 0x220e420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.173473e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 10
+Th 0 > Best tour 0xbd9ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.737343e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 10
+Th 0 > Best tour 0x12ecac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.763264e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 10
+Th 0 > Best tour 0x1e73470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.908430e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 10
+Th 0 > Best tour 0x1da3470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.246792e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 10
+Th 0 > Best tour 0x14d4420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.126304e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 10
+Th 0 > Best tour 0x1522420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.175046e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 10
+Th 0 > Best tour 0x1fa0ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.723768e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 10
+Th 0 > Best tour 0x17f0ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.765901e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 10
+Th 0 > Best tour 0x16d3470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.911718e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 10
+Th 0 > Best tour 0x1bb9470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.230425e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 10
+Th 0 > Best tour 0x1d2a420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.125771e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 10
+Th 0 > Best tour 0x70f420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.175302e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 10
+Th 0 > Best tour 0xedaac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.739279e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 10
+Th 0 > Best tour 0xe61ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.770784e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 1000
+Th 0 > Best tour 0x695470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.908851e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 1000
+Th 0 > Best tour 0xd1e470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.549469e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 1000
+Th 0 > Best tour 0x1c93420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.126305e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 1000
+Th 0 > Best tour 0x149e420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.228180e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 1000
+Th 0 > Best tour 0x1070ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.718445e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 1000
+Th 0 > Best tour 0x736ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.773130e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 1000
+Th 0 > Best tour 0x1856470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.908033e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 1000
+Th 0 > Best tour 0x1652470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.601069e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 1000
+Th 0 > Best tour 0x100a420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.126284e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 1000
+Th 0 > Best tour 0x13ba420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.243168e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 1000
+Th 0 > Best tour 0xab2ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.720447e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 1000
+Th 0 > Best tour 0x17b8ac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.764631e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 1 mat_16e 1000
+Th 0 > Best tour 0x8bd470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.908153e+02 seconds
++ mpirun -hostfile host_file -np 1 ./main 1 4 mat_16e 1000
+Th 0 > Best tour 0x245e470: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 5.561515e+01 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 1 mat_16e 1000
+Th 0 > Best tour 0x13d6420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.126221e+02 seconds
++ mpirun -hostfile host_file -np 2 ./main 2 4 mat_16e 1000
+Th 0 > Best tour 0x21f4420: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 3.232434e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 1 mat_16e 1000
+Th 0 > Best tour 0x11faac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 6.722728e+01 seconds
++ mpirun -hostfile host_file -np 4 ./main 4 4 mat_16e 1000
+Th 0 > Best tour 0x7cfac0: 0 1 3 5 7 9 11 13 15 2 4 6 8 10 12 14 0 
+
+Cost = 17
+Elapsed time = 1.756338e+02 seconds
+[inf2591-03@server t3]$ 
