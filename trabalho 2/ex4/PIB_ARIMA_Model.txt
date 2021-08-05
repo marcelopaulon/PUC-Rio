@@ -1,0 +1,10 @@
+Series: gdpdataOriginal$Valor[1:77] 
+ARIMA(2,0,1) with non-zero mean 
+
+Coefficients:
+         ar1     ar2     ma1    mean
+      0.1994  0.4477  0.9632  2.2583
+s.e.  0.1286  0.1349  0.0629  1.0035
+
+sigma^2 estimated as 2.834:  log likelihood=-148.66
+AIC=307.32   AICc=308.16   BIC=319.04

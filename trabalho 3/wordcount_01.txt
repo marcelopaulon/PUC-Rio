@@ -1,0 +1,3 @@
+Link analysis is a technique used to evaluate relationships between nodes
+Text mining or text analytics is the process of deriving high-quality information from text
+Data mining is the computing process of discovering patterns in large data sets
