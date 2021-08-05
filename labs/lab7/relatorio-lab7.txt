@@ -1,0 +1,494 @@
+Relatório - Laboratório 7
+
+/*
+   Gustavo Aranha - 1320755
+   Marcelo Paulon - 1411029
+*/
+
+1) Execute o programa dado (exemplo de uso de semáforos) e verifique / explique sua execução. 
+
+ex1.c
+--
+
+union semun
+{
+   int val;
+   struct semid_ds *buf;
+   ushort *array;
+};
+
+//inicializa o valor do semáforo
+int setSemValue(int semId);
+//remove o semáforo
+void delSemValue(int semId);
+//operação P
+int semaforoP(int semId);
+//operação V
+int semaforoV(int semId);
+
+int main(int argc, char * argv[])
+{
+   int i;
+   char letra = 'o';
+   int semId;
+
+   if(argc>1)
+   {
+	semId = semget(8752, 1, 0666 | IPC_CREAT);
+	setSemValue(semId);
+	letra = 'x';
+	sleep(2);
+   }
+   else
+   {
+	while((semId=semget(8752, 1, 0666))<0)
+	{
+	   putchar('.');fflush(stdout);
+	   sleep(1);
+	}
+   }
+   for(i=0; i<10; i++)
+   {
+	semaforoP(semId);
+	putchar(toupper(letra)); fflush(stdout);
+	sleep(rand()%3);
+	putchar(letra); fflush(stdout);
+	semaforoV(semId);
+	sleep(rand()%2);
+   }
+
+   printf("\nProcesso %d terminou\n", getpid());
+
+   if(argc>1)
+   {
+	sleep(10);
+	delSemValue(semId);
+   }
+   return 0;
+}
+
+int setSemValue(int semId)
+{
+   union semun semUnion;
+   semUnion.val = 1;
+   return semctl(semId, 0, SETVAL, semUnion);
+}
+
+void delSemValue(int semId)
+{
+   union semun semUnion;
+   semctl(semId, 0, IPC_RMID, semUnion);
+}
+
+int semaforoP(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = -1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+int semaforoV(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = 1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+Execução:
+./ex1 &
+[1] 2570
+.............;/..../ex.1 1. (significa "./ex1 1")
+OoOoXxOoXxOoXxOoXxOoXxOoXxOoXxOoOo
+Processo 2570 terminou
+X
+[1]    Done                          ./ex1
+xXxXx
+Processo 2576 terminou
+
+Reflexão: O programa foi executado duas vezes, a primeira em background e a segunda em foreground. Quando executado em background, ele imprimiu o caracter '.' até a criação do semáforo. Quando executado em foreground, o programa criou o semáforo para controlar a execução dos dois processos. Nisto, o processo em background passou a entrar na região crítica e imprimir o caracter 'O' ao entrar e 'o' ao sair, enquanto que o processo em foreground imprimia 'X' ao entrar e 'x' ao sair, sendo alternados pelo semáforo criado, até o término dos dois processos. Podemos perceber que, como apenas um dos processos tinha acesso à
+região crítica em um determinado tempo, os caracteres 'X' e 'x' foram imprimidos juntos em pares, assim como 'O' e 'o'.
+
+2)Produtor-Consumidor 
+-
+Escreva um programa formado por dois 
+processos concorrentes, leitor e impressor, que 
+compartilham uma área de trabalho (memória) 
+executando um loop infinito. Para sincronizar as 
+suas ações, eles fazem uso de semáforos.  
+-
+O processo leitor fica lendo caracteres da entrada 
+padrão e colocando em um buffer de 16 posições. 
+Quando o buffer está cheio o processo impressor 
+deve imprimi-lo na saída padrão. 
+
+ex2.c
+--
+
+union semun
+{
+  int val;
+  struct semid_ds *buf;
+  ushort *array;
+};
+
+// inicializa o valor do semáforo
+int setSemValue(int semId);
+
+// remove o semáforo
+void delSemValue(int semId);
+
+// operação P
+int semaforoP(int semId);
+
+// operação V
+int semaforoV(int semId);
+
+int main(int argc, char *argv[])
+{
+  int i;
+  int semId;
+  int pid;
+  int segmento = shmget(IPC_PRIVATE, sizeof(char *) * 16, IPC_CREAT | S_IRUSR | S_IWUSR);
+  char *temp;
+
+  semId = semget(8752, 1, 0666 | IPC_CREAT);
+  setSemValue(semId);
+
+  pid = fork();
+
+  if(pid == 0)
+  {
+    // CONSUMIDOR
+    for(;;)
+    {
+      semaforoP(semId);
+      
+      temp = (char *) shmat(segmento, 0, 0);
+      printf("\nConsumidor: %s\n", temp); fflush(stdout);
+      shmdt(temp);
+
+      semaforoV(semId);
+    }
+
+    return 0;
+  }
+  
+  temp = (char *) shmat(segmento, 0, 0);
+
+  for(;;)
+  {
+    semaforoP(semId);
+
+    for(i = 0; i < 16; i++)
+    {
+      scanf(" %c", &temp[i]);
+    }
+
+    semaforoV(semId);
+  }
+
+  shmdt(temp);
+
+  printf("\nProcesso %d terminou\n", getpid());
+
+  delSemValue(semId);
+
+  shmctl(segmento, IPC_RMID, 0);
+
+  return 0;
+}
+
+int setSemValue(int semId)
+{
+   union semun semUnion;
+   semUnion.val = 1;
+   return semctl(semId, 0, SETVAL, semUnion);
+}
+
+void delSemValue(int semId)
+{
+   union semun semUnion;
+   semctl(semId, 0, IPC_RMID, semUnion);
+}
+
+int semaforoP(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = -1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+int semaforoV(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = 1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+Execução:
+./ex2
+1111111111111111
+
+Consumidor: 1111111111111111
+55555
+55555555556
+
+Consumidor: 5555555555555556
+
+Reflexão: Foi criada uma área de memória para uma string de 16 caracteres, a ser compartilhada pelo produtor e pelo consumidor. No processo do produtor, há um loop infinito em que entra-se na região crítica e são capturados os 16 caracteres a serem consumidos pelo outro processo. Após capturar os 16 caracteres, o processo sai da região crítica, e com isto, o processo consumidor (que também possui um loop infinito) entra na região crítica, imprime os 16 caracteres capturados, e sai da região crítica, de forma que o processo produtor entre novamente na região crítica e este ciclo continue.
+
+3) Faça programas para alterar um valor de 
+uma variável na memória compartilhada. 
+Um programa soma 1 à variável e o outro 
+soma 5 à variável. Utilize semáforos para 
+alterar a variável (região crítica). 
+
+ex3-1.c
+--
+
+#define SEGNUM 8005
+
+union semun
+{
+   int val;
+   struct semid_ds *buf;
+   ushort *array;
+};
+
+//inicializa o valor do semáforo
+int setSemValue(int semId);
+//remove o semáforo
+void delSemValue(int semId);
+//operação P
+int semaforoP(int semId);
+//operação V
+int semaforoV(int semId);
+
+int main(int argc, char * argv[])
+{
+   int i;
+   int semId;
+   int *x;
+   int segmento = shmget(SEGNUM, sizeof(int), IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR);
+   if(segmento == -1) {
+     printf("Erro!\n");
+     exit(-1);	
+   }
+
+   x = (int *) shmat(segmento, 0, 0);
+   
+   semId = semget(SEGNUM, 1, 0666 | IPC_CREAT);
+   setSemValue(semId);
+   *x = 0;
+   
+   printf("Iniciando o programa 1..\n");
+
+   for(i=0; i<10; i++)
+   {
+	semaforoP(semId);
+	printf("%d\n", *x); fflush(stdout);
+        *x = *x + 1;
+	printf("%d\n", *x); fflush(stdout);
+	semaforoV(semId);
+	sleep(rand()%2);
+   }
+
+   printf("\nProcesso %d terminou\n", getpid());
+   delSemValue(semId);
+
+   shmctl(segmento, IPC_RMID, 0);
+
+   return 0;
+}
+
+int setSemValue(int semId)
+{
+   union semun semUnion;
+   semUnion.val = 1;
+   return semctl(semId, 0, SETVAL, semUnion);
+}
+
+void delSemValue(int semId)
+{
+   union semun semUnion;
+   semctl(semId, 0, IPC_RMID, semUnion);
+}
+
+int semaforoP(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = -1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+int semaforoV(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = 1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+
+ex3-2.c
+--
+
+#define SEGNUM 8005
+
+union semun
+{
+   int val;
+   struct semid_ds *buf;
+   ushort *array;
+};
+
+//inicializa o valor do semáforo
+int setSemValue(int semId);
+//remove o semáforo
+void delSemValue(int semId);
+//operação P
+int semaforoP(int semId);
+//operação V
+int semaforoV(int semId);
+
+int main(int argc, char * argv[])
+{
+   int i;
+   int semId;
+   int *x;
+   int segmento = shmget(SEGNUM, sizeof(int), S_IRUSR | S_IWUSR);
+   if(segmento == -1) {
+     printf("Erro!\n");
+     exit(-1);	
+   }
+
+   x = (int *) shmat(segmento, 0, 0);
+   
+   semId = semget(SEGNUM, 1, 0666 | IPC_CREAT);
+   //setSemValue(semId);
+   
+   for(i=0; i<10; i++)
+   {
+	semaforoP(semId);
+	printf("%d\n", *x); fflush(stdout);
+        *x = *x + 5;
+	printf("%d\n", *x); fflush(stdout);
+	semaforoV(semId);
+	sleep(rand()%2);
+   }
+
+   printf("\nProcesso %d terminou\n", getpid());
+   delSemValue(semId);
+
+   shmctl(segmento, IPC_RMID, 0);
+
+   return 0;
+}
+
+int setSemValue(int semId)
+{
+   union semun semUnion;
+   semUnion.val = 1;
+   return semctl(semId, 0, SETVAL, semUnion);
+}
+
+void delSemValue(int semId)
+{
+   union semun semUnion;
+   semctl(semId, 0, IPC_RMID, semUnion);
+}
+
+int semaforoP(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = -1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+int semaforoV(int semId)
+{
+   struct sembuf semB;
+   semB.sem_num = 0;
+   semB.sem_op = 1;
+   semB.sem_flg = SEM_UNDO;
+   semop(semId, &semB, 1);
+   return 0;
+}
+
+Execução:
+Janela 1:
+./ex3-1
+Iniciando o programa 1..
+0
+1
+1
+2
+2
+3
+8
+9
+19
+20
+25
+26
+31
+32
+32
+33
+33
+34
+39
+40
+
+Processo 3788 terminou
+
+Janela 2:
+./ex3-2
+3
+8
+9
+14
+14
+19
+20
+25
+26
+31
+34
+39
+40
+45
+45
+50
+50
+55
+55
+60
+
+Processo 3789 terminou
+
+Reflexão: O programa ex3-1 foi executado antes do programa ex3-2, por isso são exibidos dados de resultados anteriores. O programa
+ex3-1 armazenou o valor 0 no endereço compartilhado de chave 8005, e começou a somar o valor 1 à este valor, enquanto o programa
+ex3-2 começou a somar o valor 5 a este mesmo valor. Cada operação de soma foi executada dentro da região crítica através do 
+semáforo de maneira que não houve problema de concorrência e no final o último programa a ser finalizado exibiu o valor correto
+da soma (60).

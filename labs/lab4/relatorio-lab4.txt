@@ -1,0 +1,325 @@
+
+5) Faça um programa que leia 2 números inteiros e imprima o resultado das 4 operações básicas sobre estes 2 números. 
+- Verifique o que acontece se o 2º. número 
+  da entrada for 0 (zero) 
+- Capture o sinal de erro de floating point 
+  (SIGFPE) e repita a experiência anterior 
+
+#include <stdio.h>
+#include <signal.h>
+
+int op(int n1, int n2)
+{
+  printf("soma: %d\n", n1+n2);
+  printf("subtracao: %d\n", n1-n2);
+  printf("multiplicacao: %d\n", n1*n2);
+  printf("divisao: %d\n", n1/n2);
+}
+
+int main(void)
+{
+  int n1, n2;
+  printf("Digite dois numeros: ");
+  scanf("%d %d", &n1, &n2);
+  printf("\n");
+  op(n1,n2);
+  return 0;
+}
+
+------------------------ Após alteração para capturar o SIGFPE:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+int op(int n1, int n2)
+{
+  printf("soma: %d\n", n1+n2);
+  printf("subtracao: %d\n", n1-n2);
+  printf("multiplicacao: %d\n", n1*n2);
+  printf("divisao: %d\n", n1/n2);
+}
+
+void fpehandler(int signal)
+{
+  printf("\nSinal SIGFPE capturado.\n");
+  exit(-1);
+}
+
+int main(void)
+{
+  int n1, n2;
+  signal(SIGFPE, fpehandler);
+  printf("Digite dois numeros: ");
+  scanf("%d %d", &n1, &n2);
+  printf("\n");
+  op(n1,n2);
+  return 0;
+}
+
+Execução:
+
+1 0
+
+soma: 1
+subtracao: 1
+multiplicacao: 0
+Floating exception (core dumped)
+
+
+------------------------ Após alteração para capturar o SIGFPE:
+
+./ex1
+Digite dois numeros: 1 0
+
+soma: 1
+subtracao: 1
+multiplicacao: 0
+
+Sinal SIGFPE capturado.
+
+Reflexão: Ao executar o programa passando o segundo número como zero, o programa tenta dividir por zero, o que não pode ser feito. Com isto, é disparada uma exceção (Floating exception (core dumped)).
+Ao alterar o programa para capturar o sinal SIGFPE, ao tentar dividir por zero, a função criada (fpehandler) é chamada, e imprime a mensagem "Sinal SIGFPE capturado", e o programa é, então, encerrado.
+
+6) Faça um programa para monitorar e informar o preço de chamadas telefônicas. O programa deverá ser executado em background. 
+- O início e o término de uma chamada são  
+  informados através dos sinais SIGUSR1 e 
+  SIGUSR2, respectivamente. 
+- O custo da ligação é de 2 centavos por 
+  segundo, para ligações de até 1 minuto ou de 1 
+  centavo por segundo a partir do 2º. minuto, ou 
+  seja, uma ligação de 1m30s custa R$1,50. 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <time.h>
+
+int onCall = 0;
+time_t callStart;
+
+void handleEndCallButton(int signal)
+{
+  kill(0, SIGUSR2);
+}
+
+void sigusr1(int signal)
+{
+  onCall = 1;
+  printf("Ligacao iniciada! Digite Ctrl+C para encerrar.\n");
+  callStart = time(NULL);
+}
+
+void sigusr2(int signal)
+{
+  double callTime, callCost;
+  int hours, minutes, seconds;
+
+  if(onCall == 0)
+  {
+    printf("\nNao ha nenhuma ligacao em andamento\n");
+    return;
+  }
+
+  callTime = difftime(time(NULL), callStart);
+  hours =  (int)callTime / 3600;
+  minutes = ((int)callTime % 3600) / 60;
+  seconds = (int)callTime % 60;
+  
+  if(callTime > 60.0)
+  {
+    callCost = callTime + 60;
+  }
+  else
+  {
+    callCost = callTime * 2;
+  }
+
+  callCost = callCost / 100.0;
+  
+  onCall = 0;
+  printf("Ligacao encerrada. Duracao: %dh:%dm:%ds. Custo da ligacao: R$%.2f\n", (int) hours, minutes, seconds, callCost);
+  printf("\nDigite 1 para iniciar uma ligacao, Ou digite Q para sair.\n"); 
+}
+
+int main(void)
+{
+  char command;
+
+  signal(SIGUSR1, sigusr1);
+  signal(SIGUSR2, sigusr2);
+  signal(SIGINT, handleEndCallButton);
+
+  printf("Digite 1 para iniciar uma ligacao, Ou digite Q para sair.\n");
+    
+  while(1)
+  {
+    scanf(" %c", &command);
+    if(command == '1')
+    {
+      kill(0, SIGUSR1);
+    }
+    else if(command == 'Q')
+    {
+      if(onCall == 1)
+      {
+        kill(0, SIGINT);
+      }
+      exit(0);
+    }
+    else
+    {
+      printf("Comando invalido!\n");
+    }
+  }
+  
+  return 0;
+}
+
+Execução:
+
+./ex2
+Digite 1 para iniciar uma ligacao, Ou digite Q para sair.
+1
+Ligacao iniciada! Digite Ctrl+C para encerrar.
+^CLigacao encerrada. Duracao: 0h:0m:5s. Custo da ligacao: R$0.10
+
+1
+Ligacao iniciada! Digite Ctrl+C para encerrar.
+^CLigacao encerrada. Duracao: 0h:1m:30s. Custo da ligacao: R$1.50
+
+Digite 1 para iniciar uma ligacao, Ou digite Q para sair.
+Q
+
+Reflexão: O Programa registra o sinal SIGUSR1 Para a função que inicia a ligação, e o SIGUSR2 para a função que encerra a ligação. Para não ter que usar o kill no próprio console, registramos o SIGINT para executar um kill(0, SIGUSR2), como forma de encerrar a ligação pelo próprio programa. Com isto, ao digitarmos 1, iniciamos uma ligação (SIGUSR1 disparado), e ao digitarmos Ctrl+C, encerramos uma ligação (SIGURS2 disparado). 
+
+7) Elabore três programas I/O bound que não terminem (loop de msgs no vídeo)
+- Elabore um programa que seja capaz de executar os 3 programas indicados anteriormente e que simule o compartilhamento da CPU entre os 3 processos com escalonamento Round-Robin com uma fatia de tempo de 1 segundo para o primeiro processo e de 2 segundos para os demais processos. Execute os programas e relate o que aconteceu.
+
+-- Programa 1
+#include <stdio.h>
+
+int main(void)
+{
+  while(1)
+  {
+    printf("kek\n");
+  }
+  
+  return 0;
+}
+
+-- Programa 2
+#include <stdio.h>
+
+int main(void)
+{
+  while(1)
+  {
+    printf("nelson\n");
+  }
+  
+  return 0;
+}
+
+-- Programa 3
+#include <stdio.h>
+
+int main(void)
+{
+  while(1)
+  {
+    printf("vagner\n");
+  }
+  
+  return 0;
+}
+
+-- Gerenciador
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+
+int iniciaProcesso(char *nome, char *argv[])
+{
+  int pid = fork();
+  if(pid == 0)
+  {
+    execve(nome, argv, 0);
+    return 0;
+  }
+  kill(pid, SIGSTOP);
+  return pid;
+}
+
+void interrompeProcesso(int pid)
+{
+  kill(pid, SIGSTOP);
+}
+
+int main(void)
+{
+  int pid[3];
+  int curProcess = 0;
+
+  char *argv1[] = { "ex3-1", NULL };
+  char *argv2[] = { "ex3-2", NULL };
+  char *argv3[] = { "ex3-3", NULL };
+  
+  printf("ROUND ROBIN iniciara em instantes\n");
+  pid[0] = iniciaProcesso("./ex3-1", argv1);
+  pid[1] = iniciaProcesso("./ex3-2", argv2);
+  pid[2] = iniciaProcesso("./ex3-3", argv3);
+  sleep(1);
+
+  while(1)
+  {
+    curProcess++;
+    if(curProcess == 1)
+    {
+      interrompeProcesso(pid[2]);
+      kill(pid[0], SIGCONT);
+      sleep(1);
+    }
+    else
+    {
+      interrompeProcesso(pid[curProcess - 2]);
+      kill(pid[curProcess - 1], SIGCONT);
+      sleep(2);
+    }
+    if(curProcess == 3) curProcess = 0;
+  }
+
+
+  return 0;
+}
+
+Execução: 
+kek
+kek
+kek
+...
+nelson
+nelson
+nelson
+nelson
+nelson
+nelson
+...
+vagner
+vagner
+vagner
+vagner
+vagner
+vagner
+...
+kek
+kek
+kek
+...
+
+Reflexão: O Programa inicia criando os 3 processos, e os interrompendo logo após a criação. O Programa executa o primeiro programa (que imprime a string "kek" na tela), por 1 segundo. Depois, interrompe o primeiro e executa o segundo programa (que imprime a string "nelson" na tela), por 2 segundos. Depois, interrompe o segundo, e executa o terceiro (que imprime a string "vagner" na tela), por 2 segundos. Daí, o terceiro é interrompido, e o primeiro é iniciado novamente, assim por diante.
+
+

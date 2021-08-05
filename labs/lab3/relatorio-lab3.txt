@@ -1,0 +1,198 @@
+Relatório - Laboratório 3
+
+/*
+ Gustavo Aranha - 1320755
+ Marcelo Paulon - 1411029
+*/
+
+1)Execute o programa "ctrl-c.c". Digite Ctrl-C e Ctrl-\. Analise o resultado. Neste mesmo programa, remova os comandos signal( ) e repita o teste anterior observando os resultados. 
+
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+#define EVER ;;
+
+void intHandler(int sinal);
+
+void quitHandler(int sinal);
+
+int main(void)
+{
+    void (*p) (int);
+    // ponteiro para função que recebe int como 
+    // parâmetro 
+    p = signal(SIGINT, intHandler);
+    printf("Endereco do manipulador anterior %p\n", p);
+    p = signal(SIGQUIT, quitHandler);
+    printf("Endereco do manipulador anterior %p\n", p);
+    puts("Ctrl-C desabilitado. Use Ctrl-\\ para terminar");
+    for (EVER);
+}
+
+void intHandler(int sinal)
+{
+    puts("Você pressionou Ctrl-C");
+}
+
+void quitHandler(int sinal)
+{
+    puts("Terminando o processo...");
+    exit(0);
+}
+
+Execução:
+Endereco do manipulador anterior (nil)
+Endereco do manipulador anterior (nil)
+Ctrl-C desabilitado. Use Ctrl-\ para terminar
+^CVocê pressionou Ctrl-C
+^\Terminando o processo...
+
+Reflexão: O programa imprimiu que o endereço do manipulador anterior de SIGINT e SIGQUIT eram NULL, pois não existiam funções tratadores de sinal registradas antes para estes sinais. Ao pressionar Ctrl-C, o sinal SIGINT foi tratado pela função intHandler, que imprimiu "Você pressionou Ctrl-C". Ao apertar Ctrl-\, o sinal SIGUIT foi tratado pela função quitHandler, que imprimiu "Terminando o processo..." e encerrou o programa.
+Ao remover as 2 chamadas para a função signal do código, ao pressionar Ctrl-C o sinal SIGINT foi tratado de forma padrão, encerrado o processo. Da mesma maneira, ao pressionar Ctrl-\ logo após iniciar o programa, o sinal SIGQUIT foi tratado de maneira padrão, terminando o processo.
+
+2)Tente fazer um programa para interceptar o sinal SIGKILL. Você conseguiu? Explique. 
+
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h> 
+
+int main (void)
+{ 
+  // tenta ignorar o SIGKILL
+  if (signal(SIGKILL, SIG_IGN) == SIG_ERR) 
+  { 
+     printf("Nao foi possivel ignorar o sinal SIGKILL");
+  } 
+  return 0;
+}
+
+Execução:
+Nao foi possivel ignorar o sinal SIGKILL
+
+Reflexão: Não consegui, pois o sinal SIGKILL não pode ser ignorado. Ao tentar ignorá-lo, a função signal retorna um erro.
+
+3)Execute e explique o funcionamento de filhocidio.c
+
+void childhandler (int signo);
+int delay;
+
+int main (int argc, char *argv[]) 
+	{ 
+	pid_t pid; 
+	signal(SIGCHLD, childhandler); 
+	if ((pid = fork()) < 0) 
+	{ 
+		fprintf(stderr, "Erro ao criar filho\n"); 
+		exit(-1); 
+	} 
+	if(pid == 0) 
+	/* child */
+	while(1); /* ou sleep(3);*/ 
+	else
+	/* parent */
+	{ 	sscanf(argv[1], "%d", &delay); /* read delay from commandline */
+		sleep(delay); 
+		printf("Program %s exceeded limit of %d seconds!\n", argv[2], delay); 
+		kill(pid, SIGKILL); 
+	} 
+	return 0; 
+}
+
+void childhandler(int signo) 
+/* Executed if child dies before parent */
+{ 
+	int status; 
+	pid_t pid = wait(&status); 
+	printf("Child %d terminatedwithin %d seconds com estado %d.\n", pid, delay, status); 
+	exit(0); 
+}
+
+Execução: 
+./filhocidio 10 ./sleep5
+indo dormir...
+Acordei!
+Child 6986 terminated within 10 seconds com estado 0.
+
+./filhocidio 10 ./sleep15
+indo dormir...
+Program ./sleep15 exceeded limit of 10 seconds!
+
+Reflexão: Na primeira execução, o programa imprimiu "Acordei!", pois a execução do processo filho teve apenas pouco mais de 5 segundos (e o delay recebido como argumento foi 10 segundos), e, quando o processo filho encerrou (sinal SIGCHLD), foi executada a função de callback childhandler, que imprimiu que o filho foi encerrado, e encerrou o programa. Na segunda execução, ele não chegou a imprimir "Acordei!", pois, como o sleep foi maior que o delay de 10 segundos (15 segundos, no caso), o processo pai executou a função kill, para encerrar o processo filho, antes que ele "acordasse". Neste caso, a função childhandler não foi executada, pois o processo foi terminado através de um SIGKILL.
+
+4)Usando SIGSTOP e SIGCONT faça um programa que crie 2 processos filho e alterne a execução dos filhos. Após  10 trocas de contexto, o processo pai mata os processos filho.  
+OBS: Os processos filho são formados por loops infinitos. 
+
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main (void) 
+{ 
+  int pid1 = fork(), pid2;
+  int i, countSig=10;
+  if(pid1 < 0)
+  {
+    printf("Nao foi possivel criar o processo filho 1.. :(\n");
+    return 0;
+  }
+  else if(pid1 == 0)
+  {
+    raise(SIGSTOP);
+    // PROCESSO 1
+    while(1) {
+      printf("\rO processo 1 esta sendo executado...                                     ");
+    }
+    return 0;
+  }
+
+  pid2 = fork();
+
+  if(pid2 < 0)
+  {
+    printf("Nao foi possivel criar o processo filho 2.. :(\n");
+    return 0;
+  }
+  else if(pid2 == 0)
+  {
+    raise(SIGSTOP);
+    // PROCESSO 2
+    while(1) {
+      printf("\rO processo 2 esta sendo executado...                                     ");
+    }
+    return 0;
+  }
+
+  for(i = countSig; i > 0; i--)
+  {
+    if(i % 2 == 0)
+    {
+      kill(pid2, SIGSTOP);
+      kill(pid1, SIGCONT);
+    }
+    else
+    {
+      kill(pid1, SIGSTOP);
+      kill(pid2, SIGCONT);
+    }
+
+    sleep(2);
+  }
+
+  return 0;
+}
+
+Execução:
+O processo 1 esta sendo executado... (Apaga a linha)
+O processo 2 esta sendo executado... (Apaga a linha)
+O processo 1 esta sendo executado... (Apaga a linha)
+O processo 2 esta sendo executado... (Apaga a linha)
+O processo 1 esta sendo executado... (Apaga a linha)
+O processo 2 esta sendo executado... (Apaga a linha)
+O processo 1 esta sendo executado... (Apaga a linha)
+O processo 2 esta sendo executado... (Apaga a linha)
+O processo 1 esta sendo executado... (Apaga a linha)
+O processo 2 esta sendo executado...
+
+Reflexão: O programa cria 2 processos, que são interrompidos logo ao iniciar. Estes processos, imprimem "O processo X esta sendo executado...", onde X é o numero do processo (1 ou 2). Após a criação dos processos, o programa alterna a execução destes processos, usando SIGSTOP e SIGCONT (uma iteração interrompe o processo 2 e continua o processo 1, outra iteração interrompe o processo 1 e continua o processo 2, assim por diante.. esperando 2 segundos entre cada iteração). No console, nem sempre vemos todas as etapas sendo impressas, inclusive vemos algumas linhas incompletas, pois às vezes, os processos são interrompidos/continuados no meio do printf.
+

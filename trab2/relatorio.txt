@@ -1,0 +1,39 @@
+﻿INF1019 - SISTEMAS DE COMPUTAÇÃO - 2016.1
+Relatório - Trabalho 2
+
+Alunos:
+        Marcelo Paulon (1411029)
+        Gustavo Aranha (1320755)
+
+Foram criados três módulos para simularem 3 algoritmos de substituição de página: o algoritmo de LRU, NRU e de Segunda Chance. O simulador tem como entrada os arquivos compilador.log, matriz.log, compressor.log e simulador.log fornecidos.
+Também é possível executar dois modos de depuração, D=1, que exibe informações adicionais da simulação, e D=2, que acompanha a simulação passo-a-passo.
+O módulo sim-virtual chama o módulo simulador, que configura a simulação através dos parâmetros de entrada apresentados e chama o módulo para o algoritmo especificado, e depois executa a simulação.
+Foram utilizadas 3 estruturas de dados:
+-SimulationInfo: contém as informações da simulação;
+-PTE: contém as informações da página, endereço, último tempo de acesso, estado("R", página referenciada, "M", página modificada).
+-PageTableNode: nó da lista encadeada, contém a "página atual".
+Para iniciar a simulação, deve-se executar o comando "./sim-virtual <tipo do algoritmo> ../input/<entrada> <tamanho da página> <tamanho da memória física> <-D no caso de ser realizado o modo de depuração> <tipo de depuração(apenas se o modo de depuração for chamado)>".
+
+Abaixo segue-se os resultados de uma análise de desempenho dos três modos de simulação para o mesmo tamanho de memória física(128KB) e dois tamanhos de página diferentes(16KB e 32KB).
+Para cada divisória, nº de page-faults/nº de páginas escritas.
+
+
+16KB
+					  LRU				  NRU				  SEC
+matriz.log		279236 / 43998		313794 / 44664		289725 / 44309
+compilador.log	156690 / 15033		202561 / 23279		167077 / 17786
+compressor.log	7033 / 380	      	10068 / 1042		8755 / 444
+simulador.log	155689 / 27579		209360 / 39935		173131 / 32487
+
+
+32 KB				  LRU				 NRU			 	  SEC
+matriz.log		332851 / 45310		411622 / 48925		378645 / 46782
+compilador.log	210633 / 25454		277207 / 35192		242741 / 30840
+compressor.log	77734 / 4766		118799 / 11410		97132 / 5762
+simulador.log	206695 / 45238		278385 / 60047		248831 / 55691
+
+==Conclusão
+Para 16 KB de tamanho de página, o LRU teve o menor número de pagefaults/writes (seguido pelo SEC e pelo NRU, em todos os arquivos).
+Para 32 KB de tamanho de página, LRU teve menor número de pagefaults/writes (seguido pelo SEC e pelo NRU, em todos os arquivos).
+
+Os testes demonstram que o simulador funciona como esperado e podemos concluir, pelos dados observados, que um tamanho de página maior acaba provocando um maior número de page faults e de páginas criadas.

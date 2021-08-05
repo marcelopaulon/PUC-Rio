@@ -1,0 +1,37 @@
+Testes:
+
+./sim-virtual LRU ../input/matriz.log 16 128 -D 1
+./sim-virtual LRU ../input/matriz.log 32 128 -D 1
+
+./sim-virtual SEC ../input/matriz.log 16 128 -D 1
+./sim-virtual SEC ../input/matriz.log 32 128 -D 1
+
+./sim-virtual NRU ../input/matriz.log 16 128 -D 1
+./sim-virtual NRU ../input/matriz.log 32 128 -D 1
+
+./sim-virtual LRU ../input/simulador.log 16 128 -D 1
+./sim-virtual LRU ../input/simulador.log 32 128 -D 1
+
+./sim-virtual SEC ../input/simulador.log 16 128 -D 1
+./sim-virtual SEC ../input/simulador.log 32 128 -D 1
+
+./sim-virtual NRU ../input/simulador.log 16 128 -D 1
+./sim-virtual NRU ../input/simulador.log 32 128 -D 1
+
+./sim-virtual LRU ../input/compressor.log 16 128 -D 1
+./sim-virtual LRU ../input/compressor.log 32 128 -D 1
+
+./sim-virtual SEC ../input/compressor.log 16 128 -D 1
+./sim-virtual SEC ../input/compressor.log 32 128 -D 1
+
+./sim-virtual NRU ../input/compressor.log 16 128 -D 1
+./sim-virtual NRU ../input/compressor.log 32 128 -D 1
+
+./sim-virtual LRU ../input/compilador.log 16 128 -D 1
+./sim-virtual LRU ../input/compilador.log 32 128 -D 1
+
+./sim-virtual SEC ../input/compilador.log 16 128 -D 1
+./sim-virtual SEC ../input/compilador.log 32 128 -D 1
+
+./sim-virtual NRU ../input/compilador.log 16 128 -D 1
+./sim-virtual NRU ../input/compilador.log 32 128 -D 1

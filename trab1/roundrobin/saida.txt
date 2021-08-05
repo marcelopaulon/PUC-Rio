@@ -1,0 +1,133 @@
+[INFO] Escalonador iniciado
+[INFO] Escutando...
+[INFO] Processo prog1 enviado ao escalonador
+[INFO] Processo prog1 criado - PID: 16569
+[INFO] Processo de PID 16569 continuado
+[INFO] Iniciando processo de PID 16569 pela 1a vez
+kek
+kek
+[INFO] Processo prog2 enviado ao escalonador
+[INFO] Processo prog2 criado - PID: 16571
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+[INFO] Iniciando processo de PID 16571 pela 1a vez
+nelson 0
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo prog4 enviado ao escalonador
+[INFO] Processo prog4 criado - PID: 16572
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 1
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+[INFO] Iniciando processo de PID 16572 pela 1a vez
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo prog3 enviado ao escalonador
+[INFO] Processo prog3 criado - PID: 16573
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 2
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 1: 10
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16573 continuado
+[INFO] Iniciando processo de PID 16573 pela 1a vez
+[INFO] Processo prog5 enviado ao escalonador
+[INFO] Processo prog5 criado - PID: 16574
+[INFO] Processo de PID 16573 terminou
+[INFO] Processo de PID 16569 continuado
+kek
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 3
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 2: 90
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Iniciando processo de PID 16574 pela 1a vez
+[INFO] Processo de PID 16574 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 4
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 3: 720
+passo 4: 5040
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Processo de PID 16574 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 5
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 5: 30240
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Processo de PID 16574 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 6
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 6: 151200
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Processo de PID 16574 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 7
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 7: 604800
+passo 8: 1814400
+[INFO] Processo de PID 16572 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Processo de PID 16574 interrompido
+[INFO] Processo de PID 16569 continuado
+kek
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 8
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16572 continuado
+passo 9: 3628800
+Fatorial: 3628800
+[INFO] Processo de PID 16572 terminou
+[INFO] Processo de PID 16569 continuado
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+nelson 9
+[INFO] Processo de PID 16571 interrompido
+[INFO] Processo de PID 16574 continuado
+[INFO] Processo de PID 16574 terminou
+[INFO] Processo de PID 16569 continuado
+kek
+kek
+[INFO] Processo de PID 16569 interrompido
+[INFO] Processo de PID 16571 continuado
+[INFO] Processo de PID 16571 terminou
+[INFO] Processo de PID 16569 continuado
+kek
+kek
+kek
+[INFO] Processo de PID 16569 terminou

@@ -1,0 +1,71 @@
+[INFO] Escalonador iniciado
+[INFO] Escutando...
+[INFO] Processo prog1 - prioridade=6 enviado ao escalonador
+[INFO] Processo prog1 criado - PID: 17465 - Prioridade: 6
+[INFO] Processo de PID 17465 continuado
+[INFO] Iniciando processo de PID 17465 pela 1a vez
+kek
+kek
+[INFO] Processo prog2 - prioridade=3 enviado ao escalonador
+[INFO] Processo prog2 criado - PID: 17466 - Prioridade: 3
+kek
+[INFO] Processo de PID 17465 interrompido
+[INFO] Processo de PID 17466 continuado
+[INFO] Iniciando processo de PID 17466 pela 1a vez
+nelson 0
+[INFO] Processo prog4 - prioridade=3 enviado ao escalonador
+[INFO] Processo prog4 criado - PID: 17467 - Prioridade: 3
+nelson 1
+nelson 2
+[INFO] Processo prog3 - prioridade=4 enviado ao escalonador
+[INFO] Processo prog3 criado - PID: 17468 - Prioridade: 4
+nelson 3
+[INFO] Processo prog5 - prioridade=1 enviado ao escalonador
+[INFO] Processo prog5 criado - PID: 17469 - Prioridade: 1
+nelson 4
+[INFO] Processo de PID 17466 interrompido
+[INFO] Processo de PID 17469 continuado
+[INFO] Iniciando processo de PID 17469 pela 1a vez
+[INFO] Processo de PID 17469 terminou
+[INFO] Processo de PID 17466 continuado
+nelson 5
+nelson 6
+nelson 7
+nelson 8
+nelson 9
+[INFO] Processo de PID 17466 terminou
+[INFO] Processo de PID 17467 continuado
+[INFO] Iniciando processo de PID 17467 pela 1a vez
+passo 1: 10
+passo 2: 90
+passo 3: 720
+passo 4: 5040
+passo 5: 30240
+passo 6: 151200
+passo 7: 604800
+passo 8: 1814400
+passo 9: 3628800
+Fatorial: 3628800
+[INFO] Processo de PID 17467 terminou
+[INFO] Processo de PID 17468 continuado
+[INFO] Iniciando processo de PID 17468 pela 1a vez
+[INFO] Processo de PID 17468 terminou
+[INFO] Processo de PID 17465 continuado
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+kek
+[INFO] Processo de PID 17465 terminou
